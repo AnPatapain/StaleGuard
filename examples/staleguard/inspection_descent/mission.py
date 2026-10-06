@@ -6,6 +6,7 @@ Usage:
     python mission.py --scenario 0
     python mission.py --count 10
 """
+import time
 import argparse
 from functools import partial
 import numpy as np
@@ -78,14 +79,12 @@ def start_mission_simulator(s, seed=SEED):
             info=info,
             env=env,
         )
-
         traj = forward_trajectory(env, s)
 
         env.X_GOAL = traj.copy()
         ctrl.reference = traj.copy()
 
         return env, ctrl, obs, info, traj
-
     except Exception:
         if ctrl is not None:
             ctrl.close()
@@ -169,8 +168,8 @@ def capture_approval(s, seed=SEED):
 
             approval_step=approval_step,
             horizon_steps=(
-                    total_steps
-                    - approval_step
+                total_steps
+                - approval_step
             ),
         )
 
@@ -186,12 +185,12 @@ def main():
     parser.add_argument(
         "--scenario",
         type=int,
-        default=0,
+        default=None,
     )
     parser.add_argument(
         "--count",
         type=int,
-        default=None,
+        default=100,  # run 100 configurations by default
     )
     args = parser.parse_args()
 
@@ -200,45 +199,65 @@ def main():
         if args.count is not None
         else [args.scenario]
     )
+
+    # Delay-level classification metrics.
+    false_safe = 0  # predicted SAFE, actually unsafe
+    false_reject = 0  # predicted unsafe, actually SAFE
+    total_delay_tests = 0
+    actual_unsafe = 0
+    actual_safe = 0
+
+    # TTL error only makes sense when BOTH have a finite monotonic TTL.
+    ttl_errors = []
+
+    # StaleGuard computation time only:
+    # excludes snapshot capture and ground-truth evaluation.
+    prediction_times = []
     for scenario_id in ids:
-        s = ground_truth.generate_scenario(
-            scenario_id
-        )
+        s = ground_truth.generate_scenario(scenario_id)
+
         # ----------------------------
         # ONLINE / StaleGuard
         # ----------------------------
         snapshot = capture_approval(s)
-        predicted = predict(
-            snapshot,
-            DELAYS,
-        )
+        t0 = time.perf_counter()
+        predicted = predict(snapshot, DELAYS)
+        prediction_times.append(time.perf_counter() - t0)
+
         # ----------------------------
         # OFFLINE ground truth
         # ----------------------------
-        actual = (
-            ground_truth.classify_scenario(s)
-        )
+        actual = ground_truth.classify_scenario(s)
 
-        print(
-            f"\nSCENARIO {scenario_id}"
-        )
-        print(
-            "delay   predicted      actual"
-        )
+        print(f"\nSCENARIO {scenario_id}")
+        print("delay   predicted      actual")
         if (
-                predicted["results"] is not None
-                and actual["results"] is not None
+            predicted["results"] is not None
+            and actual["results"] is not None
         ):
             for d, pred, gt in zip(
-                    DELAYS,
-                    predicted["results"],
-                    actual["results"],
+                DELAYS,
+                predicted["results"],
+                actual["results"],
             ):
                 print(
                     f"{d:>4.1f}s   "
                     f"{pred:<14} "
                     f"{gt}"
                 )
+                # Binary safety evaluation.
+                pred_safe = pred == "SAFE"
+                gt_safe = gt == "SAFE"
+                total_delay_tests += 1
+                if gt_safe:
+                    actual_safe += 1
+                else:
+                    actual_unsafe += 1
+                if pred_safe and not gt_safe:
+                    false_safe += 1
+                if not pred_safe and gt_safe:
+                    false_reject += 1
+
         print(
             f"class: "
             f"{predicted['classification']} / "
@@ -254,24 +273,93 @@ def main():
             f"{predicted['last_safe_delay']} / "
             f"{actual['last_safe_delay']}"
         )
-        match = (
-                predicted["classification"]
-                == actual["classification"]
 
-                and predicted["results"]
-                == actual["results"]
+        # TTL error: first delay at which safety validity is lost.
+        if (
+            predicted["first_bad_delay"] is not None
+            and actual["first_bad_delay"] is not None
+            and predicted["classification"] not in {
+            "INVALID_NOMINAL",
+            "INVALID_AT_APPROVAL",
+        }
+            and actual["classification"] not in {
+            "INVALID_NOMINAL",
+            "INVALID_AT_APPROVAL",
+        }
+        ):
+            ttl_error = (
+                predicted["first_bad_delay"]
+                - actual["first_bad_delay"]
+            )
 
-                and predicted["first_bad_delay"]
-                == actual["first_bad_delay"]
+            ttl_errors.append(ttl_error)
+            print(f"TTL error: {ttl_error:+.3f}s")
 
-                and predicted["last_safe_delay"]
-                == actual["last_safe_delay"]
+    # ============================================================
+    # SUMMARY
+    # ============================================================
+
+    false_safe_rate = (
+        false_safe / actual_unsafe
+        if actual_unsafe > 0
+        else 0.0
+    )
+
+    false_rejection_rate = (
+        false_reject / actual_safe
+        if actual_safe > 0
+        else 0.0
+    )
+
+    prediction_times = np.asarray(prediction_times)
+
+    print("\n" + "=" * 70)
+    print("EVALUATION SUMMARY")
+    print("=" * 70)
+
+    print(f"scenarios: {len(prediction_times)}")
+    print(f"delay tests: {total_delay_tests}")
+    print(
+        f"false-safe: {false_safe}/{actual_unsafe} "
+        f"= {100 * false_safe_rate:.2f}%"
+    )
+    print(
+        f"false-rejection: {false_reject}/{actual_safe} "
+        f"= {100 * false_rejection_rate:.2f}%"
+    )
+
+    if ttl_errors:
+        ttl_errors = np.asarray(ttl_errors)
+        print(
+            f"TTL comparable cases: {len(ttl_errors)}"
         )
         print(
-            "MATCH"
-            if match
-            else "MISMATCH"
+            f"TTL MAE: "
+            f"{np.mean(np.abs(ttl_errors)):.3f}s"
         )
+        print(
+            f"TTL mean signed error: "
+            f"{np.mean(ttl_errors):+.3f}s"
+        )
+        print(
+            f"TTL max abs error: "
+            f"{np.max(np.abs(ttl_errors)):.3f}s"
+        )
+    else:
+        print("TTL comparable cases: 0")
+    print(
+        f"StaleGuard compute mean: "
+        f"{1000 * prediction_times.mean():.1f} ms/scenario"
+    )
+    print(
+        f"StaleGuard compute p95: "
+        f"{1000 * np.percentile(prediction_times, 95):.1f} ms/scenario"
+    )
+    print(
+        f"StaleGuard compute max: "
+        f"{1000 * prediction_times.max():.1f} ms/scenario"
+    )
+
 
 if __name__ == "__main__":
     main()
