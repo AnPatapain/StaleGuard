@@ -10,6 +10,7 @@ T0 assumptions:
 StaleGuard DOES NOT replay from mission start.
 Every rollout starts directly from approval time.
 """
+from copy import deepcopy
 from dataclasses import dataclass
 from functools import partial
 import numpy as np
@@ -70,6 +71,16 @@ class ApprovalSnapshot:
     horizon_steps: int
 
 
+@dataclass(frozen=True)
+class RolloutCheckpoint:
+    pyb_state_id: int
+    obs: np.ndarray
+    info: dict
+    pid_state: PIDState
+    ctrl_step_counter: int
+    pyb_step_counter: int
+
+
 def unsafe(state, obstacle):
     return (
         obstacle.x_min
@@ -115,6 +126,38 @@ def predictor_config(state):
         "gui": False,
     })
     return config
+
+
+def capture_pid_state(ctrl):
+    return PIDState(
+        integral_pos_e=np.asarray(
+            ctrl.integral_pos_e
+        ).copy(),
+        last_rpy=np.asarray(
+            ctrl.last_rpy
+        ).copy(),
+        integral_rpy_e=np.asarray(
+            ctrl.integral_rpy_e
+        ).copy(),
+    )
+
+
+def restore_pid_state(ctrl, pid_state):
+    ctrl.integral_pos_e = (
+        np.asarray(
+            pid_state.integral_pos_e
+        ).copy()
+    )
+    ctrl.last_rpy = (
+        np.asarray(
+            pid_state.last_rpy
+        ).copy()
+    )
+    ctrl.integral_rpy_e = (
+        np.asarray(
+            pid_state.integral_rpy_e
+        ).copy()
+    )
 
 
 def restore_exact_state(
@@ -173,23 +216,42 @@ def restore_exact_state(
     return np.asarray(obs).copy()
 
 
+def save_checkpoint(env, ctrl, obs, info):
+    return RolloutCheckpoint(
+        pyb_state_id=p.saveState(
+            physicsClientId=env.PYB_CLIENT
+        ),
+        obs=np.asarray(obs).copy(),
+        info=deepcopy(info),
+        pid_state=capture_pid_state(ctrl),
+        ctrl_step_counter=env.ctrl_step_counter,
+        pyb_step_counter=env.pyb_step_counter,
+    )
+
+
+def restore_checkpoint(env, ctrl, checkpoint):
+    p.restoreState(
+        stateId=checkpoint.pyb_state_id,
+        physicsClientId=env.PYB_CLIENT,
+    )
+    env.ctrl_step_counter = checkpoint.ctrl_step_counter
+    env.pyb_step_counter = checkpoint.pyb_step_counter
+    env._update_and_store_kinematic_information()
+    restore_pid_state(
+        ctrl,
+        checkpoint.pid_state,
+    )
+    obs = checkpoint.obs.copy()
+    info = deepcopy(checkpoint.info)
+    return obs, info
+
+
 def start_from_approval(
     snapshot,
 ):
     """
     Create predictive simulator with local t=0 = approval time.
     """
-    if snapshot.horizon_steps <= 0:
-        raise ValueError(
-            "Invalid prediction horizon"
-        )
-    if (
-        len(snapshot.remaining_reference)
-        < snapshot.horizon_steps
-    ):
-        raise ValueError(
-            "Reference shorter than prediction horizon"
-        )
     config = predictor_config(
         snapshot.state
     )
@@ -199,14 +261,14 @@ def start_from_approval(
         **config,
     )
 
-    env = env_factory()
     ctrl = None
-
     try:
         ctrl = make(
             "pid",
             env_factory,
         )
+        # pid.py creates env, use it as predictive environment.
+        env = ctrl.env
         obs, info = env.reset(
             seed=0
         )
@@ -231,21 +293,7 @@ def start_from_approval(
             env=env,
         )
         # Restore PID state from approval.
-        ctrl.integral_pos_e = (
-            np.asarray(
-                snapshot.pid_state.integral_pos_e
-            ).copy()
-        )
-        ctrl.last_rpy = (
-            np.asarray(
-                snapshot.pid_state.last_rpy
-            ).copy()
-        )
-        ctrl.integral_rpy_e = (
-            np.asarray(
-                snapshot.pid_state.integral_rpy_e
-            ).copy()
-        )
+        restore_pid_state(ctrl, pid_state=snapshot.pid_state)
         if not np.allclose(
             obs,
             snapshot.state,
@@ -262,172 +310,197 @@ def start_from_approval(
             info,
             reference,
         )
-
     except Exception:
         if ctrl is not None:
-            ctrl.close()
-        env.close()
+            ctrl.close()  # PID.close will call env.close() also.
         raise
 
-
-def rollout_delay(
+def rollout_from_checkpoint(
+    env,
+    ctrl,
+    checkpoint,
+    reference,
     snapshot,
-    delay,
+    dispatch_step,
 ):
     """
-    Two-stage rollout:
-    1. Continue old mission for delay d.
-    2. Dispatch approved command and simulate consequence.
-    delay=None:
-        never execute the command.
+    Restore the nominal state at dispatch time,
+    dispatch immediately, and simulate only
+    the post-dispatch consequence.
     """
-    env, ctrl, obs, info, reference = start_from_approval(snapshot)
 
-    try:
-        if delay is None:
-            dispatch_step = None
-        else:
-            dispatch_step = round(float(delay) * FREQ)
-            if dispatch_step >= snapshot.horizon_steps:
-                raise ValueError("Dispatch beyond horizon")
+    obs, info = restore_checkpoint(env, ctrl, checkpoint)
 
-        states = [
-            np.asarray(
-                obs
-            ).copy()
-        ]
-        for local_step in range(snapshot.horizon_steps):
-            # -----------------------
-            # Stage 1 -> Stage 2
-            # -----------------------
-            if dispatch_step is not None and local_step == dispatch_step:
-                changed = (
-                    reference.copy()
-                )
-                end = min(
-                    local_step
-                    + snapshot.command.low_steps,
-                    len(changed),
-                )
-                changed[
-                    local_step:end,
-                    4,
-                ] = (
-                    snapshot.command.low_height
-                )
+    # Dispatch command
+    changed = reference.copy()
+    end = min(dispatch_step + snapshot.command.low_steps, len(changed))
+    changed[
+        dispatch_step:end,
+        4,
+    ] = snapshot.command.low_height
+    env.X_GOAL = changed
+    ctrl.reference = changed
 
-                env.X_GOAL = changed
-                ctrl.reference = changed
-
-            action = ctrl.select_action(obs, info)
-            obs, _, done, info = env.step(action)
-            states.append(np.asarray(obs).copy())
-
-            if done: break
-
-        # ---------------------------
-        # Nominal mission
-        # ---------------------------
-
-        if dispatch_step is None:
-            if any(unsafe(state, snapshot.obstacle) for state in states):
-                return "NOMINAL_UNSAFE"
-            return "SAFE"
-
-        boundary = (
-            dispatch_step + 1
-        )
-        # Stage 1 safety.
-        if any(
-            unsafe(state, snapshot.obstacle) for state in states[:boundary]
-        ):
-            return "WAIT_UNSAFE"
-
-        # Stage 2 safety.
-        if any(
-            unsafe(state, snapshot.obstacle) for state in states[boundary:]
+    # Simulate only AFTER dispatch
+    for local_step in range(
+        dispatch_step,
+        snapshot.horizon_steps,
+    ):
+        action = ctrl.select_action(obs, info)
+        obs, _, done, info = env.step(action)
+        # EARLY TERMINATION.
+        # Once unsafe has happened, emit UNSAFE immediately even UAV could be SAFE after.
+        if unsafe(
+            obs,
+            snapshot.obstacle,
         ):
             return "UNSAFE"
-        return "SAFE"
+        if done:
+            break
 
-    finally:
-        ctrl.close()
-        env.close()
+    return "SAFE"
+
+
+def build_nominal_checkpoints(
+    env, ctrl, obs, info, reference, snapshot, delays,
+):
+    """
+    From approval-time snapshot, run nominal mission once.
+    Save checkpoint at every candidate dispatch time.
+
+    Later, we can restore a checkpoint and simulate a command.
+    """
+
+    checkpoints = {}
+    if unsafe(
+        obs,
+        snapshot.obstacle,
+    ):
+        return False, checkpoints
+
+    dispatch_steps = {round(float(d) * FREQ) for d in delays} # dispatch set.
+    for local_step in range(snapshot.horizon_steps):
+        if local_step in dispatch_steps:
+            # Save checkpoint
+            checkpoints[local_step] = save_checkpoint(env, ctrl, obs, info)
+        action = ctrl.select_action(obs, info)
+        obs, _, done, info = env.step(action)
+
+        # Early return as UNSAFE if the nominal trajectory before "command dispatch" is unsafe.
+        if unsafe(obs, snapshot.obstacle):
+            return False, checkpoints
+        if done: break
+    return True, checkpoints
 
 
 def predict(
     snapshot,
     delays=DELAYS,
 ):
-    # Nominal mission must itself be safe.
-    if (
-        rollout_delay(
-            snapshot,
+    env, ctrl, checkpoints = None, None, {}
+    try:
+        # ====================================
+        # 1. ONE nominal forward trajectory
+        # ====================================
+        # Init quad, control, trajectory reference from approval-time snapshot
+        env, ctrl, obs, info, reference = start_from_approval(snapshot)
+        nominal_safe, checkpoints = build_nominal_checkpoints(
+            env=env,
+            ctrl=ctrl,
+            obs=obs,
+            info=info,
+            reference=reference,
+            snapshot=snapshot,
+            delays=delays,
+        )
+
+        # Nominal mission must itself be safe.
+        if not nominal_safe:
+            return {
+                "classification":
+                    "INVALID_NOMINAL",
+                "results": None,
+                "first_bad_delay": None,
+                "last_safe_delay": None,
+            }
+
+        # ===============================================
+        # 2. Restore checkpoint and simulate the command
+        # ===============================================
+        results = []
+        for delay in delays:
+            dispatch_step = round(float(delay) * FREQ)
+            checkpoint = checkpoints[dispatch_step]
+            status = (
+                rollout_from_checkpoint(
+                    env=env,
+                    ctrl=ctrl,
+                    checkpoint=checkpoint,
+                    reference=reference,
+                    snapshot=snapshot,
+                    dispatch_step=dispatch_step,
+                )
+            )
+            results.append(status)
+
+        # ====================================
+        # 3. Classification
+        # ====================================
+
+        # Immediate command must be safe.
+        if results[0] != "SAFE":
+            return {
+                "classification": "INVALID_AT_APPROVAL",
+                "results": results,
+                "first_bad_delay": 0.0,
+                "last_safe_delay": None,
+            }
+        first_bad = next(
+            (
+                i
+                for i, status
+                in enumerate(results)
+                if status != "SAFE"
+            ),
             None,
         )
-        != "SAFE"
-    ):
-        return {
-            "classification":
-                "INVALID_NOMINAL",
-            "results": None,
-            "first_bad_delay": None,
-            "last_safe_delay": None,
-        }
-
-    results = [
-        rollout_delay(
-            snapshot,
-            delay,
+        if first_bad is None:
+            return {
+                "classification":
+                    "ALWAYS_SAFE",
+                "results": results,
+                "first_bad_delay": None,
+                "last_safe_delay":
+                    delays[-1],
+            }
+        monotonic = all(
+            status != "SAFE"
+            for status
+            in results[first_bad:]
         )
-        for delay in delays
-    ]
-
-    # Immediate command must be safe.
-    if results[0] != "SAFE":
         return {
-            "classification":
-                "INVALID_AT_APPROVAL",
+            "classification": (
+                "FINITE_TTL"
+                if monotonic
+                else "NON_MONOTONIC"
+            ),
             "results": results,
-            "first_bad_delay": 0.0,
-            "last_safe_delay": None,
-        }
-
-    first_bad = next(
-        (
-            i
-            for i, status
-            in enumerate(results)
-            if status != "SAFE"
-        ),
-        None,
-    )
-
-    if first_bad is None:
-        return {
-            "classification":
-                "ALWAYS_SAFE",
-            "results": results,
-            "first_bad_delay": None,
+            "first_bad_delay":
+                delays[first_bad],
             "last_safe_delay":
-                delays[-1],
+                delays[first_bad - 1],
         }
+    finally:
+        # Must remove states BEFORE closing PyBullet.
+        if env is not None:
+            for checkpoint in checkpoints.values():
+                try:
+                    p.removeState(
+                        checkpoint.pyb_state_id,
+                        physicsClientId=env.PYB_CLIENT,
+                    )
+                except Exception:
+                    pass
 
-    monotonic = all(
-        status != "SAFE"
-        for status
-        in results[first_bad:]
-    )
-
-    return {
-        "classification": (
-            "FINITE_TTL"
-            if monotonic
-            else "NON_MONOTONIC"
-        ),
-        "results": results,
-        "first_bad_delay":
-            delays[first_bad],
-        "last_safe_delay":
-            delays[first_bad - 1],
-    }
+        if ctrl is not None:
+            ctrl.close()
