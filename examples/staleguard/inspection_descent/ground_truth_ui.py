@@ -3,7 +3,7 @@ from functools import partial
 import time
 
 import numpy as np
-import pybullet as p
+from examples.staleguard.inspection_descent.model import pybullet as p
 
 from safe_control_gym.utils.registration import get_config, make
 

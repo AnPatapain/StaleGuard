@@ -12,17 +12,20 @@ from functools import partial
 import numpy as np
 from safe_control_gym.utils.registration import get_config, make
 import ground_truth
-from staleguard import (
-    FREQ,
+from model.common import (
     EPISODE_SECONDS,
+    FREQ,
+    PIDState,
+)
+from staleguard import (
     MEASURE_SECONDS,
     DELAYS,
-    PIDState,
     ObstacleMap,
     ApprovedCommand,
     ApprovalSnapshot,
     predict,
 )
+from model.lightweight_dynamic import LightweightPredictiveModel
 
 SEED = 42
 
@@ -221,7 +224,11 @@ def main():
         # ----------------------------
         snapshot = capture_approval(s)
         t0 = time.perf_counter()
-        predicted = predict(snapshot, DELAYS)
+        predicted = predict(
+            snapshot,
+            DELAYS,
+            predictive_model=LightweightPredictiveModel()
+        )
         prediction_times.append(time.perf_counter() - t0)
 
         # ----------------------------
