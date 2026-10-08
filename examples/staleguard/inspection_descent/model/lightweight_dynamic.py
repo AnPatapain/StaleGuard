@@ -37,7 +37,11 @@ DT_CTRL = 1.0 / FREQ
 
 
 @njit(cache=True)
-def rotation_matrix(phi, theta, psi):
+def rotate_matrix_body_to_world(phi, theta, psi):
+    """
+    (Linear transformation)
+    Rotate vector expressed in body frame to inertial frame (world frame).
+    """
     cphi = np.cos(phi)
     sphi = np.sin(phi)
 
@@ -68,36 +72,20 @@ def rotation_matrix(phi, theta, psi):
 
 @njit(cache=True)
 def pid_step(
-        obs,
-        target,
-        integral_pos_e,
-        last_rpy,
-        integral_rpy_e,
-        mass,
+    obs,  # current 12-D states vector.
+    target,  # target 12-D states vector
+    integral_pos_e,  # accumulated position error
+    last_rpy,  # roll-pitch-yaw in the previous step (to compute the roll-pitch-yaw rate in inertial frame)
+    integral_rpy_e,  # accumulated roll-pitch-yaw error (altitude error)
+    mass,  # Quadrotor weight
 ):
     # --------------------------------------------------
-    # Current state
+    # Current Quadrotor state
     # --------------------------------------------------
-
-    cur_pos = np.array([
-        obs[0],
-        obs[2],
-        obs[4],
-    ])
-
-    cur_vel = np.array([
-        obs[1],
-        obs[3],
-        obs[5],
-    ])
-
-    cur_rpy = np.array([
-        obs[6],
-        obs[7],
-        obs[8],
-    ])
-
-    cur_rotation = rotation_matrix(
+    cur_pos = np.array([obs[0], obs[2], obs[4]])  # x, y, z
+    cur_vel = np.array([obs[1], obs[3], obs[5]])  # v_x, v_y, v_z
+    cur_rpy = np.array([obs[6], obs[7], obs[8]])  # roll, pitch, yaw
+    cur_rotation = rotate_matrix_body_to_world(
         cur_rpy[0],
         cur_rpy[1],
         cur_rpy[2],
@@ -106,116 +94,75 @@ def pid_step(
     # --------------------------------------------------
     # Reference
     # --------------------------------------------------
-
-    target_pos = np.array([
-        target[0],
-        target[2],
-        target[4],
-    ])
-
-    target_vel = np.array([
-        target[1],
-        target[3],
-        target[5],
-    ])
+    target_pos = np.array([target[0], target[2], target[4]])  # target x, y, z
+    target_vel = np.array([target[1], target[3], target[5]])  # target v_x, v_y, v_z
 
     # --------------------------------------------------
     # Position PID
     # Same equations as SCG
     # --------------------------------------------------
-
     pos_e = target_pos - cur_pos
     vel_e = target_vel - cur_vel
 
-    integral_pos_e[:] += (
-            pos_e * DT_CTRL
-    )
+    integral_pos_e[:] += pos_e * DT_CTRL
+    integral_pos_e[:] = np.clip(integral_pos_e, -2.0, 2.0)
+    integral_pos_e[2] = min(0.15, max(-0.15, integral_pos_e[2]))
 
-    integral_pos_e[:] = np.clip(
-        integral_pos_e,
-        -2.0,
-        2.0,
-    )
-
-    integral_pos_e[2] = min(
-        0.15,
-        max(-0.15, integral_pos_e[2]),
-    )
-
+    # Target thrust vector [Fx, Fy, Fz] in Newton (inertial world frame)
     target_thrust = (
-            P_FOR * pos_e
-            + I_FOR * integral_pos_e
-            + D_FOR * vel_e
-            + np.array([
-        0.0,
-        0.0,
-        9.8 * mass,
-    ])
+        P_FOR * pos_e  # P
+        + I_FOR * integral_pos_e  # I
+        + D_FOR * vel_e  # D
+        + np.array([0.0, 0.0, 9.8 * mass])
     )
 
-    scalar_thrust = np.dot(
-        target_thrust,
-        cur_rotation[:, 2],
-    )
-
+    # target_thrust: [Fx, Fy, Fz] in world frame
+    # cur_rotation: body x-axis, y-axis, z-axis vectors expressed in world frame
+    # scalar_thrust is projection of [Fx, Fy, Fz] to k_b
+    # Summary: project the force to current body z-axis first, tilt the body z-axis to the target_force direction later.
+    scalar_thrust = np.dot(target_thrust, cur_rotation[:, 2])
     if scalar_thrust < 0.0:
         scalar_thrust = 0.0
 
-    thrust_pwm = (
-                         np.sqrt(
-                             scalar_thrust
-                             / (4.0 * KF)
-                         )
-                         - PWM2RPM_CONST
-                 ) / PWM2RPM_SCALE
+    # Convert scalar thrust to PWM (pulse-width modulation)
+    thrust_pwm = (np.sqrt(scalar_thrust / (4.0 * KF)) - PWM2RPM_CONST) / PWM2RPM_SCALE
 
-    # Desired body Z direction.
-    target_z = (
-            target_thrust
-            / np.linalg.norm(target_thrust)
-    )
-
+    # Desired body Z direction. We will titl current body z-axis to this target_zb_axis
+    target_zb_axis = target_thrust / np.linalg.norm(target_thrust)
     # SCG target yaw = 0.
     target_x_c = np.array([
         1.0,
         0.0,
         0.0,
     ])
-
-    target_y = np.cross(
-        target_z,
+    # Right-hand rule, cross product of target body z-axis and x_c produce target body y-axis
+    target_yb_axis = np.cross(
+        target_zb_axis,
         target_x_c,
     )
-
-    target_y /= np.linalg.norm(
-        target_y
+    target_yb_axis /= np.linalg.norm(
+        target_yb_axis
+    )
+    # Right-hand rule, cross product of target y-axis and z-axis produce target x-asxis
+    target_xb_axis = np.cross(
+        target_yb_axis,
+        target_zb_axis,
     )
 
-    target_x = np.cross(
-        target_y,
-        target_z,
-    )
-
-    target_rotation = np.empty(
-        (3, 3)
-    )
-
-    target_rotation[:, 0] = target_x
-    target_rotation[:, 1] = target_y
-    target_rotation[:, 2] = target_z
+    target_rotation = np.empty((3, 3))
+    target_rotation[:, 0] = target_xb_axis
+    target_rotation[:, 1] = target_yb_axis
+    target_rotation[:, 2] = target_zb_axis
 
     # --------------------------------------------------
     # Attitude PID
     # Same equations as SCG
     # --------------------------------------------------
-
     rot_matrix_e = (
-            target_rotation.T
-            @ cur_rotation
-            - cur_rotation.T
-            @ target_rotation
+        target_rotation.T @ cur_rotation
+        -
+        cur_rotation.T @ target_rotation
     )
-
     rot_e = np.array([
         rot_matrix_e[2, 1],
         rot_matrix_e[0, 2],
@@ -223,35 +170,32 @@ def pid_step(
     ])
 
     rpy_rates_e = -(
-            cur_rpy - last_rpy
+        cur_rpy - last_rpy
     ) / DT_CTRL
 
     last_rpy[:] = cur_rpy
 
     integral_rpy_e[:] -= (
-            rot_e * DT_CTRL
+        rot_e * DT_CTRL
     )
-
     integral_rpy_e[:] = np.clip(
         integral_rpy_e,
         -1500.0,
         1500.0,
     )
-
     integral_rpy_e[0] = min(
         1.0,
         max(-1.0, integral_rpy_e[0]),
     )
-
     integral_rpy_e[1] = min(
         1.0,
         max(-1.0, integral_rpy_e[1]),
     )
 
     target_torques = (
-            -P_TOR * rot_e
-            + D_TOR * rpy_rates_e
-            + I_TOR * integral_rpy_e
+        -P_TOR * rot_e
+        + D_TOR * rpy_rates_e
+        + I_TOR * integral_rpy_e
     )
 
     target_torques = np.clip(
@@ -271,42 +215,37 @@ def pid_step(
         thrust_pwm - 0.5 * tx + 0.5 * ty - tz,
         thrust_pwm - 0.5 * tx - 0.5 * ty + tz,
     ])
-
     pwm = np.clip(
         pwm,
         MIN_PWM,
         MAX_PWM,
     )
-
     rpm = (
-            PWM2RPM_SCALE * pwm
-            + PWM2RPM_CONST
+        PWM2RPM_SCALE * pwm
+        + PWM2RPM_CONST
     )
-
     # SCG PID returns motor thrust in Newtons.
     return KF * rpm ** 2
 
 
 class LightweightPID:
     def __init__(
-            self,
-            reference,
-            mass,
+        self,
+        reference,
+        mass,
     ):
         self.reference = reference
         self.mass = mass
-
         self.integral_pos_e = np.zeros(3)
         self.last_rpy = np.zeros(3)
         self.integral_rpy_e = np.zeros(3)
 
     def select_action(
-            self,
-            obs,
-            info,
+        self,
+        obs,
+        info,
     ):
         step = info["current_step"]
-
         return pid_step(
             obs,
             self.reference[step],
@@ -389,13 +328,13 @@ def dynamics(state, thrust, m, J, J_inv, L, gamma, g):
 
     total_thrust = f1 + f2 + f3 + f4
     acceleration = (
-            rotation
-            @ np.array([
+        rotation
+        @ np.array([
         0.0,
         0.0,
         total_thrust / m,
     ])
-            - np.array([
+        - np.array([
         0.0,
         0.0,
         g,
@@ -413,14 +352,14 @@ def dynamics(state, thrust, m, J, J_inv, L, gamma, g):
         r,
     ])
     omega_dot = (
-            J_inv
-            @ (
-                    torque
-                    - np.cross(
-                omega,
-                J @ omega,
-            )
-            )
+        J_inv
+        @ (
+            torque
+            - np.cross(
+            omega,
+            J @ omega,
+        )
+        )
     )
 
     euler_rate_matrix = np.array([
