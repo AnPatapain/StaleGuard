@@ -213,6 +213,16 @@ def main():
     # TTL error only makes sense when BOTH have a finite monotonic TTL.
     ttl_errors = []
 
+
+    # Warm up Numba JIT once.
+    warmup_s = ground_truth.generate_scenario(0)
+    warmup_snapshot = capture_approval(warmup_s)
+    predict(
+        warmup_snapshot,
+        DELAYS,
+        predictive_model=LightweightPredictiveModel(),
+    )
+
     # StaleGuard computation time only:
     # excludes snapshot capture and ground-truth evaluation.
     prediction_times = []
@@ -229,7 +239,8 @@ def main():
             DELAYS,
             predictive_model=LightweightPredictiveModel()
         )
-        prediction_times.append(time.perf_counter() - t0)
+        elapsed = time.perf_counter() - t0
+        prediction_times.append(elapsed)
 
         # ----------------------------
         # OFFLINE ground truth
@@ -301,6 +312,11 @@ def main():
 
             ttl_errors.append(ttl_error)
             print(f"TTL error: {ttl_error:+.3f}s")
+
+        print(
+            f"StaleGuard prediction time: "
+            f"{1000 * elapsed:.1f} ms"
+        )
 
     # ============================================================
     # SUMMARY
