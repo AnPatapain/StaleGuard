@@ -37,3 +37,9 @@ poetry.lock
 
 # OS
 .DS_Store
+
+__pycache__/
+*.pyc
+*.nbc
+*.nbi
+*.log
