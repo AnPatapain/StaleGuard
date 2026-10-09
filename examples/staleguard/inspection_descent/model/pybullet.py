@@ -1,21 +1,28 @@
 from copy import deepcopy
 from dataclasses import dataclass
-from functools import partial
-
 import numpy as np
 import pybullet as p
-
+from config import PYB_FREQ_HZ
+from model.scg import make_scg_env_factory
 from safe_control_gym.utils.registration import (
-    get_config,
     make,
 )
-
 from model.common import (
-    FREQ,
-    EPISODE_SECONDS,
     PIDState,
     capture_pid_state,
     restore_pid_state,
+)
+from model.state import (
+    STATE_X,
+    STATE_VX,
+    STATE_Y,
+    STATE_VY,
+    STATE_Z,
+    STATE_VZ,
+    STATE_ROLL,
+    STATE_YAW,
+    STATE_P,
+    STATE_R,
 )
 
 
@@ -29,40 +36,6 @@ class RolloutCheckpoint:
     pyb_step_counter: int
 
 
-def predictor_config(state):
-    config = get_config(
-        "quadrotor"
-    )
-
-    config.update({
-        "quad_type": 3,
-        "task": "traj_tracking",
-        "cost": "quadratic",
-
-        "ctrl_freq": FREQ,
-        "pyb_freq": 1000,
-
-        "episode_len_sec":
-            EPISODE_SECONDS,
-
-        "init_state": np.asarray(
-            state,
-            dtype=float,
-        ).copy(),
-
-        "randomized_init": False,
-        "randomized_inertial_prop": False,
-
-        "disturbances": None,
-        "adversary_disturbance": None,
-
-        "done_on_out_of_bound": False,
-        "gui": False,
-    })
-
-    return config
-
-
 def restore_exact_state(
     env,
     state,
@@ -73,19 +46,26 @@ def restore_exact_state(
     )
 
     position = np.array([
-        state[0],
-        state[2],
-        state[4],
+        state[STATE_X],
+        state[STATE_Y],
+        state[STATE_Z],
     ])
 
     velocity_world = np.array([
-        state[1],
-        state[3],
-        state[5],
+        state[STATE_VX],
+        state[STATE_VY],
+        state[STATE_VZ],
     ])
 
-    rpy = state[6:9]
-    body_rates = state[9:12]
+    rpy = state[
+        STATE_ROLL:
+        STATE_YAW + 1
+    ]
+
+    body_rates = state[
+        STATE_P:
+        STATE_R + 1
+    ]
 
     quat = p.getQuaternionFromEuler(
         rpy
@@ -194,16 +174,14 @@ def restore_checkpoint(
 def start_from_approval(
     snapshot,
 ):
-    config = predictor_config(
-        snapshot.state
+    env_factory = (
+        make_scg_env_factory(
+            init_state=(
+                snapshot.state
+            ),
+            pyb_freq=PYB_FREQ_HZ,
+        )
     )
-
-    env_factory = partial(
-        make,
-        "quadrotor",
-        **config,
-    )
-
     ctrl = None
 
     try:

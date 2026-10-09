@@ -1,39 +1,30 @@
 from numba import njit
 from copy import deepcopy
 from dataclasses import dataclass
-from functools import partial
 import numpy as np
-from safe_control_gym.utils.registration import (
-    get_config,
-    make,
-)
+from config import CTRL_FREQ_HZ, MODEL_FREQ_HZ
 from model.common import (
-    FREQ,
-    EPISODE_SECONDS,
     PIDState,
     capture_pid_state,
     restore_pid_state,
 )
-
-MODEL_HZ = 100
-
-# Same constants as SCG pid.py
-KF = 3.16e-10
-
-P_FOR = np.array([0.4, 0.4, 1.25])
-I_FOR = np.array([0.05, 0.05, 0.05])
-D_FOR = np.array([0.2, 0.2, 0.5])
-
-P_TOR = np.array([70000.0, 70000.0, 60000.0])
-I_TOR = np.array([0.0, 0.0, 500.0])
-D_TOR = np.array([20000.0, 20000.0, 12000.0])
-
-PWM2RPM_SCALE = 0.2685
-PWM2RPM_CONST = 4070.3
-MIN_PWM = 20000.0
-MAX_PWM = 65535.0
-
-DT_CTRL = 1.0 / FREQ
+from model.params import (
+    QuadParams,
+)
+from model.state import (
+    STATE_X,
+    STATE_VX,
+    STATE_Y,
+    STATE_VY,
+    STATE_Z,
+    STATE_VZ,
+    STATE_ROLL,
+    STATE_PITCH,
+    STATE_YAW,
+    STATE_P,
+    STATE_Q,
+    STATE_R,
+)
 
 
 @njit(cache=True)
@@ -72,19 +63,57 @@ def rotate_matrix_body_to_world(phi, theta, psi):
 
 @njit(cache=True)
 def pid_step(
-    obs,  # current 12-D states vector.
-    target,  # target 12-D states vector
-    integral_pos_e,  # accumulated position error
-    last_rpy,  # roll-pitch-yaw in the previous step (to compute the roll-pitch-yaw rate in inertial frame)
-    integral_rpy_e,  # accumulated roll-pitch-yaw error (altitude error)
-    mass,  # Quadrotor weight
+        obs,  # current 12-D states vector.
+        target,  # target 12-D states vector
+        integral_pos_e,  # accumulated position error
+        last_rpy,  # roll-pitch-yaw in the previous step
+        integral_rpy_e,  # accumulated roll-pitch-yaw error
+        mass,
+
+        control_dt,
+        kf,
+        gravity,
+
+        p_for,
+        i_for,
+        d_for,
+
+        p_tor,
+        i_tor,
+        d_tor,
+
+        pwm2rpm_scale,
+        pwm2rpm_const,
+        min_pwm,
+        max_pwm,
+
+        pos_integral_limit,
+        z_integral_limit,
+        attitude_integral_limit,
+        roll_pitch_integral_limit,
+        torque_limit,
+
+        mixer_matrix,
+        target_yaw,
 ):
     # --------------------------------------------------
     # Current Quadrotor state
     # --------------------------------------------------
-    cur_pos = np.array([obs[0], obs[2], obs[4]])  # x, y, z
-    cur_vel = np.array([obs[1], obs[3], obs[5]])  # v_x, v_y, v_z
-    cur_rpy = np.array([obs[6], obs[7], obs[8]])  # roll, pitch, yaw
+    cur_pos = np.array([
+        obs[STATE_X],
+        obs[STATE_Y],
+        obs[STATE_Z],
+    ])
+    cur_vel = np.array([
+        obs[STATE_VX],
+        obs[STATE_VY],
+        obs[STATE_VZ],
+    ])
+    cur_rpy = np.array([
+        obs[STATE_ROLL],
+        obs[STATE_PITCH],
+        obs[STATE_YAW],
+    ])
     cur_rotation = rotate_matrix_body_to_world(
         cur_rpy[0],
         cur_rpy[1],
@@ -94,8 +123,16 @@ def pid_step(
     # --------------------------------------------------
     # Reference
     # --------------------------------------------------
-    target_pos = np.array([target[0], target[2], target[4]])  # target x, y, z
-    target_vel = np.array([target[1], target[3], target[5]])  # target v_x, v_y, v_z
+    target_pos = np.array([
+        target[STATE_X],
+        target[STATE_Y],
+        target[STATE_Z],
+    ])
+    target_vel = np.array([
+        target[STATE_VX],
+        target[STATE_VY],
+        target[STATE_VZ],
+    ])
 
     # --------------------------------------------------
     # Position PID
@@ -104,38 +141,47 @@ def pid_step(
     pos_e = target_pos - cur_pos
     vel_e = target_vel - cur_vel
 
-    integral_pos_e[:] += pos_e * DT_CTRL
-    integral_pos_e[:] = np.clip(integral_pos_e, -2.0, 2.0)
-    integral_pos_e[2] = min(0.15, max(-0.15, integral_pos_e[2]))
+    integral_pos_e[:] += pos_e * control_dt
+    integral_pos_e[:] = np.clip(
+        integral_pos_e,
+        -pos_integral_limit,
+        pos_integral_limit,
+    )
+    integral_pos_e[2] = min(
+        z_integral_limit,
+        max(-z_integral_limit, integral_pos_e[2]),
+    )
 
     # Target thrust vector [Fx, Fy, Fz] in Newton (inertial world frame)
     target_thrust = (
-        P_FOR * pos_e  # P
-        + I_FOR * integral_pos_e  # I
-        + D_FOR * vel_e  # D
-        + np.array([0.0, 0.0, 9.8 * mass])
+            p_for * pos_e  # P
+            + i_for * integral_pos_e  # I
+            + d_for * vel_e  # D
+            + np.array([0.0, 0.0, gravity * mass])
     )
 
     # target_thrust: [Fx, Fy, Fz] in world frame
     # cur_rotation: body x-axis, y-axis, z-axis vectors expressed in world frame
     # scalar_thrust is projection of [Fx, Fy, Fz] to k_b
-    # Summary: project the force to current body z-axis first, tilt the body z-axis to the target_force direction later.
     scalar_thrust = np.dot(target_thrust, cur_rotation[:, 2])
     if scalar_thrust < 0.0:
         scalar_thrust = 0.0
 
     # Convert scalar thrust to PWM (pulse-width modulation)
-    thrust_pwm = (np.sqrt(scalar_thrust / (4.0 * KF)) - PWM2RPM_CONST) / PWM2RPM_SCALE
+    thrust_pwm = (
+                         np.sqrt(scalar_thrust / (4.0 * kf))
+                         - pwm2rpm_const
+                 ) / pwm2rpm_scale
 
-    # Desired body Z direction. We will titl current body z-axis to this target_zb_axis
+    # Desired body Z direction
     target_zb_axis = target_thrust / np.linalg.norm(target_thrust)
-    # SCG target yaw = 0.
+
     target_x_c = np.array([
-        1.0,
-        0.0,
+        np.cos(target_yaw),
+        np.sin(target_yaw),
         0.0,
     ])
-    # Right-hand rule, cross product of target body z-axis and x_c produce target body y-axis
+
     target_yb_axis = np.cross(
         target_zb_axis,
         target_x_c,
@@ -143,7 +189,7 @@ def pid_step(
     target_yb_axis /= np.linalg.norm(
         target_yb_axis
     )
-    # Right-hand rule, cross product of target y-axis and z-axis produce target x-asxis
+
     target_xb_axis = np.cross(
         target_yb_axis,
         target_zb_axis,
@@ -159,9 +205,9 @@ def pid_step(
     # Same equations as SCG
     # --------------------------------------------------
     rot_matrix_e = (
-        target_rotation.T @ cur_rotation
-        -
-        cur_rotation.T @ target_rotation
+            target_rotation.T @ cur_rotation
+            -
+            cur_rotation.T @ target_rotation
     )
     rot_e = np.array([
         rot_matrix_e[2, 1],
@@ -170,82 +216,89 @@ def pid_step(
     ])
 
     rpy_rates_e = -(
-        cur_rpy - last_rpy
-    ) / DT_CTRL
+            cur_rpy - last_rpy
+    ) / control_dt
 
     last_rpy[:] = cur_rpy
 
     integral_rpy_e[:] -= (
-        rot_e * DT_CTRL
+            rot_e * control_dt
     )
     integral_rpy_e[:] = np.clip(
         integral_rpy_e,
-        -1500.0,
-        1500.0,
+        -attitude_integral_limit,
+        attitude_integral_limit,
     )
     integral_rpy_e[0] = min(
-        1.0,
-        max(-1.0, integral_rpy_e[0]),
+        roll_pitch_integral_limit,
+        max(
+            -roll_pitch_integral_limit,
+            integral_rpy_e[0],
+        ),
     )
     integral_rpy_e[1] = min(
-        1.0,
-        max(-1.0, integral_rpy_e[1]),
+        roll_pitch_integral_limit,
+        max(
+            -roll_pitch_integral_limit,
+            integral_rpy_e[1],
+        ),
     )
 
     target_torques = (
-        -P_TOR * rot_e
-        + D_TOR * rpy_rates_e
-        + I_TOR * integral_rpy_e
+            -p_tor * rot_e
+            + d_tor * rpy_rates_e
+            + i_tor * integral_rpy_e
     )
 
     target_torques = np.clip(
         target_torques,
-        -3200.0,
-        3200.0,
+        -torque_limit,
+        torque_limit,
     )
 
-    tx = target_torques[0]
-    ty = target_torques[1]
-    tz = target_torques[2]
+    pwm = (
+            thrust_pwm
+            + mixer_matrix @ target_torques
+    )
 
-    # Same mixer matrix as SCG pid.py
-    pwm = np.array([
-        thrust_pwm + 0.5 * tx - 0.5 * ty - tz,
-        thrust_pwm + 0.5 * tx + 0.5 * ty + tz,
-        thrust_pwm - 0.5 * tx + 0.5 * ty - tz,
-        thrust_pwm - 0.5 * tx - 0.5 * ty + tz,
-    ])
     pwm = np.clip(
         pwm,
-        MIN_PWM,
-        MAX_PWM,
+        min_pwm,
+        max_pwm,
     )
+
     rpm = (
-        PWM2RPM_SCALE * pwm
-        + PWM2RPM_CONST
+            pwm2rpm_scale * pwm
+            + pwm2rpm_const
     )
+
     # SCG PID returns motor thrust in Newtons.
-    return KF * rpm ** 2
+    return kf * rpm ** 2
 
 
 class LightweightPID:
     def __init__(
-        self,
-        reference,
-        mass,
+            self,
+            reference,
+            quad_params,
+            pid_params,
     ):
         self.reference = reference
-        self.mass = mass
+        self.mass = quad_params.mass
+        self.params = pid_params
+
         self.integral_pos_e = np.zeros(3)
         self.last_rpy = np.zeros(3)
         self.integral_rpy_e = np.zeros(3)
 
     def select_action(
-        self,
-        obs,
-        info,
+            self,
+            obs,
+            info,
     ):
         step = info["current_step"]
+        p = self.params
+
         return pid_step(
             obs,
             self.reference[step],
@@ -253,6 +306,32 @@ class LightweightPID:
             self.last_rpy,
             self.integral_rpy_e,
             self.mass,
+
+            p.control_dt,
+            p.kf,
+            p.gravity,
+
+            p.p_for,
+            p.i_for,
+            p.d_for,
+
+            p.p_tor,
+            p.i_tor,
+            p.d_tor,
+
+            p.pwm2rpm_scale,
+            p.pwm2rpm_const,
+            p.min_pwm,
+            p.max_pwm,
+
+            p.pos_integral_limit,
+            p.z_integral_limit,
+            p.attitude_integral_limit,
+            p.roll_pitch_integral_limit,
+            p.torque_limit,
+
+            p.mixer_matrix,
+            p.target_yaw,
         )
 
 
@@ -263,34 +342,6 @@ class LightweightCheckpoint:
     pid_state: PIDState
 
 
-def controller_config(state):
-    config = get_config(
-        "quadrotor"
-    )
-    config.update({
-        "quad_type": 3,
-        "task": "traj_tracking",
-        "cost": "quadratic",
-        "ctrl_freq": FREQ,
-        # Environment exists only for PID creation
-        # and physical parameters.
-        "pyb_freq": FREQ,
-        "episode_len_sec":
-            EPISODE_SECONDS,
-        "init_state": np.asarray(
-            state,
-            dtype=float,
-        ).copy(),
-        "randomized_init": False,
-        "randomized_inertial_prop": False,
-        "disturbances": None,
-        "adversary_disturbance": None,
-        "done_on_out_of_bound": False,
-        "gui": False,
-    })
-    return config
-
-
 @njit(cache=True)
 def dynamics(state, thrust, m, J, J_inv, L, gamma, g):
     """
@@ -299,42 +350,24 @@ def dynamics(state, thrust, m, J, J_inv, L, gamma, g):
     Return rate of state change.
     """
     x = state
-
-    phi, theta, psi = x[6], x[7], x[8]  # roll pitch yaw.
-    p, q, r = x[9], x[10], x[11]  # angular velocity of Quadrotor expressed in body-frame.
+    phi, theta, psi = x[STATE_ROLL], x[STATE_PITCH], x[STATE_YAW]  # roll pitch yaw.
+    p, q, r = x[STATE_P], x[STATE_Q], x[STATE_R]  # angular velocity of Quadrotor expressed in body-frame.
     f1, f2, f3, f4 = thrust  # thrust created by 4 propellers.
 
-    cphi, sphi = np.cos(phi), np.sin(phi)  # cos, sin of roll.
-    ctheta, stheta = np.cos(theta), np.sin(theta)  # cos, sin of pitch.
-    cpsi, spsi = np.cos(psi), np.sin(psi)  # cos, sin of yaw.
-
     # Rotation linear transformations.
-    rx = np.array([
-        [1.0, 0.0, 0.0],
-        [0.0, cphi, -sphi],
-        [0.0, sphi, cphi],
-    ])
-    ry = np.array([
-        [ctheta, 0.0, stheta],
-        [0.0, 1.0, 0.0],
-        [-stheta, 0.0, ctheta],
-    ])
-    rz = np.array([
-        [cpsi, -spsi, 0.0],
-        [spsi, cpsi, 0.0],
-        [0.0, 0.0, 1.0],
-    ])
-    rotation = rz @ ry @ rx
+    rotation = rotate_matrix_body_to_world(
+        phi, theta, psi,
+    )
 
     total_thrust = f1 + f2 + f3 + f4
     acceleration = (
-        rotation
-        @ np.array([
+            rotation
+            @ np.array([
         0.0,
         0.0,
         total_thrust / m,
     ])
-        - np.array([
+            - np.array([
         0.0,
         0.0,
         g,
@@ -352,45 +385,32 @@ def dynamics(state, thrust, m, J, J_inv, L, gamma, g):
         r,
     ])
     omega_dot = (
-        J_inv
-        @ (
-            torque
-            - np.cross(
-            omega,
-            J @ omega,
-        )
-        )
+            J_inv
+            @ (
+                    torque
+                    - np.cross(
+                omega,
+                J @ omega,
+            )
+            )
     )
 
     euler_rate_matrix = np.array([
-        [
-            1.0,
-            sphi * np.tan(theta),
-            cphi * np.tan(theta),
-        ],
-        [
-            0.0,
-            cphi,
-            -sphi,
-        ],
-        [
-            0.0,
-            sphi / ctheta,
-            cphi / ctheta,
-        ],
+        [1.0, np.sin(phi) * np.tan(theta), np.cos(phi) * np.tan(theta)],
+        [0.0, np.cos(phi), -np.sin(phi)],
+        [0.0, np.sin(phi) / np.cos(theta), np.cos(phi) / np.cos(theta)],
     ])
-
     euler_dot = euler_rate_matrix @ omega
 
     return np.array([
         # v_x, a_x
-        x[1],
+        x[STATE_VX],
         acceleration[0],
         # v_y, a_y
-        x[3],
+        x[STATE_VY],
         acceleration[1],
         # v_z, a_z
-        x[5],
+        x[STATE_VZ],
         acceleration[2],
         # rate of change roll, pitch, yaw over time (d_roll/dt, d_pitch/dt, d_yaw/dt)
         euler_dot[0],
@@ -430,21 +450,21 @@ def control_step(state, thrust, dt, substeps, m, J, J_inv, L, gamma, g):
 
 
 class LightweightQuadrotor:
-    def __init__(self, env, model_hz=MODEL_HZ):
-        if model_hz % FREQ != 0:
+    def __init__(self, params: QuadParams, model_hz=MODEL_FREQ_HZ):
+        if model_hz % CTRL_FREQ_HZ != 0:
             raise ValueError(
                 "model_hz must be divisible by controller frequency"
             )
         self.dt = 1.0 / model_hz
-        self.substeps = model_hz // FREQ
+        self.substeps = model_hz // CTRL_FREQ_HZ
 
-        self.m = env.MASS
-        self.J = np.asarray(env.J, dtype=np.float64)
-        self.J_inv = np.linalg.inv(self.J)
+        self.m = params.mass
+        self.J = params.inertia
+        self.J_inv = params.inertia_inv
 
-        self.L = env.L
-        self.gamma = env.KM / env.KF
-        self.g = env.GRAVITY_ACC
+        self.L = params.arm_length
+        self.gamma = params.gamma
+        self.g = params.gravity
 
     def control_step(self, state, thrust):
         return control_step(
@@ -462,19 +482,21 @@ class LightweightQuadrotor:
 
 
 class LightweightPredictiveModel:
-    def __init__(self):
-        self.env = None
+    def __init__(
+            self,
+            quad_params,
+            pid_params,
+    ):
+        self.quad_params = quad_params
+        self.pid_params = pid_params
+
         self.ctrl = None
         self.model = None
 
     def start(self, snapshot):
-        config = controller_config(snapshot.state)
-        env_factory = partial(make, "quadrotor", **config)
-
-        self.env = env_factory()
         self.model = LightweightQuadrotor(
-            self.env,
-            model_hz=MODEL_HZ,
+            params=self.quad_params,
+            model_hz=MODEL_FREQ_HZ,
         )
         info = {
             "current_step": 0,
@@ -491,7 +513,8 @@ class LightweightPredictiveModel:
         # Restore the state of Quad env, PID state to the approval snapshot.
         self.ctrl = LightweightPID(
             reference=reference.copy(),
-            mass=self.env.MASS,
+            quad_params=self.quad_params,
+            pid_params=self.pid_params,
         )
         restore_pid_state(
             self.ctrl,
@@ -528,5 +551,4 @@ class LightweightPredictiveModel:
         ).copy()
 
     def close(self, checkpoints):
-        if self.env is not None:
-            self.env.close()
+        pass

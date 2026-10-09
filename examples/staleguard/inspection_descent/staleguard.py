@@ -4,28 +4,19 @@ Every rollout starts directly from approval time.
 """
 from dataclasses import dataclass
 import numpy as np
+from classification import classify_delay_results
+from config import CTRL_FREQ_HZ, DELAY_GRID
 from model.common import (
-    FREQ,
     PIDState,
 )
-from model.pybullet import PyBullet1000HzPredictiveModel
-
-
-MEASURE_SECONDS = 5.5
-DELAYS = tuple(
-    np.arange(
-        0.0,
-        1.51,
-        0.1,
-    )
-)
+from scenario import unsafe, apply_descent_command
 
 
 @dataclass(frozen=True)
 class ObstacleMap:
-    x_min: float
-    x_max: float
-    y_limit: float
+    box_x_min: float
+    box_x_max: float
+    box_y_limit: float
     unsafe_below_z: float
 
 
@@ -53,27 +44,13 @@ class ApprovalSnapshot:
     horizon_steps: int
 
 
-def unsafe(state, obstacle):
-    return (
-        obstacle.x_min
-        <= state[0]
-        <= obstacle.x_max
-
-        and abs(state[2])
-        <= obstacle.y_limit
-
-        and state[4]
-        <= obstacle.unsafe_below_z
-    )
-
-
 def rollout_from_checkpoint(
-    predictive_model,
-    ctrl,
-    checkpoint,
-    reference,
-    snapshot,
-    dispatch_step,
+        predictive_model,
+        ctrl,
+        checkpoint,
+        reference,
+        snapshot,
+        dispatch_step,
 ):
     obs, info = predictive_model.restore_checkpoint(
         ctrl,
@@ -81,27 +58,22 @@ def rollout_from_checkpoint(
     )
 
     # Immediately dispatch command.
-    changed = reference.copy()
-
-    end = min(
-        dispatch_step + snapshot.command.low_steps,
-        len(changed),
+    changed_traj = apply_descent_command(
+        reference=reference,
+        start_step=dispatch_step,
+        low_steps=snapshot.command.low_steps,
+        low_height=snapshot.command.low_height,
     )
-
-    changed[
-        dispatch_step:end,
-        4,
-    ] = snapshot.command.low_height
 
     predictive_model.set_reference(
         ctrl,
-        changed,
+        changed_traj,
     )
 
     # Simulate after dispatch.
     for local_step in range(
-        dispatch_step,
-        snapshot.horizon_steps,
+            dispatch_step,
+            snapshot.horizon_steps,
     ):
         action = ctrl.select_action(
             obs,
@@ -115,8 +87,8 @@ def rollout_from_checkpoint(
         )
 
         if unsafe(
-            obs,
-            snapshot.obstacle,
+                obs,
+                snapshot.obstacle,
         ):
             return "UNSAFE"
 
@@ -127,13 +99,13 @@ def rollout_from_checkpoint(
 
 
 def build_nominal_checkpoints(
-    predictive_model,
-    ctrl,
-    obs,
-    info,
-    reference,
-    snapshot,
-    delays,
+        predictive_model,
+        ctrl,
+        obs,
+        info,
+        reference,
+        snapshot,
+        delays,
 ):
     """
     Simulate waiting once and save a predictive-model checkpoint
@@ -143,18 +115,18 @@ def build_nominal_checkpoints(
     checkpoints = {}
 
     if unsafe(
-        obs,
-        snapshot.obstacle,
+            obs,
+            snapshot.obstacle,
     ):
         return False, checkpoints
 
     dispatch_steps = {
-        round(float(delay) * FREQ)
+        round(float(delay) * CTRL_FREQ_HZ)
         for delay in delays
     }
 
     for local_step in range(
-        snapshot.horizon_steps
+            snapshot.horizon_steps
     ):
         if local_step in dispatch_steps:
             checkpoints[local_step] = (
@@ -178,8 +150,8 @@ def build_nominal_checkpoints(
         )
 
         if unsafe(
-            obs,
-            snapshot.obstacle,
+                obs,
+                snapshot.obstacle,
         ):
             return False, checkpoints
 
@@ -190,57 +162,43 @@ def build_nominal_checkpoints(
 
 
 def predict(
-    snapshot,
-    delays=DELAYS,
-    predictive_model=None,
+        snapshot,
+        predictive_model,
+        delays=DELAY_GRID,
 ):
-    if predictive_model is None:
-        predictive_model = PyBullet1000HzPredictiveModel()
-
     checkpoints = {}
-
     try:
         (
             ctrl,
             obs,
             info,
             reference,
-        ) = predictive_model.start(
-            snapshot
-        )
-
-        nominal_safe, checkpoints = (
-            build_nominal_checkpoints(
-                predictive_model=predictive_model,
-                ctrl=ctrl,
-                obs=obs,
-                info=info,
-                reference=reference,
-                snapshot=snapshot,
-                delays=delays,
-            )
+        ) = predictive_model.start(snapshot)
+        # 1. Simulate nominal trajectory and save checkpoints.
+        nominal_safe, checkpoints = build_nominal_checkpoints(
+            predictive_model=predictive_model,
+            ctrl=ctrl,
+            obs=obs,
+            info=info,
+            reference=reference,
+            snapshot=snapshot,
+            delays=delays,
         )
 
         if not nominal_safe:
-            return {
-                "classification":
-                    "INVALID_NOMINAL",
-                "results": None,
-                "first_bad_delay": None,
-                "last_safe_delay": None,
-            }
-
-        results = []
-
-        for delay in delays:
-            dispatch_step = round(
-                float(delay) * FREQ
+            return classify_delay_results(
+                delays,
+                results=None,
+                nominal_safe=False,
             )
 
-            checkpoint = checkpoints[
-                dispatch_step
-            ]
-
+        # 2. Predict each dispatch delay.
+        results = []
+        for delay in delays:
+            dispatch_step = round(
+                float(delay) * CTRL_FREQ_HZ
+            )
+            checkpoint = checkpoints[dispatch_step]
             status = rollout_from_checkpoint(
                 predictive_model=predictive_model,
                 ctrl=ctrl,
@@ -249,58 +207,9 @@ def predict(
                 snapshot=snapshot,
                 dispatch_step=dispatch_step,
             )
-
             results.append(status)
 
-        if results[0] != "SAFE":
-            return {
-                "classification":
-                    "INVALID_AT_APPROVAL",
-                "results": results,
-                "first_bad_delay": 0.0,
-                "last_safe_delay": None,
-            }
-
-        first_bad = next(
-            (
-                i
-                for i, status
-                in enumerate(results)
-                if status != "SAFE"
-            ),
-            None,
-        )
-
-        if first_bad is None:
-            return {
-                "classification":
-                    "ALWAYS_SAFE",
-                "results": results,
-                "first_bad_delay": None,
-                "last_safe_delay":
-                    delays[-1],
-            }
-
-        monotonic = all(
-            status != "SAFE"
-            for status
-            in results[first_bad:]
-        )
-
-        return {
-            "classification": (
-                "FINITE_TTL"
-                if monotonic
-                else "NON_MONOTONIC"
-            ),
-            "results": results,
-            "first_bad_delay":
-                delays[first_bad],
-            "last_safe_delay":
-                delays[first_bad - 1],
-        }
-
+        # 3. Shared classification.
+        return classify_delay_results(delays, results)
     finally:
-        predictive_model.close(
-            checkpoints
-        )
+        predictive_model.close(checkpoints)

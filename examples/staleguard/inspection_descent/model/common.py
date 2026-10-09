@@ -2,10 +2,6 @@ from dataclasses import dataclass
 import numpy as np
 
 
-FREQ = 50
-EPISODE_SECONDS = 6
-
-
 @dataclass(frozen=True)
 class PIDState:
     integral_pos_e: np.ndarray

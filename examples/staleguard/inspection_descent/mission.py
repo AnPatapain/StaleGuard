@@ -8,18 +8,14 @@ Usage:
 """
 import time
 import argparse
-from functools import partial
 import numpy as np
-from safe_control_gym.utils.registration import get_config, make
+from config import CTRL_FREQ_HZ, MEASURE_SECONDS, DELAY_GRID, PYB_FREQ_HZ, SIM_SEED
+from model.common import capture_pid_state
+from model.scg import make_scg_env_factory, load_scg_platform_params
+from safe_control_gym.utils.registration import make
 import ground_truth
-from model.common import (
-    EPISODE_SECONDS,
-    FREQ,
-    PIDState,
-)
+from scenario import generate_scenario, make_forward_trajectory, print_scenario
 from staleguard import (
-    MEASURE_SECONDS,
-    DELAYS,
     ObstacleMap,
     ApprovedCommand,
     ApprovalSnapshot,
@@ -27,67 +23,53 @@ from staleguard import (
 )
 from model.lightweight_dynamic import LightweightPredictiveModel
 
-SEED = 42
 
-
-def forward_trajectory(env, s):
-    # Intentionally identical to frozen ground_truth.py.
-    n = env.X_GOAL.shape[0]
-    dt = 1.0 / env.CTRL_FREQ
-    times = np.arange(n) * dt
-
-    speeds = s.speed * np.minimum(times / 0.4, 1.0)
-
-    traj = np.zeros_like(env.X_GOAL)
-    traj[:, 0] = np.cumsum(speeds) * dt
-    traj[:, 1] = speeds
-    traj[:, 4] = s.usual_height
-
-    return traj
-
-
-def start_mission_simulator(s, seed=SEED):
-    config = get_config("quadrotor")
-    config.update({
-        "quad_type": 3,
-        "task": "traj_tracking",
-        "cost": "quadratic",
-        "ctrl_freq": FREQ,
-        "pyb_freq": 1000,
-        "episode_len_sec": EPISODE_SECONDS,
-
-        "init_state": {
-            "init_x": 0.0,
-            "init_y": 0.0,
-            "init_z": s.usual_height,
-        },
-
-        "randomized_init": False,
-        "randomized_inertial_prop": False,
-        "disturbances": None,
-        "adversary_disturbance": None,
-        "done_on_out_of_bound": False,
-        "gui": False,
-    })
-
-    env_factory = partial(make, "quadrotor", **config)
+def start_mission_simulator(
+    s,
+    seed=SIM_SEED,
+):
+    env_factory = (
+        make_scg_env_factory(
+            init_state={
+                "init_x": 0.0,
+                "init_y": 0.0,
+                "init_z":
+                    s.usual_height,
+            },
+            pyb_freq=PYB_FREQ_HZ,
+        )
+    )
     env = env_factory()
     ctrl = None
-
     try:
-        ctrl = make("pid", env_factory)
-        obs, info = env.reset(seed=seed)
+        ctrl = make(
+            "pid",
+            env_factory,
+        )
+        obs, info = env.reset(
+            seed=seed
+        )
         ctrl.reset_before_run(
             obs=obs,
             info=info,
             env=env,
         )
-        traj = forward_trajectory(env, s)
-
+        traj = (
+            make_forward_trajectory(
+                env,
+                s,
+            )
+        )
         env.X_GOAL = traj.copy()
         ctrl.reference = traj.copy()
+        return (
+            env,
+            ctrl,
+            obs,
+            info,
+            traj,
+        )
 
-        return env, ctrl, obs, info, traj
     except Exception:
         if ctrl is not None:
             ctrl.close()
@@ -95,17 +77,17 @@ def start_mission_simulator(s, seed=SEED):
         raise
 
 
-def capture_approval(s, seed=SEED):
+def capture_approval(s, seed=SIM_SEED):
     """Actually fly to approval and capture the state at that instant."""
     env, ctrl, obs, info, traj = start_mission_simulator(
         s,
         seed,
     )
     approval_step = round(
-        s.approval_time * FREQ
+        s.approval_time * CTRL_FREQ_HZ
     )
     total_steps = round(
-        MEASURE_SECONDS * FREQ
+        MEASURE_SECONDS * CTRL_FREQ_HZ
     )
 
     try:
@@ -127,17 +109,7 @@ def capture_approval(s, seed=SEED):
             state=np.asarray(
                 obs
             ).copy(),
-            pid_state=PIDState(
-                integral_pos_e=np.asarray(
-                    ctrl.integral_pos_e
-                ).copy(),
-                last_rpy=np.asarray(
-                    ctrl.last_rpy
-                ).copy(),
-                integral_rpy_e=np.asarray(
-                    ctrl.integral_rpy_e
-                ).copy(),
-            ),
+            pid_state=capture_pid_state(ctrl),
 
             # Rebase reference:
             # index 0 now means approval time.
@@ -150,18 +122,18 @@ def capture_approval(s, seed=SEED):
                     s.low_height
                 ),
                 low_steps=round(
-                    s.low_seconds * FREQ
+                    s.low_seconds * CTRL_FREQ_HZ
                 ),
             ),
 
             obstacle=ObstacleMap(
-                x_min=float(
+                box_x_min=float(
                     s.box_x_min
                 ),
-                x_max=float(
+                box_x_max=float(
                     s.box_x_max
                 ),
-                y_limit=float(
+                box_y_limit=float(
                     s.box_y_limit
                 ),
                 unsafe_below_z=float(
@@ -196,11 +168,14 @@ def main():
         default=100,  # run 100 configurations by default
     )
     args = parser.parse_args()
+    quad_params, pid_params = (
+        load_scg_platform_params()
+    )
 
     ids = (
-        range(args.count)
-        if args.count is not None
-        else [args.scenario]
+        [args.scenario]
+        if args.scenario is not None
+        else range(args.count)
     )
 
     # Delay-level classification metrics.
@@ -219,12 +194,12 @@ def main():
     ttl_errors = []
 
     # Warm up Numba JIT once.
-    warmup_s = ground_truth.generate_scenario(0)
+    warmup_s = generate_scenario(0)
     warmup_snapshot = capture_approval(warmup_s)
     predict(
-        warmup_snapshot,
-        DELAYS,
-        predictive_model=LightweightPredictiveModel(),
+        snapshot=warmup_snapshot,
+        predictive_model=LightweightPredictiveModel(quad_params, pid_params),
+        delays=DELAY_GRID,
     )
 
     # StaleGuard computation time only:
@@ -232,7 +207,7 @@ def main():
     prediction_times = []
 
     for scenario_id in ids:
-        s = ground_truth.generate_scenario(scenario_id)
+        s = generate_scenario(scenario_id)
 
         # ----------------------------
         # ONLINE / StaleGuard
@@ -241,8 +216,8 @@ def main():
         t0 = time.perf_counter()
         predicted = predict(
             snapshot,
-            DELAYS,
-            predictive_model=LightweightPredictiveModel()
+            predictive_model=LightweightPredictiveModel(quad_params, pid_params),
+            delays=DELAY_GRID,
         )
         elapsed = time.perf_counter() - t0
         prediction_times.append(elapsed)
@@ -250,7 +225,7 @@ def main():
         # ----------------------------
         # OFFLINE ground truth
         # ----------------------------
-        actual = ground_truth.classify_scenario(s)
+        actual = ground_truth.classify_scenario(s, DELAY_GRID)
 
         scenario_has_false_safe = False
 
@@ -262,6 +237,7 @@ def main():
             class_correct += 1
 
         print(f"\nSCENARIO {scenario_id}")
+        print_scenario(s)
         print("delay   predicted      actual")
 
         if (
@@ -269,7 +245,7 @@ def main():
                 and actual["results"] is not None
         ):
             for d, pred, gt in zip(
-                    DELAYS,
+                    DELAY_GRID,
                     predicted["results"],
                     actual["results"],
             ):
@@ -326,13 +302,11 @@ def main():
                     predicted["first_bad_delay"]
                     - actual["first_bad_delay"]
             )
-
             ttl_errors.append(ttl_error)
             print(
                 f"TTL error: "
                 f"{ttl_error:+.3f}s"
             )
-
         print(
             f"StaleGuard prediction time: "
             f"{1000 * elapsed:.1f} ms"
@@ -341,35 +315,29 @@ def main():
     # ============================================================
     # SUMMARY
     # ============================================================
-
     false_safe_rate = (
         false_safe / actual_unsafe
         if actual_unsafe > 0
         else 0.0
     )
-
     false_rejection_rate = (
         false_reject / actual_safe
         if actual_safe > 0
         else 0.0
     )
-
     scenario_false_safe_rate = (
         scenarios_with_false_safe / class_total
         if class_total > 0
         else 0.0
     )
-
     classification_accuracy = (
         class_correct / class_total
         if class_total > 0
         else 0.0
     )
-
     prediction_times = np.asarray(
         prediction_times
     )
-
     print("\n" + "=" * 70)
     print("EVALUATION SUMMARY")
     print("=" * 70)
@@ -377,38 +345,31 @@ def main():
     # ============================================================
     # PREDICTION CORRECTNESS
     # ============================================================
-
     print("\nPrediction correctness")
     print("-" * 30)
-
     print(
         f"scenarios: "
         f"{len(prediction_times)}"
     )
-
     print(
         f"delay tests: "
         f"{total_delay_tests}"
     )
-
     print(
         f"false-safe: "
         f"{false_safe}/{actual_unsafe} "
         f"= {100 * false_safe_rate:.2f}%"
     )
-
     print(
         f"false-rejection: "
         f"{false_reject}/{actual_safe} "
         f"= {100 * false_rejection_rate:.2f}%"
     )
-
     print(
         f"scenarios with any false-safe: "
         f"{scenarios_with_false_safe}/{class_total} "
         f"= {100 * scenario_false_safe_rate:.2f}%"
     )
-
     print(
         f"scenario classification accuracy: "
         f"{class_correct}/{class_total} "
@@ -426,27 +387,22 @@ def main():
         ttl_errors = np.asarray(
             ttl_errors
         )
-
         print(
             f"TTL comparable cases: "
             f"{len(ttl_errors)}"
         )
-
         print(
             f"TTL MAE: "
             f"{np.mean(np.abs(ttl_errors)):.3f}s"
         )
-
         print(
             f"TTL mean signed error: "
             f"{np.mean(ttl_errors):+.3f}s"
         )
-
         print(
             f"TTL max abs error: "
             f"{np.max(np.abs(ttl_errors)):.3f}s"
         )
-
     else:
         print(
             "TTL comparable cases: 0"
@@ -458,37 +414,31 @@ def main():
 
     print("\nRuntime")
     print("-" * 30)
-
     print(
         f"StaleGuard compute mean: "
         f"{1000 * prediction_times.mean():.1f} "
         f"ms/scenario"
     )
-
     print(
         f"StaleGuard compute median: "
         f"{1000 * np.median(prediction_times):.1f} "
         f"ms/scenario"
     )
-
     print(
         f"StaleGuard compute p95: "
         f"{1000 * np.percentile(prediction_times, 95):.1f} "
         f"ms/scenario"
     )
-
     print(
         f"StaleGuard compute p99: "
         f"{1000 * np.percentile(prediction_times, 99):.1f} "
         f"ms/scenario"
     )
-
     print(
         f"StaleGuard compute max: "
         f"{1000 * prediction_times.max():.1f} "
         f"ms/scenario"
     )
-
 
 if __name__ == "__main__":
     main()
