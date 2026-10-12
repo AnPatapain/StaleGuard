@@ -4,96 +4,31 @@ from safe_control_gym.utils.registration import (
     get_config,
     make,
 )
-from config import (
-    CTRL_FREQ_HZ,
-    PYB_FREQ_HZ,
-    EPISODE_SECONDS,
-)
-from model.params import (
-    QuadParams,
-    PIDParams,
-)
+from experiment import CTRL_FREQ_HZ, EPISODE_SECONDS, PYB_FREQ_HZ
+from model.common import PIDParams, QuadParams
 
 
-def make_scg_config(
-    init_state,
-    pyb_freq=PYB_FREQ_HZ,
-):
-    config = get_config(
-        "quadrotor"
-    )
-
+def make_scg_env_factory(init_state, pyb_freq=PYB_FREQ_HZ):
     if isinstance(init_state, np.ndarray):
-        init_state = np.asarray(
-            init_state,
-            dtype=float,
-        ).copy()
+        init_state = np.asarray(init_state, dtype=float).copy()
 
+    config = get_config("quadrotor")
     config.update({
         "quad_type": 3,
         "task": "traj_tracking",
         "cost": "quadratic",
-
         "ctrl_freq": CTRL_FREQ_HZ,
         "pyb_freq": pyb_freq,
-
-        "episode_len_sec":
-            EPISODE_SECONDS,
-
+        "episode_len_sec": EPISODE_SECONDS,
         "init_state": init_state,
-
         "randomized_init": False,
         "randomized_inertial_prop": False,
-
         "disturbances": None,
         "adversary_disturbance": None,
-
         "done_on_out_of_bound": False,
         "gui": False,
     })
-
-    return config
-
-
-def make_scg_env_factory(
-    init_state,
-    pyb_freq=PYB_FREQ_HZ,
-):
-    config = make_scg_config(
-        init_state=init_state,
-        pyb_freq=pyb_freq,
-    )
-
-    return partial(
-        make,
-        "quadrotor",
-        **config,
-    )
-
-
-def quad_params_from_env(env):
-    inertia = np.asarray(
-        env.J,
-        dtype=np.float64,
-    ).copy()
-
-    return QuadParams(
-        mass=float(env.MASS),
-
-        inertia=inertia,
-        inertia_inv=np.linalg.inv(
-            inertia
-        ),
-
-        arm_length=float(env.L),
-
-        kf=float(env.KF),
-        km=float(env.KM),
-
-        gravity=float(
-            env.GRAVITY_ACC
-        ),
-    )
+    return partial(make, "quadrotor", **config)
 
 
 def _scalar(value):
@@ -124,8 +59,15 @@ def load_scg_platform_params():
     try:
         env = ctrl.env
 
-        quad_params = (
-            quad_params_from_env(env)
+        inertia = np.asarray(env.J, dtype=np.float64).copy()
+        quad_params = QuadParams(
+            mass=float(env.MASS),
+            inertia=inertia,
+            inertia_inv=np.linalg.inv(inertia),
+            arm_length=float(env.L),
+            kf=float(env.KF),
+            km=float(env.KM),
+            gravity=float(env.GRAVITY_ACC),
         )
 
         pid_params = PIDParams(

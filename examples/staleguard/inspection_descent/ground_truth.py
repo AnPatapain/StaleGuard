@@ -1,9 +1,16 @@
 import numpy as np
-from classification import classify_delay_results
-from config import CTRL_FREQ_HZ, MEASURE_SECONDS, PYB_FREQ_HZ, SIM_SEED
+from experiment import (
+    CTRL_FREQ_HZ,
+    MEASURE_SECONDS,
+    PYB_FREQ_HZ,
+    SIM_SEED,
+    apply_descent_command,
+    classify_delay_results,
+    make_forward_trajectory,
+    unsafe,
+)
 from model.scg import make_scg_env_factory
 from safe_control_gym.utils.registration import make
-from scenario import unsafe, make_forward_trajectory, apply_descent_command
 
 
 def first_unsafe_time(states, first_step, last_step, s):

@@ -6,91 +6,68 @@ Usage:
     python mission.py --scenario 0
     python mission.py --count 10
 """
-import time
 import argparse
+import time
 import numpy as np
-from config import CTRL_FREQ_HZ, MEASURE_SECONDS, DELAY_GRID, PYB_FREQ_HZ, SIM_SEED
-from model.common import capture_pid_state
-from model.scg import make_scg_env_factory, load_scg_platform_params
-from safe_control_gym.utils.registration import make
 import ground_truth
-from scenario import generate_scenario, make_forward_trajectory, print_scenario
-from staleguard import (
-    ObstacleMap,
-    ApprovedCommand,
+from experiment import (
     ApprovalSnapshot,
-    predict,
+    CTRL_FREQ_HZ,
+    DELAY_GRID,
+    MEASURE_SECONDS,
+    PYB_FREQ_HZ,
+    SIM_SEED,
+    generate_scenario,
+    make_forward_trajectory,
 )
-from model.lightweight_dynamic import LightweightPredictiveModel
+from model.common import capture_pid_state
+from model.lightweight import LightweightPredictiveModel
+from model.scg import load_scg_platform_params, make_scg_env_factory
+from safe_control_gym.utils.registration import make
+from staleguard import predict
 
 
-def start_mission_simulator(
-    s,
-    seed=SIM_SEED,
-):
-    env_factory = (
-        make_scg_env_factory(
-            init_state={
-                "init_x": 0.0,
-                "init_y": 0.0,
-                "init_z":
-                    s.usual_height,
-            },
-            pyb_freq=PYB_FREQ_HZ,
-        )
+def print_scenario(scenario):
+    print(
+        f"speed={scenario.speed:.2f} m/s, "
+        f"height={scenario.usual_height:.2f} m"
+    )
+    print(
+        f"structure x=[{scenario.box_x_min:.2f}, "
+        f"{scenario.box_x_max:.2f}], "
+        f"unsafe z<={scenario.unsafe_below_z:.2f}"
+    )
+    print(
+        f"approval={scenario.approval_time:.2f}s, "
+        f"command: z={scenario.low_height:.2f}m "
+        f"for {scenario.low_seconds:.2f}s"
+    )
+
+
+def capture_approval(scenario, seed=SIM_SEED):
+    """Fly the mission to approval and capture the information available then."""
+    env_factory = make_scg_env_factory(
+        init_state={
+            "init_x": 0.0,
+            "init_y": 0.0,
+            "init_z": scenario.usual_height,
+        },
+        pyb_freq=PYB_FREQ_HZ,
     )
     env = env_factory()
     ctrl = None
-    try:
-        ctrl = make(
-            "pid",
-            env_factory,
-        )
-        obs, info = env.reset(
-            seed=seed
-        )
-        ctrl.reset_before_run(
-            obs=obs,
-            info=info,
-            env=env,
-        )
-        traj = (
-            make_forward_trajectory(
-                env,
-                s,
-            )
-        )
-        env.X_GOAL = traj.copy()
-        ctrl.reference = traj.copy()
-        return (
-            env,
-            ctrl,
-            obs,
-            info,
-            traj,
-        )
-
-    except Exception:
-        if ctrl is not None:
-            ctrl.close()
-        env.close()
-        raise
-
-
-def capture_approval(s, seed=SIM_SEED):
-    """Actually fly to approval and capture the state at that instant."""
-    env, ctrl, obs, info, traj = start_mission_simulator(
-        s,
-        seed,
-    )
-    approval_step = round(
-        s.approval_time * CTRL_FREQ_HZ
-    )
-    total_steps = round(
-        MEASURE_SECONDS * CTRL_FREQ_HZ
-    )
 
     try:
+        ctrl = make("pid", env_factory)
+        obs, info = env.reset(seed=seed)
+        ctrl.reset_before_run(obs=obs, info=info, env=env)
+
+        trajectory = make_forward_trajectory(env, scenario)
+        env.X_GOAL = trajectory.copy()
+        ctrl.reference = trajectory.copy()
+
+        approval_step = round(scenario.approval_time * CTRL_FREQ_HZ)
+        total_steps = round(MEASURE_SECONDS * CTRL_FREQ_HZ)
         # This is REAL mission execution, not StaleGuard replay.
         for _ in range(approval_step):
             action = ctrl.select_action(
@@ -105,53 +82,23 @@ def capture_approval(s, seed=SIM_SEED):
                     "Mission terminated before approval"
                 )
 
-        snapshot = ApprovalSnapshot(
-            state=np.asarray(
-                obs
-            ).copy(),
+        return ApprovalSnapshot(
+            state=np.asarray(obs).copy(),
             pid_state=capture_pid_state(ctrl),
-
-            # Rebase reference:
-            # index 0 now means approval time.
-            remaining_reference=np.asarray(
-                traj[approval_step:]
-            ).copy(),
-
-            command=ApprovedCommand(
-                low_height=float(
-                    s.low_height
-                ),
-                low_steps=round(
-                    s.low_seconds * CTRL_FREQ_HZ
-                ),
-            ),
-
-            obstacle=ObstacleMap(
-                box_x_min=float(
-                    s.box_x_min
-                ),
-                box_x_max=float(
-                    s.box_x_max
-                ),
-                box_y_limit=float(
-                    s.box_y_limit
-                ),
-                unsafe_below_z=float(
-                    s.unsafe_below_z
-                ),
-            ),
-
-            approval_step=approval_step,
-            horizon_steps=(
-                    total_steps
-                    - approval_step
-            ),
+            # Rebase the reference so index 0 is approval time.
+            remaining_reference=np.asarray(trajectory[approval_step:]).copy(),
+            low_height=float(scenario.low_height),
+            low_steps=round(scenario.low_seconds * CTRL_FREQ_HZ),
+            box_x_min=float(scenario.box_x_min),
+            box_x_max=float(scenario.box_x_max),
+            box_y_limit=float(scenario.box_y_limit),
+            unsafe_below_z=float(scenario.unsafe_below_z),
+            horizon_steps=total_steps - approval_step,
         )
 
-        return snapshot
-
     finally:
-        ctrl.close()
+        if ctrl is not None:
+            ctrl.close()
         env.close()
 
 

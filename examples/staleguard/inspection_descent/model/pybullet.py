@@ -2,27 +2,23 @@ from copy import deepcopy
 from dataclasses import dataclass
 import numpy as np
 import pybullet as p
-from config import PYB_FREQ_HZ
+from experiment import PYB_FREQ_HZ
 from model.scg import make_scg_env_factory
-from safe_control_gym.utils.registration import (
-    make,
-)
+from safe_control_gym.utils.registration import make
 from model.common import (
     PIDState,
-    capture_pid_state,
-    restore_pid_state,
-)
-from model.state import (
-    STATE_X,
-    STATE_VX,
-    STATE_Y,
-    STATE_VY,
-    STATE_Z,
-    STATE_VZ,
-    STATE_ROLL,
-    STATE_YAW,
     STATE_P,
     STATE_R,
+    STATE_ROLL,
+    STATE_VX,
+    STATE_VY,
+    STATE_VZ,
+    STATE_X,
+    STATE_Y,
+    STATE_YAW,
+    STATE_Z,
+    capture_pid_state,
+    restore_pid_state,
 )
 
 
@@ -105,149 +101,11 @@ def restore_exact_state(
     ).copy()
 
 
-def save_checkpoint(
-    env,
-    ctrl,
-    obs,
-    info,
-):
-    return RolloutCheckpoint(
-        pyb_state_id=p.saveState(
-            physicsClientId=env.PYB_CLIENT
-        ),
-
-        obs=np.asarray(
-            obs
-        ).copy(),
-
-        info=deepcopy(
-            info
-        ),
-
-        pid_state=capture_pid_state(
-            ctrl
-        ),
-
-        ctrl_step_counter=(
-            env.ctrl_step_counter
-        ),
-
-        pyb_step_counter=(
-            env.pyb_step_counter
-        ),
-    )
-
-
-def restore_checkpoint(
-    env,
-    ctrl,
-    checkpoint,
-):
-    p.restoreState(
-        stateId=checkpoint.pyb_state_id,
-        physicsClientId=env.PYB_CLIENT,
-    )
-
-    env.ctrl_step_counter = (
-        checkpoint.ctrl_step_counter
-    )
-
-    env.pyb_step_counter = (
-        checkpoint.pyb_step_counter
-    )
-
-    env._update_and_store_kinematic_information()
-
-    restore_pid_state(
-        ctrl,
-        checkpoint.pid_state,
-    )
-
-    return (
-        checkpoint.obs.copy(),
-        deepcopy(
-            checkpoint.info
-        ),
-    )
-
-
-def start_from_approval(
-    snapshot,
-):
-    env_factory = (
-        make_scg_env_factory(
-            init_state=(
-                snapshot.state
-            ),
-            pyb_freq=PYB_FREQ_HZ,
-        )
-    )
-    ctrl = None
-
-    try:
-        ctrl = make(
-            "pid",
-            env_factory,
-        )
-
-        env = ctrl.env
-
-        obs, info = env.reset(
-            seed=0
-        )
-
-        obs = restore_exact_state(
-            env,
-            snapshot.state,
-        )
-
-        reference = np.asarray(
-            snapshot.remaining_reference
-        ).copy()
-
-        env.X_GOAL = reference.copy()
-        ctrl.reference = reference.copy()
-
-        ctrl.reset_before_run(
-            obs=obs,
-            info=info,
-            env=env,
-        )
-
-        restore_pid_state(
-            ctrl,
-            snapshot.pid_state,
-        )
-
-        if not np.allclose(
-            obs,
-            snapshot.state,
-            rtol=1e-7,
-            atol=1e-8,
-        ):
-            raise RuntimeError(
-                "Could not reconstruct "
-                "approval-time state"
-            )
-
-        return (
-            env,
-            ctrl,
-            obs,
-            info,
-            reference,
-        )
-
-    except Exception:
-        if ctrl is not None:
-            ctrl.close()
-
-        raise
 
 
 class PyBullet1000HzPredictiveModel:
     """
-    Current StaleGuard predictive model.
+    High-fidelity predictive baseline.
 
     Physics:
         SCG + PyBullet @ 1000 Hz
@@ -260,26 +118,39 @@ class PyBullet1000HzPredictiveModel:
         self.env = None
         self.ctrl = None
 
-    def start(
-        self,
-        snapshot,
-    ):
-        (
-            self.env,
-            self.ctrl,
-            obs,
-            info,
-            reference,
-        ) = start_from_approval(
-            snapshot
+    def start(self, snapshot):
+        env_factory = make_scg_env_factory(
+            init_state=snapshot.state,
+            pyb_freq=PYB_FREQ_HZ,
         )
+        ctrl = None
+        try:
+            ctrl = make("pid", env_factory)
+            env = ctrl.env
+            obs, info = env.reset(seed=0)
+            obs = restore_exact_state(env, snapshot.state)
 
-        return (
-            self.ctrl,
-            obs,
-            info,
-            reference,
-        )
+            reference = np.asarray(snapshot.remaining_reference).copy()
+            env.X_GOAL = reference.copy()
+            ctrl.reference = reference.copy()
+            ctrl.reset_before_run(obs=obs, info=info, env=env)
+            restore_pid_state(ctrl, snapshot.pid_state)
+
+            if not np.allclose(
+                obs,
+                snapshot.state,
+                rtol=1e-7,
+                atol=1e-8,
+            ):
+                raise RuntimeError("Could not reconstruct approval-time state")
+
+            self.env = env
+            self.ctrl = ctrl
+            return ctrl, obs, info, reference
+        except Exception:
+            if ctrl is not None:
+                ctrl.close()
+            raise
 
     def step(
         self,
@@ -299,29 +170,28 @@ class PyBullet1000HzPredictiveModel:
             info,
         )
 
-    def save_checkpoint(
-        self,
-        ctrl,
-        obs,
-        info,
-    ):
-        return save_checkpoint(
-            self.env,
-            ctrl,
-            obs,
-            info,
+    def save_checkpoint(self, ctrl, obs, info):
+        return RolloutCheckpoint(
+            pyb_state_id=p.saveState(
+                physicsClientId=self.env.PYB_CLIENT
+            ),
+            obs=np.asarray(obs).copy(),
+            info=deepcopy(info),
+            pid_state=capture_pid_state(ctrl),
+            ctrl_step_counter=self.env.ctrl_step_counter,
+            pyb_step_counter=self.env.pyb_step_counter,
         )
 
-    def restore_checkpoint(
-        self,
-        ctrl,
-        checkpoint,
-    ):
-        return restore_checkpoint(
-            self.env,
-            ctrl,
-            checkpoint,
+    def restore_checkpoint(self, ctrl, checkpoint):
+        p.restoreState(
+            stateId=checkpoint.pyb_state_id,
+            physicsClientId=self.env.PYB_CLIENT,
         )
+        self.env.ctrl_step_counter = checkpoint.ctrl_step_counter
+        self.env.pyb_step_counter = checkpoint.pyb_step_counter
+        self.env._update_and_store_kinematic_information()
+        restore_pid_state(ctrl, checkpoint.pid_state)
+        return checkpoint.obs.copy(), deepcopy(checkpoint.info)
 
     def set_reference(
         self,

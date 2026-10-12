@@ -2,28 +2,23 @@ from numba import njit
 from copy import deepcopy
 from dataclasses import dataclass
 import numpy as np
-from config import CTRL_FREQ_HZ, MODEL_FREQ_HZ
+from experiment import CTRL_FREQ_HZ, MODEL_FREQ_HZ
 from model.common import (
     PIDState,
-    capture_pid_state,
-    restore_pid_state,
-)
-from model.params import (
-    QuadParams,
-)
-from model.state import (
-    STATE_X,
-    STATE_VX,
-    STATE_Y,
-    STATE_VY,
-    STATE_Z,
-    STATE_VZ,
-    STATE_ROLL,
-    STATE_PITCH,
-    STATE_YAW,
     STATE_P,
+    STATE_PITCH,
     STATE_Q,
     STATE_R,
+    STATE_ROLL,
+    STATE_VX,
+    STATE_VY,
+    STATE_VZ,
+    STATE_X,
+    STATE_Y,
+    STATE_YAW,
+    STATE_Z,
+    capture_pid_state,
+    restore_pid_state,
 )
 
 
@@ -449,86 +444,52 @@ def control_step(state, thrust, dt, substeps, m, J, J_inv, L, gamma, g):
     return state
 
 
-class LightweightQuadrotor:
-    def __init__(self, params: QuadParams, model_hz=MODEL_FREQ_HZ):
-        if model_hz % CTRL_FREQ_HZ != 0:
-            raise ValueError(
-                "model_hz must be divisible by controller frequency"
-            )
-        self.dt = 1.0 / model_hz
-        self.substeps = model_hz // CTRL_FREQ_HZ
-
-        self.m = params.mass
-        self.J = params.inertia
-        self.J_inv = params.inertia_inv
-
-        self.L = params.arm_length
-        self.gamma = params.gamma
-        self.g = params.gravity
-
-    def control_step(self, state, thrust):
-        return control_step(
-            state,
-            thrust,
-            self.dt,
-            self.substeps,
-            self.m,
-            self.J,
-            self.J_inv,
-            self.L,
-            self.gamma,
-            self.g,
-        )
-
-
 class LightweightPredictiveModel:
-    def __init__(
-            self,
-            quad_params,
-            pid_params,
-    ):
+    def __init__(self, quad_params, pid_params):
+        if MODEL_FREQ_HZ % CTRL_FREQ_HZ != 0:
+            raise ValueError(
+                "model frequency must be divisible by controller frequency"
+            )
+
         self.quad_params = quad_params
         self.pid_params = pid_params
-
+        self.dt = 1.0 / MODEL_FREQ_HZ
+        self.substeps = MODEL_FREQ_HZ // CTRL_FREQ_HZ
         self.ctrl = None
-        self.model = None
 
     def start(self, snapshot):
-        self.model = LightweightQuadrotor(
-            params=self.quad_params,
-            model_hz=MODEL_FREQ_HZ,
-        )
-        info = {
-            "current_step": 0,
-        }
-
-        # 12d state vector of Quadrotor snap-shotted at approval-time.
+        info = {"current_step": 0}
         obs = np.asarray(snapshot.state, dtype=float).copy()
-        # Remaining reference from approval-time to scenario end.
         reference = np.asarray(
             snapshot.remaining_reference,
             dtype=float,
         ).copy()
 
-        # Restore the state of Quad env, PID state to the approval snapshot.
         self.ctrl = LightweightPID(
             reference=reference.copy(),
             quad_params=self.quad_params,
             pid_params=self.pid_params,
         )
-        restore_pid_state(
-            self.ctrl,
-            snapshot.pid_state,
-        )
-
-        return (self.ctrl, obs, info, reference)
+        restore_pid_state(self.ctrl, snapshot.pid_state)
+        return self.ctrl, obs, info, reference
 
     def step(self, action, obs, info):
-        obs = self.model.control_step(obs, action)
+        p = self.quad_params
+        obs = control_step(
+            obs,
+            action,
+            self.dt,
+            self.substeps,
+            p.mass,
+            p.inertia,
+            p.inertia_inv,
+            p.arm_length,
+            p.gamma,
+            p.gravity,
+        )
         info = deepcopy(info)
         info["current_step"] += 1
-
-        return (obs, False, info)
+        return obs, False, info
 
     def save_checkpoint(self, ctrl, obs, info):
         return LightweightCheckpoint(

@@ -2,46 +2,13 @@
 Predicts validity using approval-time information only.
 Every rollout starts directly from approval time.
 """
-from dataclasses import dataclass
-import numpy as np
-from classification import classify_delay_results
-from config import CTRL_FREQ_HZ, DELAY_GRID
-from model.common import (
-    PIDState,
+from experiment import (
+    CTRL_FREQ_HZ,
+    DELAY_GRID,
+    apply_descent_command,
+    classify_delay_results,
+    unsafe,
 )
-from scenario import unsafe, apply_descent_command
-
-
-@dataclass(frozen=True)
-class ObstacleMap:
-    box_x_min: float
-    box_x_max: float
-    box_y_limit: float
-    unsafe_below_z: float
-
-
-@dataclass(frozen=True)
-class ApprovedCommand:
-    low_height: float
-    low_steps: int
-
-
-@dataclass(frozen=True)
-class ApprovalSnapshot:
-    # [x, vx, y, vy, z, vz,
-    #  roll, pitch, yaw,
-    #  p_body, q_body, r_body]
-    state: np.ndarray
-    pid_state: PIDState
-
-    # Index 0 = approval time.
-    remaining_reference: np.ndarray
-
-    command: ApprovedCommand
-    obstacle: ObstacleMap
-
-    approval_step: int
-    horizon_steps: int
 
 
 def rollout_from_checkpoint(
@@ -61,8 +28,8 @@ def rollout_from_checkpoint(
     changed_traj = apply_descent_command(
         reference=reference,
         start_step=dispatch_step,
-        low_steps=snapshot.command.low_steps,
-        low_height=snapshot.command.low_height,
+        low_steps=snapshot.low_steps,
+        low_height=snapshot.low_height,
     )
 
     predictive_model.set_reference(
@@ -88,7 +55,7 @@ def rollout_from_checkpoint(
 
         if unsafe(
                 obs,
-                snapshot.obstacle,
+                snapshot,
         ):
             return "UNSAFE"
 
@@ -115,7 +82,7 @@ def build_nominal_checkpoints(
 
     if unsafe(
             obs,
-            snapshot.obstacle,
+            snapshot,
     ):
         return False, checkpoints
 
@@ -150,7 +117,7 @@ def build_nominal_checkpoints(
 
         if unsafe(
                 obs,
-                snapshot.obstacle,
+                snapshot,
         ):
             return False, checkpoints
 
