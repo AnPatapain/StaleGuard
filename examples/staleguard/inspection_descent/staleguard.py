@@ -103,7 +103,6 @@ def build_nominal_checkpoints(
         ctrl,
         obs,
         info,
-        reference,
         snapshot,
         delays,
 ):
@@ -180,7 +179,6 @@ def predict(
             ctrl=ctrl,
             obs=obs,
             info=info,
-            reference=reference,
             snapshot=snapshot,
             delays=delays,
         )

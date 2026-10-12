@@ -208,11 +208,11 @@ def main():
 
     for scenario_id in ids:
         s = generate_scenario(scenario_id)
+        snapshot = capture_approval(s)
 
         # ----------------------------
         # ONLINE / StaleGuard
         # ----------------------------
-        snapshot = capture_approval(s)
         t0 = time.perf_counter()
         predicted = predict(
             snapshot,
