@@ -57,6 +57,7 @@ class ApprovalSnapshot:
     box_y_limit: float
     unsafe_below_z: float
 
+    approval_time: float
     horizon_steps: int
 
 

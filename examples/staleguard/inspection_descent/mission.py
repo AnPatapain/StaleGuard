@@ -93,6 +93,7 @@ def capture_approval(scenario, seed=SIM_SEED):
             box_x_max=float(scenario.box_x_max),
             box_y_limit=float(scenario.box_y_limit),
             unsafe_below_z=float(scenario.unsafe_below_z),
+            approval_time=float(scenario.approval_time),
             horizon_steps=total_steps - approval_step,
         )
 
@@ -115,9 +116,7 @@ def main():
         default=100,  # run 100 configurations by default
     )
     args = parser.parse_args()
-    quad_params, pid_params = (
-        load_scg_platform_params()
-    )
+    quad_params, pid_params = load_scg_platform_params()
 
     ids = (
         [args.scenario]
