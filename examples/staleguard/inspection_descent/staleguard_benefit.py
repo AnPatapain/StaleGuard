@@ -49,6 +49,7 @@ def run_actual(
     deadline_step,
     recover,
     gui=False,
+    debug=False,
 ):
     env_factory = make_scg_env_factory(
         init_state={
@@ -97,6 +98,10 @@ def run_actual(
 
     try:
         best_scan_steps = 0
+        best_z_error_at_scan = float("inf")
+        scan_crossed = False
+        first_height_step = None
+        min_z = float("inf")
 
         for step in range(deadline_step):
             # StaleGuard cancels pending command and starts recovery.
@@ -136,6 +141,29 @@ def run_actual(
             action = ctrl.select_action(obs, info)
             obs, _, done, info = env.step(action)
 
+            min_z = min(min_z, obs[STATE_Z])
+
+            if debug and first_height_step is None:
+                if abs(obs[STATE_Z] - s.low_height) < 0.08:
+                    first_height_step = step + 1
+
+                    print(
+                        f"first_target_height_time={first_height_step / CTRL_FREQ_HZ:.2f}s "
+                        f"x_at_target={obs[STATE_X]:.3f}m "
+                        f"scan_x={scan_x:.3f}m "
+                        f"x_offset={obs[STATE_X] - scan_x:+.3f}m"
+                    )
+
+            if debug and not scan_crossed and obs[STATE_X] >= scan_x:
+                scan_crossed = True
+                print(
+                    f"scan_time={step / CTRL_FREQ_HZ:.2f}s "
+                    f"actual_z={obs[STATE_Z]:.3f}m "
+                    f"reference_z={traj[step, STATE_Z]:.3f}m "
+                    f"target_z={s.low_height:.3f}m "
+                    f"vx={obs[STATE_VX]:.3f}m/s"
+                )
+
             if gui:
                 time.sleep(1.0 / CTRL_FREQ_HZ)
 
@@ -143,6 +171,10 @@ def run_actual(
             if unsafe(obs, snapshot):
                 collision = True
                 break
+
+            if abs(obs[STATE_X] - scan_x) < 0.12:
+                z_error = abs(obs[STATE_Z] - s.low_height)
+                best_z_error_at_scan = min(best_z_error_at_scan, z_error)
 
             # Actual inspection completion.
             scanning = in_inspection_region(obs, s, scan_x)
@@ -156,17 +188,33 @@ def run_actual(
             if done:
                 break
 
-        print(
-            f"collision={collision}, "
-            f"completed={completed}, "
-            f"best_inspection_dwell={best_scan_steps / CTRL_FREQ_HZ:.2f}s"
-        )
+        if debug:
+            print(
+                f"min_z={min_z:.3f}m "
+                f"target_z={s.low_height:.3f}m "
+                f"low_seconds={s.low_seconds:.2f}s"
+            )
+
+        if debug and first_height_step is None:
+            print("Target altitude never reached")
+
+        if debug:
+            print(
+                f"collision={collision}, "
+                f"completed={completed}, "
+                f"best_inspection_dwell={best_scan_steps / CTRL_FREQ_HZ:.2f}s, "
+                f"best_z_error_at_scan={best_z_error_at_scan:.3f}m"
+            )
 
         if gui:
             print(f"completed={completed}, collision={collision}")
             input("Press Enter for next scenario...")
 
-        return completed and not collision, collision, recovery_started
+        return (
+            completed and not collision, # Safely complete mission
+            collision, # Safe or Unsafe
+            recovery_started, # Did recovery start or not
+        )
 
     finally:
         ctrl.close()
@@ -227,7 +275,8 @@ def main():
                     recover_step,
                     deadline_step,
                     recover,
-                    gui=(queue_pending == 0.0 and mission_deadline == 4.2)
+                    # gui=(queue_pending == 0.0 and mission_deadline == 4.2)
+                    debug=(queue_pending == 0.0 and mission_deadline == 4.2)
                 )
 
                 counterfactual_success, _, _ = run_actual(
