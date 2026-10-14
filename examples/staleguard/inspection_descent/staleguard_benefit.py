@@ -1,6 +1,15 @@
 import time
-from experiment import generate_scenario, apply_descent_command, unsafe, DELAY_GRID, CTRL_FREQ_HZ, PYB_FREQ_HZ, \
-    SIM_SEED, make_forward_trajectory
+from experiment import (
+    generate_scenario,
+    apply_descent_command,
+    unsafe,
+    DELAY_GRID,
+    CTRL_FREQ_HZ,
+    PYB_FREQ_HZ,
+    SIM_SEED,
+    make_forward_trajectory,
+    inspection_x
+)
 from mission import capture_approval
 from safe_control_gym.utils.registration import make
 from model.common import STATE_VX, STATE_X, STATE_Y, STATE_Z
@@ -12,6 +21,7 @@ from staleguard import predict
 PENDINGS = [0.0, 0.5, 1.0] # Pending delay for command received but not yet applied. (from t_cmd_recv)
 DEADLINES = [4.2, 5.0] # Deadline for mission (from t_cmd_recv)
 SCENARIOS = 10 # Run 10 scenarios for each PENDING x DEADLINE
+SCAN_DWELL_S = 0.18
 
 
 def should_recover(result, pending):
@@ -21,9 +31,6 @@ def should_recover(result, pending):
     # Should also recover if command is unsafe before it is applied.
     first_unsafe = result["first_bad_delay"]
     return first_unsafe is not None and first_unsafe <= pending
-
-
-SCAN_DWELL_S = 0.18
 
 
 def in_inspection_region(state, scenario, scan_x):
@@ -40,7 +47,8 @@ def run_actual(
     dispatch_step,
     recover_step,
     deadline_step,
-    recover
+    recover,
+    gui=False,
 ):
     env_factory = make_scg_env_factory(
         init_state={
@@ -50,18 +58,19 @@ def run_actual(
         },
         pyb_freq=PYB_FREQ_HZ,
     )
-    env = env_factory()
+    env = env_factory(gui=gui)
     ctrl = make("pid", env_factory)
 
     obs, info = env.reset(seed=SIM_SEED)
     ctrl.reset_before_run(obs=obs, info=info, env=env)
     traj = make_forward_trajectory(env, s)
+    assert deadline_step <= len(traj)
 
     env.X_GOAL = traj.copy()
     ctrl.reference = traj.copy()
 
 
-    scan_x = s.box_x_min - 0.25
+    scan_x = inspection_x(s)
     recovering = False
     descending = False
     scan_steps = 0
@@ -69,9 +78,27 @@ def run_actual(
     collision = False
     recovery_started = False
 
-    try:
-        for step in range(deadline_step):
+    if gui:
+        import pybullet as p
 
+        p.addUserDebugText(
+            "SCAN TARGET",
+            [scan_x, 0, s.low_height],
+            textColorRGB=[0, 1, 0],
+            physicsClientId=env.PYB_CLIENT
+        )
+
+        p.addUserDebugText(
+            "UNSAFE START",
+            [s.box_x_min, 0, s.unsafe_below_z],
+            textColorRGB=[1, 0, 0],
+            physicsClientId=env.PYB_CLIENT
+        )
+
+    try:
+        best_scan_steps = 0
+
+        for step in range(deadline_step):
             # StaleGuard cancels pending command and starts recovery.
             if recover and step == recover_step:
                 recovering = True
@@ -90,7 +117,8 @@ def run_actual(
                     and abs(obs[STATE_VX]) < 0.15
                 ):
                     descending = True
-                    traj[step:, STATE_Z] = s.low_height
+                    end_step = step + snapshot.low_steps
+                    traj[step:end_step, STATE_Z] = s.low_height
                     env.X_GOAL = traj
                     ctrl.reference = traj
 
@@ -108,6 +136,9 @@ def run_actual(
             action = ctrl.select_action(obs, info)
             obs, _, done, info = env.step(action)
 
+            if gui:
+                time.sleep(1.0 / CTRL_FREQ_HZ)
+
             # Actual safety.
             if unsafe(obs, snapshot):
                 collision = True
@@ -115,14 +146,25 @@ def run_actual(
 
             # Actual inspection completion.
             scanning = in_inspection_region(obs, s, scan_x)
-
             scan_steps = scan_steps + 1 if scanning else 0
+
+            best_scan_steps = max(best_scan_steps, scan_steps)
 
             if scan_steps >= round(SCAN_DWELL_S * CTRL_FREQ_HZ):
                 completed = True
 
             if done:
                 break
+
+        print(
+            f"collision={collision}, "
+            f"completed={completed}, "
+            f"best_inspection_dwell={best_scan_steps / CTRL_FREQ_HZ:.2f}s"
+        )
+
+        if gui:
+            print(f"completed={completed}, collision={collision}")
+            input("Press Enter for next scenario...")
 
         return completed and not collision, collision, recovery_started
 
@@ -177,14 +219,15 @@ def main():
                 deadline_step = round((t_cmd_recv + mission_deadline) * CTRL_FREQ_HZ)
                 # Recovery is possible only before dispatch.
                 recover = should_recover(predicted, queue_pending)
-                recover = recover and elapsed < queue_pending
+                recover = recover and recover_step < dispatch_step
 
                 success, collision, recovery_started = run_actual(
                     s, snapshot,
                     dispatch_step,
                     recover_step,
                     deadline_step,
-                    recover
+                    recover,
+                    gui=(queue_pending == 0.0 and mission_deadline == 4.2)
                 )
 
                 counterfactual_success, _, _ = run_actual(
@@ -247,6 +290,7 @@ def main():
                 f"percentage points "
                 f"(count={net_recovery_benefit_count}/{SCENARIOS})"
             )
+            print('\n')
 
 
 

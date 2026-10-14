@@ -12,13 +12,14 @@ CTRL_FREQ_HZ = 50
 PYB_FREQ_HZ = 1000
 MODEL_FREQ_HZ = 100
 
-EPISODE_SECONDS = 6
-MEASURE_SECONDS = 5.5
+EPISODE_SECONDS = 9
+MEASURE_SECONDS = 8.5
 
 DELAY_GRID = tuple(np.arange(0.0, 1.51, 0.1))
 SIM_SEED = 42
 
-ACCELERATION_SECONDS = 0.4
+ACCELERATION_SECONDS = 0.4 # Before Quadrotor reaches its stable speed, it needs to ramp during 0.4s from 0 → stable speed.
+INSPECTION_STANDOFF = 0.5 # Distance on x that Quad need to keep from structure for inspection (mettres).
 
 
 @dataclass
@@ -60,6 +61,9 @@ class ApprovalSnapshot:
     approval_time: float
     horizon_steps: int
 
+def inspection_x(scenario: Scenario):
+    return scenario.box_x_min - INSPECTION_STANDOFF
+
 
 def generate_scenario(seed):
     rng = np.random.default_rng(seed)
@@ -67,8 +71,9 @@ def generate_scenario(seed):
     speed = rng.uniform(0.4, 0.8)
     usual_height = rng.uniform(1.15, 1.40)
 
-    structure_start = rng.uniform(0.8, 1.5)
-    structure_length = rng.uniform(0.3, 0.6)
+    structure_start = rng.uniform(0.8, 1.5) # x direction
+    structure_length = rng.uniform(0.3, 0.6) # x direction
+    structure_width = 0.35 # y direction
     unsafe_below_z = rng.uniform(0.90, 1.05)
 
     # Nominal requested height must be above the unsafe threshold.
@@ -77,17 +82,22 @@ def generate_scenario(seed):
 
     # The dip command goes below the unsafe threshold, so timing can matter.
     low_height = rng.uniform(0.60, unsafe_below_z - 0.10)
+    low_seconds = rng.uniform(0.4, 1.0)
+
+    scan_x = structure_start - INSPECTION_STANDOFF
+    scan_time = scan_x/speed + ACCELERATION_SECONDS/2 # account for duration that Quad ramp from 0 to stable speed.
+    approval_time = max(0.1, scan_time - low_seconds/2)
 
     return Scenario(
         speed=speed,
         usual_height=usual_height,
         box_x_min=structure_start,
         box_x_max=structure_start + structure_length,
-        box_y_limit=0.35,
+        box_y_limit=structure_width,
         unsafe_below_z=unsafe_below_z,
-        approval_time=rng.uniform(0.1, 0.5),
+        approval_time=approval_time,
         low_height=low_height,
-        low_seconds=rng.uniform(0.4, 1.0),
+        low_seconds=low_seconds,
     )
 
 
