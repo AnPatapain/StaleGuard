@@ -1,4 +1,6 @@
 import time
+from dataclasses import replace
+import pybullet as p
 from experiment import (
     generate_scenario,
     apply_descent_command,
@@ -8,7 +10,7 @@ from experiment import (
     PYB_FREQ_HZ,
     SIM_SEED,
     make_forward_trajectory,
-    inspection_x
+    inspection_x, ACCELERATION_SECONDS
 )
 from mission import capture_approval
 from safe_control_gym.utils.registration import make
@@ -50,6 +52,8 @@ def run_actual(
     recover,
     gui=False,
     debug=False,
+    trace=None,
+    physics_trace=None,
 ):
     env_factory = make_scg_env_factory(
         init_state={
@@ -70,18 +74,53 @@ def run_actual(
     env.X_GOAL = traj.copy()
     ctrl.reference = traj.copy()
 
+    if trace is not None:
+        trace.append((0, obs.copy(), traj[0].copy()))
+
 
     scan_x = inspection_x(s)
     recovering = False
     descending = False
-    scan_steps = 0
+    scan_start_tick = None
+    best_scan_ticks = 0
+    physics_tick = 0
     completed = False
     collision = False
     recovery_started = False
 
-    if gui:
-        import pybullet as p
+    def monitor(state, tick):
+        nonlocal scan_start_tick, best_scan_ticks, completed, collision
+        collision = collision or unsafe(state, snapshot)
+        if in_inspection_region(state, s, scan_x):
+            if scan_start_tick is None:
+                scan_start_tick = tick
+            elapsed_ticks = tick - scan_start_tick
+            best_scan_ticks = max(best_scan_ticks, elapsed_ticks)
+            if elapsed_ticks >= round(SCAN_DWELL_S * PYB_FREQ_HZ):
+                completed = True
+        else:
+            scan_start_tick = None
 
+    # Observe every existing physics step without altering its action/dynamics.
+    # Counting N control samples as N*dt overstates elapsed dwell by one dt.
+    original_physics = env._physics
+
+    def monitored_physics(rpm):
+        nonlocal physics_tick
+        position, _ = p.getBasePositionAndOrientation(
+            env.DRONE_ID, physicsClientId=env.PYB_CLIENT,
+        )
+        state = obs.copy()
+        state[[STATE_X, STATE_Y, STATE_Z]] = position
+        monitor(state, physics_tick)
+        if physics_trace is not None:
+            physics_trace.append((physics_tick, position))
+        original_physics(rpm)
+        physics_tick += 1
+
+    env._physics = monitored_physics
+
+    if gui:
         p.addUserDebugText(
             "SCAN TARGET",
             [scan_x, 0, s.low_height],
@@ -97,7 +136,6 @@ def run_actual(
         )
 
     try:
-        best_scan_steps = 0
         best_z_error_at_scan = float("inf")
         scan_crossed = False
         first_height_step = None
@@ -141,6 +179,11 @@ def run_actual(
             action = ctrl.select_action(obs, info)
             obs, _, done, info = env.step(action)
 
+            if trace is not None:
+                # State is at step + 1; reference was applied at step.
+                trace.append((step + 1, obs.copy(), traj[step].copy()))
+            monitor(obs, physics_tick)
+
             min_z = min(min_z, obs[STATE_Z])
 
             if debug and first_height_step is None:
@@ -157,7 +200,7 @@ def run_actual(
             if debug and not scan_crossed and obs[STATE_X] >= scan_x:
                 scan_crossed = True
                 print(
-                    f"scan_time={step / CTRL_FREQ_HZ:.2f}s "
+                    f"scan_time={(step + 1) / CTRL_FREQ_HZ:.2f}s "
                     f"actual_z={obs[STATE_Z]:.3f}m "
                     f"reference_z={traj[step, STATE_Z]:.3f}m "
                     f"target_z={s.low_height:.3f}m "
@@ -168,25 +211,18 @@ def run_actual(
                 time.sleep(1.0 / CTRL_FREQ_HZ)
 
             # Actual safety.
-            if unsafe(obs, snapshot):
-                collision = True
+            if collision:
                 break
 
             if abs(obs[STATE_X] - scan_x) < 0.12:
                 z_error = abs(obs[STATE_Z] - s.low_height)
                 best_z_error_at_scan = min(best_z_error_at_scan, z_error)
 
-            # Actual inspection completion.
-            scanning = in_inspection_region(obs, s, scan_x)
-            scan_steps = scan_steps + 1 if scanning else 0
-
-            best_scan_steps = max(best_scan_steps, scan_steps)
-
-            if scan_steps >= round(SCAN_DWELL_S * CTRL_FREQ_HZ):
-                completed = True
-
             if done:
                 break
+
+        if physics_trace is not None:
+            physics_trace.append((physics_tick, obs[[STATE_X, STATE_Y, STATE_Z]].copy()))
 
         if debug:
             print(
@@ -202,7 +238,7 @@ def run_actual(
             print(
                 f"collision={collision}, "
                 f"completed={completed}, "
-                f"best_inspection_dwell={best_scan_steps / CTRL_FREQ_HZ:.2f}s, "
+                f"best_inspection_dwell={best_scan_ticks / PYB_FREQ_HZ:.3f}s, "
                 f"best_z_error_at_scan={best_z_error_at_scan:.3f}m"
             )
 
@@ -220,6 +256,86 @@ def run_actual(
         ctrl.close()
         env.close()
 
+
+def plan_feasible_command(s):
+    """
+    Find an original command that safely completes inspection at D=0.
+
+    Offline mission design only.
+    No StaleGuard predictions are used.
+    """
+
+    # Search resolution: existing DELAY_GRID resolution (0.1 s).
+    grid_step = round(
+        (DELAY_GRID[1] - DELAY_GRID[0]) * CTRL_FREQ_HZ
+    )
+
+    # Approval may occur at the initial state, before the first control action.
+    # The former 0.1 s floor excluded physically feasible early descents.
+    earliest_approval_step = 0
+
+    original_approval_step = round(
+        s.approval_time * CTRL_FREQ_HZ
+    )
+
+    original_low_steps = round(
+        s.low_seconds * CTRL_FREQ_HZ
+    )
+
+    # Expected time at which nominal flight reaches the structure.
+    structure_time = (
+        s.box_x_min / s.speed
+        + ACCELERATION_SECONDS / 2
+    )
+    structure_step = round(structure_time * CTRL_FREQ_HZ)
+
+    # Prefer commands close to the original timing.
+    approval_steps = list(range(
+        original_approval_step,
+        earliest_approval_step - 1,
+        -grid_step
+    ))
+    if earliest_approval_step not in approval_steps:
+        approval_steps.append(earliest_approval_step)
+
+    for approval_step in approval_steps:
+        # Do not plan a low-altitude command extending beyond
+        # nominal arrival at the structure.
+        max_low_steps = structure_step - approval_step
+
+        for low_steps in range(
+            original_low_steps,
+            max_low_steps + 1,
+            grid_step
+        ):
+            candidate = replace(
+                s,
+                approval_time=approval_step / CTRL_FREQ_HZ,
+                low_seconds=low_steps / CTRL_FREQ_HZ
+            )
+
+            snapshot = capture_approval(candidate)
+
+            deadline_step = round(
+                (candidate.approval_time + min(DEADLINES))
+                * CTRL_FREQ_HZ
+            )
+
+            success, collision, _ = run_actual(
+                candidate,
+                snapshot,
+                dispatch_step=approval_step,
+                recover_step=0,
+                deadline_step=deadline_step,
+                recover=False,
+                gui=False,
+            )
+
+            if success:
+                return candidate
+
+    return None
+
 def main():
     quad_params, pid_params = load_scg_platform_params()
 
@@ -232,6 +348,24 @@ def main():
         delays=DELAY_GRID
     )
 
+    planned_scenarios = []
+    for scenario_id in range(SCENARIOS):
+        original = generate_scenario(scenario_id)
+        planned = plan_feasible_command(original)
+        if planned is None:
+            raise RuntimeError(
+                f"Scenario {scenario_id}: "
+                "No feasible original command found."
+            )
+
+        planned_scenarios.append(planned)
+        # print(
+        #     f"Scenario={scenario_id} "
+        #     f"approval={planned.approval_time:.2f}s "
+        #     f"low_seconds={planned.low_seconds:.2f}s"
+        # )
+
+
     for queue_pending in PENDINGS:
         for mission_deadline in DEADLINES:
             successes = 0
@@ -243,7 +377,7 @@ def main():
             counterfactual_successes = 0
 
             for scenario_id in range(SCENARIOS):
-                s = generate_scenario(scenario_id)
+                s = planned_scenarios[scenario_id]
                 snapshot = capture_approval(s) # Quadrotor flies up to approval-time.
 
                 # Assume: t_cmd_recv = t_approved
@@ -276,7 +410,7 @@ def main():
                     deadline_step,
                     recover,
                     # gui=(queue_pending == 0.0 and mission_deadline == 4.2)
-                    debug=(queue_pending == 0.0 and mission_deadline == 4.2)
+                    # debug=(queue_pending == 0.0 and mission_deadline == 4.2)
                 )
 
                 counterfactual_success, _, _ = run_actual(

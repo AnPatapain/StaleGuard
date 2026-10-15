@@ -108,7 +108,9 @@ def make_forward_trajectory(env, scenario):
     speeds = scenario.speed * np.minimum(times / ACCELERATION_SECONDS, 1.0)
 
     trajectory = np.zeros_like(env.X_GOAL)
-    trajectory[:, STATE_X] = np.cumsum(speeds) * dt
+    # Trapezoidal integration is exact for this piecewise-linear velocity ramp.
+    # At sample k, position integrates velocity up to k, not through k + 1.
+    trajectory[:, STATE_X] = (np.cumsum(speeds) - speeds / 2) * dt
     trajectory[:, STATE_VX] = speeds
     trajectory[:, STATE_Z] = scenario.usual_height
     return trajectory
