@@ -43,6 +43,10 @@ def in_inspection_region(state, scenario, scan_x):
     )
 
 
+def format_count(count, total):
+    return f"{count}/{total} ({count / total:.1%})"
+
+
 def run_actual(
     s,
     snapshot,
@@ -247,9 +251,10 @@ def run_actual(
             input("Press Enter for next scenario...")
 
         return (
-            completed and not collision, # Safely complete mission
-            collision, # Safe or Unsafe
-            recovery_started, # Did recovery start or not
+            bool(completed), # Inspection objective achieved, even if unsafe
+            bool(collision), # Entered the unsafe volume
+            recovery_started,
+            bool(completed and not collision), # Safely complete mission
         )
 
     finally:
@@ -321,7 +326,7 @@ def plan_feasible_command(s):
                 * CTRL_FREQ_HZ
             )
 
-            success, collision, _ = run_actual(
+            _, _, _, success = run_actual(
                 candidate,
                 snapshot,
                 dispatch_step=approval_step,
@@ -368,12 +373,15 @@ def main():
 
     for queue_pending in PENDINGS:
         for mission_deadline in DEADLINES:
+            inspection_completions = 0
             successes = 0
             collisions = 0
             recoveries = 0
             recovery_successes = 0
             recovery_benefits = 0
             recovery_harms = 0
+            counterfactual_inspection_completions = 0
+            counterfactual_collisions = 0
             counterfactual_successes = 0
 
             for scenario_id in range(SCENARIOS):
@@ -403,7 +411,7 @@ def main():
                 recover = should_recover(predicted, queue_pending)
                 recover = recover and recover_step < dispatch_step
 
-                success, collision, recovery_started = run_actual(
+                inspection_completed, collision, recovery_started, success = run_actual(
                     s, snapshot,
                     dispatch_step,
                     recover_step,
@@ -413,7 +421,7 @@ def main():
                     # debug=(queue_pending == 0.0 and mission_deadline == 4.2)
                 )
 
-                counterfactual_success, _, _ = run_actual(
+                counterfactual_inspection, counterfactual_collision, _, counterfactual_success = run_actual(
                     s, snapshot,
                     dispatch_step,
                     recover_step,
@@ -421,6 +429,12 @@ def main():
                     False
                 )
 
+                assert success == (inspection_completed and not collision)
+                assert counterfactual_success == (
+                    counterfactual_inspection and not counterfactual_collision
+                )
+
+                inspection_completions += int(inspection_completed)
                 successes += int(success)
                 collisions += int(collision)
                 recoveries += int(recovery_started)
@@ -431,6 +445,8 @@ def main():
                 recovery_harms += int(
                     recovery_started and not success and counterfactual_success
                 )
+                counterfactual_inspection_completions += int(counterfactual_inspection)
+                counterfactual_collisions += int(counterfactual_collision)
                 counterfactual_successes += int(counterfactual_success)
 
             net_recovery_benefit_count = recovery_benefits - recovery_harms
@@ -439,53 +455,48 @@ def main():
                 == successes - counterfactual_successes
             )
 
-            print(f"D={queue_pending:.1f}s T={mission_deadline:.1f}s N={SCENARIOS}")
-            print(
-                f"safe_completion={successes / SCENARIOS:.1%} "
-                f"(count={successes}/{SCENARIOS})"
-            )
-            print(
-                f"unsafe={collisions / SCENARIOS:.1%} "
-                f"(count={collisions}/{SCENARIOS})"
-            )
-            print(
-                f"recovery_trigger={recoveries / SCENARIOS:.1%} "
-                f"(count={recoveries}/{SCENARIOS})"
-            )
+            print("=" * 58)
+            print(f"D = {queue_pending:.1f}s | T = {mission_deadline:.1f}s | N = {SCENARIOS}")
+            print("=" * 58)
+            print("\nMISSION OUTCOMES")
+            print(f"{'':27}{'No Recovery':>15}{'StaleGuard':>15}")
+            print("-" * 58)
+            for label, no_recovery, staleguard in (
+                ("Inspection completed", counterfactual_inspection_completions, inspection_completions),
+                ("Unsafe entry", counterfactual_collisions, collisions),
+                ("Safe mission completion", counterfactual_successes, successes),
+            ):
+                print(
+                    f"{label:<27}{format_count(no_recovery, SCENARIOS):>15}"
+                    f"{format_count(staleguard, SCENARIOS):>15}"
+                )
+
+            print("\nSTALEGUARD DECISIONS")
+            print("-" * 58)
+            print(f"{'Recovery triggered':<42}{format_count(recoveries, SCENARIOS):>15}")
             if recoveries == 0:
-                print("recovery_success=N/A (count=0/0)")
+                print("Successful recoveries: N/A (0/0)")
             else:
                 print(
-                    f"recovery_success={recovery_successes / recoveries:.1%} "
-                    f"(count={recovery_successes}/{recoveries})"
+                    f"{'Successful recoveries':<42}"
+                    f"{format_count(recovery_successes, recoveries):>15}"
                 )
+
+            print("\nPAIRED COMPARISON")
+            print("-" * 58)
             print(
-                f"recovery_benefit={recovery_benefits / SCENARIOS:.1%} "
-                f"(count={recovery_benefits}/{SCENARIOS})"
+                f"{'Recovery benefit':<27}{format_count(recovery_benefits, SCENARIOS)}"
             )
             print(
-                f"recovery_harm={recovery_harms / SCENARIOS:.1%} "
-                f"(count={recovery_harms}/{SCENARIOS})"
+                f"{'Recovery harm':<27}{format_count(recovery_harms, SCENARIOS)}"
             )
             print(
-                f"net_recovery_benefit="
-                f"{100 * net_recovery_benefit_count / SCENARIOS:.1f} "
-                f"percentage points "
-                f"(count={net_recovery_benefit_count}/{SCENARIOS})"
+                f"{'Net benefit':<27}"
+                f"{100 * (successes - counterfactual_successes) / SCENARIOS:+.1f} percentage points"
             )
-            print('\n')
-
-
-
-
-
+            print("=" * 58)
+            print()
 
 
 if __name__ == "__main__":
     main()
-
-"""
----------------------------------------------------------------------------------------------------------------------------
-t_obs_sent --- UPLINK ------ t_obs_recv    t_approved -----DOWN LINK----- t_cmd_recv    t_staleguard             t_cmd_applied
-
-"""

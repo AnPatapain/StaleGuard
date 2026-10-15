@@ -46,11 +46,12 @@ def measure(scenario):
     approval_step = round(scenario.approval_time * CTRL_FREQ_HZ)
     trace = []
     physics_trace = []
-    success, collision, _ = run_actual(
+    inspection_completed, collision, _, success = run_actual(
         scenario, snapshot, approval_step, 0,
         round((scenario.approval_time + min(DEADLINES)) * CTRL_FREQ_HZ),
         False, trace=trace, physics_trace=physics_trace,
     )
+    assert success == (inspection_completed and not collision)
     # capture_approval and actual execution must fly the same nominal prefix.
     np.testing.assert_array_equal(trace[approval_step][1], snapshot.state)
     times = np.asarray([row[0] / CTRL_FREQ_HZ for row in trace[1:]])
