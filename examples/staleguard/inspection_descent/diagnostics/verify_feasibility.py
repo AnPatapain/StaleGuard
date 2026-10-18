@@ -24,7 +24,7 @@ import numpy as np
 from experiment import ACCELERATION_SECONDS, CTRL_FREQ_HZ, PYB_FREQ_HZ, generate_scenario, inspection_x
 from mission import capture_approval
 from model.common import STATE_VX, STATE_X, STATE_Y, STATE_Z
-from staleguard_benefit import DEADLINES, run_actual
+from staleguard_benefit import MISSION_DEADLINE_S, run_actual
 from first_feasible import plan_first_feasible_command as plan_feasible_command
 
 
@@ -54,7 +54,7 @@ def measure(scenario):
     physics_trace = []
     inspection_completed, collision, _, success = run_actual(
         scenario, snapshot, approval_step, 0,
-        round((scenario.approval_time + min(DEADLINES)) * CTRL_FREQ_HZ),
+        round((scenario.approval_time + MISSION_DEADLINE_S) * CTRL_FREQ_HZ),
         False, trace=trace, physics_trace=physics_trace,
     )
     assert success == (inspection_completed and not collision)

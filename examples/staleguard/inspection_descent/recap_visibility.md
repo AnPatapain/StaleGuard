@@ -18,6 +18,15 @@ below.
 | **9. Official StaleGuard vs No Recovery** | Reevaluate benefits using the locked calibration. | Considered seeds 0–19. Seed 16 had no feasible calibration, so executed the policy comparison on the other 19 scenarios. | **Preliminary results available.** Mission and recovery percentages use those 19 scenarios. See [official results](docs/08_09_official_integration_and_results.md#actual-official-experiment-results). |
 | **10. Baseline comparison — Task 3** | Establish whether StaleGuard outperforms simpler alternatives. | Planned comparisons: scheduled rollout, use-time recheck, fixed TTL, always-recover, and FBS adaptation. | **Next.** These comparisons have not been implemented as part of the current experiment. |
 
+After stage 9, the official experiment fixed the mission deadline at T=4.2 s
+and kept delays D=0.0, 0.5, and 1.0 s. The tested 5.0 s deadline had produced
+the same outcomes. The original two-deadline results remain in the historical
+reports; calibration and its saved commands are unchanged.
+
+The later locked delay grid is **0.0–1.0 s in 0.1 s steps**, for both TTL
+prediction accuracy and StaleGuard benefit. Both now read the same grid from
+`experiment.py`. The older 0.0–1.5 s diagnostic results remain historical data.
+
 ## Where to find the details
 
 - [README](README.md): how to run the current experiment and regenerate calibration manually.

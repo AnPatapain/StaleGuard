@@ -23,9 +23,8 @@ from model.scg import load_scg_platform_params, make_scg_env_factory
 from staleguard import predict
 
 
-PENDINGS = [0.0, 0.5, 1.0] # Pending delay for command received but not yet applied. (from t_cmd_recv)
-DEADLINES = [4.2, 5.0] # Deadline for mission (from t_cmd_recv)
-SCENARIOS = 10 # Run 10 scenarios for each PENDING x DEADLINE
+MISSION_DEADLINE_S = 4.2 # Fixed deadline, measured from command receipt.
+SCENARIOS = 10 # Run 10 scenarios for each pending delay.
 SCAN_DWELL_S = 0.18 # Quadrotor must at least in the "inspection region" at least 0.18 seconds.
 CALIBRATION_FILE = Path(__file__).with_name("calibrated_scenarios.json")
 
@@ -249,126 +248,125 @@ def main(count=SCENARIOS):
         print("No policy executions; all mission and recovery rates are N/A.")
         return
 
-    for queue_pending in PENDINGS:
-        for mission_deadline in DEADLINES:
-            inspection_completions = 0
-            successes = 0
-            collisions = 0
-            recoveries = 0
-            recovery_successes = 0
-            recovery_benefits = 0
-            recovery_harms = 0
-            counterfactual_inspection_completions = 0
-            counterfactual_collisions = 0
-            counterfactual_successes = 0
+    for queue_pending in DELAY_GRID:
+        inspection_completions = 0
+        successes = 0
+        collisions = 0
+        recoveries = 0
+        recovery_successes = 0
+        recovery_benefits = 0
+        recovery_harms = 0
+        counterfactual_inspection_completions = 0
+        counterfactual_collisions = 0
+        counterfactual_successes = 0
 
-            for s in planned_scenarios:
-                snapshot = capture_approval(s) # Quadrotor flies up to approval-time.
+        for s in planned_scenarios:
+            snapshot = capture_approval(s) # Quadrotor flies up to approval-time.
 
-                t_cmd_recv = snapshot.approval_time
+            t_cmd_recv = snapshot.approval_time
 
-                # Staleguard starts predicting command TTL after UAV receives approved-command.
-                t0 = time.perf_counter()
-                predicted = predict(
-                    snapshot,
-                    predictive_model=LightweightPredictiveModel(quad_params, pid_params),
-                    delays=DELAY_GRID
-                )
-                elapsed = time.perf_counter() - t0 # seconds
+            # Staleguard starts predicting command TTL after UAV receives approved-command.
+            t0 = time.perf_counter()
+            predicted = predict(
+                snapshot,
+                predictive_model=LightweightPredictiveModel(quad_params, pid_params),
+                delays=DELAY_GRID
+            )
+            elapsed = time.perf_counter() - t0 # seconds
 
-                # Decision available after prediction finishes.
-                recover_step = round((t_cmd_recv + elapsed) * CTRL_FREQ_HZ)
-                # Original scheduled dispatch time.
-                dispatch_step = round((t_cmd_recv + queue_pending) * CTRL_FREQ_HZ)
-                # Mission deadline.
-                deadline_step = round((t_cmd_recv + mission_deadline) * CTRL_FREQ_HZ)
-                # Recovery is possible only before dispatch.
-                recover = should_recover(predicted, queue_pending)
-                recover = recover and recover_step < dispatch_step
+            # Decision available after prediction finishes.
+            recover_step = round((t_cmd_recv + elapsed) * CTRL_FREQ_HZ)
+            # Original scheduled dispatch time.
+            dispatch_step = round((t_cmd_recv + queue_pending) * CTRL_FREQ_HZ)
+            # Mission deadline.
+            deadline_step = round((t_cmd_recv + MISSION_DEADLINE_S) * CTRL_FREQ_HZ)
+            # Recovery is possible only before dispatch.
+            recover = should_recover(predicted, queue_pending)
+            recover = recover and recover_step < dispatch_step
 
-                inspection_completed, collision, recovery_started, success = run_actual(
-                    s, snapshot,
-                    dispatch_step,
-                    recover_step,
-                    deadline_step,
-                    recover,
-                )
-
-                counterfactual_inspection, counterfactual_collision, _, counterfactual_success = run_actual(
-                    s, snapshot,
-                    dispatch_step,
-                    recover_step,
-                    deadline_step,
-                    False
-                )
-
-                assert success == (inspection_completed and not collision)
-                assert counterfactual_success == (
-                    counterfactual_inspection and not counterfactual_collision
-                )
-
-                inspection_completions += int(inspection_completed)
-                successes += int(success)
-                collisions += int(collision)
-                recoveries += int(recovery_started)
-                recovery_successes += int(recovery_started and success)
-                recovery_benefits += int(
-                    recovery_started and success and not counterfactual_success
-                )
-                recovery_harms += int(
-                    recovery_started and not success and counterfactual_success
-                )
-                counterfactual_inspection_completions += int(counterfactual_inspection)
-                counterfactual_collisions += int(counterfactual_collision)
-                counterfactual_successes += int(counterfactual_success)
-
-            net_recovery_benefit_count = recovery_benefits - recovery_harms
-            assert (
-                net_recovery_benefit_count
-                == successes - counterfactual_successes
+            inspection_completed, collision, recovery_started, success = run_actual(
+                s, snapshot,
+                dispatch_step,
+                recover_step,
+                deadline_step,
+                recover,
             )
 
-            print("=" * 58)
-            print(f"D = {queue_pending:.1f}s | T = {mission_deadline:.1f}s | N = {evaluated}")
-            print("=" * 58)
-            print("\nMISSION OUTCOMES")
-            print(f"{'':27}{'No Recovery':>15}{'StaleGuard':>15}")
-            print("-" * 58)
-            for label, no_recovery, staleguard in (
-                ("Inspection completed", counterfactual_inspection_completions, inspection_completions),
-                ("Unsafe entry", counterfactual_collisions, collisions),
-                ("Safe mission completion", counterfactual_successes, successes),
-            ):
-                print(
-                    f"{label:<27}{format_count(no_recovery, evaluated):>15}"
-                    f"{format_count(staleguard, evaluated):>15}"
-                )
+            counterfactual_inspection, counterfactual_collision, _, counterfactual_success = run_actual(
+                s, snapshot,
+                dispatch_step,
+                recover_step,
+                deadline_step,
+                False
+            )
 
-            print("\nSTALEGUARD DECISIONS")
-            print("-" * 58)
-            print(f"{'Recovery triggered':<42}{format_count(recoveries, evaluated):>15}")
-            if recoveries == 0:
-                print("Successful recoveries: N/A (0/0)")
-            else:
-                print(
-                    f"{'Successful recoveries':<42}"
-                    f"{format_count(recovery_successes, recoveries):>15}"
-                )
+            assert success == (inspection_completed and not collision)
+            assert counterfactual_success == (
+                counterfactual_inspection and not counterfactual_collision
+            )
 
-            print("\nPAIRED COMPARISON")
-            print("-" * 58)
+            inspection_completions += int(inspection_completed)
+            successes += int(success)
+            collisions += int(collision)
+            recoveries += int(recovery_started)
+            recovery_successes += int(recovery_started and success)
+            recovery_benefits += int(
+                recovery_started and success and not counterfactual_success
+            )
+            recovery_harms += int(
+                recovery_started and not success and counterfactual_success
+            )
+            counterfactual_inspection_completions += int(counterfactual_inspection)
+            counterfactual_collisions += int(counterfactual_collision)
+            counterfactual_successes += int(counterfactual_success)
+
+        net_recovery_benefit_count = recovery_benefits - recovery_harms
+        assert (
+            net_recovery_benefit_count
+            == successes - counterfactual_successes
+        )
+
+        print("=" * 58)
+        print(f"D = {queue_pending:.1f}s | T = {MISSION_DEADLINE_S:.1f}s | N = {evaluated}")
+        print("=" * 58)
+        print("\nMISSION OUTCOMES")
+        print(f"{'':27}{'No Recovery':>15}{'StaleGuard':>15}")
+        print("-" * 58)
+        for label, no_recovery, staleguard in (
+            ("Inspection completed", counterfactual_inspection_completions, inspection_completions),
+            ("Unsafe entry", counterfactual_collisions, collisions),
+            ("Safe mission completion", counterfactual_successes, successes),
+        ):
             print(
-                f"{'Recovery benefit':<27}{format_count(recovery_benefits, evaluated)}"
+                f"{label:<27}{format_count(no_recovery, evaluated):>15}"
+                f"{format_count(staleguard, evaluated):>15}"
             )
+
+        print("\nSTALEGUARD DECISIONS")
+        print("-" * 58)
+        print(f"{'Recovery triggered':<42}{format_count(recoveries, evaluated):>15}")
+        if recoveries == 0:
+            print("Successful recoveries: N/A (0/0)")
+        else:
             print(
-                f"{'Recovery harm':<27}{format_count(recovery_harms, evaluated)}"
+                f"{'Successful recoveries':<42}"
+                f"{format_count(recovery_successes, recoveries):>15}"
             )
-            print(
-                f"{'Net benefit':<27}"
-                f"{100 * (successes - counterfactual_successes) / evaluated:+.1f} percentage points"
-            )
-            print("=" * 58)
-            print()
+
+        print("\nPAIRED COMPARISON")
+        print("-" * 58)
+        print(
+            f"{'Recovery benefit':<27}{format_count(recovery_benefits, evaluated)}"
+        )
+        print(
+            f"{'Recovery harm':<27}{format_count(recovery_harms, evaluated)}"
+        )
+        print(
+            f"{'Net benefit':<27}"
+            f"{100 * (successes - counterfactual_successes) / evaluated:+.1f} percentage points"
+        )
+        print("=" * 58)
+        print()
 
 
 if __name__ == "__main__":

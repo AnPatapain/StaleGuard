@@ -37,7 +37,7 @@ import staleguard_benefit as benefit
 
 
 OUTPUT = ROOT / "results" / "official_calibration_validation"
-REPORTS = OUTPUT / "saved_scenarios"
+REPORTS = OUTPUT / "delay_grid_0_to_1"
 PREVIOUS = ROOT / "results" / "max_dwell_policy"
 MAX_RSS_MB = 2048
 MIN_AVAILABLE_MB = 2048
@@ -140,6 +140,7 @@ def validate_experiment():
     before = before_module()
     actual = benefit.run_actual
     records = []
+    expected_executions = 19 * len(benefit.DELAY_GRID) * 2
 
     def checked_actual(*args, **kwargs):
         trace, physics, old_trace, old_physics = [], [], [], []
@@ -155,7 +156,7 @@ def validate_experiment():
                         "outcome": outcome, "trace_sha256": new_hash})
         if len(records) % 38 == 0:
             rss, _ = check_memory()
-            print(f"Matched {len(records)}/228 before/after executions; RSS={rss:.0f} MiB", file=sys.__stdout__, flush=True)
+            print(f"Matched {len(records)}/{expected_executions} before/after executions; RSS={rss:.0f} MiB", file=sys.__stdout__, flush=True)
         check_memory()
         return outcome
 
@@ -163,7 +164,7 @@ def validate_experiment():
          patch.object(benefit, "run_actual", checked_actual), (REPORTS / "official_experiment.log").open("w") as stream:
         with contextlib.redirect_stdout(stream):
             benefit.main(count=20)
-    assert len(records) == 19 * len(benefit.PENDINGS) * len(benefit.DEADLINES) * 2
+    assert len(records) == expected_executions
     with (REPORTS / "execution_regression.jsonl").open("w") as stream:
         for row in records:
             stream.write(json.dumps(row) + "\n")

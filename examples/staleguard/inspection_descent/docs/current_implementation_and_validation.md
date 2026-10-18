@@ -1,8 +1,13 @@
 # Current implementation and latest validation
 
 This describes the current experiment after the automatic cache was replaced
-by one JSON file. For the sequence of research decisions, see the
+by one JSON file and the mission deadline was fixed at 4.2 s. For the sequence
+of research decisions, see the
 [recap](../recap_visibility.md).
+
+The current delay grid is **0.0–1.0 s in 0.1 s steps**, shared by TTL prediction
+accuracy and StaleGuard benefit through `experiment.py`. Earlier checks below
+record the settings used at each preceding step.
 
 The official experiment uses the command with the longest continuous
 inspection time at zero delay, while still completing the mission safely.
@@ -74,3 +79,97 @@ is in `results/official_calibration_validation/saved_scenarios/official_experime
 The normal `--count 10` command also completed successfully: six metric blocks,
 120 policy executions, 42.94 seconds on this machine.
 Its full output is saved in the same directory as `cli_count10.log`.
+
+## Fixed mission deadline
+
+The official experiment now fixes T=4.2 s from command receipt/approval and
+varies only the existing dispatch delays D=0.0, 0.5, and 1.0 s. The previous
+T=5.0 s evaluations gave the same outcomes for these tested scenarios and
+were removed. This observation does not prove deadline independence for
+other scenarios or deadlines.
+
+The calibration deadline remains 4.2 s. Saved commands, flight dynamics,
+StaleGuard, recovery, and metric definitions are unchanged. With twenty seeds,
+nineteen feasible scenarios now produce 114 policy executions across three
+delay settings, instead of 228 across six delay/deadline combinations.
+
+The fixed-deadline twenty-seed experiment was executed with one worker. All
+114 policy executions matched the earlier flight code, including complete
+recorded flight traces. Their individual outcomes and all three printed metric
+blocks also matched the previous T=4.2 s experiment. The paired benefit and
+per-flight safe-completion assertions passed. The saved calibration JSON is
+unchanged.
+
+| Delay (s) | No Recovery safe completions | StaleGuard safe completions | Net benefit (percentage points) |
+|---:|---:|---:|---:|
+| 0.0 | 19/19 | 19/19 | +0.0 |
+| 0.5 | 3/19 | 18/19 | +78.9 |
+| 1.0 | 0/19 | 19/19 | +100.0 |
+
+See the [full terminal output](../results/official_calibration_validation/fixed_deadline/official_experiment.log)
+and [validation summary](../results/official_calibration_validation/fixed_deadline/validation_summary.json).
+The earlier two-deadline results are preserved in their original directories.
+
+## Shared delay grid for both experiments
+
+Both official experiments now use D=0.0–1.0 s, inclusive, in 0.1 s steps.
+The eleven values are defined once in `experiment.py`. The separate three-value
+benefit grid was removed. Prediction, ground-truth evaluation, and actual
+benefit-policy dispatch all use the shared grid.
+
+Before this change, TTL accuracy used 0.0–1.5 s in 0.1 s steps.
+`mission.py` already passed that shared grid to `staleguard.predict()` and
+`ground_truth.classify_scenario()`, so those three files needed no changes.
+The benefit experiment had used the larger grid for prediction but only
+0.0, 0.5, and 1.0 s for actual dispatch.
+
+The benefit deadline remains 4.2 s from approval. TTL accuracy keeps its
+existing generated commands and 8.5 s measurement horizon. It does not use
+the benefit experiment's calibrated commands. TTL classifications apply only
+to the tested range: `ALWAYS_SAFE` now means safe at every tested delay up to
+1.0 s.
+
+Calibration, mission execution, recovery, safety/inspection predicates, and
+metric definitions were preserved. All 2,241 candidate commands in the
+calibration grid were compared with the saved candidate lists and are
+unchanged; no recalibration was needed and the saved JSON is unchanged.
+
+The TTL accuracy experiment was executed on seeds 0–9. All ten scenarios
+received the same eleven delays in prediction and ground truth: 110 delay
+comparisons and 120 real ground-truth simulations, including ten nominal
+flights without the descent command. Scenario classification matched in
+10/10 cases. Delay-level false-safe predictions were 3/74 unsafe cases;
+false rejections were 0/36 safe cases. The existing summary reported TTL
+MAE 0.037 s across eight comparable cases, with maximum error 0.100 s.
+
+See the [TTL terminal output](../results/official_calibration_validation/delay_grid_0_to_1/ttl_accuracy.log)
+and [per-scenario validation records](../results/official_calibration_validation/delay_grid_0_to_1/ttl_validation.json).
+The validation source is preserved with the generated results as
+`verify_shared_grid.py`; it does not participate in either official experiment.
+
+The benefit experiment was then executed on seeds 0–19: nineteen feasible
+scenarios and seed 16 explicitly infeasible. Both policies executed all eleven
+delays, giving 418 actual policy simulations. Each flight's safe-completion
+identity and all paired benefit assertions passed. All 209 No Recovery outcomes
+matched the earlier saved delay-sweep data; all 114 policy outcomes at the
+previous delays 0.0, 0.5, and 1.0 s matched their earlier results. Both experiments
+were checked serially, with one simulation worker.
+
+| Delay (s) | No Recovery safe completions | StaleGuard safe completions | No Recovery unsafe | StaleGuard unsafe | Recoveries | Net benefit (percentage points) |
+|---:|---:|---:|---:|---:|---:|---:|
+| 0.0 | 19/19 | 19/19 | 0/19 | 0/19 | 0/19 | +0.0 |
+| 0.1 | 16/19 | 17/19 | 1/19 | 0/19 | 1/19 | +5.3 |
+| 0.2 | 12/19 | 14/19 | 2/19 | 0/19 | 2/19 | +10.5 |
+| 0.3 | 5/19 | 10/19 | 6/19 | 1/19 | 5/19 | +26.3 |
+| 0.4 | 3/19 | 13/19 | 12/19 | 2/19 | 10/19 | +52.6 |
+| 0.5 | 3/19 | 18/19 | 14/19 | 0/19 | 15/19 | +78.9 |
+| 0.6 | 1/19 | 18/19 | 17/19 | 0/19 | 17/19 | +89.5 |
+| 0.7 | 0/19 | 19/19 | 19/19 | 0/19 | 19/19 | +100.0 |
+| 0.8 | 0/19 | 19/19 | 19/19 | 0/19 | 19/19 | +100.0 |
+| 0.9 | 0/19 | 19/19 | 19/19 | 0/19 | 19/19 | +100.0 |
+| 1.0 | 0/19 | 19/19 | 19/19 | 0/19 | 19/19 | +100.0 |
+
+Full inspection-completion, recovery-success, benefit, and harm counts are
+in the [benefit terminal output](../results/official_calibration_validation/delay_grid_0_to_1/official_experiment.log).
+See also the [benefit validation records](../results/official_calibration_validation/delay_grid_0_to_1/benefit_validation.json)
+and [combined validation summary](../results/official_calibration_validation/delay_grid_0_to_1/validation_summary.json).

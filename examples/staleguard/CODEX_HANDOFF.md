@@ -9,6 +9,13 @@ remain. Run `python inspection_descent/max_dwell_calibration.py` manually to
 regenerate the file after changing calibration or mission settings.
 `plan_feasible_command()` remains an explicit single-scenario calibration helper;
 the official experiment does not call it.
+Both official experiments now share DELAY_GRID=0.0–1.0 s in 0.1 s steps,
+defined in experiment.py. mission.py passes that grid to prediction and ground
+truth. staleguard_benefit.py uses it for prediction and actual dispatch.
+The benefit experiment fixes the mission deadline at T=4.2 s relative to
+receipt/approval. TTL accuracy retains its existing 8.5 s measurement horizon.
+The prior T=5.0 s results were identical for the tested scenarios. Calibration
+already used 4.2 s, so the saved calibrated commands are unchanged.
 The 0.4–1.0 s low-duration range is only the generator's initial range; the
 existing calibration grid may increase it, while returning the reference to
 usual height by estimated nominal structure arrival at D=0 on the control grid.
@@ -24,7 +31,7 @@ Use **one simulation worker**. A prior attempt launched overlapping eight-worker
 pools and the computer froze. The recovered validator is serial, limits library
 threads, checks memory, and prevents overlapping validation launches. Updated
 reports go under
-`results/official_calibration_validation/saved_scenarios/`.
+`results/official_calibration_validation/delay_grid_0_to_1/`.
 Its maximum reported recovery-validation peak RSS was 1030 MiB. Do not restore
 multiprocessing or start overlapping simulation runs. Preserve existing caches
 and results; diagnostics are under `inspection_descent/diagnostics/`.

@@ -2,7 +2,7 @@
 
 Default: calibrate seeds 0-19 on the complete existing candidate grid, freeze
 both policies for both cohorts, then execute No Recovery at every DELAY_GRID
-point with the existing minimum deadline (4.2 s). Fresh seeds are fixed at 10-19.
+point with the fixed mission deadline (4.2 s). Fresh seeds are fixed at 10-19.
 
 The prepare/calibrate/evaluate stages allow the two independent D=0 inventories
 to run in separate processes. Evaluation requires all 20 completed inventories.
@@ -24,7 +24,7 @@ import time
 from experiment import ACCELERATION_SECONDS, CTRL_FREQ_HZ, DELAY_GRID, PYB_FREQ_HZ, SIM_SEED, Scenario, generate_scenario, inspection_x
 from max_dwell_calibration import command_candidates, inspection_dwell_ticks, plan_max_dwell_command
 from mission import capture_approval
-from staleguard_benefit import DEADLINES, SCAN_DWELL_S, SCENARIOS, run_actual
+from staleguard_benefit import MISSION_DEADLINE_S, SCAN_DWELL_S, SCENARIOS, run_actual
 
 
 POLICIES = ("first_feasible", "max_d0_dwell")
@@ -49,7 +49,7 @@ def protocol():
         "objective": "Maximum consecutive inspection dwell at D=0 among no-unsafe-entry candidates",
         "tie_rule": "First in original candidate order, using integer physics ticks",
         "feasibility": "No unsafe entry and at least the unchanged inspection dwell threshold at D=0",
-        "deadline_s": min(DEADLINES),
+        "deadline_s": MISSION_DEADLINE_S,
         "inspection_dwell_s": SCAN_DWELL_S,
         "delays_s": [round(float(d), 8) for d in DELAY_GRID],
         "ctrl_hz": CTRL_FREQ_HZ,
@@ -174,7 +174,7 @@ def evaluate(output, protocol_hash):
                             snapshots[key] = capture_approval(scenario)
                         snapshot = snapshots[key]
                         dispatch = round((snapshot.approval_time + float(delay)) * CTRL_FREQ_HZ)
-                        deadline = round((snapshot.approval_time + min(DEADLINES)) * CTRL_FREQ_HZ)
+                        deadline = round((snapshot.approval_time + MISSION_DEADLINE_S) * CTRL_FREQ_HZ)
                         physics_trace = [] if float(delay) == 0 else None
                         trace = [] if float(delay) == 0 else None
                         completed, unsafe, recovered, safe = run_actual(
@@ -195,7 +195,7 @@ def evaluate(output, protocol_hash):
                             final_x = float(trace[-1][1][STATE_X])
                         row = {
                             "cohort": cohort, "seed": seed, "calibration_policy": policy,
-                            "delay_s": round(float(delay), 8), "deadline_s": min(DEADLINES),
+                            "delay_s": round(float(delay), 8), "deadline_s": MISSION_DEADLINE_S,
                             "classification": label, "inspection_completed": completed,
                             "unsafe_entry": unsafe, "recovery_started": recovered, "safe_completion": safe,
                             "dispatch_step": dispatch, "deadline_step": deadline,

@@ -15,7 +15,7 @@ MODEL_FREQ_HZ = 100
 EPISODE_SECONDS = 9
 MEASURE_SECONDS = 8.5
 
-DELAY_GRID = tuple(np.arange(0.0, 1.51, 0.1))
+DELAY_GRID = tuple(np.arange(0.0, 1.01, 0.1)) # Both experiments: 0.0–1.0 s, inclusive.
 SIM_SEED = 42
 
 ACCELERATION_SECONDS = 0.4 # Before Quadrotor reaches its stable speed, it needs to ramp during 0.4s from 0 → stable speed.

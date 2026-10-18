@@ -19,11 +19,36 @@ The experiment reads `calibrated_scenarios.json`. It contains seeds 0–19;
 qualifying command and is reported separately. The twenty-seed experiment
 therefore tests 19 scenarios and uses N=19 for mission and recovery rates.
 
+Both official experiments use **D=0.0–1.0 s in 0.1 s steps**: eleven delays,
+defined once as `DELAY_GRID` in `experiment.py`. The benefit experiment uses
+this same grid for prediction and actual dispatch.
+
+The benefit experiment's mission deadline is fixed at **T=4.2 s from command receipt/approval**.
+Only dispatch delay varies. The previous 5.0 s
+deadline gave the same reported outcomes for the tested scenarios, so that
+duplicate evaluation was removed. This does not establish that deadlines are
+irrelevant to every possible scenario. Calibration already used T=4.2 s.
+
 The JSON stores each generated scenario, its selected command (`null` when
 infeasible), and its longest safe D=0 inspection dwell in physics ticks.
 At the existing 1000 Hz physics rate, one tick is one millisecond.
 The file contains previously executed and verified calibration results.
 It lives beside the code so it can be committed with the experiment.
+
+## TTL prediction accuracy
+
+```sh
+python inspection_descent/mission.py --count 10
+```
+
+`mission.py` passes the shared delay grid to `staleguard.predict()` and to
+`ground_truth.classify_scenario()`. Prediction and ground truth therefore test
+the same eleven delays. This experiment keeps its existing generated commands
+and 8.5 s measurement horizon; it does not use the benefit experiment's
+calibrated commands or 4.2 s mission deadline.
+
+TTL classifications describe the tested range. For example, `ALWAYS_SAFE`
+means safe at every tested delay up to 1.0 s, not at arbitrary future delays.
 
 ## Manual calibration
 
@@ -77,6 +102,6 @@ These checks need the historical data under `results/`.
 The validator runs one simulation at a time, limits numerical-library threads,
 checks memory between simulations, and prevents overlapping validation runs.
 Those protections apply to the validator. Results of the updated checks go to
-`results/official_calibration_validation/saved_scenarios/`; older reports are
+`results/official_calibration_validation/delay_grid_0_to_1/`; older reports are
 preserved. The existing git-ignore rule covers `results/`, but not the official
 `calibrated_scenarios.json` file.

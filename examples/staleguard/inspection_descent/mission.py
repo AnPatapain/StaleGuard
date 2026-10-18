@@ -8,6 +8,7 @@ Usage:
 """
 import argparse
 import time
+from typing import TYPE_CHECKING
 import numpy as np
 import ground_truth
 from experiment import (
@@ -25,6 +26,9 @@ from model.lightweight import LightweightPredictiveModel
 from model.scg import load_scg_platform_params, make_scg_env_factory
 from safe_control_gym.utils.registration import make
 from staleguard import predict
+
+if TYPE_CHECKING:
+    from safe_control_gym.controllers.pid.pid import PID
 
 
 def print_scenario(scenario):
@@ -55,10 +59,12 @@ def capture_approval(scenario, seed=SIM_SEED):
         pyb_freq=PYB_FREQ_HZ,
     )
     env = env_factory()
-    ctrl = None
+    ctrl: PID | None = None
 
     try:
         ctrl = make("pid", env_factory)
+        assert ctrl is not None
+
         obs, info = env.reset(seed=seed)
         ctrl.reset_before_run(obs=obs, info=info, env=env)
 
@@ -339,15 +345,15 @@ def main():
         )
         print(
             f"TTL MAE: "
-            f"{np.mean(np.abs(ttl_errors)):.3f}s"
+            f"{float(np.mean(np.abs(ttl_errors))):.3f}s"
         )
         print(
             f"TTL mean signed error: "
-            f"{np.mean(ttl_errors):+.3f}s"
+            f"{float(np.mean(ttl_errors)):+.3f}s"
         )
         print(
             f"TTL max abs error: "
-            f"{np.max(np.abs(ttl_errors)):.3f}s"
+            f"{float(np.max(np.abs(ttl_errors))):.3f}s"
         )
     else:
         print(
@@ -362,27 +368,27 @@ def main():
     print("-" * 30)
     print(
         f"StaleGuard compute mean: "
-        f"{1000 * prediction_times.mean():.1f} "
+        f"{1000 * float(prediction_times.mean()):.1f} "
         f"ms/scenario"
     )
     print(
         f"StaleGuard compute median: "
-        f"{1000 * np.median(prediction_times):.1f} "
+        f"{1000 * float(np.median(prediction_times)):.1f} "
         f"ms/scenario"
     )
     print(
         f"StaleGuard compute p95: "
-        f"{1000 * np.percentile(prediction_times, 95):.1f} "
+        f"{1000 * float(np.percentile(prediction_times, 95)):.1f} "
         f"ms/scenario"
     )
     print(
         f"StaleGuard compute p99: "
-        f"{1000 * np.percentile(prediction_times, 99):.1f} "
+        f"{1000 * float(np.percentile(prediction_times, 99)):.1f} "
         f"ms/scenario"
     )
     print(
         f"StaleGuard compute max: "
-        f"{1000 * prediction_times.max():.1f} "
+        f"{1000 * float(prediction_times.max()):.1f} "
         f"ms/scenario"
     )
 

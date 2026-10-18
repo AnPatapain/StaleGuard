@@ -20,7 +20,7 @@ import json
 from experiment import ACCELERATION_SECONDS, CTRL_FREQ_HZ, DELAY_GRID, PYB_FREQ_HZ, generate_scenario, inspection_x
 from mission import capture_approval
 from model.common import STATE_SIZE, STATE_X, STATE_Y, STATE_Z
-from staleguard_benefit import CALIBRATION_FILE, DEADLINES, SCAN_DWELL_S, in_inspection_region, run_actual
+from staleguard_benefit import CALIBRATION_FILE, MISSION_DEADLINE_S, SCAN_DWELL_S, in_inspection_region, run_actual
 
 
 def command_candidates(scenario):
@@ -80,7 +80,7 @@ def plan_max_dwell_command(scenario, on_candidate=None):
             candidate, snapshot,
             dispatch_step=round(candidate.approval_time * CTRL_FREQ_HZ),
             recover_step=0,
-            deadline_step=round((candidate.approval_time + min(DEADLINES)) * CTRL_FREQ_HZ),
+            deadline_step=round((candidate.approval_time + MISSION_DEADLINE_S) * CTRL_FREQ_HZ),
             recover=False,
             physics_trace=physics_trace,
         )
