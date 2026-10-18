@@ -1,4 +1,43 @@
-# StaleGuard — Codex handoff (15 Oct 2026)
+# Current status — 18 Oct 2026
+
+The official inspection-descent experiment now uses maximum consecutive D=0
+inspection dwell through the shared `max_dwell_calibration.py` implementation.
+The experiment reads the fixed seeds 0–19 from
+`inspection_descent/calibrated_scenarios.json`. The automatic cache was removed
+by explicit user decision. No source/version checks or automatic recalibration
+remain. Run `python inspection_descent/max_dwell_calibration.py` manually to
+regenerate the file after changing calibration or mission settings.
+`plan_feasible_command()` remains an explicit single-scenario calibration helper;
+the official experiment does not call it.
+The 0.4–1.0 s low-duration range is only the generator's initial range; the
+existing calibration grid may increase it, while returning the reference to
+usual height by estimated nominal structure arrival at D=0 on the control grid.
+
+Recovery validation executed all 2,241 candidate commands for seeds 0–19 and
+reproduced every prior maximum-dwell selection. Seed 16 remains infeasible
+(best safe dwell 141 ms versus required 180 ms). The official 20-seed evaluation
+therefore reports calibration feasibility 19/20 and uses N=19 for policy rates.
+All 228 official executions matched the pre-cleanup runner's complete traces;
+all 304 prior maximum-dwell No Recovery delay outcomes were reproduced.
+
+Use **one simulation worker**. A prior attempt launched overlapping eight-worker
+pools and the computer froze. The recovered validator is serial, limits library
+threads, checks memory, and prevents overlapping validation launches. Updated
+reports go under
+`results/official_calibration_validation/saved_scenarios/`.
+Its maximum reported recovery-validation peak RSS was 1030 MiB. Do not restore
+multiprocessing or start overlapping simulation runs. Preserve existing caches
+and results; diagnostics are under `inspection_descent/diagnostics/`.
+
+Read [the research recap](inspection_descent/recap_visibility.md) for the sequence
+of stages, [README](inspection_descent/README.md) for the current workflow, and
+[current implementation and validation](inspection_descent/docs/current_implementation_and_validation.md)
+for the latest checks. Detailed historical reports are grouped by stage under
+`inspection_descent/docs/`. The official workflow is ready for baseline integration; no
+additional baselines have been implemented. The older research context below
+is historical and must not be treated as the current implementation state.
+
+# StaleGuard — original handoff (15 Oct 2026)
 
 ## Your immediate task
 Debug and make the **original continuous-forward-flight inspection-descent command** physically feasible at **zero dispatch delay (D=0)** in Safe-Control-Gym/PyBullet, without changing the underlying mission or inventing constants to force results. Inspect the actual repository before editing and **run the experiment to verify changes**. Start with Scenario 1 (seed 1), then test all 10 seeds. Do not claim a patch works until its output has been observed.

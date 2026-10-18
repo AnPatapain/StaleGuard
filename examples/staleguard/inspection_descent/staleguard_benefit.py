@@ -1,7 +1,10 @@
+import argparse
+import json
+from pathlib import Path
 import time
-from dataclasses import replace
 import pybullet as p
 from experiment import (
+    Scenario,
     generate_scenario,
     apply_descent_command,
     unsafe,
@@ -10,7 +13,7 @@ from experiment import (
     PYB_FREQ_HZ,
     SIM_SEED,
     make_forward_trajectory,
-    inspection_x, ACCELERATION_SECONDS
+    inspection_x,
 )
 from mission import capture_approval
 from safe_control_gym.utils.registration import make
@@ -23,7 +26,8 @@ from staleguard import predict
 PENDINGS = [0.0, 0.5, 1.0] # Pending delay for command received but not yet applied. (from t_cmd_recv)
 DEADLINES = [4.2, 5.0] # Deadline for mission (from t_cmd_recv)
 SCENARIOS = 10 # Run 10 scenarios for each PENDING x DEADLINE
-SCAN_DWELL_S = 0.18
+SCAN_DWELL_S = 0.18 # Quadrotor must at least in the "inspection region" at least 0.18 seconds.
+CALIBRATION_FILE = Path(__file__).with_name("calibrated_scenarios.json")
 
 
 def should_recover(result, pending):
@@ -55,7 +59,6 @@ def run_actual(
     deadline_step,
     recover,
     gui=False,
-    debug=False,
     trace=None,
     physics_trace=None,
 ):
@@ -81,25 +84,22 @@ def run_actual(
     if trace is not None:
         trace.append((0, obs.copy(), traj[0].copy()))
 
-
     scan_x = inspection_x(s)
     recovering = False
     descending = False
     scan_start_tick = None
-    best_scan_ticks = 0
     physics_tick = 0
     completed = False
     collision = False
     recovery_started = False
 
     def monitor(state, tick):
-        nonlocal scan_start_tick, best_scan_ticks, completed, collision
+        nonlocal scan_start_tick, completed, collision
         collision = collision or unsafe(state, snapshot)
         if in_inspection_region(state, s, scan_x):
             if scan_start_tick is None:
                 scan_start_tick = tick
             elapsed_ticks = tick - scan_start_tick
-            best_scan_ticks = max(best_scan_ticks, elapsed_ticks)
             if elapsed_ticks >= round(SCAN_DWELL_S * PYB_FREQ_HZ):
                 completed = True
         else:
@@ -140,11 +140,6 @@ def run_actual(
         )
 
     try:
-        best_z_error_at_scan = float("inf")
-        scan_crossed = False
-        first_height_step = None
-        min_z = float("inf")
-
         for step in range(deadline_step):
             # StaleGuard cancels pending command and starts recovery.
             if recover and step == recover_step:
@@ -188,29 +183,6 @@ def run_actual(
                 trace.append((step + 1, obs.copy(), traj[step].copy()))
             monitor(obs, physics_tick)
 
-            min_z = min(min_z, obs[STATE_Z])
-
-            if debug and first_height_step is None:
-                if abs(obs[STATE_Z] - s.low_height) < 0.08:
-                    first_height_step = step + 1
-
-                    print(
-                        f"first_target_height_time={first_height_step / CTRL_FREQ_HZ:.2f}s "
-                        f"x_at_target={obs[STATE_X]:.3f}m "
-                        f"scan_x={scan_x:.3f}m "
-                        f"x_offset={obs[STATE_X] - scan_x:+.3f}m"
-                    )
-
-            if debug and not scan_crossed and obs[STATE_X] >= scan_x:
-                scan_crossed = True
-                print(
-                    f"scan_time={(step + 1) / CTRL_FREQ_HZ:.2f}s "
-                    f"actual_z={obs[STATE_Z]:.3f}m "
-                    f"reference_z={traj[step, STATE_Z]:.3f}m "
-                    f"target_z={s.low_height:.3f}m "
-                    f"vx={obs[STATE_VX]:.3f}m/s"
-                )
-
             if gui:
                 time.sleep(1.0 / CTRL_FREQ_HZ)
 
@@ -218,33 +190,11 @@ def run_actual(
             if collision:
                 break
 
-            if abs(obs[STATE_X] - scan_x) < 0.12:
-                z_error = abs(obs[STATE_Z] - s.low_height)
-                best_z_error_at_scan = min(best_z_error_at_scan, z_error)
-
             if done:
                 break
 
         if physics_trace is not None:
             physics_trace.append((physics_tick, obs[[STATE_X, STATE_Y, STATE_Z]].copy()))
-
-        if debug:
-            print(
-                f"min_z={min_z:.3f}m "
-                f"target_z={s.low_height:.3f}m "
-                f"low_seconds={s.low_seconds:.2f}s"
-            )
-
-        if debug and first_height_step is None:
-            print("Target altitude never reached")
-
-        if debug:
-            print(
-                f"collision={collision}, "
-                f"completed={completed}, "
-                f"best_inspection_dwell={best_scan_ticks / PYB_FREQ_HZ:.3f}s, "
-                f"best_z_error_at_scan={best_z_error_at_scan:.3f}m"
-            )
 
         if gui:
             print(f"completed={completed}, collision={collision}")
@@ -263,85 +213,14 @@ def run_actual(
 
 
 def plan_feasible_command(s):
-    """
-    Find an original command that safely completes inspection at D=0.
+    """Manually calibrate one scenario using maximum D=0 inspection dwell."""
+    # Local import: calibration uses this module's execution and predicates.
+    from max_dwell_calibration import plan_max_dwell_command
+    return plan_max_dwell_command(s)
 
-    Offline mission design only.
-    No StaleGuard predictions are used.
-    """
 
-    # Search resolution: existing DELAY_GRID resolution (0.1 s).
-    grid_step = round(
-        (DELAY_GRID[1] - DELAY_GRID[0]) * CTRL_FREQ_HZ
-    )
-
-    # Approval may occur at the initial state, before the first control action.
-    # The former 0.1 s floor excluded physically feasible early descents.
-    earliest_approval_step = 0
-
-    original_approval_step = round(
-        s.approval_time * CTRL_FREQ_HZ
-    )
-
-    original_low_steps = round(
-        s.low_seconds * CTRL_FREQ_HZ
-    )
-
-    # Expected time at which nominal flight reaches the structure.
-    structure_time = (
-        s.box_x_min / s.speed
-        + ACCELERATION_SECONDS / 2
-    )
-    structure_step = round(structure_time * CTRL_FREQ_HZ)
-
-    # Prefer commands close to the original timing.
-    approval_steps = list(range(
-        original_approval_step,
-        earliest_approval_step - 1,
-        -grid_step
-    ))
-    if earliest_approval_step not in approval_steps:
-        approval_steps.append(earliest_approval_step)
-
-    for approval_step in approval_steps:
-        # Do not plan a low-altitude command extending beyond
-        # nominal arrival at the structure.
-        max_low_steps = structure_step - approval_step
-
-        for low_steps in range(
-            original_low_steps,
-            max_low_steps + 1,
-            grid_step
-        ):
-            candidate = replace(
-                s,
-                approval_time=approval_step / CTRL_FREQ_HZ,
-                low_seconds=low_steps / CTRL_FREQ_HZ
-            )
-
-            snapshot = capture_approval(candidate)
-
-            deadline_step = round(
-                (candidate.approval_time + min(DEADLINES))
-                * CTRL_FREQ_HZ
-            )
-
-            _, _, _, success = run_actual(
-                candidate,
-                snapshot,
-                dispatch_step=approval_step,
-                recover_step=0,
-                deadline_step=deadline_step,
-                recover=False,
-                gui=False,
-            )
-
-            if success:
-                return candidate
-
-    return None
-
-def main():
+def main(count=SCENARIOS):
+    calibrated = json.loads(CALIBRATION_FILE.read_text())
     quad_params, pid_params = load_scg_platform_params()
 
     # Warmup: compile Numba JIT function once.
@@ -354,22 +233,21 @@ def main():
     )
 
     planned_scenarios = []
-    for scenario_id in range(SCENARIOS):
-        original = generate_scenario(scenario_id)
-        planned = plan_feasible_command(original)
-        if planned is None:
-            raise RuntimeError(
-                f"Scenario {scenario_id}: "
-                "No feasible original command found."
-            )
+    infeasible_ids = []
+    for scenario_id in range(count):
+        command = calibrated[str(scenario_id)]["command"]
+        if command is None:
+            infeasible_ids.append(scenario_id)
+        else:
+            planned_scenarios.append(Scenario(**command))
 
-        planned_scenarios.append(planned)
-        # print(
-        #     f"Scenario={scenario_id} "
-        #     f"approval={planned.approval_time:.2f}s "
-        #     f"low_seconds={planned.low_seconds:.2f}s"
-        # )
-
+    evaluated = len(planned_scenarios)
+    print(f"Calibration feasible: {evaluated}/{count}")
+    print(f"Infeasible seeds: {infeasible_ids or 'none'}")
+    print("Policy rates use feasible scenarios; calibration failures are excluded.")
+    if not evaluated:
+        print("No policy executions; all mission and recovery rates are N/A.")
+        return
 
     for queue_pending in PENDINGS:
         for mission_deadline in DEADLINES:
@@ -384,13 +262,10 @@ def main():
             counterfactual_collisions = 0
             counterfactual_successes = 0
 
-            for scenario_id in range(SCENARIOS):
-                s = planned_scenarios[scenario_id]
+            for s in planned_scenarios:
                 snapshot = capture_approval(s) # Quadrotor flies up to approval-time.
 
-                # Assume: t_cmd_recv = t_approved
-                t_cmd_approved = snapshot.approval_time
-                t_cmd_recv = t_cmd_approved
+                t_cmd_recv = snapshot.approval_time
 
                 # Staleguard starts predicting command TTL after UAV receives approved-command.
                 t0 = time.perf_counter()
@@ -417,8 +292,6 @@ def main():
                     recover_step,
                     deadline_step,
                     recover,
-                    # gui=(queue_pending == 0.0 and mission_deadline == 4.2)
-                    # debug=(queue_pending == 0.0 and mission_deadline == 4.2)
                 )
 
                 counterfactual_inspection, counterfactual_collision, _, counterfactual_success = run_actual(
@@ -456,7 +329,7 @@ def main():
             )
 
             print("=" * 58)
-            print(f"D = {queue_pending:.1f}s | T = {mission_deadline:.1f}s | N = {SCENARIOS}")
+            print(f"D = {queue_pending:.1f}s | T = {mission_deadline:.1f}s | N = {evaluated}")
             print("=" * 58)
             print("\nMISSION OUTCOMES")
             print(f"{'':27}{'No Recovery':>15}{'StaleGuard':>15}")
@@ -467,13 +340,13 @@ def main():
                 ("Safe mission completion", counterfactual_successes, successes),
             ):
                 print(
-                    f"{label:<27}{format_count(no_recovery, SCENARIOS):>15}"
-                    f"{format_count(staleguard, SCENARIOS):>15}"
+                    f"{label:<27}{format_count(no_recovery, evaluated):>15}"
+                    f"{format_count(staleguard, evaluated):>15}"
                 )
 
             print("\nSTALEGUARD DECISIONS")
             print("-" * 58)
-            print(f"{'Recovery triggered':<42}{format_count(recoveries, SCENARIOS):>15}")
+            print(f"{'Recovery triggered':<42}{format_count(recoveries, evaluated):>15}")
             if recoveries == 0:
                 print("Successful recoveries: N/A (0/0)")
             else:
@@ -485,18 +358,23 @@ def main():
             print("\nPAIRED COMPARISON")
             print("-" * 58)
             print(
-                f"{'Recovery benefit':<27}{format_count(recovery_benefits, SCENARIOS)}"
+                f"{'Recovery benefit':<27}{format_count(recovery_benefits, evaluated)}"
             )
             print(
-                f"{'Recovery harm':<27}{format_count(recovery_harms, SCENARIOS)}"
+                f"{'Recovery harm':<27}{format_count(recovery_harms, evaluated)}"
             )
             print(
                 f"{'Net benefit':<27}"
-                f"{100 * (successes - counterfactual_successes) / SCENARIOS:+.1f} percentage points"
+                f"{100 * (successes - counterfactual_successes) / evaluated:+.1f} percentage points"
             )
             print("=" * 58)
             print()
 
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser(description="Paired StaleGuard recovery-benefit experiment.")
+    parser.add_argument("--count", type=int, default=SCENARIOS, help="Scenario seeds 0 through count-1.")
+    args = parser.parse_args()
+    if args.count < 1:
+        parser.error("--count must be positive")
+    main(count=args.count)

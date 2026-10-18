@@ -1,12 +1,17 @@
 """Measure D=0 feasibility without changing the continuous flight or guard.
 
 Run with the SCG Python environment:
-    python examples/staleguard/inspection_descent/verify_feasibility.py
-    python examples/staleguard/inspection_descent/verify_feasibility.py --scenario 1
+    python examples/staleguard/inspection_descent/diagnostics/verify_feasibility.py
+    python examples/staleguard/inspection_descent/diagnostics/verify_feasibility.py --scenario 1
 
 JSON lines include original and planned outcomes. Inspection/safety are observed
 at PYB_FREQ_HZ; dwell is elapsed time between consecutive qualifying states.
 """
+
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 import argparse
 import contextlib
@@ -19,7 +24,8 @@ import numpy as np
 from experiment import ACCELERATION_SECONDS, CTRL_FREQ_HZ, PYB_FREQ_HZ, generate_scenario, inspection_x
 from mission import capture_approval
 from model.common import STATE_VX, STATE_X, STATE_Y, STATE_Z
-from staleguard_benefit import DEADLINES, plan_feasible_command, run_actual
+from staleguard_benefit import DEADLINES, run_actual
+from first_feasible import plan_first_feasible_command as plan_feasible_command
 
 
 def intervals(mask, times):

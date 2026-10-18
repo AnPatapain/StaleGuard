@@ -1,4 +1,8 @@
-# Continuous-forward inspection feasibility — executed 15 October 2026
+# Stages 2–3: feasibility fixes and initial recovery results
+
+Historical report, executed 15 October 2026. The command selections and benefit
+results below use the earlier first-feasible calibration. For today’s workflow,
+see the [README](../README.md).
 
 Scenario 1 and all retained seeds 0–9 pass at D=0 after offline command
 calibration, with 0.187–0.246 s of elapsed inspection dwell and no unsafe-volume
@@ -109,8 +113,8 @@ Boundary times have 1 ms physics sampling resolution.
 From `safe-control-gym`, with the `scg` environment:
 
 ```sh
-python examples/staleguard/inspection_descent/verify_feasibility.py --scenario 1
-python examples/staleguard/inspection_descent/verify_feasibility.py
+python examples/staleguard/inspection_descent/diagnostics/verify_feasibility.py --scenario 1
+python examples/staleguard/inspection_descent/diagnostics/verify_feasibility.py
 python examples/staleguard/inspection_descent/staleguard_benefit.py
 ```
 
