@@ -6,7 +6,7 @@ their filenames. The [current implementation and validation report](docs/current
 describes today's files and the latest executed checks. This README gives the
 current run commands.
 
-Run the official paired No Recovery / StaleGuard experiment from
+Run the official No Recovery / Always-Recover / StaleGuard experiment from
 `examples/staleguard`, using the existing `scg` environment:
 
 ```sh
@@ -34,6 +34,29 @@ infeasible), and its longest safe D=0 inspection dwell in physics ticks.
 At the existing 1000 Hz physics rate, one tick is one millisecond.
 The file contains previously executed and verified calibration results.
 It lives beside the code so it can be committed with the experiment.
+
+## Always-Recover baseline — Task 3.1
+
+Always-Recover cancels every pending command and starts the existing recovery
+at command receipt/approval, with zero decision-computation time. Recovery must
+start strictly before dispatch. At D=0 it therefore cannot cancel the command;
+the original command executes, consistently with StaleGuard's timing rule.
+
+All three policies receive the same scenario, approved command, approval
+snapshot, dispatch time, and deadline. Always-Recover calls the same
+`run_actual()` function as StaleGuard; there is no separate recovery trajectory.
+The report shows inspection completion, unsafe entry, safe mission completion,
+recovery frequency, and successful recoveries for all three policies.
+
+The existing StaleGuard versus No Recovery benefit, harm, and net benefit are
+unchanged. The new paired section reports **StaleGuard minus Always-Recover**:
+the difference in safe mission completion, successes unique to each policy,
+and the difference in recovery frequency. Differences use the number of tested
+scenarios and are expressed in percentage points; negative recovery-frequency
+differences mean StaleGuard intervened less often.
+
+Only Always-Recover has been added. No other new baselines or mission-completion
+time metrics are implemented. See the [Task 3.1 report](docs/10_01_always_recover.md).
 
 ## TTL prediction accuracy
 
@@ -90,6 +113,8 @@ python inspection_descent/diagnostics/validate_official_calibration.py --stage s
 python inspection_descent/diagnostics/validate_official_calibration.py --stage calibrate --seeds 0 16
 python inspection_descent/diagnostics/validate_official_calibration.py --stage experiment
 python inspection_descent/diagnostics/validate_official_calibration.py --stage delays
+python inspection_descent/diagnostics/validate_always_recover.py --stage small
+python inspection_descent/diagnostics/validate_always_recover.py --stage experiment
 ```
 
 The `saved` check compares all twenty JSON records with prior measurements.
@@ -105,3 +130,9 @@ Those protections apply to the validator. Results of the updated checks go to
 `results/official_calibration_validation/delay_grid_0_to_1/`; older reports are
 preserved. The existing git-ignore rule covers `results/`, but not the official
 `calibrated_scenarios.json` file.
+
+Always-Recover checks are saved separately under `results/always_recover/`.
+The small regression sets StaleGuard's decision time to zero only in that
+controlled test, allowing exact equal-time flight-trace comparisons. The full
+experiment uses normal measured StaleGuard prediction time. The checks use
+the preserved pre-baseline runner and earlier execution records in `results/`.

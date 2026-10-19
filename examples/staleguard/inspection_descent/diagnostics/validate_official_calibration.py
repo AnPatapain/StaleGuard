@@ -140,7 +140,7 @@ def validate_experiment():
     before = before_module()
     actual = benefit.run_actual
     records = []
-    expected_executions = 19 * len(benefit.DELAY_GRID) * 2
+    expected_executions = 19 * len(benefit.DELAY_GRID) * 3
 
     def checked_actual(*args, **kwargs):
         trace, physics, old_trace, old_physics = [], [], [], []
@@ -154,7 +154,7 @@ def validate_experiment():
         records.append({"scenario": asdict(scenario), "dispatch_step": dispatch,
                         "recover_step": recovery, "deadline_step": deadline, "recover": bool(recover),
                         "outcome": outcome, "trace_sha256": new_hash})
-        if len(records) % 38 == 0:
+        if len(records) % 57 == 0:
             rss, _ = check_memory()
             print(f"Matched {len(records)}/{expected_executions} before/after executions; RSS={rss:.0f} MiB", file=sys.__stdout__, flush=True)
         check_memory()

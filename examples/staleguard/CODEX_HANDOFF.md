@@ -1,4 +1,4 @@
-# Current status — 18 Oct 2026
+# Current status — 19 Oct 2026
 
 The official inspection-descent experiment now uses maximum consecutive D=0
 inspection dwell through the shared `max_dwell_calibration.py` implementation.
@@ -40,8 +40,18 @@ Read [the research recap](inspection_descent/recap_visibility.md) for the sequen
 of stages, [README](inspection_descent/README.md) for the current workflow, and
 [current implementation and validation](inspection_descent/docs/current_implementation_and_validation.md)
 for the latest checks. Detailed historical reports are grouped by stage under
-`inspection_descent/docs/`. The official workflow is ready for baseline integration; no
-additional baselines have been implemented. The older research context below
+`inspection_descent/docs/`. Task 3.1 adds only Always-Recover to the official benefit experiment. It calls
+the shared run_actual recovery path at receipt/approval, with zero decision time,
+only when receipt is strictly before dispatch; D=0 executes the original command.
+The report has No Recovery / Always-Recover / StaleGuard columns and paired
+StaleGuard comparisons against both alternatives. All other new baselines and
+mission-completion-time metrics remain unimplemented. See
+[Task 3.1](inspection_descent/docs/10_01_always_recover.md).
+The full run executed 627 policy simulations; all 418 existing StaleGuard/No
+Recovery outcomes matched. Always-Recover completed 19/19 missions at every
+positive delay. StaleGuard used fewer recoveries at D=0.1–0.6 s but completed
+fewer missions there. Small controlled equal-time recovery traces matched.
+Baseline evidence is under `inspection_descent/results/always_recover/`. The older research context below
 is historical and must not be treated as the current implementation state.
 
 # StaleGuard — original handoff (15 Oct 2026)

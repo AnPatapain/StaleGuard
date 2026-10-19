@@ -5,8 +5,10 @@ by one JSON file and the mission deadline was fixed at 4.2 s. For the sequence
 of research decisions, see the
 [recap](../recap_visibility.md).
 
-The current delay grid is **0.0–1.0 s in 0.1 s steps**, shared by TTL prediction
-accuracy and StaleGuard benefit through `experiment.py`. Earlier checks below
+Task 3.1 now adds Always-Recover through the existing recovery implementation;
+see the [baseline report](10_01_always_recover.md). The current delay grid is
+**0.0–1.0 s in 0.1 s steps**, shared by TTL prediction accuracy and StaleGuard
+benefit through `experiment.py`. Earlier checks below
 record the settings used at each preceding step.
 
 The official experiment uses the command with the longest continuous
@@ -16,7 +18,7 @@ The previous rule stopped at the first successful command.
 ## Current files
 
 - `staleguard_benefit.py` reads the selected commands from
-  `calibrated_scenarios.json`. It runs No Recovery and StaleGuard and reports
+  `calibrated_scenarios.json`. It runs No Recovery, Always-Recover, and StaleGuard and reports
   their mission and recovery results.
 - `calibrated_scenarios.json` contains the previously verified results for
   seeds 0–19, including each original scenario, selected command, and longest
@@ -173,3 +175,21 @@ Full inspection-completion, recovery-success, benefit, and harm counts are
 in the [benefit terminal output](../results/official_calibration_validation/delay_grid_0_to_1/official_experiment.log).
 See also the [benefit validation records](../results/official_calibration_validation/delay_grid_0_to_1/benefit_validation.json)
 and [combined validation summary](../results/official_calibration_validation/delay_grid_0_to_1/validation_summary.json).
+
+## Always-Recover — Task 3.1
+
+The official report now compares No Recovery, Always-Recover, and StaleGuard.
+Always-Recover starts the same recovery at receipt with zero computation time,
+only before dispatch. At D=0 all three policies execute the original command.
+The previous StaleGuard versus No Recovery metrics remain, with an additional
+paired StaleGuard versus Always-Recover comparison.
+
+The full nineteen-scenario, eleven-delay run executed 627 policy simulations.
+All 418 prior StaleGuard/No Recovery outcomes matched. The small controlled
+regression matched 22 old flight traces, six equal-time recovery pairs, and
+all three policies at D=0. Printed metrics matched the actual records.
+Always-Recover achieved 19/19 safe completions at every positive delay;
+StaleGuard intervened less at D=0.1–0.6 s but had fewer safe completions there.
+
+See [Task 3.1 methods, measured results, and evidence](10_01_always_recover.md).
+No other baselines or mission-completion-time metrics were implemented.
