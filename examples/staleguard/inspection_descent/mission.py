@@ -5,14 +5,18 @@ then asks StaleGuard to predict from that snapshot only.
 Usage:
     python mission.py --scenario 0
     python mission.py --count 10
+    python mission.py --calibrated --count 20
 """
 import argparse
+import json
+from pathlib import Path
 import time
 from typing import TYPE_CHECKING
 import numpy as np
 import ground_truth
 from experiment import (
     ApprovalSnapshot,
+    Scenario,
     CTRL_FREQ_HZ,
     DELAY_GRID,
     MEASURE_SECONDS,
@@ -119,16 +123,32 @@ def main():
     parser.add_argument(
         "--count",
         type=int,
-        default=100,  # run 100 configurations by default
+        default=None,
     )
+    parser.add_argument("--calibrated", action="store_true",
+                        help="Use the saved maximum-D=0-dwell commands; skip infeasible seeds.")
     args = parser.parse_args()
-    quad_params, pid_params = load_scg_platform_params()
-
+    count = args.count if args.count is not None else (20 if args.calibrated else 100)
     ids = (
         [args.scenario]
         if args.scenario is not None
-        else range(args.count)
+        else range(count)
     )
+    if args.calibrated:
+        saved = json.loads(Path(__file__).with_name("calibrated_scenarios.json").read_text())
+        scenarios = [(seed, Scenario(**saved[str(seed)]["command"]))
+                     for seed in ids if saved[str(seed)]["command"] is not None]
+        infeasible = [seed for seed in ids if saved[str(seed)]["command"] is None]
+        print("Scenario source: calibrated_scenarios.json (maximum D=0 dwell)")
+        print(f"Calibration feasible: {len(scenarios)}/{len(ids)}")
+        print(f"Infeasible seeds: {infeasible or 'none'}")
+        print("Accuracy metrics use only the feasible scenarios.")
+        if not scenarios:
+            print("No feasible scenarios to evaluate.")
+            return
+    else:
+        scenarios = [(seed, generate_scenario(seed)) for seed in ids]
+    quad_params, pid_params = load_scg_platform_params()
 
     # Delay-level classification metrics.
     false_safe = 0  # predicted SAFE, actually unsafe
@@ -158,8 +178,7 @@ def main():
     # excludes snapshot capture and ground-truth evaluation.
     prediction_times = []
 
-    for scenario_id in ids:
-        s = generate_scenario(scenario_id)
+    for scenario_id, s in scenarios:
         snapshot = capture_approval(s)
 
         # ----------------------------

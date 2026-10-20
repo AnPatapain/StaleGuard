@@ -60,7 +60,9 @@ def run_actual(
     gui=False,
     trace=None,
     physics_trace=None,
+    recovery_mode="safety-only",
 ):
+    """Execute one policy; mission-retry retains the historical recovery variant."""
     env_factory = make_scg_env_factory(
         init_state={
             "init_x": 0.0,
@@ -142,11 +144,14 @@ def run_actual(
         for step in range(deadline_step):
             # StaleGuard cancels pending command and starts recovery.
             if recover and step == recover_step:
-                recovering = True
+                recovering = recovery_mode == "mission-retry"
                 recovery_started = True
                 traj = traj.copy()
-                traj[step:, STATE_X] = scan_x
-                traj[step:, STATE_VX] = 0.0
+                if recovering:
+                    # Historical variant: stop and retry the inspection.
+                    traj[step:, STATE_X] = scan_x
+                    traj[step:, STATE_VX] = 0.0
+                # Safety-only fallback preserves nominal forward references.
                 traj[step:, STATE_Z] = s.usual_height
                 env.X_GOAL = traj
                 ctrl.reference = traj
@@ -218,7 +223,8 @@ def plan_feasible_command(s):
     return plan_max_dwell_command(s)
 
 
-def main(count=SCENARIOS):
+def main(count=SCENARIOS, recovery_mode="safety-only"):
+    safety_only = recovery_mode == "safety-only"
     calibrated = json.loads(CALIBRATION_FILE.read_text())
     quad_params, pid_params = load_scg_platform_params()
 
@@ -241,6 +247,7 @@ def main(count=SCENARIOS):
             planned_scenarios.append(Scenario(**command))
 
     evaluated = len(planned_scenarios)
+    print(f"Recovery mode: {recovery_mode}")
     print(f"Calibration feasible: {evaluated}/{count}")
     print(f"Infeasible seeds: {infeasible_ids or 'none'}")
     print("Policy rates use feasible scenarios; calibration failures are excluded.")
@@ -251,6 +258,7 @@ def main(count=SCENARIOS):
     for queue_pending in DELAY_GRID:
         inspection_completions = 0
         successes = 0
+        safe_non_completions = 0
         collisions = 0
         recoveries = 0
         recovery_successes = 0
@@ -259,11 +267,13 @@ def main(count=SCENARIOS):
         counterfactual_inspection_completions = 0
         counterfactual_collisions = 0
         counterfactual_successes = 0
+        counterfactual_non_completions = 0
         counterfactual_recoveries = 0
         counterfactual_recovery_successes = 0
         always_inspection_completions = 0
         always_collisions = 0
         always_successes = 0
+        always_non_completions = 0
         always_recoveries = 0
         always_recovery_successes = 0
         staleguard_only_successes = 0
@@ -299,6 +309,7 @@ def main(count=SCENARIOS):
                 recover_step,
                 deadline_step,
                 recover,
+                recovery_mode=recovery_mode,
             )
 
             counterfactual_inspection, counterfactual_collision, counterfactual_started, counterfactual_success = run_actual(
@@ -306,7 +317,8 @@ def main(count=SCENARIOS):
                 dispatch_step,
                 recover_step,
                 deadline_step,
-                False
+                False,
+                recovery_mode=recovery_mode,
             )
 
             # Always-Recover has zero decision time and must precede dispatch.
@@ -317,6 +329,7 @@ def main(count=SCENARIOS):
                 always_recover_step,
                 deadline_step,
                 always_recover_step < dispatch_step,
+                recovery_mode=recovery_mode,
             )
 
             assert success == (inspection_completed and not collision)
@@ -324,12 +337,19 @@ def main(count=SCENARIOS):
                 counterfactual_inspection and not counterfactual_collision
             )
             assert always_success == (always_inspection and not always_collision)
+            for inspected, unsafe_entry, _, safely_completed in (
+                (inspection_completed, collision, recovery_started, success),
+                (counterfactual_inspection, counterfactual_collision, counterfactual_started, counterfactual_success),
+                (always_inspection, always_collision, always_started, always_success),
+            ):
+                assert sum((safely_completed, not inspected and not unsafe_entry, unsafe_entry)) == 1
 
             inspection_completions += int(inspection_completed)
             successes += int(success)
+            safe_non_completions += int(not inspection_completed and not collision)
             collisions += int(collision)
             recoveries += int(recovery_started)
-            recovery_successes += int(recovery_started and success)
+            recovery_successes += int(recovery_started and (not collision if safety_only else success))
             recovery_benefits += int(
                 recovery_started and success and not counterfactual_success
             )
@@ -339,13 +359,15 @@ def main(count=SCENARIOS):
             counterfactual_inspection_completions += int(counterfactual_inspection)
             counterfactual_collisions += int(counterfactual_collision)
             counterfactual_successes += int(counterfactual_success)
+            counterfactual_non_completions += int(not counterfactual_inspection and not counterfactual_collision)
             counterfactual_recoveries += int(counterfactual_started)
-            counterfactual_recovery_successes += int(counterfactual_started and counterfactual_success)
+            counterfactual_recovery_successes += int(counterfactual_started and (not counterfactual_collision if safety_only else counterfactual_success))
             always_inspection_completions += int(always_inspection)
             always_collisions += int(always_collision)
             always_successes += int(always_success)
+            always_non_completions += int(not always_inspection and not always_collision)
             always_recoveries += int(always_started)
-            always_recovery_successes += int(always_started and always_success)
+            always_recovery_successes += int(always_started and (not always_collision if safety_only else always_success))
             staleguard_only_successes += int(success and not always_success)
             always_only_successes += int(always_success and not success)
 
@@ -358,6 +380,9 @@ def main(count=SCENARIOS):
             staleguard_only_successes - always_only_successes
             == successes - always_successes
         )
+        assert successes + safe_non_completions + collisions == evaluated
+        assert counterfactual_successes + counterfactual_non_completions + counterfactual_collisions == evaluated
+        assert always_successes + always_non_completions + always_collisions == evaluated
 
         print("=" * 78)
         print(f"D = {queue_pending:.1f}s | T = {MISSION_DEADLINE_S:.1f}s | N = {evaluated}")
@@ -365,21 +390,26 @@ def main(count=SCENARIOS):
         print("\nMISSION OUTCOMES")
         print(f"{'':27}{'No Recovery':>17}{'Always-Recover':>17}{'StaleGuard':>17}")
         print("-" * 78)
-        for label, no_recovery, always, staleguard in (
+        outcomes = (
+            ("Safe mission completion", counterfactual_successes, always_successes, successes),
+            ("Safe mission non-completion", counterfactual_non_completions, always_non_completions, safe_non_completions),
+            ("Unsafe execution", counterfactual_collisions, always_collisions, collisions),
+        ) if safety_only else (
             ("Inspection completed", counterfactual_inspection_completions, always_inspection_completions, inspection_completions),
             ("Unsafe entry", counterfactual_collisions, always_collisions, collisions),
             ("Safe mission completion", counterfactual_successes, always_successes, successes),
-        ):
+        )
+        for label, no_recovery, always, staleguard in outcomes:
             print(
                 f"{label:<27}{format_count(no_recovery, evaluated):>17}"
                 f"{format_count(always, evaluated):>17}"
                 f"{format_count(staleguard, evaluated):>17}"
             )
 
-        print("\nRECOVERY DECISIONS")
+        print("\nSAFETY FALLBACK" if safety_only else "\nRECOVERY DECISIONS")
         print("-" * 78)
         print(
-            f"{'Recovery triggered':<27}{format_count(counterfactual_recoveries, evaluated):>17}"
+            f"{('Fallback triggered' if safety_only else 'Recovery triggered'):<27}{format_count(counterfactual_recoveries, evaluated):>17}"
             f"{format_count(always_recoveries, evaluated):>17}"
             f"{format_count(recoveries, evaluated):>17}"
         )
@@ -396,20 +426,22 @@ def main(count=SCENARIOS):
             if recoveries else "N/A (0/0)"
         )
         print(
-            f"{'Successful recoveries':<27}{counterfactual_recovery_rate:>17}"
+            f"{('Fallback safe (no entry)' if safety_only else 'Successful recoveries'):<27}{counterfactual_recovery_rate:>17}"
             f"{always_recovery_rate:>17}{recovery_rate:>17}"
         )
 
         print("\nSTALEGUARD vs NO RECOVERY")
+        if safety_only:
+            print("Paired safe mission completion")
         print("-" * 78)
         print(
-            f"{'Recovery benefit':<27}{format_count(recovery_benefits, evaluated)}"
+            f"{('Completion benefit' if safety_only else 'Recovery benefit'):<27}{format_count(recovery_benefits, evaluated)}"
         )
         print(
-            f"{'Recovery harm':<27}{format_count(recovery_harms, evaluated)}"
+            f"{('Completion harm' if safety_only else 'Recovery harm'):<27}{format_count(recovery_harms, evaluated)}"
         )
         print(
-            f"{'Net benefit':<27}"
+            f"{('Completion difference' if safety_only else 'Net benefit'):<27}"
             f"{100 * (successes - counterfactual_successes) / evaluated:+.1f} percentage points"
         )
         print("\nSTALEGUARD vs ALWAYS-RECOVER (StaleGuard minus Always-Recover)")
@@ -421,7 +453,7 @@ def main(count=SCENARIOS):
         print(f"{'StaleGuard-only successes':<36}{format_count(staleguard_only_successes, evaluated)}")
         print(f"{'Always-Recover-only successes':<36}{format_count(always_only_successes, evaluated)}")
         print(
-            f"{'Recovery frequency difference':<36}"
+            f"{('Fallback frequency difference' if safety_only else 'Recovery frequency difference'):<36}"
             f"{100 * (recoveries - always_recoveries) / evaluated:+.1f} percentage points"
         )
         print("=" * 78)
@@ -431,7 +463,9 @@ def main(count=SCENARIOS):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="No Recovery / Always-Recover / StaleGuard experiment.")
     parser.add_argument("--count", type=int, default=SCENARIOS, help="Scenario seeds 0 through count-1.")
+    parser.add_argument("--recovery", choices=("safety-only", "mission-retry"), default="safety-only",
+                        help="Safety fallback (primary), or historical stop-and-retry inspection variant.")
     args = parser.parse_args()
     if args.count < 1:
         parser.error("--count must be positive")
-    main(count=args.count)
+    main(count=args.count, recovery_mode=args.recovery)

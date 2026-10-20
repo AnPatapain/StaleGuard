@@ -146,7 +146,8 @@ def validate_experiment():
         trace, physics, old_trace, old_physics = [], [], [], []
         check_memory()
         outcome = actual(*args, **kwargs, trace=trace, physics_trace=physics)
-        old_outcome = before.run_actual(*args, **kwargs, trace=old_trace, physics_trace=old_physics)
+        old_kwargs = {key: value for key, value in kwargs.items() if key != "recovery_mode"}
+        old_outcome = before.run_actual(*args, **old_kwargs, trace=old_trace, physics_trace=old_physics)
         assert outcome == old_outcome
         new_hash = trace_hash(trace, physics)
         assert new_hash == trace_hash(old_trace, old_physics), asdict(args[0])
@@ -163,7 +164,7 @@ def validate_experiment():
     with patch.object(calibration, "plan_max_dwell_command", side_effect=AssertionError("Experiment must not calibrate")), \
          patch.object(benefit, "run_actual", checked_actual), (REPORTS / "official_experiment.log").open("w") as stream:
         with contextlib.redirect_stdout(stream):
-            benefit.main(count=20)
+            benefit.main(count=20, recovery_mode="mission-retry")
     assert len(records) == expected_executions
     with (REPORTS / "execution_regression.jsonl").open("w") as stream:
         for row in records:

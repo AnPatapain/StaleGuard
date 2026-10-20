@@ -29,6 +29,7 @@ prediction accuracy and StaleGuard benefit. Both now read the same grid from
 
 ## Where to find the details
 
+- [Experiment logs](result/README.md): calibrated TTL accuracy and the baseline comparison under the two recovery objectives.
 - [README](README.md): how to run the current experiment and regenerate calibration manually.
 - [Current implementation and validation](docs/current_implementation_and_validation.md): what the current files do and what was checked after replacing the cache.
 - [Original handoff](../CODEX_HANDOFF.md): early research context and constraints. Its original handoff section describes the starting point, not today's implementation.
@@ -39,3 +40,11 @@ Historical reports retain the measurements and conclusions from their own stage.
 Their references to the default calibration or caching describe that point in
 the work. The README and current-implementation report describe today's workflow.
 Experiment code and raw results stay in their existing locations.
+
+After Task 3.1, the [recovery realism audit](docs/10_02_recovery_realism_audit.md)
+replayed the saved flights and confirmed their results. It identified that
+recovery stopped and retried inspection. The subsequent locked decision made
+recovery a safety fallback: cancel descent, request usual height, and continue
+forward. This is now the [primary protocol](docs/10_03_safety_only_recovery.md).
+The earlier stop-and-retry maneuver and results remain a separate
+`--recovery mission-retry` variant. No additional baseline was introduced.

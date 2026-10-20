@@ -1,4 +1,32 @@
-# Current status — 19 Oct 2026
+# Current status — 20 Oct 2026
+
+The three research experiment logs are indexed in
+[result/README.md](inspection_descent/result/README.md), in the non-ignored
+`result/` folder: calibrated-scenario TTL accuracy, safety-only baseline
+comparison, and mission-retry baseline comparison. Do not expand this index
+with diagnostic or validation logs. The TTL runner supports `--calibrated`
+to load the same frozen commands and explicitly skip infeasible seed 16.
+
+The primary experiment now uses **safety-only recovery**, by locked decision:
+cancel pending descent, request usual height, and continue the nominal forward
+trajectory. Both StaleGuard and Always-Recover use the same fallback. Fallback
+success means no unsafe entry, not inspection completion. The report separates
+safe completion, safe non-completion, and unsafe execution. See the
+[current protocol and results](inspection_descent/docs/10_03_safety_only_recovery.md).
+
+Safety-only validation executed 627 official flights, 33 small-test flights,
+and 43 historical recovery replays serially. All 311 official flights without
+fallback matched historical complete traces. Six controlled equal-time fallback
+pairs matched; seed 16 remained infeasible; all outcome/report/paired checks
+passed. Original scientific inputs and historical results stayed unchanged.
+New evidence is under `inspection_descent/results/safety_only_recovery/`.
+
+The historical stop-and-retry implementation remains available with
+`--recovery mission-retry`; its old results under `results/always_recover/` and
+`results/recovery_realism_audit/` are preserved. The preceding recovery audit
+executed 252 distinct flights covering 627 saved cases and retained 43 recovery
+traces. It is a historical protocol, not the current default. See the
+[recovery audit](inspection_descent/docs/10_02_recovery_realism_audit.md).
 
 The official inspection-descent experiment now uses maximum consecutive D=0
 inspection dwell through the shared `max_dwell_calibration.py` implementation.
@@ -40,14 +68,14 @@ Read [the research recap](inspection_descent/recap_visibility.md) for the sequen
 of stages, [README](inspection_descent/README.md) for the current workflow, and
 [current implementation and validation](inspection_descent/docs/current_implementation_and_validation.md)
 for the latest checks. Detailed historical reports are grouped by stage under
-`inspection_descent/docs/`. Task 3.1 adds only Always-Recover to the official benefit experiment. It calls
+`inspection_descent/docs/`. Historical Task 3.1 added only Always-Recover to the benefit experiment. It called
 the shared run_actual recovery path at receipt/approval, with zero decision time,
 only when receipt is strictly before dispatch; D=0 executes the original command.
 The report has No Recovery / Always-Recover / StaleGuard columns and paired
 StaleGuard comparisons against both alternatives. All other new baselines and
 mission-completion-time metrics remain unimplemented. See
 [Task 3.1](inspection_descent/docs/10_01_always_recover.md).
-The full run executed 627 policy simulations; all 418 existing StaleGuard/No
+That historical mission-retry run executed 627 policy simulations; all 418 existing StaleGuard/No
 Recovery outcomes matched. Always-Recover completed 19/19 missions at every
 positive delay. StaleGuard used fewer recoveries at D=0.1–0.6 s but completed
 fewer missions there. Small controlled equal-time recovery traces matched.

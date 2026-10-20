@@ -5,8 +5,15 @@ by one JSON file and the mission deadline was fixed at 4.2 s. For the sequence
 of research decisions, see the
 [recap](../recap_visibility.md).
 
-Task 3.1 now adds Always-Recover through the existing recovery implementation;
-see the [baseline report](10_01_always_recover.md). The current delay grid is
+The primary experiment now uses safety-only recovery: cancel pending descent,
+request usual height, and continue the nominal forward trajectory. Both
+StaleGuard and Always-Recover use it. Fallback success means no unsafe entry,
+not completed inspection. The historical stop-and-retry implementation remains
+available with `--recovery mission-retry`, alongside its original results.
+See the [safety-only protocol and validation](10_03_safety_only_recovery.md).
+
+Task 3.1 introduced Always-Recover; its original mission-retry results are in
+the [baseline report](10_01_always_recover.md). The current delay grid is
 **0.0–1.0 s in 0.1 s steps**, shared by TTL prediction accuracy and StaleGuard
 benefit through `experiment.py`. Earlier checks below
 record the settings used at each preceding step.
@@ -39,9 +46,13 @@ later tests with a delay greater than zero do not affect command selection.
 
 ## What stayed the same
 
-The UAV keeps flying forward during inspection. StaleGuard, mission execution,
-recovery, controller settings, physics, inspection and safety checks, delays,
-deadlines, and metric definitions remain unchanged. Physics-step monitoring,
+The original command keeps the UAV flying forward during inspection. The
+primary safety fallback also preserves the nominal forward references. The
+historical mission-retry variant holds the inspection position, as measured
+in the [recovery realism audit](10_02_recovery_realism_audit.md).
+StaleGuard, calibration, original-command execution, controller settings,
+physics, inspection and safety checks, delays, deadlines, and safe-completion
+definitions remain unchanged. Physics-step monitoring,
 `trace`, `physics_trace`, and GUI functionality remain available.
 
 Seed 16 is reported separately rather than counted as an unsafe flight.

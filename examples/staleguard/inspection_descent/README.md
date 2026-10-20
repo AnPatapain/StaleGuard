@@ -1,5 +1,8 @@
 # Inspection-descent experiment
 
+The three research experiment logs are in
+[result/README.md](result/README.md), outside the Git-ignored `results/` folder.
+
 Start with the [research recap](recap_visibility.md) to follow stages 1–10.
 Detailed historical reports are grouped under `docs/`, with stage numbers in
 their filenames. The [current implementation and validation report](docs/current_implementation_and_validation.md)
@@ -12,6 +15,18 @@ Run the official No Recovery / Always-Recover / StaleGuard experiment from
 ```sh
 python inspection_descent/staleguard_benefit.py
 python inspection_descent/staleguard_benefit.py --count 20
+```
+
+These commands use **safety-only recovery**, the primary experiment. Recovery
+cancels the pending descent, requests usual height, and continues the nominal
+forward trajectory. It does not stop or retry inspection. StaleGuard and
+Always-Recover use the same implementation; actual safety is monitored in
+PyBullet rather than assumed.
+
+The historical stop-and-retry variant remains available separately:
+
+```sh
+python inspection_descent/staleguard_benefit.py --count 20 --recovery mission-retry
 ```
 
 The experiment reads `calibrated_scenarios.json`. It contains seeds 0–19;
@@ -37,7 +52,7 @@ It lives beside the code so it can be committed with the experiment.
 
 ## Always-Recover baseline — Task 3.1
 
-Always-Recover cancels every pending command and starts the existing recovery
+Always-Recover cancels every pending command and starts the selected recovery
 at command receipt/approval, with zero decision-computation time. Recovery must
 start strictly before dispatch. At D=0 it therefore cannot cancel the command;
 the original command executes, consistently with StaleGuard's timing rule.
@@ -45,8 +60,10 @@ the original command executes, consistently with StaleGuard's timing rule.
 All three policies receive the same scenario, approved command, approval
 snapshot, dispatch time, and deadline. Always-Recover calls the same
 `run_actual()` function as StaleGuard; there is no separate recovery trajectory.
-The report shows inspection completion, unsafe entry, safe mission completion,
-recovery frequency, and successful recoveries for all three policies.
+The primary report shows three exclusive outcomes: safe mission completion,
+safe mission non-completion, and unsafe execution. It also shows fallback
+frequency and fallback success, defined as no unsafe entry. A safe cancellation
+without inspection counts as non-completion, not mission completion.
 
 The existing StaleGuard versus No Recovery benefit, harm, and net benefit are
 unchanged. The new paired section reports **StaleGuard minus Always-Recover**:
@@ -58,17 +75,24 @@ differences mean StaleGuard intervened less often.
 Only Always-Recover has been added. No other new baselines or mission-completion
 time metrics are implemented. See the [Task 3.1 report](docs/10_01_always_recover.md).
 
+The [recovery realism audit](docs/10_02_recovery_realism_audit.md) describes the
+historical stop-and-retry maneuver. Its implementation, mission-completion-based
+recovery metrics, and results remain available through `--recovery mission-retry`
+and `results/always_recover/`. The safety-only protocol and its executed results
+are documented in [the safety-only report](docs/10_03_safety_only_recovery.md).
+
 ## TTL prediction accuracy
 
 ```sh
-python inspection_descent/mission.py --count 10
+python inspection_descent/mission.py --calibrated --count 20
 ```
 
 `mission.py` passes the shared delay grid to `staleguard.predict()` and to
 `ground_truth.classify_scenario()`. Prediction and ground truth therefore test
-the same eleven delays. This experiment keeps its existing generated commands
-and 8.5 s measurement horizon; it does not use the benefit experiment's
-calibrated commands or 4.2 s mission deadline.
+the same eleven delays. `--calibrated` loads the same saved commands as the
+benefit experiment and reports seed 16 as infeasible. It keeps the existing
+8.5 s measurement horizon. Without `--calibrated`, the earlier generated-command
+experiment remains available.
 
 TTL classifications describe the tested range. For example, `ALWAYS_SAFE`
 means safe at every tested delay up to 1.0 s, not at arbitrary future delays.
@@ -97,8 +121,8 @@ explicitly calibrating one scenario; the experiment does not call it.
 The generator's initial 0.4–1.0 s low duration is not an operational maximum.
 Calibration may increase it, while the low-altitude reference must end by
 estimated nominal structure arrival at D=0, on the existing control grid.
-Mission execution, safety and inspection checks, recovery, and metrics are
-unchanged. Policy simulations still execute on every experiment run.
+Calibration and the original command's execution, safety, and inspection checks
+are unchanged. Policy simulations still execute on every experiment run.
 
 ## Diagnostics and validation
 
@@ -107,6 +131,21 @@ Scripts under `diagnostics/` are separate from the official experiment.
 first-feasible rule. The sensitivity and comparison scripts retain their
 original investigations. Previous results, including old cache files, remain
 under `results/`; the official experiment does not read them.
+
+```sh
+python inspection_descent/diagnostics/validate_safety_only_recovery.py --stage small
+python inspection_descent/diagnostics/validate_safety_only_recovery.py --stage experiment
+python inspection_descent/diagnostics/validate_safety_only_recovery.py --stage historical
+```
+
+These serial checks write to `results/safety_only_recovery/`. They verify the
+primary experiment, original-command flight traces, outcome categories, printed
+metrics, and the preserved mission-retry trajectories. The small test uses zero
+StaleGuard computation time to compare equal-time fallback executions; the full
+experiment uses normal measured prediction time. Historical files are checked
+for changes and are not overwritten by this validator.
+
+Earlier calibration and mission-retry validation commands remain available:
 
 ```sh
 python inspection_descent/diagnostics/validate_official_calibration.py --stage saved
@@ -119,8 +158,9 @@ python inspection_descent/diagnostics/validate_always_recover.py --stage experim
 
 The `saved` check compares all twenty JSON records with prior measurements.
 The `calibrate` check actually repeats the selected seeds' searches; without
-`--seeds`, it repeats all twenty. The `experiment` check executes the official
-experiment and compares every flight with the pre-cleanup execution code.
+`--seeds`, it repeats all twenty. The older `experiment` checks explicitly
+select the historical mission-retry variant and compare its flights with the
+earlier execution code.
 The `delays` check repeats the 304 previously recorded No Recovery cases.
 These checks need the historical data under `results/`.
 

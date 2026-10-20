@@ -1,4 +1,4 @@
-"""Serial regression checks and measured results for Always-Recover only."""
+"""Historical mission-retry regression checks for Always-Recover only."""
 
 import argparse
 import ast
@@ -36,7 +36,7 @@ def run_recorded(module, count, policies, name, zero_decision_time=False):
     actual = module.run_actual
     records = []
 
-    def checked_actual(s, snapshot, dispatch, recovery, deadline, recover):
+    def checked_actual(s, snapshot, dispatch, recovery, deadline, recover, **kwargs):
         check_memory()
         policy = policies[len(records) % len(policies)]
         approval = round(snapshot.approval_time * benefit.CTRL_FREQ_HZ)
@@ -51,7 +51,7 @@ def run_recorded(module, count, policies, name, zero_decision_time=False):
         traced = zero_decision_time or policy == "Always-Recover"
         trace, physics = ([] if traced else None), ([] if traced else None)
         result = actual(s, snapshot, dispatch, recovery, deadline, recover,
-                        trace=trace, physics_trace=physics)
+                        trace=trace, physics_trace=physics, **kwargs)
         assert result[3] == (result[0] and not result[1])
         if policy == "Always-Recover":
             assert result[2] == (approval < dispatch)
@@ -74,7 +74,10 @@ def run_recorded(module, count, policies, name, zero_decision_time=False):
     clock = patch.object(module, "time", SimpleNamespace(perf_counter=lambda: 0.0)) if zero_decision_time else contextlib.nullcontext()
     with clock, patch.object(module, "run_actual", checked_actual):
         with (OUTPUT / f"{name}.log").open("w") as stream, contextlib.redirect_stdout(stream):
-            module.main(count=count)
+            if module is benefit:
+                module.main(count=count, recovery_mode="mission-retry")
+            else:
+                module.main(count=count)
     assert len(records) == expected
     for start in range(0, len(records), len(policies)):
         group = records[start:start + len(policies)]
@@ -93,7 +96,7 @@ def small_regression():
     before.CALIBRATION_FILE = benefit.CALIBRATION_FILE
     old_functions = {n.name: ast.dump(n) for n in ast.parse(path.read_text()).body if isinstance(n, ast.FunctionDef)}
     new_functions = {n.name: ast.dump(n) for n in ast.parse(Path(benefit.__file__).read_text()).body if isinstance(n, ast.FunctionDef)}
-    for name in ("run_actual", "should_recover", "in_inspection_region"):
+    for name in ("should_recover", "in_inspection_region"):
         assert old_functions[name] == new_functions[name]
     old = run_recorded(before, 1, POLICIES[:2], "small_before", zero_decision_time=True)
     new = run_recorded(benefit, 1, POLICIES, "small_after", zero_decision_time=True)
