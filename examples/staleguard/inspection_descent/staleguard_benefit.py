@@ -22,10 +22,9 @@ from model.lightweight import LightweightPredictiveModel
 from model.scg import load_scg_platform_params, make_scg_env_factory
 from staleguard import predict
 
-
-MISSION_DEADLINE_S = 4.2 # Fixed deadline, measured from command receipt.
-SCENARIOS = 10 # Run 10 scenarios for each pending delay.
-SCAN_DWELL_S = 0.18 # Quadrotor must at least in the "inspection region" at least 0.18 seconds.
+MISSION_DEADLINE_S = 4.2  # Fixed deadline, measured from command receipt.
+SCENARIOS = 10  # Run 10 scenarios for each pending delay.
+SCAN_DWELL_S = 0.18  # Quadrotor must at least in the "inspection region" at least 0.18 seconds.
 CALIBRATION_FILE = Path(__file__).with_name("calibrated_scenarios.json")
 
 
@@ -235,10 +234,10 @@ def run_actual(
             input("Press Enter for next scenario...")
 
         return (
-            bool(completed), # Inspection objective achieved, even if unsafe
-            bool(collision), # Entered the unsafe volume
+            bool(completed),  # Inspection objective achieved, even if unsafe
+            bool(collision),  # Entered the unsafe volume
             recovery_started,
-            bool(completed and not collision), # Safely complete mission
+            bool(completed and not collision),  # Safely complete mission
         )
 
     finally:
@@ -251,6 +250,83 @@ def plan_feasible_command(s):
     # Local import: calibration uses this module's execution and predicates.
     from max_dwell_calibration import plan_max_dwell_command
     return plan_max_dwell_command(s)
+
+
+def print_report(metrics, paired, pending, evaluated, safety_only, predictions_not_ready=None):
+    """Print one delay's policy metrics and paired safe-completion comparisons."""
+    policies = ("No Recovery", "Always-Recover", "StaleGuard")
+    staleguard = metrics["StaleGuard"]
+    no_recovery = metrics["No Recovery"]
+    always_recover = metrics["Always-Recover"]
+
+    print("=" * 78)
+    print(f"D = {pending:.1f}s | T = {MISSION_DEADLINE_S:.1f}s | N = {evaluated}")
+    print("=" * 78)
+    print("\nMISSION OUTCOMES")
+    print(f"{'':27}{'No Recovery':>17}{'Always-Recover':>17}{'StaleGuard':>17}")
+    print("-" * 78)
+    rows = (
+        ("Safe mission completion", "successes"),
+        ("Safe mission non-completion", "safe_non_completions"),
+        ("Unsafe execution", "collisions"),
+    ) if safety_only else (
+        ("Inspection completed", "inspection_completions"),
+        ("Unsafe entry", "collisions"),
+        ("Safe mission completion", "successes"),
+    )
+    for label, key in rows:
+        print(f"{label:<27}" + "".join(
+            f"{format_count(metrics[policy][key], evaluated):>17}" for policy in policies
+        ))
+
+    print("\nSAFETY FALLBACK" if safety_only else "\nRECOVERY DECISIONS")
+    print("-" * 78)
+    label = "Fallback triggered" if safety_only else "Recovery triggered"
+    print(f"{label:<27}" + "".join(
+        f"{format_count(metrics[policy]['recoveries'], evaluated):>17}" for policy in policies
+    ))
+    recovery_rates = []
+    for policy in policies:
+        counts = metrics[policy]
+        rate = (format_count(counts["recovery_successes"], counts["recoveries"])
+                if counts["recoveries"] else "N/A (0/0)")
+        recovery_rates.append(rate)
+    label = "Fallback safe (no entry)" if safety_only else "Successful recoveries"
+    print(f"{label:<27}" + "".join(f"{rate:>17}" for rate in recovery_rates))
+    if predictions_not_ready is not None:
+        print(f"Prediction ready by dispatch: {format_count(evaluated - predictions_not_ready, evaluated)}")
+        print(f"Prediction not ready:         {format_count(predictions_not_ready, evaluated)}")
+
+    print("\nSTALEGUARD vs NO RECOVERY")
+    if safety_only:
+        print("Paired safe mission completion")
+    print("-" * 78)
+    print(
+        f"{('Completion benefit' if safety_only else 'Recovery benefit'):<27}"
+        f"{format_count(paired['recovery_benefits'], evaluated)}"
+    )
+    print(
+        f"{('Completion harm' if safety_only else 'Recovery harm'):<27}"
+        f"{format_count(paired['recovery_harms'], evaluated)}"
+    )
+    print(
+        f"{('Completion difference' if safety_only else 'Net benefit'):<27}"
+        f"{100 * (staleguard['successes'] - no_recovery['successes']) / evaluated:+.1f} percentage points"
+    )
+    print("\nSTALEGUARD vs ALWAYS-RECOVER (StaleGuard minus Always-Recover)")
+    print("-" * 78)
+    print(
+        f"{'Safe mission completion difference':<36}"
+        f"{100 * (staleguard['successes'] - always_recover['successes']) / evaluated:+.1f} percentage points"
+    )
+    print(f"{'StaleGuard-only successes':<36}{format_count(paired['staleguard_only_successes'], evaluated)}")
+    print(f"{'Always-Recover-only successes':<36}{format_count(paired['always_only_successes'], evaluated)}")
+    print(
+        f"{('Fallback frequency difference' if safety_only else 'Recovery frequency difference'):<36}"
+        f"{100 * (staleguard['recoveries'] - always_recover['recoveries']) / evaluated:+.1f} percentage points"
+    )
+    print("=" * 78)
+    print()
 
 
 def main(count=SCENARIOS, recovery_mode="safety-only", experiment="A"):
@@ -297,41 +373,37 @@ def main(count=SCENARIOS, recovery_mode="safety-only", experiment="A"):
             snapshot = capture_approval(s)
             receptions.append((snapshot, predict_at_reception(snapshot, quad_params, pid_params)))
         durations = [reception[1][1] for reception in receptions]
-        print(f"Prediction computation: min={1000*min(durations):.1f} ms, "
-              f"mean={1000*sum(durations)/len(durations):.1f} ms, "
-              f"max={1000*max(durations):.1f} ms")
+        print(f"Prediction computation: min={1000 * min(durations):.1f} ms, "
+              f"mean={1000 * sum(durations) / len(durations):.1f} ms, "
+              f"max={1000 * max(durations):.1f} ms")
 
     for queue_pending in DELAY_GRID:
         predictions_not_ready = 0
-        inspection_completions = 0
-        successes = 0
-        safe_non_completions = 0
-        collisions = 0
-        recoveries = 0
-        recovery_successes = 0
-        recovery_benefits = 0
-        recovery_harms = 0
-        counterfactual_inspection_completions = 0
-        counterfactual_collisions = 0
-        counterfactual_successes = 0
-        counterfactual_non_completions = 0
-        counterfactual_recoveries = 0
-        counterfactual_recovery_successes = 0
-        always_inspection_completions = 0
-        always_collisions = 0
-        always_successes = 0
-        always_non_completions = 0
-        always_recoveries = 0
-        always_recovery_successes = 0
-        staleguard_only_successes = 0
-        always_only_successes = 0
+        metrics = {
+            policy: {
+                "inspection_completions": 0,
+                "successes": 0,
+                "safe_non_completions": 0,
+                "collisions": 0,
+                "recoveries": 0,
+                "recovery_successes": 0,
+            }
+            for policy in ("StaleGuard", "No Recovery", "Always-Recover")
+        }
+        # Paired counts compare outcomes of the same scenario and command.
+        paired = {
+            "recovery_benefits": 0,
+            "recovery_harms": 0,
+            "staleguard_only_successes": 0,
+            "always_only_successes": 0,
+        }
 
         for scenario_index, s in enumerate(planned_scenarios):
             if experiment == "B":
                 snapshot, reception_prediction = receptions[scenario_index]
                 predicted, elapsed = reception_prediction
             else:
-                snapshot = capture_approval(s) # Quadrotor flies up to approval-time.
+                snapshot = capture_approval(s)  # Quadrotor flies up to approval-time.
 
                 # Experiment A retains its known-delay prediction/timing behavior.
                 t0 = time.perf_counter()
@@ -340,7 +412,7 @@ def main(count=SCENARIOS, recovery_mode="safety-only", experiment="A"):
                     predictive_model=LightweightPredictiveModel(quad_params, pid_params),
                     delays=DELAY_GRID
                 )
-                elapsed = time.perf_counter() - t0 # seconds
+                elapsed = time.perf_counter() - t0  # seconds
 
             t_cmd_recv = snapshot.approval_time
 
@@ -363,7 +435,9 @@ def main(count=SCENARIOS, recovery_mode="safety-only", experiment="A"):
                 recover = should_recover(predicted, queue_pending)
                 recover = recover and recover_step < dispatch_step
 
-            inspection_completed, collision, recovery_started, success = run_actual(
+            # Run all three policies with the same command, snapshot, and deadline.
+            outcomes = {}
+            outcomes["StaleGuard"] = run_actual(
                 s, snapshot,
                 dispatch_step,
                 recover_step,
@@ -373,7 +447,7 @@ def main(count=SCENARIOS, recovery_mode="safety-only", experiment="A"):
                 **ttl_kwargs,
             )
 
-            counterfactual_inspection, counterfactual_collision, counterfactual_started, counterfactual_success = run_actual(
+            outcomes["No Recovery"] = run_actual(
                 s, snapshot,
                 dispatch_step,
                 recover_step,
@@ -384,7 +458,7 @@ def main(count=SCENARIOS, recovery_mode="safety-only", experiment="A"):
 
             # Always-Recover has zero decision time and must precede dispatch.
             always_recover_step = round(t_cmd_recv * CTRL_FREQ_HZ)
-            always_inspection, always_collision, always_started, always_success = run_actual(
+            outcomes["Always-Recover"] = run_actual(
                 s, snapshot,
                 dispatch_step,
                 always_recover_step,
@@ -393,135 +467,50 @@ def main(count=SCENARIOS, recovery_mode="safety-only", experiment="A"):
                 recovery_mode=recovery_mode,
             )
 
-            assert success == (inspection_completed and not collision)
-            assert counterfactual_success == (
-                counterfactual_inspection and not counterfactual_collision
-            )
-            assert always_success == (always_inspection and not always_collision)
-            for inspected, unsafe_entry, _, safely_completed in (
-                (inspection_completed, collision, recovery_started, success),
-                (counterfactual_inspection, counterfactual_collision, counterfactual_started, counterfactual_success),
-                (always_inspection, always_collision, always_started, always_success),
-            ):
+            # Validate and collect each policy's outcomes using the same definitions.
+            for policy, (inspected, unsafe_entry, started, safely_completed) in outcomes.items():
+                assert safely_completed == (inspected and not unsafe_entry)
                 assert sum((safely_completed, not inspected and not unsafe_entry, unsafe_entry)) == 1
+                counts = metrics[policy]
+                counts["inspection_completions"] += int(inspected)
+                counts["successes"] += int(safely_completed)
+                counts["safe_non_completions"] += int(not inspected and not unsafe_entry)
+                counts["collisions"] += int(unsafe_entry)
+                counts["recoveries"] += int(started)
+                # Safety-only fallback success does not require inspection completion.
+                counts["recovery_successes"] += int(
+                    started and (not unsafe_entry if safety_only else safely_completed)
+                )
 
-            inspection_completions += int(inspection_completed)
-            successes += int(success)
-            safe_non_completions += int(not inspection_completed and not collision)
-            collisions += int(collision)
-            recoveries += int(recovery_started)
-            recovery_successes += int(recovery_started and (not collision if safety_only else success))
-            recovery_benefits += int(
+            # Compare safe completion against the two paired alternatives.
+            _, _, recovery_started, success = outcomes["StaleGuard"]
+            counterfactual_success = outcomes["No Recovery"][3]
+            always_success = outcomes["Always-Recover"][3]
+            paired["recovery_benefits"] += int(
                 recovery_started and success and not counterfactual_success
             )
-            recovery_harms += int(
+            paired["recovery_harms"] += int(
                 recovery_started and not success and counterfactual_success
             )
-            counterfactual_inspection_completions += int(counterfactual_inspection)
-            counterfactual_collisions += int(counterfactual_collision)
-            counterfactual_successes += int(counterfactual_success)
-            counterfactual_non_completions += int(not counterfactual_inspection and not counterfactual_collision)
-            counterfactual_recoveries += int(counterfactual_started)
-            counterfactual_recovery_successes += int(counterfactual_started and (not counterfactual_collision if safety_only else counterfactual_success))
-            always_inspection_completions += int(always_inspection)
-            always_collisions += int(always_collision)
-            always_successes += int(always_success)
-            always_non_completions += int(not always_inspection and not always_collision)
-            always_recoveries += int(always_started)
-            always_recovery_successes += int(always_started and (not always_collision if safety_only else always_success))
-            staleguard_only_successes += int(success and not always_success)
-            always_only_successes += int(always_success and not success)
+            paired["staleguard_only_successes"] += int(success and not always_success)
+            paired["always_only_successes"] += int(always_success and not success)
 
-        net_recovery_benefit_count = recovery_benefits - recovery_harms
+        staleguard = metrics["StaleGuard"]
         assert (
-            net_recovery_benefit_count
-            == successes - counterfactual_successes
+            paired["recovery_benefits"] - paired["recovery_harms"]
+            == staleguard["successes"] - metrics["No Recovery"]["successes"]
         )
         assert (
-            staleguard_only_successes - always_only_successes
-            == successes - always_successes
+            paired["staleguard_only_successes"] - paired["always_only_successes"]
+            == staleguard["successes"] - metrics["Always-Recover"]["successes"]
         )
-        assert successes + safe_non_completions + collisions == evaluated
-        assert counterfactual_successes + counterfactual_non_completions + counterfactual_collisions == evaluated
-        assert always_successes + always_non_completions + always_collisions == evaluated
+        for counts in metrics.values():
+            assert counts["successes"] + counts["safe_non_completions"] + counts["collisions"] == evaluated
 
-        print("=" * 78)
-        print(f"D = {queue_pending:.1f}s | T = {MISSION_DEADLINE_S:.1f}s | N = {evaluated}")
-        print("=" * 78)
-        print("\nMISSION OUTCOMES")
-        print(f"{'':27}{'No Recovery':>17}{'Always-Recover':>17}{'StaleGuard':>17}")
-        print("-" * 78)
-        outcomes = (
-            ("Safe mission completion", counterfactual_successes, always_successes, successes),
-            ("Safe mission non-completion", counterfactual_non_completions, always_non_completions, safe_non_completions),
-            ("Unsafe execution", counterfactual_collisions, always_collisions, collisions),
-        ) if safety_only else (
-            ("Inspection completed", counterfactual_inspection_completions, always_inspection_completions, inspection_completions),
-            ("Unsafe entry", counterfactual_collisions, always_collisions, collisions),
-            ("Safe mission completion", counterfactual_successes, always_successes, successes),
+        print_report(
+            metrics, paired, queue_pending, evaluated, safety_only,
+            predictions_not_ready=predictions_not_ready if experiment == "B" else None,
         )
-        for label, no_recovery, always, staleguard in outcomes:
-            print(
-                f"{label:<27}{format_count(no_recovery, evaluated):>17}"
-                f"{format_count(always, evaluated):>17}"
-                f"{format_count(staleguard, evaluated):>17}"
-            )
-
-        print("\nSAFETY FALLBACK" if safety_only else "\nRECOVERY DECISIONS")
-        print("-" * 78)
-        print(
-            f"{('Fallback triggered' if safety_only else 'Recovery triggered'):<27}{format_count(counterfactual_recoveries, evaluated):>17}"
-            f"{format_count(always_recoveries, evaluated):>17}"
-            f"{format_count(recoveries, evaluated):>17}"
-        )
-        counterfactual_recovery_rate = (
-            format_count(counterfactual_recovery_successes, counterfactual_recoveries)
-            if counterfactual_recoveries else "N/A (0/0)"
-        )
-        always_recovery_rate = (
-            format_count(always_recovery_successes, always_recoveries)
-            if always_recoveries else "N/A (0/0)"
-        )
-        recovery_rate = (
-            format_count(recovery_successes, recoveries)
-            if recoveries else "N/A (0/0)"
-        )
-        print(
-            f"{('Fallback safe (no entry)' if safety_only else 'Successful recoveries'):<27}{counterfactual_recovery_rate:>17}"
-            f"{always_recovery_rate:>17}{recovery_rate:>17}"
-        )
-        if experiment == "B":
-            print(f"Prediction ready by dispatch: {format_count(evaluated - predictions_not_ready, evaluated)}")
-            print(f"Prediction not ready:         {format_count(predictions_not_ready, evaluated)}")
-
-        print("\nSTALEGUARD vs NO RECOVERY")
-        if safety_only:
-            print("Paired safe mission completion")
-        print("-" * 78)
-        print(
-            f"{('Completion benefit' if safety_only else 'Recovery benefit'):<27}{format_count(recovery_benefits, evaluated)}"
-        )
-        print(
-            f"{('Completion harm' if safety_only else 'Recovery harm'):<27}{format_count(recovery_harms, evaluated)}"
-        )
-        print(
-            f"{('Completion difference' if safety_only else 'Net benefit'):<27}"
-            f"{100 * (successes - counterfactual_successes) / evaluated:+.1f} percentage points"
-        )
-        print("\nSTALEGUARD vs ALWAYS-RECOVER (StaleGuard minus Always-Recover)")
-        print("-" * 78)
-        print(
-            f"{'Safe mission completion difference':<36}"
-            f"{100 * (successes - always_successes) / evaluated:+.1f} percentage points"
-        )
-        print(f"{'StaleGuard-only successes':<36}{format_count(staleguard_only_successes, evaluated)}")
-        print(f"{'Always-Recover-only successes':<36}{format_count(always_only_successes, evaluated)}")
-        print(
-            f"{('Fallback frequency difference' if safety_only else 'Recovery frequency difference'):<36}"
-            f"{100 * (recoveries - always_recoveries) / evaluated:+.1f} percentage points"
-        )
-        print("=" * 78)
-        print()
 
 
 if __name__ == "__main__":
