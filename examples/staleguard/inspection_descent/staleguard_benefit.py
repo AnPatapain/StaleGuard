@@ -38,6 +38,23 @@ def should_recover(result, pending):
     return first_unsafe is not None and first_unsafe <= pending
 
 
+def predict_at_reception(snapshot, quad_params, pid_params):
+    """Experiment B receives no actual dispatch delay or dispatch timestamp."""
+    started = time.perf_counter()
+    prediction = predict(snapshot, LightweightPredictiveModel(quad_params, pid_params),
+                         delays=DELAY_GRID)
+    return prediction, time.perf_counter() - started
+
+
+def ttl_expired_at_dispatch(prediction, waited_steps):
+    """Apply the existing first-unsafe cutoff on the scheduler's control grid."""
+    if prediction["classification"] in {"INVALID_AT_APPROVAL", "INVALID_NOMINAL"}:
+        return True
+    first_unsafe = prediction["first_bad_delay"]
+    # Integer steps preserve equality at e.g. 0.6 versus np.arange's 0.600...1.
+    return first_unsafe is not None and waited_steps >= round(float(first_unsafe) * CTRL_FREQ_HZ)
+
+
 def in_inspection_region(state, scenario, scan_x):
     return (
         abs(state[STATE_X] - scan_x) < 0.12
@@ -61,8 +78,11 @@ def run_actual(
     trace=None,
     physics_trace=None,
     recovery_mode="safety-only",
+    ttl_prediction=None,
 ):
     """Execute one policy; mission-retry retains the historical recovery variant."""
+    if ttl_prediction is not None and recovery_mode != "safety-only":
+        raise ValueError("Experiment B requires safety-only recovery")
     env_factory = make_scg_env_factory(
         init_state={
             "init_x": 0.0,
@@ -142,6 +162,16 @@ def run_actual(
 
     try:
         for step in range(deadline_step):
+            # Experiment B: scheduler checks TTL before applying the command.
+            # Nothing is cancelled earlier using knowledge of future dispatch.
+            if step == dispatch_step and ttl_prediction is not None:
+                prediction, computation_s = ttl_prediction
+                waited_steps = step - round(snapshot.approval_time * CTRL_FREQ_HZ)
+                ready = computation_s <= waited_steps / CTRL_FREQ_HZ
+                # No result yet: execute on schedule, without later cancellation.
+                recover = ready and ttl_expired_at_dispatch(prediction, waited_steps)
+                recover_step = step
+
             # StaleGuard cancels pending command and starts recovery.
             if recover and step == recover_step:
                 recovering = recovery_mode == "mission-retry"
@@ -223,7 +253,9 @@ def plan_feasible_command(s):
     return plan_max_dwell_command(s)
 
 
-def main(count=SCENARIOS, recovery_mode="safety-only"):
+def main(count=SCENARIOS, recovery_mode="safety-only", experiment="A"):
+    if experiment == "B" and recovery_mode != "safety-only":
+        raise ValueError("Experiment B requires safety-only recovery")
     safety_only = recovery_mode == "safety-only"
     calibrated = json.loads(CALIBRATION_FILE.read_text())
     quad_params, pid_params = load_scg_platform_params()
@@ -247,6 +279,9 @@ def main(count=SCENARIOS, recovery_mode="safety-only"):
             planned_scenarios.append(Scenario(**command))
 
     evaluated = len(planned_scenarios)
+    if experiment == "B":
+        print("Experiment B: dispatch delay unknown at reception; TTL checked at dispatch.")
+        print("Prediction not ready: execute on schedule; no later cancellation.")
     print(f"Recovery mode: {recovery_mode}")
     print(f"Calibration feasible: {evaluated}/{count}")
     print(f"Infeasible seeds: {infeasible_ids or 'none'}")
@@ -255,7 +290,19 @@ def main(count=SCENARIOS, recovery_mode="safety-only"):
         print("No policy executions; all mission and recovery rates are N/A.")
         return
 
+    receptions = []
+    if experiment == "B":
+        # Predict once per scenario before the scheduler enumerates actual D.
+        for s in planned_scenarios:
+            snapshot = capture_approval(s)
+            receptions.append((snapshot, predict_at_reception(snapshot, quad_params, pid_params)))
+        durations = [reception[1][1] for reception in receptions]
+        print(f"Prediction computation: min={1000*min(durations):.1f} ms, "
+              f"mean={1000*sum(durations)/len(durations):.1f} ms, "
+              f"max={1000*max(durations):.1f} ms")
+
     for queue_pending in DELAY_GRID:
+        predictions_not_ready = 0
         inspection_completions = 0
         successes = 0
         safe_non_completions = 0
@@ -279,19 +326,23 @@ def main(count=SCENARIOS, recovery_mode="safety-only"):
         staleguard_only_successes = 0
         always_only_successes = 0
 
-        for s in planned_scenarios:
-            snapshot = capture_approval(s) # Quadrotor flies up to approval-time.
+        for scenario_index, s in enumerate(planned_scenarios):
+            if experiment == "B":
+                snapshot, reception_prediction = receptions[scenario_index]
+                predicted, elapsed = reception_prediction
+            else:
+                snapshot = capture_approval(s) # Quadrotor flies up to approval-time.
+
+                # Experiment A retains its known-delay prediction/timing behavior.
+                t0 = time.perf_counter()
+                predicted = predict(
+                    snapshot,
+                    predictive_model=LightweightPredictiveModel(quad_params, pid_params),
+                    delays=DELAY_GRID
+                )
+                elapsed = time.perf_counter() - t0 # seconds
 
             t_cmd_recv = snapshot.approval_time
-
-            # Staleguard starts predicting command TTL after UAV receives approved-command.
-            t0 = time.perf_counter()
-            predicted = predict(
-                snapshot,
-                predictive_model=LightweightPredictiveModel(quad_params, pid_params),
-                delays=DELAY_GRID
-            )
-            elapsed = time.perf_counter() - t0 # seconds
 
             # Decision available after prediction finishes.
             recover_step = round((t_cmd_recv + elapsed) * CTRL_FREQ_HZ)
@@ -299,9 +350,18 @@ def main(count=SCENARIOS, recovery_mode="safety-only"):
             dispatch_step = round((t_cmd_recv + queue_pending) * CTRL_FREQ_HZ)
             # Mission deadline.
             deadline_step = round((t_cmd_recv + MISSION_DEADLINE_S) * CTRL_FREQ_HZ)
-            # Recovery is possible only before dispatch.
-            recover = should_recover(predicted, queue_pending)
-            recover = recover and recover_step < dispatch_step
+            ttl_kwargs = {}
+            if experiment == "B":
+                # The execution loop will decide at the actual dispatch event.
+                recover = False
+                recover_step = dispatch_step
+                ttl_kwargs = {"ttl_prediction": reception_prediction}
+                waited_steps = dispatch_step - round(t_cmd_recv * CTRL_FREQ_HZ)
+                predictions_not_ready += int(elapsed > waited_steps / CTRL_FREQ_HZ)
+            else:
+                # Experiment A: recovery is possible only before dispatch.
+                recover = should_recover(predicted, queue_pending)
+                recover = recover and recover_step < dispatch_step
 
             inspection_completed, collision, recovery_started, success = run_actual(
                 s, snapshot,
@@ -310,6 +370,7 @@ def main(count=SCENARIOS, recovery_mode="safety-only"):
                 deadline_step,
                 recover,
                 recovery_mode=recovery_mode,
+                **ttl_kwargs,
             )
 
             counterfactual_inspection, counterfactual_collision, counterfactual_started, counterfactual_success = run_actual(
@@ -429,6 +490,9 @@ def main(count=SCENARIOS, recovery_mode="safety-only"):
             f"{('Fallback safe (no entry)' if safety_only else 'Successful recoveries'):<27}{counterfactual_recovery_rate:>17}"
             f"{always_recovery_rate:>17}{recovery_rate:>17}"
         )
+        if experiment == "B":
+            print(f"Prediction ready by dispatch: {format_count(evaluated - predictions_not_ready, evaluated)}")
+            print(f"Prediction not ready:         {format_count(predictions_not_ready, evaluated)}")
 
         print("\nSTALEGUARD vs NO RECOVERY")
         if safety_only:
@@ -465,7 +529,11 @@ if __name__ == "__main__":
     parser.add_argument("--count", type=int, default=SCENARIOS, help="Scenario seeds 0 through count-1.")
     parser.add_argument("--recovery", choices=("safety-only", "mission-retry"), default="safety-only",
                         help="Safety fallback (primary), or historical stop-and-retry inspection variant.")
+    parser.add_argument("--experiment", choices=("A", "B"), default="A",
+                        help="A: known scheduled delay; B: TTL enforcement with unknown dispatch delay.")
     args = parser.parse_args()
     if args.count < 1:
         parser.error("--count must be positive")
-    main(count=args.count, recovery_mode=args.recovery)
+    if args.experiment == "B" and args.recovery != "safety-only":
+        parser.error("Experiment B requires --recovery safety-only")
+    main(count=args.count, recovery_mode=args.recovery, experiment=args.experiment)

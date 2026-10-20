@@ -48,3 +48,10 @@ recovery a safety fallback: cancel descent, request usual height, and continue
 forward. This is now the [primary protocol](docs/10_03_safety_only_recovery.md).
 The earlier stop-and-retry maneuver and results remain a separate
 `--recovery mission-retry` variant. No additional baseline was introduced.
+
+**Experiment B — unknown dispatch delay** is now a separate mode. StaleGuard
+predicts TTL at receipt without actual D; the scheduler checks it at dispatch.
+Experiment A remains unchanged. The full 627-flight run matched A's outcomes
+on this grid; prediction was ready before every positive dispatch delay.
+See [the execution flow and results](docs/11_unknown_dispatch_delay.md) and
+[terminal output](result/baseline_unknown_dispatch.log).

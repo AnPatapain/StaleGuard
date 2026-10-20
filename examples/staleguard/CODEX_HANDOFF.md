@@ -1,11 +1,27 @@
 # Current status — 20 Oct 2026
 
-The three research experiment logs are indexed in
+The research experiment logs are indexed in
 [result/README.md](inspection_descent/result/README.md), in the non-ignored
 `result/` folder: calibrated-scenario TTL accuracy, safety-only baseline
-comparison, and mission-retry baseline comparison. Do not expand this index
+comparison, unknown-delay Experiment B, and mission-retry baseline comparison. Do not expand this index
 with diagnostic or validation logs. The TTL runner supports `--calibrated`
 to load the same frozen commands and explicitly skip infeasible seed 16.
+
+Experiment A is still the unchanged default. `--experiment B` predicts once
+per approval snapshot without actual D, then checks stored TTL inside the
+dispatch event using elapsed control steps. An available expired prediction
+cancels the descent and starts the same safety-only fallback at that step.
+If prediction is not ready, the original command executes on schedule with no
+later cancellation. B forbids mission-retry recovery. See
+[Experiment B](inspection_descent/docs/11_unknown_dispatch_delay.md).
+
+B validation ran timing/late-result tests, 33 before/after A trace comparisons,
+and all 627 official B flights serially. All B outcomes and physical traces
+matched A on the current grid. Prediction took 31.3–76.2 ms; it was unavailable
+at D=0 and available at every positive delay. Controlled late computation
+executed the original command on time and could be unsafe. The new published
+log is `inspection_descent/result/baseline_unknown_dispatch.log`; A's published
+logs remain unchanged.
 
 The primary experiment now uses **safety-only recovery**, by locked decision:
 cancel pending descent, request usual height, and continue the nominal forward

@@ -1,6 +1,6 @@
 # Inspection-descent experiment
 
-The three research experiment logs are in
+The research experiment logs are in
 [result/README.md](result/README.md), outside the Git-ignored `results/` folder.
 
 Start with the [research recap](recap_visibility.md) to follow stages 1–10.
@@ -16,6 +16,18 @@ Run the official No Recovery / Always-Recover / StaleGuard experiment from
 python inspection_descent/staleguard_benefit.py
 python inspection_descent/staleguard_benefit.py --count 20
 ```
+
+These commands run **Experiment A**, where the scheduled delay is known.
+For **Experiment B**, where StaleGuard predicts at receipt without knowing
+the actual delay and the scheduler enforces TTL at dispatch:
+
+```sh
+python inspection_descent/staleguard_benefit.py --count 20 --experiment B
+```
+
+If B's prediction is not ready at dispatch, the command executes on schedule;
+there is no later cancellation. B uses only safety-only fallback. See
+[Experiment B](docs/11_unknown_dispatch_delay.md) for its timing rules and results.
 
 These commands use **safety-only recovery**, the primary experiment. Recovery
 cancels the pending descent, requests usual height, and continues the nominal
