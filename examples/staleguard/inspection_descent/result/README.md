@@ -9,16 +9,16 @@ All use delays from 0.0 to 1.0 s in 0.1 s steps.
 | Current TTL accuracy: swept prediction and 1,000 Hz ground truth | [ttl_accuracy_swept_physics.log](ttl_accuracy_swept_physics.log) |
 | Preserved TTL accuracy before the temporal correction | [ttl_accuracy_calibrated.log](ttl_accuracy_calibrated.log) |
 | Experiment A, known delay: safety-only recovery | [baseline_safety_only.log](baseline_safety_only.log) |
-| Experiment B, unknown delay: StaleGuard TTL checked at dispatch; safety-only recovery | [baseline_unknown_dispatch.log](baseline_unknown_dispatch.log) |
+| Current Experiment B after temporal correction: unknown delay, safety-only recovery | [baseline_unknown_dispatch_swept.log](baseline_unknown_dispatch_swept.log) |
+| Preserved Experiment B before temporal correction | [baseline_unknown_dispatch.log](baseline_unknown_dispatch.log) |
 | Same comparison: recovery can stop and retry inspection | [baseline_mission_retry.log](baseline_mission_retry.log) |
 
-The full operational logs below the TTL rows predate the temporal correction.
-Only its three diagnosed operational cases were rerun; no complete updated
-operational matrix is published here. See the
-[correction report](../docs/13_temporal_safety_correction.md).
+The corrected Experiment B log reports on all 627 newly executed policy flights.
+See its [revalidation and before/after comparison](../docs/14_corrected_experiment_b.md).
+Experiment A and mission-retry logs retain their pre-correction results.
 
 The comparison experiments use T=4.2 s from command receipt. TTL accuracy keeps
-its existing 8.5 s observation horizon. Fallback success in the safety-only
+its existing 8.5 s observation horizon from mission start. Fallback success in the safety-only
 experiment means no unsafe entry, not completed inspection.
 
 Run from `examples/staleguard`:

@@ -7,9 +7,11 @@ The current predictor checks straight segments between consecutive 20 ms
 predicted positions. TTL ground truth and operational execution share 1,000 Hz
 physics-step safety monitoring. The dynamics model and safety boundaries are
 unchanged. See [the correction and measured results](docs/13_temporal_safety_correction.md).
-The new TTL research log is `result/ttl_accuracy_swept_physics.log`; older TTL
-and full operational logs remain preserved before-change results. Only the
-three diagnosed operational cases were rerun after this correction.
+The new TTL research log is `result/ttl_accuracy_swept_physics.log`. The complete
+corrected Experiment B revalidation is in
+[the operational report](docs/14_corrected_experiment_b.md) and
+`result/baseline_unknown_dispatch_swept.log`. Older TTL and operational logs
+remain preserved before-change results; Experiment A has not been rerun.
 
 Start with the [research recap](recap_visibility.md) to follow stages 1–10.
 Detailed historical reports are grouped under `docs/`, with stage numbers in
@@ -35,7 +37,8 @@ python inspection_descent/staleguard_benefit.py --count 20 --experiment B
 
 If B's prediction is not ready at dispatch, the command executes on schedule;
 there is no later cancellation. B uses only safety-only fallback. See
-[Experiment B](docs/11_unknown_dispatch_delay.md) for its timing rules and results.
+[Experiment B](docs/11_unknown_dispatch_delay.md) for its timing rules and
+[the corrected revalidation](docs/14_corrected_experiment_b.md) for current results.
 
 These commands use **safety-only recovery**, the primary experiment. Recovery
 cancels the pending descent, requests usual height, and continues the nominal
@@ -111,8 +114,9 @@ python inspection_descent/mission.py --calibrated --count 20
 `ground_truth.classify_scenario()`. Prediction and ground truth therefore test
 the same eleven delays. `--calibrated` loads the same saved commands as the
 benefit experiment and reports seed 16 as infeasible. It keeps the existing
-8.5 s measurement horizon. Without `--calibrated`, the earlier generated-command
-experiment remains available.
+8.5 s measurement horizon from mission start, distinct from the benefit
+experiment's 4.2 s deadline after approval. Without `--calibrated`, the earlier
+generated-command experiment remains available.
 
 TTL classifications describe the tested range. For example, `ALWAYS_SAFE`
 means safe at every tested delay up to 1.0 s, not at arbitrary future delays.
