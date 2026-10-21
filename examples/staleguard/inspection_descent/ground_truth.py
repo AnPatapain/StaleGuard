@@ -1,4 +1,5 @@
-import numpy as np
+"""PyBullet ground truth using the operational physics-step safety monitor."""
+
 from experiment import (
     CTRL_FREQ_HZ,
     MEASURE_SECONDS,
@@ -10,14 +11,9 @@ from experiment import (
     unsafe,
 )
 from model.scg import make_scg_env_factory
+from model.common import STATE_X, STATE_Y, STATE_Z
+from physics_monitor import monitor_physics_steps
 from safe_control_gym.utils.registration import make
-
-
-def first_unsafe_time(states, first_step, last_step, s):
-    for step in range(first_step, last_step):
-        if unsafe(states[step], s):
-            return step / CTRL_FREQ_HZ
-    return None
 
 
 def run_one(s, delay):
@@ -64,7 +60,28 @@ def run_one(s, delay):
                 + round(delay * CTRL_FREQ_HZ)
             )
 
-        states = [obs.copy()] # Store historical states (observation) from start to end.
+        result = {"hit_nominal": None, "hit_while_waiting": None, "hit_after_command": None}
+        ticks_per_control = PYB_FREQ_HZ // CTRL_FREQ_HZ
+        approval_tick = approval_step * ticks_per_control
+        dispatch_tick = None if dispatch_step is None else dispatch_step * ticks_per_control
+
+        def monitor_position(position, tick):
+            if tick < approval_tick:
+                return
+            state = obs.copy()
+            state[[STATE_X, STATE_Y, STATE_Z]] = position
+            if not unsafe(state, s):
+                return
+            if dispatch_tick is None:
+                key = "hit_nominal"
+            elif tick <= dispatch_tick:
+                key = "hit_while_waiting"
+            else:
+                key = "hit_after_command"
+            if result[key] is None:
+                result[key] = tick / PYB_FREQ_HZ
+
+        sample_physics = monitor_physics_steps(env, monitor_position)
         for step in range(total_steps):
             # Apply new trajectory to Quadrotor (note: PID takes time to drive Quadrotor to the desired trajectory)
             if (
@@ -83,51 +100,12 @@ def run_one(s, delay):
             # Continue the old trajectory 
             motor_action = ctrl.select_action(obs, info)
             obs, _, done, info = env.step(motor_action)
-            states.append(obs.copy())
+            sample_physics()
 
             if done:
                 break
 
-        states = np.asarray(states)
-
-        # No command:
-        # check whether nominal flight ever becomes unsafe.
-        if dispatch_step is None:
-            hit_nominal = first_unsafe_time(
-                states,
-                approval_step,
-                len(states),
-                s,
-            )
-
-            return {
-                "hit_nominal": hit_nominal,
-                "hit_while_waiting": None,
-                "hit_after_command": None,
-            }
-
-        # Delayed command:
-        # first check the waiting period.
-        hit_while_waiting = first_unsafe_time(
-            states,
-            approval_step,
-            dispatch_step + 1,
-            s,
-        )
-
-        # Then check everything after dispatch.
-        hit_after_command = first_unsafe_time(
-            states,
-            dispatch_step + 1,
-            len(states),
-            s,
-        )
-
-        return {
-            "hit_nominal": None,
-            "hit_while_waiting": hit_while_waiting,
-            "hit_after_command": hit_after_command,
-        }
+        return result
 
     finally:
         if ctrl is not None:

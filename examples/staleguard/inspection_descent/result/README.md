@@ -6,10 +6,16 @@ All use delays from 0.0 to 1.0 s in 0.1 s steps.
 
 | Experiment | Terminal output |
 |---|---|
-| TTL prediction accuracy on the calibrated commands | [ttl_accuracy_calibrated.log](ttl_accuracy_calibrated.log) |
+| Current TTL accuracy: swept prediction and 1,000 Hz ground truth | [ttl_accuracy_swept_physics.log](ttl_accuracy_swept_physics.log) |
+| Preserved TTL accuracy before the temporal correction | [ttl_accuracy_calibrated.log](ttl_accuracy_calibrated.log) |
 | Experiment A, known delay: safety-only recovery | [baseline_safety_only.log](baseline_safety_only.log) |
 | Experiment B, unknown delay: StaleGuard TTL checked at dispatch; safety-only recovery | [baseline_unknown_dispatch.log](baseline_unknown_dispatch.log) |
 | Same comparison: recovery can stop and retry inspection | [baseline_mission_retry.log](baseline_mission_retry.log) |
+
+The full operational logs below the TTL rows predate the temporal correction.
+Only its three diagnosed operational cases were rerun; no complete updated
+operational matrix is published here. See the
+[correction report](../docs/13_temporal_safety_correction.md).
 
 The comparison experiments use T=4.2 s from command receipt. TTL accuracy keeps
 its existing 8.5 s observation horizon. Fallback success in the safety-only

@@ -3,6 +3,14 @@
 The research experiment logs are in
 [result/README.md](result/README.md), outside the Git-ignored `results/` folder.
 
+The current predictor checks straight segments between consecutive 20 ms
+predicted positions. TTL ground truth and operational execution share 1,000 Hz
+physics-step safety monitoring. The dynamics model and safety boundaries are
+unchanged. See [the correction and measured results](docs/13_temporal_safety_correction.md).
+The new TTL research log is `result/ttl_accuracy_swept_physics.log`; older TTL
+and full operational logs remain preserved before-change results. Only the
+three diagnosed operational cases were rerun after this correction.
+
 Start with the [research recap](recap_visibility.md) to follow stages 1–10.
 Detailed historical reports are grouped under `docs/`, with stage numbers in
 their filenames. The [current implementation and validation report](docs/current_implementation_and_validation.md)

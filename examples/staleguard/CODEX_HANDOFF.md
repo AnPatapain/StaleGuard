@@ -1,4 +1,26 @@
-# Current status — 20 Oct 2026
+# Latest update — 21 Oct 2026
+
+StaleGuard now checks straight position segments over each 20 ms prediction
+interval using a separate closed-box geometry checker. TTL ground truth and
+operational execution share 1,000 Hz physics observation. No dynamics, calibration,
+geometry boundaries, recovery, A/B scheduling, or baseline definitions changed.
+See `inspection_descent/docs/13_temporal_safety_correction.md`.
+
+All 209 segment decisions matched dense 1 ms model samples. Seed 9/D=0.3 now
+rejects and falls back safely; seeds 7/8 at D=0.4 remain unsafe model errors.
+Full calibrated TTL evaluation: 2/128 false-safe predictions, 2/81 false
+rejections, classification 18/19, TTL MAE 0.017 s over 18 comparable cases.
+The extra rejection is seed 10/D=0, whose model predicts a brief crossing
+while actual physics is safe. No model tuning was performed.
+
+Paired warmed prediction timing (95 pairs): mean 51.48 -> 54.84 ms,
+additional 3.36 ms / 6.52%. Timing varied with host load; some results exceeded
+0.1 s. The full operational matrix was not rerun. New TTL output is
+`inspection_descent/result/ttl_accuracy_swept_physics.log`; all old logs remain.
+Validation used one simulation worker, preserved completed results after memory
+guard stops, and separated simulator measurements from predictor checks.
+
+# Previous status — 20 Oct 2026
 
 The research experiment logs are indexed in
 [result/README.md](inspection_descent/result/README.md), in the non-ignored

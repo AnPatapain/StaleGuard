@@ -20,6 +20,7 @@ from safe_control_gym.utils.registration import make
 from model.common import STATE_VX, STATE_X, STATE_Y, STATE_Z
 from model.lightweight import LightweightPredictiveModel
 from model.scg import load_scg_platform_params, make_scg_env_factory
+from physics_monitor import monitor_physics_steps
 from staleguard import predict
 
 MISSION_DEADLINE_S = 4.2  # Fixed deadline, measured from command receipt.
@@ -108,7 +109,6 @@ def run_actual(
     recovering = False
     descending = False
     scan_start_tick = None
-    physics_tick = 0
     completed = False
     collision = False
     recovery_started = False
@@ -125,24 +125,14 @@ def run_actual(
         else:
             scan_start_tick = None
 
-    # Observe every existing physics step without altering its action/dynamics.
-    # Counting N control samples as N*dt overstates elapsed dwell by one dt.
-    original_physics = env._physics
-
-    def monitored_physics(rpm):
-        nonlocal physics_tick
-        position, _ = p.getBasePositionAndOrientation(
-            env.DRONE_ID, physicsClientId=env.PYB_CLIENT,
-        )
+    def monitor_position(position, tick):
         state = obs.copy()
         state[[STATE_X, STATE_Y, STATE_Z]] = position
-        monitor(state, physics_tick)
+        monitor(state, tick)
         if physics_trace is not None:
-            physics_trace.append((physics_tick, position))
-        original_physics(rpm)
-        physics_tick += 1
+            physics_trace.append((tick, position))
 
-    env._physics = monitored_physics
+    sample_physics = monitor_physics_steps(env, monitor_position)
 
     if gui:
         p.addUserDebugText(
@@ -214,7 +204,7 @@ def run_actual(
             if trace is not None:
                 # State is at step + 1; reference was applied at step.
                 trace.append((step + 1, obs.copy(), traj[step].copy()))
-            monitor(obs, physics_tick)
+            sample_physics()
 
             if gui:
                 time.sleep(1.0 / CTRL_FREQ_HZ)
@@ -225,9 +215,6 @@ def run_actual(
 
             if done:
                 break
-
-        if physics_trace is not None:
-            physics_trace.append((physics_tick, obs[[STATE_X, STATE_Y, STATE_Z]].copy()))
 
         if gui:
             print(f"completed={completed}, collision={collision}")

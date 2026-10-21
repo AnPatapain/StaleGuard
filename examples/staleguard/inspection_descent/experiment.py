@@ -4,6 +4,7 @@ from dataclasses import dataclass
 
 import numpy as np
 
+from geometry import segment_intersects_box
 from model.common import PIDState, STATE_VX, STATE_X, STATE_Y, STATE_Z
 
 
@@ -130,6 +131,16 @@ def unsafe(state, geometry):
         geometry.box_x_min <= x <= geometry.box_x_max
         and abs(y) <= geometry.box_y_limit
         and z <= geometry.unsafe_below_z
+    )
+
+
+def unsafe_segment(start, end, geometry):
+    """Check the straight predicted path against the same closed unsafe region."""
+    return segment_intersects_box(
+        (start[STATE_X], start[STATE_Y], start[STATE_Z]),
+        (end[STATE_X], end[STATE_Y], end[STATE_Z]),
+        (geometry.box_x_min, -geometry.box_y_limit, -np.inf),
+        (geometry.box_x_max, geometry.box_y_limit, geometry.unsafe_below_z),
     )
 
 

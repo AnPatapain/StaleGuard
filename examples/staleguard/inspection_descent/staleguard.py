@@ -1,6 +1,7 @@
 """StaleGuard T0.
 Predicts validity using approval-time information only.
 Every rollout starts directly from approval time.
+Safety covers straight position segments between consecutive control states.
 """
 from experiment import (
     CTRL_FREQ_HZ,
@@ -8,6 +9,7 @@ from experiment import (
     apply_descent_command,
     classify_delay_results,
     unsafe,
+    unsafe_segment,
 )
 
 
@@ -47,16 +49,14 @@ def rollout_from_checkpoint(
             info,
         )
 
+        previous_obs = obs
         obs, done, info = predictive_model.step(
             action,
             obs,
             info,
         )
 
-        if unsafe(
-                obs,
-                snapshot,
-        ):
+        if unsafe_segment(previous_obs, obs, snapshot):
             return "UNSAFE"
 
         if done:
@@ -109,16 +109,14 @@ def build_nominal_checkpoints(
             info,
         )
 
+        previous_obs = obs
         obs, done, info = predictive_model.step(
             action,
             obs,
             info,
         )
 
-        if unsafe(
-                obs,
-                snapshot,
-        ):
+        if unsafe_segment(previous_obs, obs, snapshot):
             return False, checkpoints
 
         if done:
