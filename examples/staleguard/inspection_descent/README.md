@@ -40,6 +40,12 @@ there is no later cancellation. B uses only safety-only fallback. See
 [Experiment B](docs/11_unknown_dispatch_delay.md) for its timing rules and
 [the corrected revalidation](docs/14_corrected_experiment_b.md) for current results.
 
+The separate [short-delay latency supplement](docs/15_short_delay_latency.md)
+tests actual dispatch at 0, 20, 40, 60, 80, and 100 ms with the unchanged
+predictor and fail-open policy. Its measured results are in
+[short_delay_latency.json](result/short_delay_latency.json); official B results
+remain preserved.
+
 These commands use **safety-only recovery**, the primary experiment. Recovery
 cancels the pending descent, requests usual height, and continues the nominal
 forward trajectory. It does not stop or retry inspection. StaleGuard and
