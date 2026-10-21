@@ -1,4 +1,5 @@
 import argparse
+from dataclasses import replace
 import json
 from pathlib import Path
 import time
@@ -11,17 +12,19 @@ from experiment import (
     DELAY_GRID,
     CTRL_FREQ_HZ,
     PYB_FREQ_HZ,
+    MEASURE_SECONDS,
     SIM_SEED,
     make_forward_trajectory,
     inspection_x,
 )
 from mission import capture_approval
 from safe_control_gym.utils.registration import make
-from model.common import STATE_VX, STATE_X, STATE_Y, STATE_Z
+from model.common import STATE_VX, STATE_X, STATE_Y, STATE_Z, capture_pid_state
 from model.lightweight import LightweightPredictiveModel
 from model.scg import load_scg_platform_params, make_scg_env_factory
 from physics_monitor import monitor_physics_steps
 from staleguard import predict
+from use_time_recheck import predict_immediate, first_step_after_check
 
 MISSION_DEADLINE_S = 4.2  # Fixed deadline, measured from command receipt.
 SCENARIOS = 10  # Run 10 scenarios for each pending delay.
@@ -79,10 +82,14 @@ def run_actual(
     physics_trace=None,
     recovery_mode="safety-only",
     ttl_prediction=None,
+    use_time_check=None,
+    recheck_log=None,
 ):
     """Execute one policy; mission-retry retains the historical recovery variant."""
     if ttl_prediction is not None and recovery_mode != "safety-only":
         raise ValueError("Experiment B requires safety-only recovery")
+    if use_time_check is not None and (recovery_mode != "safety-only" or ttl_prediction is not None or recover):
+        raise ValueError("Use-Time Recheck requires its own safety-only dispatch decision")
     env_factory = make_scg_env_factory(
         init_state={
             "init_x": 0.0,
@@ -112,6 +119,8 @@ def run_actual(
     completed = False
     collision = False
     recovery_started = False
+    command_step = dispatch_step
+    check_result = None
 
     def monitor(state, tick):
         nonlocal scan_start_tick, completed, collision
@@ -151,6 +160,30 @@ def run_actual(
 
     try:
         for step in range(deadline_step):
+            if use_time_check is not None and step == dispatch_step:
+                started = time.perf_counter()
+                current = replace(
+                    snapshot, state=obs.copy(), pid_state=capture_pid_state(ctrl),
+                    remaining_reference=traj[step:].copy(), approval_time=step / CTRL_FREQ_HZ,
+                    horizon_steps=round(MEASURE_SECONDS * CTRL_FREQ_HZ) - step,
+                )
+                check_result = use_time_check(current)
+                elapsed = time.perf_counter() - started
+                command_step = first_step_after_check(dispatch_step, elapsed)
+                if recheck_log is not None:
+                    recheck_log.update(snapshot=current, prediction=check_result, computation_s=elapsed,
+                                       scheduled_dispatch_step=dispatch_step, decision_step=command_step,
+                                       decision_applied_step=None, application_step=None, fallback_step=None)
+
+            if use_time_check is not None and step == command_step and check_result is not None:
+                # The original snapshot's result is used once, despite state motion.
+                recover = check_result != "SAFE"
+                recover_step = step
+                if recheck_log is not None:
+                    recheck_log.update(decision_applied_step=step, state_at_decision=obs.copy(),
+                                       application_step=None if recover else step,
+                                       fallback_step=step if recover else None)
+
             # Experiment B: scheduler checks TTL before applying the command.
             # Nothing is cancelled earlier using knowledge of future dispatch.
             if step == dispatch_step and ttl_prediction is not None:
@@ -188,7 +221,7 @@ def run_actual(
                     ctrl.reference = traj
 
             # Otherwise, execute approved command at scheduled time.
-            if not recover and step == dispatch_step:
+            if not recover and step == command_step:
                 traj = apply_descent_command(
                     traj, step,
                     snapshot.low_steps,
@@ -242,6 +275,8 @@ def plan_feasible_command(s):
 def print_report(metrics, paired, pending, evaluated, safety_only, predictions_not_ready=None):
     """Print one delay's policy metrics and paired safe-completion comparisons."""
     policies = ("No Recovery", "Always-Recover", "StaleGuard")
+    if "Use-Time Recheck" in metrics:
+        policies += ("Use-Time Recheck",)
     staleguard = metrics["StaleGuard"]
     no_recovery = metrics["No Recovery"]
     always_recover = metrics["Always-Recover"]
@@ -250,7 +285,7 @@ def print_report(metrics, paired, pending, evaluated, safety_only, predictions_n
     print(f"D = {pending:.1f}s | T = {MISSION_DEADLINE_S:.1f}s | N = {evaluated}")
     print("=" * 78)
     print("\nMISSION OUTCOMES")
-    print(f"{'':27}{'No Recovery':>17}{'Always-Recover':>17}{'StaleGuard':>17}")
+    print(f"{'':27}" + "".join(f"{policy:>17}" for policy in policies))
     print("-" * 78)
     rows = (
         ("Safe mission completion", "successes"),
@@ -316,9 +351,11 @@ def print_report(metrics, paired, pending, evaluated, safety_only, predictions_n
     print()
 
 
-def main(count=SCENARIOS, recovery_mode="safety-only", experiment="A"):
+def main(count=SCENARIOS, recovery_mode="safety-only", experiment="A", use_time_recheck=False):
     if experiment == "B" and recovery_mode != "safety-only":
         raise ValueError("Experiment B requires safety-only recovery")
+    if use_time_recheck and (experiment != "B" or recovery_mode != "safety-only"):
+        raise ValueError("Use-Time Recheck is an additional safety-only Experiment B policy")
     safety_only = recovery_mode == "safety-only"
     calibrated = json.loads(CALIBRATION_FILE.read_text())
     quad_params, pid_params = load_scg_platform_params()
@@ -331,6 +368,10 @@ def main(count=SCENARIOS, recovery_mode="safety-only", experiment="A"):
         predictive_model=LightweightPredictiveModel(quad_params, pid_params),
         delays=DELAY_GRID
     )
+    def check_now(current):
+        return predict_immediate(current, LightweightPredictiveModel(quad_params, pid_params))
+    if use_time_recheck:
+        check_now(warmup_snapshot)  # Warm the same CPU model kernels before measuring.
 
     planned_scenarios = []
     infeasible_ids = []
@@ -366,6 +407,10 @@ def main(count=SCENARIOS, recovery_mode="safety-only", experiment="A"):
 
     for queue_pending in DELAY_GRID:
         predictions_not_ready = 0
+        recheck_events = []
+        policies = ("StaleGuard", "No Recovery", "Always-Recover")
+        if use_time_recheck:
+            policies += ("Use-Time Recheck",)
         metrics = {
             policy: {
                 "inspection_completions": 0,
@@ -375,7 +420,7 @@ def main(count=SCENARIOS, recovery_mode="safety-only", experiment="A"):
                 "recoveries": 0,
                 "recovery_successes": 0,
             }
-            for policy in ("StaleGuard", "No Recovery", "Always-Recover")
+            for policy in policies
         }
         # Paired counts compare outcomes of the same scenario and command.
         paired = {
@@ -453,6 +498,13 @@ def main(count=SCENARIOS, recovery_mode="safety-only", experiment="A"):
                 always_recover_step < dispatch_step,
                 recovery_mode=recovery_mode,
             )
+            if use_time_recheck:
+                event = {}
+                outcomes["Use-Time Recheck"] = run_actual(
+                    s, snapshot, dispatch_step, dispatch_step, deadline_step, False,
+                    recovery_mode=recovery_mode, use_time_check=check_now, recheck_log=event,
+                )
+                recheck_events.append(event)
 
             # Validate and collect each policy's outcomes using the same definitions.
             for policy, (inspected, unsafe_entry, started, safely_completed) in outcomes.items():
@@ -498,6 +550,12 @@ def main(count=SCENARIOS, recovery_mode="safety-only", experiment="A"):
             metrics, paired, queue_pending, evaluated, safety_only,
             predictions_not_ready=predictions_not_ready if experiment == "B" else None,
         )
+        if use_time_recheck:
+            durations = [r["computation_s"] for r in recheck_events]
+            delays = [(r["decision_step"] - r["scheduled_dispatch_step"]) / CTRL_FREQ_HZ for r in recheck_events]
+            print(f"Use-Time Recheck: check mean/max={1000*sum(durations)/evaluated:.2f}/"
+                  f"{1000*max(durations):.2f} ms; decision delay mean/max="
+                  f"{1000*sum(delays)/evaluated:.2f}/{1000*max(delays):.2f} ms")
 
 
 if __name__ == "__main__":
@@ -507,9 +565,14 @@ if __name__ == "__main__":
                         help="Safety fallback (primary), or historical stop-and-retry inspection variant.")
     parser.add_argument("--experiment", choices=("A", "B"), default="A",
                         help="A: known scheduled delay; B: TTL enforcement with unknown dispatch delay.")
+    parser.add_argument("--use-time-recheck", action="store_true",
+                        help="Add dispatch-time prediction as a fourth safety-only Experiment B policy.")
     args = parser.parse_args()
     if args.count < 1:
         parser.error("--count must be positive")
     if args.experiment == "B" and args.recovery != "safety-only":
         parser.error("Experiment B requires --recovery safety-only")
-    main(count=args.count, recovery_mode=args.recovery, experiment=args.experiment)
+    if args.use_time_recheck and (args.experiment != "B" or args.recovery != "safety-only"):
+        parser.error("--use-time-recheck requires --experiment B --recovery safety-only")
+    main(count=args.count, recovery_mode=args.recovery, experiment=args.experiment,
+         use_time_recheck=args.use_time_recheck)

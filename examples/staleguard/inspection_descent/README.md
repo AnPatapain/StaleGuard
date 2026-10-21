@@ -35,6 +35,18 @@ the actual delay and the scheduler enforces TTL at dispatch:
 python inspection_descent/staleguard_benefit.py --count 20 --experiment B
 ```
 
+To add the [Use-Time Recheck policy](docs/18_use_time_recheck.md), which checks
+once from the live dispatch state and delays application by measured computation
+time while nominal PID control continues:
+
+```sh
+python inspection_descent/staleguard_benefit.py --count 20 --experiment B --use-time-recheck
+```
+
+This uses serial measured-time simulation, not concurrent onboard scheduling.
+The [four-policy results](result/use_time_recheck.json) and
+[terminal log](result/baseline_use_time_recheck.log) preserve the earlier reports.
+
 If B's prediction is not ready at dispatch, the command executes on schedule;
 there is no later cancellation. B uses only safety-only fallback. See
 [Experiment B](docs/11_unknown_dispatch_delay.md) for its timing rules and
@@ -45,6 +57,12 @@ tests actual dispatch at 0, 20, 40, 60, 80, and 100 ms with the unchanged
 predictor and fail-open policy. Its measured results are in
 [short_delay_latency.json](result/short_delay_latency.json); official B results
 remain preserved.
+
+The [computation-latency stress experiment](docs/17_computation_latency_stress.md)
+freezes those measured runtimes and TTL outputs, scales availability uniformly,
+and compares fail-open execution with the paired on-time counterfactual. Its
+simulated stress results and native boundary checks are separate from measured
+hardware timing.
 
 These commands use **safety-only recovery**, the primary experiment. Recovery
 cancels the pending descent, requests usual height, and continues the nominal
