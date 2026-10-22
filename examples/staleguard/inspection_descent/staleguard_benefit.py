@@ -25,6 +25,7 @@ from model.scg import load_scg_platform_params, make_scg_env_factory
 from physics_monitor import monitor_physics_steps
 from staleguard import predict
 from use_time_recheck import predict_immediate, first_step_after_check
+import fbs
 
 MISSION_DEADLINE_S = 4.2  # Fixed deadline, measured from command receipt.
 SCENARIOS = 10  # Run 10 scenarios for each pending delay.
@@ -84,12 +85,15 @@ def run_actual(
     ttl_prediction=None,
     use_time_check=None,
     recheck_log=None,
+    fbs_log=None,
 ):
     """Execute one policy; mission-retry retains the historical recovery variant."""
     if ttl_prediction is not None and recovery_mode != "safety-only":
         raise ValueError("Experiment B requires safety-only recovery")
     if use_time_check is not None and (recovery_mode != "safety-only" or ttl_prediction is not None or recover):
         raise ValueError("Use-Time Recheck requires its own safety-only dispatch decision")
+    if fbs_log is not None and (recovery_mode != "safety-only" or ttl_prediction is not None or use_time_check is not None or recover):
+        raise ValueError("FBS requires its own safety-only dispatch decision")
     env_factory = make_scg_env_factory(
         init_state={
             "init_x": 0.0,
@@ -121,6 +125,12 @@ def run_actual(
     recovery_started = False
     command_step = dispatch_step
     check_result = None
+    if fbs_log is not None:
+        approval_step = round(snapshot.approval_time * CTRL_FREQ_HZ)
+        if dispatch_step < approval_step:
+            raise ValueError("FBS dispatch must not precede approval")
+        previous_feature, volatility = None, 0.0
+        fbs_log.update(observation_steps=[], features_m=[], observation_update_s=[])
 
     def monitor(state, tick):
         nonlocal scan_start_tick, completed, collision
@@ -160,6 +170,32 @@ def run_actual(
 
     try:
         for step in range(deadline_step):
+            # Observe only the actual 50 Hz prefix, including approval; then freeze.
+            if fbs_log is not None and step <= approval_step:
+                started = time.perf_counter()
+                feature = fbs.clearance(obs, snapshot)
+                volatility = fbs.update_volatility(feature, previous_feature, volatility)
+                previous_feature = feature
+                if step == approval_step:
+                    frozen = fbs.freeze_prediction(feature, volatility)
+                elapsed = time.perf_counter() - started
+                fbs_log["observation_steps"].append(step)
+                fbs_log["features_m"].append(feature)
+                fbs_log["observation_update_s"].append(elapsed)
+                if step == approval_step:
+                    fbs_log.update(prediction=frozen, computation_s=elapsed,
+                                   observation_step=step, observation_state=obs.copy(),
+                                   cold_start=step == 0)
+
+            if fbs_log is not None and step == dispatch_step:
+                waited_steps = step - approval_step
+                status = fbs.dispatch_status(frozen, fbs_log["computation_s"], waited_steps)
+                recover = status["recover"]
+                recover_step = step
+                fbs_log.update(status, dispatch_step=step, waited_steps=waited_steps,
+                               application_step=None if recover else step,
+                               fallback_step=step if recover else None)
+
             if use_time_check is not None and step == dispatch_step:
                 started = time.perf_counter()
                 current = replace(
@@ -277,6 +313,8 @@ def print_report(metrics, paired, pending, evaluated, safety_only, predictions_n
     policies = ("No Recovery", "Always-Recover", "StaleGuard")
     if "Use-Time Recheck" in metrics:
         policies += ("Use-Time Recheck",)
+    if "FBS" in metrics:
+        policies += ("FBS",)
     staleguard = metrics["StaleGuard"]
     no_recovery = metrics["No Recovery"]
     always_recover = metrics["Always-Recover"]
@@ -351,11 +389,16 @@ def print_report(metrics, paired, pending, evaluated, safety_only, predictions_n
     print()
 
 
-def main(count=SCENARIOS, recovery_mode="safety-only", experiment="A", use_time_recheck=False):
+def main(count=SCENARIOS, recovery_mode="safety-only", experiment="A", use_time_recheck=False,
+         include_fbs=False):
     if experiment == "B" and recovery_mode != "safety-only":
         raise ValueError("Experiment B requires safety-only recovery")
     if use_time_recheck and (experiment != "B" or recovery_mode != "safety-only"):
         raise ValueError("Use-Time Recheck is an additional safety-only Experiment B policy")
+    if include_fbs:
+        if experiment != "B" or recovery_mode != "safety-only":
+            raise ValueError("FBS is an additional safety-only Experiment B policy")
+        use_time_recheck = True  # --fbs runs the complete five-policy comparison.
     safety_only = recovery_mode == "safety-only"
     calibrated = json.loads(CALIBRATION_FILE.read_text())
     quad_params, pid_params = load_scg_platform_params()
@@ -408,9 +451,12 @@ def main(count=SCENARIOS, recovery_mode="safety-only", experiment="A", use_time_
     for queue_pending in DELAY_GRID:
         predictions_not_ready = 0
         recheck_events = []
+        fbs_events = []
         policies = ("StaleGuard", "No Recovery", "Always-Recover")
         if use_time_recheck:
             policies += ("Use-Time Recheck",)
+        if include_fbs:
+            policies += ("FBS",)
         metrics = {
             policy: {
                 "inspection_completions": 0,
@@ -505,6 +551,13 @@ def main(count=SCENARIOS, recovery_mode="safety-only", experiment="A", use_time_
                     recovery_mode=recovery_mode, use_time_check=check_now, recheck_log=event,
                 )
                 recheck_events.append(event)
+            if include_fbs:
+                event = {}
+                outcomes["FBS"] = run_actual(
+                    s, snapshot, dispatch_step, dispatch_step, deadline_step, False,
+                    recovery_mode=recovery_mode, fbs_log=event,
+                )
+                fbs_events.append(event)
 
             # Validate and collect each policy's outcomes using the same definitions.
             for policy, (inspected, unsafe_entry, started, safely_completed) in outcomes.items():
@@ -556,6 +609,14 @@ def main(count=SCENARIOS, recovery_mode="safety-only", experiment="A", use_time_
             print(f"Use-Time Recheck: check mean/max={1000*sum(durations)/evaluated:.2f}/"
                   f"{1000*max(durations):.2f} ms; decision delay mean/max="
                   f"{1000*sum(delays)/evaluated:.2f}/{1000*max(delays):.2f} ms")
+        if include_fbs:
+            durations = [r["computation_s"] for r in fbs_events]
+            ttls = [r["prediction"]["ttl_steps"] for r in fbs_events]
+            print(f"FBS: ready={sum(r['ready'] for r in fbs_events)}/{evaluated}; "
+                  f"computation mean/max={1e6*sum(durations)/evaluated:.2f}/"
+                  f"{1e6*max(durations):.2f} us; TTL min/mean/max="
+                  f"{min(ttls)}/{sum(ttls)/evaluated:.2f}/{max(ttls)} steps; "
+                  f"cold starts={sum(r['cold_start'] for r in fbs_events)}")
 
 
 if __name__ == "__main__":
@@ -567,6 +628,8 @@ if __name__ == "__main__":
                         help="A: known scheduled delay; B: TTL enforcement with unknown dispatch delay.")
     parser.add_argument("--use-time-recheck", action="store_true",
                         help="Add dispatch-time prediction as a fourth safety-only Experiment B policy.")
+    parser.add_argument("--fbs", action="store_true",
+                        help="Run all five safety-only Experiment B policies, including FBS.")
     args = parser.parse_args()
     if args.count < 1:
         parser.error("--count must be positive")
@@ -574,5 +637,7 @@ if __name__ == "__main__":
         parser.error("Experiment B requires --recovery safety-only")
     if args.use_time_recheck and (args.experiment != "B" or args.recovery != "safety-only"):
         parser.error("--use-time-recheck requires --experiment B --recovery safety-only")
+    if args.fbs and (args.experiment != "B" or args.recovery != "safety-only"):
+        parser.error("--fbs requires --experiment B --recovery safety-only")
     main(count=args.count, recovery_mode=args.recovery, experiment=args.experiment,
-         use_time_recheck=args.use_time_recheck)
+         use_time_recheck=args.use_time_recheck, include_fbs=args.fbs)

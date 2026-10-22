@@ -128,6 +128,19 @@ recovery metrics, and results remain available through `--recovery mission-retry
 and `results/always_recover/`. The safety-only protocol and its executed results
 are documented in [the safety-only report](docs/10_03_safety_only_recovery.md).
 
+## FBS baseline for Experiment B
+
+```sh
+python inspection_descent/staleguard_benefit.py --count 20 --experiment B --fbs
+```
+
+This adds FBS as a fifth policy alongside Use-Time Recheck and the existing
+three policies. FBS uses only actual observations through approval, with a
+signed geometric-clearance feature, EMA volatility and the published
+margin/volatility TTL mechanism. It retains fail-open dispatch and the existing
+safety-only fallback. The [executed report](docs/20_fbs_baseline.md) documents
+epsilon, cold starts, measured timing, sensitivity and five-policy outcomes.
+
 ## TTL prediction accuracy
 
 ```sh
