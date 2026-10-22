@@ -1,0 +1,134 @@
+{
+  "description": "Canonical core results; byte-identical duplicate root copies were verified and removed. Historical paths are retained as provenance; run metadata and scenario checkpoints live in sibling directories.",
+  "original_outputs": [
+    {
+      "file": "six_policy_report.log",
+      "bytes": 51665,
+      "sha256": "db057c802b0450a9ef6f52540deb5a2bb3eb6d9341ab974675800f18bb66a220",
+      "original_source": "../six_policy_report.log",
+      "location": "six_policy_report.log"
+    },
+    {
+      "file": "summary.json",
+      "bytes": 266946,
+      "sha256": "73c64d7e07facef4ee895f292828475c328fe943348fb0f43db632d3222d711f",
+      "original_source": "../summary.json",
+      "location": "summary.json"
+    },
+    {
+      "file": "aggregate.csv",
+      "bytes": 2661,
+      "sha256": "fb8f424d800184fd26946e6a96c0fc47ecb4322eed512bce5c07bc20c4d3280b",
+      "original_source": "../aggregate.csv",
+      "location": "aggregate.csv"
+    },
+    {
+      "file": "per_delay.csv",
+      "bytes": 15598,
+      "sha256": "c1042715895173de59dfc51b4e2e5c2436623812ebf0789c0cc9ba2d050aa24c",
+      "original_source": "../per_delay.csv",
+      "location": "per_delay.csv"
+    },
+    {
+      "file": "paired_comparisons.csv",
+      "bytes": 19960,
+      "sha256": "2772ec55d6e5fa96d516ef0e2a8f744331f7fe0f94e228bad6869233e189633d",
+      "original_source": "../paired_comparisons.csv",
+      "location": "paired_comparisons.csv"
+    },
+    {
+      "file": "paired_comparisons.json",
+      "bytes": 59688,
+      "sha256": "4ece37cf7e9fe2b4ac389fe68eb56ad2b665bb91a4c875c37e9fdc41f15d2621",
+      "original_source": "../paired_comparisons.json",
+      "location": "paired_comparisons.json"
+    },
+    {
+      "file": "computation_times.json",
+      "bytes": 13615,
+      "sha256": "b5b3f600d5e143c04146a58d1a92334c9e1eb683897866ec04e4b4be59f103cc",
+      "original_source": "../computation_times.json",
+      "location": "computation_times.json"
+    },
+    {
+      "file": "calibration_feasibility.json",
+      "bytes": 2931,
+      "sha256": "cac6fea2424617e0a06ad3fff0d47142fc813d22d442b5debc8265339c14d2c1",
+      "original_source": "../calibration_feasibility.json",
+      "location": "calibration_feasibility.json"
+    },
+    {
+      "file": "calibrated_scenarios.json",
+      "bytes": 244121,
+      "sha256": "d4a20d910bfcdc3ea30d004061beb96c68171393c4c12cc486a748e3241cbd0b",
+      "original_source": "../calibrated_scenarios.json",
+      "location": "calibrated_scenarios.json"
+    },
+    {
+      "file": "protocol.json",
+      "bytes": 4071,
+      "sha256": "1e11c5ef4e562fa402e3c34f3c7b7e694b0fbcefe404ce5c8b7e7174141bdfc2",
+      "original_source": "../protocol.json",
+      "location": "protocol.json"
+    },
+    {
+      "file": "preserved_files.json",
+      "bytes": 5776,
+      "sha256": "0eb5ad264a8f6e65ff38c69435042473c3f7ce9041292ece7e45a2faa3a9bb56",
+      "original_source": "../preserved_files.json",
+      "location": "preserved_files.json"
+    },
+    {
+      "file": "executions.jsonl",
+      "bytes": 18815161,
+      "sha256": "9c45bf258fe840312ae0a205751f6e923c9050487d813f6cf7e794cab1394501",
+      "original_source": "../executions.jsonl",
+      "location": "executions.jsonl"
+    },
+    {
+      "file": "safety_completion_tradeoff.png",
+      "bytes": 85656,
+      "sha256": "6a3bb7c984fdd8961bd76b1490ab5ffb3b80fd3a61bfa5e037c099e5288188a5",
+      "original_source": "../safety_completion_tradeoff.png",
+      "location": "safety_completion_tradeoff.png"
+    },
+    {
+      "file": "safety_completion_tradeoff.pdf",
+      "bytes": 21129,
+      "sha256": "dae9359ef9827df513a42313101196e3edadd24fec4a13fd0e18f946431e1dd7",
+      "original_source": "../safety_completion_tradeoff.pdf",
+      "location": "safety_completion_tradeoff.pdf"
+    },
+    {
+      "file": "interpretation.txt",
+      "bytes": 1043,
+      "sha256": "4386a2e2a3add42e84b90aa3256df93c25b0cb6c2270cf351598a9b793a9bc9a",
+      "original_source": "../interpretation.txt",
+      "location": "interpretation.txt"
+    }
+  ],
+  "generated": [
+    {
+      "file": "REPORT.md",
+      "bytes": 32438,
+      "sha256": "fd23804cc2945c48f5b22c06e3f51418068c8511cca88d4a9cb7b32490bdff30"
+    },
+    {
+      "file": "execution_time.json",
+      "bytes": 6561,
+      "sha256": "8c00173cdd4b2a43948153c607dfa009bc5935974a097059bb6f03d94c72809f"
+    },
+    {
+      "file": "analysis_metrics.json",
+      "bytes": 6122,
+      "sha256": "72c0a7d0e5ccc9aa15bbf8b65f51ea7f33e6fe056ec0a583b770db8cd324f5fa"
+    }
+  ],
+  "validation": {
+    "original_records_checked": 18216,
+    "reference_reuses_checked": 5236,
+    "preserved_file_hashes_checked": 56,
+    "scientific_sources_modified": false,
+    "simulations_run": false
+  }
+}

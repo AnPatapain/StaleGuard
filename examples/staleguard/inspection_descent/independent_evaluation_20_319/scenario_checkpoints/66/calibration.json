@@ -1,0 +1,18 @@
+{
+  "seed": 66,
+  "generated_scenario": {
+    "speed": 0.7694935511743726,
+    "usual_height": 1.3232045327810815,
+    "box_x_min": 0.8510543433604978,
+    "box_x_max": 1.338330484989869,
+    "box_y_limit": 0.35,
+    "unsafe_below_z": 0.9708778645316285,
+    "approval_time": 0.4253663160514435,
+    "low_height": 0.8299803874594306,
+    "low_seconds": 0.4616969596064436
+  },
+  "command": null,
+  "best_safe_dwell_ticks": 131,
+  "candidates": 44,
+  "selected_rank": null
+}

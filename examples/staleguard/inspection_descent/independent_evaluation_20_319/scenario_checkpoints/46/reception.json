@@ -1,0 +1,21 @@
+{
+  "prediction": {
+    "classification": "INVALID_AT_APPROVAL",
+    "results": [
+      "UNSAFE",
+      "UNSAFE",
+      "UNSAFE",
+      "UNSAFE",
+      "UNSAFE",
+      "UNSAFE",
+      "UNSAFE",
+      "UNSAFE",
+      "UNSAFE",
+      "UNSAFE",
+      "UNSAFE"
+    ],
+    "first_bad_delay": 0.0,
+    "last_safe_delay": null
+  },
+  "computation_s": 0.01627695799106732
+}

@@ -141,6 +141,41 @@ margin/volatility TTL mechanism. It retains fail-open dispatch and the existing
 safety-only fallback. The [executed report](docs/20_fbs_baseline.md) documents
 epsilon, cold starts, measured timing, sensitivity and five-policy outcomes.
 
+## Fixed TTL development sweep
+
+```sh
+python inspection_descent/diagnostics/fixed_ttl_sweep.py --stage analyse
+python inspection_descent/diagnostics/fixed_ttl_sweep.py --stage validate
+python inspection_descent/diagnostics/fixed_ttl_sweep.py --stage analyse
+python inspection_descent/diagnostics/fixed_ttl_sweep.py --stage plot
+```
+
+This evaluates every constant TTL from 0.0 to 1.0 s in 0.1 s steps using the
+existing development scenarios and verified original/fallback trajectories.
+Serial PyBullet checks validate dispatch-time expiration. The
+[complete sweep and trade-off curve](docs/21_fixed_ttl_baseline.md) preserve
+all prior results; no TTL is selected and no independent final-test scenes
+are run. `staleguard_benefit.py --experiment B --fixed-ttl SECONDS` adds one
+configured constant-TTL policy to a fresh comparison.
+
+## Independent six-policy evaluation
+
+The [locked independent evaluation](docs/22_independent_six_policy_evaluation.md)
+attempts seeds 20–319, retaining infeasible scenarios in the calibration
+denominator. It uses the unchanged D=0 maximum-dwell calibration and all six
+policies, including Fixed TTL=0.3 s, with scenario-clustered 95% intervals.
+Its checkpoints, logs and final reports are isolated in
+`inspection_descent/independent_evaluation_20_319/`.
+
+```sh
+cat inspection_descent/independent_evaluation_20_319/status.json
+bash inspection_descent/launch_independent_evaluation.sh  # resume if interrupted
+```
+
+The detached launcher keeps a systemd sleep inhibitor active throughout
+calibration, evaluation and reporting. It retains the existing memory guards
+and runs one CPU-only simulator worker. Existing development data are preserved.
+
 ## TTL prediction accuracy
 
 ```sh

@@ -59,6 +59,11 @@ def ttl_expired_at_dispatch(prediction, waited_steps):
     return first_unsafe is not None and waited_steps >= round(float(first_unsafe) * CTRL_FREQ_HZ)
 
 
+def fixed_ttl_expired_at_dispatch(ttl_steps, waited_steps):
+    """A constant approval lifetime; equality still permits the command."""
+    return waited_steps > ttl_steps
+
+
 def in_inspection_region(state, scenario, scan_x):
     return (
         abs(state[STATE_X] - scan_x) < 0.12
@@ -86,6 +91,8 @@ def run_actual(
     use_time_check=None,
     recheck_log=None,
     fbs_log=None,
+    fixed_ttl_steps=None,
+    fixed_ttl_log=None,
 ):
     """Execute one policy; mission-retry retains the historical recovery variant."""
     if ttl_prediction is not None and recovery_mode != "safety-only":
@@ -94,6 +101,14 @@ def run_actual(
         raise ValueError("Use-Time Recheck requires its own safety-only dispatch decision")
     if fbs_log is not None and (recovery_mode != "safety-only" or ttl_prediction is not None or use_time_check is not None or recover):
         raise ValueError("FBS requires its own safety-only dispatch decision")
+    if fixed_ttl_steps is not None:
+        if fixed_ttl_steps < 0:
+            raise ValueError("Fixed TTL must be nonnegative")
+        if recovery_mode != "safety-only" or ttl_prediction is not None or use_time_check is not None or fbs_log is not None or recover:
+            raise ValueError("Fixed TTL requires its own safety-only dispatch decision")
+        fixed_approval_step = round(snapshot.approval_time * CTRL_FREQ_HZ)
+        if dispatch_step < fixed_approval_step:
+            raise ValueError("Fixed TTL dispatch must not precede approval")
     env_factory = make_scg_env_factory(
         init_state={
             "init_x": 0.0,
@@ -170,6 +185,19 @@ def run_actual(
 
     try:
         for step in range(deadline_step):
+            if fixed_ttl_steps is not None and step == fixed_approval_step and fixed_ttl_log is not None:
+                fixed_ttl_log.update(approval_step=step, ttl_steps=fixed_ttl_steps,
+                                     expiry_step=step + fixed_ttl_steps)
+
+            if fixed_ttl_steps is not None and step == dispatch_step:
+                waited_steps = step - fixed_approval_step
+                recover = fixed_ttl_expired_at_dispatch(fixed_ttl_steps, waited_steps)
+                recover_step = step
+                if fixed_ttl_log is not None:
+                    fixed_ttl_log.update(dispatch_step=step, waited_steps=waited_steps,
+                                         expired=recover, application_step=None if recover else step,
+                                         fallback_step=step if recover else None)
+
             # Observe only the actual 50 Hz prefix, including approval; then freeze.
             if fbs_log is not None and step <= approval_step:
                 started = time.perf_counter()
@@ -315,6 +343,8 @@ def print_report(metrics, paired, pending, evaluated, safety_only, predictions_n
         policies += ("Use-Time Recheck",)
     if "FBS" in metrics:
         policies += ("FBS",)
+    if "Fixed TTL" in metrics:
+        policies += ("Fixed TTL",)
     staleguard = metrics["StaleGuard"]
     no_recovery = metrics["No Recovery"]
     always_recover = metrics["Always-Recover"]
@@ -390,7 +420,7 @@ def print_report(metrics, paired, pending, evaluated, safety_only, predictions_n
 
 
 def main(count=SCENARIOS, recovery_mode="safety-only", experiment="A", use_time_recheck=False,
-         include_fbs=False):
+         include_fbs=False, fixed_ttl=None):
     if experiment == "B" and recovery_mode != "safety-only":
         raise ValueError("Experiment B requires safety-only recovery")
     if use_time_recheck and (experiment != "B" or recovery_mode != "safety-only"):
@@ -399,6 +429,10 @@ def main(count=SCENARIOS, recovery_mode="safety-only", experiment="A", use_time_
         if experiment != "B" or recovery_mode != "safety-only":
             raise ValueError("FBS is an additional safety-only Experiment B policy")
         use_time_recheck = True  # --fbs runs the complete five-policy comparison.
+    if fixed_ttl is not None and (experiment != "B" or recovery_mode != "safety-only"):
+        raise ValueError("Fixed TTL is an additional safety-only Experiment B policy")
+    # This one configured lifetime is attached to every command at approval.
+    fixed_steps = None if fixed_ttl is None else round(fixed_ttl * CTRL_FREQ_HZ)
     safety_only = recovery_mode == "safety-only"
     calibrated = json.loads(CALIBRATION_FILE.read_text())
     quad_params, pid_params = load_scg_platform_params()
@@ -433,6 +467,8 @@ def main(count=SCENARIOS, recovery_mode="safety-only", experiment="A", use_time_
     print(f"Calibration feasible: {evaluated}/{count}")
     print(f"Infeasible seeds: {infeasible_ids or 'none'}")
     print("Policy rates use feasible scenarios; calibration failures are excluded.")
+    if fixed_steps is not None:
+        print(f"Fixed TTL: {fixed_steps / CTRL_FREQ_HZ:.1f}s; execute at equality, expire strictly after.")
     if not evaluated:
         print("No policy executions; all mission and recovery rates are N/A.")
         return
@@ -457,6 +493,8 @@ def main(count=SCENARIOS, recovery_mode="safety-only", experiment="A", use_time_
             policies += ("Use-Time Recheck",)
         if include_fbs:
             policies += ("FBS",)
+        if fixed_steps is not None:
+            policies += ("Fixed TTL",)
         metrics = {
             policy: {
                 "inspection_completions": 0,
@@ -558,6 +596,11 @@ def main(count=SCENARIOS, recovery_mode="safety-only", experiment="A", use_time_
                     recovery_mode=recovery_mode, fbs_log=event,
                 )
                 fbs_events.append(event)
+            if fixed_steps is not None:
+                outcomes["Fixed TTL"] = run_actual(
+                    s, snapshot, dispatch_step, dispatch_step, deadline_step, False,
+                    recovery_mode=recovery_mode, fixed_ttl_steps=fixed_steps,
+                )
 
             # Validate and collect each policy's outcomes using the same definitions.
             for policy, (inspected, unsafe_entry, started, safely_completed) in outcomes.items():
@@ -630,6 +673,8 @@ if __name__ == "__main__":
                         help="Add dispatch-time prediction as a fourth safety-only Experiment B policy.")
     parser.add_argument("--fbs", action="store_true",
                         help="Run all five safety-only Experiment B policies, including FBS.")
+    parser.add_argument("--fixed-ttl", type=float, choices=[i / 10 for i in range(11)],
+                        help="Add a constant approval lifetime (seconds) to Experiment B.")
     args = parser.parse_args()
     if args.count < 1:
         parser.error("--count must be positive")
@@ -639,5 +684,7 @@ if __name__ == "__main__":
         parser.error("--use-time-recheck requires --experiment B --recovery safety-only")
     if args.fbs and (args.experiment != "B" or args.recovery != "safety-only"):
         parser.error("--fbs requires --experiment B --recovery safety-only")
+    if args.fixed_ttl is not None and (args.experiment != "B" or args.recovery != "safety-only"):
+        parser.error("--fixed-ttl requires --experiment B --recovery safety-only")
     main(count=args.count, recovery_mode=args.recovery, experiment=args.experiment,
-         use_time_recheck=args.use_time_recheck, include_fbs=args.fbs)
+         use_time_recheck=args.use_time_recheck, include_fbs=args.fbs, fixed_ttl=args.fixed_ttl)

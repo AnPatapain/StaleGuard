@@ -1,0 +1,15 @@
+{
+  "state": "SUCCESS",
+  "mode": "run",
+  "pid": 331507,
+  "updated_utc": "2026-10-22T18:44:59Z",
+  "phase": "complete",
+  "current_seed": 319,
+  "candidate_rank": 114,
+  "delay_s": 1.0,
+  "current_policy": "Fixed TTL (0.3s)",
+  "seed_flights_completed": 66,
+  "calibration_completed": 300,
+  "calibration_feasible": 276,
+  "completed_utc": "2026-10-22T18:44:59Z"
+}

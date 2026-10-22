@@ -1,0 +1,28 @@
+{
+  "seed": 264,
+  "generated_scenario": {
+    "speed": 0.5516615047228554,
+    "usual_height": 1.2691535334533834,
+    "box_x_min": 1.04273265343138,
+    "box_x_max": 1.3526718942353197,
+    "box_y_limit": 0.35,
+    "unsafe_below_z": 0.977971748373493,
+    "approval_time": 0.8059041298325349,
+    "low_height": 0.6382488802038947,
+    "low_seconds": 0.7558209795875008
+  },
+  "command": {
+    "speed": 0.5516615047228554,
+    "usual_height": 1.2691535334533834,
+    "box_x_min": 1.04273265343138,
+    "box_x_max": 1.3526718942353197,
+    "box_y_limit": 0.35,
+    "unsafe_below_z": 0.977971748373493,
+    "approval_time": 0.1,
+    "low_height": 0.6382488802038947,
+    "low_seconds": 1.36
+  },
+  "best_safe_dwell_ticks": 452,
+  "candidates": 90,
+  "selected_rank": 70
+}

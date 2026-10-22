@@ -1,0 +1,21 @@
+{
+  "prediction": {
+    "classification": "FINITE_TTL",
+    "results": [
+      "SAFE",
+      "SAFE",
+      "SAFE",
+      "SAFE",
+      "SAFE",
+      "UNSAFE",
+      "UNSAFE",
+      "UNSAFE",
+      "UNSAFE",
+      "UNSAFE",
+      "UNSAFE"
+    ],
+    "first_bad_delay": 0.5,
+    "last_safe_delay": 0.4
+  },
+  "computation_s": 0.04820241700508632
+}
