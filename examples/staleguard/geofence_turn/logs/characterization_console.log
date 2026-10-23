@@ -1,0 +1,16 @@
+pybullet build time: Jan 29 2025 23:16:28
+/home/kean/.config/matplotlib is not a writable directory
+Matplotlib created a temporary cache directory at /tmp/matplotlib-h2u0iyol because there was an issue with the default path (/home/kean/.config/matplotlib); it is highly recommended to set the MPLCONFIGDIR environment variable to a writable directory, in particular to speed up the import of Matplotlib and to better support multiprocessing.
+/home/kean/miniconda3/envs/scg/lib/python3.10/site-packages/gymnasium/spaces/box.py:130: UserWarning: [33mWARN: Box bound precision lowered by casting to float32[0m
+  gym.logger.warn(f"Box bound precision lowered by casting to {self.dtype}")
+/home/kean/miniconda3/envs/scg/lib/python3.10/site-packages/gymnasium/spaces/box.py:130: UserWarning: [33mWARN: Box bound precision lowered by casting to float32[0m
+  gym.logger.warn(f"Box bound precision lowered by casting to {self.dtype}")
+v=0.4 R=0.2 feasible=True max_error=0.0599 completion=3.474
+v=0.4 R=0.4 feasible=True max_error=0.0350 completion=3.934
+v=0.4 R=0.6 feasible=True max_error=0.0304 completion=4.8069999999999995
+v=0.6 R=0.2 feasible=True max_error=0.1079 completion=3.487
+v=0.6 R=0.4 feasible=True max_error=0.0717 completion=3.824
+v=0.6 R=0.6 feasible=True max_error=0.0440 completion=4.297
+v=0.8 R=0.2 feasible=False max_error=0.1578 completion=3.3039999999999994
+v=0.8 R=0.4 feasible=True max_error=0.1067 completion=3.7119999999999997
+v=0.8 R=0.6 feasible=True max_error=0.0723 completion=4.1899999999999995

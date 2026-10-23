@@ -1,0 +1,74 @@
+{
+  "results": [
+    {
+      "delay_s": 0.0,
+      "safe": true,
+      "min_clearance_m": 0.10207311588529848
+    },
+    {
+      "delay_s": 0.1,
+      "safe": false,
+      "min_clearance_m": 0.030120280438176758
+    },
+    {
+      "delay_s": 0.2,
+      "safe": false,
+      "min_clearance_m": -0.051024673052038574
+    },
+    {
+      "delay_s": 0.3,
+      "safe": false,
+      "min_clearance_m": -0.13074586431196927
+    },
+    {
+      "delay_s": 0.4,
+      "safe": false,
+      "min_clearance_m": -0.2178364279933081
+    },
+    {
+      "delay_s": 0.5,
+      "safe": false,
+      "min_clearance_m": -0.29028428565956604
+    },
+    {
+      "delay_s": 0.6,
+      "safe": false,
+      "min_clearance_m": -0.37244379953481227
+    },
+    {
+      "delay_s": 0.7,
+      "safe": false,
+      "min_clearance_m": -0.4541268084920245
+    },
+    {
+      "delay_s": 0.8,
+      "safe": false,
+      "min_clearance_m": -0.5348142129485854
+    },
+    {
+      "delay_s": 0.9,
+      "safe": false,
+      "min_clearance_m": -0.6175423987090444
+    },
+    {
+      "delay_s": 1.0,
+      "safe": false,
+      "min_clearance_m": -0.6917190809417045
+    }
+  ],
+  "expiry_steps": 5,
+  "computation_s": 0.11873130401363596,
+  "grid_s": [
+    0.0,
+    0.1,
+    0.2,
+    0.3,
+    0.4,
+    0.5,
+    0.6,
+    0.7,
+    0.8,
+    0.9,
+    1.0
+  ]
+}

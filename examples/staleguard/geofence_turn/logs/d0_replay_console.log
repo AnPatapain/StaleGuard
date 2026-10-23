@@ -1,0 +1,10 @@
+pybullet build time: Jan 29 2025 23:16:28
+/home/kean/miniconda3/envs/scg/lib/python3.10/site-packages/gymnasium/spaces/box.py:130: UserWarning: [33mWARN: Box bound precision lowered by casting to float32[0m
+  gym.logger.warn(f"Box bound precision lowered by casting to {self.dtype}")
+/home/kean/miniconda3/envs/scg/lib/python3.10/site-packages/gymnasium/spaces/box.py:130: UserWarning: [33mWARN: Box bound precision lowered by casting to float32[0m
+  gym.logger.warn(f"Box bound precision lowered by casting to {self.dtype}")
+D=0 seed=1 PASS clearance=0.096996 completion=4.121
+D=0 seed=2 PASS clearance=0.098567 completion=3.740
+D=0 seed=4 PASS clearance=0.092617 completion=4.087
+D=0 seed=6 PASS clearance=0.051299 completion=4.361
+D=0 seed=8 PASS clearance=0.059321 completion=4.016

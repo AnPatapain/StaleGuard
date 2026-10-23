@@ -1,0 +1,33 @@
+{
+  "config": {
+    "d_min_m": 0.05,
+    "position_tolerance_m": 0.1,
+    "velocity_tolerance_mps": 0.12,
+    "dwell_s": 0.2,
+    "tracking_limit_m": 0.15,
+    "north_leg_s": 0.5,
+    "endpoint_s": 3.0,
+    "approval_min_s": 0.6,
+    "approval_max_s": 3.2,
+    "approval_grid_s": 0.2,
+    "max_rss_mb": 2048,
+    "min_available_mb": 2048
+  },
+  "python": "3.10.21 (main, Aug 27 2026, 14:42:07) [GCC 14.3.0]",
+  "executable": "/home/kean/miniconda3/envs/scg/bin/python",
+  "platform": "Linux-6.8.0-147-generic-x86_64-with-glibc2.39",
+  "numpy": "2.2.6",
+  "numerical_threads": 1,
+  "cpu_only": true,
+  "simulation_workers": 1,
+  "source_hashes": {
+    "infrastructure.py": "3e9d84c92c7dd31e55e72943d72f935ead62c3debfebc5530aa26c424a4f42d8",
+    "mission.py": "c4d883886c734fb49efe77be07b26223f1abc61eb1bae6155eeddcd96c24da7a",
+    "__init__.py": "0e16641a18107ec060494dc81a2b53ccb438bbf2dfde31c280baa34e677a8d68",
+    "scenario.py": "898d9e9712b98503d63948659be97ef21621c7ee3572d6724a86a63ec5f784ea",
+    "prediction.py": "a4675740462d3d06492b9252d73fedcbd50f4f775cebcfdc8d35d378a265b7e0",
+    "cli.py": "02e732b82267a3aa4b10fa8859c8a04188fbd7427a2e694af235173121619741",
+    "simulation.py": "1a36a2b7c1d91355b03e303d736ad92e2e14aa4d401b1a92e0bb6ca0a8681cff"
+  },
+  "started_utc": "2026-10-23T00:43:38Z"
+}

@@ -1,0 +1,38 @@
+{
+  "schema": "northbound_checkpoint_v2",
+  "config": {
+    "d_min_m": 0.05,
+    "position_tolerance_m": 0.1,
+    "velocity_tolerance_mps": 0.12,
+    "dwell_s": 0.2,
+    "tracking_limit_m": 0.15,
+    "checkpoint_width_m": 0.6,
+    "checkpoint_north_travel_s": 2.0,
+    "approval_min_s": 0.6,
+    "approval_max_s": 3.2,
+    "approval_grid_s": 0.2,
+    "max_rss_mb": 2048,
+    "min_available_mb": 2048
+  },
+  "python": "3.10.21 (main, Aug 27 2026, 14:42:07) [GCC 14.3.0]",
+  "executable": "/home/kean/miniconda3/envs/scg/bin/python",
+  "platform": "Linux-6.8.0-147-generic-x86_64-with-glibc2.39",
+  "numpy": "2.2.6",
+  "numerical_threads": 1,
+  "cpu_only": true,
+  "simulation_workers": 1,
+  "source_hashes": {
+    "infrastructure.py": "3e9d84c92c7dd31e55e72943d72f935ead62c3debfebc5530aa26c424a4f42d8",
+    "mission.py": "f30185effaf5868a1e50be798fe79bab035416ee6a6d28d234ef6181522d4ac8",
+    "policies.py": "13e4a267c50ab18ec76395f9e64f91b0c139e9dec4feb32b5424809698c23558",
+    "reporting.py": "45e8f70a3498e4f9fd4afd83837e7ac9b1cec73fdbe8d50356b6af3bac019d34",
+    "__init__.py": "efa3544232aac68d5863004d27f99f8e404a5344759c6b39328306cf54e4c427",
+    "diagnostics.py": "bcd3ca106c57b43333a0b62602b9ce3b4a37dd3eb7ba61483afdbcc05930a4e6",
+    "validation.py": "7ba03227421a1765a3a5cac0640cd73267bc53c3ee9e677277ff11f530286c94",
+    "scenario.py": "5f8f529864c149adfa93d4528965b96c5ba519b2860d5912900efd32016da2bb",
+    "prediction.py": "9e668d324a93740035240b95c1546532100cfc38fc33ddfecdd79d6d1dec2583",
+    "cli.py": "4609615dad04c9c7b2474de49a7920e935248f430e475bc9ed57e18aa1632c3f",
+    "simulation.py": "eaa2d3971d239f8cba87ddd0ac13d5a11eecb03e5b5e1019094b9c24bd408106"
+  },
+  "started_utc": "2026-10-23T01:31:04Z"
+}

@@ -1,0 +1,18 @@
+pybullet build time: Jan 29 2025 23:16:28
+Generated 10 distinct seeds; no simulation or target adjustment.
+/home/kean/.config/matplotlib is not a writable directory
+Matplotlib created a temporary cache directory at /tmp/matplotlib-vhsg3ln5 because there was an issue with the default path (/home/kean/.config/matplotlib); it is highly recommended to set the MPLCONFIGDIR environment variable to a writable directory, in particular to speed up the import of Matplotlib and to better support multiprocessing.
+/home/kean/miniconda3/envs/scg/lib/python3.10/site-packages/gymnasium/spaces/box.py:130: UserWarning: [33mWARN: Box bound precision lowered by casting to float32[0m
+  gym.logger.warn(f"Box bound precision lowered by casting to {self.dtype}")
+/home/kean/miniconda3/envs/scg/lib/python3.10/site-packages/gymnasium/spaces/box.py:130: UserWarning: [33mWARN: Box bound precision lowered by casting to float32[0m
+  gym.logger.warn(f"Box bound precision lowered by casting to {self.dtype}")
+seed=0 accepted=False candidates=14 latest_approval=None
+seed=1 accepted=True candidates=6 latest_approval=2.2
+seed=2 accepted=True candidates=7 latest_approval=2.0
+seed=3 accepted=False candidates=14 latest_approval=None
+seed=4 accepted=True candidates=8 latest_approval=1.8
+seed=5 accepted=False candidates=14 latest_approval=None
+seed=6 accepted=True candidates=1 latest_approval=3.2
+seed=7 accepted=False candidates=14 latest_approval=None
+seed=8 accepted=True candidates=5 latest_approval=2.4
+Acceptance: 5/9; candidate rejection reasons={'body_clearance': 78}

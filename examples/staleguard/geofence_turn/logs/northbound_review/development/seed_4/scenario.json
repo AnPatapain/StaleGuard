@@ -1,0 +1,26 @@
+{
+  "schema": "northbound_checkpoint_v2",
+  "seed": 4,
+  "speed": 0.8,
+  "height": 1.2778318882035904,
+  "initial_x": 0.14287311171231123,
+  "initial_y": -0.08383279522087957,
+  "fence_x": 2.2502289437073406,
+  "deadline_s": 4.98,
+  "command": {
+    "radius": 0.6,
+    "speed": 0.8,
+    "checkpoint_lower": [
+      1.2421061683251249,
+      2.0161672047791206,
+      1.1778318882035903
+    ],
+    "checkpoint_upper": [
+      1.842106168325125,
+      2.2161672047791208,
+      1.3778318882035905
+    ],
+    "direction": "TURN_LEFT_90"
+  },
+  "approval_s": 1.4
+}

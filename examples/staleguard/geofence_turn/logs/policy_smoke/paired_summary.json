@@ -1,0 +1,35 @@
+{
+  "recorded_flights": 80,
+  "paired_blocks": 20,
+  "partial_blocks": [],
+  "paired_policy_counts": {
+    "no_recovery": {
+      "flights": 20,
+      "safe_completion": 5,
+      "safe_noncompletion": 0,
+      "unsafe": 15,
+      "fallback": 0
+    },
+    "staleguard": {
+      "flights": 20,
+      "safe_completion": 5,
+      "safe_noncompletion": 7,
+      "unsafe": 8,
+      "fallback": 15
+    },
+    "use_time_recheck": {
+      "flights": 20,
+      "safe_completion": 3,
+      "safe_noncompletion": 7,
+      "unsafe": 10,
+      "fallback": 15
+    },
+    "fixed_ttl": {
+      "flights": 20,
+      "safe_completion": 5,
+      "safe_noncompletion": 2,
+      "unsafe": 13,
+      "fallback": 10
+    }
+  }
+}

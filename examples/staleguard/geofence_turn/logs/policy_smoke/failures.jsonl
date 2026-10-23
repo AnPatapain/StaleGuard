@@ -1,0 +1,2 @@
+{"type": "RuntimeError", "message": "Memory guard: RSS=736 MiB available=2012 MiB", "completed_trials": 1}
+{"type": "RuntimeError", "message": "Memory guard: RSS=667 MiB available=2014 MiB", "completed_trials": 1}

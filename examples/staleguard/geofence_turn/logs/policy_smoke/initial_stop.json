@@ -1,0 +1,6 @@
+{
+  "type": "RuntimeError",
+  "message": "Memory guard: RSS=747 MiB available=1930 MiB",
+  "recorded_flights_at_stop": 65,
+  "evidence": "../policy_smoke_console.log"
+}
