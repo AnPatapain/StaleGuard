@@ -225,6 +225,70 @@ def replay(out, args, budget, config):
         print(f'D=0 seed={s.seed} PASS clearance={result["min_clearance_m"]:.6f} completion={result["completion_s"]:.3f}', flush=True)
 
 
+def benchmark(out, args, budget, config):
+    """Time the unchanged forecast with cached approval snapshots, not flights."""
+    from .infrastructure import load_scg_platform_params
+    from .prediction import PREDICTION_DELAYS, predict_delays, predict_immediate
+    paths = sorted(Path(args.development).glob('seed_*/approval.pkl'))
+    if not 1 <= len(paths) <= 5:
+        raise ValueError('Readiness benchmark requires 1..5 development snapshots')
+    snapshots = [pickle.loads(path.read_bytes()) for path in paths]
+    if any(snapshot.config != config for snapshot in snapshots):
+        raise ValueError('Benchmark snapshot/config mismatch')
+    platform = load_scg_platform_params()
+
+    def measured(function, snapshot):
+        if budget.trials >= budget.max_trials or time.monotonic()-budget.start >= budget.max_seconds:
+            raise RuntimeError('Readiness benchmark budget reached')
+        check_memory(config)
+        budget.trials += 1
+        began = time.perf_counter()
+        result = function(snapshot, platform)
+        wall_s = time.perf_counter()-began
+        # Charge the exact clocks used by StaleGuard and Use-Time Recheck.
+        return result, result.get('computation_s', wall_s)*1000
+
+    first, first_ms = measured(predict_delays, snapshots[0])
+    measured(predict_immediate, snapshots[0])
+    fingerprints = [pickle.dumps(snapshot) for snapshot in snapshots]
+    signatures, samples = {}, []
+    for repeat in range(args.repeats):
+        for path, snapshot in zip(paths, snapshots):
+            seed = int(path.parent.name.split('_')[1])
+            forecast, full_ms = measured(predict_delays, snapshot)
+            immediate, immediate_ms = measured(predict_immediate, snapshot)
+            signature = (forecast['results'], forecast['expiry_steps'])
+            if seed not in signatures:
+                signatures[seed] = signature
+                write_json(out/f'prediction_seed_{seed}.json', forecast)
+            assert signature == signatures[seed], 'Forecast changed across timing repetitions'
+            assert immediate == forecast['results'][0], 'Immediate and sweep D=0 disagree'
+            row = dict(seed=seed, repeat=repeat, full_sweep_ms=full_ms,
+                       immediate_ms=immediate_ms)
+            samples.append(row)
+            append_json(out/'timings.jsonl', row)
+    assert [pickle.dumps(snapshot) for snapshot in snapshots] == fingerprints
+
+    def stats(values):
+        ordered = sorted(values)
+        return dict(count=len(values), min_ms=min(values), median_ms=float(np.median(values)),
+                    p95_ms=ordered[math.ceil(.95*len(values))-1], max_ms=max(values))
+
+    summary = dict(development=str(Path(args.development).resolve()),
+                   snapshot_sha256={path.parent.name:file_hash(path) for path in paths},
+                   delay_grid_s=list(PREDICTION_DELAYS), repeats=args.repeats,
+                   first_sweep_existing_numba_disk_cache_ms=first_ms,
+                   startup_policy='Warm sweep and immediate model before approval; first call excluded from warm statistics',
+                   warm_full_sweep=stats([r['full_sweep_ms'] for r in samples]),
+                   warm_immediate=stats([r['immediate_ms'] for r in samples]),
+                   per_seed={str(seed):stats([r['full_sweep_ms'] for r in samples if r['seed']==seed])
+                             for seed in signatures},
+                   forecasts_identical_across_repetitions=True, snapshots_unchanged=True,
+                   forecast_calls=budget.trials, physics_flights=0, host_load_average=os.getloadavg())
+    write_json(out/'summary.json', summary)
+    print(json.dumps(summary, indent=2), flush=True)
+
+
 def smoke(out, args, budget, config):
     from .infrastructure import load_scg_platform_params
     from .prediction import predict_delays, predict_immediate, SMOKE_DELAYS
@@ -287,7 +351,7 @@ def smoke(out, args, budget, config):
 
 def main():
     parser = argparse.ArgumentParser(__doc__)
-    parser.add_argument('command', choices=('characterize', 'generate', 'calibrate', 'replay', 'smoke'))
+    parser.add_argument('command', choices=('characterize', 'generate', 'calibrate', 'replay', 'benchmark', 'smoke'))
     parser.add_argument('--out', required=True)
     parser.add_argument('--envelope', default=str(ROOT/'logs/northbound_review/characterization/envelope.json'))
     parser.add_argument('--generated')
@@ -296,6 +360,7 @@ def main():
     parser.add_argument('--start-seed', type=int, default=0)
     parser.add_argument('--attempts', type=int, default=10)
     parser.add_argument('--target', type=int, default=5)
+    parser.add_argument('--repeats', type=int, default=10, help='Readiness benchmark rounds (1..10)')
     parser.add_argument('--max-trials', type=int, default=160)
     parser.add_argument('--max-seconds', type=float, default=900)
     args = parser.parse_args()
@@ -303,6 +368,8 @@ def main():
         parser.error('Development cap: 1 <= target <= attempts <= 20')
     if not 1 <= args.max_trials <= 200 or not 0 < args.max_seconds <= 1800:
         parser.error('Development cap: 1..200 flights and at most 1800 seconds')
+    if not 1 <= args.repeats <= 10:
+        parser.error('Readiness benchmark cap: 1..10 repeats')
     config = Config()
     # Single-worker lock shared by every geofence CLI invocation.
     with (ROOT/'logs/.simulation.lock').open('a') as lock:
@@ -334,6 +401,8 @@ def main():
                 development(out, args, budget, config)
             elif args.command == 'replay':
                 replay(out, args, budget, config)
+            elif args.command == 'benchmark':
+                benchmark(out, args, budget, config)
             else:
                 smoke(out, args, budget, config)
         except Exception as error:

@@ -49,3 +49,17 @@ they are preserved under the old log directories and are not current evidence.
 The previous report is retained at
 `logs/northbound_review/original_PHASE1_REPORT.md`. Read [PHASE1_REPORT.md](PHASE1_REPORT.md)
 for the correction's actual validation status. Load only local trusted pickles.
+
+
+Measure prediction readiness without running mission flights:
+
+```sh
+$SCG_PYTHON -m geofence_turn.cli benchmark --out geofence_turn/logs/readiness_new --repeats 10 --max-trials 102 --max-seconds 120
+```
+
+This bounded command separately records the first call using existing Numba disk
+caches and warmed full-sweep/immediate latency over the five approval snapshots.
+It asserts repeatable forecasts and unchanged snapshots. Warm-up must finish
+before operational approval; positive computation time cannot be ready at D=0.
+The measured warmed full sweep has a 42.3 ms median and 50.8 ms p95; see the
+[readiness results](logs/readiness/summary.json).

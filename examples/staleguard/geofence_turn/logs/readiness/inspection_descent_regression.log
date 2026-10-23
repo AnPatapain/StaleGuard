@@ -1,0 +1,34 @@
+pybullet build time: Jan 29 2025 23:16:28
+test_actual_prefix_freezes_at_approval_then_falls_back_at_dispatch (test_fbs.FBSTests) ... ok
+test_ema_initialization_and_approval_update (test_fbs.FBSTests) ... ok
+test_expiry_is_strict_and_readiness_is_inclusive (test_fbs.FBSTests) ... ok
+test_margin_sign_matches_closed_unsafe_volume (test_fbs.FBSTests) ... ok
+test_numerical_floor_cap_and_invalid_margin (test_fbs.FBSTests) ... ok
+test_unavailable_executes_on_schedule_and_never_cancels_later (test_fbs.FBSTests) ... ok
+test_zero_age_fails_open_despite_expired_zero_step_ttl (test_fbs.FBSTests) ... ok
+test_before_at_and_after_expiration (test_fixed_ttl.FixedTTLTests) ... ok
+test_cannot_combine_with_other_policy_decisions (test_fixed_ttl.FixedTTLTests) ... ok
+test_inclusive_lifetime_on_control_grid (test_fixed_ttl.FixedTTLTests) ... ok
+test_zero_ttl_allows_immediate_dispatch_then_expires (test_fixed_ttl.FixedTTLTests) ... ok
+test_bootstrap_keeps_policies_and_delays_in_same_cluster (test_independent_evaluation.IndependentEvaluationTests) ... ok
+test_calibration_resume_reuses_candidates_and_preserves_first_tie (test_independent_evaluation.IndependentEvaluationTests) ... Calibration seed=20: feasible; best safe dwell=250 ms; candidates=3
+ok
+test_complete_report_schema_uses_new_feasible_count_and_six_columns (test_independent_evaluation.IndependentEvaluationTests) ... ok
+test_infeasible_calibration_does_not_issue_or_replace_command (test_independent_evaluation.IndependentEvaluationTests) ... Calibration seed=20: infeasible; best safe dwell=141 ms; candidates=3
+ok
+test_journal_recovers_only_committed_prefix (test_independent_evaluation.IndependentEvaluationTests) ... ok
+test_sign_test_holm_and_feasibility_uncertainty (test_independent_evaluation.IndependentEvaluationTests) ... ok
+test_streamed_dwell_matches_official_elapsed_tick_measure (test_independent_evaluation.IndependentEvaluationTests) ... ok
+test_closed_box_segments (test_temporal_safety.TemporalSafetyTests) ... ok
+test_crossing_is_checked_in_nominal_and_command_rollouts (test_temporal_safety.TemporalSafetyTests) ... ok
+test_monitor_observes_endpoints_once_and_preserves_steps (test_temporal_safety.TemporalSafetyTests) ... ok
+test_stationary_segments_match_existing_unsafe_predicate (test_temporal_safety.TemporalSafetyTests) ... ok
+test_first_tick_strictly_after_completion (test_use_time_recheck.UseTimeRecheckTests) ... ok
+test_initial_unsafe_state_rejected_without_rollout (test_use_time_recheck.UseTimeRecheckTests) ... ok
+test_one_immediate_rollout_uses_swept_checker_and_original_duration (test_use_time_recheck.UseTimeRecheckTests) ... ok
+test_safe_command_rolls_to_existing_horizon_once (test_use_time_recheck.UseTimeRecheckTests) ... ok
+
+----------------------------------------------------------------------
+Ran 26 tests in 0.555s
+
+OK
