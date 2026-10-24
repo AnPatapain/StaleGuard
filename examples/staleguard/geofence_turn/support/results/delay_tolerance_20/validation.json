@@ -1,0 +1,25 @@
+{
+  "status": "PASS",
+  "focused_tests": 34,
+  "original_d0_replays_identical": 5,
+  "confirmation_flights": 2,
+  "confirmation_without_added_observer": [
+    {
+      "delay_s": 0.02,
+      "safe": true,
+      "completed": false,
+      "min_clearance_m": 0.05426220441571809
+    },
+    {
+      "delay_s": 0.04,
+      "safe": false,
+      "completed": true,
+      "min_clearance_m": 0.04998604598470606
+    }
+  ],
+  "source_hashes_unchanged": true,
+  "shared_model_hashes_unchanged": true,
+  "turning_envelope_hash_unchanged": true,
+  "nonmonotonic_metric_checks": "PASS",
+  "preflight_validation_flights": 1
+}

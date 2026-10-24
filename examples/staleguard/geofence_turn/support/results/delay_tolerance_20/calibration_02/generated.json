@@ -1,0 +1,54 @@
+[
+  {
+    "schema": "northbound_checkpoint_v2",
+    "seed": 20,
+    "speed": 0.8,
+    "height": 1.2652866774507354,
+    "initial_x": -0.11348409222706743,
+    "initial_y": 0.004521670343786505,
+    "fence_x": 1.7956843165471374,
+    "deadline_s": 3.88,
+    "command": {
+      "radius": 0.4,
+      "speed": 0.8,
+      "checkpoint_lower": [
+        0.6407510257248541,
+        1.9045216703437866,
+        1.1652866774507353
+      ],
+      "checkpoint_upper": [
+        1.2407510257248542,
+        2.104521670343787,
+        1.3652866774507355
+      ],
+      "direction": "TURN_LEFT_90"
+    },
+    "approval_s": 0.6
+  },
+  {
+    "schema": "northbound_checkpoint_v2",
+    "seed": 21,
+    "speed": 0.4,
+    "height": 1.3014617573927418,
+    "initial_x": 0.06294035712252755,
+    "initial_y": -0.08218042541555821,
+    "fence_x": 2.1936547729964317,
+    "deadline_s": 5.78,
+    "command": {
+      "radius": 0.6,
+      "speed": 0.4,
+      "checkpoint_lower": [
+        1.4697125946423226,
+        1.2178195745844418,
+        1.2014617573927417
+      ],
+      "checkpoint_upper": [
+        2.0697125946423225,
+        1.417819574584442,
+        1.401461757392742
+      ],
+      "direction": "TURN_LEFT_90"
+    },
+    "approval_s": 0.6
+  }
+]

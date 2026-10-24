@@ -2,15 +2,19 @@
 from dataclasses import dataclass
 from functools import partial
 import math
+import ctypes
+import gc
 from pathlib import Path
 import time
 import numpy as np
 import pybullet as p
 from safe_control_gym.utils.registration import get_config, make
-from .infrastructure import capture_pid_state, PIDState
+from model.common import capture_pid_state, PIDState
 from physics_monitor import monitor_physics_steps
-from .policies import staleguard_status, fixed_ttl_expired, first_step_after_check, FIXED_TTL_S
-from .mission import (HZ, PHYSICS_HZ, POS, VEL, Config, make_forward_trajectory,
+from .baselines.staleguard import staleguard_status
+from .baselines.fixed_ttl import fixed_ttl_expired, FIXED_TTL_S
+from .baselines.use_time_recheck import first_step_after_check
+from .scenario import (HZ, PHYSICS_HZ, POS, VEL, Config, make_forward_trajectory,
                       apply_turn_command, clearance, in_checkpoint, safety_only_reference)
 
 
@@ -37,6 +41,23 @@ def check_memory(config):
     return rss, available
 
 
+def start_work(max_trials=160, max_seconds=900):
+    """A plain counter shared by a script's flights or diagnostic forecasts."""
+    if not 1 <= max_trials <= 200 or not 0 < max_seconds <= 1800:
+        raise ValueError('Development limit: 1..200 trials and at most 1800 seconds')
+    return dict(trials=0, start=time.monotonic(), max_trials=max_trials, max_seconds=max_seconds)
+
+
+def check_work(work, config, release=False):
+    if work['trials'] >= work['max_trials'] or time.monotonic()-work['start'] >= work['max_seconds']:
+        raise RuntimeError('Explicit development trial/time budget reached; partial logs preserved')
+    if release:
+        gc.collect()
+        ctypes.CDLL(None).malloc_trim(0)
+    check_memory(config)
+    work['trials'] += 1
+
+
 def env_factory(s, total_steps):
     config = get_config('quadrotor')
     config.update(quad_type=3, task='traj_tracking', cost='quadratic', ctrl_freq=HZ,
@@ -48,13 +69,15 @@ def env_factory(s, total_steps):
 
 
 def execute(s, delay=0., config=Config(), policy='no_recovery', received=None,
-            platform=None, save_trace=False):
+            platform=None, save_trace=False, work=None):
     """Replay from initial state, with no simulator reset/teleport at approval.
 
     received is computed from approval information before the caller enumerates
     actual D. Use-Time Recheck instead captures the actual dispatch state/PID.
     Every run monitors through approval+T even after completion or a violation.
     """
+    if work is not None:
+        check_work(work, config, release=True)
     check_memory(config)
     approval = round(s.approval_s * HZ)
     total = approval + math.ceil(s.deadline_s * HZ - 1e-10)
@@ -131,7 +154,7 @@ def execute(s, delay=0., config=Config(), policy='no_recovery', received=None,
                     recover = fixed_ttl_expired(step-approval)
                     event['fixed_ttl_s'] = FIXED_TTL_S
                 elif policy == 'use_time_recheck':
-                    from .prediction import predict_immediate
+                    from .baselines.use_time_recheck import predict_immediate
                     current = Snapshot(obs.copy(), capture_pid_state(ctrl), ref[step:].copy(),
                                        total-step, step/HZ, s.command, s.fence_x, config, min_clear)
                     began = time.perf_counter()

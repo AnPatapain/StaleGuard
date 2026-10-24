@@ -1,0 +1,413 @@
+{
+  "schema": "northbound_checkpoint_v2",
+  "config": {
+    "d_min_m": 0.05,
+    "position_tolerance_m": 0.1,
+    "velocity_tolerance_mps": 0.12,
+    "dwell_s": 0.2,
+    "tracking_limit_m": 0.15,
+    "checkpoint_width_m": 0.6,
+    "checkpoint_north_travel_s": 2.0,
+    "approval_min_s": 0.6,
+    "approval_max_s": 3.2,
+    "approval_grid_s": 0.2,
+    "max_rss_mb": 2048,
+    "min_available_mb": 2048
+  },
+  "scenarios": [
+    {
+      "scenario": {
+        "schema": "northbound_checkpoint_v2",
+        "seed": 6,
+        "speed": 0.6,
+        "height": 1.2358177174533345,
+        "initial_x": -0.039279828061386524,
+        "initial_y": -0.025100646882423527,
+        "fence_x": 2.44816516212508,
+        "deadline_s": 4.72,
+        "command": {
+          "radius": 0.4,
+          "speed": 0.6,
+          "checkpoint_lower": [
+            1.3196304738300115,
+            1.4748993531175763,
+            1.1358177174533344
+          ],
+          "checkpoint_upper": [
+            1.9196304738300116,
+            1.6748993531175764,
+            1.3358177174533346
+          ],
+          "direction": "TURN_LEFT_90"
+        },
+        "approval_s": 2.8
+      },
+      "approval_snapshot": "seed_6/approval.pkl",
+      "snapshot_sha256": "a310f4a258a771de3ee4c55919a70610fb5af4d62e0ffdd3c8845cb0c42a2a0c"
+    },
+    {
+      "scenario": {
+        "schema": "northbound_checkpoint_v2",
+        "seed": 7,
+        "speed": 0.8,
+        "height": 1.3743034502423939,
+        "initial_x": 0.08270570707355804,
+        "initial_y": -0.05495856200188163,
+        "fence_x": 1.8828719919847834,
+        "deadline_s": 4.18,
+        "command": {
+          "radius": 0.6,
+          "speed": 0.8,
+          "checkpoint_lower": [
+            1.150229693386296,
+            2.0450414379981185,
+            1.2743034502423938
+          ],
+          "checkpoint_upper": [
+            1.7502296933862962,
+            2.2450414379981187,
+            1.474303450242394
+          ],
+          "direction": "TURN_LEFT_90"
+        },
+        "approval_s": 1.4
+      },
+      "approval_snapshot": "seed_7/approval.pkl",
+      "snapshot_sha256": "f2e9473e3d5373e34ef47a7e7003c558e1df4b5f37e057f8a83e03c6c40b4d21"
+    },
+    {
+      "scenario": {
+        "schema": "northbound_checkpoint_v2",
+        "seed": 8,
+        "speed": 0.8,
+        "height": 1.3968192108344812,
+        "initial_x": -0.05438674845434498,
+        "initial_y": 0.057709787164005794,
+        "fence_x": 2.315509763241871,
+        "deadline_s": 4.22,
+        "command": {
+          "radius": 0.4,
+          "speed": 0.8,
+          "checkpoint_lower": [
+            1.0326886806729072,
+            1.957709787164006,
+            1.2968192108344812
+          ],
+          "checkpoint_upper": [
+            1.6326886806729073,
+            2.157709787164006,
+            1.4968192108344813
+          ],
+          "direction": "TURN_LEFT_90"
+        },
+        "approval_s": 1.8
+      },
+      "approval_snapshot": "seed_8/approval.pkl",
+      "snapshot_sha256": "d5da19f250572921a0625b420411a6ded52c8efa501a5c6fce8b3aab193f4d73"
+    },
+    {
+      "scenario": {
+        "schema": "northbound_checkpoint_v2",
+        "seed": 9,
+        "speed": 0.6,
+        "height": 1.2217043022718888,
+        "initial_x": 0.030944445015468558,
+        "initial_y": 0.05550681658403575,
+        "fence_x": 2.2470190746190335,
+        "deadline_s": 5.44,
+        "command": {
+          "radius": 0.6,
+          "speed": 0.6,
+          "checkpoint_lower": [
+            1.4794766782011501,
+            1.7555068165840355,
+            1.1217043022718887
+          ],
+          "checkpoint_upper": [
+            2.07947667820115,
+            1.9555068165840357,
+            1.3217043022718888
+          ],
+          "direction": "TURN_LEFT_90"
+        },
+        "approval_s": 2.6
+      },
+      "approval_snapshot": "seed_9/approval.pkl",
+      "snapshot_sha256": "91d9c079abd29add0a56fc14ada6ddfc052707777c0a52c1ffc2f5f7b6804ade"
+    },
+    {
+      "scenario": {
+        "schema": "northbound_checkpoint_v2",
+        "seed": 10,
+        "speed": 0.8,
+        "height": 1.2019204525197866,
+        "initial_x": 0.09853346558235923,
+        "initial_y": -0.07014357538359595,
+        "fence_x": 2.111338082018924,
+        "deadline_s": 4.86,
+        "command": {
+          "radius": 0.6,
+          "speed": 0.8,
+          "checkpoint_lower": [
+            1.0703890185789806,
+            2.029856424616404,
+            1.1019204525197865
+          ],
+          "checkpoint_upper": [
+            1.6703890185789807,
+            2.229856424616404,
+            1.3019204525197867
+          ],
+          "direction": "TURN_LEFT_90"
+        },
+        "approval_s": 1.2
+      },
+      "approval_snapshot": "seed_10/approval.pkl",
+      "snapshot_sha256": "386cb10a318bdd1c8a91e86e6cfd68bcdb4aef5e9ae9d3056b91cc04450ed530"
+    },
+    {
+      "scenario": {
+        "schema": "northbound_checkpoint_v2",
+        "seed": 11,
+        "speed": 0.4,
+        "height": 1.2748194656100287,
+        "initial_x": 0.030449507287007238,
+        "initial_y": -0.0942621983256111,
+        "fence_x": 1.6783755918644632,
+        "deadline_s": 3.86,
+        "command": {
+          "radius": 0.2,
+          "speed": 0.4,
+          "checkpoint_lower": [
+            0.9256910984784017,
+            0.805737801674389,
+            1.1748194656100286
+          ],
+          "checkpoint_upper": [
+            1.5256910984784018,
+            1.005737801674389,
+            1.3748194656100288
+          ],
+          "direction": "TURN_LEFT_90"
+        },
+        "approval_s": 3.4
+      },
+      "approval_snapshot": "seed_11/approval.pkl",
+      "snapshot_sha256": "5e7f9666a41c45ec259664e93e157392baaa0c3224f1d791f548e7d12abbd5d2"
+    },
+    {
+      "scenario": {
+        "schema": "northbound_checkpoint_v2",
+        "seed": 12,
+        "speed": 0.6,
+        "height": 1.386688235714856,
+        "initial_x": -0.09320388463807161,
+        "initial_y": -0.06414171791637849,
+        "fence_x": 1.7566853559578859,
+        "deadline_s": 4.2,
+        "command": {
+          "radius": 0.2,
+          "speed": 0.6,
+          "checkpoint_lower": [
+            0.5078524578280936,
+            1.2358582820836215,
+            1.286688235714856
+          ],
+          "checkpoint_upper": [
+            1.1078524578280937,
+            1.4358582820836217,
+            1.486688235714856
+          ],
+          "direction": "TURN_LEFT_90"
+        },
+        "approval_s": 1.8
+      },
+      "approval_snapshot": "seed_12/approval.pkl",
+      "snapshot_sha256": "7f51b5d9bf824f1479573f6dc1b6d2fceb63e4408c2c3085afe8bdfa2b927044"
+    },
+    {
+      "scenario": {
+        "schema": "northbound_checkpoint_v2",
+        "seed": 14,
+        "speed": 0.4,
+        "height": 1.240236666708564,
+        "initial_x": 0.06082179167461646,
+        "initial_y": 0.07202375733051888,
+        "fence_x": 2.202139272462781,
+        "deadline_s": 6.12,
+        "command": {
+          "radius": 0.6,
+          "speed": 0.4,
+          "checkpoint_lower": [
+            1.1882411688254706,
+            1.3720237573305187,
+            1.140236666708564
+          ],
+          "checkpoint_upper": [
+            1.7882411688254707,
+            1.572023757330519,
+            1.3402366667085641
+          ],
+          "direction": "TURN_LEFT_90"
+        },
+        "approval_s": 2.8
+      },
+      "approval_snapshot": "seed_14/approval.pkl",
+      "snapshot_sha256": "32cd234d6675d90c9ab1342bd6441a61d4f5a11c63c2bec584b2e87fee491751"
+    },
+    {
+      "scenario": {
+        "schema": "northbound_checkpoint_v2",
+        "seed": 15,
+        "speed": 0.8,
+        "height": 1.3539542778340143,
+        "initial_x": -0.04667797266214299,
+        "initial_y": -0.09103236486191624,
+        "fence_x": 2.0249192843715877,
+        "deadline_s": 4.9,
+        "command": {
+          "radius": 0.6,
+          "speed": 0.8,
+          "checkpoint_lower": [
+            0.9377152054702678,
+            2.0089676351380836,
+            1.2539542778340143
+          ],
+          "checkpoint_upper": [
+            1.5377152054702679,
+            2.208967635138084,
+            1.4539542778340144
+          ],
+          "direction": "TURN_LEFT_90"
+        },
+        "approval_s": 1.4
+      },
+      "approval_snapshot": "seed_15/approval.pkl",
+      "snapshot_sha256": "94a2029a420a65f92e25eda98d8464d84728d12fb84c656f2727be2879b40997"
+    },
+    {
+      "scenario": {
+        "schema": "northbound_checkpoint_v2",
+        "seed": 16,
+        "speed": 0.6,
+        "height": 1.2576860363725464,
+        "initial_x": -0.12177785236154264,
+        "initial_y": -0.030384089912800907,
+        "fence_x": 1.999731186019137,
+        "deadline_s": 4.92,
+        "command": {
+          "radius": 0.4,
+          "speed": 0.6,
+          "checkpoint_lower": [
+            0.5349012811894556,
+            1.469615910087199,
+            1.1576860363725463
+          ],
+          "checkpoint_upper": [
+            1.1349012811894557,
+            1.6696159100871992,
+            1.3576860363725465
+          ],
+          "direction": "TURN_LEFT_90"
+        },
+        "approval_s": 1.6
+      },
+      "approval_snapshot": "seed_16/approval.pkl",
+      "snapshot_sha256": "4a8138ef6392657c27decfac5a648f6bee0ce0c96cb5de787b17cbc3830b236b"
+    },
+    {
+      "scenario": {
+        "schema": "northbound_checkpoint_v2",
+        "seed": 17,
+        "speed": 0.8,
+        "height": 1.1902432727922767,
+        "initial_x": 0.017323364209707648,
+        "initial_y": -0.026384011667145754,
+        "fence_x": 1.7322653277714761,
+        "deadline_s": 4.6,
+        "command": {
+          "radius": 0.6,
+          "speed": 0.8,
+          "checkpoint_lower": [
+            0.9695989764388175,
+            2.0736159883328544,
+            1.0902432727922766
+          ],
+          "checkpoint_upper": [
+            1.5695989764388176,
+            2.2736159883328546,
+            1.2902432727922768
+          ],
+          "direction": "TURN_LEFT_90"
+        },
+        "approval_s": 1.2
+      },
+      "approval_snapshot": "seed_17/approval.pkl",
+      "snapshot_sha256": "28cb6f598bf67298ea1dd7179a457df9b3d30b22250fe43fec73bd7a04775d9b"
+    },
+    {
+      "scenario": {
+        "schema": "northbound_checkpoint_v2",
+        "seed": 18,
+        "speed": 0.8,
+        "height": 1.329353669822054,
+        "initial_x": -0.06575300158919897,
+        "initial_y": -0.08345501640037674,
+        "fence_x": 2.404018317703661,
+        "deadline_s": 4.42,
+        "command": {
+          "radius": 0.4,
+          "speed": 0.8,
+          "checkpoint_lower": [
+            1.239875373901681,
+            1.8165449835996232,
+            1.229353669822054
+          ],
+          "checkpoint_upper": [
+            1.839875373901681,
+            2.016544983599623,
+            1.4293536698220541
+          ],
+          "direction": "TURN_LEFT_90"
+        },
+        "approval_s": 2.0
+      },
+      "approval_snapshot": "seed_18/approval.pkl",
+      "snapshot_sha256": "a10a693f2a1bb0afde75f7ad74d4f154c29420f534edb62c565a668df4027eae"
+    },
+    {
+      "scenario": {
+        "schema": "northbound_checkpoint_v2",
+        "seed": 19,
+        "speed": 0.6,
+        "height": 1.3814673362041758,
+        "initial_x": -0.06783900363051537,
+        "initial_y": -0.08799027917549468,
+        "fence_x": 1.7427044546825965,
+        "deadline_s": 4.82,
+        "command": {
+          "radius": 0.4,
+          "speed": 0.6,
+          "checkpoint_lower": [
+            0.9019913141673574,
+            1.4120097208245053,
+            1.2814673362041757
+          ],
+          "checkpoint_upper": [
+            1.5019913141673575,
+            1.6120097208245054,
+            1.481467336204176
+          ],
+          "direction": "TURN_LEFT_90"
+        },
+        "approval_s": 2.0
+      },
+      "approval_snapshot": "seed_19/approval.pkl",
+      "snapshot_sha256": "e3c245fe1216dfff0253683e4c9dd39be11220b693efa835a1c8a5e4ecb76eb4"
+    }
+  ],
+  "provenance": {
+    "path": "metadata.json",
+    "sha256": "fabf14526093dae6b39b868b7283219f8fc84b47bf8a06ad79520fbbeeeee035"
+  }
+}

@@ -1,0 +1,105 @@
+{
+  "evidence": "Actual SCG/PyBullet No-Recovery flights, monitored at 1000 Hz.",
+  "accepted_scenarios": 20,
+  "reused": 5,
+  "newly_calibrated": 15,
+  "delays_s": [
+    0.0,
+    0.02,
+    0.04,
+    0.06,
+    0.08,
+    0.1,
+    0.12,
+    0.14,
+    0.16,
+    0.18,
+    0.2,
+    0.3,
+    0.4,
+    0.5,
+    0.6,
+    0.7,
+    0.8,
+    0.9,
+    1.0
+  ],
+  "actual_sweep_flights": 380,
+  "new_calibration_flights": 151,
+  "preflight_validation_flights": 1,
+  "confirmation_flights": 2,
+  "total_new_mission_flights": 534,
+  "new_seeds": [
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21
+  ],
+  "rejected_seeds": [
+    5,
+    13
+  ],
+  "generated_and_attempted": 22,
+  "calibration_acceptance_rate": 0.9090909090909091,
+  "new_calibration_acceptance_rate": 0.8823529411764706,
+  "positive_delay_completion_scenarios": 16,
+  "positive_delay_completion_rate": 0.8,
+  "completion_at_or_above_0_1_scenarios": 9,
+  "completion_at_or_above_0_1_rate": 0.45,
+  "no_positive_delay_completion_seeds": [
+    6,
+    8,
+    11,
+    20
+  ],
+  "last_safe_delay": {
+    "min": 0.0,
+    "median": 0.08,
+    "max": 0.18
+  },
+  "first_loss_kind_counts": {
+    "both": 2,
+    "checkpoint_only": 15,
+    "safety_only": 3
+  },
+  "nonmonotonic_safety_seeds": [],
+  "nonmonotonic_completion_seeds": [
+    11
+  ],
+  "nonmonotonic_safe_completion_seeds": [],
+  "predispatch_violation_scenarios": 5,
+  "predispatch_violation_flights": 12,
+  "first_unsafe_already_predispatch": 0,
+  "first_completion_loss_east_miss_scenarios": 14,
+  "first_completion_loss_position_seen_scenarios": 6,
+  "last_safe_delay_distribution": {
+    "0.12": 2,
+    "0.1": 1,
+    "0.14": 2,
+    "0.02": 3,
+    "0.16": 2,
+    "0.0": 4,
+    "0.08": 2,
+    "0.18": 2,
+    "0.04": 1,
+    "0.06": 1
+  },
+  "right_censored_safety_seeds": [
+    16
+  ],
+  "analyzed_journal_sha256": "55f08817f901b7a7c044ba00d428198994060d6df810f6ddae6f301dae2949f6",
+  "analysis_source_sha256": "8ecd2ca7c6966fa36c3f7a5ead3f4ace4f29167e64a6c0a3fdf201bbad901c0d"
+}

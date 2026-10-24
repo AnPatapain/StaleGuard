@@ -1,5 +1,11 @@
 # Phase 1 technical appendix
 
+> **Code-location update:** This appendix records the Phase 1 experiments before
+> the research-script refactor. Numerical results and scientific definitions are
+> unchanged. Use the [current README](../../README.md) for executable commands and the
+> [refactor report](REFACTOR_REPORT.md) for equivalence evidence; file inventories
+> and old CLI commands below describe the historical layout.
+
 This appendix records how the experiment was defined, which measurements support the [main report](PHASE1_REPORT.md), and how to reproduce the work. It adds explanations and references, not new experiments. The mission flights and the diagnostic timing benchmark are kept separate because they answer different questions: the flights show what the aircraft actually does, while the benchmark measures how long its safety forecast takes to compute.
 
 ## A. The flight and its fixed checkpoint
@@ -81,7 +87,7 @@ body_clearance = fence_x - actual_center_x - r_body
 safe when body_clearance >= 0.05 m
 ```
 
-The source geometry is [SCG's cf2x.urdf](../../../safe_control_gym/envs/gym_pybullet_drones/assets/cf2x.urdf). The sphere covers that simulated collision shape; it is not a verified envelope for a real aircraft's propellers or sensors. The body radius and required 5 cm clearance are each included once.
+The source geometry is [SCG's cf2x.urdf](../../../../../safe_control_gym/envs/gym_pybullet_drones/assets/cf2x.urdf). The sphere covers that simulated collision shape; it is not a verified envelope for a real aircraft's propellers or sensors. The body radius and required 5 cm clearance are each included once.
 
 For example, a center at X=2.3 m with a fence at X=2.5 m has about `2.5-2.3-0.0613=0.1387 m` body clearance. A clearance of 0.04 m is already a safety failure, even though the modeled body has not crossed the fence plane. Negative clearance means part of the modeled body has crossed it.
 
@@ -107,7 +113,7 @@ The turning screen used height 1.25 m and approval at 1.2 s, with nine speed/rad
 | 0.8 | 0.4 | 1.60 | 10.67 | Pass |
 | 0.8 | 0.6 | 1.07 | 7.23 | Pass |
 
-The v²/R relation describes the nominal sideways acceleration needed for a circular turn; it did not determine feasibility by itself. The measured screen is a small set of tested combinations, not proof that every intermediate radius or initial condition will work. [Sweep records](logs/northbound_review/characterization/sweep.jsonl) and [accepted combinations/configuration](logs/northbound_review/characterization/envelope.json) preserve the measurements.
+The v²/R relation describes the nominal sideways acceleration needed for a circular turn; it did not determine feasibility by itself. The measured screen is a small set of tested combinations, not proof that every intermediate radius or initial condition will work. [Sweep records](../logs/northbound_review/characterization/sweep.jsonl) and [accepted combinations/configuration](../logs/northbound_review/characterization/envelope.json) preserve the measurements.
 
 For each generated case, speed is sampled over the measured passing speed values, then one measured passing radius for that speed is selected. Other draws use height 1.15–1.40 m, initial X in −0.15–0.15 m, initial Y in −0.10–0.10 m, and fence X equal to initial X plus 1.5–2.5 m. Initial velocities are zero. The checkpoint and deadline follow the constructions in section A. These ranges are operating assumptions, not values fitted to StaleGuard outcomes.
 
@@ -144,7 +150,7 @@ The generator processed ten input seeds, and calibration stopped at the predecla
 | Selected-case D=0 replays inside calibration | 5 |
 | Total calibration flights | 43 |
 
-The rejection categories overlap: all 28 rejected candidates missed completion, and 23 of those also violated clearance. The five replays reproduced the saved approval state and the position controller's internal history exactly. [Dataset summary](logs/northbound_review/development/summary.json), [attempt records](logs/northbound_review/development/attempts.jsonl), and each seed directory contain the detailed evidence.
+The rejection categories overlap: all 28 rejected candidates missed completion, and 23 of those also violated clearance. The five replays reproduced the saved approval state and the position controller's internal history exactly. [Dataset summary](../logs/northbound_review/development/summary.json), [attempt records](../logs/northbound_review/development/attempts.jsonl), and each seed directory contain the detailed evidence.
 
 No StaleGuard prediction, delayed dispatch, recovery decision, or policy comparison influences this calibration.
 
@@ -156,14 +162,14 @@ No StaleGuard prediction, delayed dispatch, recovery decision, or policy compari
 | Case 0, D=0.6 s | Unsafe and not completed; minimum clearance −33.73 cm | The east-shifted turn misses the original box and crosses the fence. No recovery path is created. |
 | Case 0, deliberately longer wait | Unsafe and not completed; violation occurs before dispatch | A later turn cannot erase an already-failed waiting period. |
 
-[Fresh flight records and traces](logs/northbound_review/integration/) preserve these three flights. The fourth integration test inspects recorded actual turns at 0.4, 0.6 and 0.8 m/s with R=0.4 m, checking that northward movement results from a horizontal course change rather than yaw alone.
+[Fresh flight records and traces](../logs/northbound_review/integration/) preserve these three flights. The fourth integration test inspects recorded actual turns at 0.4, 0.6 and 0.8 m/s with R=0.4 m, checking that northward movement results from a horizontal course change rather than yaw alone.
 
 | Validation | Result | Evidence |
 |---|---|---|
-| Mission unit tests | 22 passed | [Correction run](logs/northbound_review/unit_tests.log); [repeated for readiness instrumentation](logs/readiness/unit_tests.log) |
-| Integration tests | 4 passed, including the three fresh flights above | [Integration log](logs/northbound_review/integration_tests.log) |
-| Existing Inspection-Descent regressions | 26 passed | [Correction run](logs/northbound_review/inspection_descent_regression.log); [readiness run](logs/readiness/inspection_descent_regression.log) |
-| Saved-result audit | Passed for five cases and 33 candidates | [Correction audit](logs/northbound_review/artifact_validation.json); [readiness audit](logs/readiness/artifact_validation.json) |
+| Mission unit tests | 22 passed | [Correction run](../logs/northbound_review/unit_tests.log); [repeated for readiness instrumentation](../logs/readiness/unit_tests.log) |
+| Integration tests | 4 passed, including the three fresh flights above | [Integration log](../logs/northbound_review/integration_tests.log) |
+| Existing Inspection-Descent regressions | 26 passed | [Correction run](../logs/northbound_review/inspection_descent_regression.log); [readiness run](../logs/readiness/inspection_descent_regression.log) |
+| Saved-result audit | Passed for five cases and 33 candidates | [Correction audit](../logs/northbound_review/artifact_validation.json); [readiness audit](../logs/readiness/artifact_validation.json) |
 
 The unit tests cover continuous turn boundaries, no requested westward motion, unchanged checkpoint geometry across delays, delayed misses, velocity/dwell requirements, deterministic generation, explicit geometry rejection, and selecting the latest feasible approval. The saved-result audit also checks unique descending candidate distances, body-safety sample counts, command consistency and snapshot checksums (file fingerprints used to detect changes).
 
@@ -171,7 +177,7 @@ The unchanged memory rule stops between trials if process use exceeds 2048 MiB o
 
 A separate optional replay command stopped after replaying case 0; that command did not complete five replays. All five D=0 replays had already passed within calibration, and the fresh integration replay passed as well. Across the corrected flight work there were 9 turning tests + 43 calibration flights + 1 optional standalone replay + 3 fresh integration flights = **56 actual mission flights**, with no baseline matrix and no 300-scenario calibration.
 
-![Measured case 0 path and body clearance](logs/northbound_review/diagnostics/northbound_checkpoint.png)
+![Measured case 0 path and body clearance](../logs/northbound_review/diagnostics/northbound_checkpoint.png)
 
 This is a measured PyBullet example, unlike the illustrative coordinates in section A. The plot displays actual states at 50 Hz for readability; minimum clearance and pass/fail decisions use the 1000 Hz observations.
 
@@ -194,7 +200,7 @@ These results meet the requested tens-of-milliseconds target **for the warmed di
 
 The next timing experiment should collect the approval state during a real geofence mission, measure the forecast in the mission runner, and verify when its result can affect dispatch or recovery. This is the missing counterpart of the workflow used by Inspection-Descent's `mission.py`. Before a large comparison, it should also compare predicted safety with a small set of matching delayed PyBullet flights.
 
-Evidence: [raw warmed timings](logs/readiness/timings.jsonl), [summary](logs/readiness/summary.json), [source/environment metadata](logs/readiness/metadata.json), [preliminary log](logs/readiness/preliminary_measurement.log), and [benchmark completion record](logs/readiness/finished.json). The readiness-only code change did not modify the predictor, mission path, dynamics, safety criteria or scheduling rules. The earlier four physics integration tests were not rerun for that instrumentation-only change; the 22 unit tests, 26 existing regressions and artifact audit were repeated.
+Evidence: [raw warmed timings](../logs/readiness/timings.jsonl), [summary](../logs/readiness/summary.json), [source/environment metadata](../logs/readiness/metadata.json), [preliminary log](../logs/readiness/preliminary_measurement.log), and [benchmark completion record](../logs/readiness/finished.json). The readiness-only code change did not modify the predictor, mission path, dynamics, safety criteria or scheduling rules. The earlier four physics integration tests were not rerun for that instrumentation-only change; the 22 unit tests, 26 existing regressions and artifact audit were repeated.
 
 ## G. Code, data identity, and reproduction
 
@@ -202,18 +208,18 @@ Evidence: [raw warmed timings](logs/readiness/timings.jsonl), [summary](logs/rea
 
 | Files | Responsibility |
 |---|---|
-| [mission.py](mission.py) | Command, quarter-circle/northbound path, body clearance and checkpoint completion definitions |
-| [scenario.py](scenario.py) | Seeded scenario construction and latest-feasible D=0 approval search |
-| [simulation.py](simulation.py) | Actual SCG/PyBullet flights and observation of safety/completion |
-| [prediction.py](prediction.py), [infrastructure.py](infrastructure.py) | Mission safety forecasts using the existing lightweight vehicle/PID model |
-| [cli.py](cli.py) | Bounded characterization, generation, calibration, replay, diagnostic benchmark and smoke commands |
-| [policies.py](policies.py), [reporting.py](reporting.py) | Dispatch timing conventions and summaries of paired policy records |
-| [validation.py](validation.py), [diagnostics.py](diagnostics.py) | Saved-data checks and measured plots |
-| [tests/test_mission.py](tests/test_mission.py), [tests/test_prediction.py](tests/test_prediction.py), [tests/test_integration.py](tests/test_integration.py) | Unit and integration evidence |
+| [mission.py](../results/refactor_equivalence/reference/source/mission.py.txt) | Command, quarter-circle/northbound path, body clearance and checkpoint completion definitions |
+| [scenario.py](../results/refactor_equivalence/reference/source/scenario.py.txt) | Seeded scenario construction and latest-feasible D=0 approval search |
+| [simulation.py](../results/refactor_equivalence/reference/source/simulation.py.txt) | Actual SCG/PyBullet flights and observation of safety/completion |
+| [prediction.py](../results/refactor_equivalence/reference/source/prediction.py.txt), [infrastructure.py](../results/refactor_equivalence/reference/source/infrastructure.py.txt) | Mission safety forecasts using the existing lightweight vehicle/PID model |
+| [cli.py](../results/refactor_equivalence/reference/source/cli.py.txt) | Bounded characterization, generation, calibration, replay, diagnostic benchmark and smoke commands |
+| [policies.py](../results/refactor_equivalence/reference/source/policies.py.txt), [reporting.py](../results/refactor_equivalence/reference/source/reporting.py.txt) | Dispatch timing conventions and summaries of paired policy records |
+| [validation.py](../results/refactor_equivalence/reference/source/validation.py.txt), [diagnostics.py](../results/refactor_equivalence/reference/source/diagnostics.py.txt) | Saved-data checks and measured plots |
+| [tests/test_mission.py](../results/refactor_equivalence/reference/source/tests/test_mission.py.txt), [tests/test_prediction.py](../results/refactor_equivalence/reference/source/tests/test_prediction.py.txt), [tests/test_integration.py](../results/refactor_equivalence/reference/source/tests/test_integration.py.txt) | Unit and integration evidence |
 
-The correction changed the existing mission, scenario, simulation, prediction, CLI, validation, diagnostics, three test files, README and report. It added no new Python files and did not refactor Inspection-Descent. [The correction diff](logs/northbound_review/correction.patch) and [change inventory](logs/northbound_review/change_summary.json) record that work. The subsequent timing addition changed the CLI and documentation and added `logs/readiness/` evidence.
+The correction changed the existing mission, scenario, simulation, prediction, CLI, validation, diagnostics, three test files, README and report. It added no new Python files and did not refactor Inspection-Descent. [The correction diff](../logs/northbound_review/correction.patch) and [change inventory](../logs/northbound_review/change_summary.json) record that work. The subsequent timing addition changed the CLI and documentation and added `logs/readiness/` evidence.
 
-Current scenario format is `northbound_checkpoint_v2`. Older connector-based scenarios and prediction snapshots are explicitly rejected rather than silently reinterpreted. Previous results remain in their original directories; they are not evidence for the corrected mission. The earlier report is [archived here](logs/northbound_review/original_PHASE1_REPORT.md). No current comparative result is established for StaleGuard, Use-Time Recheck, Fixed TTL, FBS or Periodic.
+Current scenario format is `northbound_checkpoint_v2`. Older connector-based scenarios and prediction snapshots are explicitly rejected rather than silently reinterpreted. Previous results remain in their original directories; they are not evidence for the corrected mission. The earlier report is [archived here](../logs/northbound_review/original_PHASE1_REPORT.md). No current comparative result is established for StaleGuard, Use-Time Recheck, Fixed TTL, FBS or Periodic.
 
 The readiness metadata records source hashes and the hashes of the exact approval snapshots used. Snapshot fingerprints are reproduced below for auditability; they are not necessary to understand the main conclusions.
 
@@ -225,7 +231,7 @@ The readiness metadata records source hashes and the hashes of the exact approva
 | 3 | `54ca6340b3982be724587085bc0422e8d0ec76ac13784ee48ef862cec79d1334` |
 | 4 | `10abd56c4d81c04f9c5a0b5f6af74241fa9eb2a056aa9ab2f9906514525c412a` |
 
-Each snapshot includes the aircraft state, position-controller history and remaining planned reference, with JSON scenario/configuration alongside it. The existing Python pickle format is used; only load locally produced, trusted snapshots. Shared source/vehicle geometry provenance is recorded in [the earlier provenance file](logs/provenance.json); each current run's metadata gives its mission source/configuration details.
+Each snapshot includes the aircraft state, position-controller history and remaining planned reference, with JSON scenario/configuration alongside it. The existing Python pickle format is used; only load locally produced, trusted snapshots. Shared source/vehicle geometry provenance is recorded in [the earlier provenance file](../logs/provenance.json); each current run's metadata gives its mission source/configuration details.
 
 ### Reproduction commands
 

@@ -1,0 +1,37 @@
+{
+  "schema": "northbound_checkpoint_v2",
+  "config": {
+    "d_min_m": 0.05,
+    "position_tolerance_m": 0.1,
+    "velocity_tolerance_mps": 0.12,
+    "dwell_s": 0.2,
+    "tracking_limit_m": 0.15,
+    "checkpoint_width_m": 0.6,
+    "checkpoint_north_travel_s": 2.0,
+    "approval_min_s": 0.6,
+    "approval_max_s": 3.2,
+    "approval_grid_s": 0.2,
+    "max_rss_mb": 2048,
+    "min_available_mb": 2048
+  },
+  "python": "3.10.21 (main, Aug 27 2026, 14:42:07) [GCC 14.3.0]",
+  "executable": "/home/kean/miniconda3/envs/scg/bin/python",
+  "platform": "Linux-6.8.0-147-generic-x86_64-with-glibc2.39",
+  "numpy": "2.2.6",
+  "numerical_threads": 1,
+  "cpu_only": true,
+  "simulation_workers": 1,
+  "source_hashes": {
+    "calibration.py": "b860a0482cc94be4d9aadc602c2783644a1811728be29c0b54fe6437bfb147fa",
+    "__init__.py": "16ceef2ac9604eab276c2ac8617e7ba39d7357df53754245ac50d2c680a2d42c",
+    "scenario.py": "60f2e829adcc3a894f8df55f5e9124223fda542247fdfedc58bcb1277bc13078",
+    "simulation.py": "e199ff188bfc10f55c5b62b30fac62557b6a4b943a5030818fb3d89e58df9462",
+    "ttl_pred_accuracy/run.py": "ede5853a2fd3db384b0662a743bedf550d4ed6abcfebae01b7038b6cba1be552",
+    "baseline_benchmark/run.py": "6790f9281a41faf870b18252bd880c2120a50a3c1dcbd57a1a009512c74da7cb",
+    "baseline_benchmark/metrics.py": "45e8f70a3498e4f9fd4afd83837e7ac9b1cec73fdbe8d50356b6af3bac019d34",
+    "baselines/staleguard.py": "307b846b9dfa97ea093d7c89a2722c62cd745e505e0de999c4e5f17bd9d3e6ce",
+    "baselines/use_time_recheck.py": "bd6412ff8b064e3a1458e7fc79a363d4c3fd00842c1fb47372eb3b0464d95741",
+    "baselines/fixed_ttl.py": "2901440db2de89015731ee22911c20364734183433f23ba2e082f162b2afd6dd"
+  },
+  "started_utc": "2026-10-24T13:29:29Z"
+}

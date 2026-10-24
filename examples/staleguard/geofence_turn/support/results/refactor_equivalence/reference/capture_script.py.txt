@@ -1,0 +1,112 @@
+"""Capture pre/post scientific outputs without changing experiment definitions."""
+import geofence_turn
+import argparse
+import ctypes
+from dataclasses import asdict
+import fcntl
+import gc
+import hashlib
+import json
+import math
+from pathlib import Path
+import pickle
+import time
+import numpy as np
+
+parser=argparse.ArgumentParser()
+parser.add_argument('phase',choices=('reference','refactored'))
+a=parser.parse_args()
+ROOT=Path('geofence_turn');OUT=ROOT/'results/refactor_equivalence'/a.phase
+OUT.mkdir(parents=True,exist_ok=True)
+if a.phase=='reference':
+    from geofence_turn.mission import Config, HZ, scenario_dict,scenario_from_dict,make_forward_trajectory,apply_turn_command
+    from geofence_turn.scenario import generate_scenario,calibrate
+    from geofence_turn.infrastructure import load_scg_platform_params
+    from geofence_turn.prediction import predict_delays,predict_immediate
+else:
+    from geofence_turn.scenario import Config,HZ,scenario_dict,scenario_from_dict,make_forward_trajectory,apply_turn_command,generate_scenario
+    from geofence_turn.calibration import calibrate
+    from model.scg import load_scg_platform_params
+    from geofence_turn.baselines.staleguard import predict_delays
+    from geofence_turn.baselines.use_time_recheck import predict_immediate
+from geofence_turn import simulation
+CONFIG=Config();DEV=ROOT/'logs/northbound_review/development'
+
+def save(path,value):
+    path.write_text(json.dumps(value,indent=2,allow_nan=False)+'\n')
+
+def array_record(snapshot):
+    return dict(state=snapshot.state,reference=snapshot.remaining_reference,
+                integral_pos_e=snapshot.pid_state.integral_pos_e,last_rpy=snapshot.pid_state.last_rpy,
+                integral_rpy_e=snapshot.pid_state.integral_rpy_e)
+
+with (ROOT/'logs/.simulation.lock').open('a') as lock:
+    fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
+    config_before=asdict(CONFIG)
+    envelope=json.loads((ROOT/'logs/northbound_review/characterization/envelope.json').read_text())
+    generated=[]
+    for seed in range(10):
+        try: generated.append(scenario_dict(generate_scenario(seed,envelope,CONFIG)))
+        except ValueError as error: generated.append(dict(seed=seed,rejection=str(error)))
+    save(OUT/'generated.json',generated)
+    attempts=[json.loads(line) for line in (DEV/'attempts.jsonl').read_text().splitlines()]
+    selections=[]
+    for attempt in attempts:
+        base=scenario_from_dict(attempt['generated'])
+        rows=[json.loads(line) for line in (DEV/f'seed_{base.seed}/candidates.jsonl').read_text().splitlines()]
+        cached={round(row['approval_s']*HZ):row for row in rows}
+        def evaluate(candidate):
+            row=cached[round(candidate.approval_s*HZ)]
+            assert json.loads(json.dumps(scenario_dict(candidate)['command']))==row['command']
+            return row['outcome'],None,None
+        selected,_,audited=calibrate(base,evaluate,CONFIG,latest_approval_s=attempt['search_upper_s'])
+        selections.append(dict(seed=base.seed,selected=scenario_dict(selected),candidates=audited))
+    save(OUT/'calibration.json',selections)
+    cases=[]
+    for path in sorted(DEV.glob('seed_*/scenario.json')):
+        s=scenario_from_dict(json.loads(path.read_text()));cases.append(s)
+        total=round(s.approval_s*HZ)+math.ceil(s.deadline_s*HZ-1e-10)
+        reference=make_forward_trajectory(total+1,s)
+        arrays=dict(nominal=reference)
+        for i in range(11): arrays[f'delay_{i}']=apply_turn_command(reference,round(s.approval_s*HZ)+i*5,s.command)
+        np.savez_compressed(OUT/f'references_{s.seed}.npz',**arrays)
+    gc.collect();ctypes.CDLL(None).malloc_trim(0);simulation.check_memory(CONFIG)
+    platform=load_scg_platform_params()
+    snapshots={s.seed:pickle.loads((DEV/f'seed_{s.seed}/approval.pkl').read_bytes()) for s in cases}
+    predict_delays(snapshots[0],platform);predict_immediate(snapshots[0],platform)
+    received={}
+    for s in cases:
+        path=OUT/f'prediction_{s.seed}.json'
+        if path.exists(): result=json.loads(path.read_text())
+        else:
+            result=predict_delays(snapshots[s.seed],platform)
+            save(path,result)
+        assert predict_immediate(snapshots[s.seed],platform)==result['results'][0]
+        received[s.seed]=result
+    # All five D=0 flights plus 2 scenarios x 2 delays x 4 existing policies.
+    flights=[(s,0.,'no_recovery',f'd0_seed{s.seed}') for s in cases]
+    flights += [(s,d,p,f'baseline_seed{s.seed}_D{d}_{p}')
+                for s in cases if s.seed in (0,3) for d in (0.,.6)
+                for p in ('no_recovery','staleguard','use_time_recheck','fixed_ttl')]
+    start=time.monotonic();completed=0
+    original=simulation.monitor_physics_steps
+    for s,delay,policy,name in flights:
+        if (OUT/f'{name}.json').exists():
+            assert (OUT/f'{name}.npz').exists();completed+=1;continue
+        if time.monotonic()-start>180: raise RuntimeError('Capture wall budget reached')
+        gc.collect();ctypes.CDLL(None).malloc_trim(0);simulation.check_memory(CONFIG)
+        physics=[]
+        def monitored(env,observe):
+            def sample(position,tick):
+                physics.append((tick,*position));observe(position,tick)
+            return original(env,sample)
+        simulation.monitor_physics_steps=monitored
+        try: result,snapshot,trace=simulation.execute(s,delay,CONFIG,policy,received[s.seed],platform,True)
+        finally: simulation.monitor_physics_steps=original
+        np.testing.assert_array_equal(snapshot.state,snapshots[s.seed].state)
+        np.savez_compressed(OUT/f'{name}.npz',controls=trace,physics=np.asarray(physics),**array_record(snapshot))
+        assert result['physics_samples']==len(physics)
+        save(OUT/f'{name}.json',result)
+        completed+=1
+        print(f'{a.phase} {completed}/{len(flights)} {name}: safe={result["safe"]} completed={result["completed"]} application={result["event"]["application_step"]} fallback={result["event"]["fallback_step"]}',flush=True)
+    save(OUT/'complete.json',dict(phase=a.phase,scenario_count=len(cases),generated_seeds=10,cached_calibration_candidates=sum(len(x['candidates']) for x in selections),flight_count=len(flights),baseline_flights=16,config=config_before,physics_position_tolerance_m=1e-10,control_state_tolerance=1e-10,clock_policy='Real measured computation; compare scheduling exactly, exclude wall-clock values only.'))

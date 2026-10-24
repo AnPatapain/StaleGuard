@@ -1,0 +1,57 @@
+{
+  "seed": 3,
+  "delay_s": 0.0,
+  "min_clearance_m": 0.06078260797312367,
+  "safe": true,
+  "completed": true,
+  "completion_s": 2.8779999999999997,
+  "safe_completion": true,
+  "actual_patrol_distance_m": 0.9600824508662354,
+  "first_violation_s": null,
+  "pre_dispatch_violation_s": null,
+  "max_tracking_error_m": 0.11171127513059649,
+  "max_arc_tracking_error_m": 0.11171127513059649,
+  "max_tilt_rad": 0.23421463954017085,
+  "physics_samples": 5661,
+  "expected_physics_samples": 5661,
+  "final_position": [
+    1.4646491695525687,
+    3.1890678093711924,
+    1.2101137482447397
+  ],
+  "final_velocity": [
+    0.01883455041109086,
+    0.8183402154647601,
+    -0.0003033386581401197
+  ],
+  "horizon_s": 5.66,
+  "event": {
+    "policy": "use_time_recheck",
+    "scheduled_dispatch_step": 70,
+    "application_step": 71,
+    "fallback_step": null,
+    "prediction_ready": true,
+    "check": {
+      "delay_s": 0.0,
+      "safe": true,
+      "min_clearance_m": 0.08231516066152082
+    },
+    "computation_s": 0.00479429098777473,
+    "decision_step": 71,
+    "check_state": [
+      1.0504647904281545,
+      0.7922418928128057,
+      0.016432407212973774,
+      -7.916213875010104e-11,
+      1.208915562086428,
+      0.0011583563234075103,
+      2.9871471237681326e-10,
+      0.028887029382536684,
+      -3.8980298652526436e-11,
+      -8.481532183548878e-08,
+      0.02354616277016654,
+      -1.178543585776728e-10
+    ]
+  },
+  "runtime_s": 0.3152550880331546
+}

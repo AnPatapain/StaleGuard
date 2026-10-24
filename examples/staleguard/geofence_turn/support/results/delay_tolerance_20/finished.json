@@ -1,0 +1,14 @@
+{
+  "status": "SUCCESS",
+  "accepted_scenarios": 20,
+  "additional_accepted": 15,
+  "calibration_attempts_including_original": 22,
+  "delay_sweep_flights": 380,
+  "total_new_mission_flights": 534,
+  "focused_tests_passed": 34,
+  "validation_status": "PASS",
+  "original_logs_and_archives_unchanged": true,
+  "report": "REPORT.md",
+  "technical_appendix": "TECHNICAL_APPENDIX.md",
+  "journal_sha256": "55f08817f901b7a7c044ba00d428198994060d6df810f6ddae6f301dae2949f6"
+}

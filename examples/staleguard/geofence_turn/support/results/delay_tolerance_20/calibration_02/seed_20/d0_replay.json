@@ -1,0 +1,36 @@
+{
+  "seed": 20,
+  "delay_s": 0.0,
+  "min_clearance_m": 0.4005382626472264,
+  "safe": true,
+  "completed": true,
+  "completion_s": 2.847,
+  "safe_completion": true,
+  "actual_patrol_distance_m": 0.960082450865951,
+  "first_violation_s": null,
+  "pre_dispatch_violation_s": null,
+  "max_tracking_error_m": 0.10325237445042877,
+  "max_arc_tracking_error_m": 0.10325237445042877,
+  "max_tilt_rad": 0.23809044347241184,
+  "physics_samples": 5281,
+  "expected_physics_samples": 5281,
+  "final_position": [
+    1.2498512407430125,
+    2.8772055535448215,
+    1.266264077217133
+  ],
+  "final_velocity": [
+    0.025975412244237293,
+    0.8057777976850309,
+    -0.00020769626363211752
+  ],
+  "horizon_s": 5.28,
+  "event": {
+    "policy": "no_recovery",
+    "scheduled_dispatch_step": 70,
+    "application_step": 70,
+    "fallback_step": null,
+    "prediction_ready": null
+  },
+  "runtime_s": 0.3258336599683389
+}
