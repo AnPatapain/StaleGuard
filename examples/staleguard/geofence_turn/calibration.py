@@ -66,7 +66,10 @@ def calibrate(s, evaluate, config=Config(), on_candidate=None, latest_approval_s
 def write_json(path, value):
     path = Path(path)
     temporary = path.with_suffix(path.suffix + '.tmp')
-    temporary.write_text(json.dumps(value, indent=2, allow_nan=False)+'\n')
+    with temporary.open('w') as stream:
+        stream.write(json.dumps(value,indent=2,allow_nan=False)+'\n')
+        stream.flush()
+        os.fsync(stream.fileno())
     temporary.replace(path)
 
 
@@ -88,7 +91,18 @@ def metadata(config):
                 platform=system_platform.platform(), numpy=np.__version__,
                 numerical_threads=1, cpu_only=True, simulation_workers=1,
                 source_hashes=sources,
+                shared_source_hashes={str(p):file_hash(p) for p in
+                    [*(ROOT.parent/'inspection_descent/model').glob('*.py'),
+                     ROOT.parent/'inspection_descent/experiment.py',
+                     Path(sys.modules['physics_monitor'].__file__)]},
                 started_utc=time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()))
+
+
+def check_provenance(saved, config):
+    current = metadata(config)
+    for field in ('schema','config','source_hashes','shared_source_hashes','python','numpy'):
+        if saved.get(field) != current[field]:
+            raise ValueError(f'Resume source/layout changed or configuration/environment differs: {field}')
 
 
 def prepare_output(out, config, resume=False):
@@ -100,6 +114,7 @@ def prepare_output(out, config, resume=False):
             raise ValueError('Resume configuration or dataset schema differs')
         if saved['source_hashes'] != current['source_hashes']:
             raise ValueError('Resume source/layout changed; retain the old results and use a fresh output directory')
+        check_provenance(saved,config)
         append_json(out/'resume_sessions.jsonl', current)
     else:
         out.mkdir(parents=True, exist_ok=False)
@@ -123,16 +138,27 @@ def load_snapshot(path):
 
 
 def load_development(development, config=Config()):
-    """Read the five existing cases without changing their files or provenance."""
+    """Read compact or historical calibrated inputs, retaining compatibility checks."""
     development = Path(development)
+    if development.is_dir() and (development/'calibrated_scenarios.json').exists():
+        development = development/'calibrated_scenarios.json'
     if development.is_file():
         saved = json.loads(development.read_text())
         if saved.get('schema') != SCHEMA or saved['config'] != asdict(config):
             raise ValueError('Calibrated dataset schema/configuration mismatch')
         provenance = saved['provenance']
-        if file_hash(development.parent/provenance['path']) != provenance['sha256']:
+        if saved.get('format') == 'compact_calibration_v1':
+            if provenance.get('schema') != SCHEMA or provenance.get('config') != asdict(config) or not provenance.get('source_hashes') or not provenance.get('shared_source_hashes'):
+                raise ValueError('Calibrated dataset provenance is incomplete or incompatible')
+        elif file_hash(development.parent/provenance['path']) != provenance['sha256']:
             raise ValueError('Calibrated dataset provenance checksum mismatch')
         entries = saved['scenarios']
+        if saved.get('format') == 'compact_calibration_v1':
+            statistics = saved['statistics']
+            attempted = statistics['attempted']
+            if statistics['accepted'] != len(entries) or (attempted is not None and
+                    (attempted < len(entries) or statistics['rejected'] != attempted-len(entries))):
+                raise ValueError('Calibrated dataset acceptance statistics are inconsistent')
         rows = [(entry['scenario'], development.parent/entry['approval_snapshot'], entry['snapshot_sha256'])
                 for entry in entries]
     else:
@@ -143,8 +169,12 @@ def load_development(development, config=Config()):
         rows = [(entry['selected'], development/f"seed_{entry['seed']}/approval.pkl", entry['snapshot_sha256'])
                 for entry in summary['scenarios']]
     cases = []
+    seen = set()
     for row, path, checksum in rows:
         scenario = scenario_from_dict(row)
+        if scenario.seed in seen:
+            raise ValueError(f'Duplicate calibrated seed: {scenario.seed}')
+        seen.add(scenario.seed)
         if file_hash(path) != checksum:
             raise ValueError(f'Approval snapshot checksum mismatch: {path}')
         snapshot = load_snapshot(path)
@@ -160,22 +190,49 @@ def load_development(development, config=Config()):
     return sorted(cases, key=lambda item:item[0].seed)
 
 
-def save_calibrated_scenarios(out, records, config):
-    entries = [dict(scenario=entry['selected'],
-                    approval_snapshot=f"seed_{entry['seed']}/approval.pkl",
-                    snapshot_sha256=entry['snapshot_sha256']) for entry in records]
-    write_json(out/'calibrated_scenarios.json', dict(schema=SCHEMA, config=asdict(config), scenarios=entries,
-               provenance=dict(path='metadata.json', sha256=file_hash(out/'metadata.json'))))
+def calibration_statistics(source, accepted):
+    """Keep the original attempted-seed denominator when exporting old datasets."""
+    source = Path(source)
+    if source.is_dir():
+        source = source/('calibrated_scenarios.json' if (source/'calibrated_scenarios.json').exists() else 'summary.json')
+    saved = json.loads(source.read_text())
+    if 'statistics' in saved:
+        return dict(saved['statistics'])
+    attempted = saved.get('generated_and_attempted',saved.get('attempted'))
+    if attempted is None and 'path' in saved.get('provenance',{}):
+        summary = (source.parent/saved['provenance']['path']).parent/'summary.json'
+        if summary.exists():
+            saved = json.loads(summary.read_text())
+            attempted = saved.get('attempted')
+    return dict(accepted=accepted, attempted=attempted,
+                rejected=None if attempted is None else attempted-accepted,
+                acceptance_rate=None if not attempted else accepted/attempted,
+                candidate_rejections=saved.get('candidate_rejections',{}))
 
 
 def export_calibrated(out, development, config):
-    entries = [dict(scenario=scenario_dict(s), approval_snapshot=os.path.relpath(path,out),
-                    snapshot_sha256=file_hash(path)) for s,_,path in load_development(development,config)]
+    """Copy frozen snapshots byte-for-byte; never recalibrate or rewrite inputs."""
+    import shutil
+    out = Path(out)
+    if any(out.iterdir()):
+        raise FileExistsError('Export output must be empty; existing results are preserved')
+    (out/'snapshots').mkdir()
+    cases = load_development(development,config)
+    entries = []
+    for scenario, _, path in cases:
+        target = out/f'snapshots/seed_{scenario.seed}.pkl'
+        shutil.copyfile(path,target)
+        entries.append(dict(scenario=scenario_dict(scenario),
+                            approval_snapshot=str(target.relative_to(out)),
+                            snapshot_sha256=file_hash(target)))
     source = Path(development)
     if source.is_dir():
-        source = source/'metadata.json'
-    write_json(out/'calibrated_scenarios.json', dict(schema=SCHEMA, config=asdict(config), scenarios=entries,
-               provenance=dict(path=os.path.relpath(source,out), sha256=file_hash(source))))
+        source = source/('calibrated_scenarios.json' if (source/'calibrated_scenarios.json').exists() else 'summary.json')
+    write_json(out/'calibrated_scenarios.json',dict(format='compact_calibration_v1',schema=SCHEMA,
+        config=asdict(config),provenance=metadata(config),
+        source_dataset=dict(path=os.path.relpath(source,out),sha256=file_hash(source)),
+        statistics=calibration_statistics(development,len(entries)),
+        calibration=dict(status='complete',kind='export_existing'),scenarios=entries))
 
 
 def characterize_turns(out, work, config):
@@ -209,7 +266,7 @@ def characterize_turns(out, work, config):
     write_json(out/'envelope.json', dict(config=asdict(config), results=results))
 
 
-def generate_scenarios(out, args, config):
+def generate_scenarios(out, args, config, save=True):
     envelope = json.loads(Path(args.envelope).read_text())
     rows = []
     for seed in range(args.start_seed, args.start_seed+args.attempts):
@@ -219,105 +276,170 @@ def generate_scenarios(out, args, config):
             if not str(error).startswith('checkpoint_geometry:'):
                 raise
             rows.append(dict(seed=seed, generator_rejection=str(error)))
-    write_json(out/'generated.json', rows)
+    if save:
+        write_json(out/'generated.json', rows)
     print(f'Generated {len(rows)} distinct seeds; no simulation or target adjustment.', flush=True)
     return rows
 
 
 def calibrate_development(out, args, work, config):
+    """The original D=0 search, with all bookkeeping in one scenario JSON.
+
+    Only the current seed's candidate cache is retained for interrupted searches.
+    Finished searches keep counts and selected scenarios, not candidate journals.
+    """
+    out = Path(out)
+    path = out/'calibrated_scenarios.json'
+    detailed = getattr(args,'diagnostics',False)
+    generated_input = getattr(args,'generated',None)
+    settings = dict(start_seed=getattr(args,'start_seed',0),attempts=args.attempts,
+                    target=args.target,diagnostics=detailed,
+                    generated_sha256=file_hash(generated_input) if generated_input else None,
+                    envelope_sha256=None if generated_input else file_hash(getattr(args,'envelope',DEFAULT_ENVELOPE)))
     if args.resume:
-        generated = json.loads((out/'generated.json').read_text())
-    elif args.generated:
-        generated = json.loads(Path(args.generated).read_text())
-        if len(generated) > args.attempts:
-            generated = generated[:args.attempts]
+        data = json.loads(path.read_text())
+        if data.get('format') != 'compact_calibration_v1':
+            raise ValueError('Old calibration layout cannot resume; retain it and use a fresh output directory')
+        check_provenance(data['provenance'],config)
+        if 'settings' not in data['calibration']:
+            raise ValueError('Exported calibration is frozen input, not an interrupted calibration run')
+        if data['calibration']['settings'] != settings:
+            raise ValueError('Resume calibration inputs/settings differ')
+        load_development(path,config)
+        if data['calibration']['status'] == 'complete':
+            return
     else:
-        generated = generate_scenarios(out, args, config)
-    if not (out/'generated.json').exists():
-        write_json(out/'generated.json', generated)
-    prior = [] if not (out/'attempts.jsonl').exists() else [json.loads(line) for line in (out/'attempts.jsonl').read_text().splitlines()]
-    accepted = [row for row in prior if row['accepted']]
-    completed_seeds = {row['seed'] for row in prior}
-    attempted = len(prior)
-    rejections = Counter() if not prior else Counter(json.loads((out/'summary.json').read_text())['candidate_rejections'])
-    for row in generated:
-        if len(accepted) >= args.target:
-            break
-        if row['seed'] in completed_seeds:
-            continue
-        attempted += 1
-        if 'generator_rejection' in row:
-            record = dict(seed=row['seed'], generated=row, accepted=False, candidate_count=0,
-                          rejection_reason=row['generator_rejection'], selected=None)
-            rejections['checkpoint_geometry'] += 1
-            append_json(out/'attempts.jsonl', record)
-            write_json(out/'summary.json', dict(attempted=attempted, accepted=len(accepted),
-                       acceptance_rate=len(accepted)/attempted, candidate_rejections=dict(rejections), scenarios=accepted))
-            print(f"seed={row['seed']} rejected at generation: {row['generator_rejection']}", flush=True)
-            continue
-        s = scenario_from_dict(row)
-        directory = out/f'seed_{s.seed}'
-        directory.mkdir(exist_ok=args.resume)
-        journal = directory/'candidates.jsonl'
-        cached = {} if not journal.exists() else {entry['approval_s']:entry for entry in
-                  (json.loads(line) for line in journal.read_text().splitlines())}
-        def audit(candidate):
-            if candidate['approval_s'] in cached:
-                assert json.dumps(candidate,sort_keys=True) == json.dumps(cached[candidate['approval_s']],sort_keys=True)
+        if out.exists() and any(out.iterdir()):
+            raise FileExistsError('Calibration output contains results; use --resume or a fresh directory')
+        out.mkdir(parents=True,exist_ok=True)
+        (out/'snapshots').mkdir()
+        generated = (json.loads(Path(generated_input).read_text())[:args.attempts]
+                     if generated_input else generate_scenarios(out,args,config,save=False))
+        if len({row['seed'] for row in generated}) != len(generated):
+            raise ValueError('Duplicate generated seed')
+        data = dict(format='compact_calibration_v1',schema=SCHEMA,config=asdict(config),
+                    provenance=metadata(config),scenarios=[],
+                    statistics=dict(generated=len(generated),attempted=0,accepted=0,rejected=0,
+                                    acceptance_rate=None,candidate_rejections={}),
+                    calibration=dict(status='running',settings=settings,attempts=[],sessions=[]),
+                    progress=dict(generated=generated,current=None))
+    session = dict(started_utc=time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime()),trials=0)
+    data['calibration']['sessions'].append(session)
+    data['calibration']['status'] = 'running'
+    data['calibration'].pop('error',None)
+
+    def checkpoint():
+        session.update(trials=work['trials'],elapsed_s=time.monotonic()-work['start'])
+        write_json(path,data)
+
+    checkpoint()
+    completed = {row['seed'] for row in data['calibration']['attempts']}
+    diagnostics = out/'diagnostics'
+    if detailed:
+        diagnostics.mkdir(exist_ok=True)
+    try:
+        for generated in data['progress']['generated']:
+            if len(data['scenarios']) >= args.target:
+                break
+            if generated['seed'] in completed:
+                continue
+            if 'generator_rejection' in generated:
+                record = dict(seed=generated['seed'],accepted=False,candidate_count=0,
+                              rejection_reason=generated['generator_rejection'])
+                reasons = Counter(checkpoint_geometry=1)
             else:
-                append_json(journal, candidate)
-        def evaluate(candidate):
-            saved = cached.get(candidate.approval_s)
-            if saved is None:
-                return execute(candidate, config=config, work=work)
-            assert saved['command'] == json.loads(json.dumps(scenario_dict(candidate)['command']))
-            snap = None
-            if not saved['rejected_because']:
-                snap = load_snapshot(directory/'approval.pkl')
-            return saved['outcome'], snap, None
-        # One real nominal prefix gives a rigorous scenario-specific upper bound:
-        # every later approval already has an irrevocable pre-dispatch violation.
-        # Probe past geometric arrival by the arc plus designated north travel;
-        # if no crossing is observed, stop rather than inventing a search bound.
-        predicted_arrival = (s.fence_x-s.initial_x)/s.speed + RAMP_S/2
-        probe_s = predicted_arrival + s.command.arc_s + config.checkpoint_north_travel_s
-        if (directory/'nominal_bound.json').exists():
-            nominal = json.loads((directory/'nominal_bound.json').read_text())
-        else:
-            nominal, _, _ = execute(replace(s, deadline_s=probe_s-s.approval_s), None, config=config, work=work)
-            write_json(directory/'nominal_bound.json', nominal)
-        if nominal['first_violation_s'] is None:
-            raise RuntimeError('Nominal probe did not cross; no measured calibration upper bound')
-        upper = math.ceil(nominal['first_violation_s']/config.approval_grid_s)*config.approval_grid_s
-        selected, snapshot, rows = calibrate(s, evaluate, config, audit,
-                                             latest_approval_s=upper)
-        for candidate in rows:
-            rejections.update(candidate['rejected_because'])
-        record = dict(seed=s.seed, generated=row, accepted=selected is not None,
-                      candidate_count=len(rows), search_upper_s=upper, grid_s=config.approval_grid_s, rejection_reason=None if selected else 'no_feasible_approval_on_grid',
-                      selected=None if selected is None else scenario_dict(selected))
-        if selected is not None:
-            # Reuse the existing checkpoint approach: pickle full state/PID/reference
-            # alongside human-readable JSON. Only load locally produced snapshots.
-            with (directory/'approval.pkl').open('wb') as stream:
-                pickle.dump(snapshot, stream)
-            write_json(directory/'scenario.json', scenario_dict(selected))
-            write_json(directory/'configuration.json', asdict(config))
-            replay, replay_snapshot, trace = execute(selected, save_trace=True, config=config, work=work)
-            np.testing.assert_array_equal(snapshot.state, replay_snapshot.state)
-            for name in ('integral_pos_e', 'last_rpy', 'integral_rpy_e'):
-                np.testing.assert_array_equal(getattr(snapshot.pid_state, name), getattr(replay_snapshot.pid_state, name))
-            assert replay['safe_completion'], replay
-            np.savez_compressed(directory/'d0_trace.npz', controls=trace)
-            write_json(directory/'d0_replay.json', replay)
-            record.update(replay=replay, snapshot_sha256=file_hash(directory/'approval.pkl'))
-            accepted.append(record)
-            save_calibrated_scenarios(out, accepted, config)
-        append_json(out/'attempts.jsonl', record)
-        print(f'seed={s.seed} accepted={selected is not None} candidates={len(rows)} latest_approval={None if selected is None else selected.approval_s}', flush=True)
-        write_json(out/'summary.json', dict(attempted=attempted, accepted=len(accepted),
-                   acceptance_rate=len(accepted)/attempted, candidate_rejections=dict(rejections), scenarios=accepted))
-    print(f'Acceptance: {len(accepted)}/{attempted}; candidate rejection reasons={dict(rejections)}', flush=True)
+                s = scenario_from_dict(generated)
+                current = data['progress']['current']
+                if current is None:
+                    current = dict(seed=s.seed,candidates=[])
+                    data['progress']['current'] = current
+                if current['seed'] != s.seed:
+                    raise ValueError('In-progress calibration seed does not match generated order')
+                snapshot_path = out/f'snapshots/seed_{s.seed}.pkl'
+                cached = {row['approval_s']:row for row in current['candidates']}
+
+                def audit(candidate):
+                    if candidate['approval_s'] in cached:
+                        if json.dumps(candidate,sort_keys=True) != json.dumps(cached[candidate['approval_s']],sort_keys=True):
+                            raise ValueError('Cached calibration candidate differs')
+                    else:
+                        current['candidates'].append(candidate)
+                        checkpoint()
+
+                def evaluate(candidate):
+                    saved = cached.get(candidate.approval_s)
+                    if saved is not None:
+                        if saved['command'] != json.loads(json.dumps(scenario_dict(candidate)['command'])):
+                            raise ValueError('Cached approved command differs')
+                        snapshot = None
+                        if not saved['rejected_because']:
+                            if file_hash(snapshot_path) != current['snapshot_sha256']:
+                                raise ValueError('In-progress approval snapshot checksum mismatch')
+                            snapshot = load_snapshot(snapshot_path)
+                        return saved['outcome'],snapshot,None
+                    result,snapshot,trace = execute(candidate,config=config,work=work)
+                    if result['safe_completion']:
+                        temporary = snapshot_path.with_suffix('.pkl.tmp')
+                        with temporary.open('wb') as stream:
+                            pickle.dump(snapshot,stream)
+                            stream.flush()
+                            os.fsync(stream.fileno())
+                        temporary.replace(snapshot_path)
+                        current['snapshot_sha256'] = file_hash(snapshot_path)
+                    return result,snapshot,trace
+
+                # Unchanged nominal probe, approval grid and latest-feasible rule.
+                predicted_arrival = (s.fence_x-s.initial_x)/s.speed + RAMP_S/2
+                probe_s = predicted_arrival+s.command.arc_s+config.checkpoint_north_travel_s
+                if 'nominal' not in current:
+                    nominal,_,_ = execute(replace(s,deadline_s=probe_s-s.approval_s),None,config=config,work=work)
+                    current['nominal'] = nominal
+                    checkpoint()
+                nominal = current['nominal']
+                if nominal['first_violation_s'] is None:
+                    raise RuntimeError('Nominal probe did not cross; no measured calibration upper bound')
+                upper = math.ceil(nominal['first_violation_s']/config.approval_grid_s)*config.approval_grid_s
+                selected,snapshot,rows = calibrate(s,evaluate,config,audit,latest_approval_s=upper)
+                reasons = Counter(reason for row in rows for reason in row['rejected_because'])
+                record = dict(seed=s.seed,accepted=selected is not None,candidate_count=len(rows),
+                              search_upper_s=upper,grid_s=config.approval_grid_s,
+                              rejection_reason=None if selected else 'no_feasible_approval_on_grid')
+                if selected is not None:
+                    replay,replayed,trace = execute(selected,save_trace=detailed,config=config,work=work)
+                    np.testing.assert_array_equal(snapshot.state,replayed.state)
+                    for name in ('integral_pos_e','last_rpy','integral_rpy_e'):
+                        np.testing.assert_array_equal(getattr(snapshot.pid_state,name),getattr(replayed.pid_state,name))
+                    assert replay['safe_completion'],replay
+                    data['scenarios'].append(dict(scenario=scenario_dict(selected),
+                        approval_snapshot=str(snapshot_path.relative_to(out)),snapshot_sha256=file_hash(snapshot_path),
+                        d0_verification=replay))
+                    if detailed:
+                        np.savez_compressed(diagnostics/f'seed_{s.seed}_d0.npz',controls=trace)
+                if detailed:
+                    details_path = diagnostics/'calibration.json'
+                    details = json.loads(details_path.read_text()) if details_path.exists() else {}
+                    details[str(s.seed)] = dict(nominal_bound=nominal,candidates=rows)
+                    write_json(details_path,details)
+            data['calibration']['attempts'].append(record)
+            statistics = data['statistics']
+            counts = Counter(statistics['candidate_rejections'])
+            counts.update(reasons)
+            statistics.update(attempted=len(data['calibration']['attempts']),accepted=len(data['scenarios']),
+                              rejected=len(data['calibration']['attempts'])-len(data['scenarios']),
+                              candidate_rejections=dict(counts))
+            statistics['acceptance_rate'] = statistics['accepted']/statistics['attempted']
+            data['progress']['current'] = None
+            checkpoint()
+            print(f"seed={record['seed']} accepted={record['accepted']} candidates={record['candidate_count']}",flush=True)
+        rss,available = check_memory(config)
+        session.update(final_rss_mb=rss,available_mb=available)
+        data['calibration']['status'] = 'complete'
+        data.pop('progress')
+        checkpoint()
+    except BaseException as error:
+        data['calibration'].update(status='interrupted',error=dict(type=type(error).__name__,message=str(error)))
+        checkpoint()
+        raise
 
 
 def replay_calibrated(out, args, work, config):
@@ -337,11 +459,12 @@ def replay_calibrated(out, args, work, config):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--task', choices=('calibrate','characterize','generate','replay','export'), default='calibrate')
-    parser.add_argument('--out', required=True)
+    parser.add_argument('--out',default=str(ROOT/'results/development/calibration'))
     parser.add_argument('--envelope', default=str(DEFAULT_ENVELOPE))
     parser.add_argument('--development', default=str(DEFAULT_DEVELOPMENT))
     parser.add_argument('--generated')
     parser.add_argument('--resume', action='store_true')
+    parser.add_argument('--diagnostics',action='store_true',help='Save detailed calibration candidates and D=0 traces')
     parser.add_argument('--start-seed', type=int, default=0)
     parser.add_argument('--attempts', type=int, default=10)
     parser.add_argument('--target', type=int, default=5)
@@ -356,18 +479,23 @@ def main():
     work = start_work(args.max_trials,args.max_seconds)
     with (ROOT/'support/logs/.simulation.lock').open('a') as lock:
         fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
-        out = prepare_output(args.out, config, args.resume)
+        if args.task == 'calibrate':
+            calibrate_development(Path(args.out),args,work,config)
+            return
+        if args.task == 'export':
+            out = Path(args.out)
+            out.mkdir(parents=True,exist_ok=True)
+            export_calibrated(out,args.development,config)
+            check_memory(config)
+            return
+        out = prepare_output(args.out,config,args.resume)
         try:
             if args.task == 'characterize':
                 characterize_turns(out, work, config)
             elif args.task == 'generate':
                 generate_scenarios(out, args, config)
-            elif args.task == 'calibrate':
-                calibrate_development(out, args, work, config)
             elif args.task == 'replay':
                 replay_calibrated(out, args, work, config)
-            else:
-                export_calibrated(out, args.development, config)
         except Exception as error:
             append_json(out/'failures.jsonl',dict(type=type(error).__name__,message=str(error),completed_trials=work['trials']))
             raise

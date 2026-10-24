@@ -1,8 +1,12 @@
 # Runtime lock is not research evidence.
 support/logs/.simulation.lock
 
+# Current research inputs and results; the repository otherwise ignores results/.
+!results/
+
 # Parent .gitignore excludes all results/; retain this focused regression proof.
 !support/results/
 support/results/*
 !support/results/refactor_equivalence/
 !support/results/delay_tolerance_20/
+!support/results/artifact_simplification/

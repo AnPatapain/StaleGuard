@@ -70,14 +70,23 @@ def calibrate_additional(out, config, existing):
         command = [sys.executable, str(ROOT/'calibration.py'), '--out', str(directory),
                    '--start-seed', str(next_seed), '--attempts', str(remaining),
                    '--target', str(remaining), '--max-trials', '200', '--max-seconds', '900']
-        if not (directory/'finished.json').exists():
+        compact = directory/'calibrated_scenarios.json'
+        done = (read(compact).get('calibration',{}).get('status') == 'complete'
+                if compact.exists() and read(compact).get('format') == 'compact_calibration_v1'
+                else (directory/'finished.json').exists())
+        if not done:
             if directory.exists():
                 command.append('--resume')
             subprocess.run(command, check=True)
         selected = load_development(directory, config)
-        summary = read(directory/'summary.json')
+        if compact.exists() and read(compact).get('format') == 'compact_calibration_v1':
+            summary = read(compact)['statistics']
+            generated_count = summary['generated']
+        else:
+            summary = read(directory/'summary.json')
+            generated_count = len(read(directory/'generated.json'))
         assert summary['attempted'] == remaining
-        assert len(read(directory/'generated.json')) == remaining
+        assert generated_count == remaining
         cases.extend(selected)
         sources.append(directory)
         attempts += summary['attempted']
@@ -91,8 +100,7 @@ def calibrate_additional(out, config, existing):
     write_json(out/'calibrated_scenarios.json', dict(schema=SCHEMA, config=asdict(config),
         provenance=dict(path='metadata.json',sha256=file_hash(out/'metadata.json')),
         calibration_sources=[dict(path=os.path.relpath(p,out),
-                                 metadata_sha256=file_hash(p/'metadata.json'),
-                                 summary_sha256=file_hash(p/'summary.json')) for p in sources],
+                                 dataset_sha256=file_hash(p/('calibrated_scenarios.json' if (p/'calibrated_scenarios.json').exists() else 'summary.json'))) for p in sources],
         generated_and_attempted=attempts, accepted=20, scenarios=entries))
     print(f'Combined calibration: {len(cases)}/{attempts} accepted; original five reused.', flush=True)
 

@@ -47,3 +47,9 @@ The immediate and delayed control traces match the pre-refactor records exactly;
 The [test log](results/refactor_equivalence/support_layout_checks/tests.log) and
 [dataset audit](results/refactor_equivalence/support_layout_checks/dataset_audit.json)
 record these checks. No scenarios were recalibrated and no baseline was added.
+
+Current calibration and benchmark outputs use the compact conventions under
+`geofence_turn/results/development/` and `geofence_turn/results/evaluation/`.
+This support folder retains historical artifacts and optional diagnostics.
+See the [artifact simplification report](reports/ARTIFACT_SIMPLIFICATION_REPORT.md)
+and the [research README](../README.md#workflow-and-artifacts) for the current files.

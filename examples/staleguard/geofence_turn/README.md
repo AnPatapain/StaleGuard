@@ -1,256 +1,182 @@
-# Geofence turn: small research scripts
+# Geofence turn
 
-The UAV patrols east, executes the same approved 90-degree left turn when
-dispatched, then flies north through a fixed checkpoint. Waiting moves the turn
-farther east; it never moves the checkpoint or creates a return path. The radius,
-mission conditions, safety rules, four policy decisions and timing conventions
-are unchanged by this reorganization.
+The UAV patrols east, executes its approved fixed-radius left turn when
+dispatched, then continues north through a fixed checkpoint. Waiting moves the
+turn east; the radius, checkpoint and deadline stay fixed. The four existing
+baselines share the same SCG/PyBullet flight loop and physical mission conditions.
 
-[Refactor report](support/reports/REFACTOR_REPORT.md) explains the before/after checks.
-[Phase 1 report](support/reports/PHASE1_REPORT.md) explains the physical experiment and its limits.
-
-## Where to read the code
-
-| File | Responsibility |
+| Code | Responsibility |
 |---|---|
-| `scenario.py` | Scenario and command definitions, generation, patrol/turn paths, geometry and completion tests |
-| `calibration.py` | Turning screen, generation, D=0 approval search, replay, and `calibrated_scenarios.json` export |
-| `simulation.py` | Shared SCG/PyBullet flight loop, physics monitoring and resource limits |
-| `baselines/staleguard.py` | Existing lightweight-model safety forecast and expiry/readiness decision |
-| `baselines/use_time_recheck.py` | Existing dispatch-time forecast and delayed application tick |
-| `baselines/fixed_ttl.py` | Existing 0.4 s TTL rule; equality permits dispatch |
-| `baseline_benchmark/run.py`, `metrics.py` | Existing paired four-policy experiment and its result counts |
-| `support/` | Diagnostic tools, validation, tests, reports and archived data; see its [README](support/README.md) |
+| `scenario.py` | Scenario generation, requested trajectories, geometry and completion conditions |
+| `calibration.py` | Original D=0 approval search, snapshot loading and export |
+| `simulation.py` | Shared flight execution and 1000 Hz safety/completion monitoring |
+| `baselines/` | StaleGuard, Use-Time Recheck and Fixed TTL; No Recovery is the default simulation path |
+| `baseline_benchmark/run.py` | Existing four-policy comparison |
+| `baseline_benchmark/metrics.py` | Metric definitions and summaries from saved flight records |
+| `support/` | Diagnostics, tests, reports and historical artifacts |
 
-No Recovery is the default execution path in `simulation.py`: it executes the
-approved command without a guard. It has no separate decision function. Neither
-Always-Recover nor FBS has been added.
-
-`mission.py` has been removed. The snapshot reader in `calibration.py` maps its
-old class names to `scenario.py`, so existing snapshot bytes and checksums stay
-unchanged. The existing lightweight model is imported in place from
-`inspection_descent/model/`; its implementation and Inspection-Descent are untouched.
-
-## Core scripts and supporting material
-
-```text
-geofence_turn/
-├── scenario.py
-├── calibration.py
-├── simulation.py
-├── baselines/
-├── baseline_benchmark/
-├── support/
-│   ├── diagnostics.py
-│   ├── readiness.py
-│   ├── validation.py
-│   ├── tests/
-│   ├── logs/
-│   ├── results/
-│   └── reports/
-└── README.md
-```
-
-The calibrated input data and saved results are research evidence, so they are
-preserved under `support/` alongside the checks. They are not extra experiment
-implementations. The only local `.gitignore` rules exclude the runtime lock and
-allow the focused regression evidence through the parent repository's blanket
-`results/` ignore rule; Python cache rules already come from the parent.
+Always-Recover, FBS and mission-run TTL prediction accuracy remain unfinished.
+The lightweight dynamics model is reused from `inspection_descent/model/`.
 
 ## Workflow and artifacts
 
-The implemented research workflow is **calibration → baseline benchmark**.
-These are separate commands: pass the calibration output directory or its
-`calibrated_scenarios.json` to `baseline_benchmark/run.py` through `--development`.
-Otherwise, the benchmark uses the existing five development cases.
+The research workflow is **calibration → baseline benchmark**. Development and
+future evaluation use the same layout:
 
-Calibration already includes a D=0 verification flight for every accepted
-scenario. Separate export, replay, readiness diagnostics and tests are optional.
-The following inventory describes the files the current code writes; it does
-not require rerunning calibration when using the existing cases.
+```text
+geofence_turn/results/
+├── development/
+│   ├── calibration/
+│   │   ├── calibrated_scenarios.json
+│   │   └── snapshots/seed_<id>.pkl
+│   ├── ttl_pred_accuracy/          # Reserved; no implementation or placeholder files
+│   └── baseline_benchmark/
+│       ├── executions.jsonl
+│       ├── metrics.json
+│       └── run.json
+└── evaluation/
+    ├── calibration/                # Same convention
+    ├── ttl_pred_accuracy/          # Reserved; no implementation or placeholder files
+    └── baseline_benchmark/         # Same convention
+```
 
-**Calibration output root** — the directory selected by calibration's `--out`:
+**Calibration has one readable JSON plus the necessary binary snapshots.** The
+JSON contains accepted parameters and approval times, snapshot references and
+checksums, configuration, source provenance, attempted/accepted/rejected counts,
+and calibration status. New calibration also records how many seeds were
+generated; its acceptance rate uses the **attempted-seed denominator**, excluding
+any generated seeds not yet attempted. An interrupted search keeps its current
+candidate cache inside this JSON, then removes that cache after completion.
 
-| Artifact | Purpose |
+A snapshot stores the UAV state, PID memory and remaining reference at approval.
+These are needed for repeatable prediction and validation. There are no default
+per-scenario configuration files, candidate journals or trajectory files.
+
+**The baseline benchmark produces exactly three default files:**
+
+| File | Meaning |
 |---|---|
-| `metadata.json` | Configuration, software environment and source hashes |
-| `generated.json` | Generated scenario parameters, including geometry rejections |
-| `attempts.jsonl` | Acceptance/rejection record for each attempted scenario |
-| `summary.json` | Calibration progress, rejection counts and accepted scenarios |
-| `calibrated_scenarios.json` | Accepted scenarios, snapshot paths and checksums |
-| `finished.json` | Elapsed time, simulation count and final memory measurements |
+| `executions.jsonl` | Authoritative data: one unchanged-schema JSON record per completed flight, appended and flushed to disk |
+| `metrics.json` | Derived outcomes, rates, recovery statistics, timing summaries and paired StaleGuard/Use-Time Recheck comparisons |
+| `run.json` | Fixed protocol, source/configuration provenance, snapshot checksums, frozen approval predictions and their measured timing, status and resume information |
 
-**Per-scenario calibration output** — calibration creates `seed_<id>/` for each
-scenario that reaches simulation:
+The flight record retains `seed`, `delay_s`, `safe`, `completed`,
+`safe_completion`, clearance/completion/violation measurements, `event`,
+`runtime_s`, and the other existing scientific fields. Prediction readiness,
+computation duration and dispatch/application/recovery ticks stay inside `event`.
 
-| Artifact | Purpose |
-|---|---|
-| `nominal_bound.json` | Straight-east flight result used to determine the approval-search limit |
-| `candidates.jsonl` | Results of the tested approval times |
-| `approval.pkl` | Accepted approval snapshot: aircraft state, PID history and remaining reference |
-| `scenario.json` | Accepted scenario and approval time |
-| `configuration.json` | Configuration copied into this scenario directory |
-| `d0_replay.json` | Accepted scenario's D=0 verification result |
-| `d0_trace.npz` | Actual and requested trajectories from that verification flight |
+Metrics are written at completion or interruption. Progress remains visible in
+the terminal and the growing journal. Failures and sessions are recorded inside
+the same run JSON; there are no separate progress, failure, completion or
+per-scenario prediction files. A shared ignored simulation lock and transient
+atomic-write files are runtime housekeeping.
 
-The last five files are written only for accepted scenarios. A geometry
-rejection creates no seed directory. `calibrated_scenarios.json` points to the
-snapshot files; it does not replace them. The calibration summary and aggregate
-scenario file are updated as calibration progresses, and `finished.json` is
-written at successful command completion.
+**Detailed diagnostics require `--diagnostics`.** Calibration then adds a
+`diagnostics/` folder with combined candidate details and D=0 trajectory files.
+The benchmark then adds individual flight traces under `diagnostics/`.
+Default runs produce neither. Recorded traces are at 50 Hz; safety and mission
+completion continue to be checked at 1000 Hz regardless of trace saving.
 
-**Baseline benchmark output** — the directory selected by the benchmark's `--out`:
+Historical files remain under `support/logs/` and `support/results/`. The original
+20-case dataset remains readable in place. A compact byte-for-byte snapshot copy
+is now available at `results/development/calibration/`; no recalibration was done.
+This copy retains **20 accepted / 22 attempted**, including the two rejections.
 
-| Artifact | Quantity / when written | Purpose |
-|---|---|---|
-| `metadata.json` | One, at startup | Configuration, environment and source hashes |
-| `protocol.json` | One, before flights | Selected scenarios and dispatch delays |
-| `prediction_seed_<id>.json` | One per evaluated scenario, before its flights | StaleGuard prediction, expiry and computation time |
-| `seed<id>_D<delay>_<policy>.npz` | One per completed flight | Actual and requested trajectory samples |
-| `executions.jsonl` | One, appended after each completed flight | Detailed safety, completion, clearance, timing and fallback results |
-| `summary.json` | One, updated after each completed flight | Running outcome and fallback counts |
-| `paired_summary.json` | One, at successful comparison completion | Final counts using complete four-policy comparisons |
-| `finished.json` | One, at successful command completion | Elapsed time, flights executed in this invocation and final memory measurements |
+## Run the existing workflow
 
-The NPZ traces contain actual state and requested trajectory samples at 50 Hz;
-safety is checked at 1000 Hz, with clearance extrema and violation times saved
-in the result records. `summary.json` counts all completed flights, while
-`paired_summary.json` uses only scenario-delay groups containing all four
-baselines and lists incomplete groups separately. No formatted research report
-or plots are generated automatically.
-
-**Conditional and temporary files:**
-
-| Artifact | When produced |
-|---|---|
-| `failures.jsonl` | When a caught runtime error stops a command |
-| `resume_sessions.jsonl` | When calibration, characterization or the benchmark resumes |
-| `support/logs/.simulation.lock` | Shared file preventing simultaneous simulation jobs |
-| `*.json.tmp` | Temporary files during JSON replacement; normally disappear immediately |
-| Python/Numba caches | Runtime-generated caches |
-
-Progress is printed to the terminal. A console `.log` file is created only if
-the output is redirected or captured.
-
-**Optional commands** add further files and are not automatically part of
-calibration → benchmark:
-
-| Command | Additional outputs, besides its metadata and completion record |
-|---|---|
-| Characterization | `sweep.jsonl`, `envelope.json`, nine trajectory files |
-| Generation only | `generated.json` |
-| Export | Another `calibrated_scenarios.json` pointing to existing snapshots |
-| Separate replay | One result JSON per scenario |
-| Readiness diagnostic | `timings.jsonl`, prediction JSONs and a timing `summary.json` |
-
-The plot diagnostic separately writes `diagnostics/northbound_checkpoint.png`
-under its selected logs root. Validation and tests print to the console;
-integration-test trajectories use temporary directories that are cleaned up.
-These supporting commands do not automatically write metadata or completion
-records.
-
-For scale, a successful fresh calibration accepting five scenarios with no
-additional rejected seed directories produces **41 files**: six at the output
-root and seven for each accepted scenario. A small benchmark with two scenarios,
-two delays and four policies produces **24 more files**: six shared files, two
-prediction files and 16 trajectory files. Together that is **65 persistent
-output files**, before optional diagnostics, caches or error records.
-
-Several files repeat configuration, scenario descriptions or summaries. That
-duplication, together with one trajectory file per flight, accounts for much of
-the current file count.
-
-## Run directly with the existing five cases
-
-Run from `examples/staleguard` in the existing `scg` environment. Every output
-directory must be new. Scripts run headless, use one worker and one numerical
-thread, and retain the 2 GiB memory guards and explicit trial/time caps.
+Run from `examples/staleguard` using the existing SCG environment:
 
 ```sh
-SCG_PYTHON=/home/kean/miniconda3/envs/scg/bin/python
+conda activate scg
 ```
 
-Export the existing five calibrated cases to a single JSON file, **without
-recalibrating or copying/changing their approval snapshots**:
+The benchmark defaults to the compact 20-case development calibration. For a
+small comparison using two of those cases:
 
 ```sh
-$SCG_PYTHON geofence_turn/calibration.py --task export \
-  --out geofence_turn/support/results/calibrated_export_new
+python geofence_turn/baseline_benchmark/run.py \
+  --seeds 0 3 --delays 0 0.6 --max-trials 16 --max-seconds 120
 ```
 
-The output is `calibrated_scenarios.json`. Later scripts accept either that file
-or the original development directory through `--development`. Loading checks the
-schema, configuration, snapshot checksum, command, approval time and reference.
+This runs all **four** existing policies: 2 cases × 2 delays × 4 policies = 16
+flights. This artifact refactor does not add policy selection or a new delay
+grid; allowed dispatch delays remain 0, 0.2, 0.6 and 1.0 s.
 
-Replay the five frozen cases:
+Use `--out` to select another output directory and `--development` to select a
+calibration directory or scenario JSON. Fresh output must be absent or empty.
+Use `--resume` with the same inputs, protocol and source to continue an
+interrupted run. It skips committed flights and reuses their original approval
+prediction times. Duplicate records, changed committed data and incompatible
+source/configuration/protocol are rejected. An unfinished final JSONL line can
+be removed on resume; complete records are preserved.
+
+Both calibration and benchmark retain serial CPU execution, numerical thread
+limits, the 2 GiB memory guards, and existing trial/time caps. A resource cap
+preserves partial results; it does not make a partial run complete.
+
+To export another existing calibration into the compact layout without running
+any simulations, choose an empty destination:
 
 ```sh
-$SCG_PYTHON geofence_turn/calibration.py --task replay \
-  --out geofence_turn/support/results/replay_new --max-trials 5
+python geofence_turn/calibration.py --task export \
+  --development geofence_turn/support/results/delay_tolerance_20/calibrated_scenarios.json \
+  --out /tmp/geofence_calibration_copy
 ```
 
-Run a **small paired comparison**, using two existing cases and delays already
-present in the original experiment grid:
+Fresh calibration uses `python geofence_turn/calibration.py` with `--start-seed`,
+`--attempts`, `--target` and `--out` as needed. It retains the original
+latest-feasible-approval rule and D=0 verification. The default output is
+`results/development/calibration/`, which already contains the frozen 20 cases;
+choose another empty location for a genuinely new calibration. An exported
+frozen dataset is an input, not an interrupted search to resume.
+
+Evaluation will use the same commands with `--out` under `results/evaluation/`
+and its own frozen calibration input. No evaluation or TTL-accuracy experiment
+was launched by this refactor.
+
+## Regenerate and understand metrics
 
 ```sh
-$SCG_PYTHON geofence_turn/baseline_benchmark/run.py \
-  --out geofence_turn/support/results/paired_new \
-  --seeds 0 3 --delays 0 0.6 --max-trials 16
+python geofence_turn/baseline_benchmark/metrics.py \
+  geofence_turn/results/development/baseline_benchmark/executions.jsonl
 ```
 
-This uses No Recovery, StaleGuard, Use-Time Recheck and Fixed TTL. Removing the
-subset options retains the original five-case/four-delay workflow; the refactor
-validation did not run that full benchmark. Use `--resume` only with unchanged
-code, cases and delays; mismatches are rejected rather than mixing records.
+This writes `metrics.json` beside the journal, without PyBullet. It uses the fixed
+protocol from adjacent `run.json`. For historical journals without that file,
+Geofence's fixed 50 Hz control frequency is used and policies/delays are read
+from the records. `--out` can select a separate derived-metrics destination.
 
-## Prediction timing and unfinished accuracy work
+`Metric` in `metrics.py` lists the metrics with plain-English comments. Outcomes
+are mutually exclusive: safe completion, safe non-completion, or unsafe flight.
+Recovery attempts count actual fallback activation; a recovery succeeds only if
+the whole flight stays safe, including before fallback. All rates are proportions
+from 0 to 1; undefined rates and unavailable timing statistics are `null`.
 
-The following runs the **existing readiness diagnostic**, using saved approval
-states and the real predictor. It reports initialization separately from warmed
-forecast time and does not execute mission flights:
+Prediction timing uses only recorded `event.computation_s` values. StaleGuard's
+cached approval forecast is counted once per seed in the overall timing summary;
+Use-Time Recheck is counted per recorded flight. Per-delay summaries use the
+corresponding records. Dispatch-to-action delay uses actual application or
+fallback ticks minus scheduled dispatch ticks, divided by 50. A decision tick
+without an actual action is not treated as an action measurement. Timing units
+are seconds; p95 uses nearest rank, and sample counts are included.
+
+The paired comparison matches StaleGuard and Use-Time Recheck by `(seed, delay_s)`.
+It counts completion benefits/harms, unsafe executions prevented/introduced and
+net count differences. Incomplete pairs are excluded and counted separately;
+when the full protocol is available, planned but unstarted groups are also
+identified. Per-policy metrics still include every recorded flight.
+
+## Focused validation and reports
 
 ```sh
-$SCG_PYTHON geofence_turn/support/readiness.py \
-  --out geofence_turn/support/results/readiness_new \
-  --repeats 1 --max-trials 12 --max-seconds 120
+python -m unittest geofence_turn.support.tests.test_mission \
+  geofence_turn.support.tests.test_prediction \
+  geofence_turn.support.tests.test_refactor_equivalence -v
 ```
 
-The mission-run TTL prediction-accuracy experiment, its ground-truth comparison
-and its accuracy metrics remain unfinished. The misleading `ttl_pred_accuracy/`
-directory has been removed; the existing timing check lives in `support/`. There
-are no empty accuracy, FBS or Always-Recover placeholder modules.
-
-## Calibration and regression checks
-
-Fresh calibration is available through the same direct script, with the existing
-rules and parameters. This refactor reused the five cases instead of generating
-another calibration dataset:
-
-```sh
-$SCG_PYTHON geofence_turn/calibration.py \
-  --out geofence_turn/support/results/calibration_new \
-  --attempts 10 --target 5 --max-trials 100
-```
-
-Use `--task characterize` for the existing nine-pair turning screen or `--task
-generate` for generation only. `--envelope` selects its measured envelope.
-Interrupted calibration/characterization can resume under the exact same source
-hashes. Old interrupted runs cannot resume across this layout change; their
-original files remain preserved. Reading their frozen calibrated cases is a
-separate, checksum-checked operation.
-
-```sh
-$SCG_PYTHON -m unittest geofence_turn.support.tests.test_mission \
-  geofence_turn.support.tests.test_prediction geofence_turn.support.tests.test_refactor_equivalence -v
-$SCG_PYTHON -m unittest geofence_turn.support.tests.test_integration -v
-$SCG_PYTHON -m geofence_turn.support.validation
-```
-
-The equivalence tests check the live functions against pre-refactor generation,
-trajectory and prediction outputs, and compare the recorded 1 kHz before/after
-flights and scheduling. Integration tests now write to temporary directories, so
-rerunning them does not overwrite historical integration records. Existing
-`support/logs/` holds the original calibration inputs and run records;
-`support/results/` holds the refactor evidence. All 486 archived files retained
-their original bytes when moved. Historical paths inside recorded metadata are
-retained as provenance; the commands above use the current paths.
+The artifact/resume tests replay saved-result fixtures, not a new calibration or
+benchmark. Additional checks cover original trajectories, source equivalence,
+real saved flight outcomes and unchanged predictions. See the
+[artifact simplification report](support/reports/ARTIFACT_SIMPLIFICATION_REPORT.md),
+[physical mission report](support/reports/PHASE1_REPORT.md), and
+[delay-tolerance report](support/results/delay_tolerance_20/REPORT.md).
