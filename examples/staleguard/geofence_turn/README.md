@@ -69,7 +69,7 @@ The flight record retains `seed`, `delay_s`, `safe`, `completed`,
 `runtime_s`, and the other existing scientific fields. Prediction readiness,
 computation duration and dispatch/application/recovery ticks stay inside `event`.
 
-Metrics are written at completion or interruption. Progress remains visible in
+Benchmark metrics are written at completion or interruption. Progress remains visible in
 the terminal and the growing journal. Failures and sessions are recorded inside
 the same run JSON; there are no separate progress, failure, completion or
 per-scenario prediction files. A shared ignored simulation lock and transient
@@ -192,15 +192,14 @@ the same 19 dispatch delays for development and evaluation.
 ## TTL prediction accuracy
 
 ```sh
-python geofence_turn/ttl_pred_accuracy/run.py
-python geofence_turn/ttl_pred_accuracy/metrics.py \
-  geofence_turn/results/development/ttl_pred_accuracy/executions.jsonl
-
-# Evaluation uses all 300 frozen scenarios. This may need several resumable batches.
 python geofence_turn/ttl_pred_accuracy/run.py \
-  --calibration geofence_turn/results/evaluation/calibration \
-  --max-trials 200 --max-seconds 1800
-# Repeat the same command with --resume after a resource-budget interruption.
+  --out geofence_turn/results/development/ttl_pred_accuracy_new
+python geofence_turn/ttl_pred_accuracy/metrics.py \
+  geofence_turn/results/development/ttl_pred_accuracy_new/executions.jsonl
+
+# Evaluation uses all 300 frozen scenarios in one run.
+python geofence_turn/ttl_pred_accuracy/run.py \
+  --calibration geofence_turn/results/evaluation/calibration
 ```
 
 The runner loads frozen scenarios and approval snapshots, then obtains actual
@@ -208,8 +207,9 @@ No-Recovery outcomes at the same 19 delays. For development, it finds and verifi
 all 380 saved flights through the calibration dataset's source reference. For
 evaluation, it can reuse the 300 saved D=0 calibration verification flights.
 It also looks for a sibling baseline benchmark journal; `--ground-truth PATH`
-can supply another compatible flight journal, and may be repeated. Invalid or
-conflicting saved data cause an error rather than being replaced silently.
+can supply another compatible flight journal, and may be repeated. If saved
+ground truth fails validation, the runner prints the reason and executes fresh
+No-Recovery flights instead of using incompatible results.
 
 Each scenario gets one approval forecast using the unchanged lightweight model
 and prediction grid. Only missing actual outcomes are simulated, using the
@@ -221,20 +221,21 @@ call-to-result time. No recovery policy is executed.
 It produces exactly three files: `executions.jsonl` has one comparison per
 scenario/delay; `metrics.json` separates raw model accuracy at its 11 directly
 evaluated delays from TTL dispatch-decision accuracy at all 19 delays; `run.json`
-stores provenance, compatibility checks, cached forecasts, any newly simulated
-No-Recovery flight records, resume state and the readable final report in
-`report_markdown`. Off-grid raw predictions are `null`.
+contains only the input dataset path/checksum, protocol/configuration, prediction
+grid and one measured computation time and expiry per scenario. It is written
+once, at completion. There are no cached flight records, checkpoints, sessions
+or resume state. Off-grid raw predictions are `null`.
 Violation times in the comparison journal are relative to approval; the original
 flight-start timestamps are retained as `first_violation_flight_s`.
 
-Use `--resume` to continue without recomputing cached forecasts, or `--out` for
-a fresh directory. By default, output is `ttl_pred_accuracy/` beside the supplied
+Use `--out` to select a fresh directory. By default, output is
+`ttl_pred_accuracy/` beside the supplied
 calibration directory; `--development` remains an alias for `--calibration`.
-Existing output is never overwritten by a fresh run. Historical completed runs
-remain readable but cannot resume across source changes. The default resource
-budget is 40 forecasts/flights and 300 seconds per invocation; the existing
-maximum is 200 forecasts/flights and 1800 seconds. Cached forecasts and newly
-obtained ground truth survive interruption, including within a scenario. The
+Existing output is never overwritten. There is no resume or trial/time batch
+management: after interruption, restart in a fresh output directory. The journal
+is appended during execution; `metrics.json` and `run.json` are written only
+after all comparisons finish. CPU-only execution, memory guards and the shared
+simulation lock remain active. The
 metrics-only command reads the journal and adjacent fixed protocol, without
 importing or running PyBullet. Prediction readiness and mission completion are
 not the prediction target; actual completion counts are retained for context.

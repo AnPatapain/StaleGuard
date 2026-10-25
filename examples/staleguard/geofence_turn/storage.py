@@ -279,7 +279,7 @@ def load_ground_truth(dataset, cases, config, paths=()):
     saved = json.loads(dataset.read_text())
     scenarios = {s.seed:s for s,_,_ in cases}
     snapshots = {s.seed:file_hash(path) for s,_,path in cases}
-    actual, sources = {}, {}
+    actual = {}
     calibration_rows = [entry['d0_verification'] for entry in saved['scenarios'] if 'd0_verification' in entry]
     if calibration_rows:
         check_ground_truth_source(saved['provenance'],config)
@@ -288,7 +288,6 @@ def load_ground_truth(dataset, cases, config, paths=()):
                 raise ValueError('Calibration verification must be a D=0 flight')
             validate_flight(row,scenarios[row['seed']],config)
             actual[row['seed'],row['delay_s']] = row
-        sources[str(dataset.resolve())] = file_hash(dataset)
     candidates = [Path(path) for path in paths]
     if not candidates:
         candidates = [dataset.parent/'flights.jsonl', dataset.parent.parent/'baseline_benchmark/executions.jsonl']
@@ -317,7 +316,6 @@ def load_ground_truth(dataset, cases, config, paths=()):
             data = journal.read_bytes()
             if len(data) != run['journal_bytes'] or hashlib.sha256(data).hexdigest() != run['journal_sha256']:
                 raise ValueError('Ground-truth journal differs from its committed results')
-            inputs = [folder/'run.json']
         else:
             provenance = json.loads((folder/'metadata.json').read_text())
             check_ground_truth_source(provenance,config)
@@ -335,7 +333,6 @@ def load_ground_truth(dataset, cases, config, paths=()):
             for name, checksum in protocol['shared_model_sha256'].items():
                 if file_hash(ROOT.parent/name) != checksum:
                     raise ValueError(f'Ground-truth shared model source differs: {name}')
-            inputs = [folder/name for name in ('metadata.json','protocol.json','finished.json','calibrated_scenarios.json')]
         seen = set()
         for row in rows:
             if row['event']['policy'] != 'no_recovery':
@@ -355,49 +352,4 @@ def load_ground_truth(dataset, cases, config, paths=()):
                     for name in row.keys() & actual[key].keys() if name != 'runtime_s'):
                 raise ValueError(f'Conflicting ground-truth flights: {key}')
             actual[key] = row
-        sources.update({str(path.resolve()):file_hash(path) for path in [journal,*inputs]})
-    return actual, dict(status='passed',input_sha256=sources,reused_flights=len(actual),
-                       new_pybullet_flights=0,generated=[])
-
-
-def open_accuracy(output, dataset, cases, evidence, delays, grid, config, resume):
-    """Validate a fresh/resumed three-file run and its committed journal prefix."""
-    from .ttl_pred_accuracy.metrics import read_records
-    output, dataset = Path(output), Path(dataset)
-    if dataset.is_dir():
-        dataset = dataset/'calibrated_scenarios.json'
-    protocol = json.loads(json.dumps(dict(seeds=[s.seed for s,_,_ in cases],
-        delays_s=list(delays),prediction_grid_s=list(grid),control_hz=HZ,observation_hz=PHYSICS_HZ,
-        scenarios=[scenario_dict(s) for s,_,_ in cases],config=asdict(config),
-        snapshot_sha256={str(s.seed):file_hash(path) for s,_,path in cases},dataset_sha256=file_hash(dataset),
-        dataset_kind=dataset.parent.parent.name if dataset.parent.parent.name in ('development','evaluation') else 'calibrated')))
-    journal, path = output/'executions.jsonl', output/'run.json'
-    if resume:
-        run = json.loads(path.read_text())
-        check_provenance(run['provenance'],config)
-        check_ground_truth_source(run['provenance'],config)
-        if run['format'] != 'compact_ttl_accuracy_v1' or run['protocol'] != protocol or run['ground_truth']['input_sha256'] != evidence['input_sha256']:
-            raise ValueError('Resume protocol, snapshots or ground truth changed')
-        data = journal.read_bytes()
-        size = run['journal_bytes']
-        if len(data) < size or hashlib.sha256(data[:size]).hexdigest() != run['journal_sha256']:
-            raise ValueError('Previously committed comparisons changed or are missing')
-        rows = read_records(journal,repair_tail=True)
-    else:
-        if output.exists() and any(output.iterdir()):
-            raise FileExistsError('Output contains results; use --resume or a fresh --out directory')
-        output.mkdir(parents=True,exist_ok=True)
-        journal.touch()
-        run = dict(format='compact_ttl_accuracy_v1',provenance=metadata(config),protocol=protocol,
-                   ground_truth=evidence,predictions={},status='running')
-        rows = []
-    if not set(run['predictions']) <= {str(s.seed) for s,_,_ in cases}:
-        raise ValueError('Unexpected cached scenario')
-    return run, rows
-
-
-def save_accuracy(output, run, completed):
-    data = (Path(output)/'executions.jsonl').read_bytes()
-    run.update(journal_bytes=len(data),journal_sha256=hashlib.sha256(data).hexdigest(),
-               completed_comparisons=len(completed),cached_forecasts=len(run['predictions']))
-    write_json(Path(output)/'run.json',run)
+    return actual

@@ -4,24 +4,24 @@
   "missing_comparisons": 0,
   "scenarios_with_records": 20,
   "raw_prediction": {
-    "total_tests": 220,
-    "correct_safe": 92,
-    "correct_unsafe": 128,
-    "false_safe": 0,
-    "false_rejection": 0,
-    "accuracy": 1.0,
-    "false_safe_rate": 0.0,
-    "false_rejection_rate": 0.0
+    "total_tests": 380,
+    "correct_safe": 219,
+    "correct_unsafe": 158,
+    "false_safe": 1,
+    "false_rejection": 2,
+    "accuracy": 0.9921052631578947,
+    "false_safe_rate": 0.006289308176100629,
+    "false_rejection_rate": 0.00904977375565611
   },
   "ttl_dispatch_decision": {
     "total_tests": 380,
-    "correct_safe": 221,
-    "correct_unsafe": 144,
-    "false_safe": 15,
-    "false_rejection": 0,
-    "accuracy": 0.9605263157894737,
-    "false_safe_rate": 0.09433962264150944,
-    "false_rejection_rate": 0.0
+    "correct_safe": 219,
+    "correct_unsafe": 158,
+    "false_safe": 1,
+    "false_rejection": 2,
+    "accuracy": 0.9921052631578947,
+    "false_safe_rate": 0.006289308176100629,
+    "false_rejection_rate": 0.00904977375565611
   },
   "per_delay": [
     {
@@ -54,14 +54,14 @@
       "delay_s": 0.02,
       "total_comparisons": 20,
       "raw_prediction": {
-        "total_tests": 0,
-        "correct_safe": 0,
+        "total_tests": 20,
+        "correct_safe": 20,
         "correct_unsafe": 0,
         "false_safe": 0,
         "false_rejection": 0,
-        "accuracy": null,
+        "accuracy": 1.0,
         "false_safe_rate": null,
-        "false_rejection_rate": null
+        "false_rejection_rate": 0.0
       },
       "ttl_dispatch_decision": {
         "total_tests": 20,
@@ -80,23 +80,23 @@
       "delay_s": 0.04,
       "total_comparisons": 20,
       "raw_prediction": {
-        "total_tests": 0,
-        "correct_safe": 0,
-        "correct_unsafe": 0,
-        "false_safe": 0,
+        "total_tests": 20,
+        "correct_safe": 18,
+        "correct_unsafe": 1,
+        "false_safe": 1,
         "false_rejection": 0,
-        "accuracy": null,
-        "false_safe_rate": null,
-        "false_rejection_rate": null
+        "accuracy": 0.95,
+        "false_safe_rate": 0.5,
+        "false_rejection_rate": 0.0
       },
       "ttl_dispatch_decision": {
         "total_tests": 20,
         "correct_safe": 18,
-        "correct_unsafe": 0,
-        "false_safe": 2,
+        "correct_unsafe": 1,
+        "false_safe": 1,
         "false_rejection": 0,
-        "accuracy": 0.9,
-        "false_safe_rate": 1.0,
+        "accuracy": 0.95,
+        "false_safe_rate": 0.5,
         "false_rejection_rate": 0.0
       },
       "actual_safe_completions": 13,
@@ -106,23 +106,23 @@
       "delay_s": 0.06,
       "total_comparisons": 20,
       "raw_prediction": {
-        "total_tests": 0,
-        "correct_safe": 0,
-        "correct_unsafe": 0,
+        "total_tests": 20,
+        "correct_safe": 17,
+        "correct_unsafe": 3,
         "false_safe": 0,
         "false_rejection": 0,
-        "accuracy": null,
-        "false_safe_rate": null,
-        "false_rejection_rate": null
+        "accuracy": 1.0,
+        "false_safe_rate": 0.0,
+        "false_rejection_rate": 0.0
       },
       "ttl_dispatch_decision": {
         "total_tests": 20,
         "correct_safe": 17,
-        "correct_unsafe": 0,
-        "false_safe": 3,
+        "correct_unsafe": 3,
+        "false_safe": 0,
         "false_rejection": 0,
-        "accuracy": 0.85,
-        "false_safe_rate": 1.0,
+        "accuracy": 1.0,
+        "false_safe_rate": 0.0,
         "false_rejection_rate": 0.0
       },
       "actual_safe_completions": 12,
@@ -132,23 +132,23 @@
       "delay_s": 0.08,
       "total_comparisons": 20,
       "raw_prediction": {
-        "total_tests": 0,
-        "correct_safe": 0,
-        "correct_unsafe": 0,
+        "total_tests": 20,
+        "correct_safe": 17,
+        "correct_unsafe": 3,
         "false_safe": 0,
         "false_rejection": 0,
-        "accuracy": null,
-        "false_safe_rate": null,
-        "false_rejection_rate": null
+        "accuracy": 1.0,
+        "false_safe_rate": 0.0,
+        "false_rejection_rate": 0.0
       },
       "ttl_dispatch_decision": {
         "total_tests": 20,
         "correct_safe": 17,
-        "correct_unsafe": 0,
-        "false_safe": 3,
+        "correct_unsafe": 3,
+        "false_safe": 0,
         "false_rejection": 0,
-        "accuracy": 0.85,
-        "false_safe_rate": 1.0,
+        "accuracy": 1.0,
+        "false_safe_rate": 0.0,
         "false_rejection_rate": 0.0
       },
       "actual_safe_completions": 11,
@@ -184,24 +184,24 @@
       "delay_s": 0.12,
       "total_comparisons": 20,
       "raw_prediction": {
-        "total_tests": 0,
-        "correct_safe": 0,
-        "correct_unsafe": 0,
+        "total_tests": 20,
+        "correct_safe": 14,
+        "correct_unsafe": 4,
         "false_safe": 0,
-        "false_rejection": 0,
-        "accuracy": null,
-        "false_safe_rate": null,
-        "false_rejection_rate": null
+        "false_rejection": 2,
+        "accuracy": 0.9,
+        "false_safe_rate": 0.0,
+        "false_rejection_rate": 0.125
       },
       "ttl_dispatch_decision": {
         "total_tests": 20,
-        "correct_safe": 16,
+        "correct_safe": 14,
         "correct_unsafe": 4,
         "false_safe": 0,
-        "false_rejection": 0,
-        "accuracy": 1.0,
+        "false_rejection": 2,
+        "accuracy": 0.9,
         "false_safe_rate": 0.0,
-        "false_rejection_rate": 0.0
+        "false_rejection_rate": 0.125
       },
       "actual_safe_completions": 8,
       "actual_unsafe": 4
@@ -210,23 +210,23 @@
       "delay_s": 0.14,
       "total_comparisons": 20,
       "raw_prediction": {
-        "total_tests": 0,
-        "correct_safe": 0,
-        "correct_unsafe": 0,
+        "total_tests": 20,
+        "correct_safe": 14,
+        "correct_unsafe": 6,
         "false_safe": 0,
         "false_rejection": 0,
-        "accuracy": null,
-        "false_safe_rate": null,
-        "false_rejection_rate": null
+        "accuracy": 1.0,
+        "false_safe_rate": 0.0,
+        "false_rejection_rate": 0.0
       },
       "ttl_dispatch_decision": {
         "total_tests": 20,
         "correct_safe": 14,
-        "correct_unsafe": 4,
-        "false_safe": 2,
+        "correct_unsafe": 6,
+        "false_safe": 0,
         "false_rejection": 0,
-        "accuracy": 0.9,
-        "false_safe_rate": 0.3333333333333333,
+        "accuracy": 1.0,
+        "false_safe_rate": 0.0,
         "false_rejection_rate": 0.0
       },
       "actual_safe_completions": 6,
@@ -236,23 +236,23 @@
       "delay_s": 0.16,
       "total_comparisons": 20,
       "raw_prediction": {
-        "total_tests": 0,
-        "correct_safe": 0,
-        "correct_unsafe": 0,
+        "total_tests": 20,
+        "correct_safe": 14,
+        "correct_unsafe": 6,
         "false_safe": 0,
         "false_rejection": 0,
-        "accuracy": null,
-        "false_safe_rate": null,
-        "false_rejection_rate": null
+        "accuracy": 1.0,
+        "false_safe_rate": 0.0,
+        "false_rejection_rate": 0.0
       },
       "ttl_dispatch_decision": {
         "total_tests": 20,
         "correct_safe": 14,
-        "correct_unsafe": 4,
-        "false_safe": 2,
+        "correct_unsafe": 6,
+        "false_safe": 0,
         "false_rejection": 0,
-        "accuracy": 0.9,
-        "false_safe_rate": 0.3333333333333333,
+        "accuracy": 1.0,
+        "false_safe_rate": 0.0,
         "false_rejection_rate": 0.0
       },
       "actual_safe_completions": 4,
@@ -262,23 +262,23 @@
       "delay_s": 0.18,
       "total_comparisons": 20,
       "raw_prediction": {
-        "total_tests": 0,
-        "correct_safe": 0,
-        "correct_unsafe": 0,
+        "total_tests": 20,
+        "correct_safe": 13,
+        "correct_unsafe": 7,
         "false_safe": 0,
         "false_rejection": 0,
-        "accuracy": null,
-        "false_safe_rate": null,
-        "false_rejection_rate": null
+        "accuracy": 1.0,
+        "false_safe_rate": 0.0,
+        "false_rejection_rate": 0.0
       },
       "ttl_dispatch_decision": {
         "total_tests": 20,
         "correct_safe": 13,
-        "correct_unsafe": 4,
-        "false_safe": 3,
+        "correct_unsafe": 7,
+        "false_safe": 0,
         "false_rejection": 0,
-        "accuracy": 0.85,
-        "false_safe_rate": 0.42857142857142855,
+        "accuracy": 1.0,
+        "false_safe_rate": 0.0,
         "false_rejection_rate": 0.0
       },
       "actual_safe_completions": 2,
@@ -521,109 +521,11 @@
   ],
   "ttl_false_safe_cases": [
     {
-      "seed": 0,
-      "delay_s": 0.14,
-      "prediction_grid_point": false,
-      "predicted_first_unsafe_delay_s": 0.2,
-      "min_clearance_m": 0.03692608192008555
-    },
-    {
-      "seed": 0,
-      "delay_s": 0.16,
-      "prediction_grid_point": false,
-      "predicted_first_unsafe_delay_s": 0.2,
-      "min_clearance_m": 0.011906046385230892
-    },
-    {
-      "seed": 0,
-      "delay_s": 0.18,
-      "prediction_grid_point": false,
-      "predicted_first_unsafe_delay_s": 0.2,
-      "min_clearance_m": 0.004970920912556062
-    },
-    {
       "seed": 3,
       "delay_s": 0.04,
-      "prediction_grid_point": false,
-      "predicted_first_unsafe_delay_s": 0.1,
+      "prediction_grid_point": true,
+      "predicted_first_unsafe_delay_s": 0.06,
       "min_clearance_m": 0.046737604565692134
-    },
-    {
-      "seed": 3,
-      "delay_s": 0.06,
-      "prediction_grid_point": false,
-      "predicted_first_unsafe_delay_s": 0.1,
-      "min_clearance_m": 0.04208876308948699
-    },
-    {
-      "seed": 3,
-      "delay_s": 0.08,
-      "prediction_grid_point": false,
-      "predicted_first_unsafe_delay_s": 0.1,
-      "min_clearance_m": 0.019331554396929615
-    },
-    {
-      "seed": 9,
-      "delay_s": 0.06,
-      "prediction_grid_point": false,
-      "predicted_first_unsafe_delay_s": 0.1,
-      "min_clearance_m": 0.04552555508548865
-    },
-    {
-      "seed": 9,
-      "delay_s": 0.08,
-      "prediction_grid_point": false,
-      "predicted_first_unsafe_delay_s": 0.1,
-      "min_clearance_m": 0.031152540725370256
-    },
-    {
-      "seed": 11,
-      "delay_s": 0.04,
-      "prediction_grid_point": false,
-      "predicted_first_unsafe_delay_s": 0.1,
-      "min_clearance_m": 0.04998604598470606
-    },
-    {
-      "seed": 11,
-      "delay_s": 0.06,
-      "prediction_grid_point": false,
-      "predicted_first_unsafe_delay_s": 0.1,
-      "min_clearance_m": 0.03799501808938725
-    },
-    {
-      "seed": 11,
-      "delay_s": 0.08,
-      "prediction_grid_point": false,
-      "predicted_first_unsafe_delay_s": 0.1,
-      "min_clearance_m": 0.016121639712839572
-    },
-    {
-      "seed": 17,
-      "delay_s": 0.18,
-      "prediction_grid_point": false,
-      "predicted_first_unsafe_delay_s": 0.2,
-      "min_clearance_m": 0.04870079391481934
-    },
-    {
-      "seed": 21,
-      "delay_s": 0.14,
-      "prediction_grid_point": false,
-      "predicted_first_unsafe_delay_s": 0.2,
-      "min_clearance_m": 0.035137666921691776
-    },
-    {
-      "seed": 21,
-      "delay_s": 0.16,
-      "prediction_grid_point": false,
-      "predicted_first_unsafe_delay_s": 0.2,
-      "min_clearance_m": 0.02090365626517514
-    },
-    {
-      "seed": 21,
-      "delay_s": 0.18,
-      "prediction_grid_point": false,
-      "predicted_first_unsafe_delay_s": 0.2,
-      "min_clearance_m": 0.015735036922713094
     }
   ],
   "ttl": {
@@ -632,9 +534,9 @@
         "seed": 0,
         "tested_delays": 19,
         "complete": true,
-        "predicted_first_unsafe_delay_s": 0.2,
+        "predicted_first_unsafe_delay_s": 0.12,
         "actual_first_unsafe_delay_s": 0.14,
-        "absolute_ttl_error_s": 0.06,
+        "absolute_ttl_error_s": 0.020000000000000018,
         "non_monotonic_actual_safety": false
       },
       {
@@ -659,9 +561,9 @@
         "seed": 3,
         "tested_delays": 19,
         "complete": true,
-        "predicted_first_unsafe_delay_s": 0.1,
+        "predicted_first_unsafe_delay_s": 0.06,
         "actual_first_unsafe_delay_s": 0.04,
-        "absolute_ttl_error_s": 0.060000000000000005,
+        "absolute_ttl_error_s": 0.019999999999999997,
         "non_monotonic_actual_safety": false
       },
       {
@@ -704,9 +606,9 @@
         "seed": 9,
         "tested_delays": 19,
         "complete": true,
-        "predicted_first_unsafe_delay_s": 0.1,
+        "predicted_first_unsafe_delay_s": 0.06,
         "actual_first_unsafe_delay_s": 0.06,
-        "absolute_ttl_error_s": 0.04000000000000001,
+        "absolute_ttl_error_s": 0.0,
         "non_monotonic_actual_safety": false
       },
       {
@@ -722,9 +624,9 @@
         "seed": 11,
         "tested_delays": 19,
         "complete": true,
-        "predicted_first_unsafe_delay_s": 0.1,
+        "predicted_first_unsafe_delay_s": 0.04,
         "actual_first_unsafe_delay_s": 0.04,
-        "absolute_ttl_error_s": 0.060000000000000005,
+        "absolute_ttl_error_s": 0.0,
         "non_monotonic_actual_safety": false
       },
       {
@@ -767,9 +669,9 @@
         "seed": 17,
         "tested_delays": 19,
         "complete": true,
-        "predicted_first_unsafe_delay_s": 0.2,
+        "predicted_first_unsafe_delay_s": 0.18,
         "actual_first_unsafe_delay_s": 0.18,
-        "absolute_ttl_error_s": 0.020000000000000018,
+        "absolute_ttl_error_s": 0.0,
         "non_monotonic_actual_safety": false
       },
       {
@@ -803,14 +705,14 @@
         "seed": 21,
         "tested_delays": 19,
         "complete": true,
-        "predicted_first_unsafe_delay_s": 0.2,
+        "predicted_first_unsafe_delay_s": 0.12,
         "actual_first_unsafe_delay_s": 0.14,
-        "absolute_ttl_error_s": 0.06,
+        "absolute_ttl_error_s": 0.020000000000000018,
         "non_monotonic_actual_safety": false
       }
     ],
     "absolute_error_samples": 19,
-    "mean_absolute_error_s": 0.015789473684210527,
+    "mean_absolute_error_s": 0.003157894736842107,
     "median_absolute_error_s": 0.0,
     "no_actual_unsafe_observed_seeds": [
       16
@@ -823,10 +725,10 @@
   },
   "warmed_prediction_computation": {
     "samples": 20,
-    "mean_ms": 43.62147345091216,
-    "median_ms": 42.92480798903853,
-    "p95_ms": 56.450082978699356,
-    "max_ms": 61.48677703458816
+    "mean_ms": 74.35650365368929,
+    "median_ms": 75.70884452434257,
+    "p95_ms": 89.51190405059606,
+    "max_ms": 97.36501902807504
   },
   "sampling_note": "Repeated dispatch delays within 20 development scenarios are not independent scenarios."
 }
