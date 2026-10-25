@@ -151,7 +151,7 @@ def summarize(journal, protocol=None):
             non_monotonic_actual_safety_seeds=[row['seed'] for row in scenarios if row['non_monotonic_actual_safety']],
             interpretation='First unsafe tested grid points, not continuous thresholds; null is unobserved, not extrapolated.'),
         warmed_prediction_computation=timing_summary(samples),
-        sampling_note='Repeated dispatch delays within 20 development scenarios are not independent scenarios.')
+        sampling_note=f'Repeated dispatch delays within {len(protocol["seeds"])} {protocol.get("dataset_kind","development")} scenarios are not independent scenarios.')
 
 
 def report_markdown(metrics):
@@ -160,11 +160,11 @@ def report_markdown(metrics):
     def number(value, digits=3):
         return 'unobserved' if value is None else f'{value:.{digits}f}'
     lines = [
-        f'The accuracy experiment compares approval-time forecasts with {metrics["total_comparisons"]} saved actual PyBullet flights; no new ground-truth flights were run. '
+        f'The accuracy experiment compares approval-time forecasts with {metrics["total_comparisons"]} actual No-Recovery PyBullet flights. '
         'The UAV patrols east, then makes its frozen left turn and flies north. Waiting shifts the turn east and can make it unsafe. '
         f'Direct model predictions were correct in {raw["correct_safe"]+raw["correct_unsafe"]}/{raw["total_tests"]} comparisons; '
         f'the TTL dispatch rule was correct in {ttl["correct_safe"]+ttl["correct_unsafe"]}/{ttl["total_tests"]}, with {ttl["false_safe"]} unsafe turns permitted and {ttl["false_rejection"]} safe turns rejected. '
-        'These development measurements distinguish model errors from using a coarse expiry grid. The implementation is ready to measure an independent frozen dataset, but these results do not establish generalization or justify changing the predictor. No parameters were tuned.',
+        'These measurements distinguish model errors from using a coarse expiry grid. The implementation is ready to measure an independent frozen dataset, but these results do not establish generalization or justify changing the predictor. No parameters were tuned.',
         '', '## Overall accuracy', '',
         '| Measurement | Tests | Accuracy | False-safe | False-rejection |',
         '|---|---:|---:|---:|---:|']
@@ -172,14 +172,14 @@ def report_markdown(metrics):
         lines.append(f'| {label} | {result["total_tests"]} | {number(result["accuracy"])} | {result["false_safe"]} | {result["false_rejection"]} |')
     lines += ['', 'SAFE means at least 5 cm body clearance throughout the entire flight, including waiting and after checkpoint passage. Completion also requires reaching the fixed checkpoint at the required velocity for the required dwell before the deadline; it is context, not the prediction target. Readiness and recovery are outside this experiment.',
         '', '## Per-delay accuracy', '',
-        'Raw columns are unobserved where the original predictor did not evaluate that delay. Each TTL row contains 20 comparisons.', '',
+        'Raw columns are unobserved where the original predictor did not evaluate that delay. Each TTL row reports its actual comparison count.', '',
         '| D (s) | Raw correct / tests | Raw false-safe / rejection | TTL correct / tests | TTL false-safe / rejection | Actual safe completion | Actual unsafe |',
         '|---:|---:|---:|---:|---:|---:|---:|']
     for row in metrics['per_delay']:
         a,b = row['raw_prediction'],row['ttl_dispatch_decision']
         correct = f'{a["correct_safe"]+a["correct_unsafe"]}/{a["total_tests"]}' if a['total_tests'] else 'unobserved'
         mistakes = f'{a["false_safe"]} / {a["false_rejection"]}' if a['total_tests'] else 'unobserved'
-        lines.append(f'| {row["delay_s"]:.2f} | {correct} | {mistakes} | {b["correct_safe"]+b["correct_unsafe"]}/{b["total_tests"]} | {b["false_safe"]} / {b["false_rejection"]} | {row["actual_safe_completions"]}/20 | {row["actual_unsafe"]}/20 |')
+        lines.append(f'| {row["delay_s"]:.2f} | {correct} | {mistakes} | {b["correct_safe"]+b["correct_unsafe"]}/{b["total_tests"]} | {b["false_safe"]} / {b["false_rejection"]} | {row["actual_safe_completions"]}/{row["total_comparisons"]} | {row["actual_unsafe"]}/{row["total_comparisons"]} |')
     lines += ['', '## TTL prediction errors', '',
         '| Seed | Predicted first unsafe D (s) | Actual first unsafe tested D (s) | Absolute difference (s) |',
         '|---:|---:|---:|---:|']
@@ -195,7 +195,7 @@ def report_markdown(metrics):
         '', '## Interpretation and next step', '',
         'Raw accuracy applies only to directly evaluated delays. TTL accuracy also includes the gaps between them: an unsafe turn inside a gap can still be permitted until the next predicted unsafe grid point. '
         'Inspect the separate confusion matrices before attributing any error to the model. This experiment changes neither the 0.10 s prediction grid nor the expiry rule, and performs no recovery-policy comparison. '
-        'Use the same frozen measurement procedure on independently calibrated evaluation scenarios; do not treat these 380 delay comparisons as 380 independent scenarios.',
+        'Use the same frozen measurement procedure on independently calibrated evaluation scenarios; do not treat repeated delays as independent scenarios.',
         '', 'Technical note: the source flight journal stores violation time from flight start. This journal also retains that original value as first_violation_flight_s, and records first_violation_s relative to approval as required. Source and snapshot checks, cached forecasts, resumption state and this report are retained in run.json.']
     cases = metrics['ttl_false_safe_cases']
     if cases:

@@ -16,7 +16,7 @@ from geofence_turn.scenario import Config, HZ, scenario_dict
 from geofence_turn.simulation import start_work, check_memory, execute
 from geofence_turn.storage import (ROOT, check_provenance, metadata, file_hash,
                                       write_json, append_json, load_development)
-from geofence_turn.baseline_benchmark.metrics import POLICIES, flight_key, read_executions, summarize
+from geofence_turn.baseline_benchmark.metrics import DEFAULT_POLICIES, POLICIES, flight_key, read_executions, summarize
 
 DISPATCH_DELAYS = (0., .2, .6, 1.)  # Original experiment grid, unchanged.
 
@@ -33,7 +33,7 @@ def run_comparison(out, args, work, config):
             raise ValueError('Requested seed is absent from the calibrated dataset')
     if not cases:
         raise ValueError('No calibrated development scenarios')
-    policies = tuple(getattr(args,'policies',POLICIES))
+    policies = tuple(getattr(args,'policies',DEFAULT_POLICIES))
     if not policies or len(set(policies)) != len(policies) or not set(policies) <= set(POLICIES):
         raise ValueError('Select distinct implemented policies')
     source = Path(args.development)
@@ -93,16 +93,18 @@ def run_comparison(out, args, work, config):
     checkpoint()
     try:
         if completed != expected:
-            platform = load_scg_platform_params()
-            warm = cases[0][1]
-            predict_delays(warm,platform)
-            predict_immediate(warm,platform)
+            platform = None
+            if 'staleguard' in policies or 'use_time_recheck' in policies:
+                platform = load_scg_platform_params()
+                warm = cases[0][1]
+                predict_delays(warm,platform)
+                predict_immediate(warm,platform)
             for s,snapshot,_ in cases:
                 if all((s.seed,delay,policy) in completed for delay in args.delays for policy in policies):
                     continue
                 # Freeze the approval-only forecast before enumerating actual D.
                 received = run['predictions'].get(str(s.seed))
-                if received is None:
+                if received is None and 'staleguard' in policies:
                     received = predict_delays(snapshot,platform)
                     run['predictions'][str(s.seed)] = received
                     checkpoint()
@@ -144,7 +146,7 @@ def main():
     parser.add_argument('--development',default=str(ROOT/'results/development/calibration'))
     parser.add_argument('--seeds',nargs='+',type=int)
     parser.add_argument('--delays',nargs='+',type=float,default=DISPATCH_DELAYS)
-    parser.add_argument('--policies',nargs='+',choices=POLICIES,default=POLICIES)
+    parser.add_argument('--policies',nargs='+',choices=POLICIES,default=DEFAULT_POLICIES)
     parser.add_argument('--resume',action='store_true')
     parser.add_argument('--diagnostics',action='store_true',help='Save individual flight traces under diagnostics/')
     parser.add_argument('--max-trials',type=int,default=160)

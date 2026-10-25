@@ -2,7 +2,7 @@
 
 The UAV patrols east, executes its approved fixed-radius left turn when
 dispatched, then continues north through a fixed checkpoint. Waiting moves the
-turn east; the radius, checkpoint and deadline stay fixed. The four existing
+turn east; the radius, checkpoint and deadline stay fixed. The six supported
 baselines share the same SCG/PyBullet flight loop and physical mission conditions.
 
 | Code | Responsibility |
@@ -11,13 +11,12 @@ baselines share the same SCG/PyBullet flight loop and physical mission condition
 | `calibration.py` | Direct generate → nominal probe → descending D=0 search → verify → save loop |
 | `storage.py` | Shared JSON/snapshot storage and validated loading of current and historical datasets |
 | `simulation.py` | Shared flight execution and 1000 Hz safety/completion monitoring |
-| `baselines/` | StaleGuard, Use-Time Recheck and Fixed TTL; No Recovery is the default simulation path |
+| `baselines/` | StaleGuard, Use-Time Recheck, Fixed TTL, Always-Recover and FBS; No Recovery is the default simulation path |
 | `baseline_benchmark/run.py` | Existing four-policy comparison |
 | `baseline_benchmark/metrics.py` | Metric definitions and summaries from saved flight records |
 | `ttl_pred_accuracy/` | Direct model and TTL-decision accuracy against saved No-Recovery flights |
 | `support/` | Diagnostics, tests, reports and historical artifacts |
 
-Always-Recover and FBS remain unfinished.
 The lightweight dynamics model is reused from `inspection_descent/model/`.
 
 ## Workflow and artifacts
@@ -107,6 +106,33 @@ flights. The defaults remain all four policies and delays 0, 0.2, 0.6 and 1.0 s.
 Use `--policies` to select implemented policies and `--delays` for dispatch
 delays on the 0.02 s control grid.
 
+`--policies always_recover fbs` selects the two additional baselines; the default
+remains the original four. Always-Recover rejects the turn at scheduled dispatch,
+including D=0, and activates the same PID-controlled safety-only recovery.
+
+FBS uses actual 50 Hz observations from reset through approval. Its signed
+violation feature is `f = d_min_m - clearance(x, fence_x)`, with safe-side margin
+`m = -f`. It directly reuses Inspection-Descent's EMA and dispatch rule:
+alpha 0.1, initial volatility zero, epsilon 1e-12 m/sample, 210-step cap,
+and expiry when `m <= 0` or `age_steps > ttl_steps`. The approval update and
+TTL calculation are timed; the result is frozen at approval. At dispatch,
+ready means `computation_s <= age_steps / 50`. An unavailable result executes
+the original turn on schedule with no later cancellation. Available expired
+results activate safety-only recovery immediately at dispatch. All diagnostic
+fields remain inside the flight's `event` object; no new default artifacts exist.
+
+The feature describes current clearance and does not certify the future turn.
+The 210-step cap and numerical epsilon are retained from the existing adaptation;
+no parameters were tuned to Geofence outcomes. The new baseline tests can be run
+with `python -m unittest geofence_turn.support.tests.test_new_baselines -v`.
+
+Historical results and hashes remain unchanged, and experiment resumes require
+matching provenance. TTL accuracy can reuse older No-Recovery flights after
+checking that the No-Recovery execution path, scenario, snapshot, model, PID,
+vehicle asset and numerical environment still match. Adding an unrelated policy
+branch does not invalidate those flights; changing dispatch or safety monitoring
+does. Unknown historical simulator versions are rejected.
+
 Use `--out` to select another output directory and `--development` to select a
 calibration directory or scenario JSON. Fresh output must be absent or empty.
 Use `--resume` with the same inputs, protocol and source to continue an
@@ -159,10 +185,9 @@ and candidate-level resume machinery were removed. Each accepted scenario normal
 uses one probe, its approval tests and one verification flight. No positive-delay
 or policy outcome influences calibration.
 
-Evaluation will use the same commands with `--out` under `results/evaluation/`
-and its own frozen calibration input. The TTL accuracy script currently locks
-the development protocol; a future independent evaluation needs its own fixed
-protocol and validated ground truth rather than mixing datasets.
+Evaluation uses its own frozen calibration input and output under
+`results/evaluation/`. TTL accuracy reads the supplied dataset's seeds and keeps
+the same 19 dispatch delays for development and evaluation.
 
 ## TTL prediction accuracy
 
@@ -170,24 +195,46 @@ protocol and validated ground truth rather than mixing datasets.
 python geofence_turn/ttl_pred_accuracy/run.py
 python geofence_turn/ttl_pred_accuracy/metrics.py \
   geofence_turn/results/development/ttl_pred_accuracy/executions.jsonl
+
+# Evaluation uses all 300 frozen scenarios. This may need several resumable batches.
+python geofence_turn/ttl_pred_accuracy/run.py \
+  --calibration geofence_turn/results/evaluation/calibration \
+  --max-trials 200 --max-seconds 1800
+# Repeat the same command with --resume after a resource-budget interruption.
 ```
 
-The locked experiment uses 20 frozen development scenarios and 19 delays. It
-validates and reuses the existing 380 actual No-Recovery flights, then runs one
-approval forecast per scenario using the unchanged lightweight model and delay
-grid. The model kernels are warmed with one control step before measuring
-call-to-result time. There are no new ground-truth flights or recovery policies.
+The runner loads frozen scenarios and approval snapshots, then obtains actual
+No-Recovery outcomes at the same 19 delays. For development, it finds and verifies
+all 380 saved flights through the calibration dataset's source reference. For
+evaluation, it can reuse the 300 saved D=0 calibration verification flights.
+It also looks for a sibling baseline benchmark journal; `--ground-truth PATH`
+can supply another compatible flight journal, and may be repeated. Invalid or
+conflicting saved data cause an error rather than being replaced silently.
+
+Each scenario gets one approval forecast using the unchanged lightweight model
+and prediction grid. Only missing actual outcomes are simulated, using the
+existing No-Recovery flight and full-horizon safety monitor. The runner compares
+the forecast with each actual outcome, appends one journal record, and calculates
+metrics. The model kernels are warmed with one control step before measuring
+call-to-result time. No recovery policy is executed.
 
 It produces exactly three files: `executions.jsonl` has one comparison per
 scenario/delay; `metrics.json` separates raw model accuracy at its 11 directly
 evaluated delays from TTL dispatch-decision accuracy at all 19 delays; `run.json`
-stores provenance, compatibility checks, cached forecasts, resume state and the
-readable final report in `report_markdown`. Off-grid raw predictions are `null`.
+stores provenance, compatibility checks, cached forecasts, any newly simulated
+No-Recovery flight records, resume state and the readable final report in
+`report_markdown`. Off-grid raw predictions are `null`.
 Violation times in the comparison journal are relative to approval; the original
 flight-start timestamps are retained as `first_violation_flight_s`.
 
 Use `--resume` to continue without recomputing cached forecasts, or `--out` for
-a fresh directory. Existing output is never overwritten by a fresh run. The
+a fresh directory. By default, output is `ttl_pred_accuracy/` beside the supplied
+calibration directory; `--development` remains an alias for `--calibration`.
+Existing output is never overwritten by a fresh run. Historical completed runs
+remain readable but cannot resume across source changes. The default resource
+budget is 40 forecasts/flights and 300 seconds per invocation; the existing
+maximum is 200 forecasts/flights and 1800 seconds. Cached forecasts and newly
+obtained ground truth survive interruption, including within a scenario. The
 metrics-only command reads the journal and adjacent fixed protocol, without
 importing or running PyBullet. Prediction readiness and mission completion are
 not the prediction target; actual completion counts are retained for context.

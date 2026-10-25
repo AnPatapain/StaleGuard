@@ -14,6 +14,7 @@ from physics_monitor import monitor_physics_steps
 from .baselines.staleguard import staleguard_status
 from .baselines.fixed_ttl import fixed_ttl_expired, FIXED_TTL_S
 from .baselines.use_time_recheck import first_step_after_check
+from .baselines import always_recover, fbs
 from .scenario import (HZ, PHYSICS_HZ, POS, VEL, Config, make_forward_trajectory,
                       apply_turn_command, clearance, in_checkpoint, safety_only_reference)
 
@@ -84,7 +85,7 @@ def execute(s, delay=0., config=Config(), policy='no_recovery', received=None,
     dispatch = None if delay is None else approval + round(delay * HZ)
     if delay is not None and (delay < 0 or dispatch >= total):
         raise ValueError('Delay outside monitored horizon')
-    if policy not in ('no_recovery', 'staleguard', 'use_time_recheck', 'fixed_ttl'):
+    if policy not in ('no_recovery', 'staleguard', 'use_time_recheck', 'fixed_ttl', 'always_recover', 'fbs'):
         raise ValueError('Unadapted policy')
     factory = env_factory(s, total)
     env, ctrl = factory(), None
@@ -101,6 +102,9 @@ def execute(s, delay=0., config=Config(), policy='no_recovery', received=None,
     trace = []
     event = {'policy': policy, 'scheduled_dispatch_step': dispatch,
              'application_step': None, 'fallback_step': None, 'prediction_ready': None}
+    if policy == 'fbs':
+        previous_feature, volatility = None, 0.0
+        event.update(observation_steps=[], features_m=[], observation_update_s=[])
     started = time.perf_counter()
     try:
         ctrl = make('pid', factory)
@@ -142,6 +146,21 @@ def execute(s, delay=0., config=Config(), policy='no_recovery', received=None,
                 snapshot = Snapshot(obs.copy(), capture_pid_state(ctrl), ref[step:].copy(),
                                     total-step, s.approval_s, s.command, s.fence_x,
                                     config, min_clear)
+            if policy == 'fbs' and step <= approval:
+                began = time.perf_counter()
+                feature = fbs.safety_feature(obs, s, config)
+                volatility = fbs.update_volatility(feature, previous_feature, volatility)
+                previous_feature = feature
+                if step == approval:
+                    frozen = fbs.freeze_prediction(feature, volatility)
+                elapsed = time.perf_counter()-began
+                event['observation_steps'].append(step)
+                event['features_m'].append(feature)
+                event['observation_update_s'].append(elapsed)
+                if step == approval:
+                    event.update(prediction=frozen, computation_s=elapsed,
+                                 observation_step=step, observation_state=obs.tolist(),
+                                 cold_start=step == 0)
             if step == dispatch:
                 if policy == 'staleguard':
                     if received is None:
@@ -153,6 +172,13 @@ def execute(s, delay=0., config=Config(), policy='no_recovery', received=None,
                     # Preregistered development control, not tuned against outcomes.
                     recover = fixed_ttl_expired(step-approval)
                     event['fixed_ttl_s'] = FIXED_TTL_S
+                elif policy == 'always_recover':
+                    recover = always_recover.should_recover()
+                elif policy == 'fbs':
+                    status = fbs.dispatch_status(frozen, event['computation_s'], step-approval)
+                    recover = status['recover']
+                    event.update(status, prediction_ready=status['ready'],
+                                 dispatch_step=step, waited_steps=step-approval)
                 elif policy == 'use_time_recheck':
                     from .baselines.use_time_recheck import predict_immediate
                     current = Snapshot(obs.copy(), capture_pid_state(ctrl), ref[step:].copy(),

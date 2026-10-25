@@ -9,7 +9,8 @@ import os
 from pathlib import Path
 import statistics
 
-POLICIES = ('no_recovery', 'staleguard', 'use_time_recheck', 'fixed_ttl')
+DEFAULT_POLICIES = ('no_recovery', 'staleguard', 'use_time_recheck', 'fixed_ttl')
+POLICIES = DEFAULT_POLICIES + ('always_recover', 'fbs')
 CONTROL_HZ = 50  # Fixed Geofence control frequency; also recorded in run.json.
 
 

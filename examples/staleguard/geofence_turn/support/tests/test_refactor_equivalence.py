@@ -183,6 +183,12 @@ class RefactorEquivalenceTests(unittest.TestCase):
         class RemoveImports(ast.NodeTransformer):
             def visit_ImportFrom(self,node):
                 return None
+            def visit_If(self,node):
+                self.generic_visit(node)
+                condition = ast.unparse(node.test)
+                if condition in ("policy == 'always_recover'", "policy == 'fbs'") or condition.startswith("policy == 'fbs' and "):
+                    return node.orelse  # Compare the unchanged original-policy path.
+                return node
         old = function_tree(archived/'simulation.py.txt','execute')
         new = function_tree(ROOT/'simulation.py','execute')
         for node_type, name in ((ast.For,'step'), (ast.FunctionDef,'observe')):
@@ -457,19 +463,19 @@ class TTLAccuracyTests(unittest.TestCase):
     """Reuse recorded forecasts/flights; these checks launch no physical flights."""
     @classmethod
     def setUpClass(cls):
-        from geofence_turn.ttl_pred_accuracy.run import validate_ground_truth
+        from geofence_turn.storage import load_ground_truth
         cls.cases = load_development(ROOT/'results/development/calibration')
-        cls.actual,cls.evidence = validate_ground_truth(cls.cases,Config())
-        cls.forecasts = read(ROOT/'results/development/baseline_benchmark/run.json')['predictions']
+        cls.actual,cls.evidence = load_ground_truth(ROOT/'results/development/calibration',cls.cases,Config())
+        cls.forecasts = read(ROOT/'results/development/ttl_pred_accuracy/run.json')['predictions']
 
     def fixture(self, folder):
-        from geofence_turn.ttl_pred_accuracy.run import comparison, SEEDS, DELAYS
+        from geofence_turn.ttl_pred_accuracy.run import comparison, DELAYS
         out = Path(folder)
         journal = out/'executions.jsonl'
         rows = [comparison(s,self.actual[s.seed,delay],self.forecasts[str(s.seed)])
                 for s,_,_ in self.cases for delay in DELAYS]
         journal.write_text(''.join(json.dumps(row)+'\n' for row in rows))
-        protocol = dict(seeds=list(SEEDS),delays_s=list(DELAYS),
+        protocol = dict(seeds=[s.seed for s,_,_ in self.cases],delays_s=list(DELAYS),
                         prediction_grid_s=[i/10 for i in range(11)],control_hz=HZ)
         return journal,protocol,rows
 
@@ -478,6 +484,139 @@ class TTLAccuracyTests(unittest.TestCase):
         self.assertEqual(len(self.actual),380)
         self.assertEqual(self.evidence['status'],'passed')
         self.assertEqual(self.evidence['new_pybullet_flights'],0)
+
+    def test_all_380_comparisons_and_metrics_reproduce_exactly(self):
+        from geofence_turn.ttl_pred_accuracy.metrics import summarize
+        folder = ROOT/'results/development/ttl_pred_accuracy'
+        with tempfile.TemporaryDirectory() as temporary:
+            journal,_,rows = self.fixture(temporary)
+            self.assertEqual(rows,[json.loads(line) for line in (folder/'executions.jsonl').read_text().splitlines()])
+            self.assertEqual(summarize(journal,read(folder/'run.json')['protocol']),read(folder/'metrics.json'))
+
+    def test_evaluation_loads_300_missions_and_reuses_300_d0_flights(self):
+        from geofence_turn.storage import load_ground_truth, open_accuracy
+        from geofence_turn.ttl_pred_accuracy.run import DELAYS, PREDICTION_DELAYS
+        dataset = ROOT/'results/evaluation/calibration'
+        with patch('geofence_turn.simulation.execute',side_effect=AssertionError('No flight during loading')):
+            cases = load_development(dataset)
+            actual,evidence = load_ground_truth(dataset,cases,Config())
+            with tempfile.TemporaryDirectory() as folder:
+                run,rows = open_accuracy(folder,dataset,cases,evidence,DELAYS,PREDICTION_DELAYS,Config(),False)
+        self.assertEqual(len(cases),300)
+        self.assertEqual(len(actual),300)
+        self.assertTrue(all(delay==0 for seed,delay in actual))
+        self.assertEqual(len(run['protocol']['seeds'])*len(run['protocol']['delays_s']),5700)
+        self.assertEqual(rows,[])
+
+    def test_no_recovery_compatibility_distinguishes_other_policy_changes(self):
+        from geofence_turn.storage import no_recovery_hash, LEGACY_NO_RECOVERY, check_ground_truth_source, metadata
+        source = (ROOT/'simulation.py').read_text()
+        signature = no_recovery_hash(source)
+        original = read(ROOT/'support/results/delay_tolerance_20/metadata.json')
+        self.assertEqual(signature,LEGACY_NO_RECOVERY[original['source_hashes']['simulation.py']])
+        # An unreachable policy branch may change; active physics and dispatch may not.
+        unrelated = source.replace("feature = fbs.safety_feature(obs, s, config)","feature = 999")
+        self.assertEqual(no_recovery_hash(unrelated),signature)
+        for changed in (source.replace('current < config.d_min_m','current <= config.d_min_m'),
+                        source.replace('approval + round(delay * HZ)','approval + round(delay * HZ) + 1'),
+                        source.replace('recover = False','recover = True')):
+            current = metadata(Config())
+            current['no_recovery_sha256'] = no_recovery_hash(changed)
+            self.assertNotEqual(current['no_recovery_sha256'],signature)
+            with patch('geofence_turn.storage.metadata',return_value=current):
+                with self.assertRaisesRegex(ValueError,'No-Recovery physics/monitor'):
+                    check_ground_truth_source(original,Config())
+
+    def test_partial_ground_truth_requires_matching_snapshots_integrity_and_monitor(self):
+        from geofence_turn.storage import load_ground_truth, metadata, file_hash
+        from geofence_turn.scenario import scenario_dict
+        scenario,snapshot,path = self.cases[0]
+        dataset = ROOT/'results/development/calibration'
+        record = self.actual[scenario.seed,.02]
+        with tempfile.TemporaryDirectory() as temporary:
+            folder = Path(temporary); journal = folder/'executions.jsonl'
+            for corruption in (None,'checksum','snapshot','monitor','duplicate','physics'):
+                rows = [json.loads(json.dumps(record))]
+                protocol = dict(scenarios=[scenario_dict(scenario)],delays=[.02],
+                                snapshot_sha256={str(scenario.seed):file_hash(path)},control_hz=HZ)
+                provenance = metadata(Config())
+                if corruption=='monitor':
+                    rows[0]['physics_samples'] -= 1
+                if corruption=='duplicate':
+                    rows *= 2
+                if corruption=='snapshot':
+                    protocol['snapshot_sha256'][str(scenario.seed)] = '0'*64
+                if corruption=='physics':
+                    provenance['no_recovery_sha256'] = '0'*64
+                journal.write_text(''.join(json.dumps(row)+'\n' for row in rows))
+                run = dict(provenance=provenance,protocol=protocol,
+                           journal_bytes=journal.stat().st_size,journal_sha256=file_hash(journal))
+                if corruption=='checksum':
+                    run['journal_sha256'] = '0'*64
+                (folder/'run.json').write_text(json.dumps(run))
+                if corruption is None:
+                    actual,_ = load_ground_truth(dataset,self.cases,Config(),[journal])
+                    self.assertEqual(actual,{(scenario.seed,.02):record})
+                    # Older analysis added optional checkpoint observations.
+                    # Their absence must not invalidate matching physical data.
+                    plain = folder/'plain'; plain.mkdir()
+                    plain_journal = plain/'executions.jsonl'
+                    without_diagnostics = dict(record)
+                    without_diagnostics.pop('checkpoint_observations',None)
+                    plain_journal.write_text(json.dumps(without_diagnostics)+'\n')
+                    plain_run = dict(run,journal_bytes=plain_journal.stat().st_size,
+                                     journal_sha256=file_hash(plain_journal))
+                    (plain/'run.json').write_text(json.dumps(plain_run))
+                    actual,_ = load_ground_truth(dataset,self.cases,Config(),[plain_journal,journal])
+                    self.assertEqual(actual,{(scenario.seed,.02):record})
+                    without_diagnostics['min_clearance_m'] += .001
+                    plain_journal.write_text(json.dumps(without_diagnostics)+'\n')
+                    plain_run.update(journal_bytes=plain_journal.stat().st_size,
+                                     journal_sha256=file_hash(plain_journal))
+                    (plain/'run.json').write_text(json.dumps(plain_run))
+                    with self.assertRaisesRegex(ValueError,'Conflicting ground-truth'):
+                        load_ground_truth(dataset,self.cases,Config(),[plain_journal,journal])
+                else:
+                    with self.subTest(corruption=corruption),self.assertRaises(ValueError):
+                        load_ground_truth(dataset,self.cases,Config(),[journal])
+
+    def test_missing_ground_truth_is_cached_before_comparison_and_resumes_once(self):
+        from geofence_turn.ttl_pred_accuracy.run import run_accuracy, DELAYS
+        from unittest.mock import MagicMock
+        warm = MagicMock()
+        warm.start.return_value = (SimpleNamespace(select_action=lambda *_:None),None,None,None)
+        scenario,snapshot,_ = self.cases[0]
+        def flight(s,delay,**kwargs):
+            from geofence_turn.simulation import check_work
+            check_work(kwargs['work'],Config())
+            self.assertEqual(kwargs['policy'],'no_recovery')
+            return self.actual[s.seed,delay],snapshot,np.empty(0)
+        with tempfile.TemporaryDirectory() as folder:
+            args = SimpleNamespace(calibration=ROOT/'results/development/calibration',ground_truth=[],out=folder,resume=False)
+            evidence = dict(status='passed',input_sha256={},new_pybullet_flights=0,generated=[])
+            with patch('geofence_turn.ttl_pred_accuracy.run.load_development',return_value=self.cases[:1]), \
+                 patch('geofence_turn.ttl_pred_accuracy.run.load_ground_truth',side_effect=lambda *_:({},dict(evidence,generated=[]))), \
+                 patch('model.scg.load_scg_platform_params',return_value=(None,None)), \
+                 patch('geofence_turn.ttl_pred_accuracy.run.LightweightPredictiveModel',return_value=warm), \
+                 patch('geofence_turn.ttl_pred_accuracy.run.predict_delays',return_value=self.forecasts[str(scenario.seed)]) as predict, \
+                 patch('geofence_turn.ttl_pred_accuracy.run.execute',side_effect=flight) as execute, \
+                 contextlib.redirect_stdout(io.StringIO()):
+                with self.assertRaisesRegex(RuntimeError,'trial/time budget'):
+                    run_accuracy(args,start_work(2,120),Config())
+                self.assertEqual(len(read(Path(folder)/'run.json')['ground_truth']['generated']),1)
+                args.resume = True
+                run_accuracy(args,start_work(40,120),Config())
+                # One attempted flight was refused by the resource guard, then resumed.
+                self.assertEqual(execute.call_count,len(DELAYS)+1)
+                self.assertEqual(predict.call_count,1)
+                before = (Path(folder)/'executions.jsonl').read_bytes()
+                run_accuracy(args,start_work(40,120),Config())
+                self.assertEqual((Path(folder)/'executions.jsonl').read_bytes(),before)
+                self.assertEqual(execute.call_count,len(DELAYS)+1)
+            run = read(Path(folder)/'run.json')
+            self.assertEqual(run['ground_truth']['new_pybullet_flights'],19)
+            self.assertEqual(run['completed_comparisons'],19)
+            self.assertEqual(len(run['ground_truth']['generated']),19)
 
     def test_raw_and_ttl_are_separate_and_timing_counts_forecasts_once(self):
         from geofence_turn.ttl_pred_accuracy.metrics import summarize
@@ -545,7 +684,7 @@ class TTLAccuracyTests(unittest.TestCase):
             return self.forecasts[str(seed)]
         with tempfile.TemporaryDirectory() as folder:
             out = Path(folder)/'accuracy'
-            args = SimpleNamespace(development=str(ROOT/'results/development/calibration'),out=str(out),resume=False)
+            args = SimpleNamespace(calibration=str(ROOT/'results/development/calibration'),ground_truth=[],out=str(out),resume=False)
             with patch('model.scg.load_scg_platform_params',return_value=(None,None)), \
                     patch('geofence_turn.ttl_pred_accuracy.run.LightweightPredictiveModel',return_value=warm), \
                     patch('geofence_turn.simulation.check_memory',return_value=(100,3000)), \
