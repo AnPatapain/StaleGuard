@@ -1,0 +1,2280 @@
+{
+  "format": "compact_ttl_accuracy_v1",
+  "provenance": {
+    "schema": "northbound_checkpoint_v2",
+    "config": {
+      "d_min_m": 0.05,
+      "position_tolerance_m": 0.1,
+      "velocity_tolerance_mps": 0.12,
+      "dwell_s": 0.2,
+      "tracking_limit_m": 0.15,
+      "checkpoint_width_m": 0.6,
+      "checkpoint_north_travel_s": 2.0,
+      "approval_min_s": 0.6,
+      "approval_max_s": 3.2,
+      "approval_grid_s": 0.2,
+      "max_rss_mb": 2048,
+      "min_available_mb": 2048
+    },
+    "python": "3.10.21 (main, Aug 27 2026, 14:42:07) [GCC 14.3.0]",
+    "executable": "/home/kean/miniconda3/envs/scg/bin/python",
+    "platform": "Linux-6.8.0-147-generic-x86_64-with-glibc2.39",
+    "numpy": "2.2.6",
+    "numerical_threads": 1,
+    "cpu_only": true,
+    "simulation_workers": 1,
+    "source_hashes": {
+      "calibration.py": "c8ab4928cc8c738bbfc82666c19e5e4ce5b08ffa23416e90f870707a0da3637c",
+      "__init__.py": "16ceef2ac9604eab276c2ac8617e7ba39d7357df53754245ac50d2c680a2d42c",
+      "scenario.py": "60f2e829adcc3a894f8df55f5e9124223fda542247fdfedc58bcb1277bc13078",
+      "simulation.py": "e199ff188bfc10f55c5b62b30fac62557b6a4b943a5030818fb3d89e58df9462",
+      "ttl_pred_accuracy/run.py": "6316dacbf39cb6d1e675251d65794a2f43dc83d3005a6bb4e105a51ba6f07e6e",
+      "ttl_pred_accuracy/metrics.py": "c61c8f5082c55c60e72db840de3a3bd72bed00adee6cf958040a7d86109d18a2",
+      "baseline_benchmark/run.py": "c4fdf642adb1c47bcfef82a856838e1f903d68bbba4c3b19c96e5370140fbe48",
+      "baseline_benchmark/metrics.py": "341d76bb2f5af39e61e448164cbb56dc75e26e7a74d40f99dec932532a95b58c",
+      "support/readiness.py": "ede5853a2fd3db384b0662a743bedf550d4ed6abcfebae01b7038b6cba1be552",
+      "support/diagnostics.py": "55e6828df985223421e74be3e824eb0f98441585cb3af445378a3789c48a1ac1",
+      "support/delay_tolerance.py": "df475ab62e5e9b689b3f7c04ef31f9cb83899b8d8c11f0708a48a899294a79ef",
+      "support/validation.py": "eaaad9fc6d23ed5a1c09eee43a9378f7bca8900cad31ee2f6044d4cd05d53ad1",
+      "baselines/staleguard.py": "307b846b9dfa97ea093d7c89a2722c62cd745e505e0de999c4e5f17bd9d3e6ce",
+      "baselines/use_time_recheck.py": "bd6412ff8b064e3a1458e7fc79a363d4c3fd00842c1fb47372eb3b0464d95741",
+      "baselines/fixed_ttl.py": "2901440db2de89015731ee22911c20364734183433f23ba2e082f162b2afd6dd"
+    },
+    "shared_source_hashes": {
+      "/home/kean/Documents/work/stale-guard/safe-control-gym/examples/staleguard/inspection_descent/model/common.py": "8e7d0d615e7977d443a8e22a096849633c2512634e3ff8c123218e533f1cd468",
+      "/home/kean/Documents/work/stale-guard/safe-control-gym/examples/staleguard/inspection_descent/model/pybullet.py": "4b3efaabd8d67a92b142acb47afc19ef414a11ad803bf1bf8e6a956250299f0e",
+      "/home/kean/Documents/work/stale-guard/safe-control-gym/examples/staleguard/inspection_descent/model/scg.py": "9e33d9ab67a4aa8adac596608631ca301f36c85037ee96b0847e08a0c61bc0b7",
+      "/home/kean/Documents/work/stale-guard/safe-control-gym/examples/staleguard/inspection_descent/model/lightweight.py": "fa6aa0524cbc01aa326daeb001e74b7f2fd4a83bc62c4022ba20977f873e8ab0",
+      "/home/kean/Documents/work/stale-guard/safe-control-gym/examples/staleguard/inspection_descent/experiment.py": "6aa20e5411639cad4a927ae9485c1c5001a1b3329670ce79e074f8fab9e6d570",
+      "/home/kean/Documents/work/stale-guard/safe-control-gym/examples/staleguard/inspection_descent/physics_monitor.py": "d7145e53736259b688d321449f6ce1f5b72b3cde4e07620b6c183d996d29cb91"
+    },
+    "started_utc": "2026-10-24T23:42:11Z"
+  },
+  "protocol": {
+    "seeds": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21
+    ],
+    "delays_s": [
+      0.0,
+      0.02,
+      0.04,
+      0.06,
+      0.08,
+      0.1,
+      0.12,
+      0.14,
+      0.16,
+      0.18,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7,
+      0.8,
+      0.9,
+      1.0
+    ],
+    "prediction_grid_s": [
+      0.0,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7,
+      0.8,
+      0.9,
+      1.0
+    ],
+    "scenarios": [
+      {
+        "schema": "northbound_checkpoint_v2",
+        "seed": 0,
+        "speed": 0.8,
+        "height": 1.2174466784409674,
+        "initial_x": -0.1377079428191416,
+        "initial_y": -0.09669447289429418,
+        "fence_x": 2.1755622963811305,
+        "deadline_s": 4.78,
+        "command": {
+          "radius": 0.6,
+          "speed": 0.8,
+          "checkpoint_lower": [
+            1.404774918358904,
+            2.003305527105706,
+            1.1174466784409673
+          ],
+          "checkpoint_upper": [
+            2.004774918358904,
+            2.203305527105706,
+            1.3174466784409675
+          ],
+          "direction": "TURN_LEFT_90"
+        },
+        "approval_s": 2.0
+      },
+      {
+        "schema": "northbound_checkpoint_v2",
+        "seed": 1,
+        "speed": 0.6,
+        "height": 1.3876159240814838,
+        "initial_x": -0.10675211618410987,
+        "initial_y": 0.08972988942744878,
+        "fence_x": 1.7050793358263756,
+        "deadline_s": 4.88,
+        "command": {
+          "radius": 0.4,
+          "speed": 0.6,
+          "checkpoint_lower": [
+            0.7282080006987937,
+            1.5897298894274488,
+            1.2876159240814837
+          ],
+          "checkpoint_upper": [
+            1.3282080006987937,
+            1.789729889427449,
+            1.487615924081484
+          ],
+          "direction": "TURN_LEFT_90"
+        },
+        "approval_s": 1.8
+      },
+      {
+        "schema": "northbound_checkpoint_v2",
+        "seed": 2,
+        "speed": 0.8,
+        "height": 1.2246227858535308,
+        "initial_x": 0.09426772217828408,
+        "initial_y": -0.08161681157298062,
+        "fence_x": 2.194368248143938,
+        "deadline_s": 3.98,
+        "command": {
+          "radius": 0.4,
+          "speed": 0.8,
+          "checkpoint_lower": [
+            1.301537943845575,
+            1.8183831884270194,
+            1.1246227858535307
+          ],
+          "checkpoint_upper": [
+            1.901537943845575,
+            2.0183831884270194,
+            1.3246227858535309
+          ],
+          "direction": "TURN_LEFT_90"
+        },
+        "approval_s": 1.8
+      },
+      {
+        "schema": "northbound_checkpoint_v2",
+        "seed": 3,
+        "speed": 0.8,
+        "height": 1.2092026266490248,
+        "initial_x": 0.09038233956191907,
+        "initial_y": 0.016432407212873562,
+        "fence_x": 1.684510981802318,
+        "deadline_s": 4.26,
+        "command": {
+          "radius": 0.4,
+          "speed": 0.8,
+          "checkpoint_lower": [
+            0.8809128989443193,
+            1.9164324072128736,
+            1.1092026266490247
+          ],
+          "checkpoint_upper": [
+            1.4809128989443194,
+            2.1164324072128737,
+            1.3092026266490249
+          ],
+          "direction": "TURN_LEFT_90"
+        },
+        "approval_s": 1.4
+      },
+      {
+        "schema": "northbound_checkpoint_v2",
+        "seed": 4,
+        "speed": 0.8,
+        "height": 1.2778318882035904,
+        "initial_x": 0.14287311171231123,
+        "initial_y": -0.08383279522087957,
+        "fence_x": 2.2502289437073406,
+        "deadline_s": 4.98,
+        "command": {
+          "radius": 0.6,
+          "speed": 0.8,
+          "checkpoint_lower": [
+            1.2421061683251249,
+            2.0161672047791206,
+            1.1778318882035903
+          ],
+          "checkpoint_upper": [
+            1.842106168325125,
+            2.2161672047791208,
+            1.3778318882035905
+          ],
+          "direction": "TURN_LEFT_90"
+        },
+        "approval_s": 1.4
+      },
+      {
+        "schema": "northbound_checkpoint_v2",
+        "seed": 6,
+        "speed": 0.6,
+        "height": 1.2358177174533345,
+        "initial_x": -0.039279828061386524,
+        "initial_y": -0.025100646882423527,
+        "fence_x": 2.44816516212508,
+        "deadline_s": 4.72,
+        "command": {
+          "radius": 0.4,
+          "speed": 0.6,
+          "checkpoint_lower": [
+            1.3196304738300115,
+            1.4748993531175763,
+            1.1358177174533344
+          ],
+          "checkpoint_upper": [
+            1.9196304738300116,
+            1.6748993531175764,
+            1.3358177174533346
+          ],
+          "direction": "TURN_LEFT_90"
+        },
+        "approval_s": 2.8
+      },
+      {
+        "schema": "northbound_checkpoint_v2",
+        "seed": 7,
+        "speed": 0.8,
+        "height": 1.3743034502423939,
+        "initial_x": 0.08270570707355804,
+        "initial_y": -0.05495856200188163,
+        "fence_x": 1.8828719919847834,
+        "deadline_s": 4.18,
+        "command": {
+          "radius": 0.6,
+          "speed": 0.8,
+          "checkpoint_lower": [
+            1.150229693386296,
+            2.0450414379981185,
+            1.2743034502423938
+          ],
+          "checkpoint_upper": [
+            1.7502296933862962,
+            2.2450414379981187,
+            1.474303450242394
+          ],
+          "direction": "TURN_LEFT_90"
+        },
+        "approval_s": 1.4
+      },
+      {
+        "schema": "northbound_checkpoint_v2",
+        "seed": 8,
+        "speed": 0.8,
+        "height": 1.3968192108344812,
+        "initial_x": -0.05438674845434498,
+        "initial_y": 0.057709787164005794,
+        "fence_x": 2.315509763241871,
+        "deadline_s": 4.22,
+        "command": {
+          "radius": 0.4,
+          "speed": 0.8,
+          "checkpoint_lower": [
+            1.0326886806729072,
+            1.957709787164006,
+            1.2968192108344812
+          ],
+          "checkpoint_upper": [
+            1.6326886806729073,
+            2.157709787164006,
+            1.4968192108344813
+          ],
+          "direction": "TURN_LEFT_90"
+        },
+        "approval_s": 1.8
+      },
+      {
+        "schema": "northbound_checkpoint_v2",
+        "seed": 9,
+        "speed": 0.6,
+        "height": 1.2217043022718888,
+        "initial_x": 0.030944445015468558,
+        "initial_y": 0.05550681658403575,
+        "fence_x": 2.2470190746190335,
+        "deadline_s": 5.44,
+        "command": {
+          "radius": 0.6,
+          "speed": 0.6,
+          "checkpoint_lower": [
+            1.4794766782011501,
+            1.7555068165840355,
+            1.1217043022718887
+          ],
+          "checkpoint_upper": [
+            2.07947667820115,
+            1.9555068165840357,
+            1.3217043022718888
+          ],
+          "direction": "TURN_LEFT_90"
+        },
+        "approval_s": 2.6
+      },
+      {
+        "schema": "northbound_checkpoint_v2",
+        "seed": 10,
+        "speed": 0.8,
+        "height": 1.2019204525197866,
+        "initial_x": 0.09853346558235923,
+        "initial_y": -0.07014357538359595,
+        "fence_x": 2.111338082018924,
+        "deadline_s": 4.86,
+        "command": {
+          "radius": 0.6,
+          "speed": 0.8,
+          "checkpoint_lower": [
+            1.0703890185789806,
+            2.029856424616404,
+            1.1019204525197865
+          ],
+          "checkpoint_upper": [
+            1.6703890185789807,
+            2.229856424616404,
+            1.3019204525197867
+          ],
+          "direction": "TURN_LEFT_90"
+        },
+        "approval_s": 1.2
+      },
+      {
+        "schema": "northbound_checkpoint_v2",
+        "seed": 11,
+        "speed": 0.4,
+        "height": 1.2748194656100287,
+        "initial_x": 0.030449507287007238,
+        "initial_y": -0.0942621983256111,
+        "fence_x": 1.6783755918644632,
+        "deadline_s": 3.86,
+        "command": {
+          "radius": 0.2,
+          "speed": 0.4,
+          "checkpoint_lower": [
+            0.9256910984784017,
+            0.805737801674389,
+            1.1748194656100286
+          ],
+          "checkpoint_upper": [
+            1.5256910984784018,
+            1.005737801674389,
+            1.3748194656100288
+          ],
+          "direction": "TURN_LEFT_90"
+        },
+        "approval_s": 3.4
+      },
+      {
+        "schema": "northbound_checkpoint_v2",
+        "seed": 12,
+        "speed": 0.6,
+        "height": 1.386688235714856,
+        "initial_x": -0.09320388463807161,
+        "initial_y": -0.06414171791637849,
+        "fence_x": 1.7566853559578859,
+        "deadline_s": 4.2,
+        "command": {
+          "radius": 0.2,
+          "speed": 0.6,
+          "checkpoint_lower": [
+            0.5078524578280936,
+            1.2358582820836215,
+            1.286688235714856
+          ],
+          "checkpoint_upper": [
+            1.1078524578280937,
+            1.4358582820836217,
+            1.486688235714856
+          ],
+          "direction": "TURN_LEFT_90"
+        },
+        "approval_s": 1.8
+      },
+      {
+        "schema": "northbound_checkpoint_v2",
+        "seed": 14,
+        "speed": 0.4,
+        "height": 1.240236666708564,
+        "initial_x": 0.06082179167461646,
+        "initial_y": 0.07202375733051888,
+        "fence_x": 2.202139272462781,
+        "deadline_s": 6.12,
+        "command": {
+          "radius": 0.6,
+          "speed": 0.4,
+          "checkpoint_lower": [
+            1.1882411688254706,
+            1.3720237573305187,
+            1.140236666708564
+          ],
+          "checkpoint_upper": [
+            1.7882411688254707,
+            1.572023757330519,
+            1.3402366667085641
+          ],
+          "direction": "TURN_LEFT_90"
+        },
+        "approval_s": 2.8
+      },
+      {
+        "schema": "northbound_checkpoint_v2",
+        "seed": 15,
+        "speed": 0.8,
+        "height": 1.3539542778340143,
+        "initial_x": -0.04667797266214299,
+        "initial_y": -0.09103236486191624,
+        "fence_x": 2.0249192843715877,
+        "deadline_s": 4.9,
+        "command": {
+          "radius": 0.6,
+          "speed": 0.8,
+          "checkpoint_lower": [
+            0.9377152054702678,
+            2.0089676351380836,
+            1.2539542778340143
+          ],
+          "checkpoint_upper": [
+            1.5377152054702679,
+            2.208967635138084,
+            1.4539542778340144
+          ],
+          "direction": "TURN_LEFT_90"
+        },
+        "approval_s": 1.4
+      },
+      {
+        "schema": "northbound_checkpoint_v2",
+        "seed": 16,
+        "speed": 0.6,
+        "height": 1.2576860363725464,
+        "initial_x": -0.12177785236154264,
+        "initial_y": -0.030384089912800907,
+        "fence_x": 1.999731186019137,
+        "deadline_s": 4.92,
+        "command": {
+          "radius": 0.4,
+          "speed": 0.6,
+          "checkpoint_lower": [
+            0.5349012811894556,
+            1.469615910087199,
+            1.1576860363725463
+          ],
+          "checkpoint_upper": [
+            1.1349012811894557,
+            1.6696159100871992,
+            1.3576860363725465
+          ],
+          "direction": "TURN_LEFT_90"
+        },
+        "approval_s": 1.6
+      },
+      {
+        "schema": "northbound_checkpoint_v2",
+        "seed": 17,
+        "speed": 0.8,
+        "height": 1.1902432727922767,
+        "initial_x": 0.017323364209707648,
+        "initial_y": -0.026384011667145754,
+        "fence_x": 1.7322653277714761,
+        "deadline_s": 4.6,
+        "command": {
+          "radius": 0.6,
+          "speed": 0.8,
+          "checkpoint_lower": [
+            0.9695989764388175,
+            2.0736159883328544,
+            1.0902432727922766
+          ],
+          "checkpoint_upper": [
+            1.5695989764388176,
+            2.2736159883328546,
+            1.2902432727922768
+          ],
+          "direction": "TURN_LEFT_90"
+        },
+        "approval_s": 1.2
+      },
+      {
+        "schema": "northbound_checkpoint_v2",
+        "seed": 18,
+        "speed": 0.8,
+        "height": 1.329353669822054,
+        "initial_x": -0.06575300158919897,
+        "initial_y": -0.08345501640037674,
+        "fence_x": 2.404018317703661,
+        "deadline_s": 4.42,
+        "command": {
+          "radius": 0.4,
+          "speed": 0.8,
+          "checkpoint_lower": [
+            1.239875373901681,
+            1.8165449835996232,
+            1.229353669822054
+          ],
+          "checkpoint_upper": [
+            1.839875373901681,
+            2.016544983599623,
+            1.4293536698220541
+          ],
+          "direction": "TURN_LEFT_90"
+        },
+        "approval_s": 2.0
+      },
+      {
+        "schema": "northbound_checkpoint_v2",
+        "seed": 19,
+        "speed": 0.6,
+        "height": 1.3814673362041758,
+        "initial_x": -0.06783900363051537,
+        "initial_y": -0.08799027917549468,
+        "fence_x": 1.7427044546825965,
+        "deadline_s": 4.82,
+        "command": {
+          "radius": 0.4,
+          "speed": 0.6,
+          "checkpoint_lower": [
+            0.9019913141673574,
+            1.4120097208245053,
+            1.2814673362041757
+          ],
+          "checkpoint_upper": [
+            1.5019913141673575,
+            1.6120097208245054,
+            1.481467336204176
+          ],
+          "direction": "TURN_LEFT_90"
+        },
+        "approval_s": 2.0
+      },
+      {
+        "schema": "northbound_checkpoint_v2",
+        "seed": 20,
+        "speed": 0.8,
+        "height": 1.2652866774507354,
+        "initial_x": -0.11348409222706743,
+        "initial_y": 0.004521670343786505,
+        "fence_x": 1.7956843165471374,
+        "deadline_s": 3.88,
+        "command": {
+          "radius": 0.4,
+          "speed": 0.8,
+          "checkpoint_lower": [
+            0.6407510257248541,
+            1.9045216703437866,
+            1.1652866774507353
+          ],
+          "checkpoint_upper": [
+            1.2407510257248542,
+            2.104521670343787,
+            1.3652866774507355
+          ],
+          "direction": "TURN_LEFT_90"
+        },
+        "approval_s": 1.4
+      },
+      {
+        "schema": "northbound_checkpoint_v2",
+        "seed": 21,
+        "speed": 0.4,
+        "height": 1.3014617573927418,
+        "initial_x": 0.06294035712252755,
+        "initial_y": -0.08218042541555821,
+        "fence_x": 2.1936547729964317,
+        "deadline_s": 5.78,
+        "command": {
+          "radius": 0.6,
+          "speed": 0.4,
+          "checkpoint_lower": [
+            1.4697125946423226,
+            1.2178195745844418,
+            1.2014617573927417
+          ],
+          "checkpoint_upper": [
+            2.0697125946423225,
+            1.417819574584442,
+            1.401461757392742
+          ],
+          "direction": "TURN_LEFT_90"
+        },
+        "approval_s": 3.6
+      }
+    ],
+    "control_hz": 50,
+    "observation_hz": 1000,
+    "snapshot_sha256": {
+      "0": "fa6aec1fd2893eab5d47491884dadd13c4db592a21390db5c2bf1b63a1c9bd19",
+      "1": "e872c8ea0529a703beb9c3c6172110435c3b762f24bf0a943b2143489bca8be5",
+      "2": "990874bf5e2aa58aac811b10f29ac6ea99edd473ff295e12da2072eeefbd4bef",
+      "3": "54ca6340b3982be724587085bc0422e8d0ec76ac13784ee48ef862cec79d1334",
+      "4": "10abd56c4d81c04f9c5a0b5f6af74241fa9eb2a056aa9ab2f9906514525c412a",
+      "6": "a310f4a258a771de3ee4c55919a70610fb5af4d62e0ffdd3c8845cb0c42a2a0c",
+      "7": "f2e9473e3d5373e34ef47a7e7003c558e1df4b5f37e057f8a83e03c6c40b4d21",
+      "8": "d5da19f250572921a0625b420411a6ded52c8efa501a5c6fce8b3aab193f4d73",
+      "9": "91d9c079abd29add0a56fc14ada6ddfc052707777c0a52c1ffc2f5f7b6804ade",
+      "10": "386cb10a318bdd1c8a91e86e6cfd68bcdb4aef5e9ae9d3056b91cc04450ed530",
+      "11": "5e7f9666a41c45ec259664e93e157392baaa0c3224f1d791f548e7d12abbd5d2",
+      "12": "7f51b5d9bf824f1479573f6dc1b6d2fceb63e4408c2c3085afe8bdfa2b927044",
+      "14": "32cd234d6675d90c9ab1342bd6441a61d4f5a11c63c2bec584b2e87fee491751",
+      "15": "94a2029a420a65f92e25eda98d8464d84728d12fb84c656f2727be2879b40997",
+      "16": "4a8138ef6392657c27decfac5a648f6bee0ce0c96cb5de787b17cbc3830b236b",
+      "17": "28cb6f598bf67298ea1dd7179a457df9b3d30b22250fe43fec73bd7a04775d9b",
+      "18": "a10a693f2a1bb0afde75f7ad74d4f154c29420f534edb62c565a668df4027eae",
+      "19": "e3c245fe1216dfff0253683e4c9dd39be11220b693efa835a1c8a5e4ecb76eb4",
+      "20": "ebe880d04689773e485f7ca1b74f387279d164ec10bb4e60be12dfdd0d4418ab",
+      "21": "f9f8b7b2d37cb9057321539c0795d7c0920def0af3d0fa0091e7bdddac8c128f"
+    },
+    "dataset_sha256": "e5d7cf28bcb4f257f499850580c8768f5a23754c01d6f42be1d6364ae344c6a7",
+    "config": {
+      "d_min_m": 0.05,
+      "position_tolerance_m": 0.1,
+      "velocity_tolerance_mps": 0.12,
+      "dwell_s": 0.2,
+      "tracking_limit_m": 0.15,
+      "checkpoint_width_m": 0.6,
+      "checkpoint_north_travel_s": 2.0,
+      "approval_min_s": 0.6,
+      "approval_max_s": 3.2,
+      "approval_grid_s": 0.2,
+      "max_rss_mb": 2048,
+      "min_available_mb": 2048
+    },
+    "prediction_target": "full-flight geofence safety, not completion",
+    "readiness": "assumed available; reject iff waited_steps >= expiry_steps",
+    "violation_time": "first_violation_s is relative to approval; first_violation_flight_s retains source absolute time",
+    "timing": "existing predictor call-to-result timer; one sample per scenario; one numerical-kernel control-step warmup"
+  },
+  "ground_truth": {
+    "status": "passed",
+    "source": "/home/kean/Documents/work/stale-guard/safe-control-gym/examples/staleguard/geofence_turn/support/results/delay_tolerance_20/flights.jsonl",
+    "sha256": "55f08817f901b7a7c044ba00d428198994060d6df810f6ddae6f301dae2949f6",
+    "flights": 380,
+    "new_pybullet_flights": 0,
+    "scientific_source_sha256": {
+      "/home/kean/Documents/work/stale-guard/safe-control-gym/examples/staleguard/geofence_turn/__init__.py": "16ceef2ac9604eab276c2ac8617e7ba39d7357df53754245ac50d2c680a2d42c",
+      "/home/kean/Documents/work/stale-guard/safe-control-gym/examples/staleguard/geofence_turn/scenario.py": "60f2e829adcc3a894f8df55f5e9124223fda542247fdfedc58bcb1277bc13078",
+      "/home/kean/Documents/work/stale-guard/safe-control-gym/examples/staleguard/geofence_turn/simulation.py": "e199ff188bfc10f55c5b62b30fac62557b6a4b943a5030818fb3d89e58df9462",
+      "/home/kean/Documents/work/stale-guard/safe-control-gym/examples/staleguard/geofence_turn/baselines/staleguard.py": "307b846b9dfa97ea093d7c89a2722c62cd745e505e0de999c4e5f17bd9d3e6ce",
+      "/home/kean/Documents/work/stale-guard/safe-control-gym/examples/staleguard/geofence_turn/baselines/use_time_recheck.py": "bd6412ff8b064e3a1458e7fc79a363d4c3fd00842c1fb47372eb3b0464d95741",
+      "/home/kean/Documents/work/stale-guard/safe-control-gym/examples/staleguard/geofence_turn/baselines/fixed_ttl.py": "2901440db2de89015731ee22911c20364734183433f23ba2e082f162b2afd6dd",
+      "/home/kean/Documents/work/stale-guard/safe-control-gym/examples/staleguard/inspection_descent/model/common.py": "8e7d0d615e7977d443a8e22a096849633c2512634e3ff8c123218e533f1cd468",
+      "/home/kean/Documents/work/stale-guard/safe-control-gym/examples/staleguard/inspection_descent/model/lightweight.py": "fa6aa0524cbc01aa326daeb001e74b7f2fd4a83bc62c4022ba20977f873e8ab0",
+      "/home/kean/Documents/work/stale-guard/safe-control-gym/examples/staleguard/inspection_descent/model/scg.py": "9e33d9ab67a4aa8adac596608631ca301f36c85037ee96b0847e08a0c61bc0b7",
+      "/home/kean/Documents/work/stale-guard/safe-control-gym/examples/staleguard/inspection_descent/experiment.py": "6aa20e5411639cad4a927ae9485c1c5001a1b3329670ce79e074f8fab9e6d570",
+      "/home/kean/Documents/work/stale-guard/safe-control-gym/examples/staleguard/inspection_descent/physics_monitor.py": "d7145e53736259b688d321449f6ce1f5b72b3cde4e07620b6c183d996d29cb91",
+      "/home/kean/Documents/work/stale-guard/safe-control-gym/safe_control_gym/controllers/pid/pid.py": "a9de84b6a20554f808f3d107bb2f8aafba59b6afd411813ff53367ce20e3a2cf",
+      "/home/kean/Documents/work/stale-guard/safe-control-gym/safe_control_gym/envs/gym_pybullet_drones/assets/cf2x.urdf": "80d69a1ee55913d074bf62cc1a97d2674641df3187eb360471ce6d6d1ef78142",
+      "/home/kean/Documents/work/stale-guard/safe-control-gym/examples/staleguard/inspection_descent/model/pybullet.py": "4b3efaabd8d67a92b142acb47afc19ef414a11ad803bf1bf8e6a956250299f0e"
+    },
+    "input_sha256": {
+      "/home/kean/Documents/work/stale-guard/safe-control-gym/examples/staleguard/geofence_turn/support/results/delay_tolerance_20/metadata.json": "0f47a3868f47c34d3e50e914603f29dd66ef833bd8c9bf79275442a044946afe",
+      "/home/kean/Documents/work/stale-guard/safe-control-gym/examples/staleguard/geofence_turn/support/results/delay_tolerance_20/protocol.json": "8d1e60aadcae80be61aa57bb25a2344d17c91c8f2249cd0c52f81367f8957a14",
+      "/home/kean/Documents/work/stale-guard/safe-control-gym/examples/staleguard/geofence_turn/support/results/delay_tolerance_20/finished.json": "105f78ed34fb41d9994f58620acce61f96a3b86c7439d46f07e64ac1bab27ac9",
+      "/home/kean/Documents/work/stale-guard/safe-control-gym/examples/staleguard/geofence_turn/support/results/delay_tolerance_20/calibrated_scenarios.json": "6d6dfbb138fa3a6e6eda4a201543a6f10015fb48c05ee23eecefa38c157cfb93",
+      "/home/kean/Documents/work/stale-guard/safe-control-gym/examples/staleguard/geofence_turn/support/logs/provenance.json": "a2655938cc850f74c0d922da5175c2f8a0efb266d0a0ed8b181711e5dc510867"
+    },
+    "checks": [
+      "exact 20 seeds and 19 delays, once each",
+      "identical frozen commands, scenarios and snapshot bytes",
+      "identical scientific source, shared model, PID and UAV body asset",
+      "matching Python, NumPy, platform, configuration and rates",
+      "1000 Hz safety throughout waiting and the entire deadline horizon",
+      "unchanged 50 Hz dispatch, no recovery, and all D=0 safe completions"
+    ],
+    "io_source_note": "Historical calibration/benchmark storage code changed; scientific modules and inputs are independently required to match. Resume requires all current sources to match."
+  },
+  "predictions": {
+    "0": {
+      "results": [
+        {
+          "delay_s": 0.0,
+          "safe": true,
+          "min_clearance_m": 0.15132925983038387
+        },
+        {
+          "delay_s": 0.1,
+          "safe": true,
+          "min_clearance_m": 0.06804952175657412
+        },
+        {
+          "delay_s": 0.2,
+          "safe": false,
+          "min_clearance_m": -0.019190280645150784
+        },
+        {
+          "delay_s": 0.3,
+          "safe": false,
+          "min_clearance_m": -0.08765015340882128
+        },
+        {
+          "delay_s": 0.4,
+          "safe": false,
+          "min_clearance_m": -0.17294487336034164
+        },
+        {
+          "delay_s": 0.5,
+          "safe": false,
+          "min_clearance_m": -0.2567214691136855
+        },
+        {
+          "delay_s": 0.6,
+          "safe": false,
+          "min_clearance_m": -0.3418098688520917
+        },
+        {
+          "delay_s": 0.7,
+          "safe": false,
+          "min_clearance_m": -0.4097718112837439
+        },
+        {
+          "delay_s": 0.8,
+          "safe": false,
+          "min_clearance_m": -0.4966749634448067
+        },
+        {
+          "delay_s": 0.9,
+          "safe": false,
+          "min_clearance_m": -0.5695056308791658
+        },
+        {
+          "delay_s": 1.0,
+          "safe": false,
+          "min_clearance_m": -0.6516881577320658
+        }
+      ],
+      "expiry_steps": 10,
+      "computation_s": 0.045399240974802524,
+      "grid_s": [
+        0.0,
+        0.1,
+        0.2,
+        0.3,
+        0.4,
+        0.5,
+        0.6,
+        0.7,
+        0.8,
+        0.9,
+        1.0
+      ]
+    },
+    "1": {
+      "results": [
+        {
+          "delay_s": 0.0,
+          "safe": true,
+          "min_clearance_m": 0.3414478100331801
+        },
+        {
+          "delay_s": 0.1,
+          "safe": true,
+          "min_clearance_m": 0.2787673029029078
+        },
+        {
+          "delay_s": 0.2,
+          "safe": true,
+          "min_clearance_m": 0.2240004023529895
+        },
+        {
+          "delay_s": 0.3,
+          "safe": true,
+          "min_clearance_m": 0.16396165047250716
+        },
+        {
+          "delay_s": 0.4,
+          "safe": true,
+          "min_clearance_m": 0.09968515350126099
+        },
+        {
+          "delay_s": 0.5,
+          "safe": false,
+          "min_clearance_m": 0.03769138325686876
+        },
+        {
+          "delay_s": 0.6,
+          "safe": false,
+          "min_clearance_m": -0.019643784703742354
+        },
+        {
+          "delay_s": 0.7,
+          "safe": false,
+          "min_clearance_m": -0.08168072162182523
+        },
+        {
+          "delay_s": 0.8,
+          "safe": false,
+          "min_clearance_m": -0.14035622556124344
+        },
+        {
+          "delay_s": 0.9,
+          "safe": false,
+          "min_clearance_m": -0.20137774691548188
+        },
+        {
+          "delay_s": 1.0,
+          "safe": false,
+          "min_clearance_m": -0.25734031591805856
+        }
+      ],
+      "expiry_steps": 25,
+      "computation_s": 0.04831256903707981,
+      "grid_s": [
+        0.0,
+        0.1,
+        0.2,
+        0.3,
+        0.4,
+        0.5,
+        0.6,
+        0.7,
+        0.8,
+        0.9,
+        1.0
+      ]
+    },
+    "2": {
+      "results": [
+        {
+          "delay_s": 0.0,
+          "safe": true,
+          "min_clearance_m": 0.26732649885304344
+        },
+        {
+          "delay_s": 0.1,
+          "safe": true,
+          "min_clearance_m": 0.19178467914395275
+        },
+        {
+          "delay_s": 0.2,
+          "safe": true,
+          "min_clearance_m": 0.10367280085561996
+        },
+        {
+          "delay_s": 0.3,
+          "safe": false,
+          "min_clearance_m": 0.029852161961415755
+        },
+        {
+          "delay_s": 0.4,
+          "safe": false,
+          "min_clearance_m": -0.05323517266202378
+        },
+        {
+          "delay_s": 0.5,
+          "safe": false,
+          "min_clearance_m": -0.13087724030289222
+        },
+        {
+          "delay_s": 0.6,
+          "safe": false,
+          "min_clearance_m": -0.21541509720961033
+        },
+        {
+          "delay_s": 0.7,
+          "safe": false,
+          "min_clearance_m": -0.28985766925924766
+        },
+        {
+          "delay_s": 0.8,
+          "safe": false,
+          "min_clearance_m": -0.36421789642346664
+        },
+        {
+          "delay_s": 0.9,
+          "safe": false,
+          "min_clearance_m": -0.44294880522444885
+        },
+        {
+          "delay_s": 1.0,
+          "safe": false,
+          "min_clearance_m": -0.5282950449137719
+        }
+      ],
+      "expiry_steps": 15,
+      "computation_s": 0.033377252984791994,
+      "grid_s": [
+        0.0,
+        0.1,
+        0.2,
+        0.3,
+        0.4,
+        0.5,
+        0.6,
+        0.7,
+        0.8,
+        0.9,
+        1.0
+      ]
+    },
+    "3": {
+      "results": [
+        {
+          "delay_s": 0.0,
+          "safe": true,
+          "min_clearance_m": 0.08231516066152082
+        },
+        {
+          "delay_s": 0.1,
+          "safe": false,
+          "min_clearance_m": 0.0024686274328501873
+        },
+        {
+          "delay_s": 0.2,
+          "safe": false,
+          "min_clearance_m": -0.0791687050342605
+        },
+        {
+          "delay_s": 0.3,
+          "safe": false,
+          "min_clearance_m": -0.15484444891693477
+        },
+        {
+          "delay_s": 0.4,
+          "safe": false,
+          "min_clearance_m": -0.23033911043249994
+        },
+        {
+          "delay_s": 0.5,
+          "safe": false,
+          "min_clearance_m": -0.31627333619231585
+        },
+        {
+          "delay_s": 0.6,
+          "safe": false,
+          "min_clearance_m": -0.39815380542678197
+        },
+        {
+          "delay_s": 0.7,
+          "safe": false,
+          "min_clearance_m": -0.4810549211352129
+        },
+        {
+          "delay_s": 0.8,
+          "safe": false,
+          "min_clearance_m": -0.560824255450502
+        },
+        {
+          "delay_s": 0.9,
+          "safe": false,
+          "min_clearance_m": -0.6424701712586743
+        },
+        {
+          "delay_s": 1.0,
+          "safe": false,
+          "min_clearance_m": -0.7154475738391818
+        }
+      ],
+      "expiry_steps": 5,
+      "computation_s": 0.03618821798590943,
+      "grid_s": [
+        0.0,
+        0.1,
+        0.2,
+        0.3,
+        0.4,
+        0.5,
+        0.6,
+        0.7,
+        0.8,
+        0.9,
+        1.0
+      ]
+    },
+    "4": {
+      "results": [
+        {
+          "delay_s": 0.0,
+          "safe": true,
+          "min_clearance_m": 0.4228328085988066
+        },
+        {
+          "delay_s": 0.1,
+          "safe": true,
+          "min_clearance_m": 0.34139876137076625
+        },
+        {
+          "delay_s": 0.2,
+          "safe": true,
+          "min_clearance_m": 0.2559042204381842
+        },
+        {
+          "delay_s": 0.3,
+          "safe": true,
+          "min_clearance_m": 0.18605423393760473
+        },
+        {
+          "delay_s": 0.4,
+          "safe": true,
+          "min_clearance_m": 0.09724912952509739
+        },
+        {
+          "delay_s": 0.5,
+          "safe": false,
+          "min_clearance_m": 0.029212824473731233
+        },
+        {
+          "delay_s": 0.6,
+          "safe": false,
+          "min_clearance_m": -0.05724711742499318
+        },
+        {
+          "delay_s": 0.7,
+          "safe": false,
+          "min_clearance_m": -0.14472765965702733
+        },
+        {
+          "delay_s": 0.8,
+          "safe": false,
+          "min_clearance_m": -0.21569145940706141
+        },
+        {
+          "delay_s": 0.9,
+          "safe": false,
+          "min_clearance_m": -0.2977061832537183
+        },
+        {
+          "delay_s": 1.0,
+          "safe": false,
+          "min_clearance_m": -0.3755738052873672
+        }
+      ],
+      "expiry_steps": 25,
+      "computation_s": 0.043551590002607554,
+      "grid_s": [
+        0.0,
+        0.1,
+        0.2,
+        0.3,
+        0.4,
+        0.5,
+        0.6,
+        0.7,
+        0.8,
+        0.9,
+        1.0
+      ]
+    },
+    "6": {
+      "results": [
+        {
+          "delay_s": 0.0,
+          "safe": true,
+          "min_clearance_m": 0.40640063612252114
+        },
+        {
+          "delay_s": 0.1,
+          "safe": true,
+          "min_clearance_m": 0.34155853806252384
+        },
+        {
+          "delay_s": 0.2,
+          "safe": true,
+          "min_clearance_m": 0.2964010861010959
+        },
+        {
+          "delay_s": 0.3,
+          "safe": true,
+          "min_clearance_m": 0.2307897916462433
+        },
+        {
+          "delay_s": 0.4,
+          "safe": true,
+          "min_clearance_m": 0.1728366923692563
+        },
+        {
+          "delay_s": 0.5,
+          "safe": true,
+          "min_clearance_m": 0.12059627070086869
+        },
+        {
+          "delay_s": 0.6,
+          "safe": true,
+          "min_clearance_m": 0.05352895424058339
+        },
+        {
+          "delay_s": 0.7,
+          "safe": false,
+          "min_clearance_m": -0.0036558673345426645
+        },
+        {
+          "delay_s": 0.8,
+          "safe": false,
+          "min_clearance_m": -0.06783254874396023
+        },
+        {
+          "delay_s": 0.9,
+          "safe": false,
+          "min_clearance_m": -0.11690009414244835
+        },
+        {
+          "delay_s": 1.0,
+          "safe": false,
+          "min_clearance_m": -0.1868145836315112
+        }
+      ],
+      "expiry_steps": 35,
+      "computation_s": 0.04426202498143539,
+      "grid_s": [
+        0.0,
+        0.1,
+        0.2,
+        0.3,
+        0.4,
+        0.5,
+        0.6,
+        0.7,
+        0.8,
+        0.9,
+        1.0
+      ]
+    },
+    "7": {
+      "results": [
+        {
+          "delay_s": 0.0,
+          "safe": true,
+          "min_clearance_m": 0.120203668156781
+        },
+        {
+          "delay_s": 0.1,
+          "safe": false,
+          "min_clearance_m": 0.03202454180190133
+        },
+        {
+          "delay_s": 0.2,
+          "safe": false,
+          "min_clearance_m": -0.05374478324740768
+        },
+        {
+          "delay_s": 0.3,
+          "safe": false,
+          "min_clearance_m": -0.12371770587153604
+        },
+        {
+          "delay_s": 0.4,
+          "safe": false,
+          "min_clearance_m": -0.20460561615116074
+        },
+        {
+          "delay_s": 0.5,
+          "safe": false,
+          "min_clearance_m": -0.2832281267244841
+        },
+        {
+          "delay_s": 0.6,
+          "safe": false,
+          "min_clearance_m": -0.3649659469035554
+        },
+        {
+          "delay_s": 0.7,
+          "safe": false,
+          "min_clearance_m": -0.44377790489537233
+        },
+        {
+          "delay_s": 0.8,
+          "safe": false,
+          "min_clearance_m": -0.5211318075405048
+        },
+        {
+          "delay_s": 0.9,
+          "safe": false,
+          "min_clearance_m": -0.6035814367817883
+        },
+        {
+          "delay_s": 1.0,
+          "safe": false,
+          "min_clearance_m": -0.6803431495842719
+        }
+      ],
+      "expiry_steps": 5,
+      "computation_s": 0.04236994398524985,
+      "grid_s": [
+        0.0,
+        0.1,
+        0.2,
+        0.3,
+        0.4,
+        0.5,
+        0.6,
+        0.7,
+        0.8,
+        0.9,
+        1.0
+      ]
+    },
+    "8": {
+      "results": [
+        {
+          "delay_s": 0.0,
+          "safe": true,
+          "min_clearance_m": 0.5416613790531905
+        },
+        {
+          "delay_s": 0.1,
+          "safe": true,
+          "min_clearance_m": 0.4633534289770784
+        },
+        {
+          "delay_s": 0.2,
+          "safe": true,
+          "min_clearance_m": 0.37755097496584783
+        },
+        {
+          "delay_s": 0.3,
+          "safe": true,
+          "min_clearance_m": 0.29685144880460007
+        },
+        {
+          "delay_s": 0.4,
+          "safe": true,
+          "min_clearance_m": 0.2193380615061708
+        },
+        {
+          "delay_s": 0.5,
+          "safe": true,
+          "min_clearance_m": 0.13594491689467375
+        },
+        {
+          "delay_s": 0.6,
+          "safe": true,
+          "min_clearance_m": 0.052109872806407706
+        },
+        {
+          "delay_s": 0.7,
+          "safe": false,
+          "min_clearance_m": -0.020569642247495315
+        },
+        {
+          "delay_s": 0.8,
+          "safe": false,
+          "min_clearance_m": -0.10516475715288383
+        },
+        {
+          "delay_s": 0.9,
+          "safe": false,
+          "min_clearance_m": -0.17835596729982323
+        },
+        {
+          "delay_s": 1.0,
+          "safe": false,
+          "min_clearance_m": -0.25834871282245025
+        }
+      ],
+      "expiry_steps": 35,
+      "computation_s": 0.0407419609837234,
+      "grid_s": [
+        0.0,
+        0.1,
+        0.2,
+        0.3,
+        0.4,
+        0.5,
+        0.6,
+        0.7,
+        0.8,
+        0.9,
+        1.0
+      ]
+    },
+    "9": {
+      "results": [
+        {
+          "delay_s": 0.0,
+          "safe": true,
+          "min_clearance_m": 0.0705149944512921
+        },
+        {
+          "delay_s": 0.1,
+          "safe": false,
+          "min_clearance_m": 0.00772757245494253
+        },
+        {
+          "delay_s": 0.2,
+          "safe": false,
+          "min_clearance_m": -0.046106984387013286
+        },
+        {
+          "delay_s": 0.3,
+          "safe": false,
+          "min_clearance_m": -0.09509179519959339
+        },
+        {
+          "delay_s": 0.4,
+          "safe": false,
+          "min_clearance_m": -0.16908293776918853
+        },
+        {
+          "delay_s": 0.5,
+          "safe": false,
+          "min_clearance_m": -0.2261569270690616
+        },
+        {
+          "delay_s": 0.6,
+          "safe": false,
+          "min_clearance_m": -0.2817710979914288
+        },
+        {
+          "delay_s": 0.7,
+          "safe": false,
+          "min_clearance_m": -0.3399739480722009
+        },
+        {
+          "delay_s": 0.8,
+          "safe": false,
+          "min_clearance_m": -0.4097675301849764
+        },
+        {
+          "delay_s": 0.9,
+          "safe": false,
+          "min_clearance_m": -0.4588364538435817
+        },
+        {
+          "delay_s": 1.0,
+          "safe": false,
+          "min_clearance_m": -0.5135279012410182
+        }
+      ],
+      "expiry_steps": 5,
+      "computation_s": 0.04909182799747214,
+      "grid_s": [
+        0.0,
+        0.1,
+        0.2,
+        0.3,
+        0.4,
+        0.5,
+        0.6,
+        0.7,
+        0.8,
+        0.9,
+        1.0
+      ]
+    },
+    "10": {
+      "results": [
+        {
+          "delay_s": 0.0,
+          "safe": true,
+          "min_clearance_m": 0.49573636707289576
+        },
+        {
+          "delay_s": 0.1,
+          "safe": true,
+          "min_clearance_m": 0.40980738163693736
+        },
+        {
+          "delay_s": 0.2,
+          "safe": true,
+          "min_clearance_m": 0.3276058868532565
+        },
+        {
+          "delay_s": 0.3,
+          "safe": true,
+          "min_clearance_m": 0.2494424421935812
+        },
+        {
+          "delay_s": 0.4,
+          "safe": true,
+          "min_clearance_m": 0.1624684292304756
+        },
+        {
+          "delay_s": 0.5,
+          "safe": true,
+          "min_clearance_m": 0.08289840963808286
+        },
+        {
+          "delay_s": 0.6,
+          "safe": false,
+          "min_clearance_m": 0.015691732559124302
+        },
+        {
+          "delay_s": 0.7,
+          "safe": false,
+          "min_clearance_m": -0.07349707733941198
+        },
+        {
+          "delay_s": 0.8,
+          "safe": false,
+          "min_clearance_m": -0.15656766712913722
+        },
+        {
+          "delay_s": 0.9,
+          "safe": false,
+          "min_clearance_m": -0.2313133924293767
+        },
+        {
+          "delay_s": 1.0,
+          "safe": false,
+          "min_clearance_m": -0.31223415017255146
+        }
+      ],
+      "expiry_steps": 30,
+      "computation_s": 0.041309435036964715,
+      "grid_s": [
+        0.0,
+        0.1,
+        0.2,
+        0.3,
+        0.4,
+        0.5,
+        0.6,
+        0.7,
+        0.8,
+        0.9,
+        1.0
+      ]
+    },
+    "11": {
+      "results": [
+        {
+          "delay_s": 0.0,
+          "safe": true,
+          "min_clearance_m": 0.06199905043538283
+        },
+        {
+          "delay_s": 0.1,
+          "safe": false,
+          "min_clearance_m": 0.018481228813931258
+        },
+        {
+          "delay_s": 0.2,
+          "safe": false,
+          "min_clearance_m": -0.016818794214780677
+        },
+        {
+          "delay_s": 0.3,
+          "safe": false,
+          "min_clearance_m": -0.058085400930817446
+        },
+        {
+          "delay_s": 0.4,
+          "safe": false,
+          "min_clearance_m": -0.09356601552553563
+        },
+        {
+          "delay_s": 0.5,
+          "safe": false,
+          "min_clearance_m": -0.1346891770577286
+        },
+        {
+          "delay_s": 0.6,
+          "safe": false,
+          "min_clearance_m": -0.18015671301164088
+        },
+        {
+          "delay_s": 0.7,
+          "safe": false,
+          "min_clearance_m": -0.22038819452318298
+        },
+        {
+          "delay_s": 0.8,
+          "safe": false,
+          "min_clearance_m": -0.2552976177860116
+        },
+        {
+          "delay_s": 0.9,
+          "safe": false,
+          "min_clearance_m": -0.30315480172796067
+        },
+        {
+          "delay_s": 1.0,
+          "safe": false,
+          "min_clearance_m": -0.3385745278926902
+        }
+      ],
+      "expiry_steps": 5,
+      "computation_s": 0.03238910099025816,
+      "grid_s": [
+        0.0,
+        0.1,
+        0.2,
+        0.3,
+        0.4,
+        0.5,
+        0.6,
+        0.7,
+        0.8,
+        0.9,
+        1.0
+      ]
+    },
+    "12": {
+      "results": [
+        {
+          "delay_s": 0.0,
+          "safe": true,
+          "min_clearance_m": 0.5421419193316269
+        },
+        {
+          "delay_s": 0.1,
+          "safe": true,
+          "min_clearance_m": 0.4825236103344958
+        },
+        {
+          "delay_s": 0.2,
+          "safe": true,
+          "min_clearance_m": 0.42480205950606614
+        },
+        {
+          "delay_s": 0.3,
+          "safe": true,
+          "min_clearance_m": 0.3585690062993567
+        },
+        {
+          "delay_s": 0.4,
+          "safe": true,
+          "min_clearance_m": 0.2996520920052334
+        },
+        {
+          "delay_s": 0.5,
+          "safe": true,
+          "min_clearance_m": 0.24082790663153258
+        },
+        {
+          "delay_s": 0.6,
+          "safe": true,
+          "min_clearance_m": 0.1779310578845656
+        },
+        {
+          "delay_s": 0.7,
+          "safe": true,
+          "min_clearance_m": 0.12984541834823843
+        },
+        {
+          "delay_s": 0.8,
+          "safe": true,
+          "min_clearance_m": 0.06734105522230431
+        },
+        {
+          "delay_s": 0.9,
+          "safe": false,
+          "min_clearance_m": 0.008320840723428244
+        },
+        {
+          "delay_s": 1.0,
+          "safe": false,
+          "min_clearance_m": -0.060559971278511496
+        }
+      ],
+      "expiry_steps": 45,
+      "computation_s": 0.04347967199282721,
+      "grid_s": [
+        0.0,
+        0.1,
+        0.2,
+        0.3,
+        0.4,
+        0.5,
+        0.6,
+        0.7,
+        0.8,
+        0.9,
+        1.0
+      ]
+    },
+    "14": {
+      "results": [
+        {
+          "delay_s": 0.0,
+          "safe": true,
+          "min_clearance_m": 0.4230350247743992
+        },
+        {
+          "delay_s": 0.1,
+          "safe": true,
+          "min_clearance_m": 0.38049864604015887
+        },
+        {
+          "delay_s": 0.2,
+          "safe": true,
+          "min_clearance_m": 0.3474030130152543
+        },
+        {
+          "delay_s": 0.3,
+          "safe": true,
+          "min_clearance_m": 0.30632003427715676
+        },
+        {
+          "delay_s": 0.4,
+          "safe": true,
+          "min_clearance_m": 0.2537994224432482
+        },
+        {
+          "delay_s": 0.5,
+          "safe": true,
+          "min_clearance_m": 0.2135128095406164
+        },
+        {
+          "delay_s": 0.6,
+          "safe": true,
+          "min_clearance_m": 0.17893828018503583
+        },
+        {
+          "delay_s": 0.7,
+          "safe": true,
+          "min_clearance_m": 0.14055042825420688
+        },
+        {
+          "delay_s": 0.8,
+          "safe": true,
+          "min_clearance_m": 0.09891592122141095
+        },
+        {
+          "delay_s": 0.9,
+          "safe": true,
+          "min_clearance_m": 0.05815728891628995
+        },
+        {
+          "delay_s": 1.0,
+          "safe": false,
+          "min_clearance_m": 0.028761357237630777
+        }
+      ],
+      "expiry_steps": 50,
+      "computation_s": 0.056450082978699356,
+      "grid_s": [
+        0.0,
+        0.1,
+        0.2,
+        0.3,
+        0.4,
+        0.5,
+        0.6,
+        0.7,
+        0.8,
+        0.9,
+        1.0
+      ]
+    },
+    "15": {
+      "results": [
+        {
+          "delay_s": 0.0,
+          "safe": true,
+          "min_clearance_m": 0.39068014032302506
+        },
+        {
+          "delay_s": 0.1,
+          "safe": true,
+          "min_clearance_m": 0.3040469765249351
+        },
+        {
+          "delay_s": 0.2,
+          "safe": true,
+          "min_clearance_m": 0.22394737077881038
+        },
+        {
+          "delay_s": 0.3,
+          "safe": true,
+          "min_clearance_m": 0.14528380551925085
+        },
+        {
+          "delay_s": 0.4,
+          "safe": true,
+          "min_clearance_m": 0.05811753254316791
+        },
+        {
+          "delay_s": 0.5,
+          "safe": false,
+          "min_clearance_m": -0.010324365127693927
+        },
+        {
+          "delay_s": 0.6,
+          "safe": false,
+          "min_clearance_m": -0.0894071010065028
+        },
+        {
+          "delay_s": 0.7,
+          "safe": false,
+          "min_clearance_m": -0.1718345715496437
+        },
+        {
+          "delay_s": 0.8,
+          "safe": false,
+          "min_clearance_m": -0.2471690540920251
+        },
+        {
+          "delay_s": 0.9,
+          "safe": false,
+          "min_clearance_m": -0.3372916058182725
+        },
+        {
+          "delay_s": 1.0,
+          "safe": false,
+          "min_clearance_m": -0.40936711611825777
+        }
+      ],
+      "expiry_steps": 25,
+      "computation_s": 0.04180144099518657,
+      "grid_s": [
+        0.0,
+        0.1,
+        0.2,
+        0.3,
+        0.4,
+        0.5,
+        0.6,
+        0.7,
+        0.8,
+        0.9,
+        1.0
+      ]
+    },
+    "16": {
+      "results": [
+        {
+          "delay_s": 0.0,
+          "safe": true,
+          "min_clearance_m": 0.7596337346083656
+        },
+        {
+          "delay_s": 0.1,
+          "safe": true,
+          "min_clearance_m": 0.7118833322791628
+        },
+        {
+          "delay_s": 0.2,
+          "safe": true,
+          "min_clearance_m": 0.6515526595943809
+        },
+        {
+          "delay_s": 0.3,
+          "safe": true,
+          "min_clearance_m": 0.5842785050686997
+        },
+        {
+          "delay_s": 0.4,
+          "safe": true,
+          "min_clearance_m": 0.5295304732175355
+        },
+        {
+          "delay_s": 0.5,
+          "safe": true,
+          "min_clearance_m": 0.4598423925594705
+        },
+        {
+          "delay_s": 0.6,
+          "safe": true,
+          "min_clearance_m": 0.4067665745980011
+        },
+        {
+          "delay_s": 0.7,
+          "safe": true,
+          "min_clearance_m": 0.34582322505318913
+        },
+        {
+          "delay_s": 0.8,
+          "safe": true,
+          "min_clearance_m": 0.29008472405991664
+        },
+        {
+          "delay_s": 0.9,
+          "safe": true,
+          "min_clearance_m": 0.21947044755232298
+        },
+        {
+          "delay_s": 1.0,
+          "safe": true,
+          "min_clearance_m": 0.16499702917129272
+        }
+      ],
+      "expiry_steps": null,
+      "computation_s": 0.049010408052708954,
+      "grid_s": [
+        0.0,
+        0.1,
+        0.2,
+        0.3,
+        0.4,
+        0.5,
+        0.6,
+        0.7,
+        0.8,
+        0.9,
+        1.0
+      ]
+    },
+    "17": {
+      "results": [
+        {
+          "delay_s": 0.0,
+          "safe": true,
+          "min_clearance_m": 0.19748842060497934
+        },
+        {
+          "delay_s": 0.1,
+          "safe": true,
+          "min_clearance_m": 0.10950230696254797
+        },
+        {
+          "delay_s": 0.2,
+          "safe": false,
+          "min_clearance_m": 0.033020147079046255
+        },
+        {
+          "delay_s": 0.3,
+          "safe": false,
+          "min_clearance_m": -0.047713016863743254
+        },
+        {
+          "delay_s": 0.4,
+          "safe": false,
+          "min_clearance_m": -0.1300496830963887
+        },
+        {
+          "delay_s": 0.5,
+          "safe": false,
+          "min_clearance_m": -0.20931318900468626
+        },
+        {
+          "delay_s": 0.6,
+          "safe": false,
+          "min_clearance_m": -0.29349970929459485
+        },
+        {
+          "delay_s": 0.7,
+          "safe": false,
+          "min_clearance_m": -0.3725599061967447
+        },
+        {
+          "delay_s": 0.8,
+          "safe": false,
+          "min_clearance_m": -0.4441030643760087
+        },
+        {
+          "delay_s": 0.9,
+          "safe": false,
+          "min_clearance_m": -0.5257947045606418
+        },
+        {
+          "delay_s": 1.0,
+          "safe": false,
+          "min_clearance_m": -0.6004439930293711
+        }
+      ],
+      "expiry_steps": 10,
+      "computation_s": 0.03999347798526287,
+      "grid_s": [
+        0.0,
+        0.1,
+        0.2,
+        0.3,
+        0.4,
+        0.5,
+        0.6,
+        0.7,
+        0.8,
+        0.9,
+        1.0
+      ]
+    },
+    "18": {
+      "results": [
+        {
+          "delay_s": 0.0,
+          "safe": true,
+          "min_clearance_m": 0.4734987142257427
+        },
+        {
+          "delay_s": 0.1,
+          "safe": true,
+          "min_clearance_m": 0.3942307618760565
+        },
+        {
+          "delay_s": 0.2,
+          "safe": true,
+          "min_clearance_m": 0.31587206027013565
+        },
+        {
+          "delay_s": 0.3,
+          "safe": true,
+          "min_clearance_m": 0.23686239619934207
+        },
+        {
+          "delay_s": 0.4,
+          "safe": true,
+          "min_clearance_m": 0.16118785882458025
+        },
+        {
+          "delay_s": 0.5,
+          "safe": true,
+          "min_clearance_m": 0.07709891550730134
+        },
+        {
+          "delay_s": 0.6,
+          "safe": false,
+          "min_clearance_m": -0.004522346637359023
+        },
+        {
+          "delay_s": 0.7,
+          "safe": false,
+          "min_clearance_m": -0.0758164357602263
+        },
+        {
+          "delay_s": 0.8,
+          "safe": false,
+          "min_clearance_m": -0.1693310663827497
+        },
+        {
+          "delay_s": 0.9,
+          "safe": false,
+          "min_clearance_m": -0.24032878529141538
+        },
+        {
+          "delay_s": 1.0,
+          "safe": false,
+          "min_clearance_m": -0.3180854614756861
+        }
+      ],
+      "expiry_steps": 30,
+      "computation_s": 0.04144907800946385,
+      "grid_s": [
+        0.0,
+        0.1,
+        0.2,
+        0.3,
+        0.4,
+        0.5,
+        0.6,
+        0.7,
+        0.8,
+        0.9,
+        1.0
+      ]
+    },
+    "19": {
+      "results": [
+        {
+          "delay_s": 0.0,
+          "safe": true,
+          "min_clearance_m": 0.21841811855828358
+        },
+        {
+          "delay_s": 0.1,
+          "safe": true,
+          "min_clearance_m": 0.15739697492121513
+        },
+        {
+          "delay_s": 0.2,
+          "safe": true,
+          "min_clearance_m": 0.10144442182694473
+        },
+        {
+          "delay_s": 0.3,
+          "safe": false,
+          "min_clearance_m": 0.03265626365499423
+        },
+        {
+          "delay_s": 0.4,
+          "safe": false,
+          "min_clearance_m": -0.028268713486185718
+        },
+        {
+          "delay_s": 0.5,
+          "safe": false,
+          "min_clearance_m": -0.08674963312621482
+        },
+        {
+          "delay_s": 0.6,
+          "safe": false,
+          "min_clearance_m": -0.13951477735355394
+        },
+        {
+          "delay_s": 0.7,
+          "safe": false,
+          "min_clearance_m": -0.20468556718531233
+        },
+        {
+          "delay_s": 0.8,
+          "safe": false,
+          "min_clearance_m": -0.2615628175026748
+        },
+        {
+          "delay_s": 0.9,
+          "safe": false,
+          "min_clearance_m": -0.3192834911068972
+        },
+        {
+          "delay_s": 1.0,
+          "safe": false,
+          "min_clearance_m": -0.3774394512472166
+        }
+      ],
+      "expiry_steps": 15,
+      "computation_s": 0.043757601000834256,
+      "grid_s": [
+        0.0,
+        0.1,
+        0.2,
+        0.3,
+        0.4,
+        0.5,
+        0.6,
+        0.7,
+        0.8,
+        0.9,
+        1.0
+      ]
+    },
+    "20": {
+      "results": [
+        {
+          "delay_s": 0.0,
+          "safe": true,
+          "min_clearance_m": 0.3973572025233096
+        },
+        {
+          "delay_s": 0.1,
+          "safe": true,
+          "min_clearance_m": 0.3175170486416971
+        },
+        {
+          "delay_s": 0.2,
+          "safe": true,
+          "min_clearance_m": 0.23619142129663068
+        },
+        {
+          "delay_s": 0.3,
+          "safe": true,
+          "min_clearance_m": 0.16239969590191067
+        },
+        {
+          "delay_s": 0.4,
+          "safe": true,
+          "min_clearance_m": 0.07229851476173936
+        },
+        {
+          "delay_s": 0.5,
+          "safe": false,
+          "min_clearance_m": -0.00309407000658031
+        },
+        {
+          "delay_s": 0.6,
+          "safe": false,
+          "min_clearance_m": -0.0842488017305781
+        },
+        {
+          "delay_s": 0.7,
+          "safe": false,
+          "min_clearance_m": -0.16389445725207358
+        },
+        {
+          "delay_s": 0.8,
+          "safe": false,
+          "min_clearance_m": -0.24601132810797682
+        },
+        {
+          "delay_s": 0.9,
+          "safe": false,
+          "min_clearance_m": -0.32398654912555985
+        },
+        {
+          "delay_s": 1.0,
+          "safe": false,
+          "min_clearance_m": -0.4063900047458829
+        }
+      ],
+      "expiry_steps": 25,
+      "computation_s": 0.038007766008377075,
+      "grid_s": [
+        0.0,
+        0.1,
+        0.2,
+        0.3,
+        0.4,
+        0.5,
+        0.6,
+        0.7,
+        0.8,
+        0.9,
+        1.0
+      ]
+    },
+    "21": {
+      "results": [
+        {
+          "delay_s": 0.0,
+          "safe": true,
+          "min_clearance_m": 0.085630177064885
+        },
+        {
+          "delay_s": 0.1,
+          "safe": true,
+          "min_clearance_m": 0.05552239125444196
+        },
+        {
+          "delay_s": 0.2,
+          "safe": false,
+          "min_clearance_m": 0.012054883992409435
+        },
+        {
+          "delay_s": 0.3,
+          "safe": false,
+          "min_clearance_m": -0.03134203956989941
+        },
+        {
+          "delay_s": 0.4,
+          "safe": false,
+          "min_clearance_m": -0.07505411264086044
+        },
+        {
+          "delay_s": 0.5,
+          "safe": false,
+          "min_clearance_m": -0.11072286934096327
+        },
+        {
+          "delay_s": 0.6,
+          "safe": false,
+          "min_clearance_m": -0.15287832170611854
+        },
+        {
+          "delay_s": 0.7,
+          "safe": false,
+          "min_clearance_m": -0.19212924173659301
+        },
+        {
+          "delay_s": 0.8,
+          "safe": false,
+          "min_clearance_m": -0.2387232841946721
+        },
+        {
+          "delay_s": 0.9,
+          "safe": false,
+          "min_clearance_m": -0.27390732717712624
+        },
+        {
+          "delay_s": 1.0,
+          "safe": false,
+          "min_clearance_m": -0.3023530795735985
+        }
+      ],
+      "expiry_steps": 10,
+      "computation_s": 0.06148677703458816,
+      "grid_s": [
+        0.0,
+        0.1,
+        0.2,
+        0.3,
+        0.4,
+        0.5,
+        0.6,
+        0.7,
+        0.8,
+        0.9,
+        1.0
+      ]
+    }
+  },
+  "sessions": [
+    {
+      "started_utc": "2026-10-24T23:42:11Z",
+      "prediction_calls": 0,
+      "warmup_model_steps": 1,
+      "elapsed_s": 1.9373898269841447
+    },
+    {
+      "started_utc": "2026-10-24T23:45:14Z",
+      "prediction_calls": 0,
+      "warmup_model_steps": 1,
+      "elapsed_s": 1.867433296982199
+    },
+    {
+      "started_utc": "2026-10-24T23:47:02Z",
+      "prediction_calls": 0,
+      "warmup_model_steps": 1,
+      "elapsed_s": 1.5981639100355096
+    },
+    {
+      "started_utc": "2026-10-24T23:48:03Z",
+      "prediction_calls": 0,
+      "warmup_model_steps": 0,
+      "elapsed_s": 0.025023332971613854
+    },
+    {
+      "started_utc": "2026-10-24T23:49:03Z",
+      "prediction_calls": 0,
+      "warmup_model_steps": 0,
+      "elapsed_s": 0.02603163104504347
+    },
+    {
+      "started_utc": "2026-10-24T23:50:03Z",
+      "prediction_calls": 0,
+      "warmup_model_steps": 0,
+      "elapsed_s": 0.0281542869633995
+    },
+    {
+      "started_utc": "2026-10-25T00:08:18Z",
+      "prediction_calls": 20,
+      "warmup_model_steps": 1,
+      "elapsed_s": 4.507231569034047,
+      "final_rss_mb": 681.92578125,
+      "available_mb": 5701.76171875
+    },
+    {
+      "started_utc": "2026-10-25T00:10:01Z",
+      "prediction_calls": 0,
+      "warmup_model_steps": 0,
+      "elapsed_s": 0.04376468696864322,
+      "final_rss_mb": 98.34375,
+      "available_mb": 6168.76171875
+    }
+  ],
+  "status": "complete",
+  "journal_bytes": 173875,
+  "journal_sha256": "cf17313657c213d3d7ddacca86be8d2dec212633f185b67b16ec6230874532c2",
+  "completed_comparisons": 380,
+  "cached_forecasts": 20,
+  "validation": {
+    "unique_comparisons": 380,
+    "scenarios": 20,
+    "dispatch_delays": 19,
+    "cached_forecasts": 20,
+    "raw_tests": 220,
+    "ttl_tests": 380,
+    "new_ground_truth_flights": 0,
+    "confusion_invariants": "passed",
+    "algorithms_and_grid_unchanged": true,
+    "ground_truth_unchanged": true,
+    "focused_ttl_tests_passed": 6,
+    "metrics_reproduced_from_journal": true,
+    "completed_run_resume_preserves_journal_metrics_and_forecasts": true,
+    "no_duplicate_records": true,
+    "recorded_outcomes_match_ground_truth": true,
+    "raw_off_grid_nulls": 160,
+    "ttl_false_safe_on_prediction_grid": 0,
+    "ttl_false_safe_between_prediction_grid_points": 15,
+    "actual_measured_prediction_calls": 20,
+    "historical_artifacts_unchanged": true,
+    "cached_forecast_profiles_match_previous_scientific_results": true
+  },
+  "report_markdown": "The accuracy experiment compares approval-time forecasts with 380 saved actual PyBullet flights; no new ground-truth flights were run. The UAV patrols east, then makes its frozen left turn and flies north. Waiting shifts the turn east and can make it unsafe. Direct model predictions were correct in 220/220 comparisons; the TTL dispatch rule was correct in 365/380, with 15 unsafe turns permitted and 0 safe turns rejected. These development measurements distinguish model errors from using a coarse expiry grid. The implementation is ready to measure an independent frozen dataset, but these results do not establish generalization or justify changing the predictor. No parameters were tuned.\n\n## Overall accuracy\n\n| Measurement | Tests | Accuracy | False-safe | False-rejection |\n|---|---:|---:|---:|---:|\n| Raw prediction | 220 | 1.000 | 0 | 0 |\n| TTL dispatch decision | 380 | 0.961 | 15 | 0 |\n\nSAFE means at least 5 cm body clearance throughout the entire flight, including waiting and after checkpoint passage. Completion also requires reaching the fixed checkpoint at the required velocity for the required dwell before the deadline; it is context, not the prediction target. Readiness and recovery are outside this experiment.\n\n## Per-delay accuracy\n\nRaw columns are unobserved where the original predictor did not evaluate that delay. Each TTL row contains 20 comparisons.\n\n| D (s) | Raw correct / tests | Raw false-safe / rejection | TTL correct / tests | TTL false-safe / rejection | Actual safe completion | Actual unsafe |\n|---:|---:|---:|---:|---:|---:|---:|\n| 0.00 | 20/20 | 0 / 0 | 20/20 | 0 / 0 | 20/20 | 0/20 |\n| 0.02 | unobserved | unobserved | 20/20 | 0 / 0 | 16/20 | 0/20 |\n| 0.04 | unobserved | unobserved | 18/20 | 2 / 0 | 13/20 | 2/20 |\n| 0.06 | unobserved | unobserved | 17/20 | 3 / 0 | 12/20 | 3/20 |\n| 0.08 | unobserved | unobserved | 17/20 | 3 / 0 | 11/20 | 3/20 |\n| 0.10 | 20/20 | 0 / 0 | 20/20 | 0 / 0 | 9/20 | 4/20 |\n| 0.12 | unobserved | unobserved | 20/20 | 0 / 0 | 8/20 | 4/20 |\n| 0.14 | unobserved | unobserved | 18/20 | 2 / 0 | 6/20 | 6/20 |\n| 0.16 | unobserved | unobserved | 18/20 | 2 / 0 | 4/20 | 6/20 |\n| 0.18 | unobserved | unobserved | 17/20 | 3 / 0 | 2/20 | 7/20 |\n| 0.20 | 20/20 | 0 / 0 | 20/20 | 0 / 0 | 0/20 | 7/20 |\n| 0.30 | 20/20 | 0 / 0 | 20/20 | 0 / 0 | 0/20 | 9/20 |\n| 0.40 | 20/20 | 0 / 0 | 20/20 | 0 / 0 | 0/20 | 9/20 |\n| 0.50 | 20/20 | 0 / 0 | 20/20 | 0 / 0 | 0/20 | 13/20 |\n| 0.60 | 20/20 | 0 / 0 | 20/20 | 0 / 0 | 0/20 | 15/20 |\n| 0.70 | 20/20 | 0 / 0 | 20/20 | 0 / 0 | 0/20 | 17/20 |\n| 0.80 | 20/20 | 0 / 0 | 20/20 | 0 / 0 | 0/20 | 17/20 |\n| 0.90 | 20/20 | 0 / 0 | 20/20 | 0 / 0 | 0/20 | 18/20 |\n| 1.00 | 20/20 | 0 / 0 | 20/20 | 0 / 0 | 0/20 | 19/20 |\n\n## TTL prediction errors\n\n| Seed | Predicted first unsafe D (s) | Actual first unsafe tested D (s) | Absolute difference (s) |\n|---:|---:|---:|---:|\n| 0 | 0.20 | 0.14 | 0.06 |\n| 1 | 0.50 | 0.50 | 0.00 |\n| 2 | 0.30 | 0.30 | 0.00 |\n| 3 | 0.10 | 0.04 | 0.06 |\n| 4 | 0.50 | 0.50 | 0.00 |\n| 6 | 0.70 | 0.70 | 0.00 |\n| 7 | 0.10 | 0.10 | 0.00 |\n| 8 | 0.70 | 0.70 | 0.00 |\n| 9 | 0.10 | 0.06 | 0.04 |\n| 10 | 0.60 | 0.60 | 0.00 |\n| 11 | 0.10 | 0.04 | 0.06 |\n| 12 | 0.90 | 0.90 | 0.00 |\n| 14 | 1.00 | 1.00 | 0.00 |\n| 15 | 0.50 | 0.50 | 0.00 |\n| 16 | unobserved | unobserved | unobserved |\n| 17 | 0.20 | 0.18 | 0.02 |\n| 18 | 0.60 | 0.60 | 0.00 |\n| 19 | 0.30 | 0.30 | 0.00 |\n| 20 | 0.50 | 0.50 | 0.00 |\n| 21 | 0.20 | 0.14 | 0.06 |\n\nFirst-unsafe grid-point MAE: 0.016 s; median: 0.000 s, over 19 observable pairs. No actual unsafe delay observed through 1 s: [16]; no predicted unsafe delay: [16]. Non-monotonic actual safety: []. These are grid-resolved observations, not exact threshold errors; unobserved thresholds are excluded rather than extrapolated.\n\n## Computation performance\n\n20 approval forecasts, one per scenario: mean 43.62 ms, median 42.92 ms, p95 56.45 ms, maximum 61.49 ms. The existing predictor measures elapsed call-to-result time, including model construction and all eleven delay rollouts. Its numerical kernels were warmed with one model control step before the measured forecasts; no extra approval forecast was run. Cold-start time and dispatch readiness are not measured here.\n\n## Interpretation and next step\n\nObserved: 15/15 TTL false-safe decisions occurred at delays the model did not evaluate. For example, in recorded seed 0, a 0.14 s wait produced 3.69 cm minimum body clearance, below the required 5 cm. The TTL rule still permitted that turn because its first predicted unsafe delay was 0.20 s. This establishes a gap in the existing TTL decisions; it does not establish what a direct model rollout at that untested delay would predict.\n\nRaw accuracy applies only to directly evaluated delays. TTL accuracy also includes the gaps between them: an unsafe turn inside a gap can still be permitted until the next predicted unsafe grid point. Inspect the separate confusion matrices before attributing any error to the model. This experiment changes neither the 0.10 s prediction grid nor the expiry rule, and performs no recovery-policy comparison. Use the same frozen measurement procedure on independently calibrated evaluation scenarios; do not treat these 380 delay comparisons as 380 independent scenarios.\n\nTechnical note: the source flight journal stores violation time from flight start. This journal also retains that original value as first_violation_flight_s, and records first_violation_s relative to approval as required. Source and snapshot checks, cached forecasts, resumption state and this report are retained in run.json.\n\nValidation: all 380 unique comparisons and 20 measured forecasts were verified. All confusion-matrix invariants and six focused TTL tests passed. Metrics reproduced exactly from the journal and fixed protocol without importing PyBullet. Resuming the completed run added no predictions or comparison records and preserved the journal and metrics byte-for-byte. Historical artifacts and scientific source files remain unchanged.\n"
+}

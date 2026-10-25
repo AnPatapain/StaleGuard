@@ -20,7 +20,8 @@ import unittest
 import numpy as np
 from geofence_turn.scenario import (Config, HZ, generate_scenario, scenario_dict,
     scenario_from_dict, make_forward_trajectory, apply_turn_command)
-from geofence_turn.calibration import (calibrate, calibrate_development, load_development, prepare_output)
+from geofence_turn.calibration import approval_candidates, calibrate_scenarios, verify_calibration
+from geofence_turn.storage import load_development, check_provenance
 from geofence_turn.baselines.staleguard import predict_delays
 from geofence_turn.simulation import check_memory, start_work
 
@@ -74,10 +75,9 @@ class RefactorEquivalenceTests(unittest.TestCase):
             attempt = next(row for row in map(json.loads, (DEV/'attempts.jsonl').read_text().splitlines())
                            if row['seed'] == seed)
             by_step = {round(row['approval_s']*HZ):row for row in rows}
-            def evaluate(candidate):
-                return by_step[round(candidate.approval_s*HZ)]['outcome'], None, None
-            selected, _, _ = calibrate(scenario_from_dict(attempt['generated']), evaluate,
-                                        latest_approval_s=attempt['search_upper_s'])
+            selected = next(candidate for candidate in approval_candidates(
+                scenario_from_dict(attempt['generated']),attempt['search_upper_s'])
+                if by_step[round(candidate.approval_s*HZ)]['outcome']['safe_completion'])
             self.assertEqual(json.loads(json.dumps(scenario_dict(selected))), record['selected'])
         self.assertEqual(read(BEFORE/'calibration.json'), read(AFTER/'calibration.json'))
 
@@ -128,43 +128,6 @@ class RefactorEquivalenceTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'configuration'):
             load_development(DEV, replace(Config(), d_min_m=.051))
 
-    def test_calibration_script_preserves_selection_using_recorded_candidates(self):
-        # Exercise the moved script and JSON writer without recalibrating flights.
-        cases = {s.seed:(s,snapshot,path) for s,snapshot,path in load_development(DEV)}
-        records = {seed:[read_line for read_line in map(json.loads,
-                   (DEV/f'seed_{seed}/candidates.jsonl').read_text().splitlines())]
-                   for seed in cases}
-        def recorded_flight(candidate, delay=0., **kwargs):
-            seed = candidate.seed
-            if delay is None:
-                return read(DEV/f'seed_{seed}/nominal_bound.json'), None, None
-            selected, snapshot, _ = cases[seed]
-            result = next(row['outcome'] for row in records[seed]
-                          if row['approval_s']==candidate.approval_s)
-            trace = np.load(DEV/f'seed_{seed}/d0_trace.npz')['controls']
-            return result, snapshot, trace
-        with tempfile.TemporaryDirectory() as folder:
-            out = Path(folder)/'calibration'
-            args = SimpleNamespace(resume=False, generated=str(DEV/'generated.json'), attempts=10,target=5)
-            work = start_work(100,120)
-            with patch('geofence_turn.calibration.execute',side_effect=recorded_flight) as flown, patch('geofence_turn.calibration.check_memory',return_value=(100,3000)), contextlib.redirect_stdout(io.StringIO()):
-                calibrate_development(out,args,work,Config())
-            self.assertEqual(flown.call_count,43)
-            exported = load_development(out/'calibrated_scenarios.json')
-            self.assertEqual([s.approval_s for s,_,_ in exported],[2.,1.8,1.8,1.4,1.4])
-            self.assertEqual([s.command for s,_,_ in exported],[cases[i][0].command for i in sorted(cases)])
-            data = read(out/'calibrated_scenarios.json')
-            self.assertEqual(data['statistics']['attempted'],5)
-            self.assertEqual(data['statistics']['generated'],10)
-            self.assertEqual(data['statistics']['accepted'],5)
-            self.assertEqual({p.name for p in out.iterdir()},{'calibrated_scenarios.json','snapshots'})
-            self.assertEqual(len(list((out/'snapshots').glob('*.pkl'))),5)
-            attempts = data['calibration']['attempts']
-            args.resume = True
-            with patch('geofence_turn.calibration.execute') as flown, contextlib.redirect_stdout(io.StringIO()):
-                calibrate_development(out,args,work,Config())
-            flown.assert_not_called()
-            self.assertEqual(read(out/'calibrated_scenarios.json')['calibration']['attempts'],attempts)
 
     def test_checksum_and_old_source_resume_checks_are_not_disabled(self):
         exported = RECORDS/'calibrated_export/calibrated_scenarios.json'
@@ -179,7 +142,7 @@ class RefactorEquivalenceTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, 'snapshot checksum'):
                 load_development(target)
         with self.assertRaisesRegex(ValueError, 'source/layout changed'):
-            prepare_output(DEV, Config(), resume=True)
+            check_provenance(read(DEV/'metadata.json'),Config())
         with self.assertRaises(ValueError):
             start_work(201, 60)
 
@@ -208,8 +171,6 @@ class RefactorEquivalenceTests(unittest.TestCase):
             ('Config','Command','Scenario','scenario_dict','scenario_from_dict','make_forward_trajectory',
              'turn_sample','apply_turn_command','clearance','in_checkpoint','safety_only_reference')]
         moves += [('scenario.py.txt','scenario.py','generate_scenario')]
-        moves += [('scenario.py.txt','calibration.py',name) for name in
-                  ('approval_candidates','rejection_reasons','calibrate')]
         moves += [('prediction.py.txt','baselines/staleguard.py','predict_delays'),
                   ('prediction.py.txt','baselines/use_time_recheck.py','predict_immediate'),
                   ('policies.py.txt','baselines/staleguard.py','staleguard_status'),
@@ -240,81 +201,96 @@ class ArtifactWorkflowTests(unittest.TestCase):
         self.addCleanup(self.temporary.cleanup)
         self.folder = Path(self.temporary.name)
 
-    def test_export_all_twenty_without_recalibration_or_snapshot_conversion(self):
-        from geofence_turn.calibration import export_calibrated
-        source = ROOT/'support/results/delay_tolerance_20/calibrated_scenarios.json'
-        original = load_development(source)
-        target = self.folder/'calibration'
-        target.mkdir()
-        with patch('geofence_turn.calibration.execute') as flown:
-            export_calibrated(target,source,Config())
-        flown.assert_not_called()
-        loaded = load_development(target)
-        self.assertEqual(len(loaded),20)
-        self.assertEqual({p.name for p in target.iterdir()},{'snapshots','calibrated_scenarios.json'})
-        data = read(target/'calibrated_scenarios.json')
-        self.assertEqual(data['statistics']['attempted'],22)
-        self.assertEqual(data['statistics']['rejected'],2)
-        self.assertEqual(data['statistics']['acceptance_rate'],20/22)
-        for (s,before,path),(other,after,copy) in zip(original,loaded):
-            self.assertEqual(s,other)
-            self.assertEqual(path.read_bytes(),copy.read_bytes())
-            np.testing.assert_array_equal(before.state,after.state)
-            np.testing.assert_array_equal(before.remaining_reference,after.remaining_reference)
-        data['scenarios'][0]['snapshot_sha256'] = '0'*64
-        (target/'calibrated_scenarios.json').write_text(json.dumps(data))
-        with self.assertRaisesRegex(ValueError,'snapshot checksum'):
-            load_development(target)
 
-    def calibration_fixture(self):
-        scenario,snapshot,_ = load_development(DEV)[0]
-        source = next(row['generated'] for row in map(json.loads,(DEV/'attempts.jsonl').read_text().splitlines()) if row['seed']==0)
-        generated = self.folder/'input.json'
-        generated.write_text(json.dumps([source]))
-        args = SimpleNamespace(resume=False,generated=str(generated),attempts=1,target=1,diagnostics=False)
-        candidates = {row['approval_s']:row['outcome'] for row in map(json.loads,(DEV/'seed_0/candidates.jsonl').read_text().splitlines())}
-        def recorded(candidate,delay=0.,**kwargs):
-            if delay is None:
-                return read(DEV/'seed_0/nominal_bound.json'),None,None
-            return candidates[candidate.approval_s],snapshot,np.zeros((1,25))
-        return args,recorded
 
-    def test_calibration_resumes_current_seed_without_losing_denominator(self):
-        args,recorded = self.calibration_fixture()
-        calls = []
-        def interrupted(candidate,delay=0.,**kwargs):
-            calls.append((candidate.approval_s,delay))
-            if len(calls)==3:
-                raise RuntimeError('fixture interruption')
-            return recorded(candidate,delay,**kwargs)
-        out = self.folder/'calibration'
-        with patch('geofence_turn.calibration.execute',side_effect=interrupted), patch('geofence_turn.calibration.check_memory',return_value=(100,3000)):
-            with self.assertRaisesRegex(RuntimeError,'fixture interruption'):
-                calibrate_development(out,args,start_work(100,120),Config())
-        data = read(out/'calibrated_scenarios.json')
-        self.assertEqual(len(data['progress']['current']['candidates']),1)
-        cached_approval = data['progress']['current']['candidates'][0]['approval_s']
-        args.resume = True
-        with patch('geofence_turn.calibration.execute',side_effect=recorded) as flown, patch('geofence_turn.calibration.check_memory',return_value=(100,3000)),contextlib.redirect_stdout(io.StringIO()):
-            calibrate_development(out,args,start_work(100,120),Config())
-        self.assertFalse(any(call.args[0].approval_s==cached_approval for call in flown.call_args_list))
-        self.assertFalse(any(len(call.args)>1 and call.args[1] is None for call in flown.call_args_list))
-        data = read(out/'calibrated_scenarios.json')
-        self.assertEqual(data['statistics']['attempted'],1)
-        self.assertEqual(data['statistics']['accepted'],1)
+
+
+    def recorded_flight(self, candidate, delay=0., **kwargs):
+        if delay is None:
+            return read(DEV/f'seed_{candidate.seed}/nominal_bound.json'),None,None
+        cases = {s.seed:(s,snapshot,path) for s,snapshot,path in load_development(DEV)}
+        rows = list(map(json.loads,(DEV/f'seed_{candidate.seed}/candidates.jsonl').read_text().splitlines()))
+        result = next(row['outcome'] for row in rows if row['approval_s']==candidate.approval_s)
+        return result,cases[candidate.seed][1],None
+
+    def test_simple_calibration_matches_saved_candidates_and_minimal_files(self):
+        out = self.folder/'simple'
+        with patch('geofence_turn.calibration.execute',side_effect=self.recorded_flight) as flown, contextlib.redirect_stdout(io.StringIO()):
+            data = calibrate_scenarios(range(10),5,out)
+        self.assertEqual(flown.call_count,43)
+        self.assertEqual([s.approval_s for s,_,_ in load_development(out)],[2.,1.8,1.8,1.4,1.4])
+        self.assertEqual(data['statistics']['attempted'],5)
+        self.assertEqual(data['statistics']['generated'],10)
+        self.assertEqual({p.name for p in out.iterdir()},{'snapshots','calibrated_scenarios.json'})
         self.assertNotIn('progress',data)
-        self.assertEqual(load_development(out)[0][0].approval_s,2.)
-        args.target = 2
-        with self.assertRaisesRegex(ValueError,'inputs/settings'):
-            calibrate_development(out,args,start_work(100,120),Config())
+        before = (out/'calibrated_scenarios.json').read_bytes()
+        with patch('geofence_turn.calibration.execute') as flown:
+            calibrate_scenarios(range(10),5,out,resume=True)
+        flown.assert_not_called()
+        self.assertEqual((out/'calibrated_scenarios.json').read_bytes(),before)
 
-    def test_calibration_diagnostics_are_explicit(self):
-        args,recorded = self.calibration_fixture()
-        args.diagnostics = True
-        out = self.folder/'calibration'
-        with patch('geofence_turn.calibration.execute',side_effect=recorded),patch('geofence_turn.calibration.check_memory',return_value=(100,3000)),contextlib.redirect_stdout(io.StringIO()):
-            calibrate_development(out,args,start_work(100,120),Config())
-        self.assertEqual({p.name for p in (out/'diagnostics').iterdir()},{'calibration.json','seed_0_d0.npz'})
+    def test_resume_keeps_completed_seed_and_restarts_only_unfinished_seed(self):
+        out = self.folder/'resume'
+        def interrupted(candidate,delay=0.,**kwargs):
+            if candidate.seed==1 and delay is not None:
+                raise RuntimeError('fixture interruption')
+            return self.recorded_flight(candidate,delay,**kwargs)
+        with patch('geofence_turn.calibration.execute',side_effect=interrupted),contextlib.redirect_stdout(io.StringIO()):
+            with self.assertRaisesRegex(RuntimeError,'fixture interruption'):
+                calibrate_scenarios([0,1],2,out)
+        saved = read(out/'calibrated_scenarios.json')
+        self.assertEqual(saved['statistics']['accepted'],1)
+        self.assertEqual(saved['statistics']['attempted'],1)
+        snapshot = (out/'snapshots/seed_0.pkl').read_bytes()
+        with patch('geofence_turn.calibration.execute',side_effect=self.recorded_flight) as flown,contextlib.redirect_stdout(io.StringIO()):
+            calibrate_scenarios([0,1],2,out,resume=True)
+        self.assertTrue(all(call.args[0].seed==1 for call in flown.call_args_list))
+        self.assertIsNone(flown.call_args_list[0].kwargs['delay'])
+        self.assertEqual((out/'snapshots/seed_0.pkl').read_bytes(),snapshot)
+        self.assertEqual(read(out/'calibrated_scenarios.json')['statistics']['accepted'],2)
+        with self.assertRaisesRegex(ValueError,'inputs/settings'):
+            calibrate_scenarios([1,0],2,out,resume=True)
+        with self.assertRaisesRegex(FileExistsError,'Output contains data'):
+            calibrate_scenarios([0,1],2,out)
+
+    def test_exhausted_pool_and_generator_rejection_counts(self):
+        out = self.folder/'rejected'
+        def failure(candidate,delay=0.,**kwargs):
+            result,snapshot,trace = self.recorded_flight(candidate,delay,**kwargs) if delay is None else ({},None,None)
+            if delay is not None:
+                result = dict(safe=True,completed=False,safe_completion=False)
+            return result,snapshot,trace
+        with patch('geofence_turn.calibration.execute',side_effect=failure),contextlib.redirect_stdout(io.StringIO()):
+            data = calibrate_scenarios([0,5],1,out)
+        self.assertEqual(data['calibration']['status'],'exhausted')
+        self.assertEqual(data['statistics']['attempted'],2)
+        self.assertEqual(data['statistics']['rejected'],2)
+        self.assertEqual(data['calibration']['attempts'][1]['candidate_count'],0)
+        self.assertTrue(data['calibration']['attempts'][1]['rejection_reason'].startswith('checkpoint_geometry:'))
+        self.assertEqual(load_development(out),[])
+
+    def test_verification_checks_reference_and_command_as_well_as_state(self):
+        from copy import deepcopy
+        scenario,snapshot,_ = load_development(DEV)[0]
+        bad_reference = replace(snapshot,remaining_reference=snapshot.remaining_reference+.01)
+        bad_command = replace(snapshot,command=replace(snapshot.command,radius=.4))
+        for changed in (bad_reference,bad_command):
+            with patch('geofence_turn.calibration.execute',return_value=(dict(safe_completion=True),changed,None)):
+                with self.assertRaises(AssertionError):
+                    verify_calibration(scenario,snapshot)
+
+    def test_all_frozen_datasets_load_and_reject_tampered_snapshot(self):
+        source = ROOT/'results/development/calibration/calibrated_scenarios.json'
+        self.assertEqual(len(load_development(source)),20)
+        self.assertEqual(len(load_development(ROOT/'results/evaluation/calibration')),300)
+        data = read(source)
+        for row in data['scenarios']:
+            row['approval_snapshot'] = str((source.parent/row['approval_snapshot']).resolve())
+        data['scenarios'][0]['snapshot_sha256'] = '0'*64
+        path = self.folder/'tampered.json'
+        path.write_text(json.dumps(data))
+        with self.assertRaisesRegex(ValueError,'snapshot checksum'):
+            load_development(path)
 
     def test_real_record_counts_match_previous_summary_and_partial_pairs(self):
         from geofence_turn.baseline_benchmark.metrics import summarize
@@ -366,6 +342,8 @@ class ArtifactWorkflowTests(unittest.TestCase):
         self.assertEqual(sg['safe_completion_rate'],.6)
         self.assertEqual((sg['prediction_ready'],sg['prediction_unavailable'],sg['prediction_readiness_unrecorded']),(3,1,1))
         self.assertEqual(sg['prediction_computation_s'],dict(samples=2,mean_s=.03,median_s=.03,p95_s=.04))
+        self.assertEqual(sg['prediction_computation_ms'],dict(samples=2,mean_ms=30.,median_ms=30.,p95_ms=40.))
+        self.assertEqual(sg['unverified_executions'],1)
         self.assertEqual((ut['recovery_attempts'],ut['recovery_successes'],ut['recovery_failures']),(2,1,1))
         self.assertEqual(ut['dispatch_to_action_s']['samples'],3)
         self.assertEqual(ut['dispatch_to_action_s']['p95_s'],.04)
@@ -394,6 +372,20 @@ class ArtifactWorkflowTests(unittest.TestCase):
              contextlib.redirect_stdout(io.StringIO()):
             run_comparison(out,args,start_work(20,120),Config())
         return flown
+
+    def test_two_policy_selection_keeps_only_selected_pairs(self):
+        _,snapshot,_ = load_development(DEV)[0]
+        originals = {row['event']['policy']:row for row in map(json.loads,(RECORDS/'baseline_entrypoint/executions.jsonl').read_text().splitlines())}
+        args = SimpleNamespace(development=str(DEV),seeds=[0],delays=(0.,),
+                               policies=('staleguard','use_time_recheck'),resume=False,diagnostics=False)
+        def recorded(s,delay,policy,**kwargs):
+            return originals[policy],snapshot,np.empty((0,))
+        out = self.folder/'paired'
+        flown = self.benchmark_fixture(out,args,recorded)
+        self.assertEqual([call.kwargs['policy'] for call in flown.call_args_list],list(args.policies))
+        self.assertEqual(read(out/'run.json')['protocol']['policies'],list(args.policies))
+        self.assertEqual(read(out/'metrics.json')['paired_comparison']['complete_pairs'],1)
+        self.assertEqual(read(out/'metrics.json')['recorded_flights'],2)
 
     def test_benchmark_three_files_resume_cache_and_duplicate_prevention(self):
         from geofence_turn.baseline_benchmark.metrics import read_executions, summarize
@@ -459,6 +451,128 @@ class ArtifactWorkflowTests(unittest.TestCase):
         (out/'executions.jsonl').write_bytes(before.replace(b'"seed": 0',b'"seed": 9',1))
         with self.assertRaisesRegex(ValueError,'committed execution records'):
             self.benchmark_fixture(out,args,recorded)
+
+
+class TTLAccuracyTests(unittest.TestCase):
+    """Reuse recorded forecasts/flights; these checks launch no physical flights."""
+    @classmethod
+    def setUpClass(cls):
+        from geofence_turn.ttl_pred_accuracy.run import validate_ground_truth
+        cls.cases = load_development(ROOT/'results/development/calibration')
+        cls.actual,cls.evidence = validate_ground_truth(cls.cases,Config())
+        cls.forecasts = read(ROOT/'results/development/baseline_benchmark/run.json')['predictions']
+
+    def fixture(self, folder):
+        from geofence_turn.ttl_pred_accuracy.run import comparison, SEEDS, DELAYS
+        out = Path(folder)
+        journal = out/'executions.jsonl'
+        rows = [comparison(s,self.actual[s.seed,delay],self.forecasts[str(s.seed)])
+                for s,_,_ in self.cases for delay in DELAYS]
+        journal.write_text(''.join(json.dumps(row)+'\n' for row in rows))
+        protocol = dict(seeds=list(SEEDS),delays_s=list(DELAYS),
+                        prediction_grid_s=[i/10 for i in range(11)],control_hz=HZ)
+        return journal,protocol,rows
+
+    def test_ground_truth_matches_all_frozen_inputs_and_waiting_safety(self):
+        self.assertEqual(len(self.cases),20)
+        self.assertEqual(len(self.actual),380)
+        self.assertEqual(self.evidence['status'],'passed')
+        self.assertEqual(self.evidence['new_pybullet_flights'],0)
+
+    def test_raw_and_ttl_are_separate_and_timing_counts_forecasts_once(self):
+        from geofence_turn.ttl_pred_accuracy.metrics import summarize
+        with tempfile.TemporaryDirectory() as folder:
+            journal,protocol,rows = self.fixture(folder)
+            result = summarize(journal,protocol)
+        self.assertEqual(result['raw_prediction']['total_tests'],220)
+        self.assertEqual(result['raw_prediction']['false_safe'],0)
+        self.assertEqual(result['ttl_dispatch_decision']['total_tests'],380)
+        self.assertEqual(result['ttl_dispatch_decision']['false_safe'],15)
+        self.assertEqual(result['warmed_prediction_computation']['samples'],20)
+        for matrix in [result['raw_prediction'],result['ttl_dispatch_decision']]:
+            self.assertEqual(sum(matrix[key] for key in ('correct_safe','correct_unsafe','false_safe','false_rejection')),matrix['total_tests'])
+        for row in rows:
+            if row['first_violation_s'] is not None:
+                self.assertEqual(row['first_violation_s'],row['first_violation_flight_s']-row['approval_s'])
+
+    def test_expiry_equality_rejects_even_when_recorded_prediction_is_slow(self):
+        from geofence_turn.ttl_pred_accuracy.run import comparison
+        scenario = self.cases[0][0]
+        forecast = dict(self.forecasts['0'],computation_s=999.)
+        expiry = forecast['expiry_steps']/HZ
+        at_expiry = comparison(scenario,self.actual[0,expiry],forecast)
+        self.assertFalse(at_expiry['predicted_safe_ttl'])
+        before = comparison(scenario,self.actual[0,expiry-.1],forecast)
+        self.assertTrue(before['predicted_safe_ttl'])
+        self.assertEqual(at_expiry['prediction_computation_s'],999.)
+
+    def test_off_grid_predictions_duplicates_and_undefined_rates(self):
+        from geofence_turn.ttl_pred_accuracy.metrics import summarize, read_records, confusion
+        with tempfile.TemporaryDirectory() as folder:
+            journal,protocol,rows = self.fixture(folder)
+            rows[1]['predicted_safe_raw'] = True
+            journal.write_text(''.join(json.dumps(row)+'\n' for row in rows))
+            with self.assertRaisesRegex(ValueError,'Raw prediction'):
+                summarize(journal,protocol)
+            journal.write_text(json.dumps(rows[0])+'\n'+json.dumps(rows[0])+'\n')
+            with self.assertRaisesRegex(ValueError,'Duplicate comparison'):
+                read_records(journal)
+            journal.write_text(json.dumps(rows[0])+'\n'+ '{"seed":')
+            self.assertEqual(read_records(journal,repair_tail=True),rows[:1])
+        empty = confusion([],'predicted_safe_raw')
+        self.assertIsNone(empty['accuracy'])
+        self.assertIsNone(empty['false_safe_rate'])
+        self.assertIsNone(empty['false_rejection_rate'])
+
+    def test_confusion_rates_use_actual_class_denominators(self):
+        from geofence_turn.ttl_pred_accuracy.metrics import confusion
+        rows = [dict(safe=actual,predicted_safe_raw=predicted) for actual,predicted in
+                [(True,True),(True,False),(False,True),(False,False),(True,None)]]
+        result = confusion(rows,'predicted_safe_raw')
+        self.assertEqual(result['total_tests'],4)
+        for field in ('correct_safe','correct_unsafe','false_safe','false_rejection'):
+            self.assertEqual(result[field],1)
+        for field in ('accuracy','false_safe_rate','false_rejection_rate'):
+            self.assertEqual(result[field],.5)
+
+    def test_interrupted_resume_reuses_forecasts_and_prevents_changed_data(self):
+        from geofence_turn.ttl_pred_accuracy.run import run_accuracy
+        from unittest.mock import MagicMock
+        warm = MagicMock()
+        warm.start.return_value = (SimpleNamespace(select_action=lambda *_:None),None,None,None)
+        def recorded_prediction(snapshot, platform):
+            seed = next(s.seed for s,snap,_ in self.cases if np.array_equal(snap.state,snapshot.state))
+            return self.forecasts[str(seed)]
+        with tempfile.TemporaryDirectory() as folder:
+            out = Path(folder)/'accuracy'
+            args = SimpleNamespace(development=str(ROOT/'results/development/calibration'),out=str(out),resume=False)
+            with patch('model.scg.load_scg_platform_params',return_value=(None,None)), \
+                    patch('geofence_turn.ttl_pred_accuracy.run.LightweightPredictiveModel',return_value=warm), \
+                    patch('geofence_turn.simulation.check_memory',return_value=(100,3000)), \
+                    patch('geofence_turn.ttl_pred_accuracy.run.check_memory',return_value=(100,3000)), \
+                    patch('geofence_turn.ttl_pred_accuracy.run.predict_delays',side_effect=recorded_prediction) as predicted, \
+                    contextlib.redirect_stdout(io.StringIO()):
+                with self.assertRaisesRegex(RuntimeError,'trial/time budget'):
+                    run_accuracy(args,start_work(2,120),Config())
+                self.assertEqual(predicted.call_count,2)
+                self.assertEqual(read(out/'run.json')['status'],'interrupted')
+                args.resume = True
+                run_accuracy(args,start_work(40,120),Config())
+                self.assertEqual(predicted.call_count,20)
+                before = (out/'executions.jsonl').read_bytes()
+                with (out/'executions.jsonl').open('ab') as stream:
+                    stream.write(b'{"seed":')
+                run_accuracy(args,start_work(40,120),Config())
+                self.assertEqual(predicted.call_count,20)
+                self.assertEqual((out/'executions.jsonl').read_bytes(),before)
+                self.assertEqual(set(p.name for p in out.iterdir()),{'run.json','metrics.json','executions.jsonl'})
+                self.assertEqual(read(out/'run.json')['status'],'complete')
+                self.assertEqual(len(before.splitlines()),380)
+                self.assertEqual(read(out/'metrics.json')['raw_prediction']['total_tests'],220)
+                changed = before.replace(b'"seed": 0',b'"seed": 5',1)
+                (out/'executions.jsonl').write_bytes(changed)
+                with self.assertRaisesRegex(ValueError,'committed comparisons'):
+                    run_accuracy(args,start_work(40,120),Config())
 
 
 if __name__ == '__main__':

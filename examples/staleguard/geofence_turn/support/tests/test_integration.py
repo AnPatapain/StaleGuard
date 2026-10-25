@@ -12,7 +12,7 @@ import unittest
 import numpy as np
 from geofence_turn.scenario import HZ, BODY_RADIUS_M, Config, POS, VEL, apply_turn_command, in_checkpoint, scenario_from_dict
 from geofence_turn.simulation import execute
-from geofence_turn.calibration import load_snapshot
+from geofence_turn.storage import load_snapshot
 
 ROOT = Path(__file__).resolve().parents[2]
 RUN = ROOT/'support/logs/northbound_review'

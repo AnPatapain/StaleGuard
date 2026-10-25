@@ -42,14 +42,20 @@ class Metric(Enum):
     RECOVERY_FAILURE_RATE = 'recovery_failure_rate'
     # Measured prediction duration in seconds: mean, median and nearest-rank p95.
     PREDICTION_TIME = 'prediction_computation_s'
+    # The same measured prediction durations, expressed in milliseconds.
+    PREDICTION_TIME_MS = 'prediction_computation_ms'
     # Actual action tick minus scheduled dispatch tick, divided by control Hz.
     ACTION_DELAY = 'dispatch_to_action_s'
+    # The same measured dispatch-to-action delays, expressed in milliseconds.
+    ACTION_DELAY_MS = 'dispatch_to_action_ms'
     # StaleGuard result available at dispatch; null for other policies.
     READY = 'prediction_ready'
     # StaleGuard result unavailable at dispatch; null for other policies.
     UNAVAILABLE = 'prediction_unavailable'
     # StaleGuard readiness absent from the record; never assume availability.
     READINESS_MISSING = 'prediction_readiness_unrecorded'
+    # StaleGuard applied the original command while its prediction was unavailable.
+    UNVERIFIED_EXECUTIONS = 'unverified_executions'
     # Scenario-delay groups containing both StaleGuard and Use-Time Recheck.
     COMPLETE_PAIRS = 'complete_pairs'
     # Groups missing either compared policy; excluded from paired calculations.
@@ -125,6 +131,13 @@ def timing_summary(values):
                 p95_s=ordered[math.ceil(.95*len(values))-1] if values else None)
 
 
+def milliseconds(summary):
+    """Unit conversion only; retain the existing seconds fields for compatibility."""
+    return dict(samples=summary['samples'], **{
+        name+'_ms':None if summary[name+'_s'] is None else 1000*summary[name+'_s']
+        for name in ('mean','median','p95')})
+
+
 def policy_metrics(rows, policy, control_hz):
     n = len(rows)
     completed = sum(row['safe_completion'] for row in rows)
@@ -147,6 +160,8 @@ def policy_metrics(rows, policy, control_hz):
             action = event.get('application_step')
         # A decision tick alone is not proof that an action actually occurred.
         action_delays.append(None if dispatch is None or action is None else (action-dispatch)/control_hz)
+    prediction_summary = timing_summary(prediction_times.values())
+    action_summary = timing_summary(action_delays)
     value = {
         Metric.FLIGHTS: n,
         Metric.SAFE_COMPLETION: completed,
@@ -161,11 +176,14 @@ def policy_metrics(rows, policy, control_hz):
         Metric.RECOVERY_ATTEMPT_RATE: len(recovery)/n if n else None,
         Metric.RECOVERY_SUCCESS_RATE: sum(row['safe'] for row in recovery)/len(recovery) if recovery else None,
         Metric.RECOVERY_FAILURE_RATE: sum(not row['safe'] for row in recovery)/len(recovery) if recovery else None,
-        Metric.PREDICTION_TIME: timing_summary(prediction_times.values()),
-        Metric.ACTION_DELAY: timing_summary(action_delays),
+        Metric.PREDICTION_TIME: prediction_summary,
+        Metric.PREDICTION_TIME_MS: milliseconds(prediction_summary),
+        Metric.ACTION_DELAY: action_summary,
+        Metric.ACTION_DELAY_MS: milliseconds(action_summary),
         Metric.READY: sum(row['event'].get('prediction_ready') is True for row in rows) if policy=='staleguard' else None,
         Metric.UNAVAILABLE: sum(row['event'].get('prediction_ready') is False for row in rows) if policy=='staleguard' else None,
         Metric.READINESS_MISSING: sum(row['event'].get('prediction_ready') is None for row in rows) if policy=='staleguard' else None,
+        Metric.UNVERIFIED_EXECUTIONS: sum(row['event'].get('prediction_ready') is False and row['event'].get('application_step') is not None for row in rows) if policy=='staleguard' else None,
     }
     return {metric.value: result for metric,result in value.items()}
 

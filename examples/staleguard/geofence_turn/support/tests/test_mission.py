@@ -8,7 +8,7 @@ from geofence_turn.scenario import (BODY_RADIUS_M, HZ, POS, VEL, Config, Command
     apply_turn_command, clearance, in_checkpoint, make_forward_trajectory, turn_sample,
     safety_only_reference, scenario_dict, scenario_from_dict)
 from geofence_turn.scenario import generate_scenario
-from geofence_turn.calibration import approval_candidates, calibrate
+from geofence_turn.calibration import approval_candidates
 from geofence_turn.baselines.staleguard import staleguard_status
 from geofence_turn.baselines.use_time_recheck import first_step_after_check
 from geofence_turn.baselines.fixed_ttl import fixed_ttl_expired
@@ -45,7 +45,7 @@ class MissionTests(unittest.TestCase):
     def test_command_is_frozen_and_target_never_varies_with_candidate(self):
         with self.assertRaises(FrozenInstanceError):
             self.cmd.radius = .7
-        for s in approval_candidates(self.s):
+        for s in approval_candidates(self.s,3.2):
             self.assertIs(s.command, self.cmd)
             self.assertEqual(s.command.checkpoint_lower, self.cmd.checkpoint_lower)
             self.assertEqual(s.command.checkpoint_upper, self.cmd.checkpoint_upper)
@@ -156,33 +156,15 @@ class MissionTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'checkpoint_geometry:'):
             generate_scenario(0,envelope,cfg)
 
-    def test_calibration_rejects_unsafe_and_noncompletion_selects_latest(self):
-        def evaluate(s):
-            return dict(safe=s.approval_s<=2.8, completed=s.approval_s<=3.,
-                        safe_completion=s.approval_s<=2.8), 'snapshot', None
-        selected, snapshot, rows = calibrate(self.s, evaluate)
-        self.assertEqual(selected.approval_s, 2.8)
-        self.assertEqual(len(rows), 3)
-        self.assertEqual(rows[0]['rejected_because'], ['body_clearance', 'checkpoint_deadline_velocity_or_dwell'])
-        for row in rows:
-            self.assertEqual(row['command']['checkpoint_lower'], self.cmd.checkpoint_lower)
-            self.assertEqual(row['command']['checkpoint_upper'], self.cmd.checkpoint_upper)
-        self.assertGreater(selected.approval_s, .4)
-        self.assertEqual(rows[-1]['nominal_patrol_distance_m'], max(r['nominal_patrol_distance_m'] for r in rows if not r['rejected_because']))
 
-    def test_measured_nominal_bound_searches_beyond_initial_grid_cap(self):
-        selected, _, rows = calibrate(self.s,
-            lambda s: (dict(safe=s.approval_s<=3.4, completed=True), None, None),
-            latest_approval_s=4.2)
-        self.assertEqual(selected.approval_s, 3.4)
-        self.assertEqual(len(rows), 5)
 
-    def test_explicit_infeasible_scenario_no_command_issued(self):
-        selected, snapshot, rows = calibrate(self.s, lambda s: (dict(safe=True, completed=False), None, None))
-        self.assertIsNone(selected)
-        self.assertIsNone(snapshot)
-        self.assertEqual(len(rows), 14)
-        self.assertTrue(all(r['rejected_because']==['checkpoint_deadline_velocity_or_dwell'] for r in rows))
+
+    def test_approval_grid_uses_measured_bound_and_ends_at_minimum(self):
+        rows = list(approval_candidates(self.s,4.2))
+        self.assertEqual([s.approval_s for s in rows[:5]],[4.2,4.,3.8,3.6,3.4])
+        self.assertEqual(rows[-1].approval_s,.6)
+        self.assertEqual(len(rows),19)
+        self.assertTrue(all(s.command == self.cmd for s in rows))
 
     def test_staleguard_readiness_equality_fail_open_and_no_late_cancellation(self):
         received = dict(computation_s=.1, expiry_steps=5)

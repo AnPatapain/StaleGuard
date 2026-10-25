@@ -1,4 +1,4 @@
-"""Existing four-policy comparison: executions.jsonl, metrics.json and run.json."""
+"""Comparison of selected existing policies; defaults remain the four-policy grid."""
 from pathlib import Path
 import sys
 if __package__ in (None, ''):
@@ -9,11 +9,12 @@ import argparse
 import fcntl
 import hashlib
 import json
+import math
 import time
 import numpy as np
 from geofence_turn.scenario import Config, HZ, scenario_dict
 from geofence_turn.simulation import start_work, check_memory, execute
-from geofence_turn.calibration import (ROOT, check_provenance, metadata, file_hash,
+from geofence_turn.storage import (ROOT, check_provenance, metadata, file_hash,
                                       write_json, append_json, load_development)
 from geofence_turn.baseline_benchmark.metrics import POLICIES, flight_key, read_executions, summarize
 
@@ -32,13 +33,16 @@ def run_comparison(out, args, work, config):
             raise ValueError('Requested seed is absent from the calibrated dataset')
     if not cases:
         raise ValueError('No calibrated development scenarios')
+    policies = tuple(getattr(args,'policies',POLICIES))
+    if not policies or len(set(policies)) != len(policies) or not set(policies) <= set(POLICIES):
+        raise ValueError('Select distinct implemented policies')
     source = Path(args.development)
     if source.is_dir():
         source = source/('calibrated_scenarios.json' if (source/'calibrated_scenarios.json').exists() else 'summary.json')
     detailed = getattr(args,'diagnostics',False)
     protocol = json.loads(json.dumps(dict(
         scenarios=[scenario_dict(s) for s,_,_ in cases],delays=list(args.delays),
-        policies=list(POLICIES),control_hz=HZ,diagnostics=detailed,
+        policies=list(policies),control_hz=HZ,diagnostics=detailed,
         snapshot_sha256={str(s.seed):file_hash(p) for s,_,p in cases},
         dataset_sha256=file_hash(source))))
     path = out/'run.json'
@@ -64,7 +68,7 @@ def run_comparison(out, args, work, config):
         run = dict(format='compact_benchmark_v1',provenance=metadata(config),protocol=protocol,
                    predictions={},sessions=[],status='running',journal_bytes=0,
                    journal_sha256=hashlib.sha256(b'').hexdigest())
-    expected = {(s.seed,delay,policy) for s,_,_ in cases for delay in args.delays for policy in POLICIES}
+    expected = {(s.seed,delay,policy) for s,_,_ in cases for delay in args.delays for policy in policies}
     completed = {flight_key(row) for row in rows}
     if not completed <= expected:
         raise ValueError('Journal contains a flight outside the fixed protocol')
@@ -94,7 +98,7 @@ def run_comparison(out, args, work, config):
             predict_delays(warm,platform)
             predict_immediate(warm,platform)
             for s,snapshot,_ in cases:
-                if all((s.seed,delay,policy) in completed for delay in args.delays for policy in POLICIES):
+                if all((s.seed,delay,policy) in completed for delay in args.delays for policy in policies):
                     continue
                 # Freeze the approval-only forecast before enumerating actual D.
                 received = run['predictions'].get(str(s.seed))
@@ -103,7 +107,7 @@ def run_comparison(out, args, work, config):
                     run['predictions'][str(s.seed)] = received
                     checkpoint()
                 for delay in args.delays:
-                    for policy in POLICIES:
+                    for policy in policies:
                         key = s.seed,delay,policy
                         if key in completed:
                             continue
@@ -122,7 +126,7 @@ def run_comparison(out, args, work, config):
                         byte_count += len(line)
                         completed.add(key)
                         checkpoint()
-                        print(f'seed={s.seed} D={delay:.1f} {policy} safe={result["safe"]} complete={result["completed"]} fallback={result["event"]["fallback_step"]}',flush=True)
+                        print(f'seed={s.seed} D={delay:.2f} {policy} safe={result["safe"]} complete={result["completed"]} fallback={result["event"]["fallback_step"]}',flush=True)
         rss,available = check_memory(config)
         session.update(final_rss_mb=rss,available_mb=available)
         run['status'] = 'complete'
@@ -139,7 +143,8 @@ def main():
     parser.add_argument('--out',default=str(ROOT/'results/development/baseline_benchmark'))
     parser.add_argument('--development',default=str(ROOT/'results/development/calibration'))
     parser.add_argument('--seeds',nargs='+',type=int)
-    parser.add_argument('--delays',nargs='+',type=float,choices=DISPATCH_DELAYS,default=DISPATCH_DELAYS)
+    parser.add_argument('--delays',nargs='+',type=float,default=DISPATCH_DELAYS)
+    parser.add_argument('--policies',nargs='+',choices=POLICIES,default=POLICIES)
     parser.add_argument('--resume',action='store_true')
     parser.add_argument('--diagnostics',action='store_true',help='Save individual flight traces under diagnostics/')
     parser.add_argument('--max-trials',type=int,default=160)
@@ -147,6 +152,10 @@ def main():
     args = parser.parse_args()
     if len(set(args.delays)) != len(args.delays):
         parser.error('Duplicate delay')
+    if any(not math.isfinite(d) or d < 0 or not math.isclose(d*HZ,round(d*HZ),abs_tol=1e-9) for d in args.delays):
+        parser.error('Dispatch delays must be nonnegative multiples of the 0.02 s control step')
+    if len(set(args.policies)) != len(args.policies):
+        parser.error('Duplicate policy')
     config = Config()
     work = start_work(args.max_trials,args.max_seconds)
     with (ROOT/'support/logs/.simulation.lock').open('a') as lock:
