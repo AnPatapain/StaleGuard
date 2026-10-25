@@ -368,22 +368,25 @@ class ArtifactWorkflowTests(unittest.TestCase):
         self.assertIsNone(empty['paired_comparison']['completion_benefits'])
 
     def benchmark_fixture(self,out,args,execute_fixture,prediction=None):
-        from geofence_turn.baseline_benchmark.run import run_comparison
+        from geofence_turn.baseline_benchmark.run import run as run_benchmark
         received = prediction or read(RECORDS/'baseline_entrypoint/prediction_seed_0.json')
-        with patch('model.scg.load_scg_platform_params',return_value=(None,None)), \
-             patch('geofence_turn.baselines.staleguard.predict_delays',return_value=received), \
-             patch('geofence_turn.baselines.use_time_recheck.predict_immediate',return_value=received['results'][0]), \
+        from unittest.mock import MagicMock
+        warm = MagicMock()
+        warm.start.return_value = (SimpleNamespace(select_action=lambda *_:None),None,None,None)
+        args.out = out
+        with patch('geofence_turn.baseline_benchmark.run.load_scg_platform_params',return_value=(None,None)), \
+             patch('geofence_turn.baseline_benchmark.run.LightweightPredictiveModel',return_value=warm), \
+             patch('geofence_turn.baseline_benchmark.run.predict_delays',return_value=received), \
              patch('geofence_turn.baseline_benchmark.run.execute',side_effect=execute_fixture) as flown, \
-             patch('geofence_turn.baseline_benchmark.run.check_memory',return_value=(100,3000)), \
              contextlib.redirect_stdout(io.StringIO()):
-            run_comparison(out,args,start_work(20,120),Config())
+            run_benchmark(args)
         return flown
 
     def test_two_policy_selection_keeps_only_selected_pairs(self):
         _,snapshot,_ = load_development(DEV)[0]
         originals = {row['event']['policy']:row for row in map(json.loads,(RECORDS/'baseline_entrypoint/executions.jsonl').read_text().splitlines())}
-        args = SimpleNamespace(development=str(DEV),seeds=[0],delays=(0.,),
-                               policies=('staleguard','use_time_recheck'),resume=False,diagnostics=False)
+        args = SimpleNamespace(calibration=DEV,seeds=[0],delays=(0.,),
+                               policies=('staleguard','use_time_recheck'),max_flights=0)
         def recorded(s,delay,policy,**kwargs):
             return originals[policy],snapshot,np.empty((0,))
         out = self.folder/'paired'
@@ -397,9 +400,10 @@ class ArtifactWorkflowTests(unittest.TestCase):
         from geofence_turn.baseline_benchmark.metrics import read_executions, summarize
         scenario,snapshot,_ = load_development(DEV)[0]
         originals = {row['event']['policy']:row for row in map(json.loads,(RECORDS/'baseline_entrypoint/executions.jsonl').read_text().splitlines())}
-        args = SimpleNamespace(development=str(DEV),seeds=[0],delays=(0.,),resume=False,diagnostics=False)
+        args = SimpleNamespace(calibration=DEV,seeds=[0],delays=(0.,),
+                               policies=('no_recovery','staleguard','use_time_recheck','fixed_ttl'),max_flights=0)
         def recorded(s,delay,policy,**kwargs):
-            self.assertFalse(kwargs['save_trace'])
+            self.assertFalse(kwargs.get('save_trace',False))
             self.assertEqual(kwargs['received']['computation_s'],originals['staleguard']['event']['computation_s'])
             return originals[policy],snapshot,np.empty((0,))
         def interrupted(s,delay,policy,**kwargs):
@@ -411,9 +415,8 @@ class ArtifactWorkflowTests(unittest.TestCase):
             self.benchmark_fixture(out,args,interrupted)
         self.assertEqual({p.name for p in out.iterdir()},{'run.json','executions.jsonl','metrics.json'})
         self.assertEqual(len(read_executions(out/'executions.jsonl')),2)
-        self.assertEqual(read(out/'run.json')['status'],'interrupted')
+        self.assertEqual(read(out/'run.json')['status'],'partial')
         before = (out/'executions.jsonl').read_bytes()
-        args.resume = True
         prediction = read(RECORDS/'baseline_entrypoint/prediction_seed_0.json')
         prediction['computation_s'] = 99.  # Warm-up must not replace cached timing.
         self.benchmark_fixture(out,args,recorded,prediction)
@@ -443,7 +446,7 @@ class ArtifactWorkflowTests(unittest.TestCase):
             self.benchmark_fixture(out,args,recorded)
         (out/'run.json').write_text(json.dumps(saved_run))
         args.delays = (.2,)
-        with self.assertRaisesRegex(ValueError,'protocol differ'):
+        with self.assertRaisesRegex(ValueError,'Saved scenarios, delays, or policies differ'):
             self.benchmark_fixture(out,args,recorded)
         args.delays = (0.,)
         with (out/'executions.jsonl').open('ab') as stream:
@@ -466,17 +469,31 @@ class TTLAccuracyTests(unittest.TestCase):
         from geofence_turn.storage import load_ground_truth
         cls.cases = load_development(ROOT/'results/development/calibration')
         cls.actual = load_ground_truth(ROOT/'results/development/calibration',cls.cases,Config())
-        cls.forecasts = read(ROOT/'results/development/ttl_pred_accuracy/run.json')['predictions']
+        folder = ROOT/'results/development/ttl_pred_accuracy'
+        protocol = read(folder/'run.json')['protocol']
+        rows = [json.loads(line) for line in (folder/'executions.jsonl').read_text().splitlines()]
+        cls.forecasts = {}
+        for scenario,_,_ in cls.cases:
+            group = [row for row in rows if row['seed']==scenario.seed]
+            expiry = group[0]['predicted_first_unsafe_delay_s']
+            cls.forecasts[str(scenario.seed)] = dict(grid_s=protocol['prediction_grid_s'],
+                computation_s=group[0]['prediction_computation_s'],
+                expiry_steps=None if expiry is None else round(expiry*HZ),
+                results=[dict(delay_s=row['delay_s'],safe=row['predicted_safe_raw'],
+                    min_clearance_m=row['predicted_min_clearance_m'])
+                    for row in group if row['prediction_grid_point']])
 
     def fixture(self, folder):
-        from geofence_turn.ttl_pred_accuracy.run import comparison, DELAYS
+        from geofence_turn.ttl_pred_accuracy.run import compare, DELAYS
         out = Path(folder)
         journal = out/'executions.jsonl'
-        rows = [comparison(s,self.actual[s.seed,delay],self.forecasts[str(s.seed)])
+        rows = [compare(s,self.actual[s.seed,delay],
+                    next(row for row in self.forecasts[str(s.seed)]['results'] if row['delay_s']==delay),
+                    self.forecasts[str(s.seed)])
                 for s,_,_ in self.cases for delay in DELAYS]
         journal.write_text(''.join(json.dumps(row)+'\n' for row in rows))
         protocol = dict(seeds=[s.seed for s,_,_ in self.cases],delays_s=list(DELAYS),
-                        prediction_grid_s=[i/10 for i in range(11)],control_hz=HZ)
+                        prediction_grid_s=list(DELAYS),control_hz=HZ)
         return journal,protocol,rows
 
     def test_ground_truth_matches_all_frozen_inputs_and_waiting_safety(self):
@@ -493,7 +510,7 @@ class TTLAccuracyTests(unittest.TestCase):
 
     def test_evaluation_loads_300_missions_and_reuses_300_d0_flights(self):
         from geofence_turn.storage import load_ground_truth
-        from geofence_turn.ttl_pred_accuracy.run import DELAYS, PREDICTION_DELAYS
+        from geofence_turn.ttl_pred_accuracy.run import DELAYS
         dataset = ROOT/'results/evaluation/calibration'
         with patch('geofence_turn.simulation.execute',side_effect=AssertionError('No flight during loading')):
             cases = load_development(dataset)
@@ -590,8 +607,8 @@ class TTLAccuracyTests(unittest.TestCase):
                  patch('geofence_turn.ttl_pred_accuracy.run.predict_delays',return_value=self.forecasts[str(scenario.seed)]) as predict, \
                  patch('geofence_turn.ttl_pred_accuracy.run.execute',return_value=(self.actual[scenario.seed,.5],snapshot,np.empty(0))) as execute, \
                  contextlib.redirect_stdout(io.StringIO()):
-                run_accuracy(ROOT/'results/development/calibration',folder)
-            predict.assert_called_once_with(snapshot,(None,None))
+                run_accuracy(ROOT/'results/development/calibration',Path(folder),[],print)
+            predict.assert_called_once_with(snapshot,(None,None),delays=DELAYS)
             execute.assert_called_once_with(scenario,.5,policy='no_recovery',config=Config())
             rows = [json.loads(line) for line in (Path(folder)/'executions.jsonl').read_text().splitlines()]
             self.assertEqual(len(rows),len(DELAYS))
@@ -610,7 +627,7 @@ class TTLAccuracyTests(unittest.TestCase):
                  patch('geofence_turn.ttl_pred_accuracy.run.LightweightPredictiveModel',return_value=warm), \
                  patch('geofence_turn.ttl_pred_accuracy.run.predict_delays',return_value=self.forecasts[str(scenario.seed)]), \
                  patch('geofence_turn.ttl_pred_accuracy.run.execute',side_effect=lambda s,d,**kw:(self.actual[s.seed,d],snapshot,np.empty(0))) as execute:
-                run_accuracy(ROOT/'results/development/calibration',folder)
+                run_accuracy(ROOT/'results/development/calibration',Path(folder),[],print)
             self.assertEqual(execute.call_count,len(DELAYS))
             self.assertTrue(all(call.kwargs==dict(policy='no_recovery',config=Config()) for call in execute.call_args_list))
             self.assertIn('No-Recovery physics differs',output.getvalue())
@@ -620,10 +637,12 @@ class TTLAccuracyTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as folder:
             journal,protocol,rows = self.fixture(folder)
             result = summarize(journal,protocol)
-        self.assertEqual(result['raw_prediction']['total_tests'],220)
-        self.assertEqual(result['raw_prediction']['false_safe'],0)
+        self.assertEqual(result['raw_prediction']['total_tests'],380)
+        self.assertEqual(result['raw_prediction']['false_safe'],1)
+        self.assertEqual(result['raw_prediction']['false_rejection'],2)
         self.assertEqual(result['ttl_dispatch_decision']['total_tests'],380)
-        self.assertEqual(result['ttl_dispatch_decision']['false_safe'],15)
+        self.assertEqual(result['ttl_dispatch_decision']['false_safe'],1)
+        self.assertEqual(result['ttl_dispatch_decision']['false_rejection'],2)
         self.assertEqual(result['warmed_prediction_computation']['samples'],20)
         for matrix in [result['raw_prediction'],result['ttl_dispatch_decision']]:
             self.assertEqual(sum(matrix[key] for key in ('correct_safe','correct_unsafe','false_safe','false_rejection')),matrix['total_tests'])
@@ -632,13 +651,16 @@ class TTLAccuracyTests(unittest.TestCase):
                 self.assertEqual(row['first_violation_s'],row['first_violation_flight_s']-row['approval_s'])
 
     def test_expiry_equality_rejects_even_when_recorded_prediction_is_slow(self):
-        from geofence_turn.ttl_pred_accuracy.run import comparison
+        from geofence_turn.ttl_pred_accuracy.run import compare
         scenario = self.cases[0][0]
         forecast = dict(self.forecasts['0'],computation_s=999.)
         expiry = forecast['expiry_steps']/HZ
-        at_expiry = comparison(scenario,self.actual[0,expiry],forecast)
+        at_expiry = compare(scenario,self.actual[0,expiry],
+            next(row for row in forecast['results'] if row['delay_s']==expiry),forecast)
         self.assertFalse(at_expiry['predicted_safe_ttl'])
-        before = comparison(scenario,self.actual[0,expiry-.1],forecast)
+        delay = (round(expiry*HZ)-1)/HZ
+        before = compare(scenario,self.actual[0,delay],
+            next(row for row in forecast['results'] if row['delay_s']==delay),forecast)
         self.assertTrue(before['predicted_safe_ttl'])
         self.assertEqual(at_expiry['prediction_computation_s'],999.)
 
@@ -646,10 +668,11 @@ class TTLAccuracyTests(unittest.TestCase):
         from geofence_turn.ttl_pred_accuracy.metrics import summarize, read_records, confusion
         with tempfile.TemporaryDirectory() as folder:
             journal,protocol,rows = self.fixture(folder)
-            rows[1]['predicted_safe_raw'] = True
-            journal.write_text(''.join(json.dumps(row)+'\n' for row in rows))
+            off_grid = dict(rows[1],prediction_grid_point=False,predicted_safe_raw=True,
+                            predicted_first_unsafe_delay_s=None,predicted_safe_ttl=True)
+            journal.write_text(json.dumps(off_grid)+'\n')
             with self.assertRaisesRegex(ValueError,'Raw prediction'):
-                summarize(journal,protocol)
+                summarize(journal,dict(protocol,prediction_grid_s=[0.]))
             journal.write_text(json.dumps(rows[0])+'\n'+json.dumps(rows[0])+'\n')
             with self.assertRaisesRegex(ValueError,'Duplicate comparison'):
                 read_records(journal)
@@ -672,58 +695,53 @@ class TTLAccuracyTests(unittest.TestCase):
             self.assertEqual(result[field],.5)
 
     def test_simple_runner_predicts_once_and_reproduces_all_380_records(self):
-        from geofence_turn.ttl_pred_accuracy.run import run_accuracy, comparison
+        from geofence_turn.ttl_pred_accuracy.run import run_accuracy, compare
         from geofence_turn.storage import write_json
         from unittest.mock import MagicMock
         warm = MagicMock()
         warm.start.return_value = (SimpleNamespace(select_action=lambda *_:None),None,None,None)
-        def recorded_prediction(snapshot, platform):
+        def recorded_prediction(snapshot, platform, delays):
             seed = next(s.seed for s,snap,_ in self.cases if np.array_equal(snap.state,snapshot.state))
             return self.forecasts[str(seed)]
         with tempfile.TemporaryDirectory() as folder:
             out = Path(folder)/'accuracy'
+            out.mkdir()
             with patch('geofence_turn.ttl_pred_accuracy.run.load_scg_platform_params',return_value=(None,None)), \
                  patch('geofence_turn.ttl_pred_accuracy.run.LightweightPredictiveModel',return_value=warm), \
                  patch('geofence_turn.ttl_pred_accuracy.run.predict_delays',side_effect=recorded_prediction) as predicted, \
                  patch('geofence_turn.ttl_pred_accuracy.run.execute',side_effect=AssertionError('All saved flights must be reused')), \
-                 patch('geofence_turn.ttl_pred_accuracy.run.comparison',wraps=comparison) as compared, \
+                 patch('geofence_turn.ttl_pred_accuracy.run.compare',wraps=compare) as compared, \
                  patch('geofence_turn.ttl_pred_accuracy.run.write_json',wraps=write_json) as written, \
                  contextlib.redirect_stdout(io.StringIO()):
-                run_accuracy(ROOT/'results/development/calibration',out)
+                run_accuracy(ROOT/'results/development/calibration',out,[],print)
                 self.assertEqual(predicted.call_count,20)
                 self.assertEqual(compared.call_count,380)
                 self.assertEqual([call.args[0].name for call in written.call_args_list],['metrics.json','run.json'])
                 self.assertEqual(set(p.name for p in out.iterdir()),{'run.json','metrics.json','executions.jsonl'})
-                self.assertEqual(set(read(out/'run.json')),{'input_dataset','protocol','forecasts'})
+                self.assertEqual(set(read(out/'run.json')),{'variant','input_dataset','protocol','forecasts','ground_truth'})
                 self.assertEqual(len(read(out/'run.json')['forecasts']),20)
                 original = ROOT/'results/development/ttl_pred_accuracy'
                 self.assertEqual(read(out/'metrics.json'),read(original/'metrics.json'))
                 self.assertEqual((out/'executions.jsonl').read_bytes(),(original/'executions.jsonl').read_bytes())
                 warm.step.assert_called_once()
                 warm.close.assert_called_once_with({})
-                before = {p.name:p.read_bytes() for p in out.iterdir()}
-                with self.assertRaises(FileExistsError):
-                    run_accuracy(ROOT/'results/development/calibration',out)
-                self.assertEqual(predicted.call_count,20)
-                self.assertEqual(before,{p.name:p.read_bytes() for p in out.iterdir()})
 
-    def test_interruption_leaves_only_partial_journal_and_fresh_run_is_required(self):
+    def test_interruption_does_not_publish_completed_metrics(self):
         from geofence_turn.ttl_pred_accuracy.run import run_accuracy
         from unittest.mock import MagicMock
         warm = MagicMock()
         warm.start.return_value = (SimpleNamespace(select_action=lambda *_:None),None,None,None)
         with tempfile.TemporaryDirectory() as folder:
             out = Path(folder)/'interrupted'
+            out.mkdir()
             with patch('geofence_turn.ttl_pred_accuracy.run.load_scg_platform_params',return_value=(None,None)), \
                  patch('geofence_turn.ttl_pred_accuracy.run.LightweightPredictiveModel',return_value=warm), \
                  patch('geofence_turn.ttl_pred_accuracy.run.predict_delays',side_effect=[self.forecasts['0'],RuntimeError('interrupted')]), \
                  contextlib.redirect_stdout(io.StringIO()):
                 with self.assertRaisesRegex(RuntimeError,'interrupted'):
-                    run_accuracy(ROOT/'results/development/calibration',out)
+                    run_accuracy(ROOT/'results/development/calibration',out,[],print)
                 self.assertEqual([p.name for p in out.iterdir()],['executions.jsonl'])
                 self.assertEqual(len((out/'executions.jsonl').read_text().splitlines()),19)
-                with self.assertRaises(FileExistsError):
-                    run_accuracy(ROOT/'results/development/calibration',out)
 
 
 if __name__ == '__main__':

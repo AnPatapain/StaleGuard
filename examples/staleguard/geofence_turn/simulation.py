@@ -104,7 +104,9 @@ def execute(s, delay=0., config=Config(), policy='no_recovery', received=None,
              'application_step': None, 'fallback_step': None, 'prediction_ready': None}
     if policy == 'fbs':
         previous_feature, volatility = None, 0.0
-        event.update(observation_steps=[], features_m=[], observation_update_s=[])
+        # Diagnostics are optional; the FBS decision always uses each 50 Hz observation.
+        if save_trace:
+            event.update(observation_steps=[], features_m=[], observation_update_s=[])
     started = time.perf_counter()
     try:
         ctrl = make('pid', factory)
@@ -154,13 +156,15 @@ def execute(s, delay=0., config=Config(), policy='no_recovery', received=None,
                 if step == approval:
                     frozen = fbs.freeze_prediction(feature, volatility)
                 elapsed = time.perf_counter()-began
-                event['observation_steps'].append(step)
-                event['features_m'].append(feature)
-                event['observation_update_s'].append(elapsed)
+                if save_trace:
+                    event['observation_steps'].append(step)
+                    event['features_m'].append(feature)
+                    event['observation_update_s'].append(elapsed)
                 if step == approval:
                     event.update(prediction=frozen, computation_s=elapsed,
-                                 observation_step=step, observation_state=obs.tolist(),
-                                 cold_start=step == 0)
+                                 observation_step=step, cold_start=step == 0)
+                    if save_trace:
+                        event['observation_state'] = obs.tolist()
             if step == dispatch:
                 if policy == 'staleguard':
                     if received is None:
