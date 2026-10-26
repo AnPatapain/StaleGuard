@@ -19,14 +19,14 @@ class Metric(str, Enum):
 
 
 def read_records(path, repair_tail=False):
-    """Reject duplicates; resume may discard only an unfinished final write."""
+    """Reject duplicates and unfinished final writes unless repair is requested."""
     path = Path(path)
     data = path.read_bytes() if path.exists() else b''
     rows, seen, offset = [], set(), 0
     for line in data.splitlines(keepends=True):
         if not line.endswith(b'\n'):
             if not repair_tail:
-                raise ValueError('Unfinished final journal line; use --resume')
+                raise ValueError('Unfinished final journal line; metrics require a complete journal')
             with path.open('r+b') as stream:
                 stream.truncate(offset)
             break

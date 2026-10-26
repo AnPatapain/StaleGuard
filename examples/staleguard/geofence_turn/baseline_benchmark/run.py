@@ -19,7 +19,7 @@ from model.scg import load_scg_platform_params
 from geofence_turn.scenario import Config, HZ, scenario_dict
 from geofence_turn.simulation import execute
 from geofence_turn.storage import (
-    ROOT, load_development, check_approval_snapshot,
+    ROOT, load_calibrated_scenarios, check_approval_snapshot,
     metadata, check_provenance, file_hash, append_json, write_json,
 )
 from geofence_turn.baselines.staleguard import predict_delays, LightweightPredictiveModel
@@ -40,7 +40,7 @@ DISPATCH_DELAYS = tuple(sorted(set(TTL_GRID) | {.24, .44, .64, .84}))
 
 def run(args):
     config = Config()
-    cases = load_development(args.calibration, config)
+    cases = load_calibrated_scenarios(args.calibration, config)
 
     if args.seeds:
         cases = [case for case in cases if case[0].seed in args.seeds]
@@ -261,6 +261,7 @@ def main():
         '--calibration', '--development',
         type=Path,
         default=ROOT / 'results/development/calibration',
+        help='Calibrated dataset directory or JSON: development or evaluation',
     )
 
     parser.add_argument('--out', type=Path)

@@ -9,7 +9,8 @@ import time
 from model.lightweight import LightweightPredictiveModel
 from ..scenario import HZ, apply_turn_command, clearance
 
-# Frozen development grid; actual future delay is never an input at approval.
+# Legacy 0.10 s default for direct calls; experiment runners pass their frozen grids.
+# Actual future dispatch delay is never an input at approval.
 PREDICTION_DELAYS = tuple(i/10 for i in range(11))
 
 

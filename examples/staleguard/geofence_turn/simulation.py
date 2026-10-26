@@ -221,6 +221,8 @@ def execute(s, delay=0., config=Config(), policy='no_recovery', received=None,
         if save_trace:
             trace.append((total, *obs, *ref[total]))
         safe = first_violation is None
+        # Flight-start seconds: first_violation_s, pre_dispatch_violation_s, horizon_s.
+        # Approval-relative seconds: completion_s. Keep these existing journal fields.
         result = dict(seed=s.seed, delay_s=delay, min_clearance_m=min_clear, safe=safe,
                       completed=completion is not None, completion_s=completion,
                       safe_completion=safe and completion is not None,

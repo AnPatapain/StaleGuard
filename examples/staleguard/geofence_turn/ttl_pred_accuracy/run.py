@@ -19,7 +19,7 @@ from model.scg import load_scg_platform_params
 from geofence_turn.scenario import Config, HZ
 from geofence_turn.simulation import execute, check_memory
 from geofence_turn.storage import (
-    ROOT, load_development, load_ground_truth,
+    ROOT, load_calibrated_scenarios, load_ground_truth,
     validate_flight, check_approval_snapshot,
     file_hash, write_json,
 )
@@ -68,6 +68,8 @@ def compare(s, actual, predicted, forecast):
 
     first = actual["first_violation_s"]
 
+    # Accuracy uses approval-relative violation time; retain the flight-start
+    # timestamp separately as first_violation_flight_s. completion_s is unchanged.
     return dict(
         seed=s.seed,
         delay_s=delay,
@@ -94,7 +96,7 @@ def compare(s, actual, predicted, forecast):
 def run_accuracy(calibration, out, ground_truth, log):
     config = Config()
 
-    calibrated_scenarios = load_development(calibration, config)
+    calibrated_scenarios = load_calibrated_scenarios(calibration, config)
 
     if not calibrated_scenarios:
         raise ValueError("No calibrated scenarios")
@@ -420,6 +422,7 @@ def main():
         dest="calibration",
         type=Path,
         default=ROOT / "results/development/calibration",
+        help="Calibrated dataset directory or JSON: development or evaluation",
     )
     parser.add_argument(
         "--ground-truth",

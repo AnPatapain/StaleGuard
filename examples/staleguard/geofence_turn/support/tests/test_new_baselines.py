@@ -12,7 +12,7 @@ from geofence_turn.baselines import always_recover, fbs
 from geofence_turn import simulation
 from geofence_turn.scenario import (Config, Command, Scenario, HZ, PHYSICS_HZ,
     BODY_RADIUS_M, POS, VEL, make_forward_trajectory, safety_only_reference)
-from geofence_turn.storage import ROOT, load_development
+from geofence_turn.storage import ROOT, load_calibrated_scenarios
 
 
 class NewBaselineTests(unittest.TestCase):
@@ -241,7 +241,7 @@ class NewBaselineTests(unittest.TestCase):
         import contextlib
         import io
         from geofence_turn.baseline_benchmark import run as benchmark, metrics
-        cases = [case for case in load_development(ROOT/'results/development/calibration') if case[0].seed in (0,3)]
+        cases = [case for case in load_calibrated_scenarios(ROOT/'results/development/calibration') if case[0].seed in (0,3)]
         snapshots = {s.seed:snapshot for s,snapshot,_ in cases}
         forecasts = {}
         warm = MagicMock()
@@ -268,7 +268,7 @@ class NewBaselineTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as folder:
             args = SimpleNamespace(calibration=ROOT/'results/development/calibration',out=Path(folder),
                 seeds=[0,3],delays=benchmark.DISPATCH_DELAYS,policies=metrics.POLICIES,max_flights=0)
-            with patch.object(benchmark,'load_development',return_value=cases), \
+            with patch.object(benchmark,'load_calibrated_scenarios',return_value=cases), \
                  patch.object(benchmark,'load_scg_platform_params',return_value=(None,None)), \
                  patch.object(benchmark,'LightweightPredictiveModel',return_value=warm), \
                  patch.object(benchmark,'predict_delays',side_effect=predict) as predicted, \
@@ -300,7 +300,7 @@ class NewBaselineTests(unittest.TestCase):
         from geofence_turn.baseline_benchmark.run import run as run_benchmark
         from geofence_turn.baseline_benchmark.metrics import POLICIES,summarize
         self.assertEqual(len(set(POLICIES)),6)
-        scenario,snapshot,_ = load_development(ROOT/'results/development/calibration')[0]
+        scenario,snapshot,_ = load_calibrated_scenarios(ROOT/'results/development/calibration')[0]
         def recorded(s,delay,policy,**kwargs):
             self.assertIsNone(kwargs['platform'])
             dispatch = round(s.approval_s*HZ)

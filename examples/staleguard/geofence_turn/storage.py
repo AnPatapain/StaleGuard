@@ -15,7 +15,6 @@ from .scenario import (SCHEMA, Config, Command, Scenario, HZ, PHYSICS_HZ, scenar
                        scenario_from_dict, make_forward_trajectory)
 
 ROOT = Path(__file__).resolve().parent
-DEFAULT_DEVELOPMENT = ROOT/'support/logs/northbound_review/development'
 DEFAULT_ENVELOPE = ROOT/'support/logs/northbound_review/characterization/envelope.json'
 
 def write_json(path, value):
@@ -80,20 +79,26 @@ def load_snapshot(path):
         return Reader(stream).load()
 
 
-def load_development(development, config=Config()):
-    """Read compact or historical calibrated inputs, retaining compatibility checks."""
-    development = Path(development)
-    if development.is_dir() and (development/'calibrated_scenarios.json').exists():
-        development = development/'calibrated_scenarios.json'
-    if development.is_file():
-        saved = json.loads(development.read_text())
+def load_calibrated_scenarios(dataset, config=Config()):
+    """Load development or evaluation scenarios/snapshots from the supplied path.
+
+    Accept a compact calibration directory/JSON or a historical calibration folder.
+    Configuration, provenance, snapshot checksums and references are validated.
+    """
+    dataset = Path(dataset)
+    if not dataset.exists():
+        raise FileNotFoundError(f'Calibrated dataset path does not exist: {dataset}')
+    if dataset.is_dir() and (dataset/'calibrated_scenarios.json').exists():
+        dataset = dataset/'calibrated_scenarios.json'
+    if dataset.is_file():
+        saved = json.loads(dataset.read_text())
         if saved.get('schema') != SCHEMA or saved['config'] != asdict(config):
             raise ValueError('Calibrated dataset schema/configuration mismatch')
         provenance = saved['provenance']
         if saved.get('format') == 'compact_calibration_v1':
             if provenance.get('schema') != SCHEMA or provenance.get('config') != asdict(config) or not provenance.get('source_hashes') or not provenance.get('shared_source_hashes'):
                 raise ValueError('Calibrated dataset provenance is incomplete or incompatible')
-        elif file_hash(development.parent/provenance['path']) != provenance['sha256']:
+        elif file_hash(dataset.parent/provenance['path']) != provenance['sha256']:
             raise ValueError('Calibrated dataset provenance checksum mismatch')
         entries = saved['scenarios']
         if saved.get('format') == 'compact_calibration_v1':
@@ -102,14 +107,14 @@ def load_development(development, config=Config()):
             if statistics['accepted'] != len(entries) or (attempted is not None and
                     (attempted < len(entries) or statistics['rejected'] != attempted-len(entries))):
                 raise ValueError('Calibrated dataset acceptance statistics are inconsistent')
-        rows = [(entry['scenario'], development.parent/entry['approval_snapshot'], entry['snapshot_sha256'])
+        rows = [(entry['scenario'], dataset.parent/entry['approval_snapshot'], entry['snapshot_sha256'])
                 for entry in entries]
     else:
-        saved = json.loads((development/'metadata.json').read_text())
+        saved = json.loads((dataset/'metadata.json').read_text())
         if saved.get('schema') != SCHEMA or saved['config'] != asdict(config):
-            raise ValueError('Development dataset schema/configuration mismatch')
-        summary = json.loads((development/'summary.json').read_text())
-        rows = [(entry['selected'], development/f"seed_{entry['seed']}/approval.pkl", entry['snapshot_sha256'])
+            raise ValueError('Calibrated dataset schema/configuration mismatch')
+        summary = json.loads((dataset/'summary.json').read_text())
+        rows = [(entry['selected'], dataset/f"seed_{entry['seed']}/approval.pkl", entry['snapshot_sha256'])
                 for entry in summary['scenarios']]
     cases = []
     seen = set()
@@ -144,7 +149,7 @@ def open_calibration(output, seeds, target, envelope_path, config, resume):
         if data.get('format') != 'compact_calibration_v1' or data['calibration']['settings'] != settings:
             raise ValueError('Resume calibration inputs/settings differ; frozen historical datasets are read-only inputs')
         check_provenance(data['provenance'],config)
-        load_development(path,config)
+        load_calibrated_scenarios(path,config)
         return data
     if output.exists() and any(output.iterdir()):
         raise FileExistsError('Output contains data; use --resume or a fresh directory')
@@ -321,7 +326,7 @@ def load_ground_truth(dataset, cases, config, paths=()):
             check_ground_truth_source(provenance,config)
             protocol = json.loads((folder/'protocol.json').read_text())
             finished = json.loads((folder/'finished.json').read_text())
-            original = load_development(folder/'calibrated_scenarios.json',config)
+            original = load_calibrated_scenarios(folder/'calibrated_scenarios.json',config)
             source_scenarios = {s.seed:s for s,_,_ in original}
             source_snapshots = {str(s.seed):file_hash(path) for s,_,path in original}
             if (finished['status'] != 'SUCCESS' or finished['delay_sweep_flights'] != len(rows)

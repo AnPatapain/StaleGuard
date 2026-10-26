@@ -21,7 +21,7 @@ import numpy as np
 from geofence_turn.scenario import (Config, HZ, generate_scenario, scenario_dict,
     scenario_from_dict, make_forward_trajectory, apply_turn_command)
 from geofence_turn.calibration import approval_candidates, calibrate_scenarios, verify_calibration
-from geofence_turn.storage import load_development, check_provenance
+from geofence_turn.storage import load_calibrated_scenarios, check_provenance
 from geofence_turn.baselines.staleguard import predict_delays
 from geofence_turn.simulation import check_memory, start_work
 
@@ -95,7 +95,7 @@ class RefactorEquivalenceTests(unittest.TestCase):
         from model.scg import load_scg_platform_params
         check_memory(Config())
         platform = load_scg_platform_params()
-        for scenario, snapshot, _ in load_development(DEV):
+        for scenario, snapshot, _ in load_calibrated_scenarios(DEV):
             actual = predict_delays(snapshot, platform)
             expected = read(BEFORE/f'prediction_{scenario.seed}.json')
             self.assertEqual(actual['results'], expected['results'])
@@ -117,8 +117,8 @@ class RefactorEquivalenceTests(unittest.TestCase):
             self.assertEqual(old, new, path.name)
 
     def test_old_snapshots_and_exported_dataset_load_without_conversion(self):
-        original = load_development(DEV)
-        exported = load_development(RECORDS/'calibrated_export/calibrated_scenarios.json')
+        original = load_calibrated_scenarios(DEV)
+        exported = load_calibrated_scenarios(RECORDS/'calibrated_export/calibrated_scenarios.json')
         self.assertEqual(len(original), 5)
         for (s, snapshot, path), (other, loaded, target) in zip(original, exported):
             self.assertEqual(s, other)
@@ -126,7 +126,7 @@ class RefactorEquivalenceTests(unittest.TestCase):
             np.testing.assert_array_equal(snapshot.state, loaded.state)
             np.testing.assert_array_equal(snapshot.remaining_reference, loaded.remaining_reference)
         with self.assertRaisesRegex(ValueError, 'configuration'):
-            load_development(DEV, replace(Config(), d_min_m=.051))
+            load_calibrated_scenarios(DEV, replace(Config(), d_min_m=.051))
 
 
     def test_checksum_and_old_source_resume_checks_are_not_disabled(self):
@@ -140,7 +140,7 @@ class RefactorEquivalenceTests(unittest.TestCase):
             target = Path(folder)/'tampered.json'
             target.write_text(json.dumps(data))
             with self.assertRaisesRegex(ValueError, 'snapshot checksum'):
-                load_development(target)
+                load_calibrated_scenarios(target)
         with self.assertRaisesRegex(ValueError, 'source/layout changed'):
             check_provenance(read(DEV/'metadata.json'),Config())
         with self.assertRaises(ValueError):
@@ -214,7 +214,7 @@ class ArtifactWorkflowTests(unittest.TestCase):
     def recorded_flight(self, candidate, delay=0., **kwargs):
         if delay is None:
             return read(DEV/f'seed_{candidate.seed}/nominal_bound.json'),None,None
-        cases = {s.seed:(s,snapshot,path) for s,snapshot,path in load_development(DEV)}
+        cases = {s.seed:(s,snapshot,path) for s,snapshot,path in load_calibrated_scenarios(DEV)}
         rows = list(map(json.loads,(DEV/f'seed_{candidate.seed}/candidates.jsonl').read_text().splitlines()))
         result = next(row['outcome'] for row in rows if row['approval_s']==candidate.approval_s)
         return result,cases[candidate.seed][1],None
@@ -224,7 +224,7 @@ class ArtifactWorkflowTests(unittest.TestCase):
         with patch('geofence_turn.calibration.execute',side_effect=self.recorded_flight) as flown, contextlib.redirect_stdout(io.StringIO()):
             data = calibrate_scenarios(range(10),5,out)
         self.assertEqual(flown.call_count,43)
-        self.assertEqual([s.approval_s for s,_,_ in load_development(out)],[2.,1.8,1.8,1.4,1.4])
+        self.assertEqual([s.approval_s for s,_,_ in load_calibrated_scenarios(out)],[2.,1.8,1.8,1.4,1.4])
         self.assertEqual(data['statistics']['attempted'],5)
         self.assertEqual(data['statistics']['generated'],10)
         self.assertEqual({p.name for p in out.iterdir()},{'snapshots','calibrated_scenarios.json'})
@@ -273,11 +273,11 @@ class ArtifactWorkflowTests(unittest.TestCase):
         self.assertEqual(data['statistics']['rejected'],2)
         self.assertEqual(data['calibration']['attempts'][1]['candidate_count'],0)
         self.assertTrue(data['calibration']['attempts'][1]['rejection_reason'].startswith('checkpoint_geometry:'))
-        self.assertEqual(load_development(out),[])
+        self.assertEqual(load_calibrated_scenarios(out),[])
 
     def test_verification_checks_reference_and_command_as_well_as_state(self):
         from copy import deepcopy
-        scenario,snapshot,_ = load_development(DEV)[0]
+        scenario,snapshot,_ = load_calibrated_scenarios(DEV)[0]
         bad_reference = replace(snapshot,remaining_reference=snapshot.remaining_reference+.01)
         bad_command = replace(snapshot,command=replace(snapshot.command,radius=.4))
         for changed in (bad_reference,bad_command):
@@ -287,8 +287,8 @@ class ArtifactWorkflowTests(unittest.TestCase):
 
     def test_all_frozen_datasets_load_and_reject_tampered_snapshot(self):
         source = ROOT/'results/development/calibration/calibrated_scenarios.json'
-        self.assertEqual(len(load_development(source)),20)
-        self.assertEqual(len(load_development(ROOT/'results/evaluation/calibration')),300)
+        self.assertEqual(len(load_calibrated_scenarios(source)),20)
+        self.assertEqual(len(load_calibrated_scenarios(ROOT/'results/evaluation/calibration')),300)
         data = read(source)
         for row in data['scenarios']:
             row['approval_snapshot'] = str((source.parent/row['approval_snapshot']).resolve())
@@ -296,7 +296,7 @@ class ArtifactWorkflowTests(unittest.TestCase):
         path = self.folder/'tampered.json'
         path.write_text(json.dumps(data))
         with self.assertRaisesRegex(ValueError,'snapshot checksum'):
-            load_development(path)
+            load_calibrated_scenarios(path)
 
     def test_real_record_counts_match_previous_summary_and_partial_pairs(self):
         from geofence_turn.baseline_benchmark.metrics import summarize
@@ -383,7 +383,7 @@ class ArtifactWorkflowTests(unittest.TestCase):
         return flown
 
     def test_two_policy_selection_keeps_only_selected_pairs(self):
-        _,snapshot,_ = load_development(DEV)[0]
+        _,snapshot,_ = load_calibrated_scenarios(DEV)[0]
         originals = {row['event']['policy']:row for row in map(json.loads,(RECORDS/'baseline_entrypoint/executions.jsonl').read_text().splitlines())}
         args = SimpleNamespace(calibration=DEV,seeds=[0],delays=(0.,),
                                policies=('staleguard','use_time_recheck'),max_flights=0)
@@ -398,7 +398,7 @@ class ArtifactWorkflowTests(unittest.TestCase):
 
     def test_benchmark_three_files_resume_cache_and_duplicate_prevention(self):
         from geofence_turn.baseline_benchmark.metrics import read_executions, summarize
-        scenario,snapshot,_ = load_development(DEV)[0]
+        scenario,snapshot,_ = load_calibrated_scenarios(DEV)[0]
         originals = {row['event']['policy']:row for row in map(json.loads,(RECORDS/'baseline_entrypoint/executions.jsonl').read_text().splitlines())}
         args = SimpleNamespace(calibration=DEV,seeds=[0],delays=(0.,),
                                policies=('no_recovery','staleguard','use_time_recheck','fixed_ttl'),max_flights=0)
@@ -467,7 +467,7 @@ class TTLAccuracyTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         from geofence_turn.storage import load_ground_truth
-        cls.cases = load_development(ROOT/'results/development/calibration')
+        cls.cases = load_calibrated_scenarios(ROOT/'results/development/calibration')
         cls.actual = load_ground_truth(ROOT/'results/development/calibration',cls.cases,Config())
         folder = ROOT/'results/development/ttl_pred_accuracy'
         protocol = read(folder/'run.json')['protocol']
@@ -513,7 +513,7 @@ class TTLAccuracyTests(unittest.TestCase):
         from geofence_turn.ttl_pred_accuracy.run import DELAYS
         dataset = ROOT/'results/evaluation/calibration'
         with patch('geofence_turn.simulation.execute',side_effect=AssertionError('No flight during loading')):
-            cases = load_development(dataset)
+            cases = load_calibrated_scenarios(dataset)
             actual = load_ground_truth(dataset,cases,Config())
         self.assertEqual(len(cases),300)
         self.assertEqual(len(actual),300)
@@ -600,7 +600,7 @@ class TTLAccuracyTests(unittest.TestCase):
         scenario,snapshot,_ = self.cases[0]
         saved = {key:value for key,value in self.actual.items() if key[0]==scenario.seed and key[1]!=.5}
         with tempfile.TemporaryDirectory() as folder:
-            with patch('geofence_turn.ttl_pred_accuracy.run.load_development',return_value=self.cases[:1]), \
+            with patch('geofence_turn.ttl_pred_accuracy.run.load_calibrated_scenarios',return_value=self.cases[:1]), \
                  patch('geofence_turn.ttl_pred_accuracy.run.load_ground_truth',return_value=saved), \
                  patch('geofence_turn.ttl_pred_accuracy.run.load_scg_platform_params',return_value=(None,None)), \
                  patch('geofence_turn.ttl_pred_accuracy.run.LightweightPredictiveModel',return_value=warm), \
@@ -621,7 +621,7 @@ class TTLAccuracyTests(unittest.TestCase):
         warm.start.return_value = (SimpleNamespace(select_action=lambda *_:None),None,None,None)
         scenario,snapshot,_ = self.cases[0]
         with tempfile.TemporaryDirectory() as folder, contextlib.redirect_stdout(io.StringIO()) as output:
-            with patch('geofence_turn.ttl_pred_accuracy.run.load_development',return_value=self.cases[:1]), \
+            with patch('geofence_turn.ttl_pred_accuracy.run.load_calibrated_scenarios',return_value=self.cases[:1]), \
                  patch('geofence_turn.ttl_pred_accuracy.run.load_ground_truth',side_effect=ValueError('No-Recovery physics differs')), \
                  patch('geofence_turn.ttl_pred_accuracy.run.load_scg_platform_params',return_value=(None,None)), \
                  patch('geofence_turn.ttl_pred_accuracy.run.LightweightPredictiveModel',return_value=warm), \
