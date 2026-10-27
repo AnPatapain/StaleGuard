@@ -85,8 +85,16 @@ def execute(s, delay=0., config=Config(), policy='no_recovery', received=None,
     dispatch = None if delay is None else approval + round(delay * HZ)
     if delay is not None and (delay < 0 or dispatch >= total):
         raise ValueError('Delay outside monitored horizon')
-    if policy not in ('no_recovery', 'staleguard', 'use_time_recheck', 'fixed_ttl', 'always_recover', 'fbs'):
+
+    if policy not in (
+            'no_recovery', 'staleguard', 'staleguard_early_recovery',
+            'use_time_recheck', 'fixed_ttl', 'always_recover', 'fbs'
+    ):
         raise ValueError('Unadapted policy')
+
+    if policy in ('staleguard', 'staleguard_early_recovery') and received is None:
+        raise ValueError('StaleGuard requires approval-only prediction')
+
     factory = env_factory(s, total)
     env, ctrl = factory(), None
     snapshot = None
@@ -102,6 +110,13 @@ def execute(s, delay=0., config=Config(), policy='no_recovery', received=None,
     trace = []
     event = {'policy': policy, 'scheduled_dispatch_step': dispatch,
              'application_step': None, 'fallback_step': None, 'prediction_ready': None}
+    if policy == 'staleguard_early_recovery':
+        event.update(
+            early_recovery=False,
+            computation_s=received['computation_s'],
+            expiry_steps=received['expiry_steps'],
+        )
+
     if policy == 'fbs':
         previous_feature, volatility = None, 0.0
         # Diagnostics are optional; the FBS decision always uses each 50 Hz observation.
@@ -165,13 +180,42 @@ def execute(s, delay=0., config=Config(), policy='no_recovery', received=None,
                                  observation_step=step, cold_start=step == 0)
                     if save_trace:
                         event['observation_state'] = obs.tolist()
+
+            # EarlyRecovery: act when TTL expires while the command is pending.
+            if (
+                    policy == 'staleguard_early_recovery'
+                    and dispatch is not None
+                    and approval <= step < dispatch
+                    and not event['early_recovery']
+            ):
+                ready, expired = staleguard_status(
+                    received, step - approval
+                )
+                if ready and expired:
+                    ref = safety_only_reference(ref, step, obs)
+                    ctrl.reference = ref
+                    env.X_GOAL = ref
+                    event.update(
+                        fallback_step=step,
+                        prediction_ready=True,
+                        early_recovery=True,
+                    )
+                    # Cancel the pending turn permanently.
+                    action_step = None
+
             if step == dispatch:
-                if policy == 'staleguard':
-                    if received is None:
-                        raise ValueError('StaleGuard requires approval-only prediction')
-                    ready, recover = staleguard_status(received, step-approval)
-                    event.update(prediction_ready=ready, computation_s=received['computation_s'],
-                                 expiry_steps=received['expiry_steps'])
+                if policy in ('staleguard', 'staleguard_early_recovery'):
+                    ready, expired = staleguard_status(
+                        received, step - approval
+                    )
+                    # Do not override a recovery already started before dispatch.
+                    if event['fallback_step'] is None:
+                        recover = expired
+                    event.update(
+                        prediction_ready=ready,
+                        computation_s=received['computation_s'],
+                        expiry_steps=received['expiry_steps'],
+                    )
                 elif policy == 'fixed_ttl':
                     # Preregistered development control, not tuned against outcomes.
                     recover = fixed_ttl_expired(step-approval)

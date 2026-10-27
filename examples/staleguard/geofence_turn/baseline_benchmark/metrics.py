@@ -1,4 +1,4 @@
-"""Summarize Geofence Turn flights and paired results for all six baselines."""
+"""Summarize Geofence Turn flights and paired results, including EarlyRecovery."""
 import argparse
 from collections import defaultdict
 from enum import Enum
@@ -15,6 +15,7 @@ POLICIES = (
     'fbs',
     'use_time_recheck',
     'staleguard',
+    'staleguard_early_recovery',
 )
 CONTROL_HZ = 50
 
@@ -39,6 +40,9 @@ class Metric(Enum):
     FBS_CUMULATIVE_TIME_MS = 'fbs_cumulative_observation_computation_ms'
     ACTION_DELAY = 'dispatch_to_action_s'
     ACTION_DELAY_MS = 'dispatch_to_action_ms'
+    EARLY_RECOVERIES = 'early_recoveries'
+    EARLY_LEAD = 'early_recovery_lead_s'
+    EARLY_LEAD_MS = 'early_recovery_lead_ms'
     READY = 'prediction_ready'
     UNAVAILABLE = 'prediction_unavailable'
     READINESS_MISSING = 'prediction_readiness_unrecorded'
@@ -120,12 +124,12 @@ def policy_metrics(rows, policy, control_hz):
     unsafe = sum(not row['safe'] for row in rows)
     recovery = [row for row in rows if row['event'].get('fallback_step') is not None]
 
-    prediction_times, action_delays, fbs_cumulative_times = {}, [], []
+    prediction_times, action_delays, fbs_cumulative_times, early_leads = {}, [], [], []
     for row in rows:
         event = row['event']
         duration = event.get('computation_s')
         # Approval-time StaleGuard forecast is reused across dispatch delays.
-        key = row['seed'] if policy == 'staleguard' else flight_key(row)
+        key = row['seed'] if policy in ('staleguard', 'staleguard_early_recovery') else flight_key(row)
         if duration is not None:
             if key in prediction_times and prediction_times[key] != duration:
                 raise ValueError('Conflicting timing for reused StaleGuard forecast')
@@ -133,15 +137,22 @@ def policy_metrics(rows, policy, control_hz):
         if policy == 'fbs' and event.get('observation_update_s'):
             fbs_cumulative_times.append(math.fsum(event['observation_update_s']))
         dispatch = event.get('scheduled_dispatch_step')
-        action = event.get('fallback_step')
-        if action is None:
-            action = event.get('application_step')
-        action_delays.append(None if dispatch is None or action is None
+        fallback = event.get('fallback_step')
+        action = fallback if fallback is not None else event.get('application_step')
+        is_early = fallback is not None and dispatch is not None and fallback < dispatch
+        if is_early != (event.get('early_recovery') is True):
+            raise ValueError('Early-recovery flag disagrees with fallback timing')
+        if is_early:
+            if policy != 'staleguard_early_recovery' or event.get('application_step') is not None:
+                raise ValueError('Early recovery must cancel the pending command')
+            early_leads.append((dispatch - fallback) / control_hz)
+        # Pre-dispatch intervention is not a negative dispatch-to-action latency.
+        action_delays.append(None if dispatch is None or action is None or is_early
                              else (action - dispatch) / control_hz)
 
     timed = timing_summary(prediction_times.values())
     action = timing_summary(action_delays)
-    guarded = policy in ('staleguard', 'fbs')
+    guarded = policy in ('staleguard', 'staleguard_early_recovery', 'fbs')
     ready = sum(r['event'].get('prediction_ready') is True for r in rows)
     unavailable = sum(r['event'].get('prediction_ready') is False for r in rows)
     missing = n - ready - unavailable
@@ -175,6 +186,11 @@ def policy_metrics(rows, policy, control_hz):
         cumulative = timing_summary(fbs_cumulative_times)
         values.update({Metric.FBS_CUMULATIVE_TIME: cumulative,
                        Metric.FBS_CUMULATIVE_TIME_MS: milliseconds(cumulative)})
+    if policy == 'staleguard_early_recovery':
+        lead = timing_summary(early_leads)
+        values.update({Metric.EARLY_RECOVERIES: len(early_leads),
+                       Metric.EARLY_LEAD: lead,
+                       Metric.EARLY_LEAD_MS: milliseconds(lead)})
     return {metric.value: value for metric, value in values.items()}
 
 
@@ -232,6 +248,10 @@ def summarize(path, protocol=None):
            or (seeds and row['seed'] not in seeds) for row in rows):
         raise ValueError('Journal contains a flight outside the fixed protocol')
 
+    comparison_other = ('use_time_recheck' if 'use_time_recheck' in policies
+                        else 'staleguard_early_recovery'
+                        if 'staleguard_early_recovery' in policies else None)
+
     def pairs_against_staleguard(selected, expected_keys):
         if 'staleguard' not in policies:
             return {}
@@ -248,7 +268,7 @@ def summarize(path, protocol=None):
         by_delay[str(float(delay))] = dict(
             by_policy={p: policy_metrics([r for r in selected if r['event']['policy'] == p], p, control_hz)
                        for p in policies},
-            paired_comparison=(pairs['use_time_recheck'] if 'use_time_recheck' in pairs
+            paired_comparison=(pairs[comparison_other] if comparison_other in pairs
                                else paired_metrics(selected, subset)),
             paired_against_staleguard=pairs,
         )
@@ -259,7 +279,9 @@ def summarize(path, protocol=None):
         control_hz=control_hz,
         timing_units='seconds',
         prediction_timing_samples=(
-            'StaleGuard: one approval forecast per seed; '
+            'StaleGuard and EarlyRecovery: one approval forecast per seed; '
+            'EarlyRecovery may act before dispatch; this is reported separately as '
+            'early_recovery_lead, not a negative dispatch-to-action delay. '
             'Use-Time Recheck: one check per flight; '
             'FBS: approval-time feature/EMA update and TTL freeze per flight, '
             'not total observation-history or total policy computation. '
@@ -270,7 +292,8 @@ def summarize(path, protocol=None):
         journal_sha256=hashlib.sha256(path.read_bytes()).hexdigest(),
         by_policy=by_policy,
         by_delay=by_delay,
-        paired_comparison=(pairs['use_time_recheck'] if 'use_time_recheck' in pairs
+        paired_comparison_other_policy=comparison_other,
+        paired_comparison=(pairs[comparison_other] if comparison_other in pairs
                            else paired_metrics(rows, expected)),
         paired_against_staleguard=pairs,
     )

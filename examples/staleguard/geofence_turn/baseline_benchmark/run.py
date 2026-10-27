@@ -37,6 +37,11 @@ TTL_GRID = (
 # Preserve every TTL-grid delay and add four distributed off-grid delays.
 DISPATCH_DELAYS = tuple(sorted(set(TTL_GRID) | {.24, .44, .64, .84}))
 
+STALEGUARD_POLICIES = (
+    'staleguard',
+    'staleguard_early_recovery',
+)
+
 
 def run(args):
     config = Config()
@@ -102,7 +107,7 @@ def run(args):
             raise ValueError('Previously committed execution records changed or are missing')
         rows = read_executions(journal, repair_tail=True)
         for row in rows:
-            if row['event']['policy'] == 'staleguard':
+            if row['event']['policy'] in STALEGUARD_POLICIES:
                 prediction = saved['predictions'].get(str(row['seed']))
                 if prediction is None or any(row['event'].get(name) != prediction[name]
                                              for name in ('computation_s', 'expiry_steps')):
@@ -138,7 +143,7 @@ def run(args):
     # Warm up only the predictive models actually needed.
     platform = None
 
-    if completed != expected and {'staleguard', 'use_time_recheck'} & set(args.policies):
+    if completed != expected and (set(STALEGUARD_POLICIES) | {'use_time_recheck'}) & set(args.policies):
         platform = load_scg_platform_params()
         model = LightweightPredictiveModel(*platform)
         try:  # Warm the shared kernels without an extra approval forecast.
@@ -166,7 +171,7 @@ def run(args):
             # Actual dispatch delay remains unknown.
             prediction = None
 
-            if 'staleguard' in args.policies:
+            if set(STALEGUARD_POLICIES) & set(args.policies):
                 prediction = saved['predictions'].get(
                     str(scenario.seed)
                 )
@@ -278,7 +283,10 @@ def main():
         '--policies',
         nargs='+',
         choices=POLICIES,
-        default=POLICIES,
+        default=tuple(
+            p for p in POLICIES
+            if p != 'staleguard_early_recovery'
+        ),
     )
 
     parser.add_argument(

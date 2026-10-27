@@ -1,0 +1,3057 @@
+{
+  "schema": "geofence_benchmark_metrics_v1",
+  "recorded_flights": 13800,
+  "control_hz": 50,
+  "timing_units": "seconds",
+  "prediction_timing_samples": "StaleGuard and EarlyRecovery: one approval forecast per seed; EarlyRecovery may act before dispatch; this is reported separately as early_recovery_lead, not a negative dispatch-to-action delay. Use-Time Recheck: one check per flight; FBS: approval-time feature/EMA update and TTL freeze per flight, not total observation-history or total policy computation. FBS cumulative observation computation sums recorded update timers through approval (including the approval update), only when diagnostics exist; it excludes dispatch and recording overhead. Missing history is unmeasured.",
+  "journal_sha256": "3ce52a38d12d9be766f91a4bf32b551fc9b7264cdfced6991783f288819a2839",
+  "by_policy": {
+    "staleguard": {
+      "flights": 6900,
+      "safe_completion": 1685,
+      "safe_noncompletion": 4603,
+      "unsafe": 612,
+      "safe_completion_rate": 0.24420289855072463,
+      "safe_noncompletion_rate": 0.6671014492753623,
+      "unsafe_rate": 0.08869565217391304,
+      "recovery_attempts": 2460,
+      "recovery_successes": 1960,
+      "recovery_failures": 500,
+      "recovery_attempt_rate": 0.3565217391304348,
+      "recovery_success_rate": 0.7967479674796748,
+      "recovery_failure_rate": 0.2032520325203252,
+      "prediction_computation_s": {
+        "samples": 300,
+        "mean_s": 0.08418343511410058,
+        "median_s": 0.07875908841378987,
+        "p95_s": 0.11964304000139236
+      },
+      "prediction_computation_ms": {
+        "samples": 300,
+        "mean_ms": 84.18343511410058,
+        "median_ms": 78.75908841378987,
+        "p95_ms": 119.64304000139236
+      },
+      "dispatch_to_action_s": {
+        "samples": 6900,
+        "mean_s": 0.0,
+        "median_s": 0.0,
+        "p95_s": 0.0
+      },
+      "dispatch_to_action_ms": {
+        "samples": 6900,
+        "mean_ms": 0.0,
+        "median_ms": 0.0,
+        "p95_ms": 0.0
+      },
+      "prediction_ready": 5498,
+      "prediction_unavailable": 1402,
+      "prediction_readiness_unrecorded": 0,
+      "unverified_executions": 1402
+    },
+    "staleguard_early_recovery": {
+      "flights": 6900,
+      "safe_completion": 1685,
+      "safe_noncompletion": 5103,
+      "unsafe": 112,
+      "safe_completion_rate": 0.24420289855072463,
+      "safe_noncompletion_rate": 0.7395652173913043,
+      "unsafe_rate": 0.016231884057971015,
+      "recovery_attempts": 2460,
+      "recovery_successes": 2460,
+      "recovery_failures": 0,
+      "recovery_attempt_rate": 0.3565217391304348,
+      "recovery_success_rate": 1.0,
+      "recovery_failure_rate": 0.0,
+      "prediction_computation_s": {
+        "samples": 300,
+        "mean_s": 0.08418343511410058,
+        "median_s": 0.07875908841378987,
+        "p95_s": 0.11964304000139236
+      },
+      "prediction_computation_ms": {
+        "samples": 300,
+        "mean_ms": 84.18343511410058,
+        "median_ms": 78.75908841378987,
+        "p95_ms": 119.64304000139236
+      },
+      "dispatch_to_action_s": {
+        "samples": 4688,
+        "mean_s": 0.0,
+        "median_s": 0.0,
+        "p95_s": 0.0
+      },
+      "dispatch_to_action_ms": {
+        "samples": 4688,
+        "mean_ms": 0.0,
+        "median_ms": 0.0,
+        "p95_ms": 0.0
+      },
+      "prediction_ready": 5498,
+      "prediction_unavailable": 1402,
+      "prediction_readiness_unrecorded": 0,
+      "unverified_executions": 1402,
+      "early_recoveries": 2212,
+      "early_recovery_lead_s": {
+        "samples": 2212,
+        "mean_s": 0.3481826401446655,
+        "median_s": 0.3,
+        "p95_s": 0.8
+      },
+      "early_recovery_lead_ms": {
+        "samples": 2212,
+        "mean_ms": 348.18264014466547,
+        "median_ms": 300.0,
+        "p95_ms": 800.0
+      }
+    }
+  },
+  "by_delay": {
+    "0.0": {
+      "by_policy": {
+        "staleguard": {
+          "flights": 300,
+          "safe_completion": 300,
+          "safe_noncompletion": 0,
+          "unsafe": 0,
+          "safe_completion_rate": 1.0,
+          "safe_noncompletion_rate": 0.0,
+          "unsafe_rate": 0.0,
+          "recovery_attempts": 0,
+          "recovery_successes": 0,
+          "recovery_failures": 0,
+          "recovery_attempt_rate": 0.0,
+          "recovery_success_rate": null,
+          "recovery_failure_rate": null,
+          "prediction_computation_s": {
+            "samples": 300,
+            "mean_s": 0.08418343511410058,
+            "median_s": 0.07875908841378987,
+            "p95_s": 0.11964304000139236
+          },
+          "prediction_computation_ms": {
+            "samples": 300,
+            "mean_ms": 84.18343511410058,
+            "median_ms": 78.75908841378987,
+            "p95_ms": 119.64304000139236
+          },
+          "dispatch_to_action_s": {
+            "samples": 300,
+            "mean_s": 0.0,
+            "median_s": 0.0,
+            "p95_s": 0.0
+          },
+          "dispatch_to_action_ms": {
+            "samples": 300,
+            "mean_ms": 0.0,
+            "median_ms": 0.0,
+            "p95_ms": 0.0
+          },
+          "prediction_ready": 0,
+          "prediction_unavailable": 300,
+          "prediction_readiness_unrecorded": 0,
+          "unverified_executions": 300
+        },
+        "staleguard_early_recovery": {
+          "flights": 300,
+          "safe_completion": 300,
+          "safe_noncompletion": 0,
+          "unsafe": 0,
+          "safe_completion_rate": 1.0,
+          "safe_noncompletion_rate": 0.0,
+          "unsafe_rate": 0.0,
+          "recovery_attempts": 0,
+          "recovery_successes": 0,
+          "recovery_failures": 0,
+          "recovery_attempt_rate": 0.0,
+          "recovery_success_rate": null,
+          "recovery_failure_rate": null,
+          "prediction_computation_s": {
+            "samples": 300,
+            "mean_s": 0.08418343511410058,
+            "median_s": 0.07875908841378987,
+            "p95_s": 0.11964304000139236
+          },
+          "prediction_computation_ms": {
+            "samples": 300,
+            "mean_ms": 84.18343511410058,
+            "median_ms": 78.75908841378987,
+            "p95_ms": 119.64304000139236
+          },
+          "dispatch_to_action_s": {
+            "samples": 300,
+            "mean_s": 0.0,
+            "median_s": 0.0,
+            "p95_s": 0.0
+          },
+          "dispatch_to_action_ms": {
+            "samples": 300,
+            "mean_ms": 0.0,
+            "median_ms": 0.0,
+            "p95_ms": 0.0
+          },
+          "prediction_ready": 0,
+          "prediction_unavailable": 300,
+          "prediction_readiness_unrecorded": 0,
+          "unverified_executions": 300,
+          "early_recoveries": 0,
+          "early_recovery_lead_s": {
+            "samples": 0,
+            "mean_s": null,
+            "median_s": null,
+            "p95_s": null
+          },
+          "early_recovery_lead_ms": {
+            "samples": 0,
+            "mean_ms": null,
+            "median_ms": null,
+            "p95_ms": null
+          }
+        }
+      },
+      "paired_comparison": {
+        "complete_pairs": 300,
+        "incomplete_pairs": 0,
+        "unstarted_pairs": 0,
+        "completion_benefits": 0,
+        "completion_harms": 0,
+        "unsafe_prevented": 0,
+        "unsafe_introduced": 0,
+        "net_completion_benefit": 0,
+        "net_unsafe_reduction": 0
+      },
+      "paired_against_staleguard": {
+        "staleguard_early_recovery": {
+          "complete_pairs": 300,
+          "incomplete_pairs": 0,
+          "unstarted_pairs": 0,
+          "completion_benefits": 0,
+          "completion_harms": 0,
+          "unsafe_prevented": 0,
+          "unsafe_introduced": 0,
+          "net_completion_benefit": 0,
+          "net_unsafe_reduction": 0
+        }
+      }
+    },
+    "0.02": {
+      "by_policy": {
+        "staleguard": {
+          "flights": 300,
+          "safe_completion": 269,
+          "safe_noncompletion": 26,
+          "unsafe": 5,
+          "safe_completion_rate": 0.8966666666666666,
+          "safe_noncompletion_rate": 0.08666666666666667,
+          "unsafe_rate": 0.016666666666666666,
+          "recovery_attempts": 0,
+          "recovery_successes": 0,
+          "recovery_failures": 0,
+          "recovery_attempt_rate": 0.0,
+          "recovery_success_rate": null,
+          "recovery_failure_rate": null,
+          "prediction_computation_s": {
+            "samples": 300,
+            "mean_s": 0.08418343511410058,
+            "median_s": 0.07875908841378987,
+            "p95_s": 0.11964304000139236
+          },
+          "prediction_computation_ms": {
+            "samples": 300,
+            "mean_ms": 84.18343511410058,
+            "median_ms": 78.75908841378987,
+            "p95_ms": 119.64304000139236
+          },
+          "dispatch_to_action_s": {
+            "samples": 300,
+            "mean_s": 0.0,
+            "median_s": 0.0,
+            "p95_s": 0.0
+          },
+          "dispatch_to_action_ms": {
+            "samples": 300,
+            "mean_ms": 0.0,
+            "median_ms": 0.0,
+            "p95_ms": 0.0
+          },
+          "prediction_ready": 0,
+          "prediction_unavailable": 300,
+          "prediction_readiness_unrecorded": 0,
+          "unverified_executions": 300
+        },
+        "staleguard_early_recovery": {
+          "flights": 300,
+          "safe_completion": 269,
+          "safe_noncompletion": 26,
+          "unsafe": 5,
+          "safe_completion_rate": 0.8966666666666666,
+          "safe_noncompletion_rate": 0.08666666666666667,
+          "unsafe_rate": 0.016666666666666666,
+          "recovery_attempts": 0,
+          "recovery_successes": 0,
+          "recovery_failures": 0,
+          "recovery_attempt_rate": 0.0,
+          "recovery_success_rate": null,
+          "recovery_failure_rate": null,
+          "prediction_computation_s": {
+            "samples": 300,
+            "mean_s": 0.08418343511410058,
+            "median_s": 0.07875908841378987,
+            "p95_s": 0.11964304000139236
+          },
+          "prediction_computation_ms": {
+            "samples": 300,
+            "mean_ms": 84.18343511410058,
+            "median_ms": 78.75908841378987,
+            "p95_ms": 119.64304000139236
+          },
+          "dispatch_to_action_s": {
+            "samples": 300,
+            "mean_s": 0.0,
+            "median_s": 0.0,
+            "p95_s": 0.0
+          },
+          "dispatch_to_action_ms": {
+            "samples": 300,
+            "mean_ms": 0.0,
+            "median_ms": 0.0,
+            "p95_ms": 0.0
+          },
+          "prediction_ready": 0,
+          "prediction_unavailable": 300,
+          "prediction_readiness_unrecorded": 0,
+          "unverified_executions": 300,
+          "early_recoveries": 0,
+          "early_recovery_lead_s": {
+            "samples": 0,
+            "mean_s": null,
+            "median_s": null,
+            "p95_s": null
+          },
+          "early_recovery_lead_ms": {
+            "samples": 0,
+            "mean_ms": null,
+            "median_ms": null,
+            "p95_ms": null
+          }
+        }
+      },
+      "paired_comparison": {
+        "complete_pairs": 300,
+        "incomplete_pairs": 0,
+        "unstarted_pairs": 0,
+        "completion_benefits": 0,
+        "completion_harms": 0,
+        "unsafe_prevented": 0,
+        "unsafe_introduced": 0,
+        "net_completion_benefit": 0,
+        "net_unsafe_reduction": 0
+      },
+      "paired_against_staleguard": {
+        "staleguard_early_recovery": {
+          "complete_pairs": 300,
+          "incomplete_pairs": 0,
+          "unstarted_pairs": 0,
+          "completion_benefits": 0,
+          "completion_harms": 0,
+          "unsafe_prevented": 0,
+          "unsafe_introduced": 0,
+          "net_completion_benefit": 0,
+          "net_unsafe_reduction": 0
+        }
+      }
+    },
+    "0.04": {
+      "by_policy": {
+        "staleguard": {
+          "flights": 300,
+          "safe_completion": 244,
+          "safe_noncompletion": 48,
+          "unsafe": 8,
+          "safe_completion_rate": 0.8133333333333334,
+          "safe_noncompletion_rate": 0.16,
+          "unsafe_rate": 0.02666666666666667,
+          "recovery_attempts": 0,
+          "recovery_successes": 0,
+          "recovery_failures": 0,
+          "recovery_attempt_rate": 0.0,
+          "recovery_success_rate": null,
+          "recovery_failure_rate": null,
+          "prediction_computation_s": {
+            "samples": 300,
+            "mean_s": 0.08418343511410058,
+            "median_s": 0.07875908841378987,
+            "p95_s": 0.11964304000139236
+          },
+          "prediction_computation_ms": {
+            "samples": 300,
+            "mean_ms": 84.18343511410058,
+            "median_ms": 78.75908841378987,
+            "p95_ms": 119.64304000139236
+          },
+          "dispatch_to_action_s": {
+            "samples": 300,
+            "mean_s": 0.0,
+            "median_s": 0.0,
+            "p95_s": 0.0
+          },
+          "dispatch_to_action_ms": {
+            "samples": 300,
+            "mean_ms": 0.0,
+            "median_ms": 0.0,
+            "p95_ms": 0.0
+          },
+          "prediction_ready": 0,
+          "prediction_unavailable": 300,
+          "prediction_readiness_unrecorded": 0,
+          "unverified_executions": 300
+        },
+        "staleguard_early_recovery": {
+          "flights": 300,
+          "safe_completion": 244,
+          "safe_noncompletion": 48,
+          "unsafe": 8,
+          "safe_completion_rate": 0.8133333333333334,
+          "safe_noncompletion_rate": 0.16,
+          "unsafe_rate": 0.02666666666666667,
+          "recovery_attempts": 0,
+          "recovery_successes": 0,
+          "recovery_failures": 0,
+          "recovery_attempt_rate": 0.0,
+          "recovery_success_rate": null,
+          "recovery_failure_rate": null,
+          "prediction_computation_s": {
+            "samples": 300,
+            "mean_s": 0.08418343511410058,
+            "median_s": 0.07875908841378987,
+            "p95_s": 0.11964304000139236
+          },
+          "prediction_computation_ms": {
+            "samples": 300,
+            "mean_ms": 84.18343511410058,
+            "median_ms": 78.75908841378987,
+            "p95_ms": 119.64304000139236
+          },
+          "dispatch_to_action_s": {
+            "samples": 300,
+            "mean_s": 0.0,
+            "median_s": 0.0,
+            "p95_s": 0.0
+          },
+          "dispatch_to_action_ms": {
+            "samples": 300,
+            "mean_ms": 0.0,
+            "median_ms": 0.0,
+            "p95_ms": 0.0
+          },
+          "prediction_ready": 0,
+          "prediction_unavailable": 300,
+          "prediction_readiness_unrecorded": 0,
+          "unverified_executions": 300,
+          "early_recoveries": 0,
+          "early_recovery_lead_s": {
+            "samples": 0,
+            "mean_s": null,
+            "median_s": null,
+            "p95_s": null
+          },
+          "early_recovery_lead_ms": {
+            "samples": 0,
+            "mean_ms": null,
+            "median_ms": null,
+            "p95_ms": null
+          }
+        }
+      },
+      "paired_comparison": {
+        "complete_pairs": 300,
+        "incomplete_pairs": 0,
+        "unstarted_pairs": 0,
+        "completion_benefits": 0,
+        "completion_harms": 0,
+        "unsafe_prevented": 0,
+        "unsafe_introduced": 0,
+        "net_completion_benefit": 0,
+        "net_unsafe_reduction": 0
+      },
+      "paired_against_staleguard": {
+        "staleguard_early_recovery": {
+          "complete_pairs": 300,
+          "incomplete_pairs": 0,
+          "unstarted_pairs": 0,
+          "completion_benefits": 0,
+          "completion_harms": 0,
+          "unsafe_prevented": 0,
+          "unsafe_introduced": 0,
+          "net_completion_benefit": 0,
+          "net_unsafe_reduction": 0
+        }
+      }
+    },
+    "0.06": {
+      "by_policy": {
+        "staleguard": {
+          "flights": 300,
+          "safe_completion": 218,
+          "safe_noncompletion": 70,
+          "unsafe": 12,
+          "safe_completion_rate": 0.7266666666666667,
+          "safe_noncompletion_rate": 0.23333333333333334,
+          "unsafe_rate": 0.04,
+          "recovery_attempts": 0,
+          "recovery_successes": 0,
+          "recovery_failures": 0,
+          "recovery_attempt_rate": 0.0,
+          "recovery_success_rate": null,
+          "recovery_failure_rate": null,
+          "prediction_computation_s": {
+            "samples": 300,
+            "mean_s": 0.08418343511410058,
+            "median_s": 0.07875908841378987,
+            "p95_s": 0.11964304000139236
+          },
+          "prediction_computation_ms": {
+            "samples": 300,
+            "mean_ms": 84.18343511410058,
+            "median_ms": 78.75908841378987,
+            "p95_ms": 119.64304000139236
+          },
+          "dispatch_to_action_s": {
+            "samples": 300,
+            "mean_s": 0.0,
+            "median_s": 0.0,
+            "p95_s": 0.0
+          },
+          "dispatch_to_action_ms": {
+            "samples": 300,
+            "mean_ms": 0.0,
+            "median_ms": 0.0,
+            "p95_ms": 0.0
+          },
+          "prediction_ready": 9,
+          "prediction_unavailable": 291,
+          "prediction_readiness_unrecorded": 0,
+          "unverified_executions": 291
+        },
+        "staleguard_early_recovery": {
+          "flights": 300,
+          "safe_completion": 218,
+          "safe_noncompletion": 70,
+          "unsafe": 12,
+          "safe_completion_rate": 0.7266666666666667,
+          "safe_noncompletion_rate": 0.23333333333333334,
+          "unsafe_rate": 0.04,
+          "recovery_attempts": 0,
+          "recovery_successes": 0,
+          "recovery_failures": 0,
+          "recovery_attempt_rate": 0.0,
+          "recovery_success_rate": null,
+          "recovery_failure_rate": null,
+          "prediction_computation_s": {
+            "samples": 300,
+            "mean_s": 0.08418343511410058,
+            "median_s": 0.07875908841378987,
+            "p95_s": 0.11964304000139236
+          },
+          "prediction_computation_ms": {
+            "samples": 300,
+            "mean_ms": 84.18343511410058,
+            "median_ms": 78.75908841378987,
+            "p95_ms": 119.64304000139236
+          },
+          "dispatch_to_action_s": {
+            "samples": 300,
+            "mean_s": 0.0,
+            "median_s": 0.0,
+            "p95_s": 0.0
+          },
+          "dispatch_to_action_ms": {
+            "samples": 300,
+            "mean_ms": 0.0,
+            "median_ms": 0.0,
+            "p95_ms": 0.0
+          },
+          "prediction_ready": 9,
+          "prediction_unavailable": 291,
+          "prediction_readiness_unrecorded": 0,
+          "unverified_executions": 291,
+          "early_recoveries": 0,
+          "early_recovery_lead_s": {
+            "samples": 0,
+            "mean_s": null,
+            "median_s": null,
+            "p95_s": null
+          },
+          "early_recovery_lead_ms": {
+            "samples": 0,
+            "mean_ms": null,
+            "median_ms": null,
+            "p95_ms": null
+          }
+        }
+      },
+      "paired_comparison": {
+        "complete_pairs": 300,
+        "incomplete_pairs": 0,
+        "unstarted_pairs": 0,
+        "completion_benefits": 0,
+        "completion_harms": 0,
+        "unsafe_prevented": 0,
+        "unsafe_introduced": 0,
+        "net_completion_benefit": 0,
+        "net_unsafe_reduction": 0
+      },
+      "paired_against_staleguard": {
+        "staleguard_early_recovery": {
+          "complete_pairs": 300,
+          "incomplete_pairs": 0,
+          "unstarted_pairs": 0,
+          "completion_benefits": 0,
+          "completion_harms": 0,
+          "unsafe_prevented": 0,
+          "unsafe_introduced": 0,
+          "net_completion_benefit": 0,
+          "net_unsafe_reduction": 0
+        }
+      }
+    },
+    "0.08": {
+      "by_policy": {
+        "staleguard": {
+          "flights": 300,
+          "safe_completion": 190,
+          "safe_noncompletion": 96,
+          "unsafe": 14,
+          "safe_completion_rate": 0.6333333333333333,
+          "safe_noncompletion_rate": 0.32,
+          "unsafe_rate": 0.04666666666666667,
+          "recovery_attempts": 7,
+          "recovery_successes": 7,
+          "recovery_failures": 0,
+          "recovery_attempt_rate": 0.023333333333333334,
+          "recovery_success_rate": 1.0,
+          "recovery_failure_rate": 0.0,
+          "prediction_computation_s": {
+            "samples": 300,
+            "mean_s": 0.08418343511410058,
+            "median_s": 0.07875908841378987,
+            "p95_s": 0.11964304000139236
+          },
+          "prediction_computation_ms": {
+            "samples": 300,
+            "mean_ms": 84.18343511410058,
+            "median_ms": 78.75908841378987,
+            "p95_ms": 119.64304000139236
+          },
+          "dispatch_to_action_s": {
+            "samples": 300,
+            "mean_s": 0.0,
+            "median_s": 0.0,
+            "p95_s": 0.0
+          },
+          "dispatch_to_action_ms": {
+            "samples": 300,
+            "mean_ms": 0.0,
+            "median_ms": 0.0,
+            "p95_ms": 0.0
+          },
+          "prediction_ready": 163,
+          "prediction_unavailable": 137,
+          "prediction_readiness_unrecorded": 0,
+          "unverified_executions": 137
+        },
+        "staleguard_early_recovery": {
+          "flights": 300,
+          "safe_completion": 190,
+          "safe_noncompletion": 96,
+          "unsafe": 14,
+          "safe_completion_rate": 0.6333333333333333,
+          "safe_noncompletion_rate": 0.32,
+          "unsafe_rate": 0.04666666666666667,
+          "recovery_attempts": 7,
+          "recovery_successes": 7,
+          "recovery_failures": 0,
+          "recovery_attempt_rate": 0.023333333333333334,
+          "recovery_success_rate": 1.0,
+          "recovery_failure_rate": 0.0,
+          "prediction_computation_s": {
+            "samples": 300,
+            "mean_s": 0.08418343511410058,
+            "median_s": 0.07875908841378987,
+            "p95_s": 0.11964304000139236
+          },
+          "prediction_computation_ms": {
+            "samples": 300,
+            "mean_ms": 84.18343511410058,
+            "median_ms": 78.75908841378987,
+            "p95_ms": 119.64304000139236
+          },
+          "dispatch_to_action_s": {
+            "samples": 300,
+            "mean_s": 0.0,
+            "median_s": 0.0,
+            "p95_s": 0.0
+          },
+          "dispatch_to_action_ms": {
+            "samples": 300,
+            "mean_ms": 0.0,
+            "median_ms": 0.0,
+            "p95_ms": 0.0
+          },
+          "prediction_ready": 163,
+          "prediction_unavailable": 137,
+          "prediction_readiness_unrecorded": 0,
+          "unverified_executions": 137,
+          "early_recoveries": 0,
+          "early_recovery_lead_s": {
+            "samples": 0,
+            "mean_s": null,
+            "median_s": null,
+            "p95_s": null
+          },
+          "early_recovery_lead_ms": {
+            "samples": 0,
+            "mean_ms": null,
+            "median_ms": null,
+            "p95_ms": null
+          }
+        }
+      },
+      "paired_comparison": {
+        "complete_pairs": 300,
+        "incomplete_pairs": 0,
+        "unstarted_pairs": 0,
+        "completion_benefits": 0,
+        "completion_harms": 0,
+        "unsafe_prevented": 0,
+        "unsafe_introduced": 0,
+        "net_completion_benefit": 0,
+        "net_unsafe_reduction": 0
+      },
+      "paired_against_staleguard": {
+        "staleguard_early_recovery": {
+          "complete_pairs": 300,
+          "incomplete_pairs": 0,
+          "unstarted_pairs": 0,
+          "completion_benefits": 0,
+          "completion_harms": 0,
+          "unsafe_prevented": 0,
+          "unsafe_introduced": 0,
+          "net_completion_benefit": 0,
+          "net_unsafe_reduction": 0
+        }
+      }
+    },
+    "0.1": {
+      "by_policy": {
+        "staleguard": {
+          "flights": 300,
+          "safe_completion": 154,
+          "safe_noncompletion": 139,
+          "unsafe": 7,
+          "safe_completion_rate": 0.5133333333333333,
+          "safe_noncompletion_rate": 0.4633333333333333,
+          "unsafe_rate": 0.023333333333333334,
+          "recovery_attempts": 31,
+          "recovery_successes": 31,
+          "recovery_failures": 0,
+          "recovery_attempt_rate": 0.10333333333333333,
+          "recovery_success_rate": 1.0,
+          "recovery_failure_rate": 0.0,
+          "prediction_computation_s": {
+            "samples": 300,
+            "mean_s": 0.08418343511410058,
+            "median_s": 0.07875908841378987,
+            "p95_s": 0.11964304000139236
+          },
+          "prediction_computation_ms": {
+            "samples": 300,
+            "mean_ms": 84.18343511410058,
+            "median_ms": 78.75908841378987,
+            "p95_ms": 119.64304000139236
+          },
+          "dispatch_to_action_s": {
+            "samples": 300,
+            "mean_s": 0.0,
+            "median_s": 0.0,
+            "p95_s": 0.0
+          },
+          "dispatch_to_action_ms": {
+            "samples": 300,
+            "mean_ms": 0.0,
+            "median_ms": 0.0,
+            "p95_ms": 0.0
+          },
+          "prediction_ready": 273,
+          "prediction_unavailable": 27,
+          "prediction_readiness_unrecorded": 0,
+          "unverified_executions": 27
+        },
+        "staleguard_early_recovery": {
+          "flights": 300,
+          "safe_completion": 154,
+          "safe_noncompletion": 139,
+          "unsafe": 7,
+          "safe_completion_rate": 0.5133333333333333,
+          "safe_noncompletion_rate": 0.4633333333333333,
+          "unsafe_rate": 0.023333333333333334,
+          "recovery_attempts": 31,
+          "recovery_successes": 31,
+          "recovery_failures": 0,
+          "recovery_attempt_rate": 0.10333333333333333,
+          "recovery_success_rate": 1.0,
+          "recovery_failure_rate": 0.0,
+          "prediction_computation_s": {
+            "samples": 300,
+            "mean_s": 0.08418343511410058,
+            "median_s": 0.07875908841378987,
+            "p95_s": 0.11964304000139236
+          },
+          "prediction_computation_ms": {
+            "samples": 300,
+            "mean_ms": 84.18343511410058,
+            "median_ms": 78.75908841378987,
+            "p95_ms": 119.64304000139236
+          },
+          "dispatch_to_action_s": {
+            "samples": 293,
+            "mean_s": 0.0,
+            "median_s": 0.0,
+            "p95_s": 0.0
+          },
+          "dispatch_to_action_ms": {
+            "samples": 293,
+            "mean_ms": 0.0,
+            "median_ms": 0.0,
+            "p95_ms": 0.0
+          },
+          "prediction_ready": 273,
+          "prediction_unavailable": 27,
+          "prediction_readiness_unrecorded": 0,
+          "unverified_executions": 27,
+          "early_recoveries": 7,
+          "early_recovery_lead_s": {
+            "samples": 7,
+            "mean_s": 0.02,
+            "median_s": 0.02,
+            "p95_s": 0.02
+          },
+          "early_recovery_lead_ms": {
+            "samples": 7,
+            "mean_ms": 20.0,
+            "median_ms": 20.0,
+            "p95_ms": 20.0
+          }
+        }
+      },
+      "paired_comparison": {
+        "complete_pairs": 300,
+        "incomplete_pairs": 0,
+        "unstarted_pairs": 0,
+        "completion_benefits": 0,
+        "completion_harms": 0,
+        "unsafe_prevented": 0,
+        "unsafe_introduced": 0,
+        "net_completion_benefit": 0,
+        "net_unsafe_reduction": 0
+      },
+      "paired_against_staleguard": {
+        "staleguard_early_recovery": {
+          "complete_pairs": 300,
+          "incomplete_pairs": 0,
+          "unstarted_pairs": 0,
+          "completion_benefits": 0,
+          "completion_harms": 0,
+          "unsafe_prevented": 0,
+          "unsafe_introduced": 0,
+          "net_completion_benefit": 0,
+          "net_unsafe_reduction": 0
+        }
+      }
+    },
+    "0.12": {
+      "by_policy": {
+        "staleguard": {
+          "flights": 300,
+          "safe_completion": 126,
+          "safe_noncompletion": 166,
+          "unsafe": 8,
+          "safe_completion_rate": 0.42,
+          "safe_noncompletion_rate": 0.5533333333333333,
+          "unsafe_rate": 0.02666666666666667,
+          "recovery_attempts": 39,
+          "recovery_successes": 39,
+          "recovery_failures": 0,
+          "recovery_attempt_rate": 0.13,
+          "recovery_success_rate": 1.0,
+          "recovery_failure_rate": 0.0,
+          "prediction_computation_s": {
+            "samples": 300,
+            "mean_s": 0.08418343511410058,
+            "median_s": 0.07875908841378987,
+            "p95_s": 0.11964304000139236
+          },
+          "prediction_computation_ms": {
+            "samples": 300,
+            "mean_ms": 84.18343511410058,
+            "median_ms": 78.75908841378987,
+            "p95_ms": 119.64304000139236
+          },
+          "dispatch_to_action_s": {
+            "samples": 300,
+            "mean_s": 0.0,
+            "median_s": 0.0,
+            "p95_s": 0.0
+          },
+          "dispatch_to_action_ms": {
+            "samples": 300,
+            "mean_ms": 0.0,
+            "median_ms": 0.0,
+            "p95_ms": 0.0
+          },
+          "prediction_ready": 285,
+          "prediction_unavailable": 15,
+          "prediction_readiness_unrecorded": 0,
+          "unverified_executions": 15
+        },
+        "staleguard_early_recovery": {
+          "flights": 300,
+          "safe_completion": 126,
+          "safe_noncompletion": 166,
+          "unsafe": 8,
+          "safe_completion_rate": 0.42,
+          "safe_noncompletion_rate": 0.5533333333333333,
+          "unsafe_rate": 0.02666666666666667,
+          "recovery_attempts": 39,
+          "recovery_successes": 39,
+          "recovery_failures": 0,
+          "recovery_attempt_rate": 0.13,
+          "recovery_success_rate": 1.0,
+          "recovery_failure_rate": 0.0,
+          "prediction_computation_s": {
+            "samples": 300,
+            "mean_s": 0.08418343511410058,
+            "median_s": 0.07875908841378987,
+            "p95_s": 0.11964304000139236
+          },
+          "prediction_computation_ms": {
+            "samples": 300,
+            "mean_ms": 84.18343511410058,
+            "median_ms": 78.75908841378987,
+            "p95_ms": 119.64304000139236
+          },
+          "dispatch_to_action_s": {
+            "samples": 269,
+            "mean_s": 0.0,
+            "median_s": 0.0,
+            "p95_s": 0.0
+          },
+          "dispatch_to_action_ms": {
+            "samples": 269,
+            "mean_ms": 0.0,
+            "median_ms": 0.0,
+            "p95_ms": 0.0
+          },
+          "prediction_ready": 285,
+          "prediction_unavailable": 15,
+          "prediction_readiness_unrecorded": 0,
+          "unverified_executions": 15,
+          "early_recoveries": 31,
+          "early_recovery_lead_s": {
+            "samples": 31,
+            "mean_s": 0.024516129032258065,
+            "median_s": 0.02,
+            "p95_s": 0.04
+          },
+          "early_recovery_lead_ms": {
+            "samples": 31,
+            "mean_ms": 24.516129032258064,
+            "median_ms": 20.0,
+            "p95_ms": 40.0
+          }
+        }
+      },
+      "paired_comparison": {
+        "complete_pairs": 300,
+        "incomplete_pairs": 0,
+        "unstarted_pairs": 0,
+        "completion_benefits": 0,
+        "completion_harms": 0,
+        "unsafe_prevented": 0,
+        "unsafe_introduced": 0,
+        "net_completion_benefit": 0,
+        "net_unsafe_reduction": 0
+      },
+      "paired_against_staleguard": {
+        "staleguard_early_recovery": {
+          "complete_pairs": 300,
+          "incomplete_pairs": 0,
+          "unstarted_pairs": 0,
+          "completion_benefits": 0,
+          "completion_harms": 0,
+          "unsafe_prevented": 0,
+          "unsafe_introduced": 0,
+          "net_completion_benefit": 0,
+          "net_unsafe_reduction": 0
+        }
+      }
+    },
+    "0.14": {
+      "by_policy": {
+        "staleguard": {
+          "flights": 300,
+          "safe_completion": 97,
+          "safe_noncompletion": 200,
+          "unsafe": 3,
+          "safe_completion_rate": 0.3233333333333333,
+          "safe_noncompletion_rate": 0.6666666666666666,
+          "unsafe_rate": 0.01,
+          "recovery_attempts": 53,
+          "recovery_successes": 53,
+          "recovery_failures": 0,
+          "recovery_attempt_rate": 0.17666666666666667,
+          "recovery_success_rate": 1.0,
+          "recovery_failure_rate": 0.0,
+          "prediction_computation_s": {
+            "samples": 300,
+            "mean_s": 0.08418343511410058,
+            "median_s": 0.07875908841378987,
+            "p95_s": 0.11964304000139236
+          },
+          "prediction_computation_ms": {
+            "samples": 300,
+            "mean_ms": 84.18343511410058,
+            "median_ms": 78.75908841378987,
+            "p95_ms": 119.64304000139236
+          },
+          "dispatch_to_action_s": {
+            "samples": 300,
+            "mean_s": 0.0,
+            "median_s": 0.0,
+            "p95_s": 0.0
+          },
+          "dispatch_to_action_ms": {
+            "samples": 300,
+            "mean_ms": 0.0,
+            "median_ms": 0.0,
+            "p95_ms": 0.0
+          },
+          "prediction_ready": 290,
+          "prediction_unavailable": 10,
+          "prediction_readiness_unrecorded": 0,
+          "unverified_executions": 10
+        },
+        "staleguard_early_recovery": {
+          "flights": 300,
+          "safe_completion": 97,
+          "safe_noncompletion": 200,
+          "unsafe": 3,
+          "safe_completion_rate": 0.3233333333333333,
+          "safe_noncompletion_rate": 0.6666666666666666,
+          "unsafe_rate": 0.01,
+          "recovery_attempts": 53,
+          "recovery_successes": 53,
+          "recovery_failures": 0,
+          "recovery_attempt_rate": 0.17666666666666667,
+          "recovery_success_rate": 1.0,
+          "recovery_failure_rate": 0.0,
+          "prediction_computation_s": {
+            "samples": 300,
+            "mean_s": 0.08418343511410058,
+            "median_s": 0.07875908841378987,
+            "p95_s": 0.11964304000139236
+          },
+          "prediction_computation_ms": {
+            "samples": 300,
+            "mean_ms": 84.18343511410058,
+            "median_ms": 78.75908841378987,
+            "p95_ms": 119.64304000139236
+          },
+          "dispatch_to_action_s": {
+            "samples": 261,
+            "mean_s": 0.0,
+            "median_s": 0.0,
+            "p95_s": 0.0
+          },
+          "dispatch_to_action_ms": {
+            "samples": 261,
+            "mean_ms": 0.0,
+            "median_ms": 0.0,
+            "p95_ms": 0.0
+          },
+          "prediction_ready": 290,
+          "prediction_unavailable": 10,
+          "prediction_readiness_unrecorded": 0,
+          "unverified_executions": 10,
+          "early_recoveries": 39,
+          "early_recovery_lead_s": {
+            "samples": 39,
+            "mean_s": 0.03948717948717949,
+            "median_s": 0.04,
+            "p95_s": 0.06
+          },
+          "early_recovery_lead_ms": {
+            "samples": 39,
+            "mean_ms": 39.48717948717949,
+            "median_ms": 40.0,
+            "p95_ms": 60.0
+          }
+        }
+      },
+      "paired_comparison": {
+        "complete_pairs": 300,
+        "incomplete_pairs": 0,
+        "unstarted_pairs": 0,
+        "completion_benefits": 0,
+        "completion_harms": 0,
+        "unsafe_prevented": 0,
+        "unsafe_introduced": 0,
+        "net_completion_benefit": 0,
+        "net_unsafe_reduction": 0
+      },
+      "paired_against_staleguard": {
+        "staleguard_early_recovery": {
+          "complete_pairs": 300,
+          "incomplete_pairs": 0,
+          "unstarted_pairs": 0,
+          "completion_benefits": 0,
+          "completion_harms": 0,
+          "unsafe_prevented": 0,
+          "unsafe_introduced": 0,
+          "net_completion_benefit": 0,
+          "net_unsafe_reduction": 0
+        }
+      }
+    },
+    "0.16": {
+      "by_policy": {
+        "staleguard": {
+          "flights": 300,
+          "safe_completion": 61,
+          "safe_noncompletion": 236,
+          "unsafe": 3,
+          "safe_completion_rate": 0.20333333333333334,
+          "safe_noncompletion_rate": 0.7866666666666666,
+          "unsafe_rate": 0.01,
+          "recovery_attempts": 59,
+          "recovery_successes": 59,
+          "recovery_failures": 0,
+          "recovery_attempt_rate": 0.19666666666666666,
+          "recovery_success_rate": 1.0,
+          "recovery_failure_rate": 0.0,
+          "prediction_computation_s": {
+            "samples": 300,
+            "mean_s": 0.08418343511410058,
+            "median_s": 0.07875908841378987,
+            "p95_s": 0.11964304000139236
+          },
+          "prediction_computation_ms": {
+            "samples": 300,
+            "mean_ms": 84.18343511410058,
+            "median_ms": 78.75908841378987,
+            "p95_ms": 119.64304000139236
+          },
+          "dispatch_to_action_s": {
+            "samples": 300,
+            "mean_s": 0.0,
+            "median_s": 0.0,
+            "p95_s": 0.0
+          },
+          "dispatch_to_action_ms": {
+            "samples": 300,
+            "mean_ms": 0.0,
+            "median_ms": 0.0,
+            "p95_ms": 0.0
+          },
+          "prediction_ready": 290,
+          "prediction_unavailable": 10,
+          "prediction_readiness_unrecorded": 0,
+          "unverified_executions": 10
+        },
+        "staleguard_early_recovery": {
+          "flights": 300,
+          "safe_completion": 61,
+          "safe_noncompletion": 236,
+          "unsafe": 3,
+          "safe_completion_rate": 0.20333333333333334,
+          "safe_noncompletion_rate": 0.7866666666666666,
+          "unsafe_rate": 0.01,
+          "recovery_attempts": 59,
+          "recovery_successes": 59,
+          "recovery_failures": 0,
+          "recovery_attempt_rate": 0.19666666666666666,
+          "recovery_success_rate": 1.0,
+          "recovery_failure_rate": 0.0,
+          "prediction_computation_s": {
+            "samples": 300,
+            "mean_s": 0.08418343511410058,
+            "median_s": 0.07875908841378987,
+            "p95_s": 0.11964304000139236
+          },
+          "prediction_computation_ms": {
+            "samples": 300,
+            "mean_ms": 84.18343511410058,
+            "median_ms": 78.75908841378987,
+            "p95_ms": 119.64304000139236
+          },
+          "dispatch_to_action_s": {
+            "samples": 247,
+            "mean_s": 0.0,
+            "median_s": 0.0,
+            "p95_s": 0.0
+          },
+          "dispatch_to_action_ms": {
+            "samples": 247,
+            "mean_ms": 0.0,
+            "median_ms": 0.0,
+            "p95_ms": 0.0
+          },
+          "prediction_ready": 290,
+          "prediction_unavailable": 10,
+          "prediction_readiness_unrecorded": 0,
+          "unverified_executions": 10,
+          "early_recoveries": 53,
+          "early_recovery_lead_s": {
+            "samples": 53,
+            "mean_s": 0.0490566037735849,
+            "median_s": 0.06,
+            "p95_s": 0.08
+          },
+          "early_recovery_lead_ms": {
+            "samples": 53,
+            "mean_ms": 49.056603773584904,
+            "median_ms": 60.0,
+            "p95_ms": 80.0
+          }
+        }
+      },
+      "paired_comparison": {
+        "complete_pairs": 300,
+        "incomplete_pairs": 0,
+        "unstarted_pairs": 0,
+        "completion_benefits": 0,
+        "completion_harms": 0,
+        "unsafe_prevented": 0,
+        "unsafe_introduced": 0,
+        "net_completion_benefit": 0,
+        "net_unsafe_reduction": 0
+      },
+      "paired_against_staleguard": {
+        "staleguard_early_recovery": {
+          "complete_pairs": 300,
+          "incomplete_pairs": 0,
+          "unstarted_pairs": 0,
+          "completion_benefits": 0,
+          "completion_harms": 0,
+          "unsafe_prevented": 0,
+          "unsafe_introduced": 0,
+          "net_completion_benefit": 0,
+          "net_unsafe_reduction": 0
+        }
+      }
+    },
+    "0.18": {
+      "by_policy": {
+        "staleguard": {
+          "flights": 300,
+          "safe_completion": 26,
+          "safe_noncompletion": 269,
+          "unsafe": 5,
+          "safe_completion_rate": 0.08666666666666667,
+          "safe_noncompletion_rate": 0.8966666666666666,
+          "unsafe_rate": 0.016666666666666666,
+          "recovery_attempts": 74,
+          "recovery_successes": 74,
+          "recovery_failures": 0,
+          "recovery_attempt_rate": 0.24666666666666667,
+          "recovery_success_rate": 1.0,
+          "recovery_failure_rate": 0.0,
+          "prediction_computation_s": {
+            "samples": 300,
+            "mean_s": 0.08418343511410058,
+            "median_s": 0.07875908841378987,
+            "p95_s": 0.11964304000139236
+          },
+          "prediction_computation_ms": {
+            "samples": 300,
+            "mean_ms": 84.18343511410058,
+            "median_ms": 78.75908841378987,
+            "p95_ms": 119.64304000139236
+          },
+          "dispatch_to_action_s": {
+            "samples": 300,
+            "mean_s": 0.0,
+            "median_s": 0.0,
+            "p95_s": 0.0
+          },
+          "dispatch_to_action_ms": {
+            "samples": 300,
+            "mean_ms": 0.0,
+            "median_ms": 0.0,
+            "p95_ms": 0.0
+          },
+          "prediction_ready": 294,
+          "prediction_unavailable": 6,
+          "prediction_readiness_unrecorded": 0,
+          "unverified_executions": 6
+        },
+        "staleguard_early_recovery": {
+          "flights": 300,
+          "safe_completion": 26,
+          "safe_noncompletion": 269,
+          "unsafe": 5,
+          "safe_completion_rate": 0.08666666666666667,
+          "safe_noncompletion_rate": 0.8966666666666666,
+          "unsafe_rate": 0.016666666666666666,
+          "recovery_attempts": 74,
+          "recovery_successes": 74,
+          "recovery_failures": 0,
+          "recovery_attempt_rate": 0.24666666666666667,
+          "recovery_success_rate": 1.0,
+          "recovery_failure_rate": 0.0,
+          "prediction_computation_s": {
+            "samples": 300,
+            "mean_s": 0.08418343511410058,
+            "median_s": 0.07875908841378987,
+            "p95_s": 0.11964304000139236
+          },
+          "prediction_computation_ms": {
+            "samples": 300,
+            "mean_ms": 84.18343511410058,
+            "median_ms": 78.75908841378987,
+            "p95_ms": 119.64304000139236
+          },
+          "dispatch_to_action_s": {
+            "samples": 241,
+            "mean_s": 0.0,
+            "median_s": 0.0,
+            "p95_s": 0.0
+          },
+          "dispatch_to_action_ms": {
+            "samples": 241,
+            "mean_ms": 0.0,
+            "median_ms": 0.0,
+            "p95_ms": 0.0
+          },
+          "prediction_ready": 294,
+          "prediction_unavailable": 6,
+          "prediction_readiness_unrecorded": 0,
+          "unverified_executions": 6,
+          "early_recoveries": 59,
+          "early_recovery_lead_s": {
+            "samples": 59,
+            "mean_s": 0.0640677966101695,
+            "median_s": 0.08,
+            "p95_s": 0.1
+          },
+          "early_recovery_lead_ms": {
+            "samples": 59,
+            "mean_ms": 64.0677966101695,
+            "median_ms": 80.0,
+            "p95_ms": 100.0
+          }
+        }
+      },
+      "paired_comparison": {
+        "complete_pairs": 300,
+        "incomplete_pairs": 0,
+        "unstarted_pairs": 0,
+        "completion_benefits": 0,
+        "completion_harms": 0,
+        "unsafe_prevented": 0,
+        "unsafe_introduced": 0,
+        "net_completion_benefit": 0,
+        "net_unsafe_reduction": 0
+      },
+      "paired_against_staleguard": {
+        "staleguard_early_recovery": {
+          "complete_pairs": 300,
+          "incomplete_pairs": 0,
+          "unstarted_pairs": 0,
+          "completion_benefits": 0,
+          "completion_harms": 0,
+          "unsafe_prevented": 0,
+          "unsafe_introduced": 0,
+          "net_completion_benefit": 0,
+          "net_unsafe_reduction": 0
+        }
+      }
+    },
+    "0.2": {
+      "by_policy": {
+        "staleguard": {
+          "flights": 300,
+          "safe_completion": 0,
+          "safe_noncompletion": 298,
+          "unsafe": 2,
+          "safe_completion_rate": 0.0,
+          "safe_noncompletion_rate": 0.9933333333333333,
+          "unsafe_rate": 0.006666666666666667,
+          "recovery_attempts": 85,
+          "recovery_successes": 85,
+          "recovery_failures": 0,
+          "recovery_attempt_rate": 0.2833333333333333,
+          "recovery_success_rate": 1.0,
+          "recovery_failure_rate": 0.0,
+          "prediction_computation_s": {
+            "samples": 300,
+            "mean_s": 0.08418343511410058,
+            "median_s": 0.07875908841378987,
+            "p95_s": 0.11964304000139236
+          },
+          "prediction_computation_ms": {
+            "samples": 300,
+            "mean_ms": 84.18343511410058,
+            "median_ms": 78.75908841378987,
+            "p95_ms": 119.64304000139236
+          },
+          "dispatch_to_action_s": {
+            "samples": 300,
+            "mean_s": 0.0,
+            "median_s": 0.0,
+            "p95_s": 0.0
+          },
+          "dispatch_to_action_ms": {
+            "samples": 300,
+            "mean_ms": 0.0,
+            "median_ms": 0.0,
+            "p95_ms": 0.0
+          },
+          "prediction_ready": 295,
+          "prediction_unavailable": 5,
+          "prediction_readiness_unrecorded": 0,
+          "unverified_executions": 5
+        },
+        "staleguard_early_recovery": {
+          "flights": 300,
+          "safe_completion": 0,
+          "safe_noncompletion": 298,
+          "unsafe": 2,
+          "safe_completion_rate": 0.0,
+          "safe_noncompletion_rate": 0.9933333333333333,
+          "unsafe_rate": 0.006666666666666667,
+          "recovery_attempts": 85,
+          "recovery_successes": 85,
+          "recovery_failures": 0,
+          "recovery_attempt_rate": 0.2833333333333333,
+          "recovery_success_rate": 1.0,
+          "recovery_failure_rate": 0.0,
+          "prediction_computation_s": {
+            "samples": 300,
+            "mean_s": 0.08418343511410058,
+            "median_s": 0.07875908841378987,
+            "p95_s": 0.11964304000139236
+          },
+          "prediction_computation_ms": {
+            "samples": 300,
+            "mean_ms": 84.18343511410058,
+            "median_ms": 78.75908841378987,
+            "p95_ms": 119.64304000139236
+          },
+          "dispatch_to_action_s": {
+            "samples": 226,
+            "mean_s": 0.0,
+            "median_s": 0.0,
+            "p95_s": 0.0
+          },
+          "dispatch_to_action_ms": {
+            "samples": 226,
+            "mean_ms": 0.0,
+            "median_ms": 0.0,
+            "p95_ms": 0.0
+          },
+          "prediction_ready": 295,
+          "prediction_unavailable": 5,
+          "prediction_readiness_unrecorded": 0,
+          "unverified_executions": 5,
+          "early_recoveries": 74,
+          "early_recovery_lead_s": {
+            "samples": 74,
+            "mean_s": 0.07108108108108108,
+            "median_s": 0.08,
+            "p95_s": 0.12
+          },
+          "early_recovery_lead_ms": {
+            "samples": 74,
+            "mean_ms": 71.08108108108108,
+            "median_ms": 80.0,
+            "p95_ms": 120.0
+          }
+        }
+      },
+      "paired_comparison": {
+        "complete_pairs": 300,
+        "incomplete_pairs": 0,
+        "unstarted_pairs": 0,
+        "completion_benefits": 0,
+        "completion_harms": 0,
+        "unsafe_prevented": 0,
+        "unsafe_introduced": 0,
+        "net_completion_benefit": 0,
+        "net_unsafe_reduction": 0
+      },
+      "paired_against_staleguard": {
+        "staleguard_early_recovery": {
+          "complete_pairs": 300,
+          "incomplete_pairs": 0,
+          "unstarted_pairs": 0,
+          "completion_benefits": 0,
+          "completion_harms": 0,
+          "unsafe_prevented": 0,
+          "unsafe_introduced": 0,
+          "net_completion_benefit": 0,
+          "net_unsafe_reduction": 0
+        }
+      }
+    },
+    "0.24": {
+      "by_policy": {
+        "staleguard": {
+          "flights": 300,
+          "safe_completion": 0,
+          "safe_noncompletion": 291,
+          "unsafe": 9,
+          "safe_completion_rate": 0.0,
+          "safe_noncompletion_rate": 0.97,
+          "unsafe_rate": 0.03,
+          "recovery_attempts": 86,
+          "recovery_successes": 86,
+          "recovery_failures": 0,
+          "recovery_attempt_rate": 0.2866666666666667,
+          "recovery_success_rate": 1.0,
+          "recovery_failure_rate": 0.0,
+          "prediction_computation_s": {
+            "samples": 300,
+            "mean_s": 0.08418343511410058,
+            "median_s": 0.07875908841378987,
+            "p95_s": 0.11964304000139236
+          },
+          "prediction_computation_ms": {
+            "samples": 300,
+            "mean_ms": 84.18343511410058,
+            "median_ms": 78.75908841378987,
+            "p95_ms": 119.64304000139236
+          },
+          "dispatch_to_action_s": {
+            "samples": 300,
+            "mean_s": 0.0,
+            "median_s": 0.0,
+            "p95_s": 0.0
+          },
+          "dispatch_to_action_ms": {
+            "samples": 300,
+            "mean_ms": 0.0,
+            "median_ms": 0.0,
+            "p95_ms": 0.0
+          },
+          "prediction_ready": 299,
+          "prediction_unavailable": 1,
+          "prediction_readiness_unrecorded": 0,
+          "unverified_executions": 1
+        },
+        "staleguard_early_recovery": {
+          "flights": 300,
+          "safe_completion": 0,
+          "safe_noncompletion": 291,
+          "unsafe": 9,
+          "safe_completion_rate": 0.0,
+          "safe_noncompletion_rate": 0.97,
+          "unsafe_rate": 0.03,
+          "recovery_attempts": 86,
+          "recovery_successes": 86,
+          "recovery_failures": 0,
+          "recovery_attempt_rate": 0.2866666666666667,
+          "recovery_success_rate": 1.0,
+          "recovery_failure_rate": 0.0,
+          "prediction_computation_s": {
+            "samples": 300,
+            "mean_s": 0.08418343511410058,
+            "median_s": 0.07875908841378987,
+            "p95_s": 0.11964304000139236
+          },
+          "prediction_computation_ms": {
+            "samples": 300,
+            "mean_ms": 84.18343511410058,
+            "median_ms": 78.75908841378987,
+            "p95_ms": 119.64304000139236
+          },
+          "dispatch_to_action_s": {
+            "samples": 215,
+            "mean_s": 0.0,
+            "median_s": 0.0,
+            "p95_s": 0.0
+          },
+          "dispatch_to_action_ms": {
+            "samples": 215,
+            "mean_ms": 0.0,
+            "median_ms": 0.0,
+            "p95_ms": 0.0
+          },
+          "prediction_ready": 299,
+          "prediction_unavailable": 1,
+          "prediction_readiness_unrecorded": 0,
+          "unverified_executions": 1,
+          "early_recoveries": 85,
+          "early_recovery_lead_s": {
+            "samples": 85,
+            "mean_s": 0.10188235294117648,
+            "median_s": 0.1,
+            "p95_s": 0.16
+          },
+          "early_recovery_lead_ms": {
+            "samples": 85,
+            "mean_ms": 101.88235294117648,
+            "median_ms": 100.0,
+            "p95_ms": 160.0
+          }
+        }
+      },
+      "paired_comparison": {
+        "complete_pairs": 300,
+        "incomplete_pairs": 0,
+        "unstarted_pairs": 0,
+        "completion_benefits": 0,
+        "completion_harms": 0,
+        "unsafe_prevented": 0,
+        "unsafe_introduced": 0,
+        "net_completion_benefit": 0,
+        "net_unsafe_reduction": 0
+      },
+      "paired_against_staleguard": {
+        "staleguard_early_recovery": {
+          "complete_pairs": 300,
+          "incomplete_pairs": 0,
+          "unstarted_pairs": 0,
+          "completion_benefits": 0,
+          "completion_harms": 0,
+          "unsafe_prevented": 0,
+          "unsafe_introduced": 0,
+          "net_completion_benefit": 0,
+          "net_unsafe_reduction": 0
+        }
+      }
+    },
+    "0.3": {
+      "by_policy": {
+        "staleguard": {
+          "flights": 300,
+          "safe_completion": 0,
+          "safe_noncompletion": 300,
+          "unsafe": 0,
+          "safe_completion_rate": 0.0,
+          "safe_noncompletion_rate": 1.0,
+          "unsafe_rate": 0.0,
+          "recovery_attempts": 115,
+          "recovery_successes": 115,
+          "recovery_failures": 0,
+          "recovery_attempt_rate": 0.38333333333333336,
+          "recovery_success_rate": 1.0,
+          "recovery_failure_rate": 0.0,
+          "prediction_computation_s": {
+            "samples": 300,
+            "mean_s": 0.08418343511410058,
+            "median_s": 0.07875908841378987,
+            "p95_s": 0.11964304000139236
+          },
+          "prediction_computation_ms": {
+            "samples": 300,
+            "mean_ms": 84.18343511410058,
+            "median_ms": 78.75908841378987,
+            "p95_ms": 119.64304000139236
+          },
+          "dispatch_to_action_s": {
+            "samples": 300,
+            "mean_s": 0.0,
+            "median_s": 0.0,
+            "p95_s": 0.0
+          },
+          "dispatch_to_action_ms": {
+            "samples": 300,
+            "mean_ms": 0.0,
+            "median_ms": 0.0,
+            "p95_ms": 0.0
+          },
+          "prediction_ready": 300,
+          "prediction_unavailable": 0,
+          "prediction_readiness_unrecorded": 0,
+          "unverified_executions": 0
+        },
+        "staleguard_early_recovery": {
+          "flights": 300,
+          "safe_completion": 0,
+          "safe_noncompletion": 300,
+          "unsafe": 0,
+          "safe_completion_rate": 0.0,
+          "safe_noncompletion_rate": 1.0,
+          "unsafe_rate": 0.0,
+          "recovery_attempts": 115,
+          "recovery_successes": 115,
+          "recovery_failures": 0,
+          "recovery_attempt_rate": 0.38333333333333336,
+          "recovery_success_rate": 1.0,
+          "recovery_failure_rate": 0.0,
+          "prediction_computation_s": {
+            "samples": 300,
+            "mean_s": 0.08418343511410058,
+            "median_s": 0.07875908841378987,
+            "p95_s": 0.11964304000139236
+          },
+          "prediction_computation_ms": {
+            "samples": 300,
+            "mean_ms": 84.18343511410058,
+            "median_ms": 78.75908841378987,
+            "p95_ms": 119.64304000139236
+          },
+          "dispatch_to_action_s": {
+            "samples": 214,
+            "mean_s": 0.0,
+            "median_s": 0.0,
+            "p95_s": 0.0
+          },
+          "dispatch_to_action_ms": {
+            "samples": 214,
+            "mean_ms": 0.0,
+            "median_ms": 0.0,
+            "p95_ms": 0.0
+          },
+          "prediction_ready": 300,
+          "prediction_unavailable": 0,
+          "prediction_readiness_unrecorded": 0,
+          "unverified_executions": 0,
+          "early_recoveries": 86,
+          "early_recovery_lead_s": {
+            "samples": 86,
+            "mean_s": 0.16069767441860466,
+            "median_s": 0.16,
+            "p95_s": 0.22
+          },
+          "early_recovery_lead_ms": {
+            "samples": 86,
+            "mean_ms": 160.69767441860466,
+            "median_ms": 160.0,
+            "p95_ms": 220.0
+          }
+        }
+      },
+      "paired_comparison": {
+        "complete_pairs": 300,
+        "incomplete_pairs": 0,
+        "unstarted_pairs": 0,
+        "completion_benefits": 0,
+        "completion_harms": 0,
+        "unsafe_prevented": 0,
+        "unsafe_introduced": 0,
+        "net_completion_benefit": 0,
+        "net_unsafe_reduction": 0
+      },
+      "paired_against_staleguard": {
+        "staleguard_early_recovery": {
+          "complete_pairs": 300,
+          "incomplete_pairs": 0,
+          "unstarted_pairs": 0,
+          "completion_benefits": 0,
+          "completion_harms": 0,
+          "unsafe_prevented": 0,
+          "unsafe_introduced": 0,
+          "net_completion_benefit": 0,
+          "net_unsafe_reduction": 0
+        }
+      }
+    },
+    "0.4": {
+      "by_policy": {
+        "staleguard": {
+          "flights": 300,
+          "safe_completion": 0,
+          "safe_noncompletion": 291,
+          "unsafe": 9,
+          "safe_completion_rate": 0.0,
+          "safe_noncompletion_rate": 0.97,
+          "unsafe_rate": 0.03,
+          "recovery_attempts": 135,
+          "recovery_successes": 130,
+          "recovery_failures": 5,
+          "recovery_attempt_rate": 0.45,
+          "recovery_success_rate": 0.9629629629629629,
+          "recovery_failure_rate": 0.037037037037037035,
+          "prediction_computation_s": {
+            "samples": 300,
+            "mean_s": 0.08418343511410058,
+            "median_s": 0.07875908841378987,
+            "p95_s": 0.11964304000139236
+          },
+          "prediction_computation_ms": {
+            "samples": 300,
+            "mean_ms": 84.18343511410058,
+            "median_ms": 78.75908841378987,
+            "p95_ms": 119.64304000139236
+          },
+          "dispatch_to_action_s": {
+            "samples": 300,
+            "mean_s": 0.0,
+            "median_s": 0.0,
+            "p95_s": 0.0
+          },
+          "dispatch_to_action_ms": {
+            "samples": 300,
+            "mean_ms": 0.0,
+            "median_ms": 0.0,
+            "p95_ms": 0.0
+          },
+          "prediction_ready": 300,
+          "prediction_unavailable": 0,
+          "prediction_readiness_unrecorded": 0,
+          "unverified_executions": 0
+        },
+        "staleguard_early_recovery": {
+          "flights": 300,
+          "safe_completion": 0,
+          "safe_noncompletion": 296,
+          "unsafe": 4,
+          "safe_completion_rate": 0.0,
+          "safe_noncompletion_rate": 0.9866666666666667,
+          "unsafe_rate": 0.013333333333333334,
+          "recovery_attempts": 135,
+          "recovery_successes": 135,
+          "recovery_failures": 0,
+          "recovery_attempt_rate": 0.45,
+          "recovery_success_rate": 1.0,
+          "recovery_failure_rate": 0.0,
+          "prediction_computation_s": {
+            "samples": 300,
+            "mean_s": 0.08418343511410058,
+            "median_s": 0.07875908841378987,
+            "p95_s": 0.11964304000139236
+          },
+          "prediction_computation_ms": {
+            "samples": 300,
+            "mean_ms": 84.18343511410058,
+            "median_ms": 78.75908841378987,
+            "p95_ms": 119.64304000139236
+          },
+          "dispatch_to_action_s": {
+            "samples": 185,
+            "mean_s": 0.0,
+            "median_s": 0.0,
+            "p95_s": 0.0
+          },
+          "dispatch_to_action_ms": {
+            "samples": 185,
+            "mean_ms": 0.0,
+            "median_ms": 0.0,
+            "p95_ms": 0.0
+          },
+          "prediction_ready": 300,
+          "prediction_unavailable": 0,
+          "prediction_readiness_unrecorded": 0,
+          "unverified_executions": 0,
+          "early_recoveries": 115,
+          "early_recovery_lead_s": {
+            "samples": 115,
+            "mean_s": 0.22017391304347828,
+            "median_s": 0.24,
+            "p95_s": 0.32
+          },
+          "early_recovery_lead_ms": {
+            "samples": 115,
+            "mean_ms": 220.17391304347828,
+            "median_ms": 240.0,
+            "p95_ms": 320.0
+          }
+        }
+      },
+      "paired_comparison": {
+        "complete_pairs": 300,
+        "incomplete_pairs": 0,
+        "unstarted_pairs": 0,
+        "completion_benefits": 0,
+        "completion_harms": 0,
+        "unsafe_prevented": 0,
+        "unsafe_introduced": 5,
+        "net_completion_benefit": 0,
+        "net_unsafe_reduction": -5
+      },
+      "paired_against_staleguard": {
+        "staleguard_early_recovery": {
+          "complete_pairs": 300,
+          "incomplete_pairs": 0,
+          "unstarted_pairs": 0,
+          "completion_benefits": 0,
+          "completion_harms": 0,
+          "unsafe_prevented": 0,
+          "unsafe_introduced": 5,
+          "net_completion_benefit": 0,
+          "net_unsafe_reduction": -5
+        }
+      }
+    },
+    "0.44": {
+      "by_policy": {
+        "staleguard": {
+          "flights": 300,
+          "safe_completion": 0,
+          "safe_noncompletion": 282,
+          "unsafe": 18,
+          "safe_completion_rate": 0.0,
+          "safe_noncompletion_rate": 0.94,
+          "unsafe_rate": 0.06,
+          "recovery_attempts": 135,
+          "recovery_successes": 129,
+          "recovery_failures": 6,
+          "recovery_attempt_rate": 0.45,
+          "recovery_success_rate": 0.9555555555555556,
+          "recovery_failure_rate": 0.044444444444444446,
+          "prediction_computation_s": {
+            "samples": 300,
+            "mean_s": 0.08418343511410058,
+            "median_s": 0.07875908841378987,
+            "p95_s": 0.11964304000139236
+          },
+          "prediction_computation_ms": {
+            "samples": 300,
+            "mean_ms": 84.18343511410058,
+            "median_ms": 78.75908841378987,
+            "p95_ms": 119.64304000139236
+          },
+          "dispatch_to_action_s": {
+            "samples": 300,
+            "mean_s": 0.0,
+            "median_s": 0.0,
+            "p95_s": 0.0
+          },
+          "dispatch_to_action_ms": {
+            "samples": 300,
+            "mean_ms": 0.0,
+            "median_ms": 0.0,
+            "p95_ms": 0.0
+          },
+          "prediction_ready": 300,
+          "prediction_unavailable": 0,
+          "prediction_readiness_unrecorded": 0,
+          "unverified_executions": 0
+        },
+        "staleguard_early_recovery": {
+          "flights": 300,
+          "safe_completion": 0,
+          "safe_noncompletion": 288,
+          "unsafe": 12,
+          "safe_completion_rate": 0.0,
+          "safe_noncompletion_rate": 0.96,
+          "unsafe_rate": 0.04,
+          "recovery_attempts": 135,
+          "recovery_successes": 135,
+          "recovery_failures": 0,
+          "recovery_attempt_rate": 0.45,
+          "recovery_success_rate": 1.0,
+          "recovery_failure_rate": 0.0,
+          "prediction_computation_s": {
+            "samples": 300,
+            "mean_s": 0.08418343511410058,
+            "median_s": 0.07875908841378987,
+            "p95_s": 0.11964304000139236
+          },
+          "prediction_computation_ms": {
+            "samples": 300,
+            "mean_ms": 84.18343511410058,
+            "median_ms": 78.75908841378987,
+            "p95_ms": 119.64304000139236
+          },
+          "dispatch_to_action_s": {
+            "samples": 165,
+            "mean_s": 0.0,
+            "median_s": 0.0,
+            "p95_s": 0.0
+          },
+          "dispatch_to_action_ms": {
+            "samples": 165,
+            "mean_ms": 0.0,
+            "median_ms": 0.0,
+            "p95_ms": 0.0
+          },
+          "prediction_ready": 300,
+          "prediction_unavailable": 0,
+          "prediction_readiness_unrecorded": 0,
+          "unverified_executions": 0,
+          "early_recoveries": 135,
+          "early_recovery_lead_s": {
+            "samples": 135,
+            "mean_s": 0.22755555555555557,
+            "median_s": 0.26,
+            "p95_s": 0.36
+          },
+          "early_recovery_lead_ms": {
+            "samples": 135,
+            "mean_ms": 227.55555555555557,
+            "median_ms": 260.0,
+            "p95_ms": 360.0
+          }
+        }
+      },
+      "paired_comparison": {
+        "complete_pairs": 300,
+        "incomplete_pairs": 0,
+        "unstarted_pairs": 0,
+        "completion_benefits": 0,
+        "completion_harms": 0,
+        "unsafe_prevented": 0,
+        "unsafe_introduced": 6,
+        "net_completion_benefit": 0,
+        "net_unsafe_reduction": -6
+      },
+      "paired_against_staleguard": {
+        "staleguard_early_recovery": {
+          "complete_pairs": 300,
+          "incomplete_pairs": 0,
+          "unstarted_pairs": 0,
+          "completion_benefits": 0,
+          "completion_harms": 0,
+          "unsafe_prevented": 0,
+          "unsafe_introduced": 6,
+          "net_completion_benefit": 0,
+          "net_unsafe_reduction": -6
+        }
+      }
+    },
+    "0.5": {
+      "by_policy": {
+        "staleguard": {
+          "flights": 300,
+          "safe_completion": 0,
+          "safe_noncompletion": 287,
+          "unsafe": 13,
+          "safe_completion_rate": 0.0,
+          "safe_noncompletion_rate": 0.9566666666666667,
+          "unsafe_rate": 0.043333333333333335,
+          "recovery_attempts": 162,
+          "recovery_successes": 149,
+          "recovery_failures": 13,
+          "recovery_attempt_rate": 0.54,
+          "recovery_success_rate": 0.9197530864197531,
+          "recovery_failure_rate": 0.08024691358024691,
+          "prediction_computation_s": {
+            "samples": 300,
+            "mean_s": 0.08418343511410058,
+            "median_s": 0.07875908841378987,
+            "p95_s": 0.11964304000139236
+          },
+          "prediction_computation_ms": {
+            "samples": 300,
+            "mean_ms": 84.18343511410058,
+            "median_ms": 78.75908841378987,
+            "p95_ms": 119.64304000139236
+          },
+          "dispatch_to_action_s": {
+            "samples": 300,
+            "mean_s": 0.0,
+            "median_s": 0.0,
+            "p95_s": 0.0
+          },
+          "dispatch_to_action_ms": {
+            "samples": 300,
+            "mean_ms": 0.0,
+            "median_ms": 0.0,
+            "p95_ms": 0.0
+          },
+          "prediction_ready": 300,
+          "prediction_unavailable": 0,
+          "prediction_readiness_unrecorded": 0,
+          "unverified_executions": 0
+        },
+        "staleguard_early_recovery": {
+          "flights": 300,
+          "safe_completion": 0,
+          "safe_noncompletion": 300,
+          "unsafe": 0,
+          "safe_completion_rate": 0.0,
+          "safe_noncompletion_rate": 1.0,
+          "unsafe_rate": 0.0,
+          "recovery_attempts": 162,
+          "recovery_successes": 162,
+          "recovery_failures": 0,
+          "recovery_attempt_rate": 0.54,
+          "recovery_success_rate": 1.0,
+          "recovery_failure_rate": 0.0,
+          "prediction_computation_s": {
+            "samples": 300,
+            "mean_s": 0.08418343511410058,
+            "median_s": 0.07875908841378987,
+            "p95_s": 0.11964304000139236
+          },
+          "prediction_computation_ms": {
+            "samples": 300,
+            "mean_ms": 84.18343511410058,
+            "median_ms": 78.75908841378987,
+            "p95_ms": 119.64304000139236
+          },
+          "dispatch_to_action_s": {
+            "samples": 165,
+            "mean_s": 0.0,
+            "median_s": 0.0,
+            "p95_s": 0.0
+          },
+          "dispatch_to_action_ms": {
+            "samples": 165,
+            "mean_ms": 0.0,
+            "median_ms": 0.0,
+            "p95_ms": 0.0
+          },
+          "prediction_ready": 300,
+          "prediction_unavailable": 0,
+          "prediction_readiness_unrecorded": 0,
+          "unverified_executions": 0,
+          "early_recoveries": 135,
+          "early_recovery_lead_s": {
+            "samples": 135,
+            "mean_s": 0.28755555555555556,
+            "median_s": 0.32,
+            "p95_s": 0.42
+          },
+          "early_recovery_lead_ms": {
+            "samples": 135,
+            "mean_ms": 287.55555555555554,
+            "median_ms": 320.0,
+            "p95_ms": 420.0
+          }
+        }
+      },
+      "paired_comparison": {
+        "complete_pairs": 300,
+        "incomplete_pairs": 0,
+        "unstarted_pairs": 0,
+        "completion_benefits": 0,
+        "completion_harms": 0,
+        "unsafe_prevented": 0,
+        "unsafe_introduced": 13,
+        "net_completion_benefit": 0,
+        "net_unsafe_reduction": -13
+      },
+      "paired_against_staleguard": {
+        "staleguard_early_recovery": {
+          "complete_pairs": 300,
+          "incomplete_pairs": 0,
+          "unstarted_pairs": 0,
+          "completion_benefits": 0,
+          "completion_harms": 0,
+          "unsafe_prevented": 0,
+          "unsafe_introduced": 13,
+          "net_completion_benefit": 0,
+          "net_unsafe_reduction": -13
+        }
+      }
+    },
+    "0.6": {
+      "by_policy": {
+        "staleguard": {
+          "flights": 300,
+          "safe_completion": 0,
+          "safe_noncompletion": 277,
+          "unsafe": 23,
+          "safe_completion_rate": 0.0,
+          "safe_noncompletion_rate": 0.9233333333333333,
+          "unsafe_rate": 0.07666666666666666,
+          "recovery_attempts": 183,
+          "recovery_successes": 160,
+          "recovery_failures": 23,
+          "recovery_attempt_rate": 0.61,
+          "recovery_success_rate": 0.8743169398907104,
+          "recovery_failure_rate": 0.12568306010928962,
+          "prediction_computation_s": {
+            "samples": 300,
+            "mean_s": 0.08418343511410058,
+            "median_s": 0.07875908841378987,
+            "p95_s": 0.11964304000139236
+          },
+          "prediction_computation_ms": {
+            "samples": 300,
+            "mean_ms": 84.18343511410058,
+            "median_ms": 78.75908841378987,
+            "p95_ms": 119.64304000139236
+          },
+          "dispatch_to_action_s": {
+            "samples": 300,
+            "mean_s": 0.0,
+            "median_s": 0.0,
+            "p95_s": 0.0
+          },
+          "dispatch_to_action_ms": {
+            "samples": 300,
+            "mean_ms": 0.0,
+            "median_ms": 0.0,
+            "p95_ms": 0.0
+          },
+          "prediction_ready": 300,
+          "prediction_unavailable": 0,
+          "prediction_readiness_unrecorded": 0,
+          "unverified_executions": 0
+        },
+        "staleguard_early_recovery": {
+          "flights": 300,
+          "safe_completion": 0,
+          "safe_noncompletion": 300,
+          "unsafe": 0,
+          "safe_completion_rate": 0.0,
+          "safe_noncompletion_rate": 1.0,
+          "unsafe_rate": 0.0,
+          "recovery_attempts": 183,
+          "recovery_successes": 183,
+          "recovery_failures": 0,
+          "recovery_attempt_rate": 0.61,
+          "recovery_success_rate": 1.0,
+          "recovery_failure_rate": 0.0,
+          "prediction_computation_s": {
+            "samples": 300,
+            "mean_s": 0.08418343511410058,
+            "median_s": 0.07875908841378987,
+            "p95_s": 0.11964304000139236
+          },
+          "prediction_computation_ms": {
+            "samples": 300,
+            "mean_ms": 84.18343511410058,
+            "median_ms": 78.75908841378987,
+            "p95_ms": 119.64304000139236
+          },
+          "dispatch_to_action_s": {
+            "samples": 138,
+            "mean_s": 0.0,
+            "median_s": 0.0,
+            "p95_s": 0.0
+          },
+          "dispatch_to_action_ms": {
+            "samples": 138,
+            "mean_ms": 0.0,
+            "median_ms": 0.0,
+            "p95_ms": 0.0
+          },
+          "prediction_ready": 300,
+          "prediction_unavailable": 0,
+          "prediction_readiness_unrecorded": 0,
+          "unverified_executions": 0,
+          "early_recoveries": 162,
+          "early_recovery_lead_s": {
+            "samples": 162,
+            "mean_s": 0.3396296296296296,
+            "median_s": 0.4,
+            "p95_s": 0.5
+          },
+          "early_recovery_lead_ms": {
+            "samples": 162,
+            "mean_ms": 339.6296296296296,
+            "median_ms": 400.0,
+            "p95_ms": 500.0
+          }
+        }
+      },
+      "paired_comparison": {
+        "complete_pairs": 300,
+        "incomplete_pairs": 0,
+        "unstarted_pairs": 0,
+        "completion_benefits": 0,
+        "completion_harms": 0,
+        "unsafe_prevented": 0,
+        "unsafe_introduced": 23,
+        "net_completion_benefit": 0,
+        "net_unsafe_reduction": -23
+      },
+      "paired_against_staleguard": {
+        "staleguard_early_recovery": {
+          "complete_pairs": 300,
+          "incomplete_pairs": 0,
+          "unstarted_pairs": 0,
+          "completion_benefits": 0,
+          "completion_harms": 0,
+          "unsafe_prevented": 0,
+          "unsafe_introduced": 23,
+          "net_completion_benefit": 0,
+          "net_unsafe_reduction": -23
+        }
+      }
+    },
+    "0.64": {
+      "by_policy": {
+        "staleguard": {
+          "flights": 300,
+          "safe_completion": 0,
+          "safe_noncompletion": 262,
+          "unsafe": 38,
+          "safe_completion_rate": 0.0,
+          "safe_noncompletion_rate": 0.8733333333333333,
+          "unsafe_rate": 0.12666666666666668,
+          "recovery_attempts": 183,
+          "recovery_successes": 151,
+          "recovery_failures": 32,
+          "recovery_attempt_rate": 0.61,
+          "recovery_success_rate": 0.825136612021858,
+          "recovery_failure_rate": 0.17486338797814208,
+          "prediction_computation_s": {
+            "samples": 300,
+            "mean_s": 0.08418343511410058,
+            "median_s": 0.07875908841378987,
+            "p95_s": 0.11964304000139236
+          },
+          "prediction_computation_ms": {
+            "samples": 300,
+            "mean_ms": 84.18343511410058,
+            "median_ms": 78.75908841378987,
+            "p95_ms": 119.64304000139236
+          },
+          "dispatch_to_action_s": {
+            "samples": 300,
+            "mean_s": 0.0,
+            "median_s": 0.0,
+            "p95_s": 0.0
+          },
+          "dispatch_to_action_ms": {
+            "samples": 300,
+            "mean_ms": 0.0,
+            "median_ms": 0.0,
+            "p95_ms": 0.0
+          },
+          "prediction_ready": 300,
+          "prediction_unavailable": 0,
+          "prediction_readiness_unrecorded": 0,
+          "unverified_executions": 0
+        },
+        "staleguard_early_recovery": {
+          "flights": 300,
+          "safe_completion": 0,
+          "safe_noncompletion": 294,
+          "unsafe": 6,
+          "safe_completion_rate": 0.0,
+          "safe_noncompletion_rate": 0.98,
+          "unsafe_rate": 0.02,
+          "recovery_attempts": 183,
+          "recovery_successes": 183,
+          "recovery_failures": 0,
+          "recovery_attempt_rate": 0.61,
+          "recovery_success_rate": 1.0,
+          "recovery_failure_rate": 0.0,
+          "prediction_computation_s": {
+            "samples": 300,
+            "mean_s": 0.08418343511410058,
+            "median_s": 0.07875908841378987,
+            "p95_s": 0.11964304000139236
+          },
+          "prediction_computation_ms": {
+            "samples": 300,
+            "mean_ms": 84.18343511410058,
+            "median_ms": 78.75908841378987,
+            "p95_ms": 119.64304000139236
+          },
+          "dispatch_to_action_s": {
+            "samples": 117,
+            "mean_s": 0.0,
+            "median_s": 0.0,
+            "p95_s": 0.0
+          },
+          "dispatch_to_action_ms": {
+            "samples": 117,
+            "mean_ms": 0.0,
+            "median_ms": 0.0,
+            "p95_ms": 0.0
+          },
+          "prediction_ready": 300,
+          "prediction_unavailable": 0,
+          "prediction_readiness_unrecorded": 0,
+          "unverified_executions": 0,
+          "early_recoveries": 183,
+          "early_recovery_lead_s": {
+            "samples": 183,
+            "mean_s": 0.340655737704918,
+            "median_s": 0.34,
+            "p95_s": 0.54
+          },
+          "early_recovery_lead_ms": {
+            "samples": 183,
+            "mean_ms": 340.655737704918,
+            "median_ms": 340.0,
+            "p95_ms": 540.0
+          }
+        }
+      },
+      "paired_comparison": {
+        "complete_pairs": 300,
+        "incomplete_pairs": 0,
+        "unstarted_pairs": 0,
+        "completion_benefits": 0,
+        "completion_harms": 0,
+        "unsafe_prevented": 0,
+        "unsafe_introduced": 32,
+        "net_completion_benefit": 0,
+        "net_unsafe_reduction": -32
+      },
+      "paired_against_staleguard": {
+        "staleguard_early_recovery": {
+          "complete_pairs": 300,
+          "incomplete_pairs": 0,
+          "unstarted_pairs": 0,
+          "completion_benefits": 0,
+          "completion_harms": 0,
+          "unsafe_prevented": 0,
+          "unsafe_introduced": 32,
+          "net_completion_benefit": 0,
+          "net_unsafe_reduction": -32
+        }
+      }
+    },
+    "0.7": {
+      "by_policy": {
+        "staleguard": {
+          "flights": 300,
+          "safe_completion": 0,
+          "safe_noncompletion": 257,
+          "unsafe": 43,
+          "safe_completion_rate": 0.0,
+          "safe_noncompletion_rate": 0.8566666666666667,
+          "unsafe_rate": 0.14333333333333334,
+          "recovery_attempts": 199,
+          "recovery_successes": 156,
+          "recovery_failures": 43,
+          "recovery_attempt_rate": 0.6633333333333333,
+          "recovery_success_rate": 0.7839195979899497,
+          "recovery_failure_rate": 0.21608040201005024,
+          "prediction_computation_s": {
+            "samples": 300,
+            "mean_s": 0.08418343511410058,
+            "median_s": 0.07875908841378987,
+            "p95_s": 0.11964304000139236
+          },
+          "prediction_computation_ms": {
+            "samples": 300,
+            "mean_ms": 84.18343511410058,
+            "median_ms": 78.75908841378987,
+            "p95_ms": 119.64304000139236
+          },
+          "dispatch_to_action_s": {
+            "samples": 300,
+            "mean_s": 0.0,
+            "median_s": 0.0,
+            "p95_s": 0.0
+          },
+          "dispatch_to_action_ms": {
+            "samples": 300,
+            "mean_ms": 0.0,
+            "median_ms": 0.0,
+            "p95_ms": 0.0
+          },
+          "prediction_ready": 300,
+          "prediction_unavailable": 0,
+          "prediction_readiness_unrecorded": 0,
+          "unverified_executions": 0
+        },
+        "staleguard_early_recovery": {
+          "flights": 300,
+          "safe_completion": 0,
+          "safe_noncompletion": 300,
+          "unsafe": 0,
+          "safe_completion_rate": 0.0,
+          "safe_noncompletion_rate": 1.0,
+          "unsafe_rate": 0.0,
+          "recovery_attempts": 199,
+          "recovery_successes": 199,
+          "recovery_failures": 0,
+          "recovery_attempt_rate": 0.6633333333333333,
+          "recovery_success_rate": 1.0,
+          "recovery_failure_rate": 0.0,
+          "prediction_computation_s": {
+            "samples": 300,
+            "mean_s": 0.08418343511410058,
+            "median_s": 0.07875908841378987,
+            "p95_s": 0.11964304000139236
+          },
+          "prediction_computation_ms": {
+            "samples": 300,
+            "mean_ms": 84.18343511410058,
+            "median_ms": 78.75908841378987,
+            "p95_ms": 119.64304000139236
+          },
+          "dispatch_to_action_s": {
+            "samples": 117,
+            "mean_s": 0.0,
+            "median_s": 0.0,
+            "p95_s": 0.0
+          },
+          "dispatch_to_action_ms": {
+            "samples": 117,
+            "mean_ms": 0.0,
+            "median_ms": 0.0,
+            "p95_ms": 0.0
+          },
+          "prediction_ready": 300,
+          "prediction_unavailable": 0,
+          "prediction_readiness_unrecorded": 0,
+          "unverified_executions": 0,
+          "early_recoveries": 183,
+          "early_recovery_lead_s": {
+            "samples": 183,
+            "mean_s": 0.400655737704918,
+            "median_s": 0.4,
+            "p95_s": 0.6
+          },
+          "early_recovery_lead_ms": {
+            "samples": 183,
+            "mean_ms": 400.655737704918,
+            "median_ms": 400.0,
+            "p95_ms": 600.0
+          }
+        }
+      },
+      "paired_comparison": {
+        "complete_pairs": 300,
+        "incomplete_pairs": 0,
+        "unstarted_pairs": 0,
+        "completion_benefits": 0,
+        "completion_harms": 0,
+        "unsafe_prevented": 0,
+        "unsafe_introduced": 43,
+        "net_completion_benefit": 0,
+        "net_unsafe_reduction": -43
+      },
+      "paired_against_staleguard": {
+        "staleguard_early_recovery": {
+          "complete_pairs": 300,
+          "incomplete_pairs": 0,
+          "unstarted_pairs": 0,
+          "completion_benefits": 0,
+          "completion_harms": 0,
+          "unsafe_prevented": 0,
+          "unsafe_introduced": 43,
+          "net_completion_benefit": 0,
+          "net_unsafe_reduction": -43
+        }
+      }
+    },
+    "0.8": {
+      "by_policy": {
+        "staleguard": {
+          "flights": 300,
+          "safe_completion": 0,
+          "safe_noncompletion": 228,
+          "unsafe": 72,
+          "safe_completion_rate": 0.0,
+          "safe_noncompletion_rate": 0.76,
+          "unsafe_rate": 0.24,
+          "recovery_attempts": 215,
+          "recovery_successes": 144,
+          "recovery_failures": 71,
+          "recovery_attempt_rate": 0.7166666666666667,
+          "recovery_success_rate": 0.6697674418604651,
+          "recovery_failure_rate": 0.3302325581395349,
+          "prediction_computation_s": {
+            "samples": 300,
+            "mean_s": 0.08418343511410058,
+            "median_s": 0.07875908841378987,
+            "p95_s": 0.11964304000139236
+          },
+          "prediction_computation_ms": {
+            "samples": 300,
+            "mean_ms": 84.18343511410058,
+            "median_ms": 78.75908841378987,
+            "p95_ms": 119.64304000139236
+          },
+          "dispatch_to_action_s": {
+            "samples": 300,
+            "mean_s": 0.0,
+            "median_s": 0.0,
+            "p95_s": 0.0
+          },
+          "dispatch_to_action_ms": {
+            "samples": 300,
+            "mean_ms": 0.0,
+            "median_ms": 0.0,
+            "p95_ms": 0.0
+          },
+          "prediction_ready": 300,
+          "prediction_unavailable": 0,
+          "prediction_readiness_unrecorded": 0,
+          "unverified_executions": 0
+        },
+        "staleguard_early_recovery": {
+          "flights": 300,
+          "safe_completion": 0,
+          "safe_noncompletion": 299,
+          "unsafe": 1,
+          "safe_completion_rate": 0.0,
+          "safe_noncompletion_rate": 0.9966666666666667,
+          "unsafe_rate": 0.0033333333333333335,
+          "recovery_attempts": 215,
+          "recovery_successes": 215,
+          "recovery_failures": 0,
+          "recovery_attempt_rate": 0.7166666666666667,
+          "recovery_success_rate": 1.0,
+          "recovery_failure_rate": 0.0,
+          "prediction_computation_s": {
+            "samples": 300,
+            "mean_s": 0.08418343511410058,
+            "median_s": 0.07875908841378987,
+            "p95_s": 0.11964304000139236
+          },
+          "prediction_computation_ms": {
+            "samples": 300,
+            "mean_ms": 84.18343511410058,
+            "median_ms": 78.75908841378987,
+            "p95_ms": 119.64304000139236
+          },
+          "dispatch_to_action_s": {
+            "samples": 101,
+            "mean_s": 0.0,
+            "median_s": 0.0,
+            "p95_s": 0.0
+          },
+          "dispatch_to_action_ms": {
+            "samples": 101,
+            "mean_ms": 0.0,
+            "median_ms": 0.0,
+            "p95_ms": 0.0
+          },
+          "prediction_ready": 300,
+          "prediction_unavailable": 0,
+          "prediction_readiness_unrecorded": 0,
+          "unverified_executions": 0,
+          "early_recoveries": 199,
+          "early_recovery_lead_s": {
+            "samples": 199,
+            "mean_s": 0.4684422110552764,
+            "median_s": 0.5,
+            "p95_s": 0.7
+          },
+          "early_recovery_lead_ms": {
+            "samples": 199,
+            "mean_ms": 468.4422110552764,
+            "median_ms": 500.0,
+            "p95_ms": 700.0
+          }
+        }
+      },
+      "paired_comparison": {
+        "complete_pairs": 300,
+        "incomplete_pairs": 0,
+        "unstarted_pairs": 0,
+        "completion_benefits": 0,
+        "completion_harms": 0,
+        "unsafe_prevented": 0,
+        "unsafe_introduced": 71,
+        "net_completion_benefit": 0,
+        "net_unsafe_reduction": -71
+      },
+      "paired_against_staleguard": {
+        "staleguard_early_recovery": {
+          "complete_pairs": 300,
+          "incomplete_pairs": 0,
+          "unstarted_pairs": 0,
+          "completion_benefits": 0,
+          "completion_harms": 0,
+          "unsafe_prevented": 0,
+          "unsafe_introduced": 71,
+          "net_completion_benefit": 0,
+          "net_unsafe_reduction": -71
+        }
+      }
+    },
+    "0.84": {
+      "by_policy": {
+        "staleguard": {
+          "flights": 300,
+          "safe_completion": 0,
+          "safe_noncompletion": 209,
+          "unsafe": 91,
+          "safe_completion_rate": 0.0,
+          "safe_noncompletion_rate": 0.6966666666666667,
+          "unsafe_rate": 0.30333333333333334,
+          "recovery_attempts": 215,
+          "recovery_successes": 133,
+          "recovery_failures": 82,
+          "recovery_attempt_rate": 0.7166666666666667,
+          "recovery_success_rate": 0.6186046511627907,
+          "recovery_failure_rate": 0.3813953488372093,
+          "prediction_computation_s": {
+            "samples": 300,
+            "mean_s": 0.08418343511410058,
+            "median_s": 0.07875908841378987,
+            "p95_s": 0.11964304000139236
+          },
+          "prediction_computation_ms": {
+            "samples": 300,
+            "mean_ms": 84.18343511410058,
+            "median_ms": 78.75908841378987,
+            "p95_ms": 119.64304000139236
+          },
+          "dispatch_to_action_s": {
+            "samples": 300,
+            "mean_s": 0.0,
+            "median_s": 0.0,
+            "p95_s": 0.0
+          },
+          "dispatch_to_action_ms": {
+            "samples": 300,
+            "mean_ms": 0.0,
+            "median_ms": 0.0,
+            "p95_ms": 0.0
+          },
+          "prediction_ready": 300,
+          "prediction_unavailable": 0,
+          "prediction_readiness_unrecorded": 0,
+          "unverified_executions": 0
+        },
+        "staleguard_early_recovery": {
+          "flights": 300,
+          "safe_completion": 0,
+          "safe_noncompletion": 291,
+          "unsafe": 9,
+          "safe_completion_rate": 0.0,
+          "safe_noncompletion_rate": 0.97,
+          "unsafe_rate": 0.03,
+          "recovery_attempts": 215,
+          "recovery_successes": 215,
+          "recovery_failures": 0,
+          "recovery_attempt_rate": 0.7166666666666667,
+          "recovery_success_rate": 1.0,
+          "recovery_failure_rate": 0.0,
+          "prediction_computation_s": {
+            "samples": 300,
+            "mean_s": 0.08418343511410058,
+            "median_s": 0.07875908841378987,
+            "p95_s": 0.11964304000139236
+          },
+          "prediction_computation_ms": {
+            "samples": 300,
+            "mean_ms": 84.18343511410058,
+            "median_ms": 78.75908841378987,
+            "p95_ms": 119.64304000139236
+          },
+          "dispatch_to_action_s": {
+            "samples": 85,
+            "mean_s": 0.0,
+            "median_s": 0.0,
+            "p95_s": 0.0
+          },
+          "dispatch_to_action_ms": {
+            "samples": 85,
+            "mean_ms": 0.0,
+            "median_ms": 0.0,
+            "p95_ms": 0.0
+          },
+          "prediction_ready": 300,
+          "prediction_unavailable": 0,
+          "prediction_readiness_unrecorded": 0,
+          "unverified_executions": 0,
+          "early_recoveries": 215,
+          "early_recovery_lead_s": {
+            "samples": 215,
+            "mean_s": 0.4735813953488372,
+            "median_s": 0.54,
+            "p95_s": 0.74
+          },
+          "early_recovery_lead_ms": {
+            "samples": 215,
+            "mean_ms": 473.5813953488372,
+            "median_ms": 540.0,
+            "p95_ms": 740.0
+          }
+        }
+      },
+      "paired_comparison": {
+        "complete_pairs": 300,
+        "incomplete_pairs": 0,
+        "unstarted_pairs": 0,
+        "completion_benefits": 0,
+        "completion_harms": 0,
+        "unsafe_prevented": 0,
+        "unsafe_introduced": 82,
+        "net_completion_benefit": 0,
+        "net_unsafe_reduction": -82
+      },
+      "paired_against_staleguard": {
+        "staleguard_early_recovery": {
+          "complete_pairs": 300,
+          "incomplete_pairs": 0,
+          "unstarted_pairs": 0,
+          "completion_benefits": 0,
+          "completion_harms": 0,
+          "unsafe_prevented": 0,
+          "unsafe_introduced": 82,
+          "net_completion_benefit": 0,
+          "net_unsafe_reduction": -82
+        }
+      }
+    },
+    "0.9": {
+      "by_policy": {
+        "staleguard": {
+          "flights": 300,
+          "safe_completion": 0,
+          "safe_noncompletion": 198,
+          "unsafe": 102,
+          "safe_completion_rate": 0.0,
+          "safe_noncompletion_rate": 0.66,
+          "unsafe_rate": 0.34,
+          "recovery_attempts": 236,
+          "recovery_successes": 135,
+          "recovery_failures": 101,
+          "recovery_attempt_rate": 0.7866666666666666,
+          "recovery_success_rate": 0.5720338983050848,
+          "recovery_failure_rate": 0.4279661016949153,
+          "prediction_computation_s": {
+            "samples": 300,
+            "mean_s": 0.08418343511410058,
+            "median_s": 0.07875908841378987,
+            "p95_s": 0.11964304000139236
+          },
+          "prediction_computation_ms": {
+            "samples": 300,
+            "mean_ms": 84.18343511410058,
+            "median_ms": 78.75908841378987,
+            "p95_ms": 119.64304000139236
+          },
+          "dispatch_to_action_s": {
+            "samples": 300,
+            "mean_s": 0.0,
+            "median_s": 0.0,
+            "p95_s": 0.0
+          },
+          "dispatch_to_action_ms": {
+            "samples": 300,
+            "mean_ms": 0.0,
+            "median_ms": 0.0,
+            "p95_ms": 0.0
+          },
+          "prediction_ready": 300,
+          "prediction_unavailable": 0,
+          "prediction_readiness_unrecorded": 0,
+          "unverified_executions": 0
+        },
+        "staleguard_early_recovery": {
+          "flights": 300,
+          "safe_completion": 0,
+          "safe_noncompletion": 299,
+          "unsafe": 1,
+          "safe_completion_rate": 0.0,
+          "safe_noncompletion_rate": 0.9966666666666667,
+          "unsafe_rate": 0.0033333333333333335,
+          "recovery_attempts": 236,
+          "recovery_successes": 236,
+          "recovery_failures": 0,
+          "recovery_attempt_rate": 0.7866666666666666,
+          "recovery_success_rate": 1.0,
+          "recovery_failure_rate": 0.0,
+          "prediction_computation_s": {
+            "samples": 300,
+            "mean_s": 0.08418343511410058,
+            "median_s": 0.07875908841378987,
+            "p95_s": 0.11964304000139236
+          },
+          "prediction_computation_ms": {
+            "samples": 300,
+            "mean_ms": 84.18343511410058,
+            "median_ms": 78.75908841378987,
+            "p95_ms": 119.64304000139236
+          },
+          "dispatch_to_action_s": {
+            "samples": 85,
+            "mean_s": 0.0,
+            "median_s": 0.0,
+            "p95_s": 0.0
+          },
+          "dispatch_to_action_ms": {
+            "samples": 85,
+            "mean_ms": 0.0,
+            "median_ms": 0.0,
+            "p95_ms": 0.0
+          },
+          "prediction_ready": 300,
+          "prediction_unavailable": 0,
+          "prediction_readiness_unrecorded": 0,
+          "unverified_executions": 0,
+          "early_recoveries": 215,
+          "early_recovery_lead_s": {
+            "samples": 215,
+            "mean_s": 0.5335813953488372,
+            "median_s": 0.6,
+            "p95_s": 0.8
+          },
+          "early_recovery_lead_ms": {
+            "samples": 215,
+            "mean_ms": 533.5813953488372,
+            "median_ms": 600.0,
+            "p95_ms": 800.0
+          }
+        }
+      },
+      "paired_comparison": {
+        "complete_pairs": 300,
+        "incomplete_pairs": 0,
+        "unstarted_pairs": 0,
+        "completion_benefits": 0,
+        "completion_harms": 0,
+        "unsafe_prevented": 0,
+        "unsafe_introduced": 101,
+        "net_completion_benefit": 0,
+        "net_unsafe_reduction": -101
+      },
+      "paired_against_staleguard": {
+        "staleguard_early_recovery": {
+          "complete_pairs": 300,
+          "incomplete_pairs": 0,
+          "unstarted_pairs": 0,
+          "completion_benefits": 0,
+          "completion_harms": 0,
+          "unsafe_prevented": 0,
+          "unsafe_introduced": 101,
+          "net_completion_benefit": 0,
+          "net_unsafe_reduction": -101
+        }
+      }
+    },
+    "1.0": {
+      "by_policy": {
+        "staleguard": {
+          "flights": 300,
+          "safe_completion": 0,
+          "safe_noncompletion": 173,
+          "unsafe": 127,
+          "safe_completion_rate": 0.0,
+          "safe_noncompletion_rate": 0.5766666666666667,
+          "unsafe_rate": 0.42333333333333334,
+          "recovery_attempts": 248,
+          "recovery_successes": 124,
+          "recovery_failures": 124,
+          "recovery_attempt_rate": 0.8266666666666667,
+          "recovery_success_rate": 0.5,
+          "recovery_failure_rate": 0.5,
+          "prediction_computation_s": {
+            "samples": 300,
+            "mean_s": 0.08418343511410058,
+            "median_s": 0.07875908841378987,
+            "p95_s": 0.11964304000139236
+          },
+          "prediction_computation_ms": {
+            "samples": 300,
+            "mean_ms": 84.18343511410058,
+            "median_ms": 78.75908841378987,
+            "p95_ms": 119.64304000139236
+          },
+          "dispatch_to_action_s": {
+            "samples": 300,
+            "mean_s": 0.0,
+            "median_s": 0.0,
+            "p95_s": 0.0
+          },
+          "dispatch_to_action_ms": {
+            "samples": 300,
+            "mean_ms": 0.0,
+            "median_ms": 0.0,
+            "p95_ms": 0.0
+          },
+          "prediction_ready": 300,
+          "prediction_unavailable": 0,
+          "prediction_readiness_unrecorded": 0,
+          "unverified_executions": 0
+        },
+        "staleguard_early_recovery": {
+          "flights": 300,
+          "safe_completion": 0,
+          "safe_noncompletion": 297,
+          "unsafe": 3,
+          "safe_completion_rate": 0.0,
+          "safe_noncompletion_rate": 0.99,
+          "unsafe_rate": 0.01,
+          "recovery_attempts": 248,
+          "recovery_successes": 248,
+          "recovery_failures": 0,
+          "recovery_attempt_rate": 0.8266666666666667,
+          "recovery_success_rate": 1.0,
+          "recovery_failure_rate": 0.0,
+          "prediction_computation_s": {
+            "samples": 300,
+            "mean_s": 0.08418343511410058,
+            "median_s": 0.07875908841378987,
+            "p95_s": 0.11964304000139236
+          },
+          "prediction_computation_ms": {
+            "samples": 300,
+            "mean_ms": 84.18343511410058,
+            "median_ms": 78.75908841378987,
+            "p95_ms": 119.64304000139236
+          },
+          "dispatch_to_action_s": {
+            "samples": 64,
+            "mean_s": 0.0,
+            "median_s": 0.0,
+            "p95_s": 0.0
+          },
+          "dispatch_to_action_ms": {
+            "samples": 64,
+            "mean_ms": 0.0,
+            "median_ms": 0.0,
+            "p95_ms": 0.0
+          },
+          "prediction_ready": 300,
+          "prediction_unavailable": 0,
+          "prediction_readiness_unrecorded": 0,
+          "unverified_executions": 0,
+          "early_recoveries": 236,
+          "early_recovery_lead_s": {
+            "samples": 236,
+            "mean_s": 0.5861016949152542,
+            "median_s": 0.6,
+            "p95_s": 0.9
+          },
+          "early_recovery_lead_ms": {
+            "samples": 236,
+            "mean_ms": 586.1016949152543,
+            "median_ms": 600.0,
+            "p95_ms": 900.0
+          }
+        }
+      },
+      "paired_comparison": {
+        "complete_pairs": 300,
+        "incomplete_pairs": 0,
+        "unstarted_pairs": 0,
+        "completion_benefits": 0,
+        "completion_harms": 0,
+        "unsafe_prevented": 0,
+        "unsafe_introduced": 124,
+        "net_completion_benefit": 0,
+        "net_unsafe_reduction": -124
+      },
+      "paired_against_staleguard": {
+        "staleguard_early_recovery": {
+          "complete_pairs": 300,
+          "incomplete_pairs": 0,
+          "unstarted_pairs": 0,
+          "completion_benefits": 0,
+          "completion_harms": 0,
+          "unsafe_prevented": 0,
+          "unsafe_introduced": 124,
+          "net_completion_benefit": 0,
+          "net_unsafe_reduction": -124
+        }
+      }
+    }
+  },
+  "paired_comparison_other_policy": "staleguard_early_recovery",
+  "paired_comparison": {
+    "complete_pairs": 6900,
+    "incomplete_pairs": 0,
+    "unstarted_pairs": 0,
+    "completion_benefits": 0,
+    "completion_harms": 0,
+    "unsafe_prevented": 0,
+    "unsafe_introduced": 500,
+    "net_completion_benefit": 0,
+    "net_unsafe_reduction": -500
+  },
+  "paired_against_staleguard": {
+    "staleguard_early_recovery": {
+      "complete_pairs": 6900,
+      "incomplete_pairs": 0,
+      "unstarted_pairs": 0,
+      "completion_benefits": 0,
+      "completion_harms": 0,
+      "unsafe_prevented": 0,
+      "unsafe_introduced": 500,
+      "net_completion_benefit": 0,
+      "net_unsafe_reduction": -500
+    }
+  }
+}
