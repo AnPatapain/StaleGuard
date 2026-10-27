@@ -13,10 +13,11 @@ from model.common import capture_pid_state, PIDState
 from physics_monitor import monitor_physics_steps
 from .baselines.staleguard import staleguard_status
 from .baselines.fixed_ttl import fixed_ttl_expired, FIXED_TTL_S
+from .baselines import fixed_early_recovery
 from .baselines.use_time_recheck import first_step_after_check
 from .baselines import always_recover, fbs
 from .scenario import (HZ, PHYSICS_HZ, POS, VEL, Config, make_forward_trajectory,
-                      apply_turn_command, clearance, in_checkpoint, safety_only_reference)
+                       apply_turn_command, clearance, in_checkpoint, safety_only_reference)
 
 
 @dataclass(frozen=True)
@@ -88,7 +89,8 @@ def execute(s, delay=0., config=Config(), policy='no_recovery', received=None,
 
     if policy not in (
             'no_recovery', 'staleguard', 'staleguard_early_recovery',
-            'use_time_recheck', 'fixed_ttl', 'always_recover', 'fbs'
+            'fixed_early_recovery', 'use_time_recheck', 'fixed_ttl',
+            'always_recover', 'fbs'
     ):
         raise ValueError('Unadapted policy')
 
@@ -111,11 +113,11 @@ def execute(s, delay=0., config=Config(), policy='no_recovery', received=None,
     event = {'policy': policy, 'scheduled_dispatch_step': dispatch,
              'application_step': None, 'fallback_step': None, 'prediction_ready': None}
     if policy == 'staleguard_early_recovery':
-        event.update(
-            early_recovery=False,
-            computation_s=received['computation_s'],
-            expiry_steps=received['expiry_steps'],
-        )
+        event.update(early_recovery=False,
+                     computation_s=received['computation_s'],
+                     expiry_steps=received['expiry_steps'])
+    elif policy == 'fixed_early_recovery':
+        event.update(early_recovery=False, fixed_early_ttl_s=fixed_early_recovery.FIXED_EARLY_TTL_S)
 
     if policy == 'fbs':
         previous_feature, volatility = None, 0.0
@@ -181,45 +183,44 @@ def execute(s, delay=0., config=Config(), policy='no_recovery', received=None,
                     if save_trace:
                         event['observation_state'] = obs.tolist()
 
-            # EarlyRecovery: act when TTL expires while the command is pending.
+            # Both early-recovery variants act only while the command is pending.
             if (
-                    policy == 'staleguard_early_recovery'
-                    and dispatch is not None
-                    and approval <= step < dispatch
-                    and not event['early_recovery']
+                policy in ('staleguard_early_recovery', 'fixed_early_recovery')
+                and dispatch is not None
+                and approval <= step < dispatch
+                and not event['early_recovery']
             ):
-                ready, expired = staleguard_status(
-                    received, step - approval
-                )
-                if ready and expired:
+                if policy == 'staleguard_early_recovery':
+                    ready, expired = staleguard_status(received, step - approval)
+                    trigger = ready and expired
+                else:
+                    trigger = fixed_early_recovery.pending_recovery_due(step - approval)
+
+                if trigger:
                     ref = safety_only_reference(ref, step, obs)
                     ctrl.reference = ref
                     env.X_GOAL = ref
-                    event.update(
-                        fallback_step=step,
-                        prediction_ready=True,
-                        early_recovery=True,
-                    )
-                    # Cancel the pending turn permanently.
+                    event.update(fallback_step=step, early_recovery=True)
+                    if policy == 'staleguard_early_recovery':
+                        event['prediction_ready'] = True
+                    # The already-approved turn cannot be dispatched afterward.
                     action_step = None
 
             if step == dispatch:
                 if policy in ('staleguard', 'staleguard_early_recovery'):
-                    ready, expired = staleguard_status(
-                        received, step - approval
-                    )
-                    # Do not override a recovery already started before dispatch.
+                    ready, expired = staleguard_status(received, step - approval)
                     if event['fallback_step'] is None:
                         recover = expired
-                    event.update(
-                        prediction_ready=ready,
-                        computation_s=received['computation_s'],
-                        expiry_steps=received['expiry_steps'],
-                    )
+                    event.update(prediction_ready=ready,
+                                 computation_s=received['computation_s'],
+                                 expiry_steps=received['expiry_steps'])
                 elif policy == 'fixed_ttl':
-                    # Preregistered development control, not tuned against outcomes.
                     recover = fixed_ttl_expired(step-approval)
                     event['fixed_ttl_s'] = FIXED_TTL_S
+                elif policy == 'fixed_early_recovery':
+                    # Allow dispatch exactly at 0.20 s; cancel later ones.
+                    if event['fallback_step'] is None:
+                        recover = fixed_early_recovery.dispatch_recovery_due(step - approval)
                 elif policy == 'always_recover':
                     recover = always_recover.should_recover()
                 elif policy == 'fbs':

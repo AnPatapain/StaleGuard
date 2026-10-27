@@ -1,4 +1,4 @@
-"""Summarize Geofence Turn flights and paired results, including EarlyRecovery."""
+"""Summarize Geofence Turn flights and paired baseline comparisons."""
 import argparse
 from collections import defaultdict
 from enum import Enum
@@ -16,6 +16,7 @@ POLICIES = (
     'use_time_recheck',
     'staleguard',
     'staleguard_early_recovery',
+    'fixed_early_recovery',
 )
 CONTROL_HZ = 50
 
@@ -34,9 +35,9 @@ class Metric(Enum):
     RECOVERY_ATTEMPT_RATE = 'recovery_attempt_rate'
     RECOVERY_SUCCESS_RATE = 'recovery_success_rate'
     RECOVERY_FAILURE_RATE = 'recovery_failure_rate'
-    PREDICTION_TIME = 'prediction_computation_s'  # FBS: approval feature/EMA update + TTL freeze only.
+    PREDICTION_TIME = 'prediction_computation_s'
     PREDICTION_TIME_MS = 'prediction_computation_ms'
-    FBS_CUMULATIVE_TIME = 'fbs_cumulative_observation_computation_s'  # Sum of observation timers through approval, if recorded.
+    FBS_CUMULATIVE_TIME = 'fbs_cumulative_observation_computation_s'
     FBS_CUMULATIVE_TIME_MS = 'fbs_cumulative_observation_computation_ms'
     ACTION_DELAY = 'dispatch_to_action_s'
     ACTION_DELAY_MS = 'dispatch_to_action_ms'
@@ -128,7 +129,7 @@ def policy_metrics(rows, policy, control_hz):
     for row in rows:
         event = row['event']
         duration = event.get('computation_s')
-        # Approval-time StaleGuard forecast is reused across dispatch delays.
+        # Approval-time StaleGuard forecasts are reused across dispatch delays.
         key = row['seed'] if policy in ('staleguard', 'staleguard_early_recovery') else flight_key(row)
         if duration is not None:
             if key in prediction_times and prediction_times[key] != duration:
@@ -143,7 +144,8 @@ def policy_metrics(rows, policy, control_hz):
         if is_early != (event.get('early_recovery') is True):
             raise ValueError('Early-recovery flag disagrees with fallback timing')
         if is_early:
-            if policy != 'staleguard_early_recovery' or event.get('application_step') is not None:
+            if (policy not in ('staleguard_early_recovery', 'fixed_early_recovery')
+                    or event.get('application_step') is not None):
                 raise ValueError('Early recovery must cancel the pending command')
             early_leads.append((dispatch - fallback) / control_hz)
         # Pre-dispatch intervention is not a negative dispatch-to-action latency.
@@ -186,7 +188,7 @@ def policy_metrics(rows, policy, control_hz):
         cumulative = timing_summary(fbs_cumulative_times)
         values.update({Metric.FBS_CUMULATIVE_TIME: cumulative,
                        Metric.FBS_CUMULATIVE_TIME_MS: milliseconds(cumulative)})
-    if policy == 'staleguard_early_recovery':
+    if policy in ('staleguard_early_recovery', 'fixed_early_recovery'):
         lead = timing_summary(early_leads)
         values.update({Metric.EARLY_RECOVERIES: len(early_leads),
                        Metric.EARLY_LEAD: lead,
@@ -194,23 +196,23 @@ def policy_metrics(rows, policy, control_hz):
     return {metric.value: value for metric, value in values.items()}
 
 
-def paired_metrics(rows, expected_pairs=None, other='use_time_recheck'):
-    """Paired difference: positive means StaleGuard is better than 'other'."""
+def paired_metrics(rows, expected_pairs=None, other='use_time_recheck', reference='staleguard'):
+    """Paired difference: positive means 'reference' outperforms 'other'."""
     blocks = defaultdict(dict)
     for row in rows:
         blocks[row['seed'], row['delay_s']][row['event']['policy']] = row
     keys = set(blocks) if expected_pairs is None else set(expected_pairs)
     unstarted = sum(key not in blocks for key in keys)
     pairs = [blocks[key] for key in sorted(keys)
-             if key in blocks and {'staleguard', other} <= blocks[key].keys()]
+             if key in blocks and {reference, other} <= blocks[key].keys()]
 
     benefits = harms = prevented = introduced = 0
     for pair in pairs:
-        sg, baseline = pair['staleguard'], pair[other]
-        benefits += bool(sg['safe_completion'] and not baseline['safe_completion'])
-        harms += bool(baseline['safe_completion'] and not sg['safe_completion'])
-        prevented += bool(sg['safe'] and not baseline['safe'])
-        introduced += bool(baseline['safe'] and not sg['safe'])
+        first, baseline = pair[reference], pair[other]
+        benefits += bool(first['safe_completion'] and not baseline['safe_completion'])
+        harms += bool(baseline['safe_completion'] and not first['safe_completion'])
+        prevented += bool(first['safe'] and not baseline['safe'])
+        introduced += bool(baseline['safe'] and not first['safe'])
 
     values = {
         Metric.COMPLETE_PAIRS: len(pairs),
@@ -248,9 +250,24 @@ def summarize(path, protocol=None):
            or (seeds and row['seed'] not in seeds) for row in rows):
         raise ValueError('Journal contains a flight outside the fixed protocol')
 
-    comparison_other = ('use_time_recheck' if 'use_time_recheck' in policies
-                        else 'staleguard_early_recovery'
-                        if 'staleguard_early_recovery' in policies else None)
+    if 'staleguard' in policies:
+        comparison_reference = 'staleguard'
+        comparison_other = ('use_time_recheck' if 'use_time_recheck' in policies
+                            else 'staleguard_early_recovery'
+                            if 'staleguard_early_recovery' in policies
+                            else 'fixed_early_recovery'
+                            if 'fixed_early_recovery' in policies else None)
+    elif 'staleguard_early_recovery' in policies and 'fixed_early_recovery' in policies:
+        comparison_reference = 'staleguard_early_recovery'
+        comparison_other = 'fixed_early_recovery'
+    else:
+        comparison_reference, comparison_other = None, None
+
+    def comparison(selected, expected_keys):
+        if comparison_reference is not None and comparison_other is not None:
+            return paired_metrics(selected, expected_keys,
+                                  other=comparison_other, reference=comparison_reference)
+        return paired_metrics(selected, expected_keys)
 
     def pairs_against_staleguard(selected, expected_keys):
         if 'staleguard' not in policies:
@@ -258,21 +275,27 @@ def summarize(path, protocol=None):
         return {p: paired_metrics(selected, expected_keys, p)
                 for p in policies if p != 'staleguard'}
 
+    def early_vs_fixed(selected, expected_keys):
+        if not {'staleguard_early_recovery', 'fixed_early_recovery'} <= set(policies):
+            return None
+        return paired_metrics(selected, expected_keys,
+                              other='fixed_early_recovery',
+                              reference='staleguard_early_recovery')
+
     by_policy = {p: policy_metrics([r for r in rows if r['event']['policy'] == p], p, control_hz)
                  for p in policies}
     by_delay = {}
     for delay in delays:
         selected = [row for row in rows if row['delay_s'] == delay]
         subset = None if expected is None else {key for key in expected if key[1] == delay}
-        pairs = pairs_against_staleguard(selected, subset)
         by_delay[str(float(delay))] = dict(
             by_policy={p: policy_metrics([r for r in selected if r['event']['policy'] == p], p, control_hz)
                        for p in policies},
-            paired_comparison=(pairs[comparison_other] if comparison_other in pairs
-                               else paired_metrics(selected, subset)),
-            paired_against_staleguard=pairs,
+            paired_comparison=comparison(selected, subset),
+            paired_against_staleguard=pairs_against_staleguard(selected, subset),
+            paired_early_vs_fixed=early_vs_fixed(selected, subset),
         )
-    pairs = pairs_against_staleguard(rows, expected)
+
     return dict(
         schema='geofence_benchmark_metrics_v1',
         recorded_flights=len(rows),
@@ -280,22 +303,20 @@ def summarize(path, protocol=None):
         timing_units='seconds',
         prediction_timing_samples=(
             'StaleGuard and EarlyRecovery: one approval forecast per seed; '
-            'EarlyRecovery may act before dispatch; this is reported separately as '
-            'early_recovery_lead, not a negative dispatch-to-action delay. '
-            'Use-Time Recheck: one check per flight; '
-            'FBS: approval-time feature/EMA update and TTL freeze per flight, '
-            'not total observation-history or total policy computation. '
-            'FBS cumulative observation computation sums recorded update timers '
-            'through approval (including the approval update), only when diagnostics exist; '
-            'it excludes dispatch and recording overhead. Missing history is unmeasured.'
+            'Fixed-EarlyRecovery: no prediction computation. '
+            'Pre-dispatch recovery lead is recorded separately, not as negative action latency. '
+            'Use-Time Recheck: one check per flight. '
+            'FBS: approval-time feature/EMA update and TTL freeze per flight; '
+            'FBS cumulative observation computation is reported only if recorded.'
         ),
         journal_sha256=hashlib.sha256(path.read_bytes()).hexdigest(),
         by_policy=by_policy,
         by_delay=by_delay,
+        paired_comparison_reference_policy=comparison_reference,
         paired_comparison_other_policy=comparison_other,
-        paired_comparison=(pairs[comparison_other] if comparison_other in pairs
-                           else paired_metrics(rows, expected)),
-        paired_against_staleguard=pairs,
+        paired_comparison=comparison(rows, expected),
+        paired_against_staleguard=pairs_against_staleguard(rows, expected),
+        paired_early_vs_fixed=early_vs_fixed(rows, expected),
     )
 
 
