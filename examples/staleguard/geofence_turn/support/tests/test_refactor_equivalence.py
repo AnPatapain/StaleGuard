@@ -185,9 +185,17 @@ class RefactorEquivalenceTests(unittest.TestCase):
                 return None
             def visit_If(self,node):
                 self.generic_visit(node)
-                condition = ast.unparse(node.test)
-                if condition in ("policy == 'always_recover'", "policy == 'fbs'") or condition.startswith("policy == 'fbs' and "):
-                    return node.orelse  # Compare the unchanged original-policy path.
+                # Compare the original No-Recovery physics path; added policy
+                # branches are checked by their scheduler tests, not this AST.
+                first = node.test.values[0] if isinstance(node.test,ast.BoolOp) and isinstance(node.test.op,ast.And) else node.test
+                if (isinstance(first,ast.Compare) and isinstance(first.left,ast.Name)
+                        and first.left.id=='policy' and len(first.ops)==1):
+                    value,op = ast.literal_eval(first.comparators[0]),first.ops[0]
+                    truth = ('no_recovery'==value if isinstance(op,ast.Eq) else
+                             'no_recovery' in value if isinstance(op,ast.In) else
+                             'no_recovery' not in value if isinstance(op,ast.NotIn) else None)
+                    if truth is False or truth is True and first is node.test:
+                        return node.body if truth else node.orelse
                 return node
         old = function_tree(archived/'simulation.py.txt','execute')
         new = function_tree(ROOT/'simulation.py','execute')

@@ -23,6 +23,7 @@ from geofence_turn.storage import (
     metadata, check_provenance, file_hash, append_json, write_json,
 )
 from geofence_turn.baselines.fixed_early_recovery import FIXED_EARLY_TTL_S
+from geofence_turn.baselines import ppr
 from geofence_turn.baselines.staleguard import predict_delays, LightweightPredictiveModel
 from geofence_turn.baseline_benchmark.metrics import (
     POLICIES, read_executions, flight_key, summarize,
@@ -74,6 +75,11 @@ def run(args):
     if 'fixed_early_recovery' in args.policies:
         protocol['fixed_early_ttl_s'] = FIXED_EARLY_TTL_S
         protocol['fixed_early_source_sha256'] = file_hash(ROOT / 'baselines/fixed_early_recovery.py')
+    if 'ppr' in args.policies:
+        protocol.update(ppr_interval_steps=ppr.INTERVAL_STEPS,
+                        ppr_computation_bound_s=ppr.COMPUTATION_BOUND_S,
+                        ppr_latency_bound_steps=ppr.LATENCY_BOUND_STEPS,
+                        ppr_source_sha256=file_hash(ROOT/'baselines/ppr.py'))
     protocol = json.loads(json.dumps(protocol))  # Match JSON lists when rerunning.
 
     folder = args.calibration if args.calibration.is_dir() else args.calibration.parent
@@ -123,7 +129,7 @@ def run(args):
 
     # Warm up only the predictive models actually needed.
     platform = None
-    if completed != expected and (set(STALEGUARD_POLICIES) | {'use_time_recheck'}) & set(args.policies):
+    if completed != expected and (set(STALEGUARD_POLICIES) | {'use_time_recheck','ppr'}) & set(args.policies):
         platform = load_scg_platform_params()
         model = LightweightPredictiveModel(*platform)
         try:  # Warm the shared kernels without an extra approval forecast.
@@ -200,7 +206,7 @@ def main():
     parser.add_argument(
         '--policies', nargs='+', choices=POLICIES,
         default=tuple(p for p in POLICIES
-                      if p not in ('staleguard_early_recovery', 'fixed_early_recovery')),
+                      if p not in ('staleguard_early_recovery', 'fixed_early_recovery', 'ppr')),
     )
     parser.add_argument(
         '--max-flights', type=int, default=0,
