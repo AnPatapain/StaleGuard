@@ -1,3 +1,5 @@
+> Source relocation: this report preserves its historical findings and commands. Current code: `staleguard_benefit.py` → [simulation.py](../simulation.py). Old entry points have been removed.
+
 # Stage 10.1: Always-Recover baseline
 
 Task 3.1 adds only Always-Recover to the official benefit experiment.

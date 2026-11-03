@@ -1,3 +1,5 @@
+> Source relocation: this report preserves its historical findings and commands. Current code: `staleguard_benefit.py` → [simulation.py](../simulation.py). Old entry points have been removed.
+
 # Experiment B: unknown dispatch delay
 
 Experiment A remains the known-scheduled-delay experiment. Experiment B uses

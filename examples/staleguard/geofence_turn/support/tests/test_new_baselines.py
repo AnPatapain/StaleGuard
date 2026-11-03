@@ -7,7 +7,7 @@ import tempfile
 import time
 import unittest
 import numpy as np
-import fbs as inspection_fbs
+from inspection_descent.baselines import fbs as inspection_fbs
 from geofence_turn.baselines import always_recover, fbs
 from geofence_turn import simulation
 from geofence_turn.scenario import (Config, Command, Scenario, HZ, PHYSICS_HZ,

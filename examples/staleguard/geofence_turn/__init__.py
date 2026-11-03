@@ -8,11 +8,3 @@ for _name in ("OPENBLAS_NUM_THREADS", "OMP_NUM_THREADS", "MKL_NUM_THREADS",
 os.environ["CUDA_VISIBLE_DEVICES"] = ""
 
 os.environ.setdefault("MPLCONFIGDIR", "/tmp/staleguard-geofence-matplotlib")
-
-# Existing shared model uses top-level imports from Inspection-Descent's model/.
-# Reuse that model in place; do not copy it or change Mission A.
-from pathlib import Path
-import sys
-_model_parent = str(Path(__file__).resolve().parent.parent / "inspection_descent")
-if _model_parent not in sys.path:
-    sys.path.append(_model_parent)

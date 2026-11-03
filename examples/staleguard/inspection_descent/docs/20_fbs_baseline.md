@@ -1,3 +1,5 @@
+> Source relocation: this report preserves its historical findings and commands. Current code: `staleguard_benefit.py` → [simulation.py](../simulation.py); `fbs.py` → [fbs.py](../baselines/fbs.py). Old entry points have been removed.
+
 # Experiment B: FBS baseline — 22 October 2026
 
 FBS is an opt-in fifth policy, using the locked model-free signed-clearance

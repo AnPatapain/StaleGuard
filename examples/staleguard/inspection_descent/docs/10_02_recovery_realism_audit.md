@@ -1,3 +1,5 @@
+> Source relocation: this report preserves its historical findings and commands. Current code: `staleguard_benefit.py` → [simulation.py](../simulation.py). Old entry points have been removed.
+
 # Recovery realism audit — 20 October 2026
 
 Later decision: safety-only recovery is now the primary protocol. The maneuver

@@ -1,3 +1,5 @@
+> Source relocation: this report preserves its historical findings and commands. Current code: `max_dwell_calibration.py` → [calibration.py](../calibration.py). Old entry points have been removed.
+
 # Stage 6: first-feasible versus maximum-dwell calibration
 
 Historical comparison, before maximum-dwell calibration became official.

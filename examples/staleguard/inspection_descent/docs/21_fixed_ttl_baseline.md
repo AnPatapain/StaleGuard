@@ -1,3 +1,5 @@
+> Source relocation: this report preserves its historical findings and commands. Current code: `staleguard_benefit.py` → [simulation.py](../simulation.py). Old entry points have been removed.
+
 # Experiment B: Fixed TTL development sweep — 22 October 2026
 
 All eleven prespecified TTLs, **0.0–1.0 s in 0.1 s steps**, were evaluated on

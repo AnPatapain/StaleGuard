@@ -1,3 +1,5 @@
+> Source relocation: this report preserves its historical findings and commands. Current code: `experiment.py` → [scenario.py](../scenario.py); `staleguard.py` → [staleguard.py](../baselines/staleguard.py); `staleguard_benefit.py` → [simulation.py](../simulation.py); `mission.py` → [simulation.py](../simulation.py); `max_dwell_calibration.py` → [calibration.py](../calibration.py). Old entry points have been removed.
+
 # Stages 8–9: official integration, validation, and recovery benefits
 
 This report covers the official integration and the subsequent StaleGuard

@@ -36,6 +36,27 @@ def file_hash(path):
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
 
+
+def check_source(path, checksum):
+    """Validate a current file or an explicitly recorded source relocation.
+
+    Frozen hashes stay historical. A relocated source is accepted only when its
+    old checksum and every pinned canonical source checksum match the reviewed
+    migration. Unknown versions and later scientific edits are rejected.
+    """
+    path = Path(path).resolve()
+    if path.is_file() and file_hash(path) == checksum:
+        return
+    try:
+        name = str(path.relative_to(ROOT.parent))
+    except ValueError:
+        name = ''
+    moves = json.loads((ROOT.parent/'source_relocation.json').read_text())['sources']
+    entry = moves.get(name)
+    if (entry is None or entry['sha256'] != checksum or
+            any(file_hash(ROOT.parent/name) != digest for name,digest in entry['canonical'].items())):
+        raise ValueError(f'Scientific source changed or unverified relocation: {path}')
+
 def metadata(config):
     # Explicit experiment sources; do not scan the repository or hash archives.
     sources = ('__init__.py', 'scenario.py', 'simulation.py', 'calibration.py', 'storage.py',
@@ -43,17 +64,18 @@ def metadata(config):
                'baselines/always_recover.py', 'baselines/fbs.py',
                'baseline_benchmark/run.py', 'baseline_benchmark/metrics.py',
                'ttl_pred_accuracy/run.py', 'ttl_pred_accuracy/metrics.py')
-    shared = ('model/common.py', 'model/lightweight.py', 'model/pybullet.py',
-              'model/scg.py', 'experiment.py', 'physics_monitor.py', 'fbs.py')
+    shared = ('model/__init__.py', 'model/common.py', 'model/lightweight.py',
+              'model/pybullet.py', 'model/scg.py', 'physics_monitor.py', 'source_relocation.json')
     return dict(schema=SCHEMA, config=asdict(config), python=sys.version,
                 platform=platform.platform(), numpy=np.__version__,
                 numerical_threads=1, cpu_only=True, simulation_workers=1,
                 no_recovery_sha256=no_recovery_hash((ROOT/'simulation.py').read_text()),
                 environment_source_hashes={name:file_hash(ROOT.parent/name) for name in
-                    json.loads((ROOT/'support/logs/provenance.json').read_text())['shared_source_sha256']},
+                    json.loads((ROOT/'support/logs/provenance.json').read_text())['shared_source_sha256']
+                    if not name.startswith('inspection_descent/')},
                 source_hashes={name:file_hash(ROOT/name) for name in sources},
-                shared_source_hashes={str(ROOT.parent/'inspection_descent'/name):
-                    file_hash(ROOT.parent/'inspection_descent'/name) for name in shared},
+                shared_source_hashes={str(ROOT.parent/name):
+                    file_hash(ROOT.parent/name) for name in shared},
                 started_utc=time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime()))
 
 
@@ -195,7 +217,7 @@ def no_recovery_hash(source):
                 'baselines.staleguard': {'staleguard_status'},
                 'baselines.fixed_ttl': {'fixed_ttl_expired','FIXED_TTL_S'},
                 'baselines.use_time_recheck': {'first_step_after_check'},
-                'baselines': {'always_recover','fbs'},
+                'baselines': {'always_recover','fbs','fixed_early_recovery'},
             }
             if node.module in policy_imports and all(
                     alias.name in policy_imports[node.module] and alias.asname is None for alias in node.names):
@@ -224,8 +246,7 @@ def check_ground_truth_source(saved, config):
         if saved.get(field) != current[field]:
             raise ValueError(f'Ground-truth configuration/environment differs: {field}')
     for name in ('__init__.py','scenario.py'):
-        if saved['source_hashes'].get(name) != current['source_hashes'][name]:
-            raise ValueError(f'Ground-truth scientific source differs: {name}')
+        check_source(ROOT/name,saved['source_hashes'][name])
     signature = saved.get('no_recovery_sha256', LEGACY_NO_RECOVERY.get(saved['source_hashes'].get('simulation.py')))
     if signature != current['no_recovery_sha256']:
         raise ValueError('Ground-truth No-Recovery physics/monitor differs: simulation.py')
@@ -234,8 +255,7 @@ def check_ground_truth_source(saved, config):
     for name, checksum in {**shared, **environment}.items():
         if Path(name).name == 'fbs.py':
             continue  # Another policy's arithmetic cannot affect No-Recovery.
-        if file_hash(ROOT.parent/name) != checksum:
-            raise ValueError(f'Ground-truth shared model/environment source differs: {name}')
+        check_source(ROOT.parent/name,checksum)
 
 
 def validate_flight(row, scenario, config):
@@ -336,8 +356,7 @@ def load_ground_truth(dataset, cases, config, paths=()):
                     or protocol['delay_steps'] != [round(d*HZ) for d in protocol['delays_s']]):
                 raise ValueError('Ground-truth journal/protocol differs from its completed experiment')
             for name, checksum in protocol['shared_model_sha256'].items():
-                if file_hash(ROOT.parent/name) != checksum:
-                    raise ValueError(f'Ground-truth shared model source differs: {name}')
+                check_source(ROOT.parent/name,checksum)
         seen = set()
         for row in rows:
             if row['event']['policy'] != 'no_recovery':
