@@ -1,3 +1,5 @@
+> Source relocation: this report preserves its historical findings and commands. Current code: `staleguard.py` → [staleguard.py](../baselines/staleguard.py); `ground_truth.py` → [run.py](../ttl_pred_accuracy/run.py). Old entry points have been removed.
+
 # Three unsafe StaleGuard executions — Experiment B
 
 All three saved flights were reproduced with identical outcomes and complete

@@ -1,3 +1,5 @@
+> Source relocation: this report preserves its historical findings and commands. Current code: `staleguard_benefit.py` → [simulation.py](../simulation.py). Old entry points have been removed.
+
 # Safety-only recovery — primary experiment
 
 The locked recovery objective is now safety: cancel the pending descent and

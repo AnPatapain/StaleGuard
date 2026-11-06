@@ -1,3 +1,5 @@
+> Source relocation: this report preserves its historical findings and commands. Current code: `geometry.py` → [scenario.py](../scenario.py); `mission.py` → [simulation.py](../simulation.py); `physics_monitor.py` → [physics_monitor.py](../../physics_monitor.py). Old entry points have been removed.
+
 # Temporal safety correction — 21 October 2026
 
 StaleGuard now checks the straight segment between consecutive predicted

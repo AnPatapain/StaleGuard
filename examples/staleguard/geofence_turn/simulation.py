@@ -90,7 +90,7 @@ def execute(s, delay=0., config=Config(), policy='no_recovery', received=None,
     if policy not in (
             'no_recovery', 'staleguard', 'staleguard_early_recovery',
             'fixed_early_recovery', 'use_time_recheck', 'fixed_ttl',
-            'always_recover', 'fbs'
+            'always_recover', 'fbs', 'ppr'
     ):
         raise ValueError('Unadapted policy')
 
@@ -118,6 +118,14 @@ def execute(s, delay=0., config=Config(), policy='no_recovery', received=None,
                      expiry_steps=received['expiry_steps'])
     elif policy == 'fixed_early_recovery':
         event.update(early_recovery=False, fixed_early_ttl_s=fixed_early_recovery.FIXED_EARLY_TTL_S)
+    if policy == 'ppr':
+        from .baselines import ppr
+        ppr_pending = None
+        event.update(early_recovery=False, ppr_checks=[], prediction_check_count=0,
+                     prediction_computation_total_s=0., prediction_computation_max_s=None,
+                     monitor_interval_steps=ppr.INTERVAL_STEPS,
+                     computation_bound_s=ppr.COMPUTATION_BOUND_S,
+                     latency_bound_steps=ppr.LATENCY_BOUND_STEPS)
 
     if policy == 'fbs':
         previous_feature, volatility = None, 0.0
@@ -183,7 +191,41 @@ def execute(s, delay=0., config=Config(), policy='no_recovery', received=None,
                     if save_trace:
                         event['observation_state'] = obs.tolist()
 
-            # Both early-recovery variants act only while the command is pending.
+            # PPR is a measured-time replay, like Use-Time Recheck: advance the
+            # real nominal flight until this stored result becomes actionable.
+            # Dispatch wins a tie; there is no new dispatch-time safety check.
+            if (policy == 'ppr' and dispatch is not None and approval <= step < dispatch
+                    and event['fallback_step'] is None):
+                if ppr_pending is not None and step >= ppr_pending['available_step']:
+                    ppr_pending['decision_step'] = step
+                    if not ppr_pending['prediction']['safe']:
+                        ref = safety_only_reference(ref, step, obs)
+                        ctrl.reference = ref
+                        env.X_GOAL = ref
+                        event.update(fallback_step=step, early_recovery=True)
+                        ppr_pending['action_step'] = step
+                        action_step = None  # Permanently cancel the pending turn.
+                    ppr_pending = None
+                if (event['fallback_step'] is None and ppr_pending is None
+                        and (step-approval) % ppr.INTERVAL_STEPS == 0):
+                    check_memory(config)
+                    began = time.perf_counter()
+                    current = Snapshot(obs.copy(), capture_pid_state(ctrl), ref[step:].copy(),
+                                       total-step, step/HZ, s.command, s.fence_x, config, min_clear)
+                    prediction = ppr.predict_recovery(current, platform)
+                    elapsed = time.perf_counter()-began
+                    ppr_pending = dict(observation_step=step,
+                        available_step=first_step_after_check(step, elapsed),
+                        computation_s=elapsed, prediction=prediction,
+                        timing_bound_exceeded=elapsed > ppr.COMPUTATION_BOUND_S,
+                        decision_step=None, action_step=None, discarded_at_dispatch=False)
+                    event['ppr_checks'].append(ppr_pending)
+                    event['prediction_check_count'] += 1
+                    event['prediction_computation_total_s'] += elapsed
+                    event['prediction_computation_max_s'] = max(
+                        elapsed, event['prediction_computation_max_s'] or 0.)
+
+            # Existing early-recovery variants act only while the command is pending.
             if (
                 policy in ('staleguard_early_recovery', 'fixed_early_recovery')
                 and dispatch is not None
@@ -207,6 +249,8 @@ def execute(s, delay=0., config=Config(), policy='no_recovery', received=None,
                     action_step = None
 
             if step == dispatch:
+                if policy == 'ppr' and ppr_pending is not None:
+                    ppr_pending['discarded_at_dispatch'] = True
                 if policy in ('staleguard', 'staleguard_early_recovery'):
                     ready, expired = staleguard_status(received, step - approval)
                     if event['fallback_step'] is None:

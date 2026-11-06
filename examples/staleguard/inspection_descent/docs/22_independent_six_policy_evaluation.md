@@ -1,3 +1,5 @@
+> Source relocation: this report preserves its historical findings and commands. Current code: `independent_evaluation.py` → [run.py](../baseline_benchmark/run.py). Old entry points have been removed.
+
 # Independent six-policy Experiment B: seeds 20–319
 
 This is the locked independent evaluation, not a further parameter search.

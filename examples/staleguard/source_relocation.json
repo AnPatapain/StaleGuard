@@ -1,0 +1,182 @@
+{
+  "note": "Reviewed clean migration: frozen old-source hashes remain evidence; exact canonical hashes validate relocation. Later source changes require revalidation, never hash rewriting in historical results.",
+  "sources": {
+    "inspection_descent/experiment.py": {
+      "sha256": "6aa20e5411639cad4a927ae9485c1c5001a1b3329670ce79e074f8fab9e6d570",
+      "canonical": {
+        "inspection_descent/scenario.py": "2f67143e3395ede38310816aadb363a8d84e745b454f21a562f6f4b3918a7ff5",
+        "model/__init__.py": "05e7dc53563467241281d3057b4f1f45f0e90d5c547726d5a842fbb7cd272ab0"
+      }
+    },
+    "inspection_descent/geometry.py": {
+      "sha256": "44d12f40b8e3230959a519626bb00df53846b440ece6de783871bf7264a37c0f",
+      "canonical": {
+        "inspection_descent/scenario.py": "2f67143e3395ede38310816aadb363a8d84e745b454f21a562f6f4b3918a7ff5"
+      }
+    },
+    "inspection_descent/staleguard.py": {
+      "sha256": "e313680a34099e40a8fcfd7d04ba773ee3abb14bd4196b2f3c188caec1c919b7",
+      "canonical": {
+        "inspection_descent/baselines/staleguard.py": "d71f413b8d97fbbe9608d82f66745988cd5bb0df5f0be09cfb3969cdb0098732"
+      }
+    },
+    "inspection_descent/use_time_recheck.py": {
+      "sha256": "325183ea0e096fa0b8706417d57b02dd055e5e2bfec4a34c93f9b972e40af814",
+      "canonical": {
+        "inspection_descent/baselines/use_time_recheck.py": "6e239f0a49151f767c8b700bac01ec853574addecfdddfb8dc93a80b347a2c12"
+      }
+    },
+    "inspection_descent/fbs.py": {
+      "sha256": "2d5518be5b94bc0c3d17e87a9b9e59bea3350051f5860cb6cb1d78844ff96cdc",
+      "canonical": {
+        "inspection_descent/baselines/fbs.py": "252f4331e09b226346b5ef3a36c3e7be360be4799ad867732dccd2d8e5aceba0"
+      }
+    },
+    "inspection_descent/ground_truth.py": {
+      "sha256": "657e651c8c4144480571ae729d804bfacd1ae5e30705b1e6ebdaf93cb8c327db",
+      "canonical": {
+        "inspection_descent/simulation.py": "c217012dfdd631988a6c5f8aebdca0fcb99518cd94d15170f02d06d7428c4b6f",
+        "inspection_descent/ttl_pred_accuracy/run.py": "cfdc25af3c181496930cd7f4e685d9907c89062a281000a13defb29df3d8f289"
+      }
+    },
+    "inspection_descent/physics_monitor.py": {
+      "sha256": "d7145e53736259b688d321449f6ce1f5b72b3cde4e07620b6c183d996d29cb91",
+      "canonical": {
+        "physics_monitor.py": "d7145e53736259b688d321449f6ce1f5b72b3cde4e07620b6c183d996d29cb91"
+      }
+    },
+    "inspection_descent/model/common.py": {
+      "sha256": "8e7d0d615e7977d443a8e22a096849633c2512634e3ff8c123218e533f1cd468",
+      "canonical": {
+        "model/common.py": "8e7d0d615e7977d443a8e22a096849633c2512634e3ff8c123218e533f1cd468",
+        "model/__init__.py": "05e7dc53563467241281d3057b4f1f45f0e90d5c547726d5a842fbb7cd272ab0"
+      }
+    },
+    "inspection_descent/model/lightweight.py": {
+      "sha256": "fa6aa0524cbc01aa326daeb001e74b7f2fd4a83bc62c4022ba20977f873e8ab0",
+      "canonical": {
+        "model/lightweight.py": "4f0b0a22d09eda8750adc903af9dddec785a1cec31f3304a86643596f80a6aac",
+        "model/__init__.py": "05e7dc53563467241281d3057b4f1f45f0e90d5c547726d5a842fbb7cd272ab0"
+      }
+    },
+    "inspection_descent/model/scg.py": {
+      "sha256": "9e33d9ab67a4aa8adac596608631ca301f36c85037ee96b0847e08a0c61bc0b7",
+      "canonical": {
+        "model/scg.py": "8a1539ac1dbadac1ccaac95e0cbb16d1c3dcb28f9ca40a75a9e1870bcb999777",
+        "model/__init__.py": "05e7dc53563467241281d3057b4f1f45f0e90d5c547726d5a842fbb7cd272ab0"
+      }
+    },
+    "inspection_descent/model/pybullet.py": {
+      "sha256": "4b3efaabd8d67a92b142acb47afc19ef414a11ad803bf1bf8e6a956250299f0e",
+      "canonical": {
+        "model/pybullet.py": "fdffb11a750056af58493acc4f743f5177dc15d0601232ad12de0c84227f3141",
+        "model/__init__.py": "05e7dc53563467241281d3057b4f1f45f0e90d5c547726d5a842fbb7cd272ab0"
+      }
+    },
+    "geofence_turn/__init__.py": {
+      "sha256": "16ceef2ac9604eab276c2ac8617e7ba39d7357df53754245ac50d2c680a2d42c",
+      "canonical": {
+        "geofence_turn/__init__.py": "efa3544232aac68d5863004d27f99f8e404a5344759c6b39328306cf54e4c427"
+      }
+    }
+  },
+  "scientific_nodes": {
+    "inspection_descent/scenario.py": {
+      "Scenario": "d231c47a4bb1ae475619898bbc71a5ff3e6ab8d66367ec19499c47e22e8b743e",
+      "ApprovalSnapshot": "be1b53954a0ee0823bc635d8dd56a05e592eb0f43a7cba883541f9ba32de84f6",
+      "inspection_x": "be03c94a4af0441fe816aef398b1c8d1339466f446d95d2b779a3d5f071bcf2d",
+      "generate_scenario": "5f5eae0ed5ecfd7263308c9866bba6c2c53ddc63f5f165d36635ec2f4e9156b8",
+      "make_forward_trajectory": "2d2b3a6eac63d78b5d96035fd7fbd910b6e71fe1ba68024bcaa357f71ace3302",
+      "apply_descent_command": "1c808dc09f5d6bc71bcfff03c66ddad65be84104462d13f87b5228fe57f7f692",
+      "unsafe": "bd52093f1e82f546b2a0f1aa4726d07186753d79c83d95b220dff93f718b6112",
+      "unsafe_segment": "683af93d7cf7fb113dddf8f61f16182043be709e89785b1a0e8d3e500f954c64",
+      "classify_delay_results": "678956339b34126049755b16d9ce6a613b9b64f22b52a450fa448b086c0cd98c",
+      "segment_intersects_box": "8777e4dd1292acf706d0c66e15c24d54281c3ebf588af2e2ddaddad88872363b"
+    },
+    "inspection_descent/baselines/staleguard.py": {
+      "rollout_from_checkpoint": "e049694e1c198cdf683f3fc14640bed73a7675367ec633add76f4c6955905ecc",
+      "build_nominal_checkpoints": "d60f460dbabf986cb776054e9e20d40e7901910bb75d7d9ea8021f27001831a0",
+      "predict": "f3a8bea811e61fcf5d49d04dfed41556623656a9c2ac6fe3bc1e3d7c40522266"
+    },
+    "inspection_descent/baselines/use_time_recheck.py": {
+      "predict_immediate": "02abd4e6d5e75b22fec835ddca25918231b1445627899f091b13d2eda4e30758",
+      "first_step_after_check": "e61b7118ce5f98d20735452533a9653090fac11078fa26162a9dfb5fa8c1cdc5"
+    },
+    "inspection_descent/baselines/fbs.py": {
+      "clearance": "d449441797e6f00a8b8df5c1bb66482f82cdc387ef8e765cd12d4a9b7e8b8d30",
+      "update_volatility": "bb93095394fb6729d21fa57eaf57211bd8be720bbfbce148d4ebd04843e7ea21",
+      "freeze_prediction": "10879000b3736ef46dcc6f374f4542867a38be1dee25c77da4a2fcf20162f561",
+      "dispatch_status": "4be331c452cf8ad538150f99b6c16ee2ee94cc8ab35d37eae10e34ae36b4cabe"
+    },
+    "physics_monitor.py": {
+      "monitor_physics_steps": "060b80afbf7f5bab7386b7b709de288590ed3355e98fdb10b235a175d797ed1e"
+    },
+    "model/common.py": {
+      "QuadParams": "ba750986d92d063b9059c2c549ee916d12b7d8ce9f118e6ecf084b13da3640f3",
+      "PIDParams": "d443f217e025e5ee392d98d9e3134f33e6c58b0e1a9093a51db651b2a65855d4",
+      "PIDState": "e8636ff14233bb90e1a3342b01b691ca187e8e0451f0f3fea3ecc2fc5a36218e",
+      "capture_pid_state": "96f79e6ec379385d3613a657d14fe076d53b35d69e38e8019ffd55d7c4aa2aaf",
+      "restore_pid_state": "9233f3d042c9e1e1cbc96f2d61ffff16615c92679f8a8deb4e6f32d0054b2224"
+    },
+    "model/lightweight.py": {
+      "rotate_matrix_body_to_world": "a167c9e9da9443c5829474a8eb60b31a35c6b5e284cf7ad01411de30a598bb35",
+      "pid_step": "e6566121174760cab0ec80584ae2f7514bfc01a9182615b7de50a50d295fdab8",
+      "LightweightPID": "3e0995d63d040086b5b30da1718de2a656702bb81afbe9e1cbe8fd9da4a368db",
+      "LightweightCheckpoint": "5325b942a65cf2c621bd3512f00161928b9aedcc493d25e6314bc755fb00581b",
+      "dynamics": "6dace73627f254be424d55c8b3ee4aad8a526cc100d4eacf2e2ac30014f5c3d0",
+      "rk4": "23b1d48df5c1613ce3cbc1023eaa81a6fff1e1515fbbf90ad0abb61a6319b21d",
+      "control_step": "021acb8dc9d061adf5d4fcd604d87d112d8d8681c1a6a0fecdf45a7be7351405",
+      "LightweightPredictiveModel": "2fae8b852bb80ad4f65dc7adabde0aa60c690932158ae4bf828334f5e96cc06c"
+    },
+    "model/scg.py": {
+      "make_scg_env_factory": "4ade7cf0939f6df37e71f324e9087b29079eea11a66e46aabe26f912d32fb49c",
+      "_scalar": "769e593d275f8abb76adde908fee8092d7241e8ecfa5774ac6bb7b8c2db9c702",
+      "load_scg_platform_params": "7ca871a84508225e09e30b230829788c46bd44bad1f8142bc2f0d17ccf6c459e"
+    },
+    "model/pybullet.py": {
+      "RolloutCheckpoint": "cccc8a6144c829037e88754817377275aa2ab0dd58982fbd1d82eb1b00736539",
+      "restore_exact_state": "81bd8f2bd26dd4bb6206e3f1a963388ae5af55d42e254c24d83b3d334a7c20ea",
+      "PyBullet1000HzPredictiveModel": "632cb79d5b9c9df3cbe0fcca6fae3536f2b8cb50b0c753ab96bf5e9003727797"
+    }
+  },
+  "data": {
+    "inspection_descent/results/calibration_cache": "inspection_descent/results/development/calibration_cache",
+    "inspection_descent/results/all_scenarios_d0_sample_count_only.jsonl": "inspection_descent/results/development/all_scenarios_d0_sample_count_only.jsonl",
+    "inspection_descent/results/baseline_before_patch.jsonl": "inspection_descent/results/development/baseline_before_patch.jsonl",
+    "inspection_descent/results/max_dwell_policy": "inspection_descent/results/development/max_dwell_policy",
+    "inspection_descent/results/all_scenarios_d0.jsonl": "inspection_descent/results/development/all_scenarios_d0.jsonl",
+    "inspection_descent/results/computation_latency_stress": "inspection_descent/results/development/computation_latency_stress",
+    "inspection_descent/results/reporting_execution_audit.jsonl": "inspection_descent/results/development/reporting_execution_audit.jsonl",
+    "inspection_descent/results/fixed_ttl": "inspection_descent/results/development/fixed_ttl",
+    "inspection_descent/results/short_delay_latency": "inspection_descent/results/development/short_delay_latency",
+    "inspection_descent/results/temporal_safety_correction": "inspection_descent/results/development/temporal_safety_correction",
+    "inspection_descent/results/benefit_matrix_sample_count_only.log": "inspection_descent/results/development/benefit_matrix_sample_count_only.log",
+    "inspection_descent/results/recovery_realism_audit": "inspection_descent/results/development/recovery_realism_audit",
+    "inspection_descent/results/benefit_matrix.json": "inspection_descent/results/development/benefit_matrix.json",
+    "inspection_descent/results/trapezoidal_physics_probe.jsonl": "inspection_descent/results/development/trapezoidal_physics_probe.jsonl",
+    "inspection_descent/results/unknown_dispatch_delay": "inspection_descent/results/development/unknown_dispatch_delay",
+    "inspection_descent/results/no_recovery_delay_sweep.csv": "inspection_descent/results/development/no_recovery_delay_sweep.csv",
+    "inspection_descent/results/session_changes.patch": "inspection_descent/results/development/session_changes.patch",
+    "inspection_descent/results/use_time_recheck": "inspection_descent/results/development/use_time_recheck",
+    "inspection_descent/results/scenario1_d0.jsonl": "inspection_descent/results/development/scenario1_d0.jsonl",
+    "inspection_descent/results/fbs": "inspection_descent/results/development/fbs",
+    "inspection_descent/results/physics_dwell.jsonl": "inspection_descent/results/development/physics_dwell.jsonl",
+    "inspection_descent/results/safety_only_recovery": "inspection_descent/results/development/safety_only_recovery",
+    "inspection_descent/results/planner_candidates.jsonl": "inspection_descent/results/development/planner_candidates.jsonl",
+    "inspection_descent/results/unsafe_staleguard_diagnostic": "inspection_descent/results/development/unsafe_staleguard_diagnostic",
+    "inspection_descent/results/scenario1_before_fix_physics.jsonl": "inspection_descent/results/development/scenario1_before_fix_physics.jsonl",
+    "inspection_descent/results/scenario1_d0_sample_count_only.jsonl": "inspection_descent/results/development/scenario1_d0_sample_count_only.jsonl",
+    "inspection_descent/results/benefit_matrix.log": "inspection_descent/results/development/benefit_matrix.log",
+    "inspection_descent/results/no_recovery_delay_sweep.log": "inspection_descent/results/development/no_recovery_delay_sweep.log",
+    "inspection_descent/results/calibration_sensitivity.log": "inspection_descent/results/development/calibration_sensitivity.log",
+    "inspection_descent/results/always_recover": "inspection_descent/results/development/always_recover",
+    "inspection_descent/results/recovery_benefit_formatted.log": "inspection_descent/results/development/recovery_benefit_formatted.log",
+    "inspection_descent/results/corrected_experiment_b": "inspection_descent/results/development/corrected_experiment_b",
+    "inspection_descent/results/calibration_sensitivity": "inspection_descent/results/development/calibration_sensitivity",
+    "inspection_descent/results/no_recovery_delay_sweep_validation.json": "inspection_descent/results/development/no_recovery_delay_sweep_validation.json",
+    "inspection_descent/results/official_calibration_validation": "inspection_descent/results/development/official_calibration_validation",
+    "inspection_descent/results/reporting_validation.json": "inspection_descent/results/development/reporting_validation.json",
+    "inspection_descent/result": "inspection_descent/results/development/historical_reports",
+    "inspection_descent/calibrated_scenarios.json": "inspection_descent/results/development/calibration/generated_scenarios.json"
+  }
+}

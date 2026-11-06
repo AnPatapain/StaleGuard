@@ -1,3 +1,5 @@
+> Source relocation: this report preserves its historical findings and commands. Current code: `staleguard_benefit.py` → [simulation.py](../simulation.py); `use_time_recheck.py` → [use_time_recheck.py](../baselines/use_time_recheck.py). Old entry points have been removed.
+
 # Experiment B: Use-Time Recheck — 22 October 2026
 
 Use-Time Recheck is an opt-in fourth Experiment B policy. It performs one

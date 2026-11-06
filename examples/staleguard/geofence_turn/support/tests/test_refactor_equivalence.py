@@ -21,7 +21,7 @@ import numpy as np
 from geofence_turn.scenario import (Config, HZ, generate_scenario, scenario_dict,
     scenario_from_dict, make_forward_trajectory, apply_turn_command)
 from geofence_turn.calibration import approval_candidates, calibrate_scenarios, verify_calibration
-from geofence_turn.storage import load_calibrated_scenarios, check_provenance
+from geofence_turn.storage import load_calibrated_scenarios, check_provenance, check_source
 from geofence_turn.baselines.staleguard import predict_delays
 from geofence_turn.simulation import check_memory, start_work
 
@@ -162,7 +162,7 @@ class RefactorEquivalenceTests(unittest.TestCase):
             for name, checksum in records[group].items():
                 moved_name = name.replace('geofence_turn/logs/','geofence_turn/support/logs/',1)
                 path = ROOT.parent/moved_name
-                self.assertEqual(hashlib.sha256(path.read_bytes()).hexdigest(), checksum, name)
+                check_source(path, checksum)
 
     def test_moved_scientific_functions_and_physics_loop_are_unchanged(self):
         archived = BEFORE/'source'
@@ -185,9 +185,17 @@ class RefactorEquivalenceTests(unittest.TestCase):
                 return None
             def visit_If(self,node):
                 self.generic_visit(node)
-                condition = ast.unparse(node.test)
-                if condition in ("policy == 'always_recover'", "policy == 'fbs'") or condition.startswith("policy == 'fbs' and "):
-                    return node.orelse  # Compare the unchanged original-policy path.
+                # Compare the original No-Recovery physics path; added policy
+                # branches are checked by their scheduler tests, not this AST.
+                first = node.test.values[0] if isinstance(node.test,ast.BoolOp) and isinstance(node.test.op,ast.And) else node.test
+                if (isinstance(first,ast.Compare) and isinstance(first.left,ast.Name)
+                        and first.left.id=='policy' and len(first.ops)==1):
+                    value,op = ast.literal_eval(first.comparators[0]),first.ops[0]
+                    truth = ('no_recovery'==value if isinstance(op,ast.Eq) else
+                             'no_recovery' in value if isinstance(op,ast.In) else
+                             'no_recovery' not in value if isinstance(op,ast.NotIn) else None)
+                    if truth is False or truth is True and first is node.test:
+                        return node.body if truth else node.orelse
                 return node
         old = function_tree(archived/'simulation.py.txt','execute')
         new = function_tree(ROOT/'simulation.py','execute')
@@ -516,8 +524,10 @@ class TTLAccuracyTests(unittest.TestCase):
             cases = load_calibrated_scenarios(dataset)
             actual = load_ground_truth(dataset,cases,Config())
         self.assertEqual(len(cases),300)
-        self.assertEqual(len(actual),300)
-        self.assertTrue(all(delay==0 for seed,delay in actual))
+        # A completed benchmark can now supply additional verified delays.
+        self.assertGreaterEqual(len(actual),300)
+        self.assertEqual({seed for seed,delay in actual if delay==0}, {s.seed for s,_,_ in cases})
+        self.assertTrue(all(actual[s.seed,0.]["safe_completion"] for s,_,_ in cases))
         self.assertEqual(len(cases)*len(DELAYS),5700)
 
     def test_no_recovery_compatibility_distinguishes_other_policy_changes(self):

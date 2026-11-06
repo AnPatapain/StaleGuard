@@ -17,6 +17,7 @@ POLICIES = (
     'staleguard',
     'staleguard_early_recovery',
     'fixed_early_recovery',
+    'ppr',
 )
 CONTROL_HZ = 50
 
@@ -39,6 +40,16 @@ class Metric(Enum):
     PREDICTION_TIME_MS = 'prediction_computation_ms'
     FBS_CUMULATIVE_TIME = 'fbs_cumulative_observation_computation_s'
     FBS_CUMULATIVE_TIME_MS = 'fbs_cumulative_observation_computation_ms'
+    PPR_CHECKS = 'predictive_checks'
+    PPR_CHECK_COUNT = 'predictive_checks_per_flight'
+    PPR_TOTAL_TIME = 'prediction_computation_total_s'  # Distribution of per-flight sums.
+    PPR_MAX_TIME = 'prediction_computation_max_s'  # Distribution of per-flight maxima.
+    PPR_SUM_TIME = 'prediction_computation_sum_s'  # Sum over all actual checks.
+    PPR_DECISION_LATENCY = 'prediction_to_decision_s'  # Observation to consumed result, including ticks.
+    PPR_RECOVERY_LATENCY = 'prediction_to_recovery_s'  # Observation to actual recovery activation.
+    PPR_CONSUMED = 'predictions_consumed'
+    PPR_DISCARDED = 'predictions_discarded_at_dispatch'
+    PPR_OVERRUNS = 'prediction_timing_bound_exceeded'
     ACTION_DELAY = 'dispatch_to_action_s'
     ACTION_DELAY_MS = 'dispatch_to_action_ms'
     EARLY_RECOVERIES = 'early_recoveries'
@@ -144,7 +155,7 @@ def policy_metrics(rows, policy, control_hz):
         if is_early != (event.get('early_recovery') is True):
             raise ValueError('Early-recovery flag disagrees with fallback timing')
         if is_early:
-            if (policy not in ('staleguard_early_recovery', 'fixed_early_recovery')
+            if (policy not in ('staleguard_early_recovery', 'fixed_early_recovery', 'ppr')
                     or event.get('application_step') is not None):
                 raise ValueError('Early recovery must cancel the pending command')
             early_leads.append((dispatch - fallback) / control_hz)
@@ -152,7 +163,8 @@ def policy_metrics(rows, policy, control_hz):
         action_delays.append(None if dispatch is None or action is None or is_early
                              else (action - dispatch) / control_hz)
 
-    timed = timing_summary(prediction_times.values())
+    checks = [check for row in rows for check in row['event']['ppr_checks']] if policy == 'ppr' else []
+    timed = timing_summary([c['computation_s'] for c in checks] if policy == 'ppr' else prediction_times.values())
     action = timing_summary(action_delays)
     guarded = policy in ('staleguard', 'staleguard_early_recovery', 'fbs')
     ready = sum(r['event'].get('prediction_ready') is True for r in rows)
@@ -188,11 +200,41 @@ def policy_metrics(rows, policy, control_hz):
         cumulative = timing_summary(fbs_cumulative_times)
         values.update({Metric.FBS_CUMULATIVE_TIME: cumulative,
                        Metric.FBS_CUMULATIVE_TIME_MS: milliseconds(cumulative)})
-    if policy in ('staleguard_early_recovery', 'fixed_early_recovery'):
+    if policy in ('staleguard_early_recovery', 'fixed_early_recovery', 'ppr'):
         lead = timing_summary(early_leads)
         values.update({Metric.EARLY_RECOVERIES: len(early_leads),
                        Metric.EARLY_LEAD: lead,
                        Metric.EARLY_LEAD_MS: milliseconds(lead)})
+    if policy == 'ppr':
+        counts, totals, maxima = [], [], []
+        for row in rows:
+            event = row['event']
+            times = [c['computation_s'] for c in event['ppr_checks']]
+            if (event['prediction_check_count'] != len(times)
+                    or not math.isclose(event['prediction_computation_total_s'], math.fsum(times), abs_tol=1e-12)
+                    or event['prediction_computation_max_s'] != max(times, default=None)):
+                raise ValueError('PPR check counts/timing totals disagree with actual checks')
+            counts.append(len(times)); totals.append(event['prediction_computation_total_s'])
+            maxima.append(event['prediction_computation_max_s'])
+        ordered = sorted(counts)
+        values.update({
+            Metric.PPR_CHECKS: len(checks),
+            Metric.PPR_CHECK_COUNT: dict(samples=n, mean=statistics.mean(counts) if n else None,
+                median=statistics.median(counts) if n else None,
+                p95=ordered[math.ceil(.95*n)-1] if n else None, maximum=max(counts, default=None)),
+            Metric.PPR_TOTAL_TIME: timing_summary(totals),
+            Metric.PPR_MAX_TIME: timing_summary(maxima),
+            Metric.PPR_SUM_TIME: math.fsum(c['computation_s'] for c in checks),
+            Metric.PPR_DECISION_LATENCY: timing_summary([
+                (c['decision_step']-c['observation_step'])/control_hz
+                for c in checks if c['decision_step'] is not None]),
+            Metric.PPR_RECOVERY_LATENCY: timing_summary([
+                (c['action_step']-c['observation_step'])/control_hz
+                for c in checks if c['action_step'] is not None]),
+            Metric.PPR_CONSUMED: sum(c['decision_step'] is not None for c in checks),
+            Metric.PPR_DISCARDED: sum(c['discarded_at_dispatch'] for c in checks),
+            Metric.PPR_OVERRUNS: sum(c['timing_bound_exceeded'] for c in checks),
+        })
     return {metric.value: value for metric, value in values.items()}
 
 
@@ -260,6 +302,9 @@ def summarize(path, protocol=None):
     elif 'staleguard_early_recovery' in policies and 'fixed_early_recovery' in policies:
         comparison_reference = 'staleguard_early_recovery'
         comparison_other = 'fixed_early_recovery'
+    elif 'staleguard_early_recovery' in policies and 'ppr' in policies:
+        comparison_reference = 'staleguard_early_recovery'
+        comparison_other = 'ppr'
     else:
         comparison_reference, comparison_other = None, None
 
@@ -306,6 +351,8 @@ def summarize(path, protocol=None):
             'Fixed-EarlyRecovery: no prediction computation. '
             'Pre-dispatch recovery lead is recorded separately, not as negative action latency. '
             'Use-Time Recheck: one check per flight. '
+            'PPR: one sample per actual periodic check; per-flight total/max computation, '
+            'observation-to-decision/recovery delay and timing-bound overruns are separate. '
             'FBS: approval-time feature/EMA update and TTL freeze per flight; '
             'FBS cumulative observation computation is reported only if recorded.'
         ),

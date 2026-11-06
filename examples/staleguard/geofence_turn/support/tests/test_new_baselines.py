@@ -7,7 +7,7 @@ import tempfile
 import time
 import unittest
 import numpy as np
-import fbs as inspection_fbs
+from inspection_descent.baselines import fbs as inspection_fbs
 from geofence_turn.baselines import always_recover, fbs
 from geofence_turn import simulation
 from geofence_turn.scenario import (Config, Command, Scenario, HZ, PHYSICS_HZ,
@@ -211,7 +211,8 @@ class NewBaselineTests(unittest.TestCase):
     def test_cli_defaults_use_the_single_registry_and_all_23_delays(self):
         from geofence_turn.baseline_benchmark import run as benchmark
         from geofence_turn.baseline_benchmark.metrics import POLICIES
-        self.assertEqual(POLICIES,('no_recovery','always_recover','fixed_ttl','fbs','use_time_recheck','staleguard'))
+        self.assertEqual(POLICIES,('no_recovery','always_recover','fixed_ttl','fbs','use_time_recheck','staleguard',
+                                   'staleguard_early_recovery','fixed_early_recovery','ppr'))
         self.assertIs(benchmark.POLICIES,POLICIES)
         self.assertEqual(benchmark.TTL_GRID,(0.,.02,.04,.06,.08,.10,.12,.14,.16,.18,.20,
                                            .30,.40,.50,.60,.70,.80,.90,1.))
@@ -221,7 +222,7 @@ class NewBaselineTests(unittest.TestCase):
         with patch('sys.argv',['run.py']),patch.object(benchmark,'run') as run:
             benchmark.main()
         args = run.call_args.args[0]
-        self.assertEqual(args.policies,POLICIES)
+        self.assertEqual(args.policies,POLICIES[:6])  # Existing six-policy default is unchanged.
         self.assertEqual(args.delays,benchmark.DISPATCH_DELAYS)
 
     def test_off_grid_dispatch_keeps_frozen_expiry_and_fail_open_rules(self):
@@ -241,6 +242,7 @@ class NewBaselineTests(unittest.TestCase):
         import contextlib
         import io
         from geofence_turn.baseline_benchmark import run as benchmark, metrics
+        policies = metrics.POLICIES[:6]
         cases = [case for case in load_calibrated_scenarios(ROOT/'results/development/calibration') if case[0].seed in (0,3)]
         snapshots = {s.seed:snapshot for s,snapshot,_ in cases}
         forecasts = {}
@@ -267,7 +269,7 @@ class NewBaselineTests(unittest.TestCase):
                         safe_completion=safe and complete,event=event),snapshots[scenario.seed],np.empty(0)
         with tempfile.TemporaryDirectory() as folder:
             args = SimpleNamespace(calibration=ROOT/'results/development/calibration',out=Path(folder),
-                seeds=[0,3],delays=benchmark.DISPATCH_DELAYS,policies=metrics.POLICIES,max_flights=0)
+                seeds=[0,3],delays=benchmark.DISPATCH_DELAYS,policies=policies,max_flights=0)
             with patch.object(benchmark,'load_calibrated_scenarios',return_value=cases), \
                  patch.object(benchmark,'load_scg_platform_params',return_value=(None,None)), \
                  patch.object(benchmark,'LightweightPredictiveModel',return_value=warm), \
@@ -278,14 +280,14 @@ class NewBaselineTests(unittest.TestCase):
                 benchmark.run(args)
             self.assertEqual(predicted.call_count,2)
             self.assertEqual(flown.call_count,2*23*6)
-            self.assertEqual(paired.call_count,5*(23+1))
+            self.assertEqual(paired.call_count,6*(23+1))  # Five baselines plus the explicit primary comparison.
             warm.step.assert_called_once()
             rows = metrics.read_executions(Path(folder)/'executions.jsonl')
             self.assertEqual({metrics.flight_key(row) for row in rows},
-                {(seed,delay,policy) for seed in (0,3) for delay in benchmark.DISPATCH_DELAYS for policy in metrics.POLICIES})
+                {(seed,delay,policy) for seed in (0,3) for delay in benchmark.DISPATCH_DELAYS for policy in policies})
             report = json.loads((Path(folder)/'metrics.json').read_text())
             for group in [report,*report['by_delay'].values()]:
-                self.assertEqual(set(group['paired_against_staleguard']),set(metrics.POLICIES)-{'staleguard'})
+                self.assertEqual(set(group['paired_against_staleguard']),set(policies)-{'staleguard'})
                 for policy,outcome in group['by_policy'].items():
                     self.assertEqual(outcome['safe_completion']+outcome['safe_noncompletion']+outcome['unsafe'],outcome['flights'])
                     self.assertEqual(outcome['recovery_successes']+outcome['recovery_failures'],outcome['recovery_attempts'])
@@ -299,7 +301,7 @@ class NewBaselineTests(unittest.TestCase):
     def test_benchmark_selects_new_policies_without_model_rollouts(self):
         from geofence_turn.baseline_benchmark.run import run as run_benchmark
         from geofence_turn.baseline_benchmark.metrics import POLICIES,summarize
-        self.assertEqual(len(set(POLICIES)),6)
+        self.assertEqual(len(set(POLICIES)),len(POLICIES))
         scenario,snapshot,_ = load_calibrated_scenarios(ROOT/'results/development/calibration')[0]
         def recorded(s,delay,policy,**kwargs):
             self.assertIsNone(kwargs['platform'])

@@ -1,3 +1,5 @@
+> Source relocation: this report preserves its historical findings and commands. Current code: `experiment.py` → [scenario.py](../scenario.py); `staleguard_benefit.py` → [simulation.py](../simulation.py); `mission.py` → [simulation.py](../simulation.py); `max_dwell_calibration.py` → [calibration.py](../calibration.py). Old entry points have been removed.
+
 # Current implementation and latest validation
 
 This describes the current experiment after the automatic cache was replaced

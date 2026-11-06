@@ -1,3 +1,5 @@
+> Source relocation: this report preserves its historical findings and commands. Current code: `staleguard_benefit.py` → [simulation.py](../simulation.py). Old entry points have been removed.
+
 # Stages 2–3: feasibility fixes and initial recovery results
 
 Historical report, executed 15 October 2026. The command selections and benefit
