@@ -15,7 +15,8 @@ from underpass_inspection.scenario import (HZ, PHYSICS_HZ, POS, VEL, MODES,
 
 
 def execute(s, mode='nominal', start_s=0., gui=False, playback_speed=.5,
-            hold_s=0., capture=None, overlay_all=False):
+            hold_s=0., capture=None, overlay_all=False, capture_snapshot=False,
+            overlay_paths=None):
     if mode not in MODES:
         raise ValueError(mode)
     if (not np.isfinite(start_s) or not 0 <= start_s < s.observation_s
@@ -48,6 +49,7 @@ def execute(s, mode='nominal', start_s=0., gui=False, playback_speed=.5,
     anchor = None
     splice = None
     approval_state = None
+    approval_snapshot = None
     geometry_before = repr(s.obstacles)
     began = time.perf_counter()
     try:
@@ -59,7 +61,7 @@ def execute(s, mode='nominal', start_s=0., gui=False, playback_speed=.5,
         obstacles = s.obstacles
         if gui:
             from .support.visualization import FlightView, draw_reference, save_camera
-            view = FlightView(s, env, mode, start_s, overlay_all)
+            view = FlightView(s, env, mode, start_s, overlay_all, overlay_paths)
             draw_reference(reference, env.PYB_CLIENT, 'nominal')
 
         def observe(position, tick):
@@ -90,6 +92,10 @@ def execute(s, mode='nominal', start_s=0., gui=False, playback_speed=.5,
         for step in range(total):
             if step == approval:
                 approval_state = obs.copy()
+                if capture_snapshot:
+                    approval_snapshot = dict(state=obs.copy(), pid_state=capture_pid_state(ctrl),
+                        remaining_reference=reference[step:].copy(), horizon_steps=total-step,
+                        approval_time=s.approval_s, scenario=s)
                 if gui:
                     view.approval(obs[POS])
             if step == initiation:
@@ -137,7 +143,7 @@ def execute(s, mode='nominal', start_s=0., gui=False, playback_speed=.5,
                 view.refresh(total/HZ, initiation is not None, violation is not None)
                 time.sleep(.05)
         positions = np.asarray(physics)
-        record = dict(mode=mode, start_s=None if initiation is None else start_s,
+        record = dict(seed=s.seed, mode=mode, start_s=None if initiation is None else start_s,
             approval_step=approval, initiation_step=initiation, horizon_step=total,
             horizon_flight_s=total/HZ, observation_s=s.observation_s,
             safe=violation is None, inspection_completed=completion is not None,
@@ -155,6 +161,9 @@ def execute(s, mode='nominal', start_s=0., gui=False, playback_speed=.5,
             final_velocity_ned_mps=world_to_ned(obs[VEL]).tolist(),
             physics_sha256=hashlib.sha256(positions.tobytes()).hexdigest(),
             runtime_s=time.perf_counter()-began, gui=gui)
-        return record, dict(physics=positions, control=np.asarray(trace), reference=np.asarray(references))
+        data = dict(physics=positions, control=np.asarray(trace), reference=np.asarray(references))
+        if capture_snapshot:
+            data['approval_snapshot'] = approval_snapshot
+        return record, data
     finally:
         ctrl.close()

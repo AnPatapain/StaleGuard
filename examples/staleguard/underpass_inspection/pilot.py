@@ -202,7 +202,9 @@ def main():
     parser.add_argument('--capture', type=Path, help='Optional final GUI camera PNG')
     parser.add_argument('--sweep', action='store_true', help='Validate basics, then sweep all three modes at 0..1 s / 20 ms')
     parser.add_argument('--smoke', action='store_true', help='Four basic flights and one delayed dive; no sweep')
-    parser.add_argument('--scenario', type=Path, help='Optional full Scenario JSON; still seed 0 only')
+    parser.add_argument('--scenario', type=Path, help='Optional full Scenario JSON for a separate replay')
+    parser.add_argument('--calibration', type=Path, help='Frozen development calibration directory/manifest')
+    parser.add_argument('--seed', type=int, help='Accepted development seed to visualize/replay')
     parser.add_argument('--out', type=Path)
     args = parser.parse_args()
     if args.sweep and args.smoke or (args.sweep or args.smoke) and args.gui:
@@ -215,7 +217,18 @@ def main():
         parser.error('Use --delay for dive and --start for recovery')
     if args.capture:
         args.capture.parent.mkdir(parents=True, exist_ok=True)
-    s = Scenario(**json.loads(args.scenario.read_text())) if args.scenario else Scenario()
+    if args.calibration:
+        if args.scenario or args.seed is None or args.sweep or args.smoke:
+            parser.error('Use --calibration with --seed for a single frozen flight; use deadline_sweep.py for its sweeps')
+        from underpass_inspection.calibration import load_calibrated
+        cases, _ = load_calibrated(args.calibration)
+        s = next((case for case in cases if case.seed==args.seed), None)
+        if s is None:
+            parser.error('Requested seed was not accepted by the supplied calibration')
+    else:
+        if args.seed is not None:
+            parser.error('--seed requires --calibration')
+        s = Scenario(**json.loads(args.scenario.read_text())) if args.scenario else Scenario()
     name = f'pilot_{SCENARIO_VERSION}' if args.sweep else 'smoke' if args.smoke else f'playback_{args.mode}_{args.delay if args.mode == "dive" else args.start:.2f}'
     try:
         out = prepare_output(args.out or ROOT/'results/development'/name,
@@ -234,6 +247,10 @@ def main():
     with (ROOT/'support/.simulation.lock').open('a') as lock:
         fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
         try:
+            overlay_paths = None
+            if args.calibration and args.gui and args.overlay_all:
+                from underpass_inspection.support.visualization import replay_paths
+                overlay_paths = replay_paths(s,args.mode,args.delay if args.mode=='dive' else args.start)
             jobs = ([('nominal', 0.), ('dive', 0.), ('climb', 0.), ('sideways', 0.), ('dive', .4)]
                     if args.sweep or args.smoke else
                     [(args.mode, args.delay if args.mode == 'dive' else args.start)])
@@ -250,7 +267,8 @@ def main():
                 if index % 8 == 0:
                     ctypes.CDLL(None).malloc_trim(0)
                 record, data = execute(s, mode, start, args.gui, args.playback_speed,
-                                       args.hold, args.capture, overlay_all=args.overlay_all)
+                                       args.hold, args.capture, overlay_all=args.overlay_all,
+                                       overlay_paths=overlay_paths)
                 key = f'{mode}_{round(start*HZ):03d}'
                 record['trajectory_key'] = key
                 rows.append(record); traces[key] = data

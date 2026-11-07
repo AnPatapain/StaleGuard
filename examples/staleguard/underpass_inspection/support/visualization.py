@@ -116,13 +116,35 @@ def recorded_paths(s, mode, start_s):
     return result
 
 
+def replay_paths(s, mode, start_s):
+    """GUI comparison for a calibrated case: four actual headless flights only.
+
+    Does not write into the scientific deadline journal or use future predictions.
+    The same frozen scenario and original schedules feed the existing simulator.
+    """
+    from underpass_inspection.simulation import execute
+    from underpass_inspection.calibration import release_memory
+    starts = {'nominal': 0., 'dive': 0., 'climb': .5, 'sideways': .5}
+    if mode != 'nominal':
+        starts[mode] = start_s
+    paths = {}
+    for name, start in starts.items():
+        release_memory()
+        row, data = execute(s, name, start)
+        paths[name] = dict(points=data['physics'][::20, 1:].copy(),
+                           start_s=None if name=='nominal' else start,
+                           physics_sha256=row['physics_sha256'])
+    return paths
+
+
 class FlightView:
     """Small GUI drawing helper. Every live point comes from the running simulator."""
-    def __init__(self, s, env, mode, start_s, overlay_all=False):
+    def __init__(self, s, env, mode, start_s, overlay_all=False, overlay_paths=None):
         self.client, self.mode, self.start_s = env.PYB_CLIENT, mode, start_s
         self.s = s
         self.world_y, self.world_vy = float(env.state[2]), float(env.state[3])
-        self.overlay = recorded_paths(s, mode, start_s) if overlay_all else None
+        self.overlay = ((overlay_paths if overlay_paths is not None else recorded_paths(s, mode, start_s))
+                        if overlay_all else None)
         self.text_ids, self.line_ids, self.events = {}, {}, {}
         self.frame, self.camera_key = None, None
         draw_scene(s, self.client, env.PLANE_ID)

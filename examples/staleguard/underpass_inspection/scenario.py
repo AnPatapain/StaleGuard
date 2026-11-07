@@ -9,7 +9,7 @@ N=x_world, E=-y_world, D=-z_world. PyBullet state, physics, references and safet
 geometry remain in the original Z-up world. Positive East therefore requests
 negative world-Y displacement; positive Down is negative world Z.
 """
-from dataclasses import asdict, dataclass
+from dataclasses import asdict, dataclass, replace
 import math
 import numpy as np
 
@@ -21,6 +21,8 @@ VEL = [1, 3, 5]
 MODES = ('nominal', 'dive', 'climb', 'sideways')
 SCENARIO_VERSION = 'ned_east_v2'
 WORLD_TO_NED = np.diag([1., -1., -1.])
+DEVELOPMENT_RANGES = dict(speed=[.55, .65], approval_s=[.70, .90],
+                          deck_front=[1.35, 1.65], pier_x=[2.35, 3.25])
 
 
 def world_to_ned(vector):
@@ -76,8 +78,8 @@ class Scenario:
     def __post_init__(self):
         if self.version != SCENARIO_VERSION:
             raise ValueError('Use the current NED scenario version; preserve old world-Y pilots separately')
-        if self.seed != 0:
-            raise ValueError('Phase 1 supports seed 0 only; no scenario randomization')
+        if not isinstance(self.seed, int) or not 0 <= self.seed <= 20:
+            raise ValueError('Use reference seed 0 or development seeds 1..20')
         for name, value in asdict(self).items():
             if isinstance(value, (int, float)) and not math.isfinite(value):
                 raise ValueError(f'Nonfinite scenario parameter: {name}')
@@ -105,6 +107,33 @@ class Scenario:
     @property
     def inspection(self):
         return Box('inspection', tuple(self.inspection_lower), tuple(self.inspection_upper))
+
+
+def generate_scenario(seed):
+    """One independent development draw; no flight outcomes or candidate search.
+
+    Speed/approval/front are modest variations around seed 0. Pier X is drawn
+    independently in an absolute common interior segment behind all inspection
+    regions. Even its furthest rear edge fits the shortest sampled deck. These
+    provisional ranges do not guarantee D=0 feasibility. Only approval is rounded
+    to the existing 20 ms clock. The inspection box moves with the slab; its size,
+    altitude and dwell stay fixed. Every obstacle is frozen before any flight.
+    """
+    if seed == 0:
+        return Scenario()
+    if not isinstance(seed, int) or not 1 <= seed <= 20:
+        raise ValueError('Development attempts are seeds 1..20 only')
+    rng = np.random.default_rng(seed)
+    speed = float(rng.uniform(*DEVELOPMENT_RANGES['speed']))
+    approval = round(float(rng.uniform(*DEVELOPMENT_RANGES['approval_s']))*HZ)/HZ
+    front = float(rng.uniform(*DEVELOPMENT_RANGES['deck_front']))
+    pier = float(rng.uniform(*DEVELOPMENT_RANGES['pier_x']))
+    base = Scenario()
+    shift = front-base.deck_front
+    return replace(base, seed=seed, speed=speed, approval_s=approval,
+                   deck_front=front, deck_back=base.deck_back+shift, pier_x=pier,
+                   inspection_lower=(base.inspection_lower[0]+shift, *base.inspection_lower[1:]),
+                   inspection_upper=(base.inspection_upper[0]+shift, *base.inspection_upper[1:]))
 
 
 def box_signed_distance(position, box):

@@ -1,7 +1,8 @@
 # Underpass Inspection — North-East-Down, version 2
 
-This is a single deterministic physical-feasibility pilot, with seed 0 only.
-There are no predictive policies. The aircraft approaches a finite bridge deck
+This contains the frozen seed-0 physical-feasibility pilot and a bounded
+development study of 20 attempted scenarios (seeds 1–20). There are no predictive
+policies or evaluation scenarios. The aircraft approaches a finite bridge deck
 at deck height. Its approved relative maneuver dives beneath the deck, spends
 time in a fixed inspection region, then swerves around one pier. Alternatively,
 it can abandon inspection by climbing above the bridge or passing beside it.
@@ -13,6 +14,94 @@ and its [technical appendix](results/development/pilot_ned_east_v2/TECHNICAL_APP
 The original [pilot](results/development/pilot/REPORT.md) and earlier
 [positive-world-Y verification](results/development/pilot_positive_y_verified/REPORT.md)
 remain unchanged. Those versions used the opposite physical lateral direction.
+
+The [development deadline report](results/development/deadline_sweep/REPORT.md)
+answers how often command safety and recovery feasibility expire at different
+times. Its [technical appendix](results/development/deadline_sweep/TECHNICAL_APPENDIX.md)
+documents calibration, validation, artifacts and reproduction.
+
+## Development calibration and independent deadlines
+
+Each seed produces exactly one draw. Calibration accepts it only if nominal
+flight becomes unsafe, immediate dive completes inspection safely, and immediate
+Eastward sideways recovery is safe. Immediate climb is measured separately and
+cannot affect acceptance. Rejected draws remain in the manifest; there is no
+replacement, approval-time search, or use of positive delays during calibration.
+
+The provisional ranges were fixed before the development timing sweeps:
+
+| Sampled parameter | Distribution / range | Units |
+|---|---|---|
+| Forward speed | Uniform 0.55–0.65 | m/s |
+| Approval after flight start | Uniform 0.70–0.90, rounded to 0.02 | s |
+| Deck front, world X / North | Uniform 1.35–1.65 | m |
+| Pier center, absolute world X / North | Independent uniform 2.35–3.25 | m |
+
+The NumPy `default_rng(seed)` draw order is speed, approval, deck front, pier X.
+Speed, approval and front vary modestly around seed 0. The pier is sampled in a
+common interior segment behind every possible inspection region; even its rear
+edge fits the shortest deck. Its position is independent of the front, rather
+than a fixed offset from it. The 2.5 m deck length stays fixed. The inspection
+region translates with the deck front; its dimensions, altitude and dwell stay
+fixed. Maneuver parameters, body radius, safety margin, control/physics rates and
+the eight-second observation period after approval remain unchanged. These
+ranges are design assumptions, not evidence of real-world scenario prevalence.
+
+Run from `examples/staleguard` using the existing `scg` environment:
+
+```bash
+conda run --no-capture-output -n scg python underpass_inspection/calibration.py
+conda run --no-capture-output -n scg python underpass_inspection/support/deadline_sweep.py
+```
+
+The default folders are `results/development/calibration/` and
+`results/development/deadline_sweep/` beneath this mission. Existing outputs
+require `--resume`; use `--out /tmp/fresh_name` for a separate reproduction and
+pass that calibration folder with `--calibration` to the sweep. `--seeds 1 2 3`
+can be used for a small calibration. `--max-scenarios N` and `--max-flights N`
+limit work per invocation without changing the frozen protocol. Resume skips
+committed work and rejects changed sources, settings or committed journal data.
+It repairs only an unfinished final journal entry. A single flight interrupted
+before it is committed may be repeated; completed flights are never duplicated.
+
+For every accepted scenario, independent actual PyBullet flights test dive and
+sideways starts from 0 through 1.00 s in 20 ms steps. The separate climb diagnostic
+extends through 1.50 s on the same grid, keeping the original observation horizon.
+`--climb-max 1` is available for a separately frozen shorter protocol. Every
+flight monitors safety from reset through approval plus eight seconds, including
+before initiation and after a violation. The side maneuver is the primary
+safety-only recovery; climb never substitutes for it automatically.
+
+The command threshold is the first tested unsafe dive delay. Side recovery is
+reported with the last tested safe start and whether a subsequent unsafe start
+was observed. If a grid never fails, expiration is unobserved, not equal to its
+endpoint. Full safe/unsafe intervals expose any unsafe-to-safe return. Inspection
+completion and whole-flight safety are reported separately. No positive gap
+establishes prediction accuracy or policy performance.
+
+Recompute derived tables and the report from the journal without new flights:
+
+```bash
+conda run --no-capture-output -n scg python underpass_inspection/support/deadline_sweep.py --metrics-only
+```
+
+The manifest freezes all attempted definitions, rejection reasons, immediate
+flight records, source/environment provenance, and verified approval snapshots
+for accepted scenarios. The sweep saves `run.json`, `executions.jsonl`,
+`metrics.json`, `per_scenario.csv`, `per_delay.csv`, `REPORT.md`, and one compressed
+file of representative actual trajectories. It does not save every flight path.
+
+To view an accepted development scenario with the existing NED GUI:
+
+```bash
+conda run --no-capture-output -n scg python underpass_inspection/pilot.py --calibration underpass_inspection/results/development/calibration --seed 1 --mode dive --delay 0.2 --gui --overlay-all --hold 10
+```
+
+The accepted-seed loader refuses rejected seeds. For calibrated `--overlay-all`,
+the other three paths come from actual fresh replays of that same frozen scenario
+(nominal, dive at 0, climb/sideways at 0.5 s, replacing the selected mode's start
+with the requested time). Those explanatory replays do not alter the scientific
+journal or select a recovery. The checkerboard, camera and NED labels are unchanged.
 
 The locked mission frame is right-handed North-East-Down:
 
@@ -83,7 +172,8 @@ of actual 50 Hz samples from the fresh `pilot_ned_east_v2` 1 kHz positions, with
 invented alternatives. Gray nominal lines are dashed. The currently selected
 aircraft still flies under the real PID/PyBullet dynamics; the other paths are
 explanatory saved-flight overlays, not simultaneously simulated aircraft or
-predictive policies. A custom scenario or unrecorded start cannot use this overlay.
+predictive policies. A custom scenario or unrecorded seed-0 start cannot use the
+archived overlay; accepted calibrated cases use actual fresh replays as above.
 The original pilot is preserved. Freshly rerun thresholds and direction evidence
 are recorded separately in `results/development/pilot_ned_east_v2/`.
 
@@ -134,8 +224,9 @@ All flights run through flight time 8.8 s, including after safety loss.
 
 Geometry, timings, inspection bounds and displacements are explicit provisional
 design assumptions in `scenario.py`. A full scenario JSON can be supplied with
-`--scenario` for an explicitly separate seed-0 experiment; no randomization or
-parameter search is implemented. Moving a pier never changes a maneuver shape.
+`--scenario` for an explicitly separate experiment. The development generator
+is described above; no maneuver or approval-time search is implemented.
+Moving a pier never changes a maneuver shape.
 
 Maneuver joins have continuous position, velocity and acceleration. At initiation,
 the required measured-position anchor differs slightly from the old nominal
@@ -146,9 +237,16 @@ measured-position anchoring cannot both hold when nominal tracking error is nonz
 ## Validation without new flights
 
 ```bash
-conda run --no-capture-output -n scg python -m unittest underpass_inspection.support.test_pilot -v
-conda run --no-capture-output -n scg python underpass_inspection/support/validate_results.py underpass_inspection/results/development/pilot_ned_east_v2
+conda run --no-capture-output -n scg python -m unittest underpass_inspection.support.test_pilot underpass_inspection.support.test_development -v
+conda run --no-capture-output -n scg python underpass_inspection/support/deadline_sweep.py --metrics-only
 ```
+
+The archived seed-0 reports and validation files remain historical evidence.
+Development validation independently checks the four seed-0 immediate physical
+trajectory hashes and outcomes; see `deadline_sweep/validation/` for those checks
+and the final journal/snapshot audit. The older pilot validator writes into its
+input folder and requires the exact historical source hashes, so it should not
+be used to overwrite the preserved pilot validation after development edits.
 
 One simulation worker and one numerical thread are used. The shared memory guard
 retains a 2 GiB process limit and 2 GiB available-host-memory reserve. A mission lock
