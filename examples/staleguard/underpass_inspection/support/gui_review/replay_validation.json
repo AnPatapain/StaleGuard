@@ -1,0 +1,123 @@
+{
+  "camera": {
+    "distance": 3.4,
+    "yaw": -35.0,
+    "pitch": -20.0,
+    "target": [
+      2.2,
+      0.25,
+      1.0
+    ]
+  },
+  "replays": [
+    {
+      "mode": "nominal",
+      "start_s": 0.0,
+      "overlay_all": false,
+      "screenshot": "nominal.png",
+      "outcomes_exact_match": true,
+      "arrays_exact_match": {
+        "physics": true,
+        "control": true,
+        "reference": true
+      },
+      "safe": false,
+      "inspection_completed": false,
+      "min_clearance_m": -0.26048028551765473
+    },
+    {
+      "mode": "dive",
+      "start_s": 0.0,
+      "overlay_all": false,
+      "screenshot": "dive_0.png",
+      "outcomes_exact_match": true,
+      "arrays_exact_match": {
+        "physics": true,
+        "control": true,
+        "reference": true
+      },
+      "safe": true,
+      "inspection_completed": true,
+      "min_clearance_m": 0.14654305943739265
+    },
+    {
+      "mode": "dive",
+      "start_s": 0.4,
+      "overlay_all": false,
+      "screenshot": "dive_delayed.png",
+      "outcomes_exact_match": true,
+      "arrays_exact_match": {
+        "physics": true,
+        "control": true,
+        "reference": true
+      },
+      "safe": false,
+      "inspection_completed": true,
+      "min_clearance_m": -0.08852270331993607
+    },
+    {
+      "mode": "climb",
+      "start_s": 0.5,
+      "overlay_all": false,
+      "screenshot": "climb.png",
+      "outcomes_exact_match": true,
+      "arrays_exact_match": {
+        "physics": true,
+        "control": true,
+        "reference": true
+      },
+      "safe": true,
+      "inspection_completed": false,
+      "min_clearance_m": 0.4138377418516983
+    },
+    {
+      "mode": "sideways",
+      "start_s": 0.5,
+      "overlay_all": false,
+      "screenshot": "sideways.png",
+      "outcomes_exact_match": true,
+      "arrays_exact_match": {
+        "physics": true,
+        "control": true,
+        "reference": true
+      },
+      "safe": true,
+      "inspection_completed": false,
+      "min_clearance_m": 0.2999388255262098
+    },
+    {
+      "mode": "dive",
+      "start_s": 0.0,
+      "overlay_all": true,
+      "screenshot": "comparison.png",
+      "outcomes_exact_match": true,
+      "arrays_exact_match": {
+        "physics": true,
+        "control": true,
+        "reference": true
+      },
+      "safe": true,
+      "inspection_completed": true,
+      "min_clearance_m": 0.14654305943739265
+    }
+  ],
+  "original_artifacts_and_scenario_unchanged": {
+    "underpass_inspection/scenario.py": true,
+    "underpass_inspection/results/development/pilot/gui_nominal.png": true,
+    "underpass_inspection/results/development/pilot/validation.json": true,
+    "underpass_inspection/results/development/pilot/gui_validation.json": true,
+    "underpass_inspection/results/development/pilot/TECHNICAL_APPENDIX.md": true,
+    "underpass_inspection/results/development/pilot/gui_dive_delayed.png": true,
+    "underpass_inspection/results/development/pilot/flights.jsonl": true,
+    "underpass_inspection/results/development/pilot/gui_climb.png": true,
+    "underpass_inspection/results/development/pilot/gui_sideways.png": true,
+    "underpass_inspection/results/development/pilot/summary.json": true,
+    "underpass_inspection/results/development/pilot/per_delay.csv": true,
+    "underpass_inspection/results/development/pilot/gui_dive_immediate.png": true,
+    "underpass_inspection/results/development/pilot/REPORT.md": true,
+    "underpass_inspection/results/development/pilot/trajectories.npz": true
+  },
+  "non_gui_simulation_ast_identical": true,
+  "public_overlay_cli_verified": true,
+  "public_overlay_cli_arrays_and_outcomes_exact_match": true
+}

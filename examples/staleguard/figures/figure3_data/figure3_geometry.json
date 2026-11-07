@@ -1,0 +1,55 @@
+{
+  "seed": 22,
+  "delay_s": 0.5,
+  "units": "meters, seconds, radians",
+  "fence_x_m": 1.8359045567223307,
+  "body_radius_m": 0.06128825336065631,
+  "required_clearance_m": 0.05,
+  "maximum_safe_center_x_m": 1.7246163033616744,
+  "checkpoint_min_xyz_m": [
+    1.1181084288068177,
+    1.9306383375201839,
+    1.0998238448437705
+  ],
+  "checkpoint_max_xyz_m": [
+    1.7181084288068178,
+    2.130638337520184,
+    1.2998238448437707
+  ],
+  "approval_position_m": [
+    1.1659107203555066,
+    0.030638337716442945,
+    1.1997983693421292
+  ],
+  "approval_time_flight_s": 1.8,
+  "turn_radius_m": 0.4,
+  "turn_speed_mps": 0.8,
+  "mission_deadline_after_approval_s": 4.64,
+  "monitoring_deadline_flight_s": 6.4399999999999995,
+  "frozen_scenario": {
+    "schema": "northbound_checkpoint_v2",
+    "seed": 22,
+    "speed": 0.8,
+    "height": 1.1998238448437706,
+    "initial_x": -0.12343248802161633,
+    "initial_y": 0.030638337520183995,
+    "fence_x": 1.8359045567223307,
+    "deadline_s": 4.64,
+    "command": {
+      "radius": 0.4,
+      "speed": 0.8,
+      "checkpoint_lower": [
+        1.1181084288068177,
+        1.9306383375201839,
+        1.0998238448437705
+      ],
+      "checkpoint_upper": [
+        1.7181084288068178,
+        2.130638337520184,
+        1.2998238448437707
+      ],
+      "direction": "TURN_LEFT_90"
+    },
+    "approval_s": 1.8
+  }
+}
