@@ -1,4 +1,4 @@
-"""Development feasibility screening: one frozen draw/seed, immediate flights only."""
+"""Development or held-out feasibility screening: one draw/seed, D=0 only."""
 from pathlib import Path
 import sys
 if __package__ in (None, ''):
@@ -14,7 +14,7 @@ import pickle
 import time
 import numpy as np
 
-from geofence_turn.storage import write_json, append_json, file_hash
+from underpass_inspection.storage import write_json, append_json, file_hash, CALIBRATION_FORMATS
 from underpass_inspection.scenario import Scenario, generate_scenario, DEVELOPMENT_RANGES
 from underpass_inspection.simulation import execute
 from underpass_inspection.pilot import provenance
@@ -48,8 +48,12 @@ def manifest_path(path):
 def load_calibrated(path, verify_sources=True):
     path = manifest_path(path)
     data = json.loads(path.read_text())
-    if data.get('format') != 'underpass_development_calibration_v1':
-        raise ValueError('Not an Underpass development calibration')
+    if data.get('format') not in CALIBRATION_FORMATS:
+        raise ValueError('Not an Underpass calibration')
+    if data['format']=='underpass_calibration_v1' and (
+            data.get('dataset_split') not in ('development','evaluation') or
+            data['dataset_split']!=data['protocol'].get('dataset_split')):
+        raise ValueError('Calibration split metadata differs')
     if verify_sources:
         check_provenance(data['provenance'])
     cases = []
@@ -72,11 +76,23 @@ def verify_snapshot(a, b):
         assert a[name] == b[name]
 
 
-def calibrate(seeds, out, resume=False, max_scenarios=0):
+def calibrate(seeds, out, resume=False, max_scenarios=0, split='development'):
     seeds = list(seeds); out = Path(out); path = out/'calibrated_scenarios.json'
-    if not seeds or len(set(seeds)) != len(seeds) or any(s not in range(1,21) for s in seeds):
-        raise ValueError('Use distinct development seeds from 1..20')
-    protocol = dict(seeds=seeds, generation_ranges=DEVELOPMENT_RANGES,
+    if split not in ('development','evaluation'):
+        raise ValueError('Use the development or evaluation split')
+    if (not seeds or any(not isinstance(s,int) or isinstance(s,bool) for s in seeds)
+            or len(set(seeds)) != len(seeds)):
+        raise ValueError('Use distinct integer seeds')
+    if split=='development' and any(s not in range(1,21) for s in seeds):
+        raise ValueError('Use development seeds from 1..20')
+    if split=='evaluation' and any(s<=20 for s in seeds):
+        raise ValueError('Evaluation seeds must be >=21; pilot/development seeds 0..20 are reserved')
+    other='development' if split=='evaluation' else 'evaluation'
+    if out.resolve().is_relative_to((ROOT/'results'/other).resolve()):
+        raise ValueError(f'The {split} split cannot write inside results/{other}')
+    if max_scenarios<0:
+        raise ValueError('max_scenarios must be nonnegative')
+    protocol = dict(dataset_split=split,seeds=seeds, generation_ranges=DEVELOPMENT_RANGES,
         sampling='NumPy default_rng(seed); draw speed, approval, deck front, absolute pier X independently',
         approval_quantization_s=.02, bridge_length_m=2.5,
         inspection_rule='Translate fixed seed-0 inspection region by deck-front displacement',
@@ -87,7 +103,7 @@ def calibrate(seeds, out, resume=False, max_scenarios=0):
         if not resume:
             raise FileExistsError('Calibration exists; use --resume or a fresh --out')
         data = json.loads(path.read_text())
-        if data['protocol'] != protocol:
+        if data['protocol'] != protocol or data.get('dataset_split')!=split:
             raise ValueError('Calibration resume protocol differs')
         check_provenance(data['provenance'])
         load_calibrated(path)
@@ -97,7 +113,7 @@ def calibrate(seeds, out, resume=False, max_scenarios=0):
         if out.exists() and any(out.iterdir()):
             raise FileExistsError(out)
         out.mkdir(parents=True, exist_ok=True)
-        data = dict(format='underpass_development_calibration_v1', protocol=protocol,
+        data = dict(format='underpass_calibration_v1', dataset_split=split, protocol=protocol,
                     provenance=experiment_provenance(), created_utc=time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime()),
                     status='partial', attempts=[], scenarios=[],
                     statistics=dict(attempted=0,accepted=0,rejected=0))
@@ -159,16 +175,29 @@ def calibrate(seeds, out, resume=False, max_scenarios=0):
 
 def main():
     p = argparse.ArgumentParser(description=__doc__)
-    p.add_argument('--seeds', nargs='+',type=int,default=list(range(1,21)))
-    p.add_argument('--out',type=Path,default=ROOT/'results/development/calibration')
+    p.add_argument('--split',choices=('development','evaluation'),default='development')
+    p.add_argument('--seeds', nargs='+',type=int,help='Explicit attempted seed list; cannot combine with range options')
+    p.add_argument('--start-seed',type=int,help='First attempted seed (development: 1; evaluation: 1001)')
+    p.add_argument('--count',type=int,help='Number of attempted seeds, not accepted scenarios (development: 20; evaluation: 100)')
+    p.add_argument('--out',type=Path,help='Defaults to results/<split>/calibration')
     p.add_argument('--resume',action='store_true')
     p.add_argument('--max-scenarios',type=int,default=0)
     a = p.parse_args()
     if a.max_scenarios < 0:
         p.error('--max-scenarios must be nonnegative')
+    if a.seeds is not None and (a.start_seed is not None or a.count is not None):
+        p.error('Use --seeds or --start-seed/--count, not both')
+    if a.seeds is None:
+        start=a.start_seed if a.start_seed is not None else (1 if a.split=='development' else 1001)
+        count=a.count if a.count is not None else (20 if a.split=='development' else 100)
+        if count<=0:
+            p.error('--count must be positive')
+        a.seeds=list(range(start,start+count))
+    if a.out is None:
+        a.out=ROOT/'results'/a.split/'calibration'
     with (ROOT/'support/.simulation.lock').open('a') as lock:
         fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
-        result = calibrate(a.seeds,a.out,a.resume,a.max_scenarios)
+        result = calibrate(a.seeds,a.out,a.resume,a.max_scenarios,split=a.split)
     print(result['status'],result['statistics'])
 
 

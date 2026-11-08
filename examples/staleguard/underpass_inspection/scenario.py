@@ -14,7 +14,8 @@ import math
 import numpy as np
 
 from model import CTRL_FREQ_HZ as HZ, PYB_FREQ_HZ as PHYSICS_HZ
-from geofence_turn.scenario import BODY_RADIUS_M
+# Enclosing sphere of SCG cf2x collision cylinder (r=.06, length=.025 m).
+BODY_RADIUS_M = math.hypot(.06, .025 / 2)
 
 POS = [0, 2, 4]
 VEL = [1, 3, 5]
@@ -78,8 +79,8 @@ class Scenario:
     def __post_init__(self):
         if self.version != SCENARIO_VERSION:
             raise ValueError('Use the current NED scenario version; preserve old world-Y pilots separately')
-        if not isinstance(self.seed, int) or not 0 <= self.seed <= 20:
-            raise ValueError('Use reference seed 0 or development seeds 1..20')
+        if not isinstance(self.seed, int) or self.seed < 0:
+            raise ValueError('A frozen scenario needs a nonnegative integer seed')
         for name, value in asdict(self).items():
             if isinstance(value, (int, float)) and not math.isfinite(value):
                 raise ValueError(f'Nonfinite scenario parameter: {name}')
@@ -110,7 +111,7 @@ class Scenario:
 
 
 def generate_scenario(seed):
-    """One independent development draw; no flight outcomes or candidate search.
+    """One independent frozen-distribution draw; no outcomes or candidate search.
 
     Speed/approval/front are modest variations around seed 0. Pier X is drawn
     independently in an absolute common interior segment behind all inspection
@@ -119,10 +120,10 @@ def generate_scenario(seed):
     to the existing 20 ms clock. The inspection box moves with the slab; its size,
     altitude and dwell stay fixed. Every obstacle is frozen before any flight.
     """
+    if not isinstance(seed, int) or isinstance(seed, bool) or seed < 0:
+        raise ValueError('Use a nonnegative integer seed; calibration enforces dataset splits')
     if seed == 0:
         return Scenario()
-    if not isinstance(seed, int) or not 1 <= seed <= 20:
-        raise ValueError('Development attempts are seeds 1..20 only')
     rng = np.random.default_rng(seed)
     speed = float(rng.uniform(*DEVELOPMENT_RANGES['speed']))
     approval = round(float(rng.uniform(*DEVELOPMENT_RANGES['approval_s']))*HZ)/HZ

@@ -1,8 +1,10 @@
 # Underpass Inspection — North-East-Down, version 2
 
-This contains the frozen seed-0 physical-feasibility pilot and a bounded
-development study of 20 attempted scenarios (seeds 1–20). There are no predictive
-policies or evaluation scenarios. The aircraft approaches a finite bridge deck
+Underpass keeps its policy rules, prediction grid, storage/metric helpers and memory guard locally. It imports no code from Geofence-Turn or Inspection-Descent; only the shared `model/` dynamics and physics monitor remain shared. Existing result artifacts retain their historical provenance.
+
+This contains the frozen seed-0 pilot, development calibration/deadline study,
+and seven-policy development benchmark on the same 12 accepted scenarios.
+No held-out scenarios have been generated or evaluated. The aircraft approaches a finite bridge deck
 at deck height. Its approved relative maneuver dives beneath the deck, spends
 time in a fixed inspection region, then swerves around one pier. Alternatively,
 it can abandon inspection by climbing above the bridge or passing beside it.
@@ -19,6 +21,156 @@ The [development deadline report](results/development/deadline_sweep/REPORT.md)
 answers how often command safety and recovery feasibility expire at different
 times. Its [technical appendix](results/development/deadline_sweep/TECHNICAL_APPENDIX.md)
 documents calibration, validation, artifacts and reproduction.
+
+## Seven-policy development benchmark
+
+The [benchmark report](results/development/baseline_benchmark/REPORT.md) compares
+seven policies on the exact 12 frozen accepted scenarios, at all 51 dispatch
+delays from 0 through 1.00 s. Its [technical appendix](results/development/baseline_benchmark/TECHNICAL_APPENDIX.md)
+records policy semantics, measured prediction timing, physical validation and
+reproduction. The full matrix contains **4,284 actual PyBullet flights**.
+Each flight replays the original initial conditions and monitors the full horizon;
+saved deadline-sweep outcomes are verification references, never policy inputs or
+substitutes for new flights.
+
+The primary fallback for every policy is the same independent **Eastward
+sideways** maneuver. Climb remains diagnostic and is never chosen by these policies.
+
+| Policy | Approval / pending behavior | Dispatch behavior |
+|---|---|---|
+| `no_recovery` | Continue nominal flight | Execute original relative dive |
+| `always_recover` | Cancel and recover immediately at approval | Ignore canceled command |
+| `fbs` | Observe clearance-feature changes through approval; freeze EMA-based TTL | Recover if ready and expired; otherwise dispatch |
+| `use_time_recheck` | Continue nominal; no proactive check | One actual-state immediate-command forecast; act after measured computation |
+| `staleguard` | One approval forecast; continue nominal while pending | Recover if ready and expired; unavailable forecast permits dispatch |
+| `staleguard_early_recovery` | Same forecast; recover while pending once ready and expired | Same dispatch gate if still pending |
+| `fixed_early_recovery` | Cancel/recover when elapsed time reaches 0.20 s | Dispatch before 0.20 s; recover at or after equality |
+
+FBS keeps a local copy of the established alpha 0.1, epsilon 1e-12 m/sample, 210-step cap,
+margin/EMA flooring, strict `age > TTL` expiry and readiness gate. Its signal is
+required clearance minus the minimum current 3D body clearance. The EMA starts
+at zero on the first observation and observes every control step through approval
+inclusive. Zero volatility uses the numerical floor and cap. It does not simulate
+the queued command and receives no future dispatch time.
+
+StaleGuard reuses the shared `model.lightweight.LightweightPredictiveModel` and
+a locally defined fixed 19-point prediction grid (20 ms spacing through 0.20 s, then
+0.10 s spacing through 1.00 s). It first predicts nominal waiting and saves PID
+checkpoints, then restores each checkpoint and anchors the unchanged relative
+dive to its predicted state. A swept Euclidean segment/box/body checker handles
+both fixed volumes, using the original body radius and clearance threshold.
+An unsafe waiting prefix stays unsafe. Only the required waiting prefix is
+evaluated; eventual unlimited nominal collision does not invalidate every command.
+Expiration is the first predicted unsafe grid point. All-safe grids have
+unobserved expiration. Safety and inspection completion are separate outcomes.
+
+The two StaleGuard variants share one forecast and measured runtime per scenario.
+Following Geofence, kernels are warmed once before approval forecasts; startup
+cost is recorded separately. Computation is measured offline from the frozen
+approval snapshot, and its duration is replayed on the physical control clock.
+Nominal motion continues until readiness. EarlyRecovery needs both readiness and
+expiry and never acts retroactively. If dispatch already permitted the command
+while the forecast was unavailable, later readiness cannot cancel it.
+
+Use-Time Recheck has no approval-time TTL sweep. It predicts one immediate command
+from the actual dispatch state/PID and remaining horizon. The real UAV continues
+nominal motion while its measured computation duration is replayed; application
+or recovery occurs at `dispatch_step + floor(runtime*50) + 1`. Its check-state and
+actual application-state can therefore differ. Earlier violations remain recorded.
+
+The physical driver alone knows the configured dispatch schedule. The policy
+object receives elapsed time and a dispatch event only when it occurs. At a shared
+control step, approval is processed first, then readiness, dispatch, pending timers,
+and the physical maneuver. Dispatch wins timer ties; the dispatch gate still uses
+`>=` expiry. Recovery permanently cancels the inspection command; neither maneuver
+can restart or override an already started maneuver. Realized events are journaled.
+
+Run from `examples/staleguard` in the existing `scg` environment:
+
+```bash
+# 27 focused tests, including two actual out-of-grid waiting-violation stress flights
+conda run --no-capture-output -n scg python -m unittest underpass_inspection.support.test_baselines underpass_inspection.support.test_pilot underpass_inspection.support.test_development -v
+
+# Small paired physical benchmark: seeds 1 (negative gap), 6 (long positive), 14 (short positive)
+conda run --no-capture-output -n scg python underpass_inspection/baseline_benchmark/run.py --smoke --out /tmp/underpass_policy_smoke_repro
+
+# Full development matrix; the representative-seed option only chooses saved paths
+conda run --no-capture-output -n scg python underpass_inspection/baseline_benchmark/run.py --representative-seeds 1 6 14
+conda run --no-capture-output -n scg python underpass_inspection/baseline_benchmark/run.py --representative-seeds 1 6 14 --resume
+
+# Derived results only: no model forecasts or physical flights
+conda run --no-capture-output -n scg python underpass_inspection/baseline_benchmark/run.py --metrics-only
+
+# Plot all seven retained actual paths; optionally watch one recorded decision in PyBullet
+conda run --no-capture-output -n scg python underpass_inspection/support/visualize_policy_comparison.py --seed 6 --out /tmp/underpass_policy_comparison.png
+conda run --no-capture-output -n scg python underpass_inspection/support/visualize_policy_comparison.py --seed 6 --gui --policy staleguard_early_recovery --hold 10
+```
+
+GUI playback repeats the recorded policy's maneuver and actual start time using
+live PID/PyBullet, then checks its physical trajectory hash. It does not retime a
+policy using a fresh computation or add a benchmark score. The saved comparison
+uses actual 1,000 Hz positions without invented alternatives or smoothing. The
+existing NED GUI camera, floor, scene, event labels and trajectory colors are kept.
+
+The canonical layout follows the established missions: policy/prediction adapters
+in `baselines/`, execution/metrics in `baseline_benchmark/`, frozen I/O in
+`storage.py`, and diagnostics under `support/`. There is one native flight engine
+and one shared lightweight dynamics implementation. No compatibility import
+wrappers or duplicate root-level prediction engines are used.
+
+The frozen calibration/deadline files remain unchanged. `storage.py` verifies
+their historical hashes and explicit syntax-tree equivalence for the policy-free
+physical engine, the mission definition except its seed-ID validation, and the
+pilot functions outside its CLI. Generation now supports evaluation seeds beyond
+20; the development draws and all frozen definitions remain unchanged. New benchmark
+resumes require exact current source/package hashes, protocol, snapshot checksums
+and committed journal bytes. The original calibration/deadline executables retain
+their stricter historical resume checks; do not rewrite their old provenance.
+
+`run.json` records the calibration hash, all actual scenario configurations, policy
+parameters, model platform parameters, warmup, frozen forecasts/runtimes and source/
+environment provenance. `executions.jsonl` records actual outcomes and events.
+`metrics.json`, both CSVs and `REPORT.md` derive from that journal. One NPZ retains
+only representative actual paths. Completed flights are never duplicated on
+resume; only an unfinished uncommitted final line may be repaired. Use
+`--max-flights N` for an invocation budget without changing the frozen protocol.
+The existing one-worker, one-numerical-thread and memory guards remain active.
+
+The driver accepts `--calibration` and `--ground-truth` paths for another frozen
+cohort later. Policy logic does not branch on development seeds. Held-out
+calibration is supported below; no held-out flights have been run here.
+
+## Creating a held-out calibration set
+
+The evaluation split uses the same frozen sampling ranges and immediate-flight
+acceptance tests as development. Seeds 0–20 remain reserved for the pilot and all
+development attempts, including rejected ones. Evaluation requires seeds >=21
+and cannot write inside `results/development/`. Its default output is
+`results/evaluation/calibration/`. The manifest records the split, attempted seed
+list, sampling/acceptance protocol, source/environment hashes, rejected attempts
+and accepted approval snapshots. Existing development manifests still load.
+
+From `examples/staleguard`, this command attempts **100 scenarios, seeds
+1001–1100**, with no replacements. It does not promise 100 accepted scenarios:
+
+```bash
+conda run --no-capture-output -n scg python underpass_inspection/calibration.py \
+  --split evaluation --start-seed 1001 --count 100 \
+  --out underpass_inspection/results/evaluation/calibration
+```
+
+To resume, repeat the exact command with `--resume`. Do not change the seed list,
+split, source or environment between invocations. `--count` counts attempted
+seeds; `--max-scenarios` limits work in one invocation without changing that list.
+An explicit `--seeds` list is also supported, but cannot be combined with
+`--start-seed` or `--count`.
+
+Calibration runs only nominal and immediate dive/sideways/climb flights, plus a
+repeat immediate dive for each accepted scenario. Climb remains diagnostic.
+There are no positive-delay sweeps, TTL predictions or policy comparisons during
+selection. Freeze policy choices before inspecting held-out benchmark outcomes.
+No evaluation calibration or policy flights were launched while adding this
+support; tests use synthetic flight outcomes in temporary directories only.
 
 ## Development calibration and independent deadlines
 

@@ -1,5 +1,7 @@
 """One serial SCG/PyBullet flight, monitored from reset through a fixed horizon."""
 from functools import partial
+from pathlib import Path
+from dataclasses import dataclass
 import hashlib
 import time
 import numpy as np
@@ -8,15 +10,45 @@ from safe_control_gym.utils.registration import get_config, make
 
 from model.common import capture_pid_state
 from physics_monitor import monitor_physics_steps
-from geofence_turn.simulation import check_memory
-from geofence_turn.scenario import Config
 from underpass_inspection.scenario import (HZ, PHYSICS_HZ, POS, VEL, MODES,
     make_nominal, apply_maneuver, body_clearances, in_inspection, violation_part, world_to_ned)
 
 
+def check_memory(max_rss_mb=2048, min_available_mb=2048):
+    status = Path('/proc/self/status').read_text().splitlines()
+    rss = int(next(x.split()[1] for x in status if x.startswith('VmRSS:'))) / 1024
+    mem = Path('/proc/meminfo').read_text().splitlines()
+    available = int(next(x.split()[1] for x in mem if x.startswith('MemAvailable:'))) / 1024
+    if rss > max_rss_mb or available < min_available_mb:
+        raise RuntimeError(f'Memory guard: RSS={rss:.0f} MiB available={available:.0f} MiB')
+    return rss, available
+
+
+@dataclass(frozen=True)
+class Snapshot:
+    state: np.ndarray
+    pid_state: object
+    remaining_reference: np.ndarray
+    horizon_steps: int
+    approval_time: float
+    scenario: object
+    prefix_min_clearance_m: float
+
+
 def execute(s, mode='nominal', start_s=0., gui=False, playback_speed=.5,
             hold_s=0., capture=None, overlay_all=False, capture_snapshot=False,
-            overlay_paths=None):
+            overlay_paths=None, policy=None, delay_s=0., received=None,
+            platform=None, expected_snapshot=None):
+    if policy is not None:
+        from .baselines.policies import PendingCommand
+        if (not np.isfinite(delay_s) or delay_s<0 or delay_s>=s.observation_s
+                or not np.isclose(delay_s*HZ,round(delay_s*HZ),atol=1e-9)):
+            raise ValueError('Use a nonnegative control-grid dispatch delay inside the horizon')
+        if mode!='nominal' or start_s!=0.:
+            raise ValueError('Policies start on nominal control; the policy selects the maneuver')
+        agent=PendingCommand(policy,s,received)
+        scheduled_dispatch=round(s.approval_s*HZ)+round(delay_s*HZ)
+        capture_snapshot=True
     if mode not in MODES:
         raise ValueError(mode)
     if (not np.isfinite(start_s) or not 0 <= start_s < s.observation_s
@@ -24,7 +56,7 @@ def execute(s, mode='nominal', start_s=0., gui=False, playback_speed=.5,
             or not np.isfinite(playback_speed) or playback_speed <= 0
             or not np.isfinite(hold_s) or hold_s < 0):
         raise ValueError('Use nonnegative 20 ms start times and positive playback speed')
-    check_memory(Config())
+    check_memory()
     approval = round(s.approval_s*HZ)
     total = round((s.approval_s+s.observation_s)*HZ)
     initiation = None if mode == 'nominal' else approval+round(start_s*HZ)
@@ -77,6 +109,10 @@ def execute(s, mode='nominal', start_s=0., gui=False, playback_speed=.5,
                     time_approval_s=tick/PHYSICS_HZ-s.approval_s,
                     physics_tick=tick, position_m=list(position), obstacle=name,
                     part=violation_part(position, box), clearance_m=values[name])
+                if policy is not None:
+                    agent.events.append(dict(kind='safety_violation',physics_tick=tick,
+                        flight_s=tick/PHYSICS_HZ,approval_s=tick/PHYSICS_HZ-s.approval_s,
+                        obstacle=name,part=violation['part']))
             if tick >= approval*(PHYSICS_HZ//HZ) and in_inspection(position, s):
                 if entered is None:
                     entered = tick
@@ -84,6 +120,9 @@ def execute(s, mode='nominal', start_s=0., gui=False, playback_speed=.5,
                 longest_dwell = max(longest_dwell, dwell)
                 if completion is None and dwell >= round(s.inspection_dwell_s*PHYSICS_HZ):
                     completion = tick/PHYSICS_HZ-s.approval_s
+                    if policy is not None:
+                        agent.events.append(dict(kind='inspection_completed',physics_tick=tick,
+                            flight_s=tick/PHYSICS_HZ,approval_s=completion))
             else:
                 entered = None
 
@@ -98,6 +137,27 @@ def execute(s, mode='nominal', start_s=0., gui=False, playback_speed=.5,
                         approval_time=s.approval_s, scenario=s)
                 if gui:
                     view.approval(obs[POS])
+            if policy is not None:
+                agent.observe(step,obs)
+                if step==approval:
+                    if expected_snapshot is not None:
+                        from .storage import check_approval_snapshot
+                        check_approval_snapshot(approval_snapshot,expected_snapshot)
+                    agent.approve()
+                if step>=approval:
+                    # Readiness precedes dispatch. Dispatch wins a tie with a
+                    # pending timer; its >= expiry gate still applies at equality.
+                    agent.announce_readiness(step)
+                    if step==scheduled_dispatch:
+                        current=Snapshot(obs.copy(),capture_pid_state(ctrl),reference[step:].copy(),
+                            total-step,step/HZ,s,min(minimum.values()))
+                        agent.dispatch(step,current,platform)
+                    agent.tick(step)
+                    selected=agent.take_action()
+                    if selected is not None:
+                        mode=selected;initiation=step;start_s=(step-approval)/HZ
+                        if gui:
+                            view.mode=mode;view.start_s=start_s;view.camera_key=None
             if step == initiation:
                 anchor = obs[POS].copy()
                 physical_before = obs.copy()
@@ -161,6 +221,16 @@ def execute(s, mode='nominal', start_s=0., gui=False, playback_speed=.5,
             final_velocity_ned_mps=world_to_ned(obs[VEL]).tolist(),
             physics_sha256=hashlib.sha256(positions.tobytes()).hexdigest(),
             runtime_s=time.perf_counter()-began, gui=gui)
+        if policy is not None:
+            event=agent.finish(scheduled_dispatch,total)
+            action=event['fallback_step'] if event['fallback_step'] is not None else event['application_step']
+            record.update(delay_s=delay_s,completed=completion is not None,completion_s=completion,
+                event=event,first_violation_s=None if violation is None else violation['time_flight_s'],
+                pre_dispatch_violation_s=(violation['time_flight_s'] if violation is not None
+                    and violation['time_flight_s']<=scheduled_dispatch/HZ else None),
+                violation_before_intervention=(violation is not None and action is not None
+                    and violation['time_flight_s']<=action/HZ),
+                approval_snapshot_verified=expected_snapshot is not None)
         data = dict(physics=positions, control=np.asarray(trace), reference=np.asarray(references))
         if capture_snapshot:
             data['approval_snapshot'] = approval_snapshot

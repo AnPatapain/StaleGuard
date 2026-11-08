@@ -8,12 +8,75 @@ import unittest
 import numpy as np
 
 from model.common import PIDState
-from underpass_inspection.scenario import Scenario,generate_scenario,DEVELOPMENT_RANGES,displacement
+from underpass_inspection.scenario import Scenario,generate_scenario,DEVELOPMENT_RANGES,displacement,make_nominal
 from underpass_inspection.calibration import calibrate
+from underpass_inspection.storage import ROOT,load_calibrated_scenarios
 from underpass_inspection.support.deadline_sweep import read_journal,summarize
 
 
 class DevelopmentTests(unittest.TestCase):
+    def test_development_draws_match_all_frozen_attempts(self):
+        data=json.loads((ROOT/'results/development/calibration/calibrated_scenarios.json').read_text())
+        for attempt in data['attempts']:
+            self.assertEqual(json.loads(json.dumps(asdict(generate_scenario(attempt['seed'])))),
+                             attempt['scenario'])
+
+    def test_evaluation_rejects_overlap_and_wrong_output_before_flying(self):
+        with TemporaryDirectory() as folder,patch('underpass_inspection.calibration.execute') as execute:
+            out=Path(folder)/'calibration'
+            for seeds,split in (([0],'evaluation'),([1],'evaluation'),([20],'evaluation'),
+                                ([21],'development'),([21,21],'evaluation'),([True],'evaluation')):
+                with self.assertRaises(ValueError):calibrate(seeds,out,split=split)
+            with self.assertRaises(ValueError):
+                calibrate([21],ROOT/'results/development/calibration',split='evaluation')
+            with self.assertRaises(ValueError):
+                calibrate([1],ROOT/'results/evaluation/calibration',split='development')
+            execute.assert_not_called()
+            self.assertFalse(out.exists())
+
+    def test_evaluation_d0_screening_rejections_resume_and_snapshot_loading(self):
+        # Synthetic outcomes only: never fly or score held-out scenarios in tests.
+        calls=[]
+        def toy_execute(s,mode,start,**kwargs):
+            calls.append((s.seed,mode,start))
+            safe=mode=='sideways' or (mode=='dive' and s.seed==21)
+            reference=make_nominal(round((s.approval_s+s.observation_s)*50)+1,s)[round(s.approval_s*50):]
+            state=reference[0].copy()
+            row=dict(seed=s.seed,mode=mode,start_s=start,safe=safe,
+                inspection_completed=safe and mode=='dive',safe_completion=safe and mode=='dive',
+                physics_sha256='synthetic fixture, not PyBullet evidence',approval_state=state.tolist(),
+                first_violation=None if safe else dict(part='pier' if mode=='dive' else 'deck_front'))
+            arrays={}
+            if kwargs.get('capture_snapshot'):
+                arrays['approval_snapshot']=dict(state=state,remaining_reference=reference,
+                    pid_state=PIDState(np.zeros(3),np.zeros(3),np.zeros(3)),
+                    approval_time=s.approval_s,horizon_steps=len(reference)-1,scenario=s)
+            return row,arrays
+        with TemporaryDirectory() as folder,patch('underpass_inspection.calibration.execute',toy_execute):
+            out=Path(folder)
+            partial=calibrate([21,22],out,max_scenarios=1,split='evaluation')
+            self.assertEqual(partial['status'],'partial')
+            with self.assertRaises(ValueError):load_calibrated_scenarios(out)
+            with self.assertRaises(ValueError):
+                calibrate([21,23],out,resume=True,split='evaluation')
+            complete=calibrate([21,22],out,resume=True,split='evaluation')
+            self.assertEqual(complete['status'],'complete')
+            self.assertEqual(complete['dataset_split'],'evaluation')
+            self.assertEqual(complete['statistics'],dict(attempted=2,accepted=1,rejected=1))
+            self.assertFalse(complete['protocol']['replacement'])
+            self.assertEqual(complete['protocol']['generation_ranges'],DEVELOPMENT_RANGES)
+            self.assertEqual(complete['attempts'][1]['rejection_reasons'],
+                             ['d0_unsafe:pier','d0_inspection_incomplete'])
+            self.assertEqual([s.seed for s,_,_ in load_calibrated_scenarios(out)],[21])
+            before=len(calls)
+            calibrate([21,22],out,resume=True,split='evaluation')
+            self.assertEqual(len(calls),before)
+        self.assertEqual(len(calls),9)  # Four D=0 modes per attempt + accepted dive replay.
+        self.assertTrue(all(start==0. for _,_,start in calls))
+        self.assertEqual(generate_scenario(21),generate_scenario(21))
+        for seed in (-1,True,1.5):
+            with self.assertRaises(ValueError):generate_scenario(seed)
+
     def test_generation_deterministic_fixed_seed0_and_geometry_relations(self):
         baseline=json.loads(Path('underpass_inspection/results/development/pilot_ned_east_v2/summary.json').read_text())['scenario']
         self.assertEqual(json.loads(json.dumps(asdict(generate_scenario(0)))),baseline)

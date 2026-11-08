@@ -125,7 +125,6 @@ def validate_smoke(rows, traces, s):
 def provenance(s):
     paths = [ROOT/'__init__.py', ROOT/'scenario.py', ROOT/'simulation.py', ROOT/'pilot.py',
              ROOT/'support/visualization.py', ROOT.parent/'physics_monitor.py',
-             ROOT.parent/'geofence_turn/scenario.py', ROOT.parent/'geofence_turn/simulation.py',
              ROOT.parent/'model/common.py',
              ROOT.parent.parent.parent/'safe_control_gym/controllers/pid/pid.py',
              ROOT.parent.parent.parent/'safe_control_gym/envs/gym_pybullet_drones/quadrotor.py',
@@ -220,8 +219,8 @@ def main():
     if args.calibration:
         if args.scenario or args.seed is None or args.sweep or args.smoke:
             parser.error('Use --calibration with --seed for a single frozen flight; use deadline_sweep.py for its sweeps')
-        from underpass_inspection.calibration import load_calibrated
-        cases, _ = load_calibrated(args.calibration)
+        from underpass_inspection.storage import load_calibrated_scenarios
+        cases = [case[0] for case in load_calibrated_scenarios(args.calibration)]
         s = next((case for case in cases if case.seed==args.seed), None)
         if s is None:
             parser.error('Requested seed was not accepted by the supplied calibration')
