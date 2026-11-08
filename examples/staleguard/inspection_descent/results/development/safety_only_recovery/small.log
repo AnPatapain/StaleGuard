@@ -1,0 +1,345 @@
+Recovery mode: safety-only
+Calibration feasible: 1/1
+Infeasible seeds: none
+Policy rates use feasible scenarios; calibration failures are excluded.
+==============================================================================
+D = 0.0s | T = 4.2s | N = 1
+==============================================================================
+
+MISSION OUTCOMES
+                                 No Recovery   Always-Recover       StaleGuard
+------------------------------------------------------------------------------
+Safe mission completion         1/1 (100.0%)     1/1 (100.0%)     1/1 (100.0%)
+Safe mission non-completion       0/1 (0.0%)       0/1 (0.0%)       0/1 (0.0%)
+Unsafe execution                  0/1 (0.0%)       0/1 (0.0%)       0/1 (0.0%)
+
+SAFETY FALLBACK
+------------------------------------------------------------------------------
+Fallback triggered                0/1 (0.0%)       0/1 (0.0%)       0/1 (0.0%)
+Fallback safe (no entry)           N/A (0/0)        N/A (0/0)        N/A (0/0)
+
+STALEGUARD vs NO RECOVERY
+Paired safe mission completion
+------------------------------------------------------------------------------
+Completion benefit         0/1 (0.0%)
+Completion harm            0/1 (0.0%)
+Completion difference      +0.0 percentage points
+
+STALEGUARD vs ALWAYS-RECOVER (StaleGuard minus Always-Recover)
+------------------------------------------------------------------------------
+Safe mission completion difference  +0.0 percentage points
+StaleGuard-only successes           0/1 (0.0%)
+Always-Recover-only successes       0/1 (0.0%)
+Fallback frequency difference       +0.0 percentage points
+==============================================================================
+
+==============================================================================
+D = 0.1s | T = 4.2s | N = 1
+==============================================================================
+
+MISSION OUTCOMES
+                                 No Recovery   Always-Recover       StaleGuard
+------------------------------------------------------------------------------
+Safe mission completion         1/1 (100.0%)       0/1 (0.0%)     1/1 (100.0%)
+Safe mission non-completion       0/1 (0.0%)     1/1 (100.0%)       0/1 (0.0%)
+Unsafe execution                  0/1 (0.0%)       0/1 (0.0%)       0/1 (0.0%)
+
+SAFETY FALLBACK
+------------------------------------------------------------------------------
+Fallback triggered                0/1 (0.0%)     1/1 (100.0%)       0/1 (0.0%)
+Fallback safe (no entry)           N/A (0/0)     1/1 (100.0%)        N/A (0/0)
+
+STALEGUARD vs NO RECOVERY
+Paired safe mission completion
+------------------------------------------------------------------------------
+Completion benefit         0/1 (0.0%)
+Completion harm            0/1 (0.0%)
+Completion difference      +0.0 percentage points
+
+STALEGUARD vs ALWAYS-RECOVER (StaleGuard minus Always-Recover)
+------------------------------------------------------------------------------
+Safe mission completion difference  +100.0 percentage points
+StaleGuard-only successes           1/1 (100.0%)
+Always-Recover-only successes       0/1 (0.0%)
+Fallback frequency difference       -100.0 percentage points
+==============================================================================
+
+==============================================================================
+D = 0.2s | T = 4.2s | N = 1
+==============================================================================
+
+MISSION OUTCOMES
+                                 No Recovery   Always-Recover       StaleGuard
+------------------------------------------------------------------------------
+Safe mission completion           0/1 (0.0%)       0/1 (0.0%)       0/1 (0.0%)
+Safe mission non-completion     1/1 (100.0%)     1/1 (100.0%)     1/1 (100.0%)
+Unsafe execution                  0/1 (0.0%)       0/1 (0.0%)       0/1 (0.0%)
+
+SAFETY FALLBACK
+------------------------------------------------------------------------------
+Fallback triggered                0/1 (0.0%)     1/1 (100.0%)       0/1 (0.0%)
+Fallback safe (no entry)           N/A (0/0)     1/1 (100.0%)        N/A (0/0)
+
+STALEGUARD vs NO RECOVERY
+Paired safe mission completion
+------------------------------------------------------------------------------
+Completion benefit         0/1 (0.0%)
+Completion harm            0/1 (0.0%)
+Completion difference      +0.0 percentage points
+
+STALEGUARD vs ALWAYS-RECOVER (StaleGuard minus Always-Recover)
+------------------------------------------------------------------------------
+Safe mission completion difference  +0.0 percentage points
+StaleGuard-only successes           0/1 (0.0%)
+Always-Recover-only successes       0/1 (0.0%)
+Fallback frequency difference       -100.0 percentage points
+==============================================================================
+
+==============================================================================
+D = 0.3s | T = 4.2s | N = 1
+==============================================================================
+
+MISSION OUTCOMES
+                                 No Recovery   Always-Recover       StaleGuard
+------------------------------------------------------------------------------
+Safe mission completion           0/1 (0.0%)       0/1 (0.0%)       0/1 (0.0%)
+Safe mission non-completion     1/1 (100.0%)     1/1 (100.0%)     1/1 (100.0%)
+Unsafe execution                  0/1 (0.0%)       0/1 (0.0%)       0/1 (0.0%)
+
+SAFETY FALLBACK
+------------------------------------------------------------------------------
+Fallback triggered                0/1 (0.0%)     1/1 (100.0%)       0/1 (0.0%)
+Fallback safe (no entry)           N/A (0/0)     1/1 (100.0%)        N/A (0/0)
+
+STALEGUARD vs NO RECOVERY
+Paired safe mission completion
+------------------------------------------------------------------------------
+Completion benefit         0/1 (0.0%)
+Completion harm            0/1 (0.0%)
+Completion difference      +0.0 percentage points
+
+STALEGUARD vs ALWAYS-RECOVER (StaleGuard minus Always-Recover)
+------------------------------------------------------------------------------
+Safe mission completion difference  +0.0 percentage points
+StaleGuard-only successes           0/1 (0.0%)
+Always-Recover-only successes       0/1 (0.0%)
+Fallback frequency difference       -100.0 percentage points
+==============================================================================
+
+==============================================================================
+D = 0.4s | T = 4.2s | N = 1
+==============================================================================
+
+MISSION OUTCOMES
+                                 No Recovery   Always-Recover       StaleGuard
+------------------------------------------------------------------------------
+Safe mission completion           0/1 (0.0%)       0/1 (0.0%)       0/1 (0.0%)
+Safe mission non-completion     1/1 (100.0%)     1/1 (100.0%)     1/1 (100.0%)
+Unsafe execution                  0/1 (0.0%)       0/1 (0.0%)       0/1 (0.0%)
+
+SAFETY FALLBACK
+------------------------------------------------------------------------------
+Fallback triggered                0/1 (0.0%)     1/1 (100.0%)       0/1 (0.0%)
+Fallback safe (no entry)           N/A (0/0)     1/1 (100.0%)        N/A (0/0)
+
+STALEGUARD vs NO RECOVERY
+Paired safe mission completion
+------------------------------------------------------------------------------
+Completion benefit         0/1 (0.0%)
+Completion harm            0/1 (0.0%)
+Completion difference      +0.0 percentage points
+
+STALEGUARD vs ALWAYS-RECOVER (StaleGuard minus Always-Recover)
+------------------------------------------------------------------------------
+Safe mission completion difference  +0.0 percentage points
+StaleGuard-only successes           0/1 (0.0%)
+Always-Recover-only successes       0/1 (0.0%)
+Fallback frequency difference       -100.0 percentage points
+==============================================================================
+
+==============================================================================
+D = 0.5s | T = 4.2s | N = 1
+==============================================================================
+
+MISSION OUTCOMES
+                                 No Recovery   Always-Recover       StaleGuard
+------------------------------------------------------------------------------
+Safe mission completion           0/1 (0.0%)       0/1 (0.0%)       0/1 (0.0%)
+Safe mission non-completion       0/1 (0.0%)     1/1 (100.0%)     1/1 (100.0%)
+Unsafe execution                1/1 (100.0%)       0/1 (0.0%)       0/1 (0.0%)
+
+SAFETY FALLBACK
+------------------------------------------------------------------------------
+Fallback triggered                0/1 (0.0%)     1/1 (100.0%)     1/1 (100.0%)
+Fallback safe (no entry)           N/A (0/0)     1/1 (100.0%)     1/1 (100.0%)
+
+STALEGUARD vs NO RECOVERY
+Paired safe mission completion
+------------------------------------------------------------------------------
+Completion benefit         0/1 (0.0%)
+Completion harm            0/1 (0.0%)
+Completion difference      +0.0 percentage points
+
+STALEGUARD vs ALWAYS-RECOVER (StaleGuard minus Always-Recover)
+------------------------------------------------------------------------------
+Safe mission completion difference  +0.0 percentage points
+StaleGuard-only successes           0/1 (0.0%)
+Always-Recover-only successes       0/1 (0.0%)
+Fallback frequency difference       +0.0 percentage points
+==============================================================================
+
+==============================================================================
+D = 0.6s | T = 4.2s | N = 1
+==============================================================================
+
+MISSION OUTCOMES
+                                 No Recovery   Always-Recover       StaleGuard
+------------------------------------------------------------------------------
+Safe mission completion           0/1 (0.0%)       0/1 (0.0%)       0/1 (0.0%)
+Safe mission non-completion       0/1 (0.0%)     1/1 (100.0%)     1/1 (100.0%)
+Unsafe execution                1/1 (100.0%)       0/1 (0.0%)       0/1 (0.0%)
+
+SAFETY FALLBACK
+------------------------------------------------------------------------------
+Fallback triggered                0/1 (0.0%)     1/1 (100.0%)     1/1 (100.0%)
+Fallback safe (no entry)           N/A (0/0)     1/1 (100.0%)     1/1 (100.0%)
+
+STALEGUARD vs NO RECOVERY
+Paired safe mission completion
+------------------------------------------------------------------------------
+Completion benefit         0/1 (0.0%)
+Completion harm            0/1 (0.0%)
+Completion difference      +0.0 percentage points
+
+STALEGUARD vs ALWAYS-RECOVER (StaleGuard minus Always-Recover)
+------------------------------------------------------------------------------
+Safe mission completion difference  +0.0 percentage points
+StaleGuard-only successes           0/1 (0.0%)
+Always-Recover-only successes       0/1 (0.0%)
+Fallback frequency difference       +0.0 percentage points
+==============================================================================
+
+==============================================================================
+D = 0.7s | T = 4.2s | N = 1
+==============================================================================
+
+MISSION OUTCOMES
+                                 No Recovery   Always-Recover       StaleGuard
+------------------------------------------------------------------------------
+Safe mission completion           0/1 (0.0%)       0/1 (0.0%)       0/1 (0.0%)
+Safe mission non-completion       0/1 (0.0%)     1/1 (100.0%)     1/1 (100.0%)
+Unsafe execution                1/1 (100.0%)       0/1 (0.0%)       0/1 (0.0%)
+
+SAFETY FALLBACK
+------------------------------------------------------------------------------
+Fallback triggered                0/1 (0.0%)     1/1 (100.0%)     1/1 (100.0%)
+Fallback safe (no entry)           N/A (0/0)     1/1 (100.0%)     1/1 (100.0%)
+
+STALEGUARD vs NO RECOVERY
+Paired safe mission completion
+------------------------------------------------------------------------------
+Completion benefit         0/1 (0.0%)
+Completion harm            0/1 (0.0%)
+Completion difference      +0.0 percentage points
+
+STALEGUARD vs ALWAYS-RECOVER (StaleGuard minus Always-Recover)
+------------------------------------------------------------------------------
+Safe mission completion difference  +0.0 percentage points
+StaleGuard-only successes           0/1 (0.0%)
+Always-Recover-only successes       0/1 (0.0%)
+Fallback frequency difference       +0.0 percentage points
+==============================================================================
+
+==============================================================================
+D = 0.8s | T = 4.2s | N = 1
+==============================================================================
+
+MISSION OUTCOMES
+                                 No Recovery   Always-Recover       StaleGuard
+------------------------------------------------------------------------------
+Safe mission completion           0/1 (0.0%)       0/1 (0.0%)       0/1 (0.0%)
+Safe mission non-completion       0/1 (0.0%)     1/1 (100.0%)     1/1 (100.0%)
+Unsafe execution                1/1 (100.0%)       0/1 (0.0%)       0/1 (0.0%)
+
+SAFETY FALLBACK
+------------------------------------------------------------------------------
+Fallback triggered                0/1 (0.0%)     1/1 (100.0%)     1/1 (100.0%)
+Fallback safe (no entry)           N/A (0/0)     1/1 (100.0%)     1/1 (100.0%)
+
+STALEGUARD vs NO RECOVERY
+Paired safe mission completion
+------------------------------------------------------------------------------
+Completion benefit         0/1 (0.0%)
+Completion harm            0/1 (0.0%)
+Completion difference      +0.0 percentage points
+
+STALEGUARD vs ALWAYS-RECOVER (StaleGuard minus Always-Recover)
+------------------------------------------------------------------------------
+Safe mission completion difference  +0.0 percentage points
+StaleGuard-only successes           0/1 (0.0%)
+Always-Recover-only successes       0/1 (0.0%)
+Fallback frequency difference       +0.0 percentage points
+==============================================================================
+
+==============================================================================
+D = 0.9s | T = 4.2s | N = 1
+==============================================================================
+
+MISSION OUTCOMES
+                                 No Recovery   Always-Recover       StaleGuard
+------------------------------------------------------------------------------
+Safe mission completion           0/1 (0.0%)       0/1 (0.0%)       0/1 (0.0%)
+Safe mission non-completion       0/1 (0.0%)     1/1 (100.0%)     1/1 (100.0%)
+Unsafe execution                1/1 (100.0%)       0/1 (0.0%)       0/1 (0.0%)
+
+SAFETY FALLBACK
+------------------------------------------------------------------------------
+Fallback triggered                0/1 (0.0%)     1/1 (100.0%)     1/1 (100.0%)
+Fallback safe (no entry)           N/A (0/0)     1/1 (100.0%)     1/1 (100.0%)
+
+STALEGUARD vs NO RECOVERY
+Paired safe mission completion
+------------------------------------------------------------------------------
+Completion benefit         0/1 (0.0%)
+Completion harm            0/1 (0.0%)
+Completion difference      +0.0 percentage points
+
+STALEGUARD vs ALWAYS-RECOVER (StaleGuard minus Always-Recover)
+------------------------------------------------------------------------------
+Safe mission completion difference  +0.0 percentage points
+StaleGuard-only successes           0/1 (0.0%)
+Always-Recover-only successes       0/1 (0.0%)
+Fallback frequency difference       +0.0 percentage points
+==============================================================================
+
+==============================================================================
+D = 1.0s | T = 4.2s | N = 1
+==============================================================================
+
+MISSION OUTCOMES
+                                 No Recovery   Always-Recover       StaleGuard
+------------------------------------------------------------------------------
+Safe mission completion           0/1 (0.0%)       0/1 (0.0%)       0/1 (0.0%)
+Safe mission non-completion       0/1 (0.0%)     1/1 (100.0%)     1/1 (100.0%)
+Unsafe execution                1/1 (100.0%)       0/1 (0.0%)       0/1 (0.0%)
+
+SAFETY FALLBACK
+------------------------------------------------------------------------------
+Fallback triggered                0/1 (0.0%)     1/1 (100.0%)     1/1 (100.0%)
+Fallback safe (no entry)           N/A (0/0)     1/1 (100.0%)     1/1 (100.0%)
+
+STALEGUARD vs NO RECOVERY
+Paired safe mission completion
+------------------------------------------------------------------------------
+Completion benefit         0/1 (0.0%)
+Completion harm            0/1 (0.0%)
+Completion difference      +0.0 percentage points
+
+STALEGUARD vs ALWAYS-RECOVER (StaleGuard minus Always-Recover)
+------------------------------------------------------------------------------
+Safe mission completion difference  +0.0 percentage points
+StaleGuard-only successes           0/1 (0.0%)
+Always-Recover-only successes       0/1 (0.0%)
+Fallback frequency difference       +0.0 percentage points
+==============================================================================
+

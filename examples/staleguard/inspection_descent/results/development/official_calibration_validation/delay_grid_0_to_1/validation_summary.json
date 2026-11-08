@@ -1,0 +1,29 @@
+{
+  "delays_seconds": [
+    0.0,
+    0.1,
+    0.2,
+    0.30000000000000004,
+    0.4,
+    0.5,
+    0.6000000000000001,
+    0.7000000000000001,
+    0.8,
+    0.9,
+    1.0
+  ],
+  "ttl_scenarios": 10,
+  "ttl_delay_comparisons": 110,
+  "ttl_ground_truth_simulations": 120,
+  "benefit_seeds_considered": 20,
+  "benefit_feasible_scenarios": 19,
+  "benefit_infeasible_seeds": [
+    16
+  ],
+  "benefit_policy_simulations": 418,
+  "benefit_no_recovery_results_match_earlier_sweep": 209,
+  "benefit_results_match_previous_three_delays": 114,
+  "saved_calibration_json_unchanged": true,
+  "calibration_candidate_lists_unchanged": 2241,
+  "one_simulation_worker": true
+}

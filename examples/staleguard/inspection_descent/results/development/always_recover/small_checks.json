@@ -1,0 +1,7 @@
+{
+  "executed_flights": 55,
+  "existing_policy_trace_matches": 22,
+  "equal_time_recovery_trace_matches": 6,
+  "d0_three_policy_trace_match": true,
+  "controlled_staleguard_compute_time_s": 0.0
+}

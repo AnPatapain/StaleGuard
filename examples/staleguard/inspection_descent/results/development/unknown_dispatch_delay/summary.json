@@ -1,0 +1,723 @@
+{
+  "experiment": "B",
+  "considered": 20,
+  "feasible": 19,
+  "infeasible_seeds": [
+    16
+  ],
+  "policy_executions": 627,
+  "reception_predictions": [
+    {
+      "prediction": {
+        "classification": "FINITE_TTL",
+        "results": [
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE"
+        ],
+        "first_bad_delay": 0.5,
+        "last_safe_delay": 0.4
+      },
+      "computation_s": 0.05660479300422594
+    },
+    {
+      "prediction": {
+        "classification": "FINITE_TTL",
+        "results": [
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE"
+        ],
+        "first_bad_delay": 0.5,
+        "last_safe_delay": 0.4
+      },
+      "computation_s": 0.06194690999836894
+    },
+    {
+      "prediction": {
+        "classification": "FINITE_TTL",
+        "results": [
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE"
+        ],
+        "first_bad_delay": 0.6000000000000001,
+        "last_safe_delay": 0.5
+      },
+      "computation_s": 0.07615604400052689
+    },
+    {
+      "prediction": {
+        "classification": "FINITE_TTL",
+        "results": [
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE"
+        ],
+        "first_bad_delay": 0.7000000000000001,
+        "last_safe_delay": 0.6000000000000001
+      },
+      "computation_s": 0.06971819699538173
+    },
+    {
+      "prediction": {
+        "classification": "FINITE_TTL",
+        "results": [
+          "SAFE",
+          "SAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE"
+        ],
+        "first_bad_delay": 0.2,
+        "last_safe_delay": 0.1
+      },
+      "computation_s": 0.035414182995737065
+    },
+    {
+      "prediction": {
+        "classification": "FINITE_TTL",
+        "results": [
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE"
+        ],
+        "first_bad_delay": 0.4,
+        "last_safe_delay": 0.30000000000000004
+      },
+      "computation_s": 0.042338189006841276
+    },
+    {
+      "prediction": {
+        "classification": "FINITE_TTL",
+        "results": [
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE"
+        ],
+        "first_bad_delay": 0.4,
+        "last_safe_delay": 0.30000000000000004
+      },
+      "computation_s": 0.045748384000035
+    },
+    {
+      "prediction": {
+        "classification": "FINITE_TTL",
+        "results": [
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE"
+        ],
+        "first_bad_delay": 0.5,
+        "last_safe_delay": 0.4
+      },
+      "computation_s": 0.06601240199961467
+    },
+    {
+      "prediction": {
+        "classification": "FINITE_TTL",
+        "results": [
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE"
+        ],
+        "first_bad_delay": 0.5,
+        "last_safe_delay": 0.4
+      },
+      "computation_s": 0.06365155000094092
+    },
+    {
+      "prediction": {
+        "classification": "FINITE_TTL",
+        "results": [
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE"
+        ],
+        "first_bad_delay": 0.4,
+        "last_safe_delay": 0.30000000000000004
+      },
+      "computation_s": 0.04191852300573373
+    },
+    {
+      "prediction": {
+        "classification": "FINITE_TTL",
+        "results": [
+          "SAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE"
+        ],
+        "first_bad_delay": 0.1,
+        "last_safe_delay": 0.0
+      },
+      "computation_s": 0.03130072699423181
+    },
+    {
+      "prediction": {
+        "classification": "FINITE_TTL",
+        "results": [
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE"
+        ],
+        "first_bad_delay": 0.7000000000000001,
+        "last_safe_delay": 0.6000000000000001
+      },
+      "computation_s": 0.07013991400162922
+    },
+    {
+      "prediction": {
+        "classification": "FINITE_TTL",
+        "results": [
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE"
+        ],
+        "first_bad_delay": 0.5,
+        "last_safe_delay": 0.4
+      },
+      "computation_s": 0.06170542699692305
+    },
+    {
+      "prediction": {
+        "classification": "FINITE_TTL",
+        "results": [
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE"
+        ],
+        "first_bad_delay": 0.4,
+        "last_safe_delay": 0.30000000000000004
+      },
+      "computation_s": 0.06197386799613014
+    },
+    {
+      "prediction": {
+        "classification": "FINITE_TTL",
+        "results": [
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE"
+        ],
+        "first_bad_delay": 0.30000000000000004,
+        "last_safe_delay": 0.2
+      },
+      "computation_s": 0.05110744499688735
+    },
+    {
+      "prediction": {
+        "classification": "FINITE_TTL",
+        "results": [
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE"
+        ],
+        "first_bad_delay": 0.30000000000000004,
+        "last_safe_delay": 0.2
+      },
+      "computation_s": 0.060139104003610555
+    },
+    {
+      "prediction": {
+        "classification": "FINITE_TTL",
+        "results": [
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE"
+        ],
+        "first_bad_delay": 0.30000000000000004,
+        "last_safe_delay": 0.2
+      },
+      "computation_s": 0.04559553600120125
+    },
+    {
+      "prediction": {
+        "classification": "FINITE_TTL",
+        "results": [
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE"
+        ],
+        "first_bad_delay": 0.4,
+        "last_safe_delay": 0.30000000000000004
+      },
+      "computation_s": 0.062221120002504904
+    },
+    {
+      "prediction": {
+        "classification": "FINITE_TTL",
+        "results": [
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE"
+        ],
+        "first_bad_delay": 0.6000000000000001,
+        "last_safe_delay": 0.5
+      },
+      "computation_s": 0.07151177599735092
+    }
+  ],
+  "baseline_trace_matches": 418,
+  "same_outcomes_as_A": 627,
+  "peak_rss_mib": 1045.734375,
+  "metrics": [
+    {
+      "delay_s": 0.0,
+      "N": 19,
+      "policies": {
+        "StaleGuard": {
+          "safe_completion": 19,
+          "safe_non_completion": 0,
+          "unsafe": 0,
+          "recoveries": 0,
+          "recovery_safe": 0
+        },
+        "No Recovery": {
+          "safe_completion": 19,
+          "safe_non_completion": 0,
+          "unsafe": 0,
+          "recoveries": 0,
+          "recovery_safe": 0
+        },
+        "Always-Recover": {
+          "safe_completion": 19,
+          "safe_non_completion": 0,
+          "unsafe": 0,
+          "recoveries": 0,
+          "recovery_safe": 0
+        }
+      },
+      "prediction_not_ready": 19
+    },
+    {
+      "delay_s": 0.1,
+      "N": 19,
+      "policies": {
+        "StaleGuard": {
+          "safe_completion": 16,
+          "safe_non_completion": 3,
+          "unsafe": 0,
+          "recoveries": 1,
+          "recovery_safe": 1
+        },
+        "No Recovery": {
+          "safe_completion": 16,
+          "safe_non_completion": 2,
+          "unsafe": 1,
+          "recoveries": 0,
+          "recovery_safe": 0
+        },
+        "Always-Recover": {
+          "safe_completion": 0,
+          "safe_non_completion": 19,
+          "unsafe": 0,
+          "recoveries": 19,
+          "recovery_safe": 19
+        }
+      },
+      "prediction_not_ready": 0
+    },
+    {
+      "delay_s": 0.2,
+      "N": 19,
+      "policies": {
+        "StaleGuard": {
+          "safe_completion": 12,
+          "safe_non_completion": 7,
+          "unsafe": 0,
+          "recoveries": 2,
+          "recovery_safe": 2
+        },
+        "No Recovery": {
+          "safe_completion": 12,
+          "safe_non_completion": 5,
+          "unsafe": 2,
+          "recoveries": 0,
+          "recovery_safe": 0
+        },
+        "Always-Recover": {
+          "safe_completion": 0,
+          "safe_non_completion": 19,
+          "unsafe": 0,
+          "recoveries": 19,
+          "recovery_safe": 19
+        }
+      },
+      "prediction_not_ready": 0
+    },
+    {
+      "delay_s": 0.30000000000000004,
+      "N": 19,
+      "policies": {
+        "StaleGuard": {
+          "safe_completion": 5,
+          "safe_non_completion": 13,
+          "unsafe": 1,
+          "recoveries": 5,
+          "recovery_safe": 5
+        },
+        "No Recovery": {
+          "safe_completion": 5,
+          "safe_non_completion": 8,
+          "unsafe": 6,
+          "recoveries": 0,
+          "recovery_safe": 0
+        },
+        "Always-Recover": {
+          "safe_completion": 0,
+          "safe_non_completion": 19,
+          "unsafe": 0,
+          "recoveries": 19,
+          "recovery_safe": 19
+        }
+      },
+      "prediction_not_ready": 0
+    },
+    {
+      "delay_s": 0.4,
+      "N": 19,
+      "policies": {
+        "StaleGuard": {
+          "safe_completion": 3,
+          "safe_non_completion": 14,
+          "unsafe": 2,
+          "recoveries": 10,
+          "recovery_safe": 10
+        },
+        "No Recovery": {
+          "safe_completion": 3,
+          "safe_non_completion": 4,
+          "unsafe": 12,
+          "recoveries": 0,
+          "recovery_safe": 0
+        },
+        "Always-Recover": {
+          "safe_completion": 0,
+          "safe_non_completion": 19,
+          "unsafe": 0,
+          "recoveries": 19,
+          "recovery_safe": 19
+        }
+      },
+      "prediction_not_ready": 0
+    },
+    {
+      "delay_s": 0.5,
+      "N": 19,
+      "policies": {
+        "StaleGuard": {
+          "safe_completion": 3,
+          "safe_non_completion": 16,
+          "unsafe": 0,
+          "recoveries": 15,
+          "recovery_safe": 15
+        },
+        "No Recovery": {
+          "safe_completion": 3,
+          "safe_non_completion": 2,
+          "unsafe": 14,
+          "recoveries": 0,
+          "recovery_safe": 0
+        },
+        "Always-Recover": {
+          "safe_completion": 0,
+          "safe_non_completion": 19,
+          "unsafe": 0,
+          "recoveries": 19,
+          "recovery_safe": 19
+        }
+      },
+      "prediction_not_ready": 0
+    },
+    {
+      "delay_s": 0.6000000000000001,
+      "N": 19,
+      "policies": {
+        "StaleGuard": {
+          "safe_completion": 1,
+          "safe_non_completion": 18,
+          "unsafe": 0,
+          "recoveries": 17,
+          "recovery_safe": 17
+        },
+        "No Recovery": {
+          "safe_completion": 1,
+          "safe_non_completion": 1,
+          "unsafe": 17,
+          "recoveries": 0,
+          "recovery_safe": 0
+        },
+        "Always-Recover": {
+          "safe_completion": 0,
+          "safe_non_completion": 19,
+          "unsafe": 0,
+          "recoveries": 19,
+          "recovery_safe": 19
+        }
+      },
+      "prediction_not_ready": 0
+    },
+    {
+      "delay_s": 0.7000000000000001,
+      "N": 19,
+      "policies": {
+        "StaleGuard": {
+          "safe_completion": 0,
+          "safe_non_completion": 19,
+          "unsafe": 0,
+          "recoveries": 19,
+          "recovery_safe": 19
+        },
+        "No Recovery": {
+          "safe_completion": 0,
+          "safe_non_completion": 0,
+          "unsafe": 19,
+          "recoveries": 0,
+          "recovery_safe": 0
+        },
+        "Always-Recover": {
+          "safe_completion": 0,
+          "safe_non_completion": 19,
+          "unsafe": 0,
+          "recoveries": 19,
+          "recovery_safe": 19
+        }
+      },
+      "prediction_not_ready": 0
+    },
+    {
+      "delay_s": 0.8,
+      "N": 19,
+      "policies": {
+        "StaleGuard": {
+          "safe_completion": 0,
+          "safe_non_completion": 19,
+          "unsafe": 0,
+          "recoveries": 19,
+          "recovery_safe": 19
+        },
+        "No Recovery": {
+          "safe_completion": 0,
+          "safe_non_completion": 0,
+          "unsafe": 19,
+          "recoveries": 0,
+          "recovery_safe": 0
+        },
+        "Always-Recover": {
+          "safe_completion": 0,
+          "safe_non_completion": 19,
+          "unsafe": 0,
+          "recoveries": 19,
+          "recovery_safe": 19
+        }
+      },
+      "prediction_not_ready": 0
+    },
+    {
+      "delay_s": 0.9,
+      "N": 19,
+      "policies": {
+        "StaleGuard": {
+          "safe_completion": 0,
+          "safe_non_completion": 19,
+          "unsafe": 0,
+          "recoveries": 19,
+          "recovery_safe": 19
+        },
+        "No Recovery": {
+          "safe_completion": 0,
+          "safe_non_completion": 0,
+          "unsafe": 19,
+          "recoveries": 0,
+          "recovery_safe": 0
+        },
+        "Always-Recover": {
+          "safe_completion": 0,
+          "safe_non_completion": 19,
+          "unsafe": 0,
+          "recoveries": 19,
+          "recovery_safe": 19
+        }
+      },
+      "prediction_not_ready": 0
+    },
+    {
+      "delay_s": 1.0,
+      "N": 19,
+      "policies": {
+        "StaleGuard": {
+          "safe_completion": 0,
+          "safe_non_completion": 19,
+          "unsafe": 0,
+          "recoveries": 19,
+          "recovery_safe": 19
+        },
+        "No Recovery": {
+          "safe_completion": 0,
+          "safe_non_completion": 0,
+          "unsafe": 19,
+          "recoveries": 0,
+          "recovery_safe": 0
+        },
+        "Always-Recover": {
+          "safe_completion": 0,
+          "safe_non_completion": 19,
+          "unsafe": 0,
+          "recoveries": 19,
+          "recovery_safe": 19
+        }
+      },
+      "prediction_not_ready": 0
+    }
+  ]
+}

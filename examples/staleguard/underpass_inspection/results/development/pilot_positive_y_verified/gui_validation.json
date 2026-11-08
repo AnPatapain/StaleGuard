@@ -1,0 +1,106 @@
+{
+  "camera": {
+    "distance": 3.4,
+    "yaw": -35.0,
+    "pitch": -20.0,
+    "target": [
+      2.2,
+      0.25,
+      1.0
+    ]
+  },
+  "floor_checks": [
+    {
+      "default_floor_visual_unchanged": true,
+      "material_and_texture": "((0, -1, 5, (1.0, 1.0, 1.0), b'/home/kean/miniconda3/envs/scg/lib/python3.10/site-packages/pybullet_data/plane100.obj', (0.0, 0.0, 0.0), (0.0, 0.0, 0.0, 1.0), (1.0, 1.0, 1.0, 1.0), 2),)"
+    },
+    {
+      "default_floor_visual_unchanged": true,
+      "material_and_texture": "((0, -1, 5, (1.0, 1.0, 1.0), b'/home/kean/miniconda3/envs/scg/lib/python3.10/site-packages/pybullet_data/plane100.obj', (0.0, 0.0, 0.0), (0.0, 0.0, 0.0, 1.0), (1.0, 1.0, 1.0, 1.0), 2),)"
+    },
+    {
+      "default_floor_visual_unchanged": true,
+      "material_and_texture": "((0, -1, 5, (1.0, 1.0, 1.0), b'/home/kean/miniconda3/envs/scg/lib/python3.10/site-packages/pybullet_data/plane100.obj', (0.0, 0.0, 0.0), (0.0, 0.0, 0.0, 1.0), (1.0, 1.0, 1.0, 1.0), 2),)"
+    },
+    {
+      "default_floor_visual_unchanged": true,
+      "material_and_texture": "((0, -1, 5, (1.0, 1.0, 1.0), b'/home/kean/miniconda3/envs/scg/lib/python3.10/site-packages/pybullet_data/plane100.obj', (0.0, 0.0, 0.0), (0.0, 0.0, 0.0, 1.0), (1.0, 1.0, 1.0, 1.0), 2),)"
+    },
+    {
+      "default_floor_visual_unchanged": true,
+      "material_and_texture": "((0, -1, 5, (1.0, 1.0, 1.0), b'/home/kean/miniconda3/envs/scg/lib/python3.10/site-packages/pybullet_data/plane100.obj', (0.0, 0.0, 0.0), (0.0, 0.0, 0.0, 1.0), (1.0, 1.0, 1.0, 1.0), 2),)"
+    }
+  ],
+  "replays": [
+    {
+      "mode": "dive",
+      "start_s": 0.0,
+      "overlay_all": false,
+      "exact_headless_match": true,
+      "safe": true,
+      "safe_completion": true,
+      "min_clearance_m": 0.14654305943739265,
+      "world_y_final_m": 0.847839000572763,
+      "world_y_peak_m": 1.0412536728736848,
+      "world_vy_min_mps": -0.620494559072665,
+      "world_vy_max_mps": 1.8222138818289257,
+      "screenshot": "gui/dive_0.png"
+    },
+    {
+      "mode": "dive",
+      "start_s": 0.4,
+      "overlay_all": false,
+      "exact_headless_match": true,
+      "safe": false,
+      "safe_completion": false,
+      "min_clearance_m": -0.08852270331993607,
+      "world_y_final_m": 0.8528160821191644,
+      "world_y_peak_m": 1.0430035529351593,
+      "world_vy_min_mps": -0.6031508175047768,
+      "world_vy_max_mps": 1.8255540943960222,
+      "screenshot": "gui/dive_delayed.png"
+    },
+    {
+      "mode": "climb",
+      "start_s": 0.5,
+      "overlay_all": false,
+      "exact_headless_match": true,
+      "safe": true,
+      "safe_completion": false,
+      "min_clearance_m": 0.4138377418516983,
+      "world_y_final_m": 0.0010357010403405484,
+      "world_y_peak_m": 0.010773535095347246,
+      "world_vy_min_mps": -0.04967519180478089,
+      "world_vy_max_mps": 0.04492719920127038,
+      "screenshot": "gui/climb.png"
+    },
+    {
+      "mode": "sideways",
+      "start_s": 0.5,
+      "overlay_all": false,
+      "exact_headless_match": true,
+      "safe": true,
+      "safe_completion": false,
+      "min_clearance_m": 0.2999388255262098,
+      "world_y_final_m": 1.0017092938734908,
+      "world_y_peak_m": 1.1955658032636585,
+      "world_vy_min_mps": -0.5972428631169049,
+      "world_vy_max_mps": 1.9491000291048146,
+      "screenshot": "gui/sideways.png"
+    },
+    {
+      "mode": "dive",
+      "start_s": 0.0,
+      "overlay_all": true,
+      "exact_headless_match": true,
+      "safe": true,
+      "safe_completion": true,
+      "min_clearance_m": 0.14654305943739265,
+      "world_y_final_m": 0.847839000572763,
+      "world_y_peak_m": 1.0412536728736848,
+      "world_vy_min_mps": -0.620494559072665,
+      "world_vy_max_mps": 1.8222138818289257,
+      "screenshot": "gui/overlay.png"
+    }
+  ]
+}

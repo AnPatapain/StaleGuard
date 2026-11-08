@@ -1,0 +1,2 @@
+pybullet build time: Jan 29 2025 23:16:28
+PASS: boundary executions, original dispatch times, no late cancellation, and preserved inputs/results.

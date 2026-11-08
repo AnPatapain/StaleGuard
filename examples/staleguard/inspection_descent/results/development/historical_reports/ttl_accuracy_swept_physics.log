@@ -1,0 +1,450 @@
+Ground truth: reused 228 measured serial 1,000 Hz PyBullet flights; snapshots unchanged.
+Scenario source: calibrated_scenarios.json (maximum D=0 dwell)
+Calibration feasible: 19/20
+Infeasible seeds: [16]
+Accuracy metrics use only the feasible scenarios.
+
+SCENARIO 0
+speed=0.65 m/s, height=1.22 m
+structure x=[0.83, 1.13], unsafe z<=1.02
+approval=0.00s, command: z=0.89m for 0.86s
+delay   predicted      actual
+ 0.0s   SAFE           SAFE
+ 0.1s   SAFE           SAFE
+ 0.2s   SAFE           SAFE
+ 0.3s   SAFE           SAFE
+ 0.4s   SAFE           SAFE
+ 0.5s   UNSAFE         UNSAFE
+ 0.6s   UNSAFE         UNSAFE
+ 0.7s   UNSAFE         UNSAFE
+ 0.8s   UNSAFE         UNSAFE
+ 0.9s   UNSAFE         UNSAFE
+ 1.0s   UNSAFE         UNSAFE
+class: FINITE_TTL / FINITE_TTL
+first bad: 0.5 / 0.5
+last safe: 0.4 / 0.4
+TTL error: +0.000s
+StaleGuard prediction time: 46.9 ms
+
+SCENARIO 1
+speed=0.60 m/s, height=1.39 m
+structure x=[0.90, 1.49], unsafe z<=0.95
+approval=0.00s, command: z=0.70m for 1.00s
+delay   predicted      actual
+ 0.0s   SAFE           SAFE
+ 0.1s   SAFE           SAFE
+ 0.2s   SAFE           SAFE
+ 0.3s   SAFE           SAFE
+ 0.4s   SAFE           SAFE
+ 0.5s   UNSAFE         UNSAFE
+ 0.6s   UNSAFE         UNSAFE
+ 0.7s   UNSAFE         UNSAFE
+ 0.8s   UNSAFE         UNSAFE
+ 0.9s   UNSAFE         UNSAFE
+ 1.0s   UNSAFE         UNSAFE
+class: FINITE_TTL / FINITE_TTL
+first bad: 0.5 / 0.5
+last safe: 0.4 / 0.4
+TTL error: +0.000s
+StaleGuard prediction time: 82.6 ms
+
+SCENARIO 2
+speed=0.50 m/s, height=1.22 m
+structure x=[1.37, 1.70], unsafe z<=0.99
+approval=0.06s, command: z=0.81m for 2.02s
+delay   predicted      actual
+ 0.0s   SAFE           SAFE
+ 0.1s   SAFE           SAFE
+ 0.2s   SAFE           SAFE
+ 0.3s   SAFE           SAFE
+ 0.4s   SAFE           SAFE
+ 0.5s   SAFE           SAFE
+ 0.6s   UNSAFE         UNSAFE
+ 0.7s   UNSAFE         UNSAFE
+ 0.8s   UNSAFE         UNSAFE
+ 0.9s   UNSAFE         UNSAFE
+ 1.0s   UNSAFE         UNSAFE
+class: FINITE_TTL / FINITE_TTL
+first bad: 0.6000000000000001 / 0.6000000000000001
+last safe: 0.5 / 0.5
+TTL error: +0.000s
+StaleGuard prediction time: 208.0 ms
+
+SCENARIO 3
+speed=0.43 m/s, height=1.21 m
+structure x=[1.36, 1.84], unsafe z<=0.91
+approval=0.14s, command: z=0.69m for 2.28s
+delay   predicted      actual
+ 0.0s   SAFE           SAFE
+ 0.1s   SAFE           SAFE
+ 0.2s   SAFE           SAFE
+ 0.3s   SAFE           SAFE
+ 0.4s   SAFE           SAFE
+ 0.5s   SAFE           SAFE
+ 0.6s   SAFE           SAFE
+ 0.7s   UNSAFE         UNSAFE
+ 0.8s   UNSAFE         UNSAFE
+ 0.9s   UNSAFE         UNSAFE
+ 1.0s   UNSAFE         UNSAFE
+class: FINITE_TTL / FINITE_TTL
+first bad: 0.7000000000000001 / 0.7000000000000001
+last safe: 0.6000000000000001 / 0.6000000000000001
+TTL error: +0.000s
+StaleGuard prediction time: 199.3 ms
+
+SCENARIO 4
+speed=0.78 m/s, height=1.28 m
+structure x=[1.48, 1.81], unsafe z<=0.99
+approval=0.22s, command: z=0.71m for 1.38s
+delay   predicted      actual
+ 0.0s   SAFE           SAFE
+ 0.1s   SAFE           SAFE
+ 0.2s   UNSAFE         UNSAFE
+ 0.3s   UNSAFE         UNSAFE
+ 0.4s   UNSAFE         UNSAFE
+ 0.5s   UNSAFE         UNSAFE
+ 0.6s   UNSAFE         UNSAFE
+ 0.7s   UNSAFE         UNSAFE
+ 0.8s   UNSAFE         UNSAFE
+ 0.9s   UNSAFE         UNSAFE
+ 1.0s   UNSAFE         UNSAFE
+class: FINITE_TTL / FINITE_TTL
+first bad: 0.2 / 0.2
+last safe: 0.1 / 0.1
+TTL error: +0.000s
+StaleGuard prediction time: 107.2 ms
+
+SCENARIO 5
+speed=0.72 m/s, height=1.35 m
+structure x=[1.16, 1.55], unsafe z<=0.91
+approval=0.10s, command: z=0.68m for 1.14s
+delay   predicted      actual
+ 0.0s   SAFE           SAFE
+ 0.1s   SAFE           SAFE
+ 0.2s   SAFE           SAFE
+ 0.3s   SAFE           SAFE
+ 0.4s   UNSAFE         UNSAFE
+ 0.5s   UNSAFE         UNSAFE
+ 0.6s   UNSAFE         UNSAFE
+ 0.7s   UNSAFE         UNSAFE
+ 0.8s   UNSAFE         UNSAFE
+ 0.9s   UNSAFE         UNSAFE
+ 1.0s   UNSAFE         UNSAFE
+class: FINITE_TTL / FINITE_TTL
+first bad: 0.4 / 0.4
+last safe: 0.30000000000000004 / 0.30000000000000004
+TTL error: +0.000s
+StaleGuard prediction time: 143.0 ms
+
+SCENARIO 6
+speed=0.62 m/s, height=1.24 m
+structure x=[1.06, 1.47], unsafe z<=1.05
+approval=0.20s, command: z=0.82m for 1.00s
+delay   predicted      actual
+ 0.0s   SAFE           SAFE
+ 0.1s   SAFE           SAFE
+ 0.2s   SAFE           SAFE
+ 0.3s   SAFE           SAFE
+ 0.4s   UNSAFE         UNSAFE
+ 0.5s   UNSAFE         UNSAFE
+ 0.6s   UNSAFE         UNSAFE
+ 0.7s   UNSAFE         UNSAFE
+ 0.8s   UNSAFE         UNSAFE
+ 0.9s   UNSAFE         UNSAFE
+ 1.0s   UNSAFE         UNSAFE
+class: FINITE_TTL / FINITE_TTL
+first bad: 0.4 / 0.4
+last safe: 0.30000000000000004 / 0.30000000000000004
+TTL error: +0.000s
+StaleGuard prediction time: 144.8 ms
+
+SCENARIO 7
+speed=0.65 m/s, height=1.37 m
+structure x=[1.34, 1.71], unsafe z<=0.95
+approval=0.40s, command: z=0.81m for 1.30s
+delay   predicted      actual
+ 0.0s   SAFE           SAFE
+ 0.1s   SAFE           SAFE
+ 0.2s   SAFE           SAFE
+ 0.3s   SAFE           SAFE
+ 0.4s   SAFE           UNSAFE
+ 0.5s   UNSAFE         UNSAFE
+ 0.6s   UNSAFE         UNSAFE
+ 0.7s   UNSAFE         UNSAFE
+ 0.8s   UNSAFE         UNSAFE
+ 0.9s   UNSAFE         UNSAFE
+ 1.0s   UNSAFE         UNSAFE
+class: FINITE_TTL / FINITE_TTL
+first bad: 0.5 / 0.4
+last safe: 0.4 / 0.30000000000000004
+TTL error: +0.100s
+StaleGuard prediction time: 165.1 ms
+
+SCENARIO 8
+speed=0.53 m/s, height=1.40 m
+structure x=[1.02, 1.56], unsafe z<=1.03
+approval=0.06s, command: z=0.73m for 1.36s
+delay   predicted      actual
+ 0.0s   SAFE           SAFE
+ 0.1s   SAFE           SAFE
+ 0.2s   SAFE           SAFE
+ 0.3s   SAFE           SAFE
+ 0.4s   SAFE           UNSAFE
+ 0.5s   UNSAFE         UNSAFE
+ 0.6s   UNSAFE         UNSAFE
+ 0.7s   UNSAFE         UNSAFE
+ 0.8s   UNSAFE         UNSAFE
+ 0.9s   UNSAFE         UNSAFE
+ 1.0s   UNSAFE         UNSAFE
+class: FINITE_TTL / FINITE_TTL
+first bad: 0.5 / 0.4
+last safe: 0.4 / 0.30000000000000004
+TTL error: +0.100s
+StaleGuard prediction time: 171.2 ms
+
+SCENARIO 9
+speed=0.75 m/s, height=1.22 m
+structure x=[1.22, 1.76], unsafe z<=1.01
+approval=0.20s, command: z=0.88m for 1.12s
+delay   predicted      actual
+ 0.0s   SAFE           SAFE
+ 0.1s   SAFE           SAFE
+ 0.2s   SAFE           SAFE
+ 0.3s   UNSAFE         UNSAFE
+ 0.4s   UNSAFE         UNSAFE
+ 0.5s   UNSAFE         UNSAFE
+ 0.6s   UNSAFE         UNSAFE
+ 0.7s   UNSAFE         UNSAFE
+ 0.8s   UNSAFE         UNSAFE
+ 0.9s   UNSAFE         UNSAFE
+ 1.0s   UNSAFE         UNSAFE
+class: FINITE_TTL / FINITE_TTL
+first bad: 0.30000000000000004 / 0.30000000000000004
+last safe: 0.2 / 0.2
+TTL error: +0.000s
+StaleGuard prediction time: 121.1 ms
+
+SCENARIO 10
+speed=0.78 m/s, height=1.20 m
+structure x=[1.38, 1.72], unsafe z<=0.98
+approval=0.22s, command: z=0.64m for 1.32s
+delay   predicted      actual
+ 0.0s   UNSAFE         SAFE
+ 0.1s   UNSAFE         UNSAFE
+ 0.2s   UNSAFE         UNSAFE
+ 0.3s   UNSAFE         UNSAFE
+ 0.4s   UNSAFE         UNSAFE
+ 0.5s   UNSAFE         UNSAFE
+ 0.6s   UNSAFE         UNSAFE
+ 0.7s   UNSAFE         UNSAFE
+ 0.8s   UNSAFE         UNSAFE
+ 0.9s   UNSAFE         UNSAFE
+ 1.0s   UNSAFE         UNSAFE
+class: INVALID_AT_APPROVAL / FINITE_TTL
+first bad: 0.0 / 0.1
+last safe: None / 0.0
+StaleGuard prediction time: 60.5 ms
+
+SCENARIO 11
+speed=0.45 m/s, height=1.27 m
+structure x=[1.22, 1.53], unsafe z<=0.92
+approval=0.58s, command: z=0.81m for 1.54s
+delay   predicted      actual
+ 0.0s   SAFE           SAFE
+ 0.1s   SAFE           SAFE
+ 0.2s   SAFE           SAFE
+ 0.3s   SAFE           SAFE
+ 0.4s   SAFE           SAFE
+ 0.5s   SAFE           SAFE
+ 0.6s   SAFE           SAFE
+ 0.7s   UNSAFE         UNSAFE
+ 0.8s   UNSAFE         UNSAFE
+ 0.9s   UNSAFE         UNSAFE
+ 1.0s   UNSAFE         UNSAFE
+class: FINITE_TTL / FINITE_TTL
+first bad: 0.7000000000000001 / 0.7000000000000001
+last safe: 0.6000000000000001 / 0.6000000000000001
+TTL error: +0.000s
+StaleGuard prediction time: 161.1 ms
+
+SCENARIO 12
+speed=0.50 m/s, height=1.39 m
+structure x=[0.93, 1.29], unsafe z<=0.95
+approval=0.00s, command: z=0.66m for 1.30s
+delay   predicted      actual
+ 0.0s   SAFE           SAFE
+ 0.1s   SAFE           SAFE
+ 0.2s   SAFE           SAFE
+ 0.3s   SAFE           SAFE
+ 0.4s   SAFE           SAFE
+ 0.5s   UNSAFE         SAFE
+ 0.6s   UNSAFE         UNSAFE
+ 0.7s   UNSAFE         UNSAFE
+ 0.8s   UNSAFE         UNSAFE
+ 0.9s   UNSAFE         UNSAFE
+ 1.0s   UNSAFE         UNSAFE
+class: FINITE_TTL / FINITE_TTL
+first bad: 0.5 / 0.6000000000000001
+last safe: 0.4 / 0.5
+TTL error: -0.100s
+StaleGuard prediction time: 141.2 ms
+
+SCENARIO 13
+speed=0.75 m/s, height=1.36 m
+structure x=[1.37, 1.75], unsafe z<=0.91
+approval=0.28s, command: z=0.80m for 1.26s
+delay   predicted      actual
+ 0.0s   SAFE           SAFE
+ 0.1s   SAFE           SAFE
+ 0.2s   SAFE           SAFE
+ 0.3s   SAFE           SAFE
+ 0.4s   UNSAFE         UNSAFE
+ 0.5s   UNSAFE         UNSAFE
+ 0.6s   UNSAFE         UNSAFE
+ 0.7s   UNSAFE         UNSAFE
+ 0.8s   UNSAFE         UNSAFE
+ 0.9s   UNSAFE         UNSAFE
+ 1.0s   UNSAFE         UNSAFE
+class: FINITE_TTL / FINITE_TTL
+first bad: 0.4 / 0.4
+last safe: 0.30000000000000004 / 0.30000000000000004
+TTL error: +0.000s
+StaleGuard prediction time: 117.7 ms
+
+SCENARIO 14
+speed=0.73 m/s, height=1.24 m
+structure x=[1.29, 1.85], unsafe z<=1.00
+approval=0.26s, command: z=0.76m for 1.16s
+delay   predicted      actual
+ 0.0s   SAFE           SAFE
+ 0.1s   SAFE           SAFE
+ 0.2s   SAFE           SAFE
+ 0.3s   UNSAFE         UNSAFE
+ 0.4s   UNSAFE         UNSAFE
+ 0.5s   UNSAFE         UNSAFE
+ 0.6s   UNSAFE         UNSAFE
+ 0.7s   UNSAFE         UNSAFE
+ 0.8s   UNSAFE         UNSAFE
+ 0.9s   UNSAFE         UNSAFE
+ 1.0s   UNSAFE         UNSAFE
+class: FINITE_TTL / FINITE_TTL
+first bad: 0.30000000000000004 / 0.30000000000000004
+last safe: 0.2 / 0.2
+TTL error: +0.000s
+StaleGuard prediction time: 73.2 ms
+
+SCENARIO 15
+speed=0.68 m/s, height=1.35 m
+structure x=[1.04, 1.35], unsafe z<=0.99
+approval=0.00s, command: z=0.64m for 1.14s
+delay   predicted      actual
+ 0.0s   SAFE           SAFE
+ 0.1s   SAFE           SAFE
+ 0.2s   SAFE           SAFE
+ 0.3s   UNSAFE         UNSAFE
+ 0.4s   UNSAFE         UNSAFE
+ 0.5s   UNSAFE         UNSAFE
+ 0.6s   UNSAFE         UNSAFE
+ 0.7s   UNSAFE         UNSAFE
+ 0.8s   UNSAFE         UNSAFE
+ 0.9s   UNSAFE         UNSAFE
+ 1.0s   UNSAFE         UNSAFE
+class: FINITE_TTL / FINITE_TTL
+first bad: 0.30000000000000004 / 0.30000000000000004
+last safe: 0.2 / 0.2
+TTL error: +0.000s
+StaleGuard prediction time: 69.1 ms
+
+SCENARIO 17
+speed=0.74 m/s, height=1.19 m
+structure x=[1.19, 1.60], unsafe z<=0.93
+approval=0.20s, command: z=0.69m for 1.06s
+delay   predicted      actual
+ 0.0s   SAFE           SAFE
+ 0.1s   SAFE           SAFE
+ 0.2s   SAFE           SAFE
+ 0.3s   UNSAFE         UNSAFE
+ 0.4s   UNSAFE         UNSAFE
+ 0.5s   UNSAFE         UNSAFE
+ 0.6s   UNSAFE         UNSAFE
+ 0.7s   UNSAFE         UNSAFE
+ 0.8s   UNSAFE         UNSAFE
+ 0.9s   UNSAFE         UNSAFE
+ 1.0s   UNSAFE         UNSAFE
+class: FINITE_TTL / FINITE_TTL
+first bad: 0.30000000000000004 / 0.30000000000000004
+last safe: 0.2 / 0.2
+TTL error: +0.000s
+StaleGuard prediction time: 62.1 ms
+
+SCENARIO 18
+speed=0.56 m/s, height=1.33 m
+structure x=[1.00, 1.32], unsafe z<=1.05
+approval=0.00s, command: z=0.79m for 1.28s
+delay   predicted      actual
+ 0.0s   SAFE           SAFE
+ 0.1s   SAFE           SAFE
+ 0.2s   SAFE           SAFE
+ 0.3s   SAFE           SAFE
+ 0.4s   UNSAFE         UNSAFE
+ 0.5s   UNSAFE         UNSAFE
+ 0.6s   UNSAFE         UNSAFE
+ 0.7s   UNSAFE         UNSAFE
+ 0.8s   UNSAFE         UNSAFE
+ 0.9s   UNSAFE         UNSAFE
+ 1.0s   UNSAFE         UNSAFE
+class: FINITE_TTL / FINITE_TTL
+first bad: 0.4 / 0.4
+last safe: 0.30000000000000004 / 0.30000000000000004
+TTL error: +0.000s
+StaleGuard prediction time: 81.7 ms
+
+SCENARIO 19
+speed=0.57 m/s, height=1.38 m
+structure x=[0.99, 1.31], unsafe z<=0.95
+approval=0.04s, command: z=0.78m for 1.16s
+delay   predicted      actual
+ 0.0s   SAFE           SAFE
+ 0.1s   SAFE           SAFE
+ 0.2s   SAFE           SAFE
+ 0.3s   SAFE           SAFE
+ 0.4s   SAFE           SAFE
+ 0.5s   SAFE           SAFE
+ 0.6s   UNSAFE         UNSAFE
+ 0.7s   UNSAFE         UNSAFE
+ 0.8s   UNSAFE         UNSAFE
+ 0.9s   UNSAFE         UNSAFE
+ 1.0s   UNSAFE         UNSAFE
+class: FINITE_TTL / FINITE_TTL
+first bad: 0.6000000000000001 / 0.6000000000000001
+last safe: 0.5 / 0.5
+TTL error: +0.000s
+StaleGuard prediction time: 147.6 ms
+
+======================================================================
+EVALUATION SUMMARY
+======================================================================
+
+Prediction correctness
+------------------------------
+scenarios: 19
+delay tests: 209
+false-safe: 2/128 = 1.56%
+false-rejection: 2/81 = 2.47%
+scenarios with any false-safe: 2/19 = 10.53%
+scenario classification accuracy: 18/19 = 94.74%
+
+TTL accuracy
+------------------------------
+TTL comparable cases: 18
+TTL MAE: 0.017s
+TTL mean signed error: +0.006s
+TTL max abs error: 0.100s
+
+Runtime
+------------------------------
+StaleGuard compute mean: 121.2 ms/scenario
+StaleGuard compute median: 121.1 ms/scenario
+StaleGuard compute p95: 200.2 ms/scenario
+StaleGuard compute p99: 206.5 ms/scenario
+StaleGuard compute max: 208.0 ms/scenario

@@ -1,0 +1,764 @@
+{
+  "experiment": "Supplementary Experiment B: short dispatch delays",
+  "considered_seeds": 20,
+  "evaluated": 19,
+  "excluded_seeds": [
+    16
+  ],
+  "policy_flights": 342,
+  "mission_deadline_after_approval_s": 4.2,
+  "prediction_delay_grid_s": [
+    0.0,
+    0.1,
+    0.2,
+    0.30000000000000004,
+    0.4,
+    0.5,
+    0.6000000000000001,
+    0.7000000000000001,
+    0.8,
+    0.9,
+    1.0
+  ],
+  "prediction_timing": {
+    "samples": 19,
+    "mean_ms": 42.51650731633785,
+    "median_ms": 41.47828799614217,
+    "p95_ms": 61.18387790047562,
+    "min_ms": 19.613488009781577,
+    "max_ms": 68.1934820022434
+  },
+  "reception_predictions": [
+    {
+      "seed": 0,
+      "prediction": {
+        "classification": "FINITE_TTL",
+        "results": [
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE"
+        ],
+        "first_bad_delay": 0.5,
+        "last_safe_delay": 0.4
+      },
+      "computation_s": 0.043681636001565494,
+      "first_ready_control_step": 3
+    },
+    {
+      "seed": 1,
+      "prediction": {
+        "classification": "FINITE_TTL",
+        "results": [
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE"
+        ],
+        "first_bad_delay": 0.5,
+        "last_safe_delay": 0.4
+      },
+      "computation_s": 0.04557637599646114,
+      "first_ready_control_step": 3
+    },
+    {
+      "seed": 2,
+      "prediction": {
+        "classification": "FINITE_TTL",
+        "results": [
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE"
+        ],
+        "first_bad_delay": 0.6000000000000001,
+        "last_safe_delay": 0.5
+      },
+      "computation_s": 0.054455132005386986,
+      "first_ready_control_step": 3
+    },
+    {
+      "seed": 3,
+      "prediction": {
+        "classification": "FINITE_TTL",
+        "results": [
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE"
+        ],
+        "first_bad_delay": 0.7000000000000001,
+        "last_safe_delay": 0.6000000000000001
+      },
+      "computation_s": 0.06040503300027922,
+      "first_ready_control_step": 4
+    },
+    {
+      "seed": 4,
+      "prediction": {
+        "classification": "FINITE_TTL",
+        "results": [
+          "SAFE",
+          "SAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE"
+        ],
+        "first_bad_delay": 0.2,
+        "last_safe_delay": 0.1
+      },
+      "computation_s": 0.02970276601263322,
+      "first_ready_control_step": 2
+    },
+    {
+      "seed": 5,
+      "prediction": {
+        "classification": "FINITE_TTL",
+        "results": [
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE"
+        ],
+        "first_bad_delay": 0.4,
+        "last_safe_delay": 0.30000000000000004
+      },
+      "computation_s": 0.03963437299535144,
+      "first_ready_control_step": 2
+    },
+    {
+      "seed": 6,
+      "prediction": {
+        "classification": "FINITE_TTL",
+        "results": [
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE"
+        ],
+        "first_bad_delay": 0.4,
+        "last_safe_delay": 0.30000000000000004
+      },
+      "computation_s": 0.039679269000771455,
+      "first_ready_control_step": 2
+    },
+    {
+      "seed": 7,
+      "prediction": {
+        "classification": "FINITE_TTL",
+        "results": [
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE"
+        ],
+        "first_bad_delay": 0.5,
+        "last_safe_delay": 0.4
+      },
+      "computation_s": 0.047019696998177096,
+      "first_ready_control_step": 3
+    },
+    {
+      "seed": 8,
+      "prediction": {
+        "classification": "FINITE_TTL",
+        "results": [
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE"
+        ],
+        "first_bad_delay": 0.5,
+        "last_safe_delay": 0.4
+      },
+      "computation_s": 0.04604140599258244,
+      "first_ready_control_step": 3
+    },
+    {
+      "seed": 9,
+      "prediction": {
+        "classification": "FINITE_TTL",
+        "results": [
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE"
+        ],
+        "first_bad_delay": 0.30000000000000004,
+        "last_safe_delay": 0.2
+      },
+      "computation_s": 0.033747351000783965,
+      "first_ready_control_step": 2
+    },
+    {
+      "seed": 10,
+      "prediction": {
+        "classification": "INVALID_AT_APPROVAL",
+        "results": [
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE"
+        ],
+        "first_bad_delay": 0.0,
+        "last_safe_delay": null
+      },
+      "computation_s": 0.019613488009781577,
+      "first_ready_control_step": 1
+    },
+    {
+      "seed": 11,
+      "prediction": {
+        "classification": "FINITE_TTL",
+        "results": [
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE"
+        ],
+        "first_bad_delay": 0.7000000000000001,
+        "last_safe_delay": 0.6000000000000001
+      },
+      "computation_s": 0.0681934820022434,
+      "first_ready_control_step": 4
+    },
+    {
+      "seed": 12,
+      "prediction": {
+        "classification": "FINITE_TTL",
+        "results": [
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE"
+        ],
+        "first_bad_delay": 0.5,
+        "last_safe_delay": 0.4
+      },
+      "computation_s": 0.04751480800041463,
+      "first_ready_control_step": 3
+    },
+    {
+      "seed": 13,
+      "prediction": {
+        "classification": "FINITE_TTL",
+        "results": [
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE"
+        ],
+        "first_bad_delay": 0.4,
+        "last_safe_delay": 0.30000000000000004
+      },
+      "computation_s": 0.03901376100839116,
+      "first_ready_control_step": 2
+    },
+    {
+      "seed": 14,
+      "prediction": {
+        "classification": "FINITE_TTL",
+        "results": [
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE"
+        ],
+        "first_bad_delay": 0.30000000000000004,
+        "last_safe_delay": 0.2
+      },
+      "computation_s": 0.03305295799509622,
+      "first_ready_control_step": 2
+    },
+    {
+      "seed": 15,
+      "prediction": {
+        "classification": "FINITE_TTL",
+        "results": [
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE"
+        ],
+        "first_bad_delay": 0.30000000000000004,
+        "last_safe_delay": 0.2
+      },
+      "computation_s": 0.034594340992043726,
+      "first_ready_control_step": 2
+    },
+    {
+      "seed": 17,
+      "prediction": {
+        "classification": "FINITE_TTL",
+        "results": [
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE"
+        ],
+        "first_bad_delay": 0.30000000000000004,
+        "last_safe_delay": 0.2
+      },
+      "computation_s": 0.03292326399241574,
+      "first_ready_control_step": 2
+    },
+    {
+      "seed": 18,
+      "prediction": {
+        "classification": "FINITE_TTL",
+        "results": [
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE"
+        ],
+        "first_bad_delay": 0.4,
+        "last_safe_delay": 0.30000000000000004
+      },
+      "computation_s": 0.04147828799614217,
+      "first_ready_control_step": 3
+    },
+    {
+      "seed": 19,
+      "prediction": {
+        "classification": "FINITE_TTL",
+        "results": [
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "SAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE",
+          "UNSAFE"
+        ],
+        "first_bad_delay": 0.6000000000000001,
+        "last_safe_delay": 0.5
+      },
+      "computation_s": 0.05148621000989806,
+      "first_ready_control_step": 3
+    }
+  ],
+  "per_delay": [
+    {
+      "delay_s": 0.0,
+      "N": 19,
+      "prediction_timing": {
+        "samples": 19,
+        "mean_ms": 42.51650731633785,
+        "median_ms": 41.47828799614217,
+        "p95_ms": 61.18387790047562,
+        "min_ms": 19.613488009781577,
+        "max_ms": 68.1934820022434
+      },
+      "ready": 0,
+      "unavailable": 19,
+      "original_executions_because_unavailable": 19,
+      "unavailable_unsafe": 0,
+      "unavailable_unsafe_would_reject": 0,
+      "unavailable_unsafe_would_allow": 0,
+      "ready_unsafe": 0,
+      "completion_harm_vs_no_recovery": 0,
+      "policies": {
+        "StaleGuard": {
+          "unsafe": 0,
+          "safe_completion": 19,
+          "inspection_completion": 19,
+          "fallbacks": 0
+        },
+        "No Recovery": {
+          "unsafe": 0,
+          "safe_completion": 19,
+          "inspection_completion": 19,
+          "fallbacks": 0
+        },
+        "Always-Recover": {
+          "unsafe": 0,
+          "safe_completion": 19,
+          "inspection_completion": 19,
+          "fallbacks": 0
+        }
+      }
+    },
+    {
+      "delay_s": 0.02,
+      "N": 19,
+      "prediction_timing": {
+        "samples": 19,
+        "mean_ms": 42.51650731633785,
+        "median_ms": 41.47828799614217,
+        "p95_ms": 61.18387790047562,
+        "min_ms": 19.613488009781577,
+        "max_ms": 68.1934820022434
+      },
+      "ready": 1,
+      "unavailable": 18,
+      "original_executions_because_unavailable": 18,
+      "unavailable_unsafe": 0,
+      "unavailable_unsafe_would_reject": 0,
+      "unavailable_unsafe_would_allow": 0,
+      "ready_unsafe": 0,
+      "completion_harm_vs_no_recovery": 1,
+      "policies": {
+        "StaleGuard": {
+          "unsafe": 0,
+          "safe_completion": 17,
+          "inspection_completion": 17,
+          "fallbacks": 1
+        },
+        "No Recovery": {
+          "unsafe": 0,
+          "safe_completion": 18,
+          "inspection_completion": 18,
+          "fallbacks": 0
+        },
+        "Always-Recover": {
+          "unsafe": 0,
+          "safe_completion": 0,
+          "inspection_completion": 0,
+          "fallbacks": 19
+        }
+      }
+    },
+    {
+      "delay_s": 0.04,
+      "N": 19,
+      "prediction_timing": {
+        "samples": 19,
+        "mean_ms": 42.51650731633785,
+        "median_ms": 41.47828799614217,
+        "p95_ms": 61.18387790047562,
+        "min_ms": 19.613488009781577,
+        "max_ms": 68.1934820022434
+      },
+      "ready": 9,
+      "unavailable": 10,
+      "original_executions_because_unavailable": 10,
+      "unavailable_unsafe": 0,
+      "unavailable_unsafe_would_reject": 0,
+      "unavailable_unsafe_would_allow": 0,
+      "ready_unsafe": 0,
+      "completion_harm_vs_no_recovery": 0,
+      "policies": {
+        "StaleGuard": {
+          "unsafe": 0,
+          "safe_completion": 17,
+          "inspection_completion": 17,
+          "fallbacks": 1
+        },
+        "No Recovery": {
+          "unsafe": 1,
+          "safe_completion": 17,
+          "inspection_completion": 18,
+          "fallbacks": 0
+        },
+        "Always-Recover": {
+          "unsafe": 0,
+          "safe_completion": 0,
+          "inspection_completion": 0,
+          "fallbacks": 19
+        }
+      }
+    },
+    {
+      "delay_s": 0.06,
+      "N": 19,
+      "prediction_timing": {
+        "samples": 19,
+        "mean_ms": 42.51650731633785,
+        "median_ms": 41.47828799614217,
+        "p95_ms": 61.18387790047562,
+        "min_ms": 19.613488009781577,
+        "max_ms": 68.1934820022434
+      },
+      "ready": 17,
+      "unavailable": 2,
+      "original_executions_because_unavailable": 2,
+      "unavailable_unsafe": 0,
+      "unavailable_unsafe_would_reject": 0,
+      "unavailable_unsafe_would_allow": 0,
+      "ready_unsafe": 0,
+      "completion_harm_vs_no_recovery": 0,
+      "policies": {
+        "StaleGuard": {
+          "unsafe": 0,
+          "safe_completion": 17,
+          "inspection_completion": 17,
+          "fallbacks": 1
+        },
+        "No Recovery": {
+          "unsafe": 1,
+          "safe_completion": 17,
+          "inspection_completion": 18,
+          "fallbacks": 0
+        },
+        "Always-Recover": {
+          "unsafe": 0,
+          "safe_completion": 0,
+          "inspection_completion": 0,
+          "fallbacks": 19
+        }
+      }
+    },
+    {
+      "delay_s": 0.08,
+      "N": 19,
+      "prediction_timing": {
+        "samples": 19,
+        "mean_ms": 42.51650731633785,
+        "median_ms": 41.47828799614217,
+        "p95_ms": 61.18387790047562,
+        "min_ms": 19.613488009781577,
+        "max_ms": 68.1934820022434
+      },
+      "ready": 19,
+      "unavailable": 0,
+      "original_executions_because_unavailable": 0,
+      "unavailable_unsafe": 0,
+      "unavailable_unsafe_would_reject": 0,
+      "unavailable_unsafe_would_allow": 0,
+      "ready_unsafe": 0,
+      "completion_harm_vs_no_recovery": 0,
+      "policies": {
+        "StaleGuard": {
+          "unsafe": 0,
+          "safe_completion": 17,
+          "inspection_completion": 17,
+          "fallbacks": 1
+        },
+        "No Recovery": {
+          "unsafe": 1,
+          "safe_completion": 17,
+          "inspection_completion": 18,
+          "fallbacks": 0
+        },
+        "Always-Recover": {
+          "unsafe": 0,
+          "safe_completion": 0,
+          "inspection_completion": 0,
+          "fallbacks": 19
+        }
+      }
+    },
+    {
+      "delay_s": 0.1,
+      "N": 19,
+      "prediction_timing": {
+        "samples": 19,
+        "mean_ms": 42.51650731633785,
+        "median_ms": 41.47828799614217,
+        "p95_ms": 61.18387790047562,
+        "min_ms": 19.613488009781577,
+        "max_ms": 68.1934820022434
+      },
+      "ready": 19,
+      "unavailable": 0,
+      "original_executions_because_unavailable": 0,
+      "unavailable_unsafe": 0,
+      "unavailable_unsafe_would_reject": 0,
+      "unavailable_unsafe_would_allow": 0,
+      "ready_unsafe": 0,
+      "completion_harm_vs_no_recovery": 0,
+      "policies": {
+        "StaleGuard": {
+          "unsafe": 0,
+          "safe_completion": 16,
+          "inspection_completion": 16,
+          "fallbacks": 1
+        },
+        "No Recovery": {
+          "unsafe": 1,
+          "safe_completion": 16,
+          "inspection_completion": 17,
+          "fallbacks": 0
+        },
+        "Always-Recover": {
+          "unsafe": 0,
+          "safe_completion": 0,
+          "inspection_completion": 0,
+          "fallbacks": 19
+        }
+      }
+    }
+  ],
+  "unsafe_attributable_to_latency": [],
+  "unsafe_despite_allowing_ttl": [],
+  "operational_false_rejections": [
+    {
+      "seed": 10,
+      "scenario": {
+        "speed": 0.7824006838515902,
+        "usual_height": 1.2019204525197866,
+        "box_x_min": 1.3799114196921716,
+        "box_x_max": 1.7246960566167777,
+        "box_y_limit": 0.35,
+        "unsafe_below_z": 0.9769206924654847,
+        "approval_time": 0.22,
+        "low_height": 0.6376389508649931,
+        "low_seconds": 1.32
+      },
+      "delay_steps": 1,
+      "delay_s": 0.02,
+      "policy": "StaleGuard",
+      "dispatch_step": 12,
+      "deadline_step": 221,
+      "outcome": [
+        false,
+        false,
+        true,
+        false
+      ],
+      "trace_sha256": "6d9935a9f031d95aa499dd698f6ac3dc1a3b824a605c189314806b6f2ddb83a9",
+      "computation_s": 0.019613488009781577,
+      "prediction_ready": true,
+      "ttl_would_reject": true,
+      "expiry_check_steps": [
+        12
+      ],
+      "original_command_step": null,
+      "first_unsafe_time_s": null,
+      "worker_peak_rss_mib": 699.78125
+    }
+  ],
+  "official_comparison": {
+    "common_delay_outcome_changes": [],
+    "baseline_trace_matches": 76,
+    "common_delay_trace_matches": 114,
+    "prediction_mean_ms": 61.92849347472044,
+    "prediction_median_ms": 57.124209008179605,
+    "prediction_p95_ms": 90.17979070340515
+  },
+  "memory_limits_mib": {
+    "max_process_rss": 2048,
+    "min_host_available": 2048
+  },
+  "recorded_worker_peak_rss_mib": 700.36328125
+}

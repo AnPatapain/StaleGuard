@@ -1,0 +1,1700 @@
+scan_time=0.80s actual_z=0.993m reference_z=0.894m target_z=0.894m vx=1.020m/s
+first_target_height_time=0.88s x_at_target=0.427m scan_x=0.329m x_offset=+0.098m
+min_z=0.935m target_z=0.894m low_seconds=0.76s
+collision=False, completed=False, best_inspection_dwell=0.04s, best_z_error_at_scan=0.073m
+approval=0.32s low_seconds=0.76s success=False collision=False
+scan_time=0.80s actual_z=0.993m reference_z=0.894m target_z=0.894m vx=1.020m/s
+first_target_height_time=0.88s x_at_target=0.427m scan_x=0.329m x_offset=+0.098m
+min_z=0.923m target_z=0.894m low_seconds=0.86s
+collision=False, completed=False, best_inspection_dwell=0.04s, best_z_error_at_scan=0.073m
+approval=0.32s low_seconds=0.86s success=False collision=False
+scan_time=0.80s actual_z=0.993m reference_z=0.894m target_z=0.894m vx=1.020m/s
+first_target_height_time=0.88s x_at_target=0.427m scan_x=0.329m x_offset=+0.098m
+min_z=0.914m target_z=0.894m low_seconds=0.96s
+collision=True, completed=False, best_inspection_dwell=0.04s, best_z_error_at_scan=0.073m
+approval=0.32s low_seconds=0.96s success=False collision=True
+scan_time=0.80s actual_z=0.993m reference_z=0.894m target_z=0.894m vx=1.020m/s
+first_target_height_time=0.88s x_at_target=0.427m scan_x=0.329m x_offset=+0.098m
+min_z=0.908m target_z=0.894m low_seconds=1.06s
+collision=True, completed=False, best_inspection_dwell=0.04s, best_z_error_at_scan=0.073m
+approval=0.32s low_seconds=1.06s success=False collision=True
+scan_time=0.76s actual_z=0.975m reference_z=0.894m target_z=0.894m vx=0.997m/s
+first_target_height_time=0.78s x_at_target=0.355m scan_x=0.329m x_offset=+0.027m
+min_z=0.934m target_z=0.894m low_seconds=0.76s
+collision=False, completed=False, best_inspection_dwell=0.10s, best_z_error_at_scan=0.060m
+approval=0.22s low_seconds=0.76s success=False collision=False
+scan_time=0.76s actual_z=0.975m reference_z=0.894m target_z=0.894m vx=0.997m/s
+first_target_height_time=0.78s x_at_target=0.355m scan_x=0.329m x_offset=+0.027m
+min_z=0.923m target_z=0.894m low_seconds=0.86s
+collision=False, completed=False, best_inspection_dwell=0.10s, best_z_error_at_scan=0.060m
+approval=0.22s low_seconds=0.86s success=False collision=False
+scan_time=0.76s actual_z=0.975m reference_z=0.894m target_z=0.894m vx=0.997m/s
+first_target_height_time=0.78s x_at_target=0.355m scan_x=0.329m x_offset=+0.027m
+min_z=0.914m target_z=0.894m low_seconds=0.96s
+collision=False, completed=False, best_inspection_dwell=0.10s, best_z_error_at_scan=0.060m
+approval=0.22s low_seconds=0.96s success=False collision=False
+scan_time=0.76s actual_z=0.975m reference_z=0.894m target_z=0.894m vx=0.997m/s
+first_target_height_time=0.78s x_at_target=0.355m scan_x=0.329m x_offset=+0.027m
+min_z=0.907m target_z=0.894m low_seconds=1.06s
+collision=True, completed=False, best_inspection_dwell=0.10s, best_z_error_at_scan=0.060m
+approval=0.22s low_seconds=1.06s success=False collision=True
+scan_time=0.76s actual_z=0.975m reference_z=0.894m target_z=0.894m vx=0.997m/s
+first_target_height_time=0.78s x_at_target=0.355m scan_x=0.329m x_offset=+0.027m
+min_z=0.902m target_z=0.894m low_seconds=1.16s
+collision=True, completed=False, best_inspection_dwell=0.10s, best_z_error_at_scan=0.060m
+approval=0.22s low_seconds=1.16s success=False collision=True
+first_target_height_time=0.68s x_at_target=0.282m scan_x=0.329m x_offset=-0.046m
+scan_time=0.74s actual_z=0.957m reference_z=0.894m target_z=0.894m vx=0.935m/s
+min_z=0.934m target_z=0.894m low_seconds=0.76s
+collision=False, completed=True, best_inspection_dwell=0.20s, best_z_error_at_scan=0.043m
+approval=0.12s low_seconds=0.76s success=True collision=False
+Scenario=0 approval=0.12s low_seconds=0.76s
+scan_time=0.94s actual_z=0.935m reference_z=0.704m target_z=0.704m vx=0.868m/s
+first_target_height_time=1.30s x_at_target=0.680m scan_x=0.401m x_offset=+0.279m
+min_z=0.774m target_z=0.704m low_seconds=0.90s
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.160m
+approval=0.42s low_seconds=0.90s success=False collision=False
+scan_time=0.94s actual_z=0.935m reference_z=0.704m target_z=0.704m vx=0.868m/s
+first_target_height_time=1.30s x_at_target=0.680m scan_x=0.401m x_offset=+0.279m
+min_z=0.755m target_z=0.704m low_seconds=1.00s
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.160m
+approval=0.42s low_seconds=1.00s success=False collision=False
+scan_time=0.94s actual_z=0.935m reference_z=0.704m target_z=0.704m vx=0.868m/s
+first_target_height_time=1.30s x_at_target=0.680m scan_x=0.401m x_offset=+0.279m
+min_z=0.741m target_z=0.704m low_seconds=1.10s
+collision=True, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.160m
+approval=0.42s low_seconds=1.10s success=False collision=True
+scan_time=0.94s actual_z=0.935m reference_z=0.704m target_z=0.704m vx=0.868m/s
+first_target_height_time=1.30s x_at_target=0.680m scan_x=0.401m x_offset=+0.279m
+min_z=0.730m target_z=0.704m low_seconds=1.20s
+collision=True, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.160m
+approval=0.42s low_seconds=1.20s success=False collision=True
+scan_time=0.94s actual_z=0.874m reference_z=0.704m target_z=0.704m vx=0.949m/s
+first_target_height_time=1.20s x_at_target=0.624m scan_x=0.401m x_offset=+0.223m
+min_z=0.773m target_z=0.704m low_seconds=0.90s
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.125m
+approval=0.32s low_seconds=0.90s success=False collision=False
+scan_time=0.94s actual_z=0.874m reference_z=0.704m target_z=0.704m vx=0.949m/s
+first_target_height_time=1.20s x_at_target=0.624m scan_x=0.401m x_offset=+0.223m
+min_z=0.754m target_z=0.704m low_seconds=1.00s
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.125m
+approval=0.32s low_seconds=1.00s success=False collision=False
+scan_time=0.94s actual_z=0.874m reference_z=0.704m target_z=0.704m vx=0.949m/s
+first_target_height_time=1.20s x_at_target=0.624m scan_x=0.401m x_offset=+0.223m
+min_z=0.741m target_z=0.704m low_seconds=1.10s
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.125m
+approval=0.32s low_seconds=1.10s success=False collision=False
+scan_time=0.94s actual_z=0.874m reference_z=0.704m target_z=0.704m vx=0.949m/s
+first_target_height_time=1.20s x_at_target=0.624m scan_x=0.401m x_offset=+0.223m
+min_z=0.730m target_z=0.704m low_seconds=1.20s
+collision=True, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.125m
+approval=0.32s low_seconds=1.20s success=False collision=True
+scan_time=0.94s actual_z=0.874m reference_z=0.704m target_z=0.704m vx=0.949m/s
+first_target_height_time=1.20s x_at_target=0.624m scan_x=0.401m x_offset=+0.223m
+min_z=0.722m target_z=0.704m low_seconds=1.30s
+collision=True, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.125m
+approval=0.32s low_seconds=1.30s success=False collision=True
+scan_time=0.86s actual_z=0.861m reference_z=0.704m target_z=0.704m vx=0.994m/s
+first_target_height_time=1.08s x_at_target=0.577m scan_x=0.401m x_offset=+0.176m
+min_z=0.771m target_z=0.704m low_seconds=0.90s
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.108m
+approval=0.22s low_seconds=0.90s success=False collision=False
+scan_time=0.86s actual_z=0.861m reference_z=0.704m target_z=0.704m vx=0.994m/s
+first_target_height_time=1.08s x_at_target=0.577m scan_x=0.401m x_offset=+0.176m
+min_z=0.753m target_z=0.704m low_seconds=1.00s
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.108m
+approval=0.22s low_seconds=1.00s success=False collision=False
+scan_time=0.86s actual_z=0.861m reference_z=0.704m target_z=0.704m vx=0.994m/s
+first_target_height_time=1.08s x_at_target=0.577m scan_x=0.401m x_offset=+0.176m
+min_z=0.739m target_z=0.704m low_seconds=1.10s
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.108m
+approval=0.22s low_seconds=1.10s success=False collision=False
+scan_time=0.86s actual_z=0.861m reference_z=0.704m target_z=0.704m vx=0.994m/s
+first_target_height_time=1.08s x_at_target=0.577m scan_x=0.401m x_offset=+0.176m
+min_z=0.729m target_z=0.704m low_seconds=1.20s
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.108m
+approval=0.22s low_seconds=1.20s success=False collision=False
+scan_time=0.86s actual_z=0.861m reference_z=0.704m target_z=0.704m vx=0.994m/s
+first_target_height_time=1.08s x_at_target=0.577m scan_x=0.401m x_offset=+0.176m
+min_z=0.721m target_z=0.704m low_seconds=1.30s
+collision=True, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.108m
+approval=0.22s low_seconds=1.30s success=False collision=True
+scan_time=0.86s actual_z=0.861m reference_z=0.704m target_z=0.704m vx=0.994m/s
+first_target_height_time=1.08s x_at_target=0.577m scan_x=0.401m x_offset=+0.176m
+min_z=0.715m target_z=0.704m low_seconds=1.40s
+collision=True, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.108m
+approval=0.22s low_seconds=1.40s success=False collision=True
+scan_time=0.84s actual_z=0.827m reference_z=0.704m target_z=0.704m vx=0.839m/s
+first_target_height_time=0.98s x_at_target=0.509m scan_x=0.401m x_offset=+0.109m
+min_z=0.772m target_z=0.704m low_seconds=0.90s
+collision=False, completed=False, best_inspection_dwell=0.02s, best_z_error_at_scan=0.079m
+approval=0.12s low_seconds=0.90s success=False collision=False
+scan_time=0.84s actual_z=0.827m reference_z=0.704m target_z=0.704m vx=0.839m/s
+first_target_height_time=0.98s x_at_target=0.509m scan_x=0.401m x_offset=+0.109m
+min_z=0.753m target_z=0.704m low_seconds=1.00s
+collision=False, completed=False, best_inspection_dwell=0.02s, best_z_error_at_scan=0.079m
+approval=0.12s low_seconds=1.00s success=False collision=False
+scan_time=0.84s actual_z=0.827m reference_z=0.704m target_z=0.704m vx=0.839m/s
+first_target_height_time=0.98s x_at_target=0.509m scan_x=0.401m x_offset=+0.109m
+min_z=0.740m target_z=0.704m low_seconds=1.10s
+collision=False, completed=False, best_inspection_dwell=0.02s, best_z_error_at_scan=0.079m
+approval=0.12s low_seconds=1.10s success=False collision=False
+scan_time=0.84s actual_z=0.827m reference_z=0.704m target_z=0.704m vx=0.839m/s
+first_target_height_time=0.98s x_at_target=0.509m scan_x=0.401m x_offset=+0.109m
+min_z=0.729m target_z=0.704m low_seconds=1.20s
+collision=False, completed=False, best_inspection_dwell=0.02s, best_z_error_at_scan=0.079m
+approval=0.12s low_seconds=1.20s success=False collision=False
+scan_time=0.84s actual_z=0.827m reference_z=0.704m target_z=0.704m vx=0.839m/s
+first_target_height_time=0.98s x_at_target=0.509m scan_x=0.401m x_offset=+0.109m
+min_z=0.721m target_z=0.704m low_seconds=1.30s
+collision=False, completed=False, best_inspection_dwell=0.02s, best_z_error_at_scan=0.079m
+approval=0.12s low_seconds=1.30s success=False collision=False
+scan_time=0.84s actual_z=0.827m reference_z=0.704m target_z=0.704m vx=0.839m/s
+first_target_height_time=0.98s x_at_target=0.509m scan_x=0.401m x_offset=+0.109m
+min_z=0.716m target_z=0.704m low_seconds=1.40s
+collision=True, completed=False, best_inspection_dwell=0.02s, best_z_error_at_scan=0.079m
+approval=0.12s low_seconds=1.40s success=False collision=True
+scan_time=0.84s actual_z=0.827m reference_z=0.704m target_z=0.704m vx=0.839m/s
+first_target_height_time=0.98s x_at_target=0.509m scan_x=0.401m x_offset=+0.109m
+min_z=0.711m target_z=0.704m low_seconds=1.50s
+collision=True, completed=False, best_inspection_dwell=0.02s, best_z_error_at_scan=0.079m
+approval=0.12s low_seconds=1.50s success=False collision=True
+first_target_height_time=0.88s x_at_target=0.389m scan_x=0.401m x_offset=-0.012m
+scan_time=0.90s actual_z=0.780m reference_z=0.704m target_z=0.704m vx=0.934m/s
+min_z=0.773m target_z=0.704m low_seconds=0.90s
+collision=False, completed=False, best_inspection_dwell=0.12s, best_z_error_at_scan=0.069m
+approval=0.02s low_seconds=0.90s success=False collision=False
+first_target_height_time=0.88s x_at_target=0.389m scan_x=0.401m x_offset=-0.012m
+scan_time=0.90s actual_z=0.780m reference_z=0.704m target_z=0.704m vx=0.934m/s
+min_z=0.755m target_z=0.704m low_seconds=1.00s
+collision=False, completed=False, best_inspection_dwell=0.16s, best_z_error_at_scan=0.051m
+approval=0.02s low_seconds=1.00s success=False collision=False
+first_target_height_time=0.88s x_at_target=0.389m scan_x=0.401m x_offset=-0.012m
+scan_time=0.90s actual_z=0.780m reference_z=0.704m target_z=0.704m vx=0.934m/s
+min_z=0.741m target_z=0.704m low_seconds=1.10s
+collision=False, completed=False, best_inspection_dwell=0.16s, best_z_error_at_scan=0.051m
+approval=0.02s low_seconds=1.10s success=False collision=False
+first_target_height_time=0.88s x_at_target=0.389m scan_x=0.401m x_offset=-0.012m
+scan_time=0.90s actual_z=0.780m reference_z=0.704m target_z=0.704m vx=0.934m/s
+min_z=0.730m target_z=0.704m low_seconds=1.20s
+collision=False, completed=False, best_inspection_dwell=0.16s, best_z_error_at_scan=0.051m
+approval=0.02s low_seconds=1.20s success=False collision=False
+first_target_height_time=0.88s x_at_target=0.389m scan_x=0.401m x_offset=-0.012m
+scan_time=0.90s actual_z=0.780m reference_z=0.704m target_z=0.704m vx=0.934m/s
+min_z=0.721m target_z=0.704m low_seconds=1.30s
+collision=False, completed=False, best_inspection_dwell=0.16s, best_z_error_at_scan=0.051m
+approval=0.02s low_seconds=1.30s success=False collision=False
+first_target_height_time=0.88s x_at_target=0.389m scan_x=0.401m x_offset=-0.012m
+scan_time=0.90s actual_z=0.780m reference_z=0.704m target_z=0.704m vx=0.934m/s
+min_z=0.716m target_z=0.704m low_seconds=1.40s
+collision=False, completed=False, best_inspection_dwell=0.16s, best_z_error_at_scan=0.051m
+approval=0.02s low_seconds=1.40s success=False collision=False
+first_target_height_time=0.88s x_at_target=0.389m scan_x=0.401m x_offset=-0.012m
+scan_time=0.90s actual_z=0.780m reference_z=0.704m target_z=0.704m vx=0.934m/s
+min_z=0.711m target_z=0.704m low_seconds=1.50s
+collision=True, completed=False, best_inspection_dwell=0.16s, best_z_error_at_scan=0.051m
+approval=0.02s low_seconds=1.50s success=False collision=True
+first_target_height_time=0.88s x_at_target=0.389m scan_x=0.401m x_offset=-0.012m
+scan_time=0.90s actual_z=0.780m reference_z=0.704m target_z=0.704m vx=0.934m/s
+min_z=0.708m target_z=0.704m low_seconds=1.60s
+collision=True, completed=False, best_inspection_dwell=0.16s, best_z_error_at_scan=0.051m
+approval=0.02s low_seconds=1.60s success=False collision=True
+first_target_height_time=0.86s x_at_target=0.377m scan_x=0.401m x_offset=-0.023m
+scan_time=0.90s actual_z=0.775m reference_z=0.704m target_z=0.704m vx=0.882m/s
+min_z=0.773m target_z=0.704m low_seconds=0.90s
+collision=False, completed=False, best_inspection_dwell=0.12s, best_z_error_at_scan=0.069m
+approval=0.00s low_seconds=0.90s success=False collision=False
+first_target_height_time=0.86s x_at_target=0.377m scan_x=0.401m x_offset=-0.023m
+scan_time=0.90s actual_z=0.775m reference_z=0.704m target_z=0.704m vx=0.882m/s
+min_z=0.755m target_z=0.704m low_seconds=1.00s
+collision=False, completed=True, best_inspection_dwell=0.18s, best_z_error_at_scan=0.050m
+approval=0.00s low_seconds=1.00s success=True collision=False
+Scenario=1 approval=0.00s low_seconds=1.00s
+scan_time=1.90s actual_z=1.088m reference_z=0.811m target_z=0.811m vx=0.591m/s
+min_z=0.926m target_z=0.811m low_seconds=0.52s
+Target altitude never reached
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.162m
+approval=1.66s low_seconds=0.52s success=False collision=False
+scan_time=1.90s actual_z=1.088m reference_z=0.811m target_z=0.811m vx=0.591m/s
+min_z=0.896m target_z=0.811m low_seconds=0.62s
+Target altitude never reached
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.162m
+approval=1.66s low_seconds=0.62s success=False collision=False
+scan_time=1.90s actual_z=1.088m reference_z=0.811m target_z=0.811m vx=0.591m/s
+first_target_height_time=2.32s x_at_target=1.088m scan_x=0.870m x_offset=+0.218m
+min_z=0.873m target_z=0.811m low_seconds=0.72s
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.162m
+approval=1.66s low_seconds=0.72s success=False collision=False
+scan_time=1.90s actual_z=1.088m reference_z=0.811m target_z=0.811m vx=0.591m/s
+first_target_height_time=2.32s x_at_target=1.088m scan_x=0.870m x_offset=+0.218m
+min_z=0.857m target_z=0.811m low_seconds=0.82s
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.162m
+approval=1.66s low_seconds=0.82s success=False collision=False
+scan_time=1.90s actual_z=1.088m reference_z=0.811m target_z=0.811m vx=0.591m/s
+first_target_height_time=2.32s x_at_target=1.088m scan_x=0.870m x_offset=+0.218m
+min_z=0.844m target_z=0.811m low_seconds=0.92s
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.162m
+approval=1.66s low_seconds=0.92s success=False collision=False
+scan_time=1.90s actual_z=1.088m reference_z=0.811m target_z=0.811m vx=0.591m/s
+first_target_height_time=2.32s x_at_target=1.088m scan_x=0.870m x_offset=+0.218m
+min_z=0.834m target_z=0.811m low_seconds=1.02s
+collision=True, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.162m
+approval=1.66s low_seconds=1.02s success=False collision=True
+scan_time=1.90s actual_z=1.088m reference_z=0.811m target_z=0.811m vx=0.591m/s
+first_target_height_time=2.32s x_at_target=1.088m scan_x=0.870m x_offset=+0.218m
+min_z=0.827m target_z=0.811m low_seconds=1.12s
+collision=True, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.162m
+approval=1.66s low_seconds=1.12s success=False collision=True
+scan_time=1.90s actual_z=1.088m reference_z=0.811m target_z=0.811m vx=0.591m/s
+first_target_height_time=2.32s x_at_target=1.088m scan_x=0.870m x_offset=+0.218m
+min_z=0.822m target_z=0.811m low_seconds=1.22s
+collision=True, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.162m
+approval=1.66s low_seconds=1.22s success=False collision=True
+scan_time=1.90s actual_z=1.018m reference_z=0.811m target_z=0.811m vx=0.498m/s
+min_z=0.926m target_z=0.811m low_seconds=0.52s
+Target altitude never reached
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.115m
+approval=1.56s low_seconds=0.52s success=False collision=False
+scan_time=1.90s actual_z=1.018m reference_z=0.811m target_z=0.811m vx=0.498m/s
+min_z=0.896m target_z=0.811m low_seconds=0.62s
+Target altitude never reached
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.099m
+approval=1.56s low_seconds=0.62s success=False collision=False
+scan_time=1.90s actual_z=1.018m reference_z=0.811m target_z=0.811m vx=0.498m/s
+first_target_height_time=2.22s x_at_target=1.024m scan_x=0.870m x_offset=+0.154m
+min_z=0.873m target_z=0.811m low_seconds=0.72s
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.099m
+approval=1.56s low_seconds=0.72s success=False collision=False
+scan_time=1.90s actual_z=1.018m reference_z=0.811m target_z=0.811m vx=0.498m/s
+first_target_height_time=2.22s x_at_target=1.024m scan_x=0.870m x_offset=+0.154m
+min_z=0.857m target_z=0.811m low_seconds=0.82s
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.099m
+approval=1.56s low_seconds=0.82s success=False collision=False
+scan_time=1.90s actual_z=1.018m reference_z=0.811m target_z=0.811m vx=0.498m/s
+first_target_height_time=2.22s x_at_target=1.024m scan_x=0.870m x_offset=+0.154m
+min_z=0.844m target_z=0.811m low_seconds=0.92s
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.099m
+approval=1.56s low_seconds=0.92s success=False collision=False
+scan_time=1.90s actual_z=1.018m reference_z=0.811m target_z=0.811m vx=0.498m/s
+first_target_height_time=2.22s x_at_target=1.024m scan_x=0.870m x_offset=+0.154m
+min_z=0.834m target_z=0.811m low_seconds=1.02s
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.099m
+approval=1.56s low_seconds=1.02s success=False collision=False
+scan_time=1.90s actual_z=1.018m reference_z=0.811m target_z=0.811m vx=0.498m/s
+first_target_height_time=2.22s x_at_target=1.024m scan_x=0.870m x_offset=+0.154m
+min_z=0.827m target_z=0.811m low_seconds=1.12s
+collision=True, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.099m
+approval=1.56s low_seconds=1.12s success=False collision=True
+scan_time=1.90s actual_z=1.018m reference_z=0.811m target_z=0.811m vx=0.498m/s
+first_target_height_time=2.22s x_at_target=1.024m scan_x=0.870m x_offset=+0.154m
+min_z=0.822m target_z=0.811m low_seconds=1.22s
+collision=True, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.099m
+approval=1.56s low_seconds=1.22s success=False collision=True
+scan_time=1.90s actual_z=1.018m reference_z=0.811m target_z=0.811m vx=0.498m/s
+first_target_height_time=2.22s x_at_target=1.024m scan_x=0.870m x_offset=+0.154m
+min_z=0.818m target_z=0.811m low_seconds=1.32s
+collision=True, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.099m
+approval=1.56s low_seconds=1.32s success=False collision=True
+scan_time=1.94s actual_z=0.946m reference_z=0.811m target_z=0.811m vx=0.514m/s
+min_z=0.926m target_z=0.811m low_seconds=0.52s
+Target altitude never reached
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.114m
+approval=1.46s low_seconds=0.52s success=False collision=False
+scan_time=1.94s actual_z=0.946m reference_z=0.811m target_z=0.811m vx=0.514m/s
+min_z=0.896m target_z=0.811m low_seconds=0.62s
+Target altitude never reached
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.084m
+approval=1.46s low_seconds=0.62s success=False collision=False
+scan_time=1.94s actual_z=0.946m reference_z=0.811m target_z=0.811m vx=0.514m/s
+first_target_height_time=2.12s x_at_target=0.969m scan_x=0.870m x_offset=+0.099m
+min_z=0.873m target_z=0.811m low_seconds=0.72s
+collision=False, completed=False, best_inspection_dwell=0.04s, best_z_error_at_scan=0.072m
+approval=1.46s low_seconds=0.72s success=False collision=False
+scan_time=1.94s actual_z=0.946m reference_z=0.811m target_z=0.811m vx=0.514m/s
+first_target_height_time=2.12s x_at_target=0.969m scan_x=0.870m x_offset=+0.099m
+min_z=0.857m target_z=0.811m low_seconds=0.82s
+collision=False, completed=False, best_inspection_dwell=0.04s, best_z_error_at_scan=0.072m
+approval=1.46s low_seconds=0.82s success=False collision=False
+scan_time=1.94s actual_z=0.946m reference_z=0.811m target_z=0.811m vx=0.514m/s
+first_target_height_time=2.12s x_at_target=0.969m scan_x=0.870m x_offset=+0.099m
+min_z=0.844m target_z=0.811m low_seconds=0.92s
+collision=False, completed=False, best_inspection_dwell=0.04s, best_z_error_at_scan=0.072m
+approval=1.46s low_seconds=0.92s success=False collision=False
+scan_time=1.94s actual_z=0.946m reference_z=0.811m target_z=0.811m vx=0.514m/s
+first_target_height_time=2.12s x_at_target=0.969m scan_x=0.870m x_offset=+0.099m
+min_z=0.834m target_z=0.811m low_seconds=1.02s
+collision=False, completed=False, best_inspection_dwell=0.04s, best_z_error_at_scan=0.072m
+approval=1.46s low_seconds=1.02s success=False collision=False
+scan_time=1.94s actual_z=0.946m reference_z=0.811m target_z=0.811m vx=0.514m/s
+first_target_height_time=2.12s x_at_target=0.969m scan_x=0.870m x_offset=+0.099m
+min_z=0.827m target_z=0.811m low_seconds=1.12s
+collision=False, completed=False, best_inspection_dwell=0.04s, best_z_error_at_scan=0.072m
+approval=1.46s low_seconds=1.12s success=False collision=False
+scan_time=1.94s actual_z=0.946m reference_z=0.811m target_z=0.811m vx=0.514m/s
+first_target_height_time=2.12s x_at_target=0.969m scan_x=0.870m x_offset=+0.099m
+min_z=0.822m target_z=0.811m low_seconds=1.22s
+collision=True, completed=False, best_inspection_dwell=0.04s, best_z_error_at_scan=0.072m
+approval=1.46s low_seconds=1.22s success=False collision=True
+scan_time=1.94s actual_z=0.946m reference_z=0.811m target_z=0.811m vx=0.514m/s
+first_target_height_time=2.12s x_at_target=0.969m scan_x=0.870m x_offset=+0.099m
+min_z=0.818m target_z=0.811m low_seconds=1.32s
+collision=True, completed=False, best_inspection_dwell=0.04s, best_z_error_at_scan=0.072m
+approval=1.46s low_seconds=1.32s success=False collision=True
+scan_time=1.94s actual_z=0.946m reference_z=0.811m target_z=0.811m vx=0.514m/s
+first_target_height_time=2.12s x_at_target=0.969m scan_x=0.870m x_offset=+0.099m
+min_z=0.815m target_z=0.811m low_seconds=1.42s
+collision=True, completed=False, best_inspection_dwell=0.04s, best_z_error_at_scan=0.072m
+approval=1.46s low_seconds=1.42s success=False collision=True
+scan_time=1.90s actual_z=0.926m reference_z=1.225m target_z=0.811m vx=0.491m/s
+min_z=0.926m target_z=0.811m low_seconds=0.52s
+Target altitude never reached
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.115m
+approval=1.36s low_seconds=0.52s success=False collision=False
+scan_time=1.90s actual_z=0.924m reference_z=0.811m target_z=0.811m vx=0.494m/s
+min_z=0.896m target_z=0.811m low_seconds=0.62s
+Target altitude never reached
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.084m
+approval=1.36s low_seconds=0.62s success=False collision=False
+scan_time=1.90s actual_z=0.924m reference_z=0.811m target_z=0.811m vx=0.494m/s
+first_target_height_time=2.02s x_at_target=0.929m scan_x=0.870m x_offset=+0.059m
+min_z=0.873m target_z=0.811m low_seconds=0.72s
+collision=False, completed=False, best_inspection_dwell=0.14s, best_z_error_at_scan=0.062m
+approval=1.36s low_seconds=0.72s success=False collision=False
+scan_time=1.90s actual_z=0.924m reference_z=0.811m target_z=0.811m vx=0.494m/s
+first_target_height_time=2.02s x_at_target=0.929m scan_x=0.870m x_offset=+0.059m
+min_z=0.857m target_z=0.811m low_seconds=0.82s
+collision=False, completed=False, best_inspection_dwell=0.14s, best_z_error_at_scan=0.052m
+approval=1.36s low_seconds=0.82s success=False collision=False
+scan_time=1.90s actual_z=0.924m reference_z=0.811m target_z=0.811m vx=0.494m/s
+first_target_height_time=2.02s x_at_target=0.929m scan_x=0.870m x_offset=+0.059m
+min_z=0.844m target_z=0.811m low_seconds=0.92s
+collision=False, completed=False, best_inspection_dwell=0.14s, best_z_error_at_scan=0.052m
+approval=1.36s low_seconds=0.92s success=False collision=False
+scan_time=1.90s actual_z=0.924m reference_z=0.811m target_z=0.811m vx=0.494m/s
+first_target_height_time=2.02s x_at_target=0.929m scan_x=0.870m x_offset=+0.059m
+min_z=0.834m target_z=0.811m low_seconds=1.02s
+collision=False, completed=False, best_inspection_dwell=0.14s, best_z_error_at_scan=0.052m
+approval=1.36s low_seconds=1.02s success=False collision=False
+scan_time=1.90s actual_z=0.924m reference_z=0.811m target_z=0.811m vx=0.494m/s
+first_target_height_time=2.02s x_at_target=0.929m scan_x=0.870m x_offset=+0.059m
+min_z=0.827m target_z=0.811m low_seconds=1.12s
+collision=False, completed=False, best_inspection_dwell=0.14s, best_z_error_at_scan=0.052m
+approval=1.36s low_seconds=1.12s success=False collision=False
+scan_time=1.90s actual_z=0.924m reference_z=0.811m target_z=0.811m vx=0.494m/s
+first_target_height_time=2.02s x_at_target=0.929m scan_x=0.870m x_offset=+0.059m
+min_z=0.822m target_z=0.811m low_seconds=1.22s
+collision=False, completed=False, best_inspection_dwell=0.14s, best_z_error_at_scan=0.052m
+approval=1.36s low_seconds=1.22s success=False collision=False
+scan_time=1.90s actual_z=0.924m reference_z=0.811m target_z=0.811m vx=0.494m/s
+first_target_height_time=2.02s x_at_target=0.929m scan_x=0.870m x_offset=+0.059m
+min_z=0.818m target_z=0.811m low_seconds=1.32s
+collision=True, completed=False, best_inspection_dwell=0.14s, best_z_error_at_scan=0.052m
+approval=1.36s low_seconds=1.32s success=False collision=True
+scan_time=1.90s actual_z=0.924m reference_z=0.811m target_z=0.811m vx=0.494m/s
+first_target_height_time=2.02s x_at_target=0.929m scan_x=0.870m x_offset=+0.059m
+min_z=0.815m target_z=0.811m low_seconds=1.42s
+collision=True, completed=False, best_inspection_dwell=0.14s, best_z_error_at_scan=0.052m
+approval=1.36s low_seconds=1.42s success=False collision=True
+scan_time=1.90s actual_z=0.924m reference_z=0.811m target_z=0.811m vx=0.494m/s
+first_target_height_time=2.02s x_at_target=0.929m scan_x=0.870m x_offset=+0.059m
+min_z=0.813m target_z=0.811m low_seconds=1.52s
+collision=True, completed=False, best_inspection_dwell=0.14s, best_z_error_at_scan=0.052m
+approval=1.36s low_seconds=1.52s success=False collision=True
+scan_time=1.86s actual_z=0.939m reference_z=1.225m target_z=0.811m vx=0.433m/s
+min_z=0.925m target_z=0.811m low_seconds=0.52s
+Target altitude never reached
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.114m
+approval=1.26s low_seconds=0.52s success=False collision=False
+scan_time=1.86s actual_z=0.904m reference_z=0.811m target_z=0.811m vx=0.470m/s
+min_z=0.895m target_z=0.811m low_seconds=0.62s
+Target altitude never reached
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.084m
+approval=1.26s low_seconds=0.62s success=False collision=False
+scan_time=1.86s actual_z=0.904m reference_z=0.811m target_z=0.811m vx=0.470m/s
+first_target_height_time=1.92s x_at_target=0.901m scan_x=0.870m x_offset=+0.031m
+min_z=0.873m target_z=0.811m low_seconds=0.72s
+collision=False, completed=False, best_inspection_dwell=0.14s, best_z_error_at_scan=0.062m
+approval=1.26s low_seconds=0.72s success=False collision=False
+scan_time=1.86s actual_z=0.904m reference_z=0.811m target_z=0.811m vx=0.470m/s
+first_target_height_time=1.92s x_at_target=0.901m scan_x=0.870m x_offset=+0.031m
+min_z=0.856m target_z=0.811m low_seconds=0.82s
+collision=False, completed=True, best_inspection_dwell=0.22s, best_z_error_at_scan=0.045m
+approval=1.26s low_seconds=0.82s success=True collision=False
+Scenario=2 approval=1.26s low_seconds=0.82s
+scan_time=2.12s actual_z=1.018m reference_z=0.693m target_z=0.693m vx=0.538m/s
+min_z=0.786m target_z=0.693m low_seconds=0.68s
+Target altitude never reached
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.159m
+approval=1.84s low_seconds=0.68s success=False collision=False
+scan_time=2.12s actual_z=1.018m reference_z=0.693m target_z=0.693m vx=0.538m/s
+first_target_height_time=2.60s x_at_target=1.061m scan_x=0.861m x_offset=+0.200m
+min_z=0.762m target_z=0.693m low_seconds=0.78s
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.159m
+approval=1.84s low_seconds=0.78s success=False collision=False
+scan_time=2.12s actual_z=1.018m reference_z=0.693m target_z=0.693m vx=0.538m/s
+first_target_height_time=2.60s x_at_target=1.061m scan_x=0.861m x_offset=+0.200m
+min_z=0.743m target_z=0.693m low_seconds=0.88s
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.159m
+approval=1.84s low_seconds=0.88s success=False collision=False
+scan_time=2.12s actual_z=1.018m reference_z=0.693m target_z=0.693m vx=0.538m/s
+first_target_height_time=2.60s x_at_target=1.061m scan_x=0.861m x_offset=+0.200m
+min_z=0.730m target_z=0.693m low_seconds=0.98s
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.159m
+approval=1.84s low_seconds=0.98s success=False collision=False
+scan_time=2.12s actual_z=1.018m reference_z=0.693m target_z=0.693m vx=0.538m/s
+first_target_height_time=2.60s x_at_target=1.061m scan_x=0.861m x_offset=+0.200m
+min_z=0.719m target_z=0.693m low_seconds=1.08s
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.159m
+approval=1.84s low_seconds=1.08s success=False collision=False
+scan_time=2.12s actual_z=1.018m reference_z=0.693m target_z=0.693m vx=0.538m/s
+first_target_height_time=2.60s x_at_target=1.061m scan_x=0.861m x_offset=+0.200m
+min_z=0.711m target_z=0.693m low_seconds=1.18s
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.159m
+approval=1.84s low_seconds=1.18s success=False collision=False
+scan_time=2.12s actual_z=1.018m reference_z=0.693m target_z=0.693m vx=0.538m/s
+first_target_height_time=2.60s x_at_target=1.061m scan_x=0.861m x_offset=+0.200m
+min_z=0.705m target_z=0.693m low_seconds=1.28s
+collision=True, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.159m
+approval=1.84s low_seconds=1.28s success=False collision=True
+scan_time=2.12s actual_z=1.018m reference_z=0.693m target_z=0.693m vx=0.538m/s
+first_target_height_time=2.60s x_at_target=1.061m scan_x=0.861m x_offset=+0.200m
+min_z=0.701m target_z=0.693m low_seconds=1.38s
+collision=True, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.159m
+approval=1.84s low_seconds=1.38s success=False collision=True
+scan_time=2.12s actual_z=1.018m reference_z=0.693m target_z=0.693m vx=0.538m/s
+first_target_height_time=2.60s x_at_target=1.061m scan_x=0.861m x_offset=+0.200m
+min_z=0.697m target_z=0.693m low_seconds=1.48s
+collision=True, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.159m
+approval=1.84s low_seconds=1.48s success=False collision=True
+scan_time=2.16s actual_z=0.908m reference_z=0.693m target_z=0.693m vx=0.393m/s
+min_z=0.786m target_z=0.693m low_seconds=0.68s
+Target altitude never reached
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.093m
+approval=1.74s low_seconds=0.68s success=False collision=False
+scan_time=2.16s actual_z=0.908m reference_z=0.693m target_z=0.693m vx=0.393m/s
+first_target_height_time=2.50s x_at_target=0.999m scan_x=0.861m x_offset=+0.138m
+min_z=0.762m target_z=0.693m low_seconds=0.78s
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.091m
+approval=1.74s low_seconds=0.78s success=False collision=False
+scan_time=2.16s actual_z=0.908m reference_z=0.693m target_z=0.693m vx=0.393m/s
+first_target_height_time=2.50s x_at_target=0.999m scan_x=0.861m x_offset=+0.138m
+min_z=0.743m target_z=0.693m low_seconds=0.88s
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.091m
+approval=1.74s low_seconds=0.88s success=False collision=False
+scan_time=2.16s actual_z=0.908m reference_z=0.693m target_z=0.693m vx=0.393m/s
+first_target_height_time=2.50s x_at_target=0.999m scan_x=0.861m x_offset=+0.138m
+min_z=0.730m target_z=0.693m low_seconds=0.98s
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.091m
+approval=1.74s low_seconds=0.98s success=False collision=False
+scan_time=2.16s actual_z=0.908m reference_z=0.693m target_z=0.693m vx=0.393m/s
+first_target_height_time=2.50s x_at_target=0.999m scan_x=0.861m x_offset=+0.138m
+min_z=0.719m target_z=0.693m low_seconds=1.08s
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.091m
+approval=1.74s low_seconds=1.08s success=False collision=False
+scan_time=2.16s actual_z=0.908m reference_z=0.693m target_z=0.693m vx=0.393m/s
+first_target_height_time=2.50s x_at_target=0.999m scan_x=0.861m x_offset=+0.138m
+min_z=0.711m target_z=0.693m low_seconds=1.18s
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.091m
+approval=1.74s low_seconds=1.18s success=False collision=False
+scan_time=2.16s actual_z=0.908m reference_z=0.693m target_z=0.693m vx=0.393m/s
+first_target_height_time=2.50s x_at_target=0.999m scan_x=0.861m x_offset=+0.138m
+min_z=0.705m target_z=0.693m low_seconds=1.28s
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.091m
+approval=1.74s low_seconds=1.28s success=False collision=False
+scan_time=2.16s actual_z=0.908m reference_z=0.693m target_z=0.693m vx=0.393m/s
+first_target_height_time=2.50s x_at_target=0.999m scan_x=0.861m x_offset=+0.138m
+min_z=0.701m target_z=0.693m low_seconds=1.38s
+collision=True, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.091m
+approval=1.74s low_seconds=1.38s success=False collision=True
+scan_time=2.16s actual_z=0.908m reference_z=0.693m target_z=0.693m vx=0.393m/s
+first_target_height_time=2.50s x_at_target=0.999m scan_x=0.861m x_offset=+0.138m
+min_z=0.697m target_z=0.693m low_seconds=1.48s
+collision=True, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.091m
+approval=1.74s low_seconds=1.48s success=False collision=True
+scan_time=2.16s actual_z=0.908m reference_z=0.693m target_z=0.693m vx=0.393m/s
+first_target_height_time=2.50s x_at_target=0.999m scan_x=0.861m x_offset=+0.138m
+min_z=0.695m target_z=0.693m low_seconds=1.58s
+collision=True, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.091m
+approval=1.74s low_seconds=1.58s success=False collision=True
+scan_time=2.22s actual_z=0.825m reference_z=0.693m target_z=0.693m vx=0.455m/s
+min_z=0.786m target_z=0.693m low_seconds=0.68s
+Target altitude never reached
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.093m
+approval=1.64s low_seconds=0.68s success=False collision=False
+scan_time=2.22s actual_z=0.825m reference_z=0.693m target_z=0.693m vx=0.455m/s
+first_target_height_time=2.40s x_at_target=0.952m scan_x=0.861m x_offset=+0.091m
+min_z=0.761m target_z=0.693m low_seconds=0.78s
+collision=False, completed=False, best_inspection_dwell=0.06s, best_z_error_at_scan=0.069m
+approval=1.64s low_seconds=0.78s success=False collision=False
+scan_time=2.22s actual_z=0.825m reference_z=0.693m target_z=0.693m vx=0.455m/s
+first_target_height_time=2.40s x_at_target=0.952m scan_x=0.861m x_offset=+0.091m
+min_z=0.743m target_z=0.693m low_seconds=0.88s
+collision=False, completed=False, best_inspection_dwell=0.06s, best_z_error_at_scan=0.066m
+approval=1.64s low_seconds=0.88s success=False collision=False
+scan_time=2.22s actual_z=0.825m reference_z=0.693m target_z=0.693m vx=0.455m/s
+first_target_height_time=2.40s x_at_target=0.952m scan_x=0.861m x_offset=+0.091m
+min_z=0.730m target_z=0.693m low_seconds=0.98s
+collision=False, completed=False, best_inspection_dwell=0.06s, best_z_error_at_scan=0.066m
+approval=1.64s low_seconds=0.98s success=False collision=False
+scan_time=2.22s actual_z=0.825m reference_z=0.693m target_z=0.693m vx=0.455m/s
+first_target_height_time=2.40s x_at_target=0.952m scan_x=0.861m x_offset=+0.091m
+min_z=0.719m target_z=0.693m low_seconds=1.08s
+collision=False, completed=False, best_inspection_dwell=0.06s, best_z_error_at_scan=0.066m
+approval=1.64s low_seconds=1.08s success=False collision=False
+scan_time=2.22s actual_z=0.825m reference_z=0.693m target_z=0.693m vx=0.455m/s
+first_target_height_time=2.40s x_at_target=0.952m scan_x=0.861m x_offset=+0.091m
+min_z=0.711m target_z=0.693m low_seconds=1.18s
+collision=False, completed=False, best_inspection_dwell=0.06s, best_z_error_at_scan=0.066m
+approval=1.64s low_seconds=1.18s success=False collision=False
+scan_time=2.22s actual_z=0.825m reference_z=0.693m target_z=0.693m vx=0.455m/s
+first_target_height_time=2.40s x_at_target=0.952m scan_x=0.861m x_offset=+0.091m
+min_z=0.705m target_z=0.693m low_seconds=1.28s
+collision=False, completed=False, best_inspection_dwell=0.06s, best_z_error_at_scan=0.066m
+approval=1.64s low_seconds=1.28s success=False collision=False
+scan_time=2.22s actual_z=0.825m reference_z=0.693m target_z=0.693m vx=0.455m/s
+first_target_height_time=2.40s x_at_target=0.952m scan_x=0.861m x_offset=+0.091m
+min_z=0.701m target_z=0.693m low_seconds=1.38s
+collision=False, completed=False, best_inspection_dwell=0.06s, best_z_error_at_scan=0.066m
+approval=1.64s low_seconds=1.38s success=False collision=False
+scan_time=2.22s actual_z=0.825m reference_z=0.693m target_z=0.693m vx=0.455m/s
+first_target_height_time=2.40s x_at_target=0.952m scan_x=0.861m x_offset=+0.091m
+min_z=0.697m target_z=0.693m low_seconds=1.48s
+collision=True, completed=False, best_inspection_dwell=0.06s, best_z_error_at_scan=0.066m
+approval=1.64s low_seconds=1.48s success=False collision=True
+scan_time=2.22s actual_z=0.825m reference_z=0.693m target_z=0.693m vx=0.455m/s
+first_target_height_time=2.40s x_at_target=0.952m scan_x=0.861m x_offset=+0.091m
+min_z=0.695m target_z=0.693m low_seconds=1.58s
+collision=True, completed=False, best_inspection_dwell=0.06s, best_z_error_at_scan=0.066m
+approval=1.64s low_seconds=1.58s success=False collision=True
+scan_time=2.22s actual_z=0.825m reference_z=0.693m target_z=0.693m vx=0.455m/s
+first_target_height_time=2.40s x_at_target=0.952m scan_x=0.861m x_offset=+0.091m
+min_z=0.693m target_z=0.693m low_seconds=1.68s
+collision=True, completed=False, best_inspection_dwell=0.06s, best_z_error_at_scan=0.066m
+approval=1.64s low_seconds=1.68s success=False collision=True
+scan_time=2.18s actual_z=0.802m reference_z=0.693m target_z=0.693m vx=0.411m/s
+min_z=0.786m target_z=0.693m low_seconds=0.68s
+Target altitude never reached
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.093m
+approval=1.54s low_seconds=0.68s success=False collision=False
+scan_time=2.18s actual_z=0.802m reference_z=0.693m target_z=0.693m vx=0.411m/s
+first_target_height_time=2.30s x_at_target=0.915m scan_x=0.861m x_offset=+0.054m
+min_z=0.761m target_z=0.693m low_seconds=0.78s
+collision=False, completed=False, best_inspection_dwell=0.10s, best_z_error_at_scan=0.069m
+approval=1.54s low_seconds=0.78s success=False collision=False
+scan_time=2.18s actual_z=0.802m reference_z=0.693m target_z=0.693m vx=0.411m/s
+first_target_height_time=2.30s x_at_target=0.915m scan_x=0.861m x_offset=+0.054m
+min_z=0.743m target_z=0.693m low_seconds=0.88s
+collision=False, completed=True, best_inspection_dwell=0.18s, best_z_error_at_scan=0.050m
+approval=1.54s low_seconds=0.88s success=True collision=False
+Scenario=3 approval=1.54s low_seconds=0.88s
+scan_time=1.50s actual_z=0.912m reference_z=0.710m target_z=0.710m vx=0.715m/s
+first_target_height_time=1.80s x_at_target=1.242m scan_x=0.983m x_offset=+0.258m
+min_z=0.766m target_z=0.710m low_seconds=0.88s
+collision=True, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.132m
+approval=1.02s low_seconds=0.88s success=False collision=True
+scan_time=1.50s actual_z=0.912m reference_z=0.710m target_z=0.710m vx=0.715m/s
+first_target_height_time=1.80s x_at_target=1.242m scan_x=0.983m x_offset=+0.258m
+min_z=0.751m target_z=0.710m low_seconds=0.98s
+collision=True, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.132m
+approval=1.02s low_seconds=0.98s success=False collision=True
+scan_time=1.50s actual_z=0.912m reference_z=0.710m target_z=0.710m vx=0.715m/s
+first_target_height_time=1.80s x_at_target=1.242m scan_x=0.983m x_offset=+0.258m
+min_z=0.739m target_z=0.710m low_seconds=1.08s
+collision=True, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.132m
+approval=1.02s low_seconds=1.08s success=False collision=True
+scan_time=1.54s actual_z=0.840m reference_z=0.710m target_z=0.710m vx=0.799m/s
+first_target_height_time=1.70s x_at_target=1.136m scan_x=0.983m x_offset=+0.153m
+min_z=0.765m target_z=0.710m low_seconds=0.88s
+collision=True, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.089m
+approval=0.92s low_seconds=0.88s success=False collision=True
+scan_time=1.54s actual_z=0.840m reference_z=0.710m target_z=0.710m vx=0.799m/s
+first_target_height_time=1.70s x_at_target=1.136m scan_x=0.983m x_offset=+0.153m
+min_z=0.750m target_z=0.710m low_seconds=0.98s
+collision=True, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.089m
+approval=0.92s low_seconds=0.98s success=False collision=True
+scan_time=1.54s actual_z=0.840m reference_z=0.710m target_z=0.710m vx=0.799m/s
+first_target_height_time=1.70s x_at_target=1.136m scan_x=0.983m x_offset=+0.153m
+min_z=0.738m target_z=0.710m low_seconds=1.08s
+collision=True, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.089m
+approval=0.92s low_seconds=1.08s success=False collision=True
+scan_time=1.54s actual_z=0.840m reference_z=0.710m target_z=0.710m vx=0.799m/s
+first_target_height_time=1.70s x_at_target=1.136m scan_x=0.983m x_offset=+0.153m
+min_z=0.731m target_z=0.710m low_seconds=1.18s
+collision=True, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.089m
+approval=0.92s low_seconds=1.18s success=False collision=True
+first_target_height_time=1.58s x_at_target=0.966m scan_x=0.983m x_offset=-0.018m
+scan_time=1.60s actual_z=0.784m reference_z=0.710m target_z=0.710m vx=1.075m/s
+min_z=0.761m target_z=0.710m low_seconds=0.88s
+collision=False, completed=False, best_inspection_dwell=0.14s, best_z_error_at_scan=0.053m
+approval=0.82s low_seconds=0.88s success=False collision=False
+first_target_height_time=1.58s x_at_target=0.966m scan_x=0.983m x_offset=-0.018m
+scan_time=1.60s actual_z=0.784m reference_z=0.710m target_z=0.710m vx=1.075m/s
+min_z=0.747m target_z=0.710m low_seconds=0.98s
+collision=False, completed=False, best_inspection_dwell=0.14s, best_z_error_at_scan=0.053m
+approval=0.82s low_seconds=0.98s success=False collision=False
+first_target_height_time=1.58s x_at_target=0.966m scan_x=0.983m x_offset=-0.018m
+scan_time=1.60s actual_z=0.784m reference_z=0.710m target_z=0.710m vx=1.075m/s
+min_z=0.736m target_z=0.710m low_seconds=1.08s
+collision=True, completed=False, best_inspection_dwell=0.14s, best_z_error_at_scan=0.053m
+approval=0.82s low_seconds=1.08s success=False collision=True
+first_target_height_time=1.58s x_at_target=0.966m scan_x=0.983m x_offset=-0.018m
+scan_time=1.60s actual_z=0.784m reference_z=0.710m target_z=0.710m vx=1.075m/s
+min_z=0.728m target_z=0.710m low_seconds=1.18s
+collision=True, completed=False, best_inspection_dwell=0.14s, best_z_error_at_scan=0.053m
+approval=0.82s low_seconds=1.18s success=False collision=True
+first_target_height_time=1.58s x_at_target=0.966m scan_x=0.983m x_offset=-0.018m
+scan_time=1.60s actual_z=0.784m reference_z=0.710m target_z=0.710m vx=1.075m/s
+min_z=0.721m target_z=0.710m low_seconds=1.28s
+collision=True, completed=False, best_inspection_dwell=0.14s, best_z_error_at_scan=0.053m
+approval=0.82s low_seconds=1.28s success=False collision=True
+first_target_height_time=1.48s x_at_target=0.889m scan_x=0.983m x_offset=-0.095m
+scan_time=1.58s actual_z=0.766m reference_z=0.710m target_z=0.710m vx=1.145m/s
+min_z=0.761m target_z=0.710m low_seconds=0.88s
+collision=False, completed=True, best_inspection_dwell=0.20s, best_z_error_at_scan=0.051m
+approval=0.72s low_seconds=0.88s success=True collision=False
+Scenario=4 approval=0.72s low_seconds=0.88s
+scan_time=1.08s actual_z=1.139m reference_z=0.680m target_z=0.680m vx=0.796m/s
+min_z=0.827m target_z=0.680m low_seconds=0.64s
+Target altitude never reached
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.305m
+approval=0.80s low_seconds=0.64s success=False collision=False
+scan_time=1.08s actual_z=1.139m reference_z=0.680m target_z=0.680m vx=0.796m/s
+min_z=0.790m target_z=0.680m low_seconds=0.74s
+Target altitude never reached
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.305m
+approval=0.80s low_seconds=0.74s success=False collision=False
+scan_time=1.08s actual_z=1.139m reference_z=0.680m target_z=0.680m vx=0.796m/s
+min_z=0.761m target_z=0.680m low_seconds=0.84s
+Target altitude never reached
+collision=True, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.305m
+approval=0.80s low_seconds=0.84s success=False collision=True
+scan_time=1.08s actual_z=1.139m reference_z=0.680m target_z=0.680m vx=0.796m/s
+first_target_height_time=1.66s x_at_target=1.051m scan_x=0.661m x_offset=+0.390m
+min_z=0.739m target_z=0.680m low_seconds=0.94s
+collision=True, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.305m
+approval=0.80s low_seconds=0.94s success=False collision=True
+scan_time=1.14s actual_z=0.961m reference_z=0.680m target_z=0.680m vx=0.446m/s
+min_z=0.824m target_z=0.680m low_seconds=0.64s
+Target altitude never reached
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.153m
+approval=0.70s low_seconds=0.64s success=False collision=False
+scan_time=1.14s actual_z=0.961m reference_z=0.680m target_z=0.680m vx=0.446m/s
+min_z=0.788m target_z=0.680m low_seconds=0.74s
+Target altitude never reached
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.153m
+approval=0.70s low_seconds=0.74s success=False collision=False
+scan_time=1.14s actual_z=0.961m reference_z=0.680m target_z=0.680m vx=0.446m/s
+first_target_height_time=1.56s x_at_target=0.950m scan_x=0.661m x_offset=+0.289m
+min_z=0.759m target_z=0.680m low_seconds=0.84s
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.153m
+approval=0.70s low_seconds=0.84s success=False collision=False
+scan_time=1.14s actual_z=0.961m reference_z=0.680m target_z=0.680m vx=0.446m/s
+first_target_height_time=1.56s x_at_target=0.950m scan_x=0.661m x_offset=+0.289m
+min_z=0.737m target_z=0.680m low_seconds=0.94s
+collision=True, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.153m
+approval=0.70s low_seconds=0.94s success=False collision=True
+scan_time=1.14s actual_z=0.961m reference_z=0.680m target_z=0.680m vx=0.446m/s
+first_target_height_time=1.56s x_at_target=0.950m scan_x=0.661m x_offset=+0.289m
+min_z=0.722m target_z=0.680m low_seconds=1.04s
+collision=True, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.153m
+approval=0.70s low_seconds=1.04s success=False collision=True
+scan_time=1.18s actual_z=0.864m reference_z=0.680m target_z=0.680m vx=0.651m/s
+min_z=0.824m target_z=0.680m low_seconds=0.64s
+Target altitude never reached
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.145m
+approval=0.60s low_seconds=0.64s success=False collision=False
+scan_time=1.18s actual_z=0.864m reference_z=0.680m target_z=0.680m vx=0.651m/s
+min_z=0.788m target_z=0.680m low_seconds=0.74s
+Target altitude never reached
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.113m
+approval=0.60s low_seconds=0.74s success=False collision=False
+scan_time=1.18s actual_z=0.864m reference_z=0.680m target_z=0.680m vx=0.651m/s
+first_target_height_time=1.46s x_at_target=0.883m scan_x=0.661m x_offset=+0.222m
+min_z=0.759m target_z=0.680m low_seconds=0.84s
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.113m
+approval=0.60s low_seconds=0.84s success=False collision=False
+scan_time=1.18s actual_z=0.864m reference_z=0.680m target_z=0.680m vx=0.651m/s
+first_target_height_time=1.46s x_at_target=0.883m scan_x=0.661m x_offset=+0.222m
+min_z=0.738m target_z=0.680m low_seconds=0.94s
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.113m
+approval=0.60s low_seconds=0.94s success=False collision=False
+scan_time=1.18s actual_z=0.864m reference_z=0.680m target_z=0.680m vx=0.651m/s
+first_target_height_time=1.46s x_at_target=0.883m scan_x=0.661m x_offset=+0.222m
+min_z=0.722m target_z=0.680m low_seconds=1.04s
+collision=True, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.113m
+approval=0.60s low_seconds=1.04s success=False collision=True
+scan_time=1.18s actual_z=0.864m reference_z=0.680m target_z=0.680m vx=0.651m/s
+first_target_height_time=1.46s x_at_target=0.883m scan_x=0.661m x_offset=+0.222m
+min_z=0.710m target_z=0.680m low_seconds=1.14s
+collision=True, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.113m
+approval=0.60s low_seconds=1.14s success=False collision=True
+scan_time=1.14s actual_z=0.836m reference_z=0.680m target_z=0.680m vx=0.786m/s
+min_z=0.827m target_z=0.680m low_seconds=0.64s
+Target altitude never reached
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.147m
+approval=0.50s low_seconds=0.64s success=False collision=False
+scan_time=1.14s actual_z=0.836m reference_z=0.680m target_z=0.680m vx=0.786m/s
+min_z=0.790m target_z=0.680m low_seconds=0.74s
+Target altitude never reached
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.110m
+approval=0.50s low_seconds=0.74s success=False collision=False
+scan_time=1.14s actual_z=0.836m reference_z=0.680m target_z=0.680m vx=0.786m/s
+min_z=0.761m target_z=0.680m low_seconds=0.84s
+Target altitude never reached
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.101m
+approval=0.50s low_seconds=0.84s success=False collision=False
+scan_time=1.14s actual_z=0.836m reference_z=0.680m target_z=0.680m vx=0.786m/s
+first_target_height_time=1.36s x_at_target=0.841m scan_x=0.661m x_offset=+0.180m
+min_z=0.739m target_z=0.680m low_seconds=0.94s
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.101m
+approval=0.50s low_seconds=0.94s success=False collision=False
+scan_time=1.14s actual_z=0.836m reference_z=0.680m target_z=0.680m vx=0.786m/s
+first_target_height_time=1.36s x_at_target=0.841m scan_x=0.661m x_offset=+0.180m
+min_z=0.723m target_z=0.680m low_seconds=1.04s
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.101m
+approval=0.50s low_seconds=1.04s success=False collision=False
+scan_time=1.14s actual_z=0.836m reference_z=0.680m target_z=0.680m vx=0.786m/s
+first_target_height_time=1.36s x_at_target=0.841m scan_x=0.661m x_offset=+0.180m
+min_z=0.711m target_z=0.680m low_seconds=1.14s
+collision=True, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.101m
+approval=0.50s low_seconds=1.14s success=False collision=True
+scan_time=1.14s actual_z=0.836m reference_z=0.680m target_z=0.680m vx=0.786m/s
+first_target_height_time=1.36s x_at_target=0.841m scan_x=0.661m x_offset=+0.180m
+min_z=0.701m target_z=0.680m low_seconds=1.24s
+collision=True, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.101m
+approval=0.50s low_seconds=1.24s success=False collision=True
+scan_time=1.12s actual_z=0.837m reference_z=1.352m target_z=0.680m vx=0.761m/s
+min_z=0.827m target_z=0.680m low_seconds=0.64s
+Target altitude never reached
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.147m
+approval=0.40s low_seconds=0.64s success=False collision=False
+scan_time=1.12s actual_z=0.802m reference_z=0.680m target_z=0.680m vx=0.867m/s
+min_z=0.790m target_z=0.680m low_seconds=0.74s
+Target altitude never reached
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.110m
+approval=0.40s low_seconds=0.74s success=False collision=False
+scan_time=1.12s actual_z=0.802m reference_z=0.680m target_z=0.680m vx=0.867m/s
+min_z=0.761m target_z=0.680m low_seconds=0.84s
+Target altitude never reached
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.084m
+approval=0.40s low_seconds=0.84s success=False collision=False
+scan_time=1.12s actual_z=0.802m reference_z=0.680m target_z=0.680m vx=0.867m/s
+first_target_height_time=1.26s x_at_target=0.784m scan_x=0.661m x_offset=+0.123m
+min_z=0.739m target_z=0.680m low_seconds=0.94s
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.084m
+approval=0.40s low_seconds=0.94s success=False collision=False
+scan_time=1.12s actual_z=0.802m reference_z=0.680m target_z=0.680m vx=0.867m/s
+first_target_height_time=1.26s x_at_target=0.784m scan_x=0.661m x_offset=+0.123m
+min_z=0.723m target_z=0.680m low_seconds=1.04s
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.084m
+approval=0.40s low_seconds=1.04s success=False collision=False
+scan_time=1.12s actual_z=0.802m reference_z=0.680m target_z=0.680m vx=0.867m/s
+first_target_height_time=1.26s x_at_target=0.784m scan_x=0.661m x_offset=+0.123m
+min_z=0.711m target_z=0.680m low_seconds=1.14s
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.084m
+approval=0.40s low_seconds=1.14s success=False collision=False
+scan_time=1.12s actual_z=0.802m reference_z=0.680m target_z=0.680m vx=0.867m/s
+first_target_height_time=1.26s x_at_target=0.784m scan_x=0.661m x_offset=+0.123m
+min_z=0.701m target_z=0.680m low_seconds=1.24s
+collision=True, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.084m
+approval=0.40s low_seconds=1.24s success=False collision=True
+scan_time=1.12s actual_z=0.802m reference_z=0.680m target_z=0.680m vx=0.867m/s
+first_target_height_time=1.26s x_at_target=0.784m scan_x=0.661m x_offset=+0.123m
+min_z=0.694m target_z=0.680m low_seconds=1.34s
+collision=True, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.084m
+approval=0.40s low_seconds=1.34s success=False collision=True
+scan_time=1.02s actual_z=0.829m reference_z=1.352m target_z=0.680m vx=0.580m/s
+min_z=0.820m target_z=0.680m low_seconds=0.64s
+Target altitude never reached
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.140m
+approval=0.30s low_seconds=0.64s success=False collision=False
+scan_time=1.00s actual_z=0.804m reference_z=0.680m target_z=0.680m vx=0.925m/s
+min_z=0.785m target_z=0.680m low_seconds=0.74s
+Target altitude never reached
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.105m
+approval=0.30s low_seconds=0.74s success=False collision=False
+scan_time=1.00s actual_z=0.804m reference_z=0.680m target_z=0.680m vx=0.925m/s
+first_target_height_time=1.14s x_at_target=0.765m scan_x=0.661m x_offset=+0.105m
+min_z=0.756m target_z=0.680m low_seconds=0.84s
+collision=False, completed=False, best_inspection_dwell=0.04s, best_z_error_at_scan=0.076m
+approval=0.30s low_seconds=0.84s success=False collision=False
+scan_time=1.00s actual_z=0.804m reference_z=0.680m target_z=0.680m vx=0.925m/s
+first_target_height_time=1.14s x_at_target=0.765m scan_x=0.661m x_offset=+0.105m
+min_z=0.734m target_z=0.680m low_seconds=0.94s
+collision=False, completed=False, best_inspection_dwell=0.04s, best_z_error_at_scan=0.074m
+approval=0.30s low_seconds=0.94s success=False collision=False
+scan_time=1.00s actual_z=0.804m reference_z=0.680m target_z=0.680m vx=0.925m/s
+first_target_height_time=1.14s x_at_target=0.765m scan_x=0.661m x_offset=+0.105m
+min_z=0.719m target_z=0.680m low_seconds=1.04s
+collision=False, completed=False, best_inspection_dwell=0.04s, best_z_error_at_scan=0.074m
+approval=0.30s low_seconds=1.04s success=False collision=False
+scan_time=1.00s actual_z=0.804m reference_z=0.680m target_z=0.680m vx=0.925m/s
+first_target_height_time=1.14s x_at_target=0.765m scan_x=0.661m x_offset=+0.105m
+min_z=0.708m target_z=0.680m low_seconds=1.14s
+collision=False, completed=False, best_inspection_dwell=0.04s, best_z_error_at_scan=0.074m
+approval=0.30s low_seconds=1.14s success=False collision=False
+scan_time=1.00s actual_z=0.804m reference_z=0.680m target_z=0.680m vx=0.925m/s
+first_target_height_time=1.14s x_at_target=0.765m scan_x=0.661m x_offset=+0.105m
+min_z=0.699m target_z=0.680m low_seconds=1.24s
+collision=False, completed=False, best_inspection_dwell=0.04s, best_z_error_at_scan=0.074m
+approval=0.30s low_seconds=1.24s success=False collision=False
+scan_time=1.00s actual_z=0.804m reference_z=0.680m target_z=0.680m vx=0.925m/s
+first_target_height_time=1.14s x_at_target=0.765m scan_x=0.661m x_offset=+0.105m
+min_z=0.693m target_z=0.680m low_seconds=1.34s
+collision=True, completed=False, best_inspection_dwell=0.04s, best_z_error_at_scan=0.074m
+approval=0.30s low_seconds=1.34s success=False collision=True
+scan_time=1.00s actual_z=0.804m reference_z=0.680m target_z=0.680m vx=0.925m/s
+first_target_height_time=1.14s x_at_target=0.765m scan_x=0.661m x_offset=+0.105m
+min_z=0.688m target_z=0.680m low_seconds=1.44s
+collision=True, completed=False, best_inspection_dwell=0.04s, best_z_error_at_scan=0.074m
+approval=0.30s low_seconds=1.44s success=False collision=True
+scan_time=1.28s actual_z=1.142m reference_z=1.352m target_z=0.680m vx=0.480m/s
+min_z=0.820m target_z=0.680m low_seconds=0.64s
+Target altitude never reached
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.143m
+approval=0.20s low_seconds=0.64s success=False collision=False
+scan_time=1.06s actual_z=0.832m reference_z=1.352m target_z=0.680m vx=0.271m/s
+min_z=0.785m target_z=0.680m low_seconds=0.74s
+Target altitude never reached
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.106m
+approval=0.20s low_seconds=0.74s success=False collision=False
+scan_time=1.02s actual_z=0.765m reference_z=0.680m target_z=0.680m vx=0.701m/s
+first_target_height_time=1.04s x_at_target=0.675m scan_x=0.661m x_offset=+0.014m
+min_z=0.757m target_z=0.680m low_seconds=0.84s
+collision=False, completed=False, best_inspection_dwell=0.06s, best_z_error_at_scan=0.077m
+approval=0.20s low_seconds=0.84s success=False collision=False
+scan_time=1.02s actual_z=0.765m reference_z=0.680m target_z=0.680m vx=0.701m/s
+first_target_height_time=1.04s x_at_target=0.675m scan_x=0.661m x_offset=+0.014m
+min_z=0.735m target_z=0.680m low_seconds=0.94s
+collision=False, completed=True, best_inspection_dwell=0.18s, best_z_error_at_scan=0.055m
+approval=0.20s low_seconds=0.94s success=True collision=False
+Scenario=5 approval=0.20s low_seconds=0.94s
+scan_time=1.10s actual_z=0.992m reference_z=0.820m target_z=0.820m vx=0.542m/s
+first_target_height_time=1.36s x_at_target=0.705m scan_x=0.558m x_offset=+0.147m
+min_z=0.868m target_z=0.820m low_seconds=0.80s
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.093m
+approval=0.70s low_seconds=0.80s success=False collision=False
+scan_time=1.10s actual_z=0.992m reference_z=0.820m target_z=0.820m vx=0.542m/s
+first_target_height_time=1.36s x_at_target=0.705m scan_x=0.558m x_offset=+0.147m
+min_z=0.855m target_z=0.820m low_seconds=0.90s
+collision=True, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.093m
+approval=0.70s low_seconds=0.90s success=False collision=True
+scan_time=1.10s actual_z=0.992m reference_z=0.820m target_z=0.820m vx=0.542m/s
+first_target_height_time=1.36s x_at_target=0.705m scan_x=0.558m x_offset=+0.147m
+min_z=0.844m target_z=0.820m low_seconds=1.00s
+collision=True, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.093m
+approval=0.70s low_seconds=1.00s success=False collision=True
+scan_time=1.10s actual_z=0.992m reference_z=0.820m target_z=0.820m vx=0.542m/s
+first_target_height_time=1.36s x_at_target=0.705m scan_x=0.558m x_offset=+0.147m
+min_z=0.837m target_z=0.820m low_seconds=1.10s
+collision=True, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.093m
+approval=0.70s low_seconds=1.10s success=False collision=True
+scan_time=1.10s actual_z=0.992m reference_z=0.820m target_z=0.820m vx=0.542m/s
+first_target_height_time=1.36s x_at_target=0.705m scan_x=0.558m x_offset=+0.147m
+min_z=0.831m target_z=0.820m low_seconds=1.20s
+collision=True, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.093m
+approval=0.70s low_seconds=1.20s success=False collision=True
+scan_time=1.14s actual_z=0.932m reference_z=0.820m target_z=0.820m vx=0.584m/s
+first_target_height_time=1.26s x_at_target=0.641m scan_x=0.558m x_offset=+0.083m
+min_z=0.868m target_z=0.820m low_seconds=0.80s
+collision=False, completed=False, best_inspection_dwell=0.06s, best_z_error_at_scan=0.068m
+approval=0.60s low_seconds=0.80s success=False collision=False
+scan_time=1.14s actual_z=0.932m reference_z=0.820m target_z=0.820m vx=0.584m/s
+first_target_height_time=1.26s x_at_target=0.641m scan_x=0.558m x_offset=+0.083m
+min_z=0.855m target_z=0.820m low_seconds=0.90s
+collision=False, completed=False, best_inspection_dwell=0.06s, best_z_error_at_scan=0.068m
+approval=0.60s low_seconds=0.90s success=False collision=False
+scan_time=1.14s actual_z=0.932m reference_z=0.820m target_z=0.820m vx=0.584m/s
+first_target_height_time=1.26s x_at_target=0.641m scan_x=0.558m x_offset=+0.083m
+min_z=0.845m target_z=0.820m low_seconds=1.00s
+collision=True, completed=False, best_inspection_dwell=0.06s, best_z_error_at_scan=0.068m
+approval=0.60s low_seconds=1.00s success=False collision=True
+scan_time=1.14s actual_z=0.932m reference_z=0.820m target_z=0.820m vx=0.584m/s
+first_target_height_time=1.26s x_at_target=0.641m scan_x=0.558m x_offset=+0.083m
+min_z=0.837m target_z=0.820m low_seconds=1.10s
+collision=True, completed=False, best_inspection_dwell=0.06s, best_z_error_at_scan=0.068m
+approval=0.60s low_seconds=1.10s success=False collision=True
+scan_time=1.14s actual_z=0.932m reference_z=0.820m target_z=0.820m vx=0.584m/s
+first_target_height_time=1.26s x_at_target=0.641m scan_x=0.558m x_offset=+0.083m
+min_z=0.831m target_z=0.820m low_seconds=1.20s
+collision=True, completed=False, best_inspection_dwell=0.06s, best_z_error_at_scan=0.068m
+approval=0.60s low_seconds=1.20s success=False collision=True
+scan_time=1.14s actual_z=0.932m reference_z=0.820m target_z=0.820m vx=0.584m/s
+first_target_height_time=1.26s x_at_target=0.641m scan_x=0.558m x_offset=+0.083m
+min_z=0.827m target_z=0.820m low_seconds=1.30s
+collision=True, completed=False, best_inspection_dwell=0.06s, best_z_error_at_scan=0.068m
+approval=0.60s low_seconds=1.30s success=False collision=True
+scan_time=1.10s actual_z=0.914m reference_z=0.820m target_z=0.820m vx=0.660m/s
+first_target_height_time=1.16s x_at_target=0.597m scan_x=0.558m x_offset=+0.039m
+min_z=0.868m target_z=0.820m low_seconds=0.80s
+collision=False, completed=False, best_inspection_dwell=0.14s, best_z_error_at_scan=0.052m
+approval=0.50s low_seconds=0.80s success=False collision=False
+scan_time=1.10s actual_z=0.914m reference_z=0.820m target_z=0.820m vx=0.660m/s
+first_target_height_time=1.16s x_at_target=0.597m scan_x=0.558m x_offset=+0.039m
+min_z=0.855m target_z=0.820m low_seconds=0.90s
+collision=False, completed=False, best_inspection_dwell=0.14s, best_z_error_at_scan=0.052m
+approval=0.50s low_seconds=0.90s success=False collision=False
+scan_time=1.10s actual_z=0.914m reference_z=0.820m target_z=0.820m vx=0.660m/s
+first_target_height_time=1.16s x_at_target=0.597m scan_x=0.558m x_offset=+0.039m
+min_z=0.845m target_z=0.820m low_seconds=1.00s
+collision=False, completed=False, best_inspection_dwell=0.14s, best_z_error_at_scan=0.052m
+approval=0.50s low_seconds=1.00s success=False collision=False
+scan_time=1.10s actual_z=0.914m reference_z=0.820m target_z=0.820m vx=0.660m/s
+first_target_height_time=1.16s x_at_target=0.597m scan_x=0.558m x_offset=+0.039m
+min_z=0.837m target_z=0.820m low_seconds=1.10s
+collision=True, completed=False, best_inspection_dwell=0.14s, best_z_error_at_scan=0.052m
+approval=0.50s low_seconds=1.10s success=False collision=True
+scan_time=1.10s actual_z=0.914m reference_z=0.820m target_z=0.820m vx=0.660m/s
+first_target_height_time=1.16s x_at_target=0.597m scan_x=0.558m x_offset=+0.039m
+min_z=0.831m target_z=0.820m low_seconds=1.20s
+collision=True, completed=False, best_inspection_dwell=0.14s, best_z_error_at_scan=0.052m
+approval=0.50s low_seconds=1.20s success=False collision=True
+scan_time=1.10s actual_z=0.914m reference_z=0.820m target_z=0.820m vx=0.660m/s
+first_target_height_time=1.16s x_at_target=0.597m scan_x=0.558m x_offset=+0.039m
+min_z=0.827m target_z=0.820m low_seconds=1.30s
+collision=True, completed=False, best_inspection_dwell=0.14s, best_z_error_at_scan=0.052m
+approval=0.50s low_seconds=1.30s success=False collision=True
+scan_time=1.10s actual_z=0.914m reference_z=0.820m target_z=0.820m vx=0.660m/s
+first_target_height_time=1.16s x_at_target=0.597m scan_x=0.558m x_offset=+0.039m
+min_z=0.824m target_z=0.820m low_seconds=1.40s
+collision=True, completed=False, best_inspection_dwell=0.14s, best_z_error_at_scan=0.052m
+approval=0.50s low_seconds=1.40s success=False collision=True
+first_target_height_time=1.06s x_at_target=0.551m scan_x=0.558m x_offset=-0.007m
+scan_time=1.08s actual_z=0.892m reference_z=0.820m target_z=0.820m vx=0.683m/s
+min_z=0.868m target_z=0.820m low_seconds=0.80s
+collision=False, completed=True, best_inspection_dwell=0.22s, best_z_error_at_scan=0.048m
+approval=0.40s low_seconds=0.80s success=True collision=False
+Scenario=6 approval=0.40s low_seconds=0.80s
+scan_time=1.50s actual_z=1.261m reference_z=0.814m target_z=0.814m vx=0.668m/s
+min_z=1.044m target_z=0.814m low_seconds=0.40s
+Target altitude never reached
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.303m
+approval=1.30s low_seconds=0.40s success=False collision=False
+scan_time=1.50s actual_z=1.261m reference_z=0.814m target_z=0.814m vx=0.668m/s
+min_z=0.988m target_z=0.814m low_seconds=0.50s
+Target altitude never reached
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.303m
+approval=1.30s low_seconds=0.50s success=False collision=False
+scan_time=1.50s actual_z=1.261m reference_z=0.814m target_z=0.814m vx=0.668m/s
+min_z=0.945m target_z=0.814m low_seconds=0.60s
+Target altitude never reached
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.303m
+approval=1.30s low_seconds=0.60s success=False collision=False
+scan_time=1.50s actual_z=1.261m reference_z=0.814m target_z=0.814m vx=0.668m/s
+min_z=0.911m target_z=0.814m low_seconds=0.70s
+Target altitude never reached
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.303m
+approval=1.30s low_seconds=0.70s success=False collision=False
+scan_time=1.50s actual_z=1.261m reference_z=0.814m target_z=0.814m vx=0.668m/s
+first_target_height_time=2.08s x_at_target=1.252m scan_x=0.843m x_offset=+0.409m
+min_z=0.886m target_z=0.814m low_seconds=0.80s
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.303m
+approval=1.30s low_seconds=0.80s success=False collision=False
+scan_time=1.50s actual_z=1.261m reference_z=0.814m target_z=0.814m vx=0.668m/s
+first_target_height_time=2.08s x_at_target=1.252m scan_x=0.843m x_offset=+0.409m
+min_z=0.866m target_z=0.814m low_seconds=0.90s
+collision=True, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.303m
+approval=1.30s low_seconds=0.90s success=False collision=True
+scan_time=1.50s actual_z=1.155m reference_z=0.814m target_z=0.814m vx=0.691m/s
+min_z=1.044m target_z=0.814m low_seconds=0.40s
+Target altitude never reached
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.230m
+approval=1.20s low_seconds=0.40s success=False collision=False
+scan_time=1.50s actual_z=1.155m reference_z=0.814m target_z=0.814m vx=0.691m/s
+min_z=0.989m target_z=0.814m low_seconds=0.50s
+Target altitude never reached
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.225m
+approval=1.20s low_seconds=0.50s success=False collision=False
+scan_time=1.50s actual_z=1.155m reference_z=0.814m target_z=0.814m vx=0.691m/s
+min_z=0.945m target_z=0.814m low_seconds=0.60s
+Target altitude never reached
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.225m
+approval=1.20s low_seconds=0.60s success=False collision=False
+scan_time=1.50s actual_z=1.155m reference_z=0.814m target_z=0.814m vx=0.691m/s
+min_z=0.911m target_z=0.814m low_seconds=0.70s
+Target altitude never reached
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.225m
+approval=1.20s low_seconds=0.70s success=False collision=False
+scan_time=1.50s actual_z=1.155m reference_z=0.814m target_z=0.814m vx=0.691m/s
+first_target_height_time=1.98s x_at_target=1.172m scan_x=0.843m x_offset=+0.329m
+min_z=0.886m target_z=0.814m low_seconds=0.80s
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.225m
+approval=1.20s low_seconds=0.80s success=False collision=False
+scan_time=1.50s actual_z=1.155m reference_z=0.814m target_z=0.814m vx=0.691m/s
+first_target_height_time=1.98s x_at_target=1.172m scan_x=0.843m x_offset=+0.329m
+min_z=0.867m target_z=0.814m low_seconds=0.90s
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.225m
+approval=1.20s low_seconds=0.90s success=False collision=False
+scan_time=1.50s actual_z=1.155m reference_z=0.814m target_z=0.814m vx=0.691m/s
+first_target_height_time=1.98s x_at_target=1.172m scan_x=0.843m x_offset=+0.329m
+min_z=0.852m target_z=0.814m low_seconds=1.00s
+collision=True, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.225m
+approval=1.20s low_seconds=1.00s success=False collision=True
+scan_time=1.52s actual_z=1.055m reference_z=1.374m target_z=0.814m vx=0.598m/s
+min_z=1.044m target_z=0.814m low_seconds=0.40s
+Target altitude never reached
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.230m
+approval=1.10s low_seconds=0.40s success=False collision=False
+scan_time=1.52s actual_z=1.053m reference_z=0.814m target_z=0.814m vx=0.588m/s
+min_z=0.988m target_z=0.814m low_seconds=0.50s
+Target altitude never reached
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.174m
+approval=1.10s low_seconds=0.50s success=False collision=False
+scan_time=1.52s actual_z=1.053m reference_z=0.814m target_z=0.814m vx=0.588m/s
+min_z=0.945m target_z=0.814m low_seconds=0.60s
+Target altitude never reached
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.147m
+approval=1.10s low_seconds=0.60s success=False collision=False
+scan_time=1.52s actual_z=1.053m reference_z=0.814m target_z=0.814m vx=0.588m/s
+min_z=0.911m target_z=0.814m low_seconds=0.70s
+Target altitude never reached
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.147m
+approval=1.10s low_seconds=0.70s success=False collision=False
+scan_time=1.52s actual_z=1.053m reference_z=0.814m target_z=0.814m vx=0.588m/s
+first_target_height_time=1.88s x_at_target=1.096m scan_x=0.843m x_offset=+0.253m
+min_z=0.885m target_z=0.814m low_seconds=0.80s
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.147m
+approval=1.10s low_seconds=0.80s success=False collision=False
+scan_time=1.52s actual_z=1.053m reference_z=0.814m target_z=0.814m vx=0.588m/s
+first_target_height_time=1.88s x_at_target=1.096m scan_x=0.843m x_offset=+0.253m
+min_z=0.866m target_z=0.814m low_seconds=0.90s
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.147m
+approval=1.10s low_seconds=0.90s success=False collision=False
+scan_time=1.52s actual_z=1.053m reference_z=0.814m target_z=0.814m vx=0.588m/s
+first_target_height_time=1.88s x_at_target=1.096m scan_x=0.843m x_offset=+0.253m
+min_z=0.852m target_z=0.814m low_seconds=1.00s
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.147m
+approval=1.10s low_seconds=1.00s success=False collision=False
+scan_time=1.52s actual_z=1.053m reference_z=0.814m target_z=0.814m vx=0.588m/s
+first_target_height_time=1.88s x_at_target=1.096m scan_x=0.843m x_offset=+0.253m
+min_z=0.841m target_z=0.814m low_seconds=1.10s
+collision=True, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.147m
+approval=1.10s low_seconds=1.10s success=False collision=True
+scan_time=1.46s actual_z=1.044m reference_z=1.374m target_z=0.814m vx=0.565m/s
+min_z=1.044m target_z=0.814m low_seconds=0.40s
+Target altitude never reached
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.230m
+approval=1.00s low_seconds=0.40s success=False collision=False
+scan_time=1.46s actual_z=1.026m reference_z=0.814m target_z=0.814m vx=0.615m/s
+min_z=0.989m target_z=0.814m low_seconds=0.50s
+Target altitude never reached
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.175m
+approval=1.00s low_seconds=0.50s success=False collision=False
+scan_time=1.46s actual_z=1.026m reference_z=0.814m target_z=0.814m vx=0.615m/s
+min_z=0.945m target_z=0.814m low_seconds=0.60s
+Target altitude never reached
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.131m
+approval=1.00s low_seconds=0.60s success=False collision=False
+scan_time=1.46s actual_z=1.026m reference_z=0.814m target_z=0.814m vx=0.615m/s
+min_z=0.911m target_z=0.814m low_seconds=0.70s
+Target altitude never reached
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.122m
+approval=1.00s low_seconds=0.70s success=False collision=False
+scan_time=1.46s actual_z=1.026m reference_z=0.814m target_z=0.814m vx=0.615m/s
+first_target_height_time=1.78s x_at_target=1.034m scan_x=0.843m x_offset=+0.191m
+min_z=0.886m target_z=0.814m low_seconds=0.80s
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.122m
+approval=1.00s low_seconds=0.80s success=False collision=False
+scan_time=1.46s actual_z=1.026m reference_z=0.814m target_z=0.814m vx=0.615m/s
+first_target_height_time=1.78s x_at_target=1.034m scan_x=0.843m x_offset=+0.191m
+min_z=0.866m target_z=0.814m low_seconds=0.90s
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.122m
+approval=1.00s low_seconds=0.90s success=False collision=False
+scan_time=1.46s actual_z=1.026m reference_z=0.814m target_z=0.814m vx=0.615m/s
+first_target_height_time=1.78s x_at_target=1.034m scan_x=0.843m x_offset=+0.191m
+min_z=0.852m target_z=0.814m low_seconds=1.00s
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.122m
+approval=1.00s low_seconds=1.00s success=False collision=False
+scan_time=1.46s actual_z=1.026m reference_z=0.814m target_z=0.814m vx=0.615m/s
+first_target_height_time=1.78s x_at_target=1.034m scan_x=0.843m x_offset=+0.191m
+min_z=0.841m target_z=0.814m low_seconds=1.10s
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.122m
+approval=1.00s low_seconds=1.10s success=False collision=False
+scan_time=1.46s actual_z=1.026m reference_z=0.814m target_z=0.814m vx=0.615m/s
+first_target_height_time=1.78s x_at_target=1.034m scan_x=0.843m x_offset=+0.191m
+min_z=0.833m target_z=0.814m low_seconds=1.20s
+collision=True, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.122m
+approval=1.00s low_seconds=1.20s success=False collision=True
+scan_time=1.46s actual_z=1.087m reference_z=1.374m target_z=0.814m vx=0.321m/s
+min_z=1.045m target_z=0.814m low_seconds=0.40s
+Target altitude never reached
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.231m
+approval=0.90s low_seconds=0.40s success=False collision=False
+scan_time=1.44s actual_z=0.989m reference_z=1.374m target_z=0.814m vx=0.519m/s
+min_z=0.989m target_z=0.814m low_seconds=0.50s
+Target altitude never reached
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.175m
+approval=0.90s low_seconds=0.50s success=False collision=False
+scan_time=1.44s actual_z=0.980m reference_z=0.814m target_z=0.814m vx=0.548m/s
+min_z=0.945m target_z=0.814m low_seconds=0.60s
+Target altitude never reached
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.131m
+approval=0.90s low_seconds=0.60s success=False collision=False
+scan_time=1.44s actual_z=0.980m reference_z=0.814m target_z=0.814m vx=0.548m/s
+min_z=0.911m target_z=0.814m low_seconds=0.70s
+Target altitude never reached
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.097m
+approval=0.90s low_seconds=0.70s success=False collision=False
+scan_time=1.44s actual_z=0.980m reference_z=0.814m target_z=0.814m vx=0.548m/s
+first_target_height_time=1.68s x_at_target=0.978m scan_x=0.843m x_offset=+0.135m
+min_z=0.886m target_z=0.814m low_seconds=0.80s
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.089m
+approval=0.90s low_seconds=0.80s success=False collision=False
+scan_time=1.44s actual_z=0.980m reference_z=0.814m target_z=0.814m vx=0.548m/s
+first_target_height_time=1.68s x_at_target=0.978m scan_x=0.843m x_offset=+0.135m
+min_z=0.867m target_z=0.814m low_seconds=0.90s
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.089m
+approval=0.90s low_seconds=0.90s success=False collision=False
+scan_time=1.44s actual_z=0.980m reference_z=0.814m target_z=0.814m vx=0.548m/s
+first_target_height_time=1.68s x_at_target=0.978m scan_x=0.843m x_offset=+0.135m
+min_z=0.852m target_z=0.814m low_seconds=1.00s
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.089m
+approval=0.90s low_seconds=1.00s success=False collision=False
+scan_time=1.44s actual_z=0.980m reference_z=0.814m target_z=0.814m vx=0.548m/s
+first_target_height_time=1.68s x_at_target=0.978m scan_x=0.843m x_offset=+0.135m
+min_z=0.841m target_z=0.814m low_seconds=1.10s
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.089m
+approval=0.90s low_seconds=1.10s success=False collision=False
+scan_time=1.44s actual_z=0.980m reference_z=0.814m target_z=0.814m vx=0.548m/s
+first_target_height_time=1.68s x_at_target=0.978m scan_x=0.843m x_offset=+0.135m
+min_z=0.833m target_z=0.814m low_seconds=1.20s
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.089m
+approval=0.90s low_seconds=1.20s success=False collision=False
+scan_time=1.44s actual_z=0.980m reference_z=0.814m target_z=0.814m vx=0.548m/s
+first_target_height_time=1.68s x_at_target=0.978m scan_x=0.843m x_offset=+0.135m
+min_z=0.826m target_z=0.814m low_seconds=1.30s
+collision=True, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.089m
+approval=0.90s low_seconds=1.30s success=False collision=True
+scan_time=1.50s actual_z=1.178m reference_z=1.374m target_z=0.814m vx=0.508m/s
+min_z=1.044m target_z=0.814m low_seconds=0.40s
+Target altitude never reached
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.230m
+approval=0.80s low_seconds=0.40s success=False collision=False
+scan_time=1.48s actual_z=1.065m reference_z=1.374m target_z=0.814m vx=0.522m/s
+min_z=0.989m target_z=0.814m low_seconds=0.50s
+Target altitude never reached
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.174m
+approval=0.80s low_seconds=0.50s success=False collision=False
+scan_time=1.48s actual_z=0.957m reference_z=1.374m target_z=0.814m vx=0.597m/s
+min_z=0.945m target_z=0.814m low_seconds=0.60s
+Target altitude never reached
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.131m
+approval=0.80s low_seconds=0.60s success=False collision=False
+scan_time=1.48s actual_z=0.922m reference_z=0.814m target_z=0.814m vx=0.523m/s
+min_z=0.911m target_z=0.814m low_seconds=0.70s
+Target altitude never reached
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.097m
+approval=0.80s low_seconds=0.70s success=False collision=False
+scan_time=1.48s actual_z=0.922m reference_z=0.814m target_z=0.814m vx=0.523m/s
+first_target_height_time=1.58s x_at_target=0.906m scan_x=0.843m x_offset=+0.063m
+min_z=0.886m target_z=0.814m low_seconds=0.80s
+collision=False, completed=False, best_inspection_dwell=0.08s, best_z_error_at_scan=0.072m
+approval=0.80s low_seconds=0.80s success=False collision=False
+scan_time=1.48s actual_z=0.922m reference_z=0.814m target_z=0.814m vx=0.523m/s
+first_target_height_time=1.58s x_at_target=0.906m scan_x=0.843m x_offset=+0.063m
+min_z=0.866m target_z=0.814m low_seconds=0.90s
+collision=False, completed=False, best_inspection_dwell=0.10s, best_z_error_at_scan=0.061m
+approval=0.80s low_seconds=0.90s success=False collision=False
+scan_time=1.48s actual_z=0.922m reference_z=0.814m target_z=0.814m vx=0.523m/s
+first_target_height_time=1.58s x_at_target=0.906m scan_x=0.843m x_offset=+0.063m
+min_z=0.852m target_z=0.814m low_seconds=1.00s
+collision=False, completed=False, best_inspection_dwell=0.10s, best_z_error_at_scan=0.061m
+approval=0.80s low_seconds=1.00s success=False collision=False
+scan_time=1.48s actual_z=0.922m reference_z=0.814m target_z=0.814m vx=0.523m/s
+first_target_height_time=1.58s x_at_target=0.906m scan_x=0.843m x_offset=+0.063m
+min_z=0.841m target_z=0.814m low_seconds=1.10s
+collision=False, completed=False, best_inspection_dwell=0.10s, best_z_error_at_scan=0.061m
+approval=0.80s low_seconds=1.10s success=False collision=False
+scan_time=1.48s actual_z=0.922m reference_z=0.814m target_z=0.814m vx=0.523m/s
+first_target_height_time=1.58s x_at_target=0.906m scan_x=0.843m x_offset=+0.063m
+min_z=0.832m target_z=0.814m low_seconds=1.20s
+collision=False, completed=False, best_inspection_dwell=0.10s, best_z_error_at_scan=0.061m
+approval=0.80s low_seconds=1.20s success=False collision=False
+scan_time=1.48s actual_z=0.922m reference_z=0.814m target_z=0.814m vx=0.523m/s
+first_target_height_time=1.58s x_at_target=0.906m scan_x=0.843m x_offset=+0.063m
+min_z=0.826m target_z=0.814m low_seconds=1.30s
+collision=False, completed=False, best_inspection_dwell=0.10s, best_z_error_at_scan=0.061m
+approval=0.80s low_seconds=1.30s success=False collision=False
+scan_time=1.48s actual_z=0.922m reference_z=0.814m target_z=0.814m vx=0.523m/s
+first_target_height_time=1.58s x_at_target=0.906m scan_x=0.843m x_offset=+0.063m
+min_z=0.822m target_z=0.814m low_seconds=1.40s
+collision=True, completed=False, best_inspection_dwell=0.10s, best_z_error_at_scan=0.061m
+approval=0.80s low_seconds=1.40s success=False collision=True
+scan_time=1.56s actual_z=1.250m reference_z=1.374m target_z=0.814m vx=0.695m/s
+min_z=1.043m target_z=0.814m low_seconds=0.40s
+Target altitude never reached
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.326m
+approval=0.70s low_seconds=0.40s success=False collision=False
+scan_time=1.52s actual_z=1.165m reference_z=1.374m target_z=0.814m vx=0.612m/s
+min_z=0.987m target_z=0.814m low_seconds=0.50s
+Target altitude never reached
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.180m
+approval=0.70s low_seconds=0.50s success=False collision=False
+scan_time=1.48s actual_z=1.037m reference_z=1.374m target_z=0.814m vx=0.779m/s
+min_z=0.944m target_z=0.814m low_seconds=0.60s
+Target altitude never reached
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.130m
+approval=0.70s low_seconds=0.60s success=False collision=False
+scan_time=1.50s actual_z=0.943m reference_z=1.374m target_z=0.814m vx=0.709m/s
+min_z=0.911m target_z=0.814m low_seconds=0.70s
+Target altitude never reached
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.097m
+approval=0.70s low_seconds=0.70s success=False collision=False
+first_target_height_time=1.48s x_at_target=0.838m scan_x=0.843m x_offset=-0.005m
+scan_time=1.50s actual_z=0.887m reference_z=0.814m target_z=0.814m vx=0.631m/s
+min_z=0.885m target_z=0.814m low_seconds=0.80s
+collision=False, completed=False, best_inspection_dwell=0.08s, best_z_error_at_scan=0.071m
+approval=0.70s low_seconds=0.80s success=False collision=False
+first_target_height_time=1.48s x_at_target=0.838m scan_x=0.843m x_offset=-0.005m
+scan_time=1.50s actual_z=0.887m reference_z=0.814m target_z=0.814m vx=0.631m/s
+min_z=0.866m target_z=0.814m low_seconds=0.90s
+collision=False, completed=True, best_inspection_dwell=0.20s, best_z_error_at_scan=0.052m
+approval=0.70s low_seconds=0.90s success=True collision=False
+Scenario=7 approval=0.70s low_seconds=0.90s
+scan_time=1.14s actual_z=1.184m reference_z=0.729m target_z=0.729m vx=0.525m/s
+min_z=0.867m target_z=0.729m low_seconds=0.66s
+Target altitude never reached
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.210m
+approval=0.86s low_seconds=0.66s success=False collision=False
+scan_time=1.14s actual_z=1.184m reference_z=0.729m target_z=0.729m vx=0.525m/s
+min_z=0.832m target_z=0.729m low_seconds=0.76s
+Target altitude never reached
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.210m
+approval=0.86s low_seconds=0.76s success=False collision=False
+scan_time=1.14s actual_z=1.184m reference_z=0.729m target_z=0.729m vx=0.525m/s
+first_target_height_time=1.72s x_at_target=0.807m scan_x=0.523m x_offset=+0.284m
+min_z=0.805m target_z=0.729m low_seconds=0.86s
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.210m
+approval=0.86s low_seconds=0.86s success=False collision=False
+scan_time=1.14s actual_z=1.184m reference_z=0.729m target_z=0.729m vx=0.525m/s
+first_target_height_time=1.72s x_at_target=0.807m scan_x=0.523m x_offset=+0.284m
+min_z=0.785m target_z=0.729m low_seconds=0.96s
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.210m
+approval=0.86s low_seconds=0.96s success=False collision=False
+scan_time=1.14s actual_z=1.184m reference_z=0.729m target_z=0.729m vx=0.525m/s
+first_target_height_time=1.72s x_at_target=0.807m scan_x=0.523m x_offset=+0.284m
+min_z=0.770m target_z=0.729m low_seconds=1.06s
+collision=True, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.210m
+approval=0.86s low_seconds=1.06s success=False collision=True
+scan_time=1.14s actual_z=1.184m reference_z=0.729m target_z=0.729m vx=0.525m/s
+first_target_height_time=1.72s x_at_target=0.807m scan_x=0.523m x_offset=+0.284m
+min_z=0.758m target_z=0.729m low_seconds=1.16s
+collision=True, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.210m
+approval=0.86s low_seconds=1.16s success=False collision=True
+scan_time=1.14s actual_z=1.184m reference_z=0.729m target_z=0.729m vx=0.525m/s
+first_target_height_time=1.72s x_at_target=0.807m scan_x=0.523m x_offset=+0.284m
+min_z=0.751m target_z=0.729m low_seconds=1.26s
+collision=True, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.210m
+approval=0.86s low_seconds=1.26s success=False collision=True
+scan_time=1.40s actual_z=0.878m reference_z=0.729m target_z=0.729m vx=0.461m/s
+min_z=0.862m target_z=0.729m low_seconds=0.66s
+Target altitude never reached
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.132m
+approval=0.76s low_seconds=0.66s success=False collision=False
+scan_time=1.40s actual_z=0.878m reference_z=0.729m target_z=0.729m vx=0.461m/s
+min_z=0.827m target_z=0.729m low_seconds=0.76s
+Target altitude never reached
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.098m
+approval=0.76s low_seconds=0.76s success=False collision=False
+scan_time=1.40s actual_z=0.878m reference_z=0.729m target_z=0.729m vx=0.461m/s
+first_target_height_time=1.60s x_at_target=0.666m scan_x=0.523m x_offset=+0.143m
+min_z=0.800m target_z=0.729m low_seconds=0.86s
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.089m
+approval=0.76s low_seconds=0.86s success=False collision=False
+scan_time=1.40s actual_z=0.878m reference_z=0.729m target_z=0.729m vx=0.461m/s
+first_target_height_time=1.60s x_at_target=0.666m scan_x=0.523m x_offset=+0.143m
+min_z=0.780m target_z=0.729m low_seconds=0.96s
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.089m
+approval=0.76s low_seconds=0.96s success=False collision=False
+scan_time=1.40s actual_z=0.878m reference_z=0.729m target_z=0.729m vx=0.461m/s
+first_target_height_time=1.60s x_at_target=0.666m scan_x=0.523m x_offset=+0.143m
+min_z=0.767m target_z=0.729m low_seconds=1.06s
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.089m
+approval=0.76s low_seconds=1.06s success=False collision=False
+scan_time=1.40s actual_z=0.878m reference_z=0.729m target_z=0.729m vx=0.461m/s
+first_target_height_time=1.60s x_at_target=0.666m scan_x=0.523m x_offset=+0.143m
+min_z=0.756m target_z=0.729m low_seconds=1.16s
+collision=True, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.089m
+approval=0.76s low_seconds=1.16s success=False collision=True
+scan_time=1.40s actual_z=0.878m reference_z=0.729m target_z=0.729m vx=0.461m/s
+first_target_height_time=1.60s x_at_target=0.666m scan_x=0.523m x_offset=+0.143m
+min_z=0.747m target_z=0.729m low_seconds=1.26s
+collision=True, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.089m
+approval=0.76s low_seconds=1.26s success=False collision=True
+scan_time=1.40s actual_z=0.878m reference_z=0.729m target_z=0.729m vx=0.461m/s
+first_target_height_time=1.60s x_at_target=0.666m scan_x=0.523m x_offset=+0.143m
+min_z=0.742m target_z=0.729m low_seconds=1.36s
+collision=True, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.089m
+approval=0.76s low_seconds=1.36s success=False collision=True
+scan_time=1.18s actual_z=0.952m reference_z=0.729m target_z=0.729m vx=0.439m/s
+min_z=0.867m target_z=0.729m low_seconds=0.66s
+Target altitude never reached
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.137m
+approval=0.66s low_seconds=0.66s success=False collision=False
+scan_time=1.18s actual_z=0.952m reference_z=0.729m target_z=0.729m vx=0.439m/s
+min_z=0.832m target_z=0.729m low_seconds=0.76s
+Target altitude never reached
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.113m
+approval=0.66s low_seconds=0.76s success=False collision=False
+scan_time=1.18s actual_z=0.952m reference_z=0.729m target_z=0.729m vx=0.439m/s
+first_target_height_time=1.52s x_at_target=0.699m scan_x=0.523m x_offset=+0.176m
+min_z=0.805m target_z=0.729m low_seconds=0.86s
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.113m
+approval=0.66s low_seconds=0.86s success=False collision=False
+scan_time=1.18s actual_z=0.952m reference_z=0.729m target_z=0.729m vx=0.439m/s
+first_target_height_time=1.52s x_at_target=0.699m scan_x=0.523m x_offset=+0.176m
+min_z=0.784m target_z=0.729m low_seconds=0.96s
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.113m
+approval=0.66s low_seconds=0.96s success=False collision=False
+scan_time=1.18s actual_z=0.952m reference_z=0.729m target_z=0.729m vx=0.439m/s
+first_target_height_time=1.52s x_at_target=0.699m scan_x=0.523m x_offset=+0.176m
+min_z=0.769m target_z=0.729m low_seconds=1.06s
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.113m
+approval=0.66s low_seconds=1.06s success=False collision=False
+scan_time=1.18s actual_z=0.952m reference_z=0.729m target_z=0.729m vx=0.439m/s
+first_target_height_time=1.52s x_at_target=0.699m scan_x=0.523m x_offset=+0.176m
+min_z=0.758m target_z=0.729m low_seconds=1.16s
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.113m
+approval=0.66s low_seconds=1.16s success=False collision=False
+scan_time=1.18s actual_z=0.952m reference_z=0.729m target_z=0.729m vx=0.439m/s
+first_target_height_time=1.52s x_at_target=0.699m scan_x=0.523m x_offset=+0.176m
+min_z=0.749m target_z=0.729m low_seconds=1.26s
+collision=True, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.113m
+approval=0.66s low_seconds=1.26s success=False collision=True
+scan_time=1.18s actual_z=0.952m reference_z=0.729m target_z=0.729m vx=0.439m/s
+first_target_height_time=1.52s x_at_target=0.699m scan_x=0.523m x_offset=+0.176m
+min_z=0.742m target_z=0.729m low_seconds=1.36s
+collision=True, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.113m
+approval=0.66s low_seconds=1.36s success=False collision=True
+scan_time=1.18s actual_z=0.952m reference_z=0.729m target_z=0.729m vx=0.439m/s
+first_target_height_time=1.52s x_at_target=0.699m scan_x=0.523m x_offset=+0.176m
+min_z=0.738m target_z=0.729m low_seconds=1.46s
+collision=True, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.113m
+approval=0.66s low_seconds=1.46s success=False collision=True
+scan_time=1.12s actual_z=0.927m reference_z=0.729m target_z=0.729m vx=0.558m/s
+min_z=0.866m target_z=0.729m low_seconds=0.66s
+Target altitude never reached
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.137m
+approval=0.56s low_seconds=0.66s success=False collision=False
+scan_time=1.12s actual_z=0.927m reference_z=0.729m target_z=0.729m vx=0.558m/s
+min_z=0.831m target_z=0.729m low_seconds=0.76s
+Target altitude never reached
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.102m
+approval=0.56s low_seconds=0.76s success=False collision=False
+scan_time=1.12s actual_z=0.927m reference_z=0.729m target_z=0.729m vx=0.558m/s
+first_target_height_time=1.42s x_at_target=0.665m scan_x=0.523m x_offset=+0.142m
+min_z=0.804m target_z=0.729m low_seconds=0.86s
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.094m
+approval=0.56s low_seconds=0.86s success=False collision=False
+scan_time=1.12s actual_z=0.927m reference_z=0.729m target_z=0.729m vx=0.558m/s
+first_target_height_time=1.42s x_at_target=0.665m scan_x=0.523m x_offset=+0.142m
+min_z=0.784m target_z=0.729m low_seconds=0.96s
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.094m
+approval=0.56s low_seconds=0.96s success=False collision=False
+scan_time=1.12s actual_z=0.927m reference_z=0.729m target_z=0.729m vx=0.558m/s
+first_target_height_time=1.42s x_at_target=0.665m scan_x=0.523m x_offset=+0.142m
+min_z=0.769m target_z=0.729m low_seconds=1.06s
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.094m
+approval=0.56s low_seconds=1.06s success=False collision=False
+scan_time=1.12s actual_z=0.927m reference_z=0.729m target_z=0.729m vx=0.558m/s
+first_target_height_time=1.42s x_at_target=0.665m scan_x=0.523m x_offset=+0.142m
+min_z=0.758m target_z=0.729m low_seconds=1.16s
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.094m
+approval=0.56s low_seconds=1.16s success=False collision=False
+scan_time=1.12s actual_z=0.927m reference_z=0.729m target_z=0.729m vx=0.558m/s
+first_target_height_time=1.42s x_at_target=0.665m scan_x=0.523m x_offset=+0.142m
+min_z=0.749m target_z=0.729m low_seconds=1.26s
+collision=True, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.094m
+approval=0.56s low_seconds=1.26s success=False collision=True
+scan_time=1.12s actual_z=0.927m reference_z=0.729m target_z=0.729m vx=0.558m/s
+first_target_height_time=1.42s x_at_target=0.665m scan_x=0.523m x_offset=+0.142m
+min_z=0.742m target_z=0.729m low_seconds=1.36s
+collision=True, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.094m
+approval=0.56s low_seconds=1.36s success=False collision=True
+scan_time=1.12s actual_z=0.927m reference_z=0.729m target_z=0.729m vx=0.558m/s
+first_target_height_time=1.42s x_at_target=0.665m scan_x=0.523m x_offset=+0.142m
+min_z=0.737m target_z=0.729m low_seconds=1.46s
+collision=True, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.094m
+approval=0.56s low_seconds=1.46s success=False collision=True
+scan_time=1.12s actual_z=0.927m reference_z=0.729m target_z=0.729m vx=0.558m/s
+first_target_height_time=1.42s x_at_target=0.665m scan_x=0.523m x_offset=+0.142m
+min_z=0.735m target_z=0.729m low_seconds=1.56s
+collision=True, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.094m
+approval=0.56s low_seconds=1.56s success=False collision=True
+scan_time=1.06s actual_z=0.902m reference_z=0.729m target_z=0.729m vx=0.660m/s
+min_z=0.864m target_z=0.729m low_seconds=0.66s
+Target altitude never reached
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.135m
+approval=0.46s low_seconds=0.66s success=False collision=False
+scan_time=1.06s actual_z=0.902m reference_z=0.729m target_z=0.729m vx=0.660m/s
+min_z=0.829m target_z=0.729m low_seconds=0.76s
+Target altitude never reached
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.100m
+approval=0.46s low_seconds=0.76s success=False collision=False
+scan_time=1.06s actual_z=0.902m reference_z=0.729m target_z=0.729m vx=0.660m/s
+first_target_height_time=1.32s x_at_target=0.644m scan_x=0.523m x_offset=+0.121m
+min_z=0.802m target_z=0.729m low_seconds=0.86s
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.081m
+approval=0.46s low_seconds=0.86s success=False collision=False
+scan_time=1.06s actual_z=0.902m reference_z=0.729m target_z=0.729m vx=0.660m/s
+first_target_height_time=1.32s x_at_target=0.644m scan_x=0.523m x_offset=+0.121m
+min_z=0.783m target_z=0.729m low_seconds=0.96s
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.081m
+approval=0.46s low_seconds=0.96s success=False collision=False
+scan_time=1.06s actual_z=0.902m reference_z=0.729m target_z=0.729m vx=0.660m/s
+first_target_height_time=1.32s x_at_target=0.644m scan_x=0.523m x_offset=+0.121m
+min_z=0.768m target_z=0.729m low_seconds=1.06s
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.081m
+approval=0.46s low_seconds=1.06s success=False collision=False
+scan_time=1.06s actual_z=0.902m reference_z=0.729m target_z=0.729m vx=0.660m/s
+first_target_height_time=1.32s x_at_target=0.644m scan_x=0.523m x_offset=+0.121m
+min_z=0.757m target_z=0.729m low_seconds=1.16s
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.081m
+approval=0.46s low_seconds=1.16s success=False collision=False
+scan_time=1.06s actual_z=0.902m reference_z=0.729m target_z=0.729m vx=0.660m/s
+first_target_height_time=1.32s x_at_target=0.644m scan_x=0.523m x_offset=+0.121m
+min_z=0.748m target_z=0.729m low_seconds=1.26s
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.081m
+approval=0.46s low_seconds=1.26s success=False collision=False
+scan_time=1.06s actual_z=0.902m reference_z=0.729m target_z=0.729m vx=0.660m/s
+first_target_height_time=1.32s x_at_target=0.644m scan_x=0.523m x_offset=+0.121m
+min_z=0.742m target_z=0.729m low_seconds=1.36s
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.081m
+approval=0.46s low_seconds=1.36s success=False collision=False
+scan_time=1.06s actual_z=0.902m reference_z=0.729m target_z=0.729m vx=0.660m/s
+first_target_height_time=1.32s x_at_target=0.644m scan_x=0.523m x_offset=+0.121m
+min_z=0.737m target_z=0.729m low_seconds=1.46s
+collision=True, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.081m
+approval=0.46s low_seconds=1.46s success=False collision=True
+scan_time=1.06s actual_z=0.902m reference_z=0.729m target_z=0.729m vx=0.660m/s
+first_target_height_time=1.32s x_at_target=0.644m scan_x=0.523m x_offset=+0.121m
+min_z=0.733m target_z=0.729m low_seconds=1.56s
+collision=True, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.081m
+approval=0.46s low_seconds=1.56s success=False collision=True
+scan_time=1.06s actual_z=0.902m reference_z=0.729m target_z=0.729m vx=0.660m/s
+first_target_height_time=1.32s x_at_target=0.644m scan_x=0.523m x_offset=+0.121m
+min_z=0.731m target_z=0.729m low_seconds=1.66s
+collision=True, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.081m
+approval=0.46s low_seconds=1.66s success=False collision=True
+scan_time=0.96s actual_z=0.892m reference_z=0.729m target_z=0.729m vx=0.940m/s
+min_z=0.859m target_z=0.729m low_seconds=0.66s
+Target altitude never reached
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.130m
+approval=0.36s low_seconds=0.66s success=False collision=False
+scan_time=0.96s actual_z=0.892m reference_z=0.729m target_z=0.729m vx=0.940m/s
+min_z=0.825m target_z=0.729m low_seconds=0.76s
+Target altitude never reached
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.100m
+approval=0.36s low_seconds=0.76s success=False collision=False
+scan_time=0.96s actual_z=0.892m reference_z=0.729m target_z=0.729m vx=0.940m/s
+first_target_height_time=1.20s x_at_target=0.660m scan_x=0.523m x_offset=+0.137m
+min_z=0.797m target_z=0.729m low_seconds=0.86s
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.100m
+approval=0.36s low_seconds=0.86s success=False collision=False
+scan_time=0.96s actual_z=0.892m reference_z=0.729m target_z=0.729m vx=0.940m/s
+first_target_height_time=1.20s x_at_target=0.660m scan_x=0.523m x_offset=+0.137m
+min_z=0.778m target_z=0.729m low_seconds=0.96s
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.100m
+approval=0.36s low_seconds=0.96s success=False collision=False
+scan_time=0.96s actual_z=0.892m reference_z=0.729m target_z=0.729m vx=0.940m/s
+first_target_height_time=1.20s x_at_target=0.660m scan_x=0.523m x_offset=+0.137m
+min_z=0.764m target_z=0.729m low_seconds=1.06s
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.100m
+approval=0.36s low_seconds=1.06s success=False collision=False
+scan_time=0.96s actual_z=0.892m reference_z=0.729m target_z=0.729m vx=0.940m/s
+first_target_height_time=1.20s x_at_target=0.660m scan_x=0.523m x_offset=+0.137m
+min_z=0.754m target_z=0.729m low_seconds=1.16s
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.100m
+approval=0.36s low_seconds=1.16s success=False collision=False
+scan_time=0.96s actual_z=0.892m reference_z=0.729m target_z=0.729m vx=0.940m/s
+first_target_height_time=1.20s x_at_target=0.660m scan_x=0.523m x_offset=+0.137m
+min_z=0.746m target_z=0.729m low_seconds=1.26s
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.100m
+approval=0.36s low_seconds=1.26s success=False collision=False
+scan_time=0.96s actual_z=0.892m reference_z=0.729m target_z=0.729m vx=0.940m/s
+first_target_height_time=1.20s x_at_target=0.660m scan_x=0.523m x_offset=+0.137m
+min_z=0.740m target_z=0.729m low_seconds=1.36s
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.100m
+approval=0.36s low_seconds=1.36s success=False collision=False
+scan_time=0.96s actual_z=0.892m reference_z=0.729m target_z=0.729m vx=0.940m/s
+first_target_height_time=1.20s x_at_target=0.660m scan_x=0.523m x_offset=+0.137m
+min_z=0.735m target_z=0.729m low_seconds=1.46s
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.100m
+approval=0.36s low_seconds=1.46s success=False collision=False
+scan_time=0.96s actual_z=0.892m reference_z=0.729m target_z=0.729m vx=0.940m/s
+first_target_height_time=1.20s x_at_target=0.660m scan_x=0.523m x_offset=+0.137m
+min_z=0.732m target_z=0.729m low_seconds=1.56s
+collision=True, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.100m
+approval=0.36s low_seconds=1.56s success=False collision=True
+scan_time=0.96s actual_z=0.892m reference_z=0.729m target_z=0.729m vx=0.940m/s
+first_target_height_time=1.20s x_at_target=0.660m scan_x=0.523m x_offset=+0.137m
+min_z=0.730m target_z=0.729m low_seconds=1.66s
+collision=True, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.100m
+approval=0.36s low_seconds=1.66s success=False collision=True
+scan_time=0.96s actual_z=0.892m reference_z=0.729m target_z=0.729m vx=0.940m/s
+first_target_height_time=1.20s x_at_target=0.660m scan_x=0.523m x_offset=+0.137m
+min_z=0.728m target_z=0.729m low_seconds=1.76s
+collision=True, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.100m
+approval=0.36s low_seconds=1.76s success=False collision=True
+scan_time=1.18s actual_z=1.053m reference_z=1.397m target_z=0.729m vx=0.410m/s
+min_z=0.865m target_z=0.729m low_seconds=0.66s
+Target altitude never reached
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.136m
+approval=0.26s low_seconds=0.66s success=False collision=False
+scan_time=1.14s actual_z=0.882m reference_z=1.397m target_z=0.729m vx=0.412m/s
+min_z=0.831m target_z=0.729m low_seconds=0.76s
+Target altitude never reached
+collision=False, completed=False, best_inspection_dwell=0.00s, best_z_error_at_scan=0.101m
+approval=0.26s low_seconds=0.76s success=False collision=False
+first_target_height_time=1.12s x_at_target=0.520m scan_x=0.523m x_offset=-0.003m
+scan_time=1.14s actual_z=0.803m reference_z=1.397m target_z=0.729m vx=0.453m/s
+min_z=0.803m target_z=0.729m low_seconds=0.86s
+collision=False, completed=False, best_inspection_dwell=0.06s, best_z_error_at_scan=0.074m
+approval=0.26s low_seconds=0.86s success=False collision=False
+first_target_height_time=1.12s x_at_target=0.520m scan_x=0.523m x_offset=-0.003m
+scan_time=1.14s actual_z=0.801m reference_z=0.729m target_z=0.729m vx=0.472m/s
+min_z=0.783m target_z=0.729m low_seconds=0.96s
+collision=False, completed=True, best_inspection_dwell=0.20s, best_z_error_at_scan=0.054m
+approval=0.26s low_seconds=0.96s success=True collision=False
+Scenario=8 approval=0.26s low_seconds=0.96s
+scan_time=1.14s actual_z=1.001m reference_z=0.881m target_z=0.881m vx=0.689m/s
+first_target_height_time=1.28s x_at_target=0.827m scan_x=0.722m x_offset=+0.105m
+min_z=0.906m target_z=0.881m low_seconds=0.92s
+collision=False, completed=False, best_inspection_dwell=0.04s, best_z_error_at_scan=0.073m
+approval=0.70s low_seconds=0.92s success=False collision=False
+scan_time=1.14s actual_z=1.001m reference_z=0.881m target_z=0.881m vx=0.689m/s
+first_target_height_time=1.28s x_at_target=0.827m scan_x=0.722m x_offset=+0.105m
+min_z=0.899m target_z=0.881m low_seconds=1.02s
+collision=True, completed=False, best_inspection_dwell=0.04s, best_z_error_at_scan=0.073m
+approval=0.70s low_seconds=1.02s success=False collision=True
+scan_time=1.14s actual_z=1.001m reference_z=0.881m target_z=0.881m vx=0.689m/s
+first_target_height_time=1.28s x_at_target=0.827m scan_x=0.722m x_offset=+0.105m
+min_z=0.893m target_z=0.881m low_seconds=1.12s
+collision=True, completed=False, best_inspection_dwell=0.04s, best_z_error_at_scan=0.073m
+approval=0.70s low_seconds=1.12s success=False collision=True
+scan_time=1.16s actual_z=0.964m reference_z=0.881m target_z=0.881m vx=0.746m/s
+first_target_height_time=1.18s x_at_target=0.744m scan_x=0.722m x_offset=+0.022m
+min_z=0.907m target_z=0.881m low_seconds=0.92s
+collision=False, completed=False, best_inspection_dwell=0.14s, best_z_error_at_scan=0.053m
+approval=0.60s low_seconds=0.92s success=False collision=False
+scan_time=1.16s actual_z=0.964m reference_z=0.881m target_z=0.881m vx=0.746m/s
+first_target_height_time=1.18s x_at_target=0.744m scan_x=0.722m x_offset=+0.022m
+min_z=0.899m target_z=0.881m low_seconds=1.02s
+collision=True, completed=False, best_inspection_dwell=0.14s, best_z_error_at_scan=0.053m
+approval=0.60s low_seconds=1.02s success=False collision=True
+scan_time=1.16s actual_z=0.964m reference_z=0.881m target_z=0.881m vx=0.746m/s
+first_target_height_time=1.18s x_at_target=0.744m scan_x=0.722m x_offset=+0.022m
+min_z=0.893m target_z=0.881m low_seconds=1.12s
+collision=True, completed=False, best_inspection_dwell=0.14s, best_z_error_at_scan=0.053m
+approval=0.60s low_seconds=1.12s success=False collision=True
+scan_time=1.16s actual_z=0.964m reference_z=0.881m target_z=0.881m vx=0.746m/s
+first_target_height_time=1.18s x_at_target=0.744m scan_x=0.722m x_offset=+0.022m
+min_z=0.889m target_z=0.881m low_seconds=1.22s
+collision=True, completed=False, best_inspection_dwell=0.14s, best_z_error_at_scan=0.053m
+approval=0.60s low_seconds=1.22s success=False collision=True
+first_target_height_time=1.08s x_at_target=0.675m scan_x=0.722m x_offset=-0.047m
+scan_time=1.14s actual_z=0.946m reference_z=0.881m target_z=0.881m vx=0.761m/s
+min_z=0.906m target_z=0.881m low_seconds=0.92s
+collision=False, completed=True, best_inspection_dwell=0.24s, best_z_error_at_scan=0.038m
+approval=0.50s low_seconds=0.92s success=True collision=False
+Scenario=9 approval=0.50s low_seconds=0.92s
+first_target_height_time=0.68s x_at_target=0.282m scan_x=0.329m x_offset=-0.046m
+scan_time=0.74s actual_z=0.957m reference_z=0.894m target_z=0.894m vx=0.935m/s
+min_z=0.934m target_z=0.894m low_seconds=0.76s
+collision=False, completed=True, best_inspection_dwell=0.20s, best_z_error_at_scan=0.043m
+first_target_height_time=0.86s x_at_target=0.377m scan_x=0.401m x_offset=-0.023m
+scan_time=0.90s actual_z=0.775m reference_z=0.704m target_z=0.704m vx=0.882m/s
+min_z=0.755m target_z=0.704m low_seconds=1.00s
+collision=False, completed=True, best_inspection_dwell=0.18s, best_z_error_at_scan=0.050m
+scan_time=1.86s actual_z=0.904m reference_z=0.811m target_z=0.811m vx=0.470m/s
+first_target_height_time=1.92s x_at_target=0.901m scan_x=0.870m x_offset=+0.031m
+min_z=0.856m target_z=0.811m low_seconds=0.82s
+collision=False, completed=True, best_inspection_dwell=0.22s, best_z_error_at_scan=0.045m
+scan_time=2.18s actual_z=0.802m reference_z=0.693m target_z=0.693m vx=0.411m/s
+first_target_height_time=2.30s x_at_target=0.915m scan_x=0.861m x_offset=+0.054m
+min_z=0.743m target_z=0.693m low_seconds=0.88s
+collision=False, completed=True, best_inspection_dwell=0.18s, best_z_error_at_scan=0.050m
+first_target_height_time=1.48s x_at_target=0.889m scan_x=0.983m x_offset=-0.095m
+scan_time=1.58s actual_z=0.766m reference_z=0.710m target_z=0.710m vx=1.145m/s
+min_z=0.761m target_z=0.710m low_seconds=0.88s
+collision=False, completed=True, best_inspection_dwell=0.20s, best_z_error_at_scan=0.051m
+scan_time=1.02s actual_z=0.765m reference_z=0.680m target_z=0.680m vx=0.701m/s
+first_target_height_time=1.04s x_at_target=0.675m scan_x=0.661m x_offset=+0.014m
+min_z=0.735m target_z=0.680m low_seconds=0.94s
+collision=False, completed=True, best_inspection_dwell=0.18s, best_z_error_at_scan=0.055m
+first_target_height_time=1.06s x_at_target=0.551m scan_x=0.558m x_offset=-0.007m
+scan_time=1.08s actual_z=0.892m reference_z=0.820m target_z=0.820m vx=0.683m/s
+min_z=0.868m target_z=0.820m low_seconds=0.80s
+collision=False, completed=True, best_inspection_dwell=0.22s, best_z_error_at_scan=0.048m
+first_target_height_time=1.48s x_at_target=0.838m scan_x=0.843m x_offset=-0.005m
+scan_time=1.50s actual_z=0.887m reference_z=0.814m target_z=0.814m vx=0.631m/s
+min_z=0.866m target_z=0.814m low_seconds=0.90s
+collision=False, completed=True, best_inspection_dwell=0.20s, best_z_error_at_scan=0.052m
+first_target_height_time=1.12s x_at_target=0.520m scan_x=0.523m x_offset=-0.003m
+scan_time=1.14s actual_z=0.801m reference_z=0.729m target_z=0.729m vx=0.472m/s
+min_z=0.783m target_z=0.729m low_seconds=0.96s
+collision=False, completed=True, best_inspection_dwell=0.20s, best_z_error_at_scan=0.054m
+first_target_height_time=1.08s x_at_target=0.675m scan_x=0.722m x_offset=-0.047m
+scan_time=1.14s actual_z=0.946m reference_z=0.881m target_z=0.881m vx=0.761m/s
+min_z=0.906m target_z=0.881m low_seconds=0.92s
+collision=False, completed=True, best_inspection_dwell=0.24s, best_z_error_at_scan=0.038m
+D=0.0s T=4.2s N=10
+safe_completion=100.0% (count=10/10)
+unsafe=0.0% (count=0/10)
+recovery_trigger=0.0% (count=0/10)
+recovery_success=N/A (count=0/0)
+recovery_benefit=0.0% (count=0/10)
+recovery_harm=0.0% (count=0/10)
+net_recovery_benefit=0.0 percentage points (count=0/10)
+
+
+D=0.0s T=5.0s N=10
+safe_completion=100.0% (count=10/10)
+unsafe=0.0% (count=0/10)
+recovery_trigger=0.0% (count=0/10)
+recovery_success=N/A (count=0/0)
+recovery_benefit=0.0% (count=0/10)
+recovery_harm=0.0% (count=0/10)
+net_recovery_benefit=0.0 percentage points (count=0/10)
+
+
+D=0.5s T=4.2s N=10
+safe_completion=40.0% (count=4/10)
+unsafe=0.0% (count=0/10)
+recovery_trigger=60.0% (count=6/10)
+recovery_success=66.7% (count=4/6)
+recovery_benefit=40.0% (count=4/10)
+recovery_harm=0.0% (count=0/10)
+net_recovery_benefit=40.0 percentage points (count=4/10)
+
+
+D=0.5s T=5.0s N=10
+safe_completion=40.0% (count=4/10)
+unsafe=0.0% (count=0/10)
+recovery_trigger=60.0% (count=6/10)
+recovery_success=66.7% (count=4/6)
+recovery_benefit=40.0% (count=4/10)
+recovery_harm=0.0% (count=0/10)
+net_recovery_benefit=40.0 percentage points (count=4/10)
+
+
+D=1.0s T=4.2s N=10
+safe_completion=80.0% (count=8/10)
+unsafe=0.0% (count=0/10)
+recovery_trigger=100.0% (count=10/10)
+recovery_success=80.0% (count=8/10)
+recovery_benefit=80.0% (count=8/10)
+recovery_harm=0.0% (count=0/10)
+net_recovery_benefit=80.0 percentage points (count=8/10)
+
+
+D=1.0s T=5.0s N=10
+safe_completion=80.0% (count=8/10)
+unsafe=0.0% (count=0/10)
+recovery_trigger=100.0% (count=10/10)
+recovery_success=80.0% (count=8/10)
+recovery_benefit=80.0% (count=8/10)
+recovery_harm=0.0% (count=0/10)
+net_recovery_benefit=80.0 percentage points (count=8/10)
+
+

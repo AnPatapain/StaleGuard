@@ -1,0 +1,31 @@
+{
+  "passed": true,
+  "actual_sweep_flights": 2136,
+  "accepted_scenarios": 12,
+  "attempted_scenarios": 20,
+  "expected_unique_flight_keys_match": true,
+  "calibration_uses_only_immediate_flights": true,
+  "deterministic_definitions": true,
+  "all_accepted_d0_hashes_reproduced": true,
+  "all_approval_snapshots_match": true,
+  "all_control_steps_horizons_and_1khz_counts_valid": true,
+  "all_state_pid_and_geometry_preserved": true,
+  "all_lateral_flights_negative_world_y": true,
+  "validation_flights_identical_to_final_study": 534,
+  "representative_paths_independently_verified": [
+    "seed1_dive_000",
+    "seed1_dive_025",
+    "seed1_dive_050",
+    "seed1_sideways_000",
+    "seed1_sideways_025",
+    "seed1_sideways_050",
+    "seed1_climb_000",
+    "seed1_climb_025",
+    "seed1_climb_050",
+    "seed1_climb_075"
+  ],
+  "previous_artifacts_unchanged": 78,
+  "sources_and_environment_match": true,
+  "metrics_recomputed_identically": true,
+  "maximum_physics_position_increment_m": 0.0020928497300918367
+}

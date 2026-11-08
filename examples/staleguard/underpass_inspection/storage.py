@@ -200,7 +200,9 @@ def metadata():
     local=('__init__.py','scenario.py','simulation.py','calibration.py','pilot.py','storage.py',
         'support/visualization.py','baselines/staleguard.py','baselines/fbs.py',
         'baselines/use_time_recheck.py','baselines/fixed_early_recovery.py','baselines/policies.py',
-        'baseline_benchmark/run.py','baseline_benchmark/metrics.py')
+        'baseline_benchmark/run.py','baseline_benchmark/metrics.py',
+        'support/validate_baseline_benchmark.py','support/test_final_audit.py','support/test_2s_protocol.py','support/test_reduced_protocol.py',
+        'support/results_layout.json')
     shared=('model/__init__.py','model/common.py','model/lightweight.py','model/scg.py',
         'physics_monitor.py')
     env=('safe_control_gym/controllers/pid/pid.py','safe_control_gym/envs/gym_pybullet_drones/quadrotor.py',
@@ -215,15 +217,91 @@ def metadata():
 
 
 def check_provenance(saved):
-    if saved!=metadata():
+    current=metadata()
+    if saved==current:return
+    layout=json.loads((ROOT/'support/results_layout.json').read_text())
+    fingerprint=hashlib.sha256(json.dumps(saved,sort_keys=True,separators=(',',':')).encode()).hexdigest()
+    if fingerprint not in layout['accepted_provenance_sha256']:
         raise ValueError('Benchmark source/environment changed; use a fresh output')
+    # The original provenance stays historical. Only exact reviewed layout edits
+    # are accepted; policy, model, physics and environment differences still fail.
+    normalized=canonical(saved)
+    for name,change in layout['source_changes'].items():
+        if (normalized['source_sha256'].get(name)!=change['before_sha256'] or
+                current['source_sha256'].get(name)!=change['after_sha256']):
+            raise ValueError(f'Unreviewed source change after results relocation: {name}')
+        normalized['source_sha256'][name]=change['after_sha256']
+    normalized['source_sha256']['support/results_layout.json']=current['source_sha256']['support/results_layout.json']
+    if normalized!=current:raise ValueError('Benchmark source/environment changed; use a fresh output')
+
+
+def relocated_result_path(path):
+    """Resolve historical audit paths through the explicit results move table."""
+    path=Path(path)
+    if path.exists():return path
+    try:relative=str(path.resolve().relative_to(ROOT))
+    except ValueError:return path
+    layout=json.loads((ROOT/'support/results_layout.json').read_text())
+    for old,new in layout['paths'].items():
+        if relative==old or relative.startswith(old+'/'):
+            return ROOT/(new+relative[len(old):])
+    return path
+
+
+def historical_result_matches(path,checksum):
+    location=relocated_result_path(path)
+    actual=file_hash(location)
+    if actual==checksum:return True
+    layout=json.loads((ROOT/'support/results_layout.json').read_text())
+    try:relative=str(Path(path).resolve().relative_to(ROOT))
+    except ValueError:return False
+    change=layout['metadata_path_updates'].get(relative,{})
+    return checksum==change.get('before_sha256') and actual==change.get('after_sha256')
+
+
+def committed_hasher(out,run,repair=False):
+    """Check only the committed prefix; discard uncommitted bytes on resume."""
+    path=Path(out)/'executions.jsonl';size=run['journal_bytes'];digest=hashlib.sha256()
+    with path.open('rb') as stream:
+        remaining=size
+        while remaining:
+            block=stream.read(min(1024*1024,remaining))
+            if not block:raise ValueError('Previously committed flight journal shortened')
+            digest.update(block);remaining-=len(block)
+        if digest.hexdigest()!=run['journal_sha256']:
+            raise ValueError('Previously committed flight journal changed')
+        extra=stream.read(1)
+    if extra:
+        if not repair:raise ValueError('Uncommitted journal tail; resume before regenerating metrics')
+        with path.open('r+b') as stream:
+            stream.truncate(size);stream.flush();os.fsync(stream.fileno())
+    return digest
+
+
+def iter_committed(out,run):
+    """Read records without retaining the full multi-scenario journal in RAM."""
+    with (Path(out)/'executions.jsonl').open('rb') as stream:
+        remaining=run['journal_bytes']
+        while remaining:
+            line=stream.readline(remaining)
+            if not line or not line.endswith(b'\n'):raise ValueError('Incomplete committed record')
+            remaining-=len(line)
+            yield json.loads(line)
 
 
 def read_committed(out,run,repair=False):
-    path=Path(out)/'executions.jsonl';raw=path.read_bytes();size=run['journal_bytes']
-    if len(raw)<size or hashlib.sha256(raw[:size]).hexdigest()!=run['journal_sha256']:
-        raise ValueError('Previously committed flight journal changed')
-    return read_executions(path,repair_tail=repair)
+    committed_hasher(out,run,repair)
+    return list(iter_committed(out,run))
+
+
+def commit_execution(out,run,row,digest):
+    line=(json.dumps(row,allow_nan=False)+'\n').encode()
+    with (Path(out)/'executions.jsonl').open('ab') as stream:
+        stream.write(line);stream.flush();os.fsync(stream.fileno())
+    digest.update(line)
+    run.update(journal_bytes=run['journal_bytes']+len(line),journal_sha256=digest.hexdigest(),
+               completed_flights=run.get('completed_flights',0)+1)
+    write_json(Path(out)/'run.json',run)
 
 
 def load_ground_truth(folder):

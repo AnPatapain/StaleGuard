@@ -1,0 +1,1521 @@
+{
+  "status": "complete",
+  "flights": 2136,
+  "expected_flights": 2136,
+  "interpretation": "Descriptive deterministic development data; denominator is all accepted scenarios. Repeated delays are not independent scenarios.",
+  "gap_definition": "Last TESTED safe sideways start minus first TESTED unsafe dive delay. If sideways never fails, this is a demonstrated-start difference, not an observed expiry gap. Non-monotonic profiles require full intervals.",
+  "calibration_statistics": {
+    "attempted": 20,
+    "accepted": 12,
+    "rejected": 8
+  },
+  "counts": {
+    "accepted_scenarios": 12,
+    "finite_command_expiration": 11,
+    "no_command_safety_loss_observed": 1,
+    "finite_sideways_recovery_expiration": 9,
+    "sideways_boundary_unobserved": 3,
+    "positive_side_grid_gaps": 9,
+    "zero_side_grid_gaps": 0,
+    "negative_side_grid_gaps": 2,
+    "undefined_side_grid_gaps": 1,
+    "finite_climb_expiration": 11,
+    "non_monotonic_scenarios": 0,
+    "command_safe_when_sideways_first_fails": 2,
+    "positive_side_gaps_with_finite_recovery_boundary": 7,
+    "climb_safe_at_first_sideways_failure": 9,
+    "climb_after_side_not_assessable": 3
+  },
+  "all_side_grid_gaps_s": {
+    "n": 11,
+    "minimum": -0.18,
+    "median": 0.44,
+    "mean": 0.3618181818181818,
+    "q25": 0.05,
+    "q75": 0.6699999999999999,
+    "maximum": 0.9
+  },
+  "positive_side_grid_gaps_s": {
+    "n": 9,
+    "minimum": 0.04,
+    "median": 0.52,
+    "mean": 0.4799999999999999,
+    "q25": 0.16,
+    "q75": 0.7,
+    "maximum": 0.9
+  },
+  "side_gaps_with_observed_recovery_boundary_s": {
+    "n": 9,
+    "minimum": -0.18,
+    "median": 0.16,
+    "mean": 0.24666666666666665,
+    "q25": 0.04,
+    "q75": 0.52,
+    "maximum": 0.7
+  },
+  "climb_gaps_s": {
+    "n": 11,
+    "minimum": 0.06,
+    "median": 0.68,
+    "mean": 0.6381818181818182,
+    "q25": 0.3,
+    "q75": 0.9199999999999999,
+    "maximum": 1.34
+  },
+  "expiration_parts": {
+    "dive": {
+      "deck_front_underside": 2,
+      "pier": 9
+    },
+    "sideways": {
+      "deck_front": 7,
+      "deck_front_side": 2
+    },
+    "climb": {
+      "deck_front_top": 11
+    }
+  },
+  "safe_but_inspection_incomplete_flights": 0,
+  "safe_but_inspection_incomplete_scenarios": 0,
+  "by_scenario": [
+    {
+      "seed": 1,
+      "profiles": {
+        "dive": {
+          "evaluations": 51,
+          "safe_count": 41,
+          "unsafe_count": 10,
+          "first_unsafe_s": 0.82,
+          "last_safe_s": 0.8,
+          "finite_boundary_observed": true,
+          "non_monotonic": false,
+          "safety_intervals": [
+            {
+              "value": true,
+              "first_tested_s": 0.0,
+              "last_tested_s": 0.8
+            },
+            {
+              "value": false,
+              "first_tested_s": 0.82,
+              "last_tested_s": 1.0
+            }
+          ],
+          "inspection_intervals": [
+            {
+              "value": true,
+              "first_tested_s": 0.0,
+              "last_tested_s": 1.0
+            }
+          ],
+          "last_safe_completion_s": 0.8,
+          "last_raw_inspection_completion_s": 1.0,
+          "first_raw_inspection_failure_s": null,
+          "safe_but_inspection_incomplete": 0,
+          "first_unsafe_obstacle": "deck",
+          "first_unsafe_part": "deck_front_underside",
+          "first_unsafe_violation_before_start": false
+        },
+        "sideways": {
+          "evaluations": 51,
+          "safe_count": 34,
+          "unsafe_count": 17,
+          "first_unsafe_s": 0.68,
+          "last_safe_s": 0.66,
+          "finite_boundary_observed": true,
+          "non_monotonic": false,
+          "safety_intervals": [
+            {
+              "value": true,
+              "first_tested_s": 0.0,
+              "last_tested_s": 0.66
+            },
+            {
+              "value": false,
+              "first_tested_s": 0.68,
+              "last_tested_s": 1.0
+            }
+          ],
+          "inspection_intervals": [
+            {
+              "value": false,
+              "first_tested_s": 0.0,
+              "last_tested_s": 1.0
+            }
+          ],
+          "last_safe_completion_s": null,
+          "last_raw_inspection_completion_s": null,
+          "first_raw_inspection_failure_s": 0.0,
+          "safe_but_inspection_incomplete": 34,
+          "first_unsafe_obstacle": "deck",
+          "first_unsafe_part": "deck_front",
+          "first_unsafe_violation_before_start": false
+        },
+        "climb": {
+          "evaluations": 76,
+          "safe_count": 45,
+          "unsafe_count": 31,
+          "first_unsafe_s": 0.9,
+          "last_safe_s": 0.88,
+          "finite_boundary_observed": true,
+          "non_monotonic": false,
+          "safety_intervals": [
+            {
+              "value": true,
+              "first_tested_s": 0.0,
+              "last_tested_s": 0.88
+            },
+            {
+              "value": false,
+              "first_tested_s": 0.9,
+              "last_tested_s": 1.5
+            }
+          ],
+          "inspection_intervals": [
+            {
+              "value": false,
+              "first_tested_s": 0.0,
+              "last_tested_s": 1.5
+            }
+          ],
+          "last_safe_completion_s": null,
+          "last_raw_inspection_completion_s": null,
+          "first_raw_inspection_failure_s": 0.0,
+          "safe_but_inspection_incomplete": 45,
+          "first_unsafe_obstacle": "deck",
+          "first_unsafe_part": "deck_front_top",
+          "first_unsafe_violation_before_start": false
+        }
+      },
+      "t_cmd_s": 0.82,
+      "completed_evaluations": 178,
+      "t_rec_side_last_tested_safe_s": 0.66,
+      "side_boundary_observed": true,
+      "delta_side_grid_s": -0.16,
+      "contiguous_side_window_interpretation": true,
+      "side_gap_right_censored": false,
+      "t_rec_climb_s": 0.88,
+      "delta_climb_s": 0.06,
+      "climb_safe_at_first_unsafe_side_start": true,
+      "command_safe_at_first_unsafe_side_start": true,
+      "climb_safe_at_some_later_side_start": true
+    },
+    {
+      "seed": 2,
+      "profiles": {
+        "dive": {
+          "evaluations": 51,
+          "safe_count": 7,
+          "unsafe_count": 44,
+          "first_unsafe_s": 0.14,
+          "last_safe_s": 0.12,
+          "finite_boundary_observed": true,
+          "non_monotonic": false,
+          "safety_intervals": [
+            {
+              "value": true,
+              "first_tested_s": 0.0,
+              "last_tested_s": 0.12
+            },
+            {
+              "value": false,
+              "first_tested_s": 0.14,
+              "last_tested_s": 1.0
+            }
+          ],
+          "inspection_intervals": [
+            {
+              "value": true,
+              "first_tested_s": 0.0,
+              "last_tested_s": 1.0
+            }
+          ],
+          "last_safe_completion_s": 0.12,
+          "last_raw_inspection_completion_s": 1.0,
+          "first_raw_inspection_failure_s": null,
+          "safe_but_inspection_incomplete": 0,
+          "first_unsafe_obstacle": "pier",
+          "first_unsafe_part": "pier",
+          "first_unsafe_violation_before_start": false
+        },
+        "sideways": {
+          "evaluations": 51,
+          "safe_count": 51,
+          "unsafe_count": 0,
+          "first_unsafe_s": null,
+          "last_safe_s": 1.0,
+          "finite_boundary_observed": false,
+          "non_monotonic": false,
+          "safety_intervals": [
+            {
+              "value": true,
+              "first_tested_s": 0.0,
+              "last_tested_s": 1.0
+            }
+          ],
+          "inspection_intervals": [
+            {
+              "value": false,
+              "first_tested_s": 0.0,
+              "last_tested_s": 1.0
+            }
+          ],
+          "last_safe_completion_s": null,
+          "last_raw_inspection_completion_s": null,
+          "first_raw_inspection_failure_s": 0.0,
+          "safe_but_inspection_incomplete": 51,
+          "first_unsafe_obstacle": null,
+          "first_unsafe_part": null,
+          "first_unsafe_violation_before_start": false
+        },
+        "climb": {
+          "evaluations": 76,
+          "safe_count": 75,
+          "unsafe_count": 1,
+          "first_unsafe_s": 1.5,
+          "last_safe_s": 1.48,
+          "finite_boundary_observed": true,
+          "non_monotonic": false,
+          "safety_intervals": [
+            {
+              "value": true,
+              "first_tested_s": 0.0,
+              "last_tested_s": 1.48
+            },
+            {
+              "value": false,
+              "first_tested_s": 1.5,
+              "last_tested_s": 1.5
+            }
+          ],
+          "inspection_intervals": [
+            {
+              "value": false,
+              "first_tested_s": 0.0,
+              "last_tested_s": 1.5
+            }
+          ],
+          "last_safe_completion_s": null,
+          "last_raw_inspection_completion_s": null,
+          "first_raw_inspection_failure_s": 0.0,
+          "safe_but_inspection_incomplete": 75,
+          "first_unsafe_obstacle": "deck",
+          "first_unsafe_part": "deck_front_top",
+          "first_unsafe_violation_before_start": false
+        }
+      },
+      "t_cmd_s": 0.14,
+      "completed_evaluations": 178,
+      "t_rec_side_last_tested_safe_s": 1.0,
+      "side_boundary_observed": false,
+      "delta_side_grid_s": 0.86,
+      "contiguous_side_window_interpretation": true,
+      "side_gap_right_censored": true,
+      "t_rec_climb_s": 1.48,
+      "delta_climb_s": 1.34,
+      "climb_safe_at_first_unsafe_side_start": null,
+      "command_safe_at_first_unsafe_side_start": null,
+      "climb_safe_at_some_later_side_start": false
+    },
+    {
+      "seed": 3,
+      "profiles": {
+        "dive": {
+          "evaluations": 51,
+          "safe_count": 51,
+          "unsafe_count": 0,
+          "first_unsafe_s": null,
+          "last_safe_s": 1.0,
+          "finite_boundary_observed": false,
+          "non_monotonic": false,
+          "safety_intervals": [
+            {
+              "value": true,
+              "first_tested_s": 0.0,
+              "last_tested_s": 1.0
+            }
+          ],
+          "inspection_intervals": [
+            {
+              "value": true,
+              "first_tested_s": 0.0,
+              "last_tested_s": 1.0
+            }
+          ],
+          "last_safe_completion_s": 1.0,
+          "last_raw_inspection_completion_s": 1.0,
+          "first_raw_inspection_failure_s": null,
+          "safe_but_inspection_incomplete": 0,
+          "first_unsafe_obstacle": null,
+          "first_unsafe_part": null,
+          "first_unsafe_violation_before_start": false
+        },
+        "sideways": {
+          "evaluations": 51,
+          "safe_count": 51,
+          "unsafe_count": 0,
+          "first_unsafe_s": null,
+          "last_safe_s": 1.0,
+          "finite_boundary_observed": false,
+          "non_monotonic": false,
+          "safety_intervals": [
+            {
+              "value": true,
+              "first_tested_s": 0.0,
+              "last_tested_s": 1.0
+            }
+          ],
+          "inspection_intervals": [
+            {
+              "value": false,
+              "first_tested_s": 0.0,
+              "last_tested_s": 1.0
+            }
+          ],
+          "last_safe_completion_s": null,
+          "last_raw_inspection_completion_s": null,
+          "first_raw_inspection_failure_s": 0.0,
+          "safe_but_inspection_incomplete": 51,
+          "first_unsafe_obstacle": null,
+          "first_unsafe_part": null,
+          "first_unsafe_violation_before_start": false
+        },
+        "climb": {
+          "evaluations": 76,
+          "safe_count": 76,
+          "unsafe_count": 0,
+          "first_unsafe_s": null,
+          "last_safe_s": 1.5,
+          "finite_boundary_observed": false,
+          "non_monotonic": false,
+          "safety_intervals": [
+            {
+              "value": true,
+              "first_tested_s": 0.0,
+              "last_tested_s": 1.5
+            }
+          ],
+          "inspection_intervals": [
+            {
+              "value": false,
+              "first_tested_s": 0.0,
+              "last_tested_s": 1.5
+            }
+          ],
+          "last_safe_completion_s": null,
+          "last_raw_inspection_completion_s": null,
+          "first_raw_inspection_failure_s": 0.0,
+          "safe_but_inspection_incomplete": 76,
+          "first_unsafe_obstacle": null,
+          "first_unsafe_part": null,
+          "first_unsafe_violation_before_start": false
+        }
+      },
+      "t_cmd_s": null,
+      "completed_evaluations": 178,
+      "t_rec_side_last_tested_safe_s": 1.0,
+      "side_boundary_observed": false,
+      "delta_side_grid_s": null,
+      "contiguous_side_window_interpretation": true,
+      "side_gap_right_censored": true,
+      "t_rec_climb_s": null,
+      "delta_climb_s": null,
+      "climb_safe_at_first_unsafe_side_start": null,
+      "command_safe_at_first_unsafe_side_start": null,
+      "climb_safe_at_some_later_side_start": false
+    },
+    {
+      "seed": 6,
+      "profiles": {
+        "dive": {
+          "evaluations": 51,
+          "safe_count": 18,
+          "unsafe_count": 33,
+          "first_unsafe_s": 0.36,
+          "last_safe_s": 0.34,
+          "finite_boundary_observed": true,
+          "non_monotonic": false,
+          "safety_intervals": [
+            {
+              "value": true,
+              "first_tested_s": 0.0,
+              "last_tested_s": 0.34
+            },
+            {
+              "value": false,
+              "first_tested_s": 0.36,
+              "last_tested_s": 1.0
+            }
+          ],
+          "inspection_intervals": [
+            {
+              "value": true,
+              "first_tested_s": 0.0,
+              "last_tested_s": 1.0
+            }
+          ],
+          "last_safe_completion_s": 0.34,
+          "last_raw_inspection_completion_s": 1.0,
+          "first_raw_inspection_failure_s": null,
+          "safe_but_inspection_incomplete": 0,
+          "first_unsafe_obstacle": "pier",
+          "first_unsafe_part": "pier",
+          "first_unsafe_violation_before_start": false
+        },
+        "sideways": {
+          "evaluations": 51,
+          "safe_count": 45,
+          "unsafe_count": 6,
+          "first_unsafe_s": 0.9,
+          "last_safe_s": 0.88,
+          "finite_boundary_observed": true,
+          "non_monotonic": false,
+          "safety_intervals": [
+            {
+              "value": true,
+              "first_tested_s": 0.0,
+              "last_tested_s": 0.88
+            },
+            {
+              "value": false,
+              "first_tested_s": 0.9,
+              "last_tested_s": 1.0
+            }
+          ],
+          "inspection_intervals": [
+            {
+              "value": false,
+              "first_tested_s": 0.0,
+              "last_tested_s": 1.0
+            }
+          ],
+          "last_safe_completion_s": null,
+          "last_raw_inspection_completion_s": null,
+          "first_raw_inspection_failure_s": 0.0,
+          "safe_but_inspection_incomplete": 45,
+          "first_unsafe_obstacle": "deck",
+          "first_unsafe_part": "deck_front",
+          "first_unsafe_violation_before_start": false
+        },
+        "climb": {
+          "evaluations": 76,
+          "safe_count": 57,
+          "unsafe_count": 19,
+          "first_unsafe_s": 1.14,
+          "last_safe_s": 1.12,
+          "finite_boundary_observed": true,
+          "non_monotonic": false,
+          "safety_intervals": [
+            {
+              "value": true,
+              "first_tested_s": 0.0,
+              "last_tested_s": 1.12
+            },
+            {
+              "value": false,
+              "first_tested_s": 1.14,
+              "last_tested_s": 1.5
+            }
+          ],
+          "inspection_intervals": [
+            {
+              "value": false,
+              "first_tested_s": 0.0,
+              "last_tested_s": 1.5
+            }
+          ],
+          "last_safe_completion_s": null,
+          "last_raw_inspection_completion_s": null,
+          "first_raw_inspection_failure_s": 0.0,
+          "safe_but_inspection_incomplete": 57,
+          "first_unsafe_obstacle": "deck",
+          "first_unsafe_part": "deck_front_top",
+          "first_unsafe_violation_before_start": false
+        }
+      },
+      "t_cmd_s": 0.36,
+      "completed_evaluations": 178,
+      "t_rec_side_last_tested_safe_s": 0.88,
+      "side_boundary_observed": true,
+      "delta_side_grid_s": 0.52,
+      "contiguous_side_window_interpretation": true,
+      "side_gap_right_censored": false,
+      "t_rec_climb_s": 1.12,
+      "delta_climb_s": 0.76,
+      "climb_safe_at_first_unsafe_side_start": true,
+      "command_safe_at_first_unsafe_side_start": false,
+      "climb_safe_at_some_later_side_start": true
+    },
+    {
+      "seed": 8,
+      "profiles": {
+        "dive": {
+          "evaluations": 51,
+          "safe_count": 49,
+          "unsafe_count": 2,
+          "first_unsafe_s": 0.98,
+          "last_safe_s": 0.96,
+          "finite_boundary_observed": true,
+          "non_monotonic": false,
+          "safety_intervals": [
+            {
+              "value": true,
+              "first_tested_s": 0.0,
+              "last_tested_s": 0.96
+            },
+            {
+              "value": false,
+              "first_tested_s": 0.98,
+              "last_tested_s": 1.0
+            }
+          ],
+          "inspection_intervals": [
+            {
+              "value": true,
+              "first_tested_s": 0.0,
+              "last_tested_s": 1.0
+            }
+          ],
+          "last_safe_completion_s": 0.96,
+          "last_raw_inspection_completion_s": 1.0,
+          "first_raw_inspection_failure_s": null,
+          "safe_but_inspection_incomplete": 0,
+          "first_unsafe_obstacle": "deck",
+          "first_unsafe_part": "deck_front_underside",
+          "first_unsafe_violation_before_start": false
+        },
+        "sideways": {
+          "evaluations": 51,
+          "safe_count": 41,
+          "unsafe_count": 10,
+          "first_unsafe_s": 0.82,
+          "last_safe_s": 0.8,
+          "finite_boundary_observed": true,
+          "non_monotonic": false,
+          "safety_intervals": [
+            {
+              "value": true,
+              "first_tested_s": 0.0,
+              "last_tested_s": 0.8
+            },
+            {
+              "value": false,
+              "first_tested_s": 0.82,
+              "last_tested_s": 1.0
+            }
+          ],
+          "inspection_intervals": [
+            {
+              "value": false,
+              "first_tested_s": 0.0,
+              "last_tested_s": 1.0
+            }
+          ],
+          "last_safe_completion_s": null,
+          "last_raw_inspection_completion_s": null,
+          "first_raw_inspection_failure_s": 0.0,
+          "safe_but_inspection_incomplete": 41,
+          "first_unsafe_obstacle": "deck",
+          "first_unsafe_part": "deck_front",
+          "first_unsafe_violation_before_start": false
+        },
+        "climb": {
+          "evaluations": 76,
+          "safe_count": 53,
+          "unsafe_count": 23,
+          "first_unsafe_s": 1.06,
+          "last_safe_s": 1.04,
+          "finite_boundary_observed": true,
+          "non_monotonic": false,
+          "safety_intervals": [
+            {
+              "value": true,
+              "first_tested_s": 0.0,
+              "last_tested_s": 1.04
+            },
+            {
+              "value": false,
+              "first_tested_s": 1.06,
+              "last_tested_s": 1.5
+            }
+          ],
+          "inspection_intervals": [
+            {
+              "value": false,
+              "first_tested_s": 0.0,
+              "last_tested_s": 1.5
+            }
+          ],
+          "last_safe_completion_s": null,
+          "last_raw_inspection_completion_s": null,
+          "first_raw_inspection_failure_s": 0.0,
+          "safe_but_inspection_incomplete": 53,
+          "first_unsafe_obstacle": "deck",
+          "first_unsafe_part": "deck_front_top",
+          "first_unsafe_violation_before_start": false
+        }
+      },
+      "t_cmd_s": 0.98,
+      "completed_evaluations": 178,
+      "t_rec_side_last_tested_safe_s": 0.8,
+      "side_boundary_observed": true,
+      "delta_side_grid_s": -0.18,
+      "contiguous_side_window_interpretation": true,
+      "side_gap_right_censored": false,
+      "t_rec_climb_s": 1.04,
+      "delta_climb_s": 0.06,
+      "climb_safe_at_first_unsafe_side_start": true,
+      "command_safe_at_first_unsafe_side_start": true,
+      "climb_safe_at_some_later_side_start": true
+    },
+    {
+      "seed": 9,
+      "profiles": {
+        "dive": {
+          "evaluations": 51,
+          "safe_count": 36,
+          "unsafe_count": 15,
+          "first_unsafe_s": 0.72,
+          "last_safe_s": 0.7,
+          "finite_boundary_observed": true,
+          "non_monotonic": false,
+          "safety_intervals": [
+            {
+              "value": true,
+              "first_tested_s": 0.0,
+              "last_tested_s": 0.7
+            },
+            {
+              "value": false,
+              "first_tested_s": 0.72,
+              "last_tested_s": 1.0
+            }
+          ],
+          "inspection_intervals": [
+            {
+              "value": true,
+              "first_tested_s": 0.0,
+              "last_tested_s": 1.0
+            }
+          ],
+          "last_safe_completion_s": 0.7,
+          "last_raw_inspection_completion_s": 1.0,
+          "first_raw_inspection_failure_s": null,
+          "safe_but_inspection_incomplete": 0,
+          "first_unsafe_obstacle": "pier",
+          "first_unsafe_part": "pier",
+          "first_unsafe_violation_before_start": false
+        },
+        "sideways": {
+          "evaluations": 51,
+          "safe_count": 45,
+          "unsafe_count": 6,
+          "first_unsafe_s": 0.9,
+          "last_safe_s": 0.88,
+          "finite_boundary_observed": true,
+          "non_monotonic": false,
+          "safety_intervals": [
+            {
+              "value": true,
+              "first_tested_s": 0.0,
+              "last_tested_s": 0.88
+            },
+            {
+              "value": false,
+              "first_tested_s": 0.9,
+              "last_tested_s": 1.0
+            }
+          ],
+          "inspection_intervals": [
+            {
+              "value": false,
+              "first_tested_s": 0.0,
+              "last_tested_s": 1.0
+            }
+          ],
+          "last_safe_completion_s": null,
+          "last_raw_inspection_completion_s": null,
+          "first_raw_inspection_failure_s": 0.0,
+          "safe_but_inspection_incomplete": 45,
+          "first_unsafe_obstacle": "deck",
+          "first_unsafe_part": "deck_front",
+          "first_unsafe_violation_before_start": false
+        },
+        "climb": {
+          "evaluations": 76,
+          "safe_count": 57,
+          "unsafe_count": 19,
+          "first_unsafe_s": 1.14,
+          "last_safe_s": 1.12,
+          "finite_boundary_observed": true,
+          "non_monotonic": false,
+          "safety_intervals": [
+            {
+              "value": true,
+              "first_tested_s": 0.0,
+              "last_tested_s": 1.12
+            },
+            {
+              "value": false,
+              "first_tested_s": 1.14,
+              "last_tested_s": 1.5
+            }
+          ],
+          "inspection_intervals": [
+            {
+              "value": false,
+              "first_tested_s": 0.0,
+              "last_tested_s": 1.5
+            }
+          ],
+          "last_safe_completion_s": null,
+          "last_raw_inspection_completion_s": null,
+          "first_raw_inspection_failure_s": 0.0,
+          "safe_but_inspection_incomplete": 57,
+          "first_unsafe_obstacle": "deck",
+          "first_unsafe_part": "deck_front_top",
+          "first_unsafe_violation_before_start": false
+        }
+      },
+      "t_cmd_s": 0.72,
+      "completed_evaluations": 178,
+      "t_rec_side_last_tested_safe_s": 0.88,
+      "side_boundary_observed": true,
+      "delta_side_grid_s": 0.16,
+      "contiguous_side_window_interpretation": true,
+      "side_gap_right_censored": false,
+      "t_rec_climb_s": 1.12,
+      "delta_climb_s": 0.4,
+      "climb_safe_at_first_unsafe_side_start": true,
+      "command_safe_at_first_unsafe_side_start": false,
+      "climb_safe_at_some_later_side_start": true
+    },
+    {
+      "seed": 11,
+      "profiles": {
+        "dive": {
+          "evaluations": 51,
+          "safe_count": 5,
+          "unsafe_count": 46,
+          "first_unsafe_s": 0.1,
+          "last_safe_s": 0.08,
+          "finite_boundary_observed": true,
+          "non_monotonic": false,
+          "safety_intervals": [
+            {
+              "value": true,
+              "first_tested_s": 0.0,
+              "last_tested_s": 0.08
+            },
+            {
+              "value": false,
+              "first_tested_s": 0.1,
+              "last_tested_s": 1.0
+            }
+          ],
+          "inspection_intervals": [
+            {
+              "value": true,
+              "first_tested_s": 0.0,
+              "last_tested_s": 1.0
+            }
+          ],
+          "last_safe_completion_s": 0.08,
+          "last_raw_inspection_completion_s": 1.0,
+          "first_raw_inspection_failure_s": null,
+          "safe_but_inspection_incomplete": 0,
+          "first_unsafe_obstacle": "pier",
+          "first_unsafe_part": "pier",
+          "first_unsafe_violation_before_start": false
+        },
+        "sideways": {
+          "evaluations": 51,
+          "safe_count": 51,
+          "unsafe_count": 0,
+          "first_unsafe_s": null,
+          "last_safe_s": 1.0,
+          "finite_boundary_observed": false,
+          "non_monotonic": false,
+          "safety_intervals": [
+            {
+              "value": true,
+              "first_tested_s": 0.0,
+              "last_tested_s": 1.0
+            }
+          ],
+          "inspection_intervals": [
+            {
+              "value": false,
+              "first_tested_s": 0.0,
+              "last_tested_s": 1.0
+            }
+          ],
+          "last_safe_completion_s": null,
+          "last_raw_inspection_completion_s": null,
+          "first_raw_inspection_failure_s": 0.0,
+          "safe_but_inspection_incomplete": 51,
+          "first_unsafe_obstacle": null,
+          "first_unsafe_part": null,
+          "first_unsafe_violation_before_start": false
+        },
+        "climb": {
+          "evaluations": 76,
+          "safe_count": 70,
+          "unsafe_count": 6,
+          "first_unsafe_s": 1.4,
+          "last_safe_s": 1.38,
+          "finite_boundary_observed": true,
+          "non_monotonic": false,
+          "safety_intervals": [
+            {
+              "value": true,
+              "first_tested_s": 0.0,
+              "last_tested_s": 1.38
+            },
+            {
+              "value": false,
+              "first_tested_s": 1.4,
+              "last_tested_s": 1.5
+            }
+          ],
+          "inspection_intervals": [
+            {
+              "value": false,
+              "first_tested_s": 0.0,
+              "last_tested_s": 1.5
+            }
+          ],
+          "last_safe_completion_s": null,
+          "last_raw_inspection_completion_s": null,
+          "first_raw_inspection_failure_s": 0.0,
+          "safe_but_inspection_incomplete": 70,
+          "first_unsafe_obstacle": "deck",
+          "first_unsafe_part": "deck_front_top",
+          "first_unsafe_violation_before_start": false
+        }
+      },
+      "t_cmd_s": 0.1,
+      "completed_evaluations": 178,
+      "t_rec_side_last_tested_safe_s": 1.0,
+      "side_boundary_observed": false,
+      "delta_side_grid_s": 0.9,
+      "contiguous_side_window_interpretation": true,
+      "side_gap_right_censored": true,
+      "t_rec_climb_s": 1.38,
+      "delta_climb_s": 1.28,
+      "climb_safe_at_first_unsafe_side_start": null,
+      "command_safe_at_first_unsafe_side_start": null,
+      "climb_safe_at_some_later_side_start": false
+    },
+    {
+      "seed": 12,
+      "profiles": {
+        "dive": {
+          "evaluations": 51,
+          "safe_count": 7,
+          "unsafe_count": 44,
+          "first_unsafe_s": 0.14,
+          "last_safe_s": 0.12,
+          "finite_boundary_observed": true,
+          "non_monotonic": false,
+          "safety_intervals": [
+            {
+              "value": true,
+              "first_tested_s": 0.0,
+              "last_tested_s": 0.12
+            },
+            {
+              "value": false,
+              "first_tested_s": 0.14,
+              "last_tested_s": 1.0
+            }
+          ],
+          "inspection_intervals": [
+            {
+              "value": true,
+              "first_tested_s": 0.0,
+              "last_tested_s": 1.0
+            }
+          ],
+          "last_safe_completion_s": 0.12,
+          "last_raw_inspection_completion_s": 1.0,
+          "first_raw_inspection_failure_s": null,
+          "safe_but_inspection_incomplete": 0,
+          "first_unsafe_obstacle": "pier",
+          "first_unsafe_part": "pier",
+          "first_unsafe_violation_before_start": false
+        },
+        "sideways": {
+          "evaluations": 51,
+          "safe_count": 40,
+          "unsafe_count": 11,
+          "first_unsafe_s": 0.8,
+          "last_safe_s": 0.78,
+          "finite_boundary_observed": true,
+          "non_monotonic": false,
+          "safety_intervals": [
+            {
+              "value": true,
+              "first_tested_s": 0.0,
+              "last_tested_s": 0.78
+            },
+            {
+              "value": false,
+              "first_tested_s": 0.8,
+              "last_tested_s": 1.0
+            }
+          ],
+          "inspection_intervals": [
+            {
+              "value": false,
+              "first_tested_s": 0.0,
+              "last_tested_s": 1.0
+            }
+          ],
+          "last_safe_completion_s": null,
+          "last_raw_inspection_completion_s": null,
+          "first_raw_inspection_failure_s": 0.0,
+          "safe_but_inspection_incomplete": 40,
+          "first_unsafe_obstacle": "deck",
+          "first_unsafe_part": "deck_front",
+          "first_unsafe_violation_before_start": false
+        },
+        "climb": {
+          "evaluations": 76,
+          "safe_count": 52,
+          "unsafe_count": 24,
+          "first_unsafe_s": 1.04,
+          "last_safe_s": 1.02,
+          "finite_boundary_observed": true,
+          "non_monotonic": false,
+          "safety_intervals": [
+            {
+              "value": true,
+              "first_tested_s": 0.0,
+              "last_tested_s": 1.02
+            },
+            {
+              "value": false,
+              "first_tested_s": 1.04,
+              "last_tested_s": 1.5
+            }
+          ],
+          "inspection_intervals": [
+            {
+              "value": false,
+              "first_tested_s": 0.0,
+              "last_tested_s": 1.5
+            }
+          ],
+          "last_safe_completion_s": null,
+          "last_raw_inspection_completion_s": null,
+          "first_raw_inspection_failure_s": 0.0,
+          "safe_but_inspection_incomplete": 52,
+          "first_unsafe_obstacle": "deck",
+          "first_unsafe_part": "deck_front_top",
+          "first_unsafe_violation_before_start": false
+        }
+      },
+      "t_cmd_s": 0.14,
+      "completed_evaluations": 178,
+      "t_rec_side_last_tested_safe_s": 0.78,
+      "side_boundary_observed": true,
+      "delta_side_grid_s": 0.64,
+      "contiguous_side_window_interpretation": true,
+      "side_gap_right_censored": false,
+      "t_rec_climb_s": 1.02,
+      "delta_climb_s": 0.88,
+      "climb_safe_at_first_unsafe_side_start": true,
+      "command_safe_at_first_unsafe_side_start": false,
+      "climb_safe_at_some_later_side_start": true
+    },
+    {
+      "seed": 14,
+      "profiles": {
+        "dive": {
+          "evaluations": 51,
+          "safe_count": 43,
+          "unsafe_count": 8,
+          "first_unsafe_s": 0.86,
+          "last_safe_s": 0.84,
+          "finite_boundary_observed": true,
+          "non_monotonic": false,
+          "safety_intervals": [
+            {
+              "value": true,
+              "first_tested_s": 0.0,
+              "last_tested_s": 0.84
+            },
+            {
+              "value": false,
+              "first_tested_s": 0.86,
+              "last_tested_s": 1.0
+            }
+          ],
+          "inspection_intervals": [
+            {
+              "value": true,
+              "first_tested_s": 0.0,
+              "last_tested_s": 1.0
+            }
+          ],
+          "last_safe_completion_s": 0.84,
+          "last_raw_inspection_completion_s": 1.0,
+          "first_raw_inspection_failure_s": null,
+          "safe_but_inspection_incomplete": 0,
+          "first_unsafe_obstacle": "pier",
+          "first_unsafe_part": "pier",
+          "first_unsafe_violation_before_start": false
+        },
+        "sideways": {
+          "evaluations": 51,
+          "safe_count": 46,
+          "unsafe_count": 5,
+          "first_unsafe_s": 0.92,
+          "last_safe_s": 0.9,
+          "finite_boundary_observed": true,
+          "non_monotonic": false,
+          "safety_intervals": [
+            {
+              "value": true,
+              "first_tested_s": 0.0,
+              "last_tested_s": 0.9
+            },
+            {
+              "value": false,
+              "first_tested_s": 0.92,
+              "last_tested_s": 1.0
+            }
+          ],
+          "inspection_intervals": [
+            {
+              "value": false,
+              "first_tested_s": 0.0,
+              "last_tested_s": 1.0
+            }
+          ],
+          "last_safe_completion_s": null,
+          "last_raw_inspection_completion_s": null,
+          "first_raw_inspection_failure_s": 0.0,
+          "safe_but_inspection_incomplete": 46,
+          "first_unsafe_obstacle": "deck",
+          "first_unsafe_part": "deck_front",
+          "first_unsafe_violation_before_start": false
+        },
+        "climb": {
+          "evaluations": 76,
+          "safe_count": 59,
+          "unsafe_count": 17,
+          "first_unsafe_s": 1.18,
+          "last_safe_s": 1.16,
+          "finite_boundary_observed": true,
+          "non_monotonic": false,
+          "safety_intervals": [
+            {
+              "value": true,
+              "first_tested_s": 0.0,
+              "last_tested_s": 1.16
+            },
+            {
+              "value": false,
+              "first_tested_s": 1.18,
+              "last_tested_s": 1.5
+            }
+          ],
+          "inspection_intervals": [
+            {
+              "value": false,
+              "first_tested_s": 0.0,
+              "last_tested_s": 1.5
+            }
+          ],
+          "last_safe_completion_s": null,
+          "last_raw_inspection_completion_s": null,
+          "first_raw_inspection_failure_s": 0.0,
+          "safe_but_inspection_incomplete": 59,
+          "first_unsafe_obstacle": "deck",
+          "first_unsafe_part": "deck_front_top",
+          "first_unsafe_violation_before_start": false
+        }
+      },
+      "t_cmd_s": 0.86,
+      "completed_evaluations": 178,
+      "t_rec_side_last_tested_safe_s": 0.9,
+      "side_boundary_observed": true,
+      "delta_side_grid_s": 0.04,
+      "contiguous_side_window_interpretation": true,
+      "side_gap_right_censored": false,
+      "t_rec_climb_s": 1.16,
+      "delta_climb_s": 0.3,
+      "climb_safe_at_first_unsafe_side_start": true,
+      "command_safe_at_first_unsafe_side_start": false,
+      "climb_safe_at_some_later_side_start": true
+    },
+    {
+      "seed": 16,
+      "profiles": {
+        "dive": {
+          "evaluations": 51,
+          "safe_count": 14,
+          "unsafe_count": 37,
+          "first_unsafe_s": 0.28,
+          "last_safe_s": 0.26,
+          "finite_boundary_observed": true,
+          "non_monotonic": false,
+          "safety_intervals": [
+            {
+              "value": true,
+              "first_tested_s": 0.0,
+              "last_tested_s": 0.26
+            },
+            {
+              "value": false,
+              "first_tested_s": 0.28,
+              "last_tested_s": 1.0
+            }
+          ],
+          "inspection_intervals": [
+            {
+              "value": true,
+              "first_tested_s": 0.0,
+              "last_tested_s": 1.0
+            }
+          ],
+          "last_safe_completion_s": 0.26,
+          "last_raw_inspection_completion_s": 1.0,
+          "first_raw_inspection_failure_s": null,
+          "safe_but_inspection_incomplete": 0,
+          "first_unsafe_obstacle": "pier",
+          "first_unsafe_part": "pier",
+          "first_unsafe_violation_before_start": false
+        },
+        "sideways": {
+          "evaluations": 51,
+          "safe_count": 37,
+          "unsafe_count": 14,
+          "first_unsafe_s": 0.74,
+          "last_safe_s": 0.72,
+          "finite_boundary_observed": true,
+          "non_monotonic": false,
+          "safety_intervals": [
+            {
+              "value": true,
+              "first_tested_s": 0.0,
+              "last_tested_s": 0.72
+            },
+            {
+              "value": false,
+              "first_tested_s": 0.74,
+              "last_tested_s": 1.0
+            }
+          ],
+          "inspection_intervals": [
+            {
+              "value": false,
+              "first_tested_s": 0.0,
+              "last_tested_s": 1.0
+            }
+          ],
+          "last_safe_completion_s": null,
+          "last_raw_inspection_completion_s": null,
+          "first_raw_inspection_failure_s": 0.0,
+          "safe_but_inspection_incomplete": 37,
+          "first_unsafe_obstacle": "deck",
+          "first_unsafe_part": "deck_front_side",
+          "first_unsafe_violation_before_start": false
+        },
+        "climb": {
+          "evaluations": 76,
+          "safe_count": 49,
+          "unsafe_count": 27,
+          "first_unsafe_s": 0.98,
+          "last_safe_s": 0.96,
+          "finite_boundary_observed": true,
+          "non_monotonic": false,
+          "safety_intervals": [
+            {
+              "value": true,
+              "first_tested_s": 0.0,
+              "last_tested_s": 0.96
+            },
+            {
+              "value": false,
+              "first_tested_s": 0.98,
+              "last_tested_s": 1.5
+            }
+          ],
+          "inspection_intervals": [
+            {
+              "value": false,
+              "first_tested_s": 0.0,
+              "last_tested_s": 1.5
+            }
+          ],
+          "last_safe_completion_s": null,
+          "last_raw_inspection_completion_s": null,
+          "first_raw_inspection_failure_s": 0.0,
+          "safe_but_inspection_incomplete": 49,
+          "first_unsafe_obstacle": "deck",
+          "first_unsafe_part": "deck_front_top",
+          "first_unsafe_violation_before_start": false
+        }
+      },
+      "t_cmd_s": 0.28,
+      "completed_evaluations": 178,
+      "t_rec_side_last_tested_safe_s": 0.72,
+      "side_boundary_observed": true,
+      "delta_side_grid_s": 0.44,
+      "contiguous_side_window_interpretation": true,
+      "side_gap_right_censored": false,
+      "t_rec_climb_s": 0.96,
+      "delta_climb_s": 0.68,
+      "climb_safe_at_first_unsafe_side_start": true,
+      "command_safe_at_first_unsafe_side_start": false,
+      "climb_safe_at_some_later_side_start": true
+    },
+    {
+      "seed": 17,
+      "profiles": {
+        "dive": {
+          "evaluations": 51,
+          "safe_count": 9,
+          "unsafe_count": 42,
+          "first_unsafe_s": 0.18,
+          "last_safe_s": 0.16,
+          "finite_boundary_observed": true,
+          "non_monotonic": false,
+          "safety_intervals": [
+            {
+              "value": true,
+              "first_tested_s": 0.0,
+              "last_tested_s": 0.16
+            },
+            {
+              "value": false,
+              "first_tested_s": 0.18,
+              "last_tested_s": 1.0
+            }
+          ],
+          "inspection_intervals": [
+            {
+              "value": true,
+              "first_tested_s": 0.0,
+              "last_tested_s": 1.0
+            }
+          ],
+          "last_safe_completion_s": 0.16,
+          "last_raw_inspection_completion_s": 1.0,
+          "first_raw_inspection_failure_s": null,
+          "safe_but_inspection_incomplete": 0,
+          "first_unsafe_obstacle": "pier",
+          "first_unsafe_part": "pier",
+          "first_unsafe_violation_before_start": false
+        },
+        "sideways": {
+          "evaluations": 51,
+          "safe_count": 45,
+          "unsafe_count": 6,
+          "first_unsafe_s": 0.9,
+          "last_safe_s": 0.88,
+          "finite_boundary_observed": true,
+          "non_monotonic": false,
+          "safety_intervals": [
+            {
+              "value": true,
+              "first_tested_s": 0.0,
+              "last_tested_s": 0.88
+            },
+            {
+              "value": false,
+              "first_tested_s": 0.9,
+              "last_tested_s": 1.0
+            }
+          ],
+          "inspection_intervals": [
+            {
+              "value": false,
+              "first_tested_s": 0.0,
+              "last_tested_s": 1.0
+            }
+          ],
+          "last_safe_completion_s": null,
+          "last_raw_inspection_completion_s": null,
+          "first_raw_inspection_failure_s": 0.0,
+          "safe_but_inspection_incomplete": 45,
+          "first_unsafe_obstacle": "deck",
+          "first_unsafe_part": "deck_front_side",
+          "first_unsafe_violation_before_start": false
+        },
+        "climb": {
+          "evaluations": 76,
+          "safe_count": 58,
+          "unsafe_count": 18,
+          "first_unsafe_s": 1.16,
+          "last_safe_s": 1.14,
+          "finite_boundary_observed": true,
+          "non_monotonic": false,
+          "safety_intervals": [
+            {
+              "value": true,
+              "first_tested_s": 0.0,
+              "last_tested_s": 1.14
+            },
+            {
+              "value": false,
+              "first_tested_s": 1.16,
+              "last_tested_s": 1.5
+            }
+          ],
+          "inspection_intervals": [
+            {
+              "value": false,
+              "first_tested_s": 0.0,
+              "last_tested_s": 1.5
+            }
+          ],
+          "last_safe_completion_s": null,
+          "last_raw_inspection_completion_s": null,
+          "first_raw_inspection_failure_s": 0.0,
+          "safe_but_inspection_incomplete": 58,
+          "first_unsafe_obstacle": "deck",
+          "first_unsafe_part": "deck_front_top",
+          "first_unsafe_violation_before_start": false
+        }
+      },
+      "t_cmd_s": 0.18,
+      "completed_evaluations": 178,
+      "t_rec_side_last_tested_safe_s": 0.88,
+      "side_boundary_observed": true,
+      "delta_side_grid_s": 0.7,
+      "contiguous_side_window_interpretation": true,
+      "side_gap_right_censored": false,
+      "t_rec_climb_s": 1.14,
+      "delta_climb_s": 0.96,
+      "climb_safe_at_first_unsafe_side_start": true,
+      "command_safe_at_first_unsafe_side_start": false,
+      "climb_safe_at_some_later_side_start": true
+    },
+    {
+      "seed": 20,
+      "profiles": {
+        "dive": {
+          "evaluations": 51,
+          "safe_count": 38,
+          "unsafe_count": 13,
+          "first_unsafe_s": 0.76,
+          "last_safe_s": 0.74,
+          "finite_boundary_observed": true,
+          "non_monotonic": false,
+          "safety_intervals": [
+            {
+              "value": true,
+              "first_tested_s": 0.0,
+              "last_tested_s": 0.74
+            },
+            {
+              "value": false,
+              "first_tested_s": 0.76,
+              "last_tested_s": 1.0
+            }
+          ],
+          "inspection_intervals": [
+            {
+              "value": true,
+              "first_tested_s": 0.0,
+              "last_tested_s": 1.0
+            }
+          ],
+          "last_safe_completion_s": 0.74,
+          "last_raw_inspection_completion_s": 1.0,
+          "first_raw_inspection_failure_s": null,
+          "safe_but_inspection_incomplete": 0,
+          "first_unsafe_obstacle": "pier",
+          "first_unsafe_part": "pier",
+          "first_unsafe_violation_before_start": false
+        },
+        "sideways": {
+          "evaluations": 51,
+          "safe_count": 42,
+          "unsafe_count": 9,
+          "first_unsafe_s": 0.84,
+          "last_safe_s": 0.82,
+          "finite_boundary_observed": true,
+          "non_monotonic": false,
+          "safety_intervals": [
+            {
+              "value": true,
+              "first_tested_s": 0.0,
+              "last_tested_s": 0.82
+            },
+            {
+              "value": false,
+              "first_tested_s": 0.84,
+              "last_tested_s": 1.0
+            }
+          ],
+          "inspection_intervals": [
+            {
+              "value": false,
+              "first_tested_s": 0.0,
+              "last_tested_s": 1.0
+            }
+          ],
+          "last_safe_completion_s": null,
+          "last_raw_inspection_completion_s": null,
+          "first_raw_inspection_failure_s": 0.0,
+          "safe_but_inspection_incomplete": 42,
+          "first_unsafe_obstacle": "deck",
+          "first_unsafe_part": "deck_front",
+          "first_unsafe_violation_before_start": false
+        },
+        "climb": {
+          "evaluations": 76,
+          "safe_count": 54,
+          "unsafe_count": 22,
+          "first_unsafe_s": 1.08,
+          "last_safe_s": 1.06,
+          "finite_boundary_observed": true,
+          "non_monotonic": false,
+          "safety_intervals": [
+            {
+              "value": true,
+              "first_tested_s": 0.0,
+              "last_tested_s": 1.06
+            },
+            {
+              "value": false,
+              "first_tested_s": 1.08,
+              "last_tested_s": 1.5
+            }
+          ],
+          "inspection_intervals": [
+            {
+              "value": false,
+              "first_tested_s": 0.0,
+              "last_tested_s": 1.5
+            }
+          ],
+          "last_safe_completion_s": null,
+          "last_raw_inspection_completion_s": null,
+          "first_raw_inspection_failure_s": 0.0,
+          "safe_but_inspection_incomplete": 54,
+          "first_unsafe_obstacle": "deck",
+          "first_unsafe_part": "deck_front_top",
+          "first_unsafe_violation_before_start": false
+        }
+      },
+      "t_cmd_s": 0.76,
+      "completed_evaluations": 178,
+      "t_rec_side_last_tested_safe_s": 0.82,
+      "side_boundary_observed": true,
+      "delta_side_grid_s": 0.06,
+      "contiguous_side_window_interpretation": true,
+      "side_gap_right_censored": false,
+      "t_rec_climb_s": 1.06,
+      "delta_climb_s": 0.3,
+      "climb_safe_at_first_unsafe_side_start": true,
+      "command_safe_at_first_unsafe_side_start": false,
+      "climb_safe_at_some_later_side_start": true
+    }
+  ]
+}

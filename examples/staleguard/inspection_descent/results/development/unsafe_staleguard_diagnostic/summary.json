@@ -1,0 +1,531 @@
+[
+  {
+    "seed": 9,
+    "delay_s": 0.3,
+    "command": {
+      "speed": 0.7480996815880339,
+      "usual_height": 1.2217043022718888,
+      "box_x_min": 1.2222037050360934,
+      "box_x_max": 1.755463929912147,
+      "box_y_limit": 0.35,
+      "unsafe_below_z": 1.0074111944405348,
+      "approval_time": 0.2,
+      "low_height": 0.8813980962071076,
+      "low_seconds": 1.12
+    },
+    "prediction": {
+      "classification": "FINITE_TTL",
+      "results": [
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE"
+      ],
+      "first_bad_delay": 0.4,
+      "last_safe_delay": 0.30000000000000004
+    },
+    "predicted_safety": "SAFE",
+    "recorded_computation_s": 0.04191852300573373,
+    "prediction_available": true,
+    "waited_control_steps": 15,
+    "expiry_control_steps": 20,
+    "ttl_expired": false,
+    "outcome": [
+      true,
+      true,
+      false,
+      false
+    ],
+    "saved_trace_hash_matches": true,
+    "actual_first_unsafe_s": 1.829,
+    "actual_unsafe_intervals": [
+      {
+        "entry_s": 1.829,
+        "last_inside_s": 1.829,
+        "first_outside_s": 1.83,
+        "elapsed_dwell_s": 0.0
+      }
+    ],
+    "actual_unsafe_at_control_samples": false,
+    "model_unsafe_at_control_samples": false,
+    "model_unsafe_at_integration_endpoints": false,
+    "model_dense_unsafe_intervals": [
+      {
+        "entry_s": 1.827,
+        "last_inside_s": 1.829,
+        "first_outside_s": 1.83,
+        "elapsed_dwell_s": 0.002
+      }
+    ],
+    "model_structure_entry_s": 1.827,
+    "model_climb_clear_s": 1.83,
+    "actual_xyz_at_entry": [
+      1.2222436976086715,
+      6.178653751583459e-06,
+      1.007298197550396
+    ],
+    "model_xyz_at_actual_entry": [
+      1.2240727838785448,
+      -5.673498109713536e-06,
+      1.0070777130631843
+    ],
+    "model_minus_actual_at_entry_m": [
+      0.0018290862698733257,
+      -1.1852151861296995e-05,
+      -0.0002204844872117917
+    ],
+    "near_entry": [
+      {
+        "time_s": 1.82,
+        "actual_xyz": [
+          1.2149621712791554,
+          6.088309682923495e-06,
+          1.001806205281064
+        ],
+        "model_xyz": [
+          1.2167928520927718,
+          -5.8722330407446325e-06,
+          1.001572328126792
+        ],
+        "actual_unsafe": false,
+        "model_unsafe": false
+      },
+      {
+        "time_s": 1.827,
+        "actual_xyz": [
+          1.220626685917664,
+          6.10966474975586e-06,
+          1.0060873996870874
+        ],
+        "model_xyz": [
+          1.2224556706125087,
+          -5.694379624150814e-06,
+          1.005863977892717
+        ],
+        "actual_unsafe": false,
+        "model_unsafe": true
+      },
+      {
+        "time_s": 1.828,
+        "actual_xyz": [
+          1.2214352802421773,
+          6.14017108792336e-06,
+          1.0066934877216074
+        ],
+        "model_xyz": [
+          1.2232642718707536,
+          -5.681558025361429e-06,
+          1.0064715371535389
+        ],
+        "actual_unsafe": false,
+        "model_unsafe": true
+      },
+      {
+        "time_s": 1.829,
+        "actual_xyz": [
+          1.2222436976086715,
+          6.178653751583459e-06,
+          1.007298197550396
+        ],
+        "model_xyz": [
+          1.2240727838785448,
+          -5.673498109713536e-06,
+          1.0070777130631843
+        ],
+        "actual_unsafe": true,
+        "model_unsafe": true
+      },
+      {
+        "time_s": 1.83,
+        "actual_xyz": [
+          1.223051931482245,
+          6.2252678792262946e-06,
+          1.0079015290334579
+        ],
+        "model_xyz": [
+          1.2248812073397997,
+          -5.670652200203147e-06,
+          1.0076825056267258
+        ],
+        "actual_unsafe": false,
+        "model_unsafe": false
+      },
+      {
+        "time_s": 1.84,
+        "actual_xyz": [
+          1.2311229158280523,
+          7.111055925622653e-06,
+          1.0138590051051308
+        ],
+        "model_xyz": [
+          1.232960551129813,
+          -6.003951284266282e-06,
+          1.0136543474344342
+        ],
+        "actual_unsafe": false,
+        "model_unsafe": false
+      }
+    ]
+  },
+  {
+    "seed": 7,
+    "delay_s": 0.4,
+    "command": {
+      "speed": 0.6500381866418667,
+      "usual_height": 1.3743034502423939,
+      "box_x_min": 1.3429799831716354,
+      "box_x_max": 1.7105421401688128,
+      "box_y_limit": 0.35,
+      "unsafe_below_z": 0.9450249427366838,
+      "approval_time": 0.4,
+      "low_height": 0.8140423829356519,
+      "low_seconds": 1.3
+    },
+    "prediction": {
+      "classification": "FINITE_TTL",
+      "results": [
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE"
+      ],
+      "first_bad_delay": 0.5,
+      "last_safe_delay": 0.4
+    },
+    "predicted_safety": "SAFE",
+    "recorded_computation_s": 0.06601240199961467,
+    "prediction_available": true,
+    "waited_control_steps": 20,
+    "expiry_control_steps": 25,
+    "ttl_expired": false,
+    "outcome": [
+      false,
+      true,
+      false,
+      false
+    ],
+    "saved_trace_hash_matches": true,
+    "actual_first_unsafe_s": 2.254,
+    "actual_unsafe_intervals": [
+      {
+        "entry_s": 2.254,
+        "last_inside_s": 2.257,
+        "first_outside_s": 2.258,
+        "elapsed_dwell_s": 0.003
+      }
+    ],
+    "actual_unsafe_at_control_samples": false,
+    "model_unsafe_at_control_samples": false,
+    "model_unsafe_at_integration_endpoints": false,
+    "model_dense_unsafe_intervals": [],
+    "model_structure_entry_s": 2.261,
+    "model_climb_clear_s": 2.259,
+    "actual_xyz_at_entry": [
+      1.3432471216561812,
+      -0.0006777530287461966,
+      0.9406771392521787
+    ],
+    "model_xyz_at_actual_entry": [
+      1.338740077126525,
+      -0.0002011952801573264,
+      0.940114921914816
+    ],
+    "model_minus_actual_at_entry_m": [
+      -0.004507044529656223,
+      0.0004765577485888702,
+      -0.0005622173373626138
+    ],
+    "near_entry": [
+      {
+        "time_s": 2.24,
+        "actual_xyz": [
+          1.3346243846789063,
+          -0.0005536898868830624,
+          0.9248349996030276
+        ],
+        "model_xyz": [
+          1.3297007177083036,
+          -0.0001675418818388422,
+          0.9242576327227126
+        ],
+        "actual_unsafe": false,
+        "model_unsafe": false
+      },
+      {
+        "time_s": 2.253,
+        "actual_xyz": [
+          1.342631812775918,
+          -0.0006686914731829354,
+          0.939547534897658
+        ],
+        "model_xyz": [
+          1.338093683710938,
+          -0.00019889041002546748,
+          0.9389841746381525
+        ],
+        "actual_unsafe": false,
+        "model_unsafe": false
+      },
+      {
+        "time_s": 2.254,
+        "actual_xyz": [
+          1.3432471216561812,
+          -0.0006777530287461966,
+          0.9406771392521787
+        ],
+        "model_xyz": [
+          1.338740077126525,
+          -0.0002011952801573264,
+          0.940114921914816
+        ],
+        "actual_unsafe": true,
+        "model_unsafe": false
+      },
+      {
+        "time_s": 2.255,
+        "actual_xyz": [
+          1.343862365821701,
+          -0.0006868213219254943,
+          0.9418064397483819
+        ],
+        "model_xyz": [
+          1.3393865685076662,
+          -0.0002034760339765484,
+          0.9412453745216343
+        ],
+        "actual_unsafe": true,
+        "model_unsafe": false
+      },
+      {
+        "time_s": 2.259,
+        "actual_xyz": [
+          1.3463228093175936,
+          -0.0007230514197009021,
+          0.9463206038382038
+        ],
+        "model_xyz": [
+          1.3419734315576477,
+          -0.0002123300717320048,
+          0.94576423898036
+        ],
+        "actual_unsafe": false,
+        "model_unsafe": false
+      },
+      {
+        "time_s": 2.26,
+        "actual_xyz": [
+          1.3469378156727683,
+          -0.0007320692316189742,
+          0.9474483854998561
+        ],
+        "model_xyz": [
+          1.342620348597935,
+          -0.00021447009675639052,
+          0.9468932187924901
+        ],
+        "actual_unsafe": false,
+        "model_unsafe": false
+      },
+      {
+        "time_s": 2.261,
+        "actual_xyz": null,
+        "model_xyz": [
+          1.3432673326307325,
+          -0.00021658005573661613,
+          0.948021450936421
+        ],
+        "actual_unsafe": null,
+        "model_unsafe": false
+      }
+    ]
+  },
+  {
+    "seed": 8,
+    "delay_s": 0.4,
+    "command": {
+      "speed": 0.5307889106422243,
+      "usual_height": 1.3968192108344812,
+      "box_x_min": 1.0230975869398617,
+      "box_x_max": 1.5596622676858705,
+      "box_y_limit": 0.35,
+      "unsafe_below_z": 1.0304844767544323,
+      "approval_time": 0.06,
+      "low_height": 0.729247457655714,
+      "low_seconds": 1.36
+    },
+    "prediction": {
+      "classification": "FINITE_TTL",
+      "results": [
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE"
+      ],
+      "first_bad_delay": 0.5,
+      "last_safe_delay": 0.4
+    },
+    "predicted_safety": "SAFE",
+    "recorded_computation_s": 0.06365155000094092,
+    "prediction_available": true,
+    "waited_control_steps": 20,
+    "expiry_control_steps": 25,
+    "ttl_expired": false,
+    "outcome": [
+      false,
+      true,
+      false,
+      false
+    ],
+    "saved_trace_hash_matches": true,
+    "actual_first_unsafe_s": 2.091,
+    "actual_unsafe_intervals": [
+      {
+        "entry_s": 2.091,
+        "last_inside_s": 2.1,
+        "first_outside_s": null,
+        "elapsed_dwell_s": 0.009
+      }
+    ],
+    "actual_unsafe_at_control_samples": true,
+    "model_unsafe_at_control_samples": false,
+    "model_unsafe_at_integration_endpoints": false,
+    "model_dense_unsafe_intervals": [],
+    "model_structure_entry_s": 2.114,
+    "model_climb_clear_s": 2.107,
+    "actual_xyz_at_entry": [
+      1.023518709289564,
+      6.904148203878194e-05,
+      1.0136443346050354
+    ],
+    "model_xyz_at_actual_entry": [
+      1.0106902138137221,
+      -0.001837406840114599,
+      1.0133637308710868
+    ],
+    "model_minus_actual_at_entry_m": [
+      -0.01282849547584175,
+      -0.0019064483221533808,
+      -0.00028060373394867
+    ],
+    "near_entry": [
+      {
+        "time_s": 2.08,
+        "actual_xyz": [
+          1.0172294847098904,
+          6.654669636934841e-05,
+          1.0012700261083574
+        ],
+        "model_xyz": [
+          1.0045370983405812,
+          -0.0016757164014834015,
+          1.0009658320271875
+        ],
+        "actual_unsafe": false,
+        "model_unsafe": false
+      },
+      {
+        "time_s": 2.09,
+        "actual_xyz": [
+          1.022948523798141,
+          6.863268535859051e-05,
+          1.0125333816663509
+        ],
+        "model_xyz": [
+          1.0101314750157795,
+          -0.0018225715996314877,
+          1.0122506653243537
+        ],
+        "actual_unsafe": false,
+        "model_unsafe": false
+      },
+      {
+        "time_s": 2.091,
+        "actual_xyz": [
+          1.023518709289564,
+          6.904148203878194e-05,
+          1.0136443346050354
+        ],
+        "model_xyz": [
+          1.0106902138137221,
+          -0.001837406840114599,
+          1.0133637308710868
+        ],
+        "actual_unsafe": true,
+        "model_unsafe": false
+      },
+      {
+        "time_s": 2.092,
+        "actual_xyz": [
+          1.024088569046847,
+          6.949479633237662e-05,
+          1.014752490057833
+        ],
+        "model_xyz": [
+          1.0112488148746437,
+          -0.001852257986247754,
+          1.0144739930241402
+        ],
+        "actual_unsafe": true,
+        "model_unsafe": false
+      },
+      {
+        "time_s": 2.1,
+        "actual_xyz": [
+          1.0286352102865979,
+          7.485574238675331e-05,
+          1.0235169988410164
+        ],
+        "model_xyz": [
+          1.0157122317125518,
+          -0.0019713548782978726,
+          1.0232551594708188
+        ],
+        "actual_unsafe": true,
+        "model_unsafe": false
+      },
+      {
+        "time_s": 2.107,
+        "actual_xyz": null,
+        "model_xyz": [
+          1.0196086402454805,
+          -0.0020754358327288434,
+          1.030792314837035
+        ],
+        "actual_unsafe": null,
+        "model_unsafe": false
+      },
+      {
+        "time_s": 2.114,
+        "actual_xyz": null,
+        "model_xyz": [
+          1.0234950733429204,
+          -0.002179000306012821,
+          1.038193733250908
+        ],
+        "actual_unsafe": null,
+        "model_unsafe": false
+      }
+    ]
+  }
+]

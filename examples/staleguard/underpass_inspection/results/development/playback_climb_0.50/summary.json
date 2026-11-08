@@ -1,0 +1,149 @@
+{
+  "scenario": {
+    "seed": 0,
+    "speed": 0.6,
+    "cruise_z": 1.35,
+    "ramp_s": 0.4,
+    "approval_s": 0.8,
+    "observation_s": 8.0,
+    "clearance_m": 0.05,
+    "deck_front": 1.5,
+    "deck_back": 4.0,
+    "deck_half_width": 0.55,
+    "deck_bottom": 1.15,
+    "deck_top": 1.55,
+    "pier_x": 2.55,
+    "pier_y": 0.0,
+    "pier_half_x": 0.12,
+    "pier_half_y": 0.15,
+    "dive_drop": 0.6,
+    "dive_s": 1.3,
+    "swerve_start_s": 2.6,
+    "swerve_s": 1.2,
+    "swerve_y": 0.85,
+    "climb_rise": 0.7,
+    "climb_s": 1.2,
+    "sideways_y": 1.0,
+    "sideways_s": 1.3,
+    "inspection_lower": [
+      1.55,
+      -0.18,
+      0.65
+    ],
+    "inspection_upper": [
+      1.85,
+      0.18,
+      0.85
+    ],
+    "inspection_dwell_s": 0.18
+  },
+  "body_radius_m": 0.06128825336065631,
+  "obstacle_boxes": [
+    {
+      "name": "deck",
+      "lower": [
+        1.5,
+        -0.55,
+        1.15
+      ],
+      "upper": [
+        4.0,
+        0.55,
+        1.55
+      ]
+    },
+    {
+      "name": "pier",
+      "lower": [
+        2.4299999999999997,
+        -0.15,
+        0.0
+      ],
+      "upper": [
+        2.67,
+        0.15,
+        1.15
+      ]
+    }
+  ],
+  "scientific_assumptions": "All new geometry, maneuver and inspection parameters are provisional pilot assumptions.",
+  "command_semantics": "Measured initiation position plus fixed scenario displacement; no replanning.",
+  "reference_smoothness": "C2 internal joins; actual-position reanchoring at dispatch retains measured nominal tracking mismatch.",
+  "obstacle_contact_forces": false,
+  "safety": "signed Euclidean point-to-box distance minus body radius >= clearance_m",
+  "inspection": "Inclusive fixed XYZ bounds, elapsed continuous dwell; safe_completion also requires whole-flight safety.",
+  "monitoring": "From reset through approval + observation_s, even after violation or completion.",
+  "control_hz": 50,
+  "physics_hz": 1000,
+  "integration": "SCG/PyBullet; no predictive model",
+  "python": "3.10.21 (main, Aug 27 2026, 14:42:07) [GCC 14.3.0]",
+  "numpy": "2.2.6",
+  "platform": "Linux-6.8.0-147-generic-x86_64-with-glibc2.39",
+  "simulation_workers": 1,
+  "numerical_threads": 1,
+  "source_sha256": {
+    "examples/staleguard/underpass_inspection/__init__.py": "13eb5d3361103ea6d5b7a24f30438daf7e5605f5b911f0dfb623f942d5dcf6e1",
+    "examples/staleguard/underpass_inspection/scenario.py": "621292c75182141a3a5f86eef04ec29d4be80ce5864720701d2899696f626d0a",
+    "examples/staleguard/underpass_inspection/simulation.py": "4ebb39b9a9d9939e197870e1e34818ccf3e7fd63908de2ece99e3b357301e218",
+    "examples/staleguard/underpass_inspection/pilot.py": "2284381d6b023e7c9422c6b8b518666763f5c00fb3fc4c4cd41df0db5a63e62d",
+    "examples/staleguard/underpass_inspection/support/visualization.py": "868c67de147fc1b6922e0e57730c8f4195e2a18472b98176e914582df9acf14e",
+    "examples/staleguard/physics_monitor.py": "d7145e53736259b688d321449f6ce1f5b72b3cde4e07620b6c183d996d29cb91",
+    "examples/staleguard/geofence_turn/scenario.py": "60f2e829adcc3a894f8df55f5e9124223fda542247fdfedc58bcb1277bc13078",
+    "examples/staleguard/geofence_turn/simulation.py": "c80921f470e62bca9f24cc1177b9b78fd332c5043ff0f5d401dd7b4f32449758",
+    "examples/staleguard/model/common.py": "8e7d0d615e7977d443a8e22a096849633c2512634e3ff8c123218e533f1cd468",
+    "safe_control_gym/controllers/pid/pid.py": "a9de84b6a20554f808f3d107bb2f8aafba59b6afd411813ff53367ce20e3a2cf",
+    "safe_control_gym/envs/gym_pybullet_drones/quadrotor.py": "3c5835baa64c31b99fd56efa8f0d81dc88693efea292e6c13c0fc0bac8447110",
+    "safe_control_gym/envs/gym_pybullet_drones/base_aviary.py": "c58673187cac18162c542f72a97525e0de059f4d0e426d1936d6ef00601af4c1",
+    "safe_control_gym/envs/gym_pybullet_drones/assets/cf2x.urdf": "80d69a1ee55913d074bf62cc1a97d2674641df3187eb360471ce6d6d1ef78142"
+  },
+  "launched_utc": "2026-11-07T13:45:23Z",
+  "argv": [
+    "underpass_inspection/pilot.py",
+    "--mode",
+    "climb",
+    "--start",
+    "0.5",
+    "--gui",
+    "--hold",
+    "10"
+  ],
+  "trajectory_columns": {
+    "physics": [
+      "flight_s",
+      "x",
+      "y",
+      "z"
+    ],
+    "control": [
+      "flight_s",
+      "x",
+      "vx",
+      "y",
+      "vy",
+      "z",
+      "vz",
+      "roll",
+      "pitch",
+      "yaw",
+      "p",
+      "q",
+      "r"
+    ],
+    "reference": [
+      "flight_s",
+      "x",
+      "y",
+      "z",
+      "vx",
+      "vy",
+      "vz"
+    ]
+  },
+  "status": "partial",
+  "flight_count": 0,
+  "validation": null,
+  "sweep_grid_s": null,
+  "evidence": "Actual deterministic seed-0 SCG/PyBullet flights, not model predictions.",
+  "gui_inspected": false,
+  "deadline_interpretation": "20 ms tested grid; no interpolation or monotonicity assumption."
+}

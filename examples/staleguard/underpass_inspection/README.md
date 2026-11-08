@@ -4,7 +4,11 @@ Underpass keeps its policy rules, prediction grid, storage/metric helpers and me
 
 This contains the frozen seed-0 pilot, development calibration/deadline study,
 and seven-policy development benchmark on the same 12 accepted scenarios.
-No held-out scenarios have been generated or evaluated. The aircraft approaches a finite bridge deck
+Held-out calibration is complete: 865 accepted scenarios from 1,000 attempts.
+The reduced held-out benchmark is complete: **9,100 flights on 100 scenarios**.
+Results follow the same two-way layout as the other missions: `results/development/`
+and `results/evaluation/`. Start with
+[the completed evaluation report](results/evaluation/baseline_benchmark/REPORT.md). The aircraft approaches a finite bridge deck
 at deck height. Its approved relative maneuver dives beneath the deck, spends
 time in a fixed inspection region, then swerves around one pier. Alternatively,
 it can abandon inspection by climbing above the bridge or passing beside it.
@@ -139,6 +143,179 @@ The existing one-worker, one-numerical-thread and memory guards remain active.
 The driver accepts `--calibration` and `--ground-truth` paths for another frozen
 cohort later. Policy logic does not branch on development seeds. Held-out
 calibration is supported below; no held-out flights have been run here.
+
+## Reduced held-out benchmark — 100 scenarios × 13 delays × 7 policies
+
+The deadline protocol uses **9,100 physical flights**, about 2.3 hours at the
+previous smoke throughput (budget 2.5–3 hours). It uniformly samples 100 scenarios
+without replacement from the frozen 865 accepted IDs using NumPy
+`default_rng(20261108)`, then executes the selected IDs in ascending order. The
+[freeze](results/evaluation/preparation/freeze_reduced_100x13_v3.json) records the population hash,
+all 100 selected IDs, original snapshot hashes, source/environment and parameters.
+Selection reads no delayed outcomes or policy performance. No new calibration
+or policy tuning is performed.
+
+Physical delays are exactly:
+
+```python
+[0.00, 0.04, 0.08, 0.12, 0.16, 0.20, 0.40, 0.60, 0.80, 1.00, 1.20, 1.60, 2.00]
+```
+
+All seven policies and the 19-point predictor are unchanged. Physics, PID,
+1,000 Hz safety monitoring, Eastward recovery, eight-second horizon and measured
+runtime/readiness conventions are unchanged. The existing no-expiration rule
+still permits dispatch beyond 1 s; there is no added horizon rejection.
+
+Resolution is reduced: gaps are 0.04 s near approval and reach 0.40 s later.
+Expiration labels are first tested unsafe delays, not exact deadlines. All ten
+selected delays through 1 s are predictor-grid points, so this design does not
+test between-grid admissions within 1 s. It has wider scenario uncertainty than
+the 865-scenario protocol. Rates equally weight the selected delay points, not a
+uniform continuous delay distribution.
+
+| Analysis of one benchmark | Delays per scenario | Flights |
+|---|---:|---:|
+| Full, 0–2 s | 13 | 9,100 |
+| Within prediction grid, 0–1 s | 10 | 7,000 |
+| Beyond prediction grid, >1–2 s (1.2, 1.6, 2 s) | 3 | 2,100 |
+
+Per-scenario paired comparisons and 95% intervals use the established whole-scenario
+bootstrap (2,000 resamples, seed 2027). Correlated delay trials remain together.
+The original full protocols and previous outputs remain preserved; this uses a
+separate freeze and output folder. Matching original 2 s sources are archived in
+`results/evaluation/preparation/source_2s_v2_freeze.zip`.
+
+From `examples/staleguard`, launch:
+
+```bash
+conda run --no-capture-output -n scg python underpass_inspection/baseline_benchmark/run.py \
+  --reduced --calibration underpass_inspection/results/evaluation/calibration \
+  --freeze underpass_inspection/results/evaluation/preparation/freeze_reduced_100x13_v3.json \
+  --out underpass_inspection/results/evaluation/baseline_benchmark
+```
+
+Resume:
+
+```bash
+conda run --no-capture-output -n scg python underpass_inspection/baseline_benchmark/run.py \
+  --reduced --calibration underpass_inspection/results/evaluation/calibration \
+  --freeze underpass_inspection/results/evaluation/preparation/freeze_reduced_100x13_v3.json \
+  --out underpass_inspection/results/evaluation/baseline_benchmark --resume
+```
+
+Metrics only, without simulation:
+
+```bash
+conda run --no-capture-output -n scg python underpass_inspection/baseline_benchmark/run.py \
+  --reduced --calibration underpass_inspection/results/evaluation/calibration \
+  --freeze underpass_inspection/results/evaluation/preparation/freeze_reduced_100x13_v3.json \
+  --out underpass_inspection/results/evaluation/baseline_benchmark --metrics-only
+```
+
+Validate completed results, including recomputing the fixed random sample:
+
+```bash
+conda run --no-capture-output -n scg python underpass_inspection/support/validate_baseline_benchmark.py \
+  --calibration underpass_inspection/results/evaluation/calibration \
+  --run underpass_inspection/results/evaluation/baseline_benchmark \
+  --prior-hashes underpass_inspection/results/evaluation/preparation/historical_artifact_hashes_reduced_v3.json
+```
+
+Validation: 43 focused tests and 42 development-only smoke flights (seeds 1 and 3,
+D=0, 1 and 2 s, all seven policies), source/hash preservation, completed-run resume
+with zero added flights and byte-identical metrics regeneration. The reduced
+held-out run has since completed all **9,100 flights**, and post-relocation
+validation confirms the recorded metrics and physical traces. See the
+[completed report](results/evaluation/baseline_benchmark/REPORT.md) and
+[original preparation report](results/evaluation/preparation/PREPARATION_reduced_v3.md).
+
+## Archived full 2-second held-out protocol
+
+The existing evaluation calibration remains **865 accepted scenarios from 1,000
+attempts**, unchanged. The new physical dispatch grid is 0–2.00 s every 0.02 s:
+**865 × 101 × 7 = 611,555 actual flights** (the requested 611,455 total was an
+arithmetic error). The predictor still evaluates exactly its original 19 candidate
+delays through 1.00 s, using the same two-stage rollouts, full observation horizon,
+readiness rules and computational workload. All seven policy source files are
+byte-identical to the original 1 s freeze.
+
+Beyond 1 s, the unchanged StaleGuard gate still rejects a ready finite TTL at or
+after expiration. If no expiration was predicted, it continues permitting dispatch
+beyond 1 s; this is not a prediction that such a dispatch is safe. An unavailable
+forecast also permits dispatch. EarlyRecovery still requires readiness and a
+finite expired TTL, and never cancels a command already started. No policy learns
+the future actual dispatch delay from the experimental 2 s scheduling bound.
+
+The eight-second observation deadline is unchanged. At D=2 s the finite dive
+reference profile ends at approval +5.8 s, leaving 2.2 s of observation. An
+inspection not observed by the deadline remains incomplete within that horizon;
+it is not claimed impossible later. Abandonment and truncated reference profiles
+are recorded separately.
+
+One physical journal is analyzed over three windows:
+
+| Analysis window | Delays per scenario | Physical flights |
+|---|---:|---:|
+| Full, 0–2.00 s | 101 | 611,555 |
+| Within prediction grid, 0–1.00 s | 51 | 308,805 |
+| Beyond prediction grid, 1.02–2.00 s | 50 | 302,750 |
+
+Per-scenario paired comparisons and 95% percentile bootstrap intervals resample
+whole scenarios (2,000 resamples, seed 2027), preserving all paired delay trials.
+They never treat individual delay trials as independent scenarios. These are
+analysis subsets of one benchmark. `per_delay.csv` retains one row per physical
+flight; `per_scenario.csv`, metrics and reports label the analysis windows.
+
+The original [1 s freeze](results/evaluation/preparation/freeze.json), reports and all historical
+artifacts remain unchanged. Its original frozen sources are also retained in
+`results/evaluation/preparation/source_1s_freeze.zip`; source hashes remain strict, so resuming an
+old protocol requires its matching source version. The new
+[freeze](results/evaluation/preparation/freeze_2s_v2.json) and
+[preparation report](results/evaluation/preparation/PREPARATION_2s_v2.md) describe this version.
+
+From `examples/staleguard`, launch:
+
+```bash
+conda run --no-capture-output -n scg python underpass_inspection/baseline_benchmark/run.py \
+  --calibration underpass_inspection/results/evaluation/calibration \
+  --freeze underpass_inspection/results/evaluation/preparation/freeze_2s_v2.json \
+  --out underpass_inspection/results/evaluation/baseline_benchmark_2s_v2
+```
+
+Resume:
+
+```bash
+conda run --no-capture-output -n scg python underpass_inspection/baseline_benchmark/run.py \
+  --calibration underpass_inspection/results/evaluation/calibration \
+  --freeze underpass_inspection/results/evaluation/preparation/freeze_2s_v2.json \
+  --out underpass_inspection/results/evaluation/baseline_benchmark_2s_v2 --resume
+```
+
+Regenerate metrics without simulation:
+
+```bash
+conda run --no-capture-output -n scg python underpass_inspection/baseline_benchmark/run.py \
+  --calibration underpass_inspection/results/evaluation/calibration \
+  --freeze underpass_inspection/results/evaluation/preparation/freeze_2s_v2.json \
+  --out underpass_inspection/results/evaluation/baseline_benchmark_2s_v2 --metrics-only
+```
+
+Validate completed results without simulation:
+
+```bash
+conda run --no-capture-output -n scg python underpass_inspection/support/validate_baseline_benchmark.py \
+  --calibration underpass_inspection/results/evaluation/calibration \
+  --run underpass_inspection/results/evaluation/baseline_benchmark_2s_v2 \
+  --prior-hashes underpass_inspection/results/evaluation/preparation/historical_artifact_hashes_2s_v2.json
+```
+
+Validation for this extension was development-only: 40 focused tests and 42 actual
+flights (seeds 1 and 3, D=0, 1 and 2 s, all seven policies). Tests verified FBS
+triggering at 2 s, finite-TTL and no-expiration behavior beyond 1 s, retention of
+violations before intervention, controller continuity, full 1,000 Hz monitoring,
+resumption and byte-identical metrics regeneration. No reference profile was
+truncated in this smoke. No new held-out policy flights were run. The complete
+2 s benchmark has not been launched.
 
 ## Creating a held-out calibration set
 

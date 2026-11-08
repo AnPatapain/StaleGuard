@@ -138,3 +138,11 @@ def staleguard_status(received, waited_steps):
     ready = received['computation_s'] <= waited_steps/HZ
     expired = received['expiry_steps'] is not None and waited_steps >= received['expiry_steps']
     return ready, ready and expired
+
+
+def first_ready_step(computation_s):
+    """Match the readiness comparison exactly, including floating-point ties."""
+    step=math.ceil(computation_s*HZ)
+    while step and computation_s<=(step-1)/HZ:step-=1
+    while computation_s>step/HZ:step+=1
+    return step

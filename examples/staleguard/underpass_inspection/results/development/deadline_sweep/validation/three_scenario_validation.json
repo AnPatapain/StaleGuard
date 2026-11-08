@@ -1,0 +1,239 @@
+{
+  "passed": true,
+  "three_scenarios": {
+    "1": {
+      "passed": true,
+      "checks": {
+        "nominal_unsafe": true,
+        "d0_safe_completion": true,
+        "immediate_climb_safe": true,
+        "immediate_sideways_safe": true,
+        "nominal_0.0_full_1khz_horizon": true,
+        "nominal_0.0_regular_1khz_ticks": true,
+        "nominal_0.0_geometry_fixed": true,
+        "nominal_0.0_no_position_jump": true,
+        "dive_0.0_full_1khz_horizon": true,
+        "dive_0.0_regular_1khz_ticks": true,
+        "dive_0.0_geometry_fixed": true,
+        "dive_0.0_no_position_jump": true,
+        "dive_0.0_pid_preserved": true,
+        "dive_0.0_state_preserved": true,
+        "dive_0.0_fixed_relative_shape": true,
+        "sideways_0.0_full_1khz_horizon": true,
+        "sideways_0.0_regular_1khz_ticks": true,
+        "sideways_0.0_geometry_fixed": true,
+        "sideways_0.0_no_position_jump": true,
+        "sideways_0.0_pid_preserved": true,
+        "sideways_0.0_state_preserved": true,
+        "sideways_0.0_fixed_relative_shape": true,
+        "climb_0.0_full_1khz_horizon": true,
+        "climb_0.0_regular_1khz_ticks": true,
+        "climb_0.0_geometry_fixed": true,
+        "climb_0.0_no_position_jump": true,
+        "climb_0.0_pid_preserved": true,
+        "climb_0.0_state_preserved": true,
+        "climb_0.0_fixed_relative_shape": true,
+        "dive_0.4_full_1khz_horizon": true,
+        "dive_0.4_regular_1khz_ticks": true,
+        "dive_0.4_geometry_fixed": true,
+        "dive_0.4_no_position_jump": true,
+        "dive_0.4_pid_preserved": true,
+        "dive_0.4_state_preserved": true,
+        "dive_0.4_fixed_relative_shape": true,
+        "identical_preapproval_physics": true,
+        "delayed_dispatch_shifts_north": true,
+        "d0_actual_swerve_negative_world_y": true,
+        "d0_actual_swerve_positive_ned_east": true,
+        "d0_final_ned_east_positive_relative_to_anchor": true,
+        "d0_negative_actual_world_vy_observed": true,
+        "sideways_actual_recovery_positive_ned_east": true
+      },
+      "delayed_anchor_shift_m": [
+        0.2413267653956555,
+        -2.5340597294794483e-10,
+        0.00013000431629239806
+      ],
+      "d0_world_y": {
+        "at_swerve_start_m": -0.009025842461028902,
+        "at_swerve_end_m": -1.0485648612932426,
+        "final_m": -0.837966389213519,
+        "min_m": -1.0486848014012555,
+        "max_m": 0.005147504748211009,
+        "min_vy_mps": -1.8421520326289582,
+        "max_vy_mps": 0.6248825624195563
+      },
+      "d0_ned_east": {
+        "at_swerve_start_m": 0.009025842461028902,
+        "at_swerve_end_m": 1.0485648612932426,
+        "final_m": 0.837966389213519,
+        "max_m": 1.0486848014012555
+      }
+    },
+    "2": {
+      "passed": true,
+      "checks": {
+        "nominal_unsafe": true,
+        "d0_safe_completion": true,
+        "immediate_climb_safe": true,
+        "immediate_sideways_safe": true,
+        "nominal_0.0_full_1khz_horizon": true,
+        "nominal_0.0_regular_1khz_ticks": true,
+        "nominal_0.0_geometry_fixed": true,
+        "nominal_0.0_no_position_jump": true,
+        "dive_0.0_full_1khz_horizon": true,
+        "dive_0.0_regular_1khz_ticks": true,
+        "dive_0.0_geometry_fixed": true,
+        "dive_0.0_no_position_jump": true,
+        "dive_0.0_pid_preserved": true,
+        "dive_0.0_state_preserved": true,
+        "dive_0.0_fixed_relative_shape": true,
+        "sideways_0.0_full_1khz_horizon": true,
+        "sideways_0.0_regular_1khz_ticks": true,
+        "sideways_0.0_geometry_fixed": true,
+        "sideways_0.0_no_position_jump": true,
+        "sideways_0.0_pid_preserved": true,
+        "sideways_0.0_state_preserved": true,
+        "sideways_0.0_fixed_relative_shape": true,
+        "climb_0.0_full_1khz_horizon": true,
+        "climb_0.0_regular_1khz_ticks": true,
+        "climb_0.0_geometry_fixed": true,
+        "climb_0.0_no_position_jump": true,
+        "climb_0.0_pid_preserved": true,
+        "climb_0.0_state_preserved": true,
+        "climb_0.0_fixed_relative_shape": true,
+        "dive_0.4_full_1khz_horizon": true,
+        "dive_0.4_regular_1khz_ticks": true,
+        "dive_0.4_geometry_fixed": true,
+        "dive_0.4_no_position_jump": true,
+        "dive_0.4_pid_preserved": true,
+        "dive_0.4_state_preserved": true,
+        "dive_0.4_fixed_relative_shape": true,
+        "identical_preapproval_physics": true,
+        "delayed_dispatch_shifts_north": true,
+        "d0_actual_swerve_negative_world_y": true,
+        "d0_actual_swerve_positive_ned_east": true,
+        "d0_final_ned_east_positive_relative_to_anchor": true,
+        "d0_negative_actual_world_vy_observed": true,
+        "sideways_actual_recovery_positive_ned_east": true
+      },
+      "delayed_anchor_shift_m": [
+        0.27114775033630495,
+        -3.5898633651483715e-13,
+        0.00043002600035624283
+      ],
+      "d0_world_y": {
+        "at_swerve_start_m": -0.0020484840157747523,
+        "at_swerve_end_m": -1.0434327012062146,
+        "final_m": -0.8446233888466705,
+        "min_m": -1.0437301912983514,
+        "max_m": 0.003186118927669928,
+        "min_vy_mps": -1.815239351456674,
+        "max_vy_mps": 0.5901264422696332
+      },
+      "d0_ned_east": {
+        "at_swerve_start_m": 0.0020484840157747523,
+        "at_swerve_end_m": 1.0434327012062146,
+        "final_m": 0.8446233888466705,
+        "max_m": 1.0437301912983514
+      }
+    },
+    "3": {
+      "passed": true,
+      "checks": {
+        "nominal_unsafe": true,
+        "d0_safe_completion": true,
+        "immediate_climb_safe": true,
+        "immediate_sideways_safe": true,
+        "nominal_0.0_full_1khz_horizon": true,
+        "nominal_0.0_regular_1khz_ticks": true,
+        "nominal_0.0_geometry_fixed": true,
+        "nominal_0.0_no_position_jump": true,
+        "dive_0.0_full_1khz_horizon": true,
+        "dive_0.0_regular_1khz_ticks": true,
+        "dive_0.0_geometry_fixed": true,
+        "dive_0.0_no_position_jump": true,
+        "dive_0.0_pid_preserved": true,
+        "dive_0.0_state_preserved": true,
+        "dive_0.0_fixed_relative_shape": true,
+        "sideways_0.0_full_1khz_horizon": true,
+        "sideways_0.0_regular_1khz_ticks": true,
+        "sideways_0.0_geometry_fixed": true,
+        "sideways_0.0_no_position_jump": true,
+        "sideways_0.0_pid_preserved": true,
+        "sideways_0.0_state_preserved": true,
+        "sideways_0.0_fixed_relative_shape": true,
+        "climb_0.0_full_1khz_horizon": true,
+        "climb_0.0_regular_1khz_ticks": true,
+        "climb_0.0_geometry_fixed": true,
+        "climb_0.0_no_position_jump": true,
+        "climb_0.0_pid_preserved": true,
+        "climb_0.0_state_preserved": true,
+        "climb_0.0_fixed_relative_shape": true,
+        "dive_0.4_full_1khz_horizon": true,
+        "dive_0.4_regular_1khz_ticks": true,
+        "dive_0.4_geometry_fixed": true,
+        "dive_0.4_no_position_jump": true,
+        "dive_0.4_pid_preserved": true,
+        "dive_0.4_state_preserved": true,
+        "dive_0.4_fixed_relative_shape": true,
+        "identical_preapproval_physics": true,
+        "delayed_dispatch_shifts_north": true,
+        "d0_actual_swerve_negative_world_y": true,
+        "d0_actual_swerve_positive_ned_east": true,
+        "d0_final_ned_east_positive_relative_to_anchor": true,
+        "d0_negative_actual_world_vy_observed": true,
+        "sideways_actual_recovery_positive_ned_east": true
+      },
+      "delayed_anchor_shift_m": [
+        0.27004841195737217,
+        -5.788581304049824e-13,
+        0.0003770999382455287
+      ],
+      "d0_world_y": {
+        "at_swerve_start_m": -0.0042371752562674865,
+        "at_swerve_end_m": -1.0471207082614125,
+        "final_m": -0.844757223528972,
+        "min_m": -1.047421978230365,
+        "max_m": 0.012126238192700737,
+        "min_vy_mps": -1.8332788376152591,
+        "max_vy_mps": 0.6142296089773689
+      },
+      "d0_ned_east": {
+        "at_swerve_start_m": 0.0042371752562674865,
+        "at_swerve_end_m": 1.0471207082614125,
+        "final_m": 0.844757223528972,
+        "max_m": 1.047421978230365
+      }
+    }
+  },
+  "seed0_four_flights": {
+    "nominal": {
+      "identical_physics_sha256": true,
+      "safe": false,
+      "safe_completion": false
+    },
+    "dive": {
+      "identical_physics_sha256": true,
+      "safe": true,
+      "safe_completion": true
+    },
+    "climb": {
+      "identical_physics_sha256": true,
+      "safe": true,
+      "safe_completion": false
+    },
+    "sideways": {
+      "identical_physics_sha256": true,
+      "safe": true,
+      "safe_completion": false
+    }
+  },
+  "resumption": {
+    "original_committed_flights": 7,
+    "unfinished_tail_repaired": true,
+    "original_prefix_preserved": true,
+    "completed_unique_flights": 534
+  },
+  "calibration_immediate_replay_reproduced": true,
+  "additional_diagnostic_flights": 19
+}

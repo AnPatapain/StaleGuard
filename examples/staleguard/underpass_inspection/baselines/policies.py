@@ -7,7 +7,7 @@ the shared lightweight dynamics model.
 import math
 import time
 from . import fbs as freshness, fixed_early_recovery
-from .staleguard import staleguard_status
+from .staleguard import staleguard_status, first_ready_step
 from .use_time_recheck import first_step_after_check
 from ..scenario import HZ
 from .fbs import safety_feature
@@ -159,7 +159,7 @@ class PendingCommand:
             expiry=self._forecast['expiry_steps']
             event['prediction_available_at_expiry']=(None if expiry is None else
                 self._forecast['computation_s']<=expiry/HZ)
-            event['prediction_ready_control_step']=self.approval+math.ceil(self._forecast['computation_s']*HZ)
+            event['prediction_ready_control_step']=self.approval+first_ready_step(self._forecast['computation_s'])
         event['events']=self.events+[dict(kind='observation_horizon_end',control_step=total_step,
             flight_s=total_step/HZ,approval_s=(total_step-self.approval)/HZ)]
         return event

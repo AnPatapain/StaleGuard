@@ -1,0 +1,1085 @@
+[
+  {
+    "seed": 0,
+    "old_prediction": {
+      "classification": "FINITE_TTL",
+      "results": [
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE"
+      ],
+      "first_bad_delay": 0.5,
+      "last_safe_delay": 0.4
+    },
+    "new_prediction": {
+      "classification": "FINITE_TTL",
+      "results": [
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE"
+      ],
+      "first_bad_delay": 0.5,
+      "last_safe_delay": 0.4
+    },
+    "ground_truth": {
+      "classification": "FINITE_TTL",
+      "results": [
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE"
+      ],
+      "first_bad_delay": 0.5,
+      "last_safe_delay": 0.4
+    }
+  },
+  {
+    "seed": 1,
+    "old_prediction": {
+      "classification": "FINITE_TTL",
+      "results": [
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE"
+      ],
+      "first_bad_delay": 0.5,
+      "last_safe_delay": 0.4
+    },
+    "new_prediction": {
+      "classification": "FINITE_TTL",
+      "results": [
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE"
+      ],
+      "first_bad_delay": 0.5,
+      "last_safe_delay": 0.4
+    },
+    "ground_truth": {
+      "classification": "FINITE_TTL",
+      "results": [
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE"
+      ],
+      "first_bad_delay": 0.5,
+      "last_safe_delay": 0.4
+    }
+  },
+  {
+    "seed": 2,
+    "old_prediction": {
+      "classification": "FINITE_TTL",
+      "results": [
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE"
+      ],
+      "first_bad_delay": 0.6000000000000001,
+      "last_safe_delay": 0.5
+    },
+    "new_prediction": {
+      "classification": "FINITE_TTL",
+      "results": [
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE"
+      ],
+      "first_bad_delay": 0.6000000000000001,
+      "last_safe_delay": 0.5
+    },
+    "ground_truth": {
+      "classification": "FINITE_TTL",
+      "results": [
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE"
+      ],
+      "first_bad_delay": 0.6000000000000001,
+      "last_safe_delay": 0.5
+    }
+  },
+  {
+    "seed": 3,
+    "old_prediction": {
+      "classification": "FINITE_TTL",
+      "results": [
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE"
+      ],
+      "first_bad_delay": 0.7000000000000001,
+      "last_safe_delay": 0.6000000000000001
+    },
+    "new_prediction": {
+      "classification": "FINITE_TTL",
+      "results": [
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE"
+      ],
+      "first_bad_delay": 0.7000000000000001,
+      "last_safe_delay": 0.6000000000000001
+    },
+    "ground_truth": {
+      "classification": "FINITE_TTL",
+      "results": [
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE"
+      ],
+      "first_bad_delay": 0.7000000000000001,
+      "last_safe_delay": 0.6000000000000001
+    }
+  },
+  {
+    "seed": 4,
+    "old_prediction": {
+      "classification": "FINITE_TTL",
+      "results": [
+        "SAFE",
+        "SAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE"
+      ],
+      "first_bad_delay": 0.2,
+      "last_safe_delay": 0.1
+    },
+    "new_prediction": {
+      "classification": "FINITE_TTL",
+      "results": [
+        "SAFE",
+        "SAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE"
+      ],
+      "first_bad_delay": 0.2,
+      "last_safe_delay": 0.1
+    },
+    "ground_truth": {
+      "classification": "FINITE_TTL",
+      "results": [
+        "SAFE",
+        "SAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE"
+      ],
+      "first_bad_delay": 0.2,
+      "last_safe_delay": 0.1
+    }
+  },
+  {
+    "seed": 5,
+    "old_prediction": {
+      "classification": "FINITE_TTL",
+      "results": [
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE"
+      ],
+      "first_bad_delay": 0.4,
+      "last_safe_delay": 0.30000000000000004
+    },
+    "new_prediction": {
+      "classification": "FINITE_TTL",
+      "results": [
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE"
+      ],
+      "first_bad_delay": 0.4,
+      "last_safe_delay": 0.30000000000000004
+    },
+    "ground_truth": {
+      "classification": "FINITE_TTL",
+      "results": [
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE"
+      ],
+      "first_bad_delay": 0.4,
+      "last_safe_delay": 0.30000000000000004
+    }
+  },
+  {
+    "seed": 6,
+    "old_prediction": {
+      "classification": "FINITE_TTL",
+      "results": [
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE"
+      ],
+      "first_bad_delay": 0.4,
+      "last_safe_delay": 0.30000000000000004
+    },
+    "new_prediction": {
+      "classification": "FINITE_TTL",
+      "results": [
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE"
+      ],
+      "first_bad_delay": 0.4,
+      "last_safe_delay": 0.30000000000000004
+    },
+    "ground_truth": {
+      "classification": "FINITE_TTL",
+      "results": [
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE"
+      ],
+      "first_bad_delay": 0.4,
+      "last_safe_delay": 0.30000000000000004
+    }
+  },
+  {
+    "seed": 7,
+    "old_prediction": {
+      "classification": "FINITE_TTL",
+      "results": [
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE"
+      ],
+      "first_bad_delay": 0.5,
+      "last_safe_delay": 0.4
+    },
+    "new_prediction": {
+      "classification": "FINITE_TTL",
+      "results": [
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE"
+      ],
+      "first_bad_delay": 0.5,
+      "last_safe_delay": 0.4
+    },
+    "ground_truth": {
+      "classification": "FINITE_TTL",
+      "results": [
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE"
+      ],
+      "first_bad_delay": 0.4,
+      "last_safe_delay": 0.30000000000000004
+    }
+  },
+  {
+    "seed": 8,
+    "old_prediction": {
+      "classification": "FINITE_TTL",
+      "results": [
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE"
+      ],
+      "first_bad_delay": 0.5,
+      "last_safe_delay": 0.4
+    },
+    "new_prediction": {
+      "classification": "FINITE_TTL",
+      "results": [
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE"
+      ],
+      "first_bad_delay": 0.5,
+      "last_safe_delay": 0.4
+    },
+    "ground_truth": {
+      "classification": "FINITE_TTL",
+      "results": [
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE"
+      ],
+      "first_bad_delay": 0.4,
+      "last_safe_delay": 0.30000000000000004
+    }
+  },
+  {
+    "seed": 9,
+    "old_prediction": {
+      "classification": "FINITE_TTL",
+      "results": [
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE"
+      ],
+      "first_bad_delay": 0.4,
+      "last_safe_delay": 0.30000000000000004
+    },
+    "new_prediction": {
+      "classification": "FINITE_TTL",
+      "results": [
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE"
+      ],
+      "first_bad_delay": 0.30000000000000004,
+      "last_safe_delay": 0.2
+    },
+    "ground_truth": {
+      "classification": "FINITE_TTL",
+      "results": [
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE"
+      ],
+      "first_bad_delay": 0.30000000000000004,
+      "last_safe_delay": 0.2
+    }
+  },
+  {
+    "seed": 10,
+    "old_prediction": {
+      "classification": "FINITE_TTL",
+      "results": [
+        "SAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE"
+      ],
+      "first_bad_delay": 0.1,
+      "last_safe_delay": 0.0
+    },
+    "new_prediction": {
+      "classification": "INVALID_AT_APPROVAL",
+      "results": [
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE"
+      ],
+      "first_bad_delay": 0.0,
+      "last_safe_delay": null
+    },
+    "ground_truth": {
+      "classification": "FINITE_TTL",
+      "results": [
+        "SAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE"
+      ],
+      "first_bad_delay": 0.1,
+      "last_safe_delay": 0.0
+    }
+  },
+  {
+    "seed": 11,
+    "old_prediction": {
+      "classification": "FINITE_TTL",
+      "results": [
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE"
+      ],
+      "first_bad_delay": 0.7000000000000001,
+      "last_safe_delay": 0.6000000000000001
+    },
+    "new_prediction": {
+      "classification": "FINITE_TTL",
+      "results": [
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE"
+      ],
+      "first_bad_delay": 0.7000000000000001,
+      "last_safe_delay": 0.6000000000000001
+    },
+    "ground_truth": {
+      "classification": "FINITE_TTL",
+      "results": [
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE"
+      ],
+      "first_bad_delay": 0.7000000000000001,
+      "last_safe_delay": 0.6000000000000001
+    }
+  },
+  {
+    "seed": 12,
+    "old_prediction": {
+      "classification": "FINITE_TTL",
+      "results": [
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE"
+      ],
+      "first_bad_delay": 0.5,
+      "last_safe_delay": 0.4
+    },
+    "new_prediction": {
+      "classification": "FINITE_TTL",
+      "results": [
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE"
+      ],
+      "first_bad_delay": 0.5,
+      "last_safe_delay": 0.4
+    },
+    "ground_truth": {
+      "classification": "FINITE_TTL",
+      "results": [
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE"
+      ],
+      "first_bad_delay": 0.6000000000000001,
+      "last_safe_delay": 0.5
+    }
+  },
+  {
+    "seed": 13,
+    "old_prediction": {
+      "classification": "FINITE_TTL",
+      "results": [
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE"
+      ],
+      "first_bad_delay": 0.4,
+      "last_safe_delay": 0.30000000000000004
+    },
+    "new_prediction": {
+      "classification": "FINITE_TTL",
+      "results": [
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE"
+      ],
+      "first_bad_delay": 0.4,
+      "last_safe_delay": 0.30000000000000004
+    },
+    "ground_truth": {
+      "classification": "FINITE_TTL",
+      "results": [
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE"
+      ],
+      "first_bad_delay": 0.4,
+      "last_safe_delay": 0.30000000000000004
+    }
+  },
+  {
+    "seed": 14,
+    "old_prediction": {
+      "classification": "FINITE_TTL",
+      "results": [
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE"
+      ],
+      "first_bad_delay": 0.30000000000000004,
+      "last_safe_delay": 0.2
+    },
+    "new_prediction": {
+      "classification": "FINITE_TTL",
+      "results": [
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE"
+      ],
+      "first_bad_delay": 0.30000000000000004,
+      "last_safe_delay": 0.2
+    },
+    "ground_truth": {
+      "classification": "FINITE_TTL",
+      "results": [
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE"
+      ],
+      "first_bad_delay": 0.30000000000000004,
+      "last_safe_delay": 0.2
+    }
+  },
+  {
+    "seed": 15,
+    "old_prediction": {
+      "classification": "FINITE_TTL",
+      "results": [
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE"
+      ],
+      "first_bad_delay": 0.30000000000000004,
+      "last_safe_delay": 0.2
+    },
+    "new_prediction": {
+      "classification": "FINITE_TTL",
+      "results": [
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE"
+      ],
+      "first_bad_delay": 0.30000000000000004,
+      "last_safe_delay": 0.2
+    },
+    "ground_truth": {
+      "classification": "FINITE_TTL",
+      "results": [
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE"
+      ],
+      "first_bad_delay": 0.30000000000000004,
+      "last_safe_delay": 0.2
+    }
+  },
+  {
+    "seed": 17,
+    "old_prediction": {
+      "classification": "FINITE_TTL",
+      "results": [
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE"
+      ],
+      "first_bad_delay": 0.30000000000000004,
+      "last_safe_delay": 0.2
+    },
+    "new_prediction": {
+      "classification": "FINITE_TTL",
+      "results": [
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE"
+      ],
+      "first_bad_delay": 0.30000000000000004,
+      "last_safe_delay": 0.2
+    },
+    "ground_truth": {
+      "classification": "FINITE_TTL",
+      "results": [
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE"
+      ],
+      "first_bad_delay": 0.30000000000000004,
+      "last_safe_delay": 0.2
+    }
+  },
+  {
+    "seed": 18,
+    "old_prediction": {
+      "classification": "FINITE_TTL",
+      "results": [
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE"
+      ],
+      "first_bad_delay": 0.4,
+      "last_safe_delay": 0.30000000000000004
+    },
+    "new_prediction": {
+      "classification": "FINITE_TTL",
+      "results": [
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE"
+      ],
+      "first_bad_delay": 0.4,
+      "last_safe_delay": 0.30000000000000004
+    },
+    "ground_truth": {
+      "classification": "FINITE_TTL",
+      "results": [
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE"
+      ],
+      "first_bad_delay": 0.4,
+      "last_safe_delay": 0.30000000000000004
+    }
+  },
+  {
+    "seed": 19,
+    "old_prediction": {
+      "classification": "FINITE_TTL",
+      "results": [
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE"
+      ],
+      "first_bad_delay": 0.6000000000000001,
+      "last_safe_delay": 0.5
+    },
+    "new_prediction": {
+      "classification": "FINITE_TTL",
+      "results": [
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE"
+      ],
+      "first_bad_delay": 0.6000000000000001,
+      "last_safe_delay": 0.5
+    },
+    "ground_truth": {
+      "classification": "FINITE_TTL",
+      "results": [
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE"
+      ],
+      "first_bad_delay": 0.6000000000000001,
+      "last_safe_delay": 0.5
+    }
+  }
+]

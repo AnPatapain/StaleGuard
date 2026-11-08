@@ -1,0 +1,439 @@
+{
+  "policy_executions": 627,
+  "original_command_trace_matches": 311,
+  "same_time_fallback_trace_matches": 0,
+  "recovery_decisions_different_from_saved_run": 0,
+  "controlled_zero_decision_time": false,
+  "peak_rss_mib": 1044.60546875,
+  "metrics": [
+    {
+      "delay_s": 0.0,
+      "N": 19,
+      "policies": {
+        "StaleGuard": {
+          "safe_completion": 19,
+          "safe_non_completion": 0,
+          "unsafe": 0,
+          "fallbacks": 0,
+          "fallback_safe": 0
+        },
+        "No Recovery": {
+          "safe_completion": 19,
+          "safe_non_completion": 0,
+          "unsafe": 0,
+          "fallbacks": 0,
+          "fallback_safe": 0
+        },
+        "Always-Recover": {
+          "safe_completion": 19,
+          "safe_non_completion": 0,
+          "unsafe": 0,
+          "fallbacks": 0,
+          "fallback_safe": 0
+        }
+      },
+      "paired": {
+        "No Recovery": {
+          "staleguard_only": 0,
+          "other_only": 0,
+          "difference_pp": 0.0
+        },
+        "Always-Recover": {
+          "staleguard_only": 0,
+          "other_only": 0,
+          "difference_pp": 0.0
+        }
+      }
+    },
+    {
+      "delay_s": 0.1,
+      "N": 19,
+      "policies": {
+        "StaleGuard": {
+          "safe_completion": 16,
+          "safe_non_completion": 3,
+          "unsafe": 0,
+          "fallbacks": 1,
+          "fallback_safe": 1
+        },
+        "No Recovery": {
+          "safe_completion": 16,
+          "safe_non_completion": 2,
+          "unsafe": 1,
+          "fallbacks": 0,
+          "fallback_safe": 0
+        },
+        "Always-Recover": {
+          "safe_completion": 0,
+          "safe_non_completion": 19,
+          "unsafe": 0,
+          "fallbacks": 19,
+          "fallback_safe": 19
+        }
+      },
+      "paired": {
+        "No Recovery": {
+          "staleguard_only": 0,
+          "other_only": 0,
+          "difference_pp": 0.0
+        },
+        "Always-Recover": {
+          "staleguard_only": 16,
+          "other_only": 0,
+          "difference_pp": 84.21052631578948
+        }
+      }
+    },
+    {
+      "delay_s": 0.2,
+      "N": 19,
+      "policies": {
+        "StaleGuard": {
+          "safe_completion": 12,
+          "safe_non_completion": 7,
+          "unsafe": 0,
+          "fallbacks": 2,
+          "fallback_safe": 2
+        },
+        "No Recovery": {
+          "safe_completion": 12,
+          "safe_non_completion": 5,
+          "unsafe": 2,
+          "fallbacks": 0,
+          "fallback_safe": 0
+        },
+        "Always-Recover": {
+          "safe_completion": 0,
+          "safe_non_completion": 19,
+          "unsafe": 0,
+          "fallbacks": 19,
+          "fallback_safe": 19
+        }
+      },
+      "paired": {
+        "No Recovery": {
+          "staleguard_only": 0,
+          "other_only": 0,
+          "difference_pp": 0.0
+        },
+        "Always-Recover": {
+          "staleguard_only": 12,
+          "other_only": 0,
+          "difference_pp": 63.1578947368421
+        }
+      }
+    },
+    {
+      "delay_s": 0.30000000000000004,
+      "N": 19,
+      "policies": {
+        "StaleGuard": {
+          "safe_completion": 5,
+          "safe_non_completion": 13,
+          "unsafe": 1,
+          "fallbacks": 5,
+          "fallback_safe": 5
+        },
+        "No Recovery": {
+          "safe_completion": 5,
+          "safe_non_completion": 8,
+          "unsafe": 6,
+          "fallbacks": 0,
+          "fallback_safe": 0
+        },
+        "Always-Recover": {
+          "safe_completion": 0,
+          "safe_non_completion": 19,
+          "unsafe": 0,
+          "fallbacks": 19,
+          "fallback_safe": 19
+        }
+      },
+      "paired": {
+        "No Recovery": {
+          "staleguard_only": 0,
+          "other_only": 0,
+          "difference_pp": 0.0
+        },
+        "Always-Recover": {
+          "staleguard_only": 5,
+          "other_only": 0,
+          "difference_pp": 26.31578947368421
+        }
+      }
+    },
+    {
+      "delay_s": 0.4,
+      "N": 19,
+      "policies": {
+        "StaleGuard": {
+          "safe_completion": 3,
+          "safe_non_completion": 14,
+          "unsafe": 2,
+          "fallbacks": 10,
+          "fallback_safe": 10
+        },
+        "No Recovery": {
+          "safe_completion": 3,
+          "safe_non_completion": 4,
+          "unsafe": 12,
+          "fallbacks": 0,
+          "fallback_safe": 0
+        },
+        "Always-Recover": {
+          "safe_completion": 0,
+          "safe_non_completion": 19,
+          "unsafe": 0,
+          "fallbacks": 19,
+          "fallback_safe": 19
+        }
+      },
+      "paired": {
+        "No Recovery": {
+          "staleguard_only": 0,
+          "other_only": 0,
+          "difference_pp": 0.0
+        },
+        "Always-Recover": {
+          "staleguard_only": 3,
+          "other_only": 0,
+          "difference_pp": 15.789473684210526
+        }
+      }
+    },
+    {
+      "delay_s": 0.5,
+      "N": 19,
+      "policies": {
+        "StaleGuard": {
+          "safe_completion": 3,
+          "safe_non_completion": 16,
+          "unsafe": 0,
+          "fallbacks": 15,
+          "fallback_safe": 15
+        },
+        "No Recovery": {
+          "safe_completion": 3,
+          "safe_non_completion": 2,
+          "unsafe": 14,
+          "fallbacks": 0,
+          "fallback_safe": 0
+        },
+        "Always-Recover": {
+          "safe_completion": 0,
+          "safe_non_completion": 19,
+          "unsafe": 0,
+          "fallbacks": 19,
+          "fallback_safe": 19
+        }
+      },
+      "paired": {
+        "No Recovery": {
+          "staleguard_only": 0,
+          "other_only": 0,
+          "difference_pp": 0.0
+        },
+        "Always-Recover": {
+          "staleguard_only": 3,
+          "other_only": 0,
+          "difference_pp": 15.789473684210526
+        }
+      }
+    },
+    {
+      "delay_s": 0.6000000000000001,
+      "N": 19,
+      "policies": {
+        "StaleGuard": {
+          "safe_completion": 1,
+          "safe_non_completion": 18,
+          "unsafe": 0,
+          "fallbacks": 17,
+          "fallback_safe": 17
+        },
+        "No Recovery": {
+          "safe_completion": 1,
+          "safe_non_completion": 1,
+          "unsafe": 17,
+          "fallbacks": 0,
+          "fallback_safe": 0
+        },
+        "Always-Recover": {
+          "safe_completion": 0,
+          "safe_non_completion": 19,
+          "unsafe": 0,
+          "fallbacks": 19,
+          "fallback_safe": 19
+        }
+      },
+      "paired": {
+        "No Recovery": {
+          "staleguard_only": 0,
+          "other_only": 0,
+          "difference_pp": 0.0
+        },
+        "Always-Recover": {
+          "staleguard_only": 1,
+          "other_only": 0,
+          "difference_pp": 5.2631578947368425
+        }
+      }
+    },
+    {
+      "delay_s": 0.7000000000000001,
+      "N": 19,
+      "policies": {
+        "StaleGuard": {
+          "safe_completion": 0,
+          "safe_non_completion": 19,
+          "unsafe": 0,
+          "fallbacks": 19,
+          "fallback_safe": 19
+        },
+        "No Recovery": {
+          "safe_completion": 0,
+          "safe_non_completion": 0,
+          "unsafe": 19,
+          "fallbacks": 0,
+          "fallback_safe": 0
+        },
+        "Always-Recover": {
+          "safe_completion": 0,
+          "safe_non_completion": 19,
+          "unsafe": 0,
+          "fallbacks": 19,
+          "fallback_safe": 19
+        }
+      },
+      "paired": {
+        "No Recovery": {
+          "staleguard_only": 0,
+          "other_only": 0,
+          "difference_pp": 0.0
+        },
+        "Always-Recover": {
+          "staleguard_only": 0,
+          "other_only": 0,
+          "difference_pp": 0.0
+        }
+      }
+    },
+    {
+      "delay_s": 0.8,
+      "N": 19,
+      "policies": {
+        "StaleGuard": {
+          "safe_completion": 0,
+          "safe_non_completion": 19,
+          "unsafe": 0,
+          "fallbacks": 19,
+          "fallback_safe": 19
+        },
+        "No Recovery": {
+          "safe_completion": 0,
+          "safe_non_completion": 0,
+          "unsafe": 19,
+          "fallbacks": 0,
+          "fallback_safe": 0
+        },
+        "Always-Recover": {
+          "safe_completion": 0,
+          "safe_non_completion": 19,
+          "unsafe": 0,
+          "fallbacks": 19,
+          "fallback_safe": 19
+        }
+      },
+      "paired": {
+        "No Recovery": {
+          "staleguard_only": 0,
+          "other_only": 0,
+          "difference_pp": 0.0
+        },
+        "Always-Recover": {
+          "staleguard_only": 0,
+          "other_only": 0,
+          "difference_pp": 0.0
+        }
+      }
+    },
+    {
+      "delay_s": 0.9,
+      "N": 19,
+      "policies": {
+        "StaleGuard": {
+          "safe_completion": 0,
+          "safe_non_completion": 19,
+          "unsafe": 0,
+          "fallbacks": 19,
+          "fallback_safe": 19
+        },
+        "No Recovery": {
+          "safe_completion": 0,
+          "safe_non_completion": 0,
+          "unsafe": 19,
+          "fallbacks": 0,
+          "fallback_safe": 0
+        },
+        "Always-Recover": {
+          "safe_completion": 0,
+          "safe_non_completion": 19,
+          "unsafe": 0,
+          "fallbacks": 19,
+          "fallback_safe": 19
+        }
+      },
+      "paired": {
+        "No Recovery": {
+          "staleguard_only": 0,
+          "other_only": 0,
+          "difference_pp": 0.0
+        },
+        "Always-Recover": {
+          "staleguard_only": 0,
+          "other_only": 0,
+          "difference_pp": 0.0
+        }
+      }
+    },
+    {
+      "delay_s": 1.0,
+      "N": 19,
+      "policies": {
+        "StaleGuard": {
+          "safe_completion": 0,
+          "safe_non_completion": 19,
+          "unsafe": 0,
+          "fallbacks": 19,
+          "fallback_safe": 19
+        },
+        "No Recovery": {
+          "safe_completion": 0,
+          "safe_non_completion": 0,
+          "unsafe": 19,
+          "fallbacks": 0,
+          "fallback_safe": 0
+        },
+        "Always-Recover": {
+          "safe_completion": 0,
+          "safe_non_completion": 19,
+          "unsafe": 0,
+          "fallbacks": 19,
+          "fallback_safe": 19
+        }
+      },
+      "paired": {
+        "No Recovery": {
+          "staleguard_only": 0,
+          "other_only": 0,
+          "difference_pp": 0.0
+        },
+        "Always-Recover": {
+          "staleguard_only": 0,
+          "other_only": 0,
+          "difference_pp": 0.0
+        }
+      }
+    }
+  ]
+}

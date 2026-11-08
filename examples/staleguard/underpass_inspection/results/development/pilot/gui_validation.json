@@ -1,0 +1,37 @@
+[
+  {
+    "mode": "nominal",
+    "start_s": 0.0,
+    "physics_exact_match": true,
+    "safe": false,
+    "screenshot": "gui_nominal.png"
+  },
+  {
+    "mode": "climb",
+    "start_s": 0.0,
+    "physics_exact_match": true,
+    "safe": true,
+    "screenshot": "gui_climb.png"
+  },
+  {
+    "mode": "sideways",
+    "start_s": 0.0,
+    "physics_exact_match": true,
+    "safe": true,
+    "screenshot": "gui_sideways.png"
+  },
+  {
+    "mode": "dive",
+    "start_s": 0.4,
+    "physics_exact_match": true,
+    "safe": false,
+    "screenshot": "gui_dive_delayed.png"
+  },
+  {
+    "mode": "dive",
+    "start_s": 0.0,
+    "physics_exact_match": true,
+    "safe": true,
+    "screenshot": "gui_dive_immediate.png"
+  }
+]

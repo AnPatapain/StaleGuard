@@ -1,0 +1,420 @@
+[
+  {
+    "seed": 0,
+    "prediction": {
+      "classification": "FINITE_TTL",
+      "results": [
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE"
+      ],
+      "first_bad_delay": 0.5,
+      "last_safe_delay": 0.4
+    },
+    "computation_s": 0.057124209008179605
+  },
+  {
+    "seed": 1,
+    "prediction": {
+      "classification": "FINITE_TTL",
+      "results": [
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE"
+      ],
+      "first_bad_delay": 0.5,
+      "last_safe_delay": 0.4
+    },
+    "computation_s": 0.0765028799942229
+  },
+  {
+    "seed": 2,
+    "prediction": {
+      "classification": "FINITE_TTL",
+      "results": [
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE"
+      ],
+      "first_bad_delay": 0.6000000000000001,
+      "last_safe_delay": 0.5
+    },
+    "computation_s": 0.08980628200515639
+  },
+  {
+    "seed": 3,
+    "prediction": {
+      "classification": "FINITE_TTL",
+      "results": [
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE"
+      ],
+      "first_bad_delay": 0.7000000000000001,
+      "last_safe_delay": 0.6000000000000001
+    },
+    "computation_s": 0.09354136898764409
+  },
+  {
+    "seed": 4,
+    "prediction": {
+      "classification": "FINITE_TTL",
+      "results": [
+        "SAFE",
+        "SAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE"
+      ],
+      "first_bad_delay": 0.2,
+      "last_safe_delay": 0.1
+    },
+    "computation_s": 0.04953653299889993
+  },
+  {
+    "seed": 5,
+    "prediction": {
+      "classification": "FINITE_TTL",
+      "results": [
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE"
+      ],
+      "first_bad_delay": 0.4,
+      "last_safe_delay": 0.30000000000000004
+    },
+    "computation_s": 0.055263013011426665
+  },
+  {
+    "seed": 6,
+    "prediction": {
+      "classification": "FINITE_TTL",
+      "results": [
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE"
+      ],
+      "first_bad_delay": 0.4,
+      "last_safe_delay": 0.30000000000000004
+    },
+    "computation_s": 0.05138371999782976
+  },
+  {
+    "seed": 7,
+    "prediction": {
+      "classification": "FINITE_TTL",
+      "results": [
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE"
+      ],
+      "first_bad_delay": 0.5,
+      "last_safe_delay": 0.4
+    },
+    "computation_s": 0.05855938600143418
+  },
+  {
+    "seed": 8,
+    "prediction": {
+      "classification": "FINITE_TTL",
+      "results": [
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE"
+      ],
+      "first_bad_delay": 0.5,
+      "last_safe_delay": 0.4
+    },
+    "computation_s": 0.07175840300624259
+  },
+  {
+    "seed": 9,
+    "prediction": {
+      "classification": "FINITE_TTL",
+      "results": [
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE"
+      ],
+      "first_bad_delay": 0.30000000000000004,
+      "last_safe_delay": 0.2
+    },
+    "computation_s": 0.0511952960077906
+  },
+  {
+    "seed": 10,
+    "prediction": {
+      "classification": "INVALID_AT_APPROVAL",
+      "results": [
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE"
+      ],
+      "first_bad_delay": 0.0,
+      "last_safe_delay": null
+    },
+    "computation_s": 0.02732621600443963
+  },
+  {
+    "seed": 11,
+    "prediction": {
+      "classification": "FINITE_TTL",
+      "results": [
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE"
+      ],
+      "first_bad_delay": 0.7000000000000001,
+      "last_safe_delay": 0.6000000000000001
+    },
+    "computation_s": 0.08271171900560148
+  },
+  {
+    "seed": 12,
+    "prediction": {
+      "classification": "FINITE_TTL",
+      "results": [
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE"
+      ],
+      "first_bad_delay": 0.5,
+      "last_safe_delay": 0.4
+    },
+    "computation_s": 0.07341101800557226
+  },
+  {
+    "seed": 13,
+    "prediction": {
+      "classification": "FINITE_TTL",
+      "results": [
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE"
+      ],
+      "first_bad_delay": 0.4,
+      "last_safe_delay": 0.30000000000000004
+    },
+    "computation_s": 0.05623553800978698
+  },
+  {
+    "seed": 14,
+    "prediction": {
+      "classification": "FINITE_TTL",
+      "results": [
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE"
+      ],
+      "first_bad_delay": 0.30000000000000004,
+      "last_safe_delay": 0.2
+    },
+    "computation_s": 0.0499166239897022
+  },
+  {
+    "seed": 15,
+    "prediction": {
+      "classification": "FINITE_TTL",
+      "results": [
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE"
+      ],
+      "first_bad_delay": 0.30000000000000004,
+      "last_safe_delay": 0.2
+    },
+    "computation_s": 0.05062641100084875
+  },
+  {
+    "seed": 17,
+    "prediction": {
+      "classification": "FINITE_TTL",
+      "results": [
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE"
+      ],
+      "first_bad_delay": 0.30000000000000004,
+      "last_safe_delay": 0.2
+    },
+    "computation_s": 0.03947969900036696
+  },
+  {
+    "seed": 18,
+    "prediction": {
+      "classification": "FINITE_TTL",
+      "results": [
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE"
+      ],
+      "first_bad_delay": 0.4,
+      "last_safe_delay": 0.30000000000000004
+    },
+    "computation_s": 0.060830667993286625
+  },
+  {
+    "seed": 19,
+    "prediction": {
+      "classification": "FINITE_TTL",
+      "results": [
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "SAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE",
+        "UNSAFE"
+      ],
+      "first_bad_delay": 0.6000000000000001,
+      "last_safe_delay": 0.5
+    },
+    "computation_s": 0.08143239199125674
+  }
+]

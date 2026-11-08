@@ -1,0 +1,429 @@
+pybullet build time: Jan 29 2025 23:16:28
+{
+  "evaluated": 19,
+  "infeasible_seeds": [
+    16
+  ],
+  "policy_flights": 836,
+  "totals": {
+    "StaleGuard": {
+      "N": 209,
+      "unsafe": 2,
+      "safe_completion": 59,
+      "safe_non_completion": 148,
+      "fallbacks": 127
+    },
+    "No Recovery": {
+      "N": 209,
+      "unsafe": 128,
+      "safe_completion": 59,
+      "safe_non_completion": 22,
+      "fallbacks": 0
+    },
+    "Always-Recover": {
+      "N": 209,
+      "unsafe": 0,
+      "safe_completion": 19,
+      "safe_non_completion": 190,
+      "fallbacks": 190
+    },
+    "Use-Time Recheck": {
+      "N": 209,
+      "unsafe": 1,
+      "safe_completion": 55,
+      "safe_non_completion": 153,
+      "fallbacks": 130
+    }
+  },
+  "per_delay": [
+    {
+      "delay_s": 0.0,
+      "policies": {
+        "StaleGuard": {
+          "N": 19,
+          "unsafe": 0,
+          "safe_completion": 19,
+          "safe_non_completion": 0,
+          "fallbacks": 0
+        },
+        "No Recovery": {
+          "N": 19,
+          "unsafe": 0,
+          "safe_completion": 19,
+          "safe_non_completion": 0,
+          "fallbacks": 0
+        },
+        "Always-Recover": {
+          "N": 19,
+          "unsafe": 0,
+          "safe_completion": 19,
+          "safe_non_completion": 0,
+          "fallbacks": 0
+        },
+        "Use-Time Recheck": {
+          "N": 19,
+          "unsafe": 0,
+          "safe_completion": 17,
+          "safe_non_completion": 2,
+          "fallbacks": 1
+        }
+      }
+    },
+    {
+      "delay_s": 0.1,
+      "policies": {
+        "StaleGuard": {
+          "N": 19,
+          "unsafe": 0,
+          "safe_completion": 16,
+          "safe_non_completion": 3,
+          "fallbacks": 1
+        },
+        "No Recovery": {
+          "N": 19,
+          "unsafe": 1,
+          "safe_completion": 16,
+          "safe_non_completion": 2,
+          "fallbacks": 0
+        },
+        "Always-Recover": {
+          "N": 19,
+          "unsafe": 0,
+          "safe_completion": 0,
+          "safe_non_completion": 19,
+          "fallbacks": 19
+        },
+        "Use-Time Recheck": {
+          "N": 19,
+          "unsafe": 0,
+          "safe_completion": 16,
+          "safe_non_completion": 3,
+          "fallbacks": 1
+        }
+      }
+    },
+    {
+      "delay_s": 0.2,
+      "policies": {
+        "StaleGuard": {
+          "N": 19,
+          "unsafe": 0,
+          "safe_completion": 12,
+          "safe_non_completion": 7,
+          "fallbacks": 2
+        },
+        "No Recovery": {
+          "N": 19,
+          "unsafe": 2,
+          "safe_completion": 12,
+          "safe_non_completion": 5,
+          "fallbacks": 0
+        },
+        "Always-Recover": {
+          "N": 19,
+          "unsafe": 0,
+          "safe_completion": 0,
+          "safe_non_completion": 19,
+          "fallbacks": 19
+        },
+        "Use-Time Recheck": {
+          "N": 19,
+          "unsafe": 0,
+          "safe_completion": 10,
+          "safe_non_completion": 9,
+          "fallbacks": 2
+        }
+      }
+    },
+    {
+      "delay_s": 0.3,
+      "policies": {
+        "StaleGuard": {
+          "N": 19,
+          "unsafe": 0,
+          "safe_completion": 5,
+          "safe_non_completion": 14,
+          "fallbacks": 6
+        },
+        "No Recovery": {
+          "N": 19,
+          "unsafe": 6,
+          "safe_completion": 5,
+          "safe_non_completion": 8,
+          "fallbacks": 0
+        },
+        "Always-Recover": {
+          "N": 19,
+          "unsafe": 0,
+          "safe_completion": 0,
+          "safe_non_completion": 19,
+          "fallbacks": 19
+        },
+        "Use-Time Recheck": {
+          "N": 19,
+          "unsafe": 0,
+          "safe_completion": 5,
+          "safe_non_completion": 14,
+          "fallbacks": 6
+        }
+      }
+    },
+    {
+      "delay_s": 0.4,
+      "policies": {
+        "StaleGuard": {
+          "N": 19,
+          "unsafe": 2,
+          "safe_completion": 3,
+          "safe_non_completion": 14,
+          "fallbacks": 10
+        },
+        "No Recovery": {
+          "N": 19,
+          "unsafe": 12,
+          "safe_completion": 3,
+          "safe_non_completion": 4,
+          "fallbacks": 0
+        },
+        "Always-Recover": {
+          "N": 19,
+          "unsafe": 0,
+          "safe_completion": 0,
+          "safe_non_completion": 19,
+          "fallbacks": 19
+        },
+        "Use-Time Recheck": {
+          "N": 19,
+          "unsafe": 0,
+          "safe_completion": 3,
+          "safe_non_completion": 16,
+          "fallbacks": 12
+        }
+      }
+    },
+    {
+      "delay_s": 0.5,
+      "policies": {
+        "StaleGuard": {
+          "N": 19,
+          "unsafe": 0,
+          "safe_completion": 3,
+          "safe_non_completion": 16,
+          "fallbacks": 15
+        },
+        "No Recovery": {
+          "N": 19,
+          "unsafe": 14,
+          "safe_completion": 3,
+          "safe_non_completion": 2,
+          "fallbacks": 0
+        },
+        "Always-Recover": {
+          "N": 19,
+          "unsafe": 0,
+          "safe_completion": 0,
+          "safe_non_completion": 19,
+          "fallbacks": 19
+        },
+        "Use-Time Recheck": {
+          "N": 19,
+          "unsafe": 0,
+          "safe_completion": 3,
+          "safe_non_completion": 16,
+          "fallbacks": 15
+        }
+      }
+    },
+    {
+      "delay_s": 0.6,
+      "policies": {
+        "StaleGuard": {
+          "N": 19,
+          "unsafe": 0,
+          "safe_completion": 1,
+          "safe_non_completion": 18,
+          "fallbacks": 17
+        },
+        "No Recovery": {
+          "N": 19,
+          "unsafe": 17,
+          "safe_completion": 1,
+          "safe_non_completion": 1,
+          "fallbacks": 0
+        },
+        "Always-Recover": {
+          "N": 19,
+          "unsafe": 0,
+          "safe_completion": 0,
+          "safe_non_completion": 19,
+          "fallbacks": 19
+        },
+        "Use-Time Recheck": {
+          "N": 19,
+          "unsafe": 1,
+          "safe_completion": 1,
+          "safe_non_completion": 17,
+          "fallbacks": 17
+        }
+      }
+    },
+    {
+      "delay_s": 0.7,
+      "policies": {
+        "StaleGuard": {
+          "N": 19,
+          "unsafe": 0,
+          "safe_completion": 0,
+          "safe_non_completion": 19,
+          "fallbacks": 19
+        },
+        "No Recovery": {
+          "N": 19,
+          "unsafe": 19,
+          "safe_completion": 0,
+          "safe_non_completion": 0,
+          "fallbacks": 0
+        },
+        "Always-Recover": {
+          "N": 19,
+          "unsafe": 0,
+          "safe_completion": 0,
+          "safe_non_completion": 19,
+          "fallbacks": 19
+        },
+        "Use-Time Recheck": {
+          "N": 19,
+          "unsafe": 0,
+          "safe_completion": 0,
+          "safe_non_completion": 19,
+          "fallbacks": 19
+        }
+      }
+    },
+    {
+      "delay_s": 0.8,
+      "policies": {
+        "StaleGuard": {
+          "N": 19,
+          "unsafe": 0,
+          "safe_completion": 0,
+          "safe_non_completion": 19,
+          "fallbacks": 19
+        },
+        "No Recovery": {
+          "N": 19,
+          "unsafe": 19,
+          "safe_completion": 0,
+          "safe_non_completion": 0,
+          "fallbacks": 0
+        },
+        "Always-Recover": {
+          "N": 19,
+          "unsafe": 0,
+          "safe_completion": 0,
+          "safe_non_completion": 19,
+          "fallbacks": 19
+        },
+        "Use-Time Recheck": {
+          "N": 19,
+          "unsafe": 0,
+          "safe_completion": 0,
+          "safe_non_completion": 19,
+          "fallbacks": 19
+        }
+      }
+    },
+    {
+      "delay_s": 0.9,
+      "policies": {
+        "StaleGuard": {
+          "N": 19,
+          "unsafe": 0,
+          "safe_completion": 0,
+          "safe_non_completion": 19,
+          "fallbacks": 19
+        },
+        "No Recovery": {
+          "N": 19,
+          "unsafe": 19,
+          "safe_completion": 0,
+          "safe_non_completion": 0,
+          "fallbacks": 0
+        },
+        "Always-Recover": {
+          "N": 19,
+          "unsafe": 0,
+          "safe_completion": 0,
+          "safe_non_completion": 19,
+          "fallbacks": 19
+        },
+        "Use-Time Recheck": {
+          "N": 19,
+          "unsafe": 0,
+          "safe_completion": 0,
+          "safe_non_completion": 19,
+          "fallbacks": 19
+        }
+      }
+    },
+    {
+      "delay_s": 1.0,
+      "policies": {
+        "StaleGuard": {
+          "N": 19,
+          "unsafe": 0,
+          "safe_completion": 0,
+          "safe_non_completion": 19,
+          "fallbacks": 19
+        },
+        "No Recovery": {
+          "N": 19,
+          "unsafe": 19,
+          "safe_completion": 0,
+          "safe_non_completion": 0,
+          "fallbacks": 0
+        },
+        "Always-Recover": {
+          "N": 19,
+          "unsafe": 0,
+          "safe_completion": 0,
+          "safe_non_completion": 19,
+          "fallbacks": 19
+        },
+        "Use-Time Recheck": {
+          "N": 19,
+          "unsafe": 0,
+          "safe_completion": 0,
+          "safe_non_completion": 19,
+          "fallbacks": 19
+        }
+      }
+    }
+  ],
+  "recheck_computation": {
+    "mean_ms": 3.4068055797237946,
+    "median_ms": 1.3967080012662336,
+    "p95_ms": 7.35626419482287,
+    "max_ms": 10.788601997774094,
+    "min_ms": 0.6434919923776761
+  },
+  "recheck_decision_delay": {
+    "mean_ms": 20.0,
+    "median_ms": 20.0,
+    "p95_ms": 20.0,
+    "max_ms": 20.0,
+    "min_ms": 20.0
+  },
+  "command_application_delay": {
+    "mean_ms": 20.0,
+    "median_ms": 20.0,
+    "p95_ms": 20.0,
+    "max_ms": 20.0,
+    "min_ms": 20.0
+  },
+  "decision_not_applied_by_deadline": 0,
+  "prediction_safe": 79,
+  "previous_baseline_trace_matches": 627,
+  "maximum_dispatch_to_decision_motion_m": 0.022333870254052604,
+  "timing_model": "Measured wall time mapped to subsequent nominal PID/physics steps; serial simulator, not concurrent onboard execution"
+}

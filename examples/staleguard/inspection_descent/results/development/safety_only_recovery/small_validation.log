@@ -1,0 +1,17 @@
+pybullet build time: Jan 29 2025 23:16:28
+/home/kean/.config/matplotlib is not a writable directory
+Matplotlib created a temporary cache directory at /tmp/matplotlib-5ptw0ug2 because there was an issue with the default path (/home/kean/.config/matplotlib); it is highly recommended to set the MPLCONFIGDIR environment variable to a writable directory, in particular to speed up the import of Matplotlib and to better support multiprocessing.
+/home/kean/miniconda3/envs/scg/lib/python3.10/site-packages/gymnasium/spaces/box.py:130: UserWarning: [33mWARN: Box bound precision lowered by casting to float32[0m
+  gym.logger.warn(f"Box bound precision lowered by casting to {self.dtype}")
+Executed 3/33 policy flights; RSS=741 MiB
+Executed 6/33 policy flights; RSS=747 MiB
+Executed 9/33 policy flights; RSS=753 MiB
+Executed 12/33 policy flights; RSS=758 MiB
+Executed 15/33 policy flights; RSS=763 MiB
+Executed 18/33 policy flights; RSS=768 MiB
+Executed 21/33 policy flights; RSS=772 MiB
+Executed 24/33 policy flights; RSS=775 MiB
+Executed 27/33 policy flights; RSS=781 MiB
+Executed 30/33 policy flights; RSS=784 MiB
+Executed 33/33 policy flights; RSS=788 MiB
+PASS: 33 policy flights, individual outcome categories, original-command traces, report values, and paired comparisons; historical files unchanged.

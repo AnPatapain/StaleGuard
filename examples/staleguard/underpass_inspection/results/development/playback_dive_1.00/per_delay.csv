@@ -1,0 +1,2 @@
+mode,start_s,approval_step,initiation_step,safe,inspection_completed,safe_completion,min_clearance_m,first_violation_approval_s,obstacle,part
+dive,1.0,40,90,False,True,False,-0.18110539733985537,3.2510000000000003,pier,pier

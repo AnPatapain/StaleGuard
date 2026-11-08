@@ -1,0 +1,256 @@
+Calibration feasible: 19/20
+Infeasible seeds: [16]
+Policy rates use feasible scenarios; calibration failures are excluded.
+==========================================================
+D = 0.0s | T = 4.2s | N = 19
+==========================================================
+
+MISSION OUTCOMES
+                               No Recovery     StaleGuard
+----------------------------------------------------------
+Inspection completed        19/19 (100.0%) 19/19 (100.0%)
+Unsafe entry                   0/19 (0.0%)    0/19 (0.0%)
+Safe mission completion     19/19 (100.0%) 19/19 (100.0%)
+
+STALEGUARD DECISIONS
+----------------------------------------------------------
+Recovery triggered                            0/19 (0.0%)
+Successful recoveries: N/A (0/0)
+
+PAIRED COMPARISON
+----------------------------------------------------------
+Recovery benefit           0/19 (0.0%)
+Recovery harm              0/19 (0.0%)
+Net benefit                +0.0 percentage points
+==========================================================
+
+==========================================================
+D = 0.1s | T = 4.2s | N = 19
+==========================================================
+
+MISSION OUTCOMES
+                               No Recovery     StaleGuard
+----------------------------------------------------------
+Inspection completed         17/19 (89.5%)  17/19 (89.5%)
+Unsafe entry                   1/19 (5.3%)    0/19 (0.0%)
+Safe mission completion      16/19 (84.2%)  17/19 (89.5%)
+
+STALEGUARD DECISIONS
+----------------------------------------------------------
+Recovery triggered                            1/19 (5.3%)
+Successful recoveries                        1/1 (100.0%)
+
+PAIRED COMPARISON
+----------------------------------------------------------
+Recovery benefit           1/19 (5.3%)
+Recovery harm              0/19 (0.0%)
+Net benefit                +5.3 percentage points
+==========================================================
+
+==========================================================
+D = 0.2s | T = 4.2s | N = 19
+==========================================================
+
+MISSION OUTCOMES
+                               No Recovery     StaleGuard
+----------------------------------------------------------
+Inspection completed         14/19 (73.7%)  14/19 (73.7%)
+Unsafe entry                  2/19 (10.5%)    0/19 (0.0%)
+Safe mission completion      12/19 (63.2%)  14/19 (73.7%)
+
+STALEGUARD DECISIONS
+----------------------------------------------------------
+Recovery triggered                           2/19 (10.5%)
+Successful recoveries                        2/2 (100.0%)
+
+PAIRED COMPARISON
+----------------------------------------------------------
+Recovery benefit           2/19 (10.5%)
+Recovery harm              0/19 (0.0%)
+Net benefit                +10.5 percentage points
+==========================================================
+
+==========================================================
+D = 0.3s | T = 4.2s | N = 19
+==========================================================
+
+MISSION OUTCOMES
+                               No Recovery     StaleGuard
+----------------------------------------------------------
+Inspection completed          7/19 (36.8%)  11/19 (57.9%)
+Unsafe entry                  6/19 (31.6%)    1/19 (5.3%)
+Safe mission completion       5/19 (26.3%)  10/19 (52.6%)
+
+STALEGUARD DECISIONS
+----------------------------------------------------------
+Recovery triggered                           5/19 (26.3%)
+Successful recoveries                        5/5 (100.0%)
+
+PAIRED COMPARISON
+----------------------------------------------------------
+Recovery benefit           5/19 (26.3%)
+Recovery harm              0/19 (0.0%)
+Net benefit                +26.3 percentage points
+==========================================================
+
+==========================================================
+D = 0.4s | T = 4.2s | N = 19
+==========================================================
+
+MISSION OUTCOMES
+                               No Recovery     StaleGuard
+----------------------------------------------------------
+Inspection completed          4/19 (21.1%)  13/19 (68.4%)
+Unsafe entry                 12/19 (63.2%)   2/19 (10.5%)
+Safe mission completion       3/19 (15.8%)  13/19 (68.4%)
+
+STALEGUARD DECISIONS
+----------------------------------------------------------
+Recovery triggered                          10/19 (52.6%)
+Successful recoveries                      10/10 (100.0%)
+
+PAIRED COMPARISON
+----------------------------------------------------------
+Recovery benefit           10/19 (52.6%)
+Recovery harm              0/19 (0.0%)
+Net benefit                +52.6 percentage points
+==========================================================
+
+==========================================================
+D = 0.5s | T = 4.2s | N = 19
+==========================================================
+
+MISSION OUTCOMES
+                               No Recovery     StaleGuard
+----------------------------------------------------------
+Inspection completed          3/19 (15.8%)  18/19 (94.7%)
+Unsafe entry                 14/19 (73.7%)    0/19 (0.0%)
+Safe mission completion       3/19 (15.8%)  18/19 (94.7%)
+
+STALEGUARD DECISIONS
+----------------------------------------------------------
+Recovery triggered                          15/19 (78.9%)
+Successful recoveries                      15/15 (100.0%)
+
+PAIRED COMPARISON
+----------------------------------------------------------
+Recovery benefit           15/19 (78.9%)
+Recovery harm              0/19 (0.0%)
+Net benefit                +78.9 percentage points
+==========================================================
+
+==========================================================
+D = 0.6s | T = 4.2s | N = 19
+==========================================================
+
+MISSION OUTCOMES
+                               No Recovery     StaleGuard
+----------------------------------------------------------
+Inspection completed          2/19 (10.5%)  18/19 (94.7%)
+Unsafe entry                 17/19 (89.5%)    0/19 (0.0%)
+Safe mission completion        1/19 (5.3%)  18/19 (94.7%)
+
+STALEGUARD DECISIONS
+----------------------------------------------------------
+Recovery triggered                          17/19 (89.5%)
+Successful recoveries                      17/17 (100.0%)
+
+PAIRED COMPARISON
+----------------------------------------------------------
+Recovery benefit           17/19 (89.5%)
+Recovery harm              0/19 (0.0%)
+Net benefit                +89.5 percentage points
+==========================================================
+
+==========================================================
+D = 0.7s | T = 4.2s | N = 19
+==========================================================
+
+MISSION OUTCOMES
+                               No Recovery     StaleGuard
+----------------------------------------------------------
+Inspection completed          2/19 (10.5%) 19/19 (100.0%)
+Unsafe entry                19/19 (100.0%)    0/19 (0.0%)
+Safe mission completion        0/19 (0.0%) 19/19 (100.0%)
+
+STALEGUARD DECISIONS
+----------------------------------------------------------
+Recovery triggered                         19/19 (100.0%)
+Successful recoveries                      19/19 (100.0%)
+
+PAIRED COMPARISON
+----------------------------------------------------------
+Recovery benefit           19/19 (100.0%)
+Recovery harm              0/19 (0.0%)
+Net benefit                +100.0 percentage points
+==========================================================
+
+==========================================================
+D = 0.8s | T = 4.2s | N = 19
+==========================================================
+
+MISSION OUTCOMES
+                               No Recovery     StaleGuard
+----------------------------------------------------------
+Inspection completed          2/19 (10.5%) 19/19 (100.0%)
+Unsafe entry                19/19 (100.0%)    0/19 (0.0%)
+Safe mission completion        0/19 (0.0%) 19/19 (100.0%)
+
+STALEGUARD DECISIONS
+----------------------------------------------------------
+Recovery triggered                         19/19 (100.0%)
+Successful recoveries                      19/19 (100.0%)
+
+PAIRED COMPARISON
+----------------------------------------------------------
+Recovery benefit           19/19 (100.0%)
+Recovery harm              0/19 (0.0%)
+Net benefit                +100.0 percentage points
+==========================================================
+
+==========================================================
+D = 0.9s | T = 4.2s | N = 19
+==========================================================
+
+MISSION OUTCOMES
+                               No Recovery     StaleGuard
+----------------------------------------------------------
+Inspection completed          2/19 (10.5%) 19/19 (100.0%)
+Unsafe entry                19/19 (100.0%)    0/19 (0.0%)
+Safe mission completion        0/19 (0.0%) 19/19 (100.0%)
+
+STALEGUARD DECISIONS
+----------------------------------------------------------
+Recovery triggered                         19/19 (100.0%)
+Successful recoveries                      19/19 (100.0%)
+
+PAIRED COMPARISON
+----------------------------------------------------------
+Recovery benefit           19/19 (100.0%)
+Recovery harm              0/19 (0.0%)
+Net benefit                +100.0 percentage points
+==========================================================
+
+==========================================================
+D = 1.0s | T = 4.2s | N = 19
+==========================================================
+
+MISSION OUTCOMES
+                               No Recovery     StaleGuard
+----------------------------------------------------------
+Inspection completed          2/19 (10.5%) 19/19 (100.0%)
+Unsafe entry                19/19 (100.0%)    0/19 (0.0%)
+Safe mission completion        0/19 (0.0%) 19/19 (100.0%)
+
+STALEGUARD DECISIONS
+----------------------------------------------------------
+Recovery triggered                         19/19 (100.0%)
+Successful recoveries                      19/19 (100.0%)
+
+PAIRED COMPARISON
+----------------------------------------------------------
+Recovery benefit           19/19 (100.0%)
+Recovery harm              0/19 (0.0%)
+Net benefit                +100.0 percentage points
+==========================================================
+

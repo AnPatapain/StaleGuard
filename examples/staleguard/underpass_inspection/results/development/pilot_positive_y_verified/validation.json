@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "checks": {
+    "complete": true,
+    "count_matches": true,
+    "no_duplicate_flights": true,
+    "sources_match": true,
+    "all_saved_physics_and_outcomes_match": true,
+    "full_requested_grid": true
+  },
+  "errors": [],
+  "inspected_flights": 154,
+  "reran_physics": false
+}

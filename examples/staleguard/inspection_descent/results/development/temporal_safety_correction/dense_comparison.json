@@ -1,0 +1,1256 @@
+[
+  {
+    "seed": 0,
+    "delay_s": 0.0,
+    "swept_unsafe": false,
+    "dense_unsafe": false
+  },
+  {
+    "seed": 0,
+    "delay_s": 0.1,
+    "swept_unsafe": false,
+    "dense_unsafe": false
+  },
+  {
+    "seed": 0,
+    "delay_s": 0.2,
+    "swept_unsafe": false,
+    "dense_unsafe": false
+  },
+  {
+    "seed": 0,
+    "delay_s": 0.30000000000000004,
+    "swept_unsafe": false,
+    "dense_unsafe": false
+  },
+  {
+    "seed": 0,
+    "delay_s": 0.4,
+    "swept_unsafe": false,
+    "dense_unsafe": false
+  },
+  {
+    "seed": 0,
+    "delay_s": 0.5,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 0,
+    "delay_s": 0.6000000000000001,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 0,
+    "delay_s": 0.7000000000000001,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 0,
+    "delay_s": 0.8,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 0,
+    "delay_s": 0.9,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 0,
+    "delay_s": 1.0,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 1,
+    "delay_s": 0.0,
+    "swept_unsafe": false,
+    "dense_unsafe": false
+  },
+  {
+    "seed": 1,
+    "delay_s": 0.1,
+    "swept_unsafe": false,
+    "dense_unsafe": false
+  },
+  {
+    "seed": 1,
+    "delay_s": 0.2,
+    "swept_unsafe": false,
+    "dense_unsafe": false
+  },
+  {
+    "seed": 1,
+    "delay_s": 0.30000000000000004,
+    "swept_unsafe": false,
+    "dense_unsafe": false
+  },
+  {
+    "seed": 1,
+    "delay_s": 0.4,
+    "swept_unsafe": false,
+    "dense_unsafe": false
+  },
+  {
+    "seed": 1,
+    "delay_s": 0.5,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 1,
+    "delay_s": 0.6000000000000001,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 1,
+    "delay_s": 0.7000000000000001,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 1,
+    "delay_s": 0.8,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 1,
+    "delay_s": 0.9,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 1,
+    "delay_s": 1.0,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 2,
+    "delay_s": 0.0,
+    "swept_unsafe": false,
+    "dense_unsafe": false
+  },
+  {
+    "seed": 2,
+    "delay_s": 0.1,
+    "swept_unsafe": false,
+    "dense_unsafe": false
+  },
+  {
+    "seed": 2,
+    "delay_s": 0.2,
+    "swept_unsafe": false,
+    "dense_unsafe": false
+  },
+  {
+    "seed": 2,
+    "delay_s": 0.30000000000000004,
+    "swept_unsafe": false,
+    "dense_unsafe": false
+  },
+  {
+    "seed": 2,
+    "delay_s": 0.4,
+    "swept_unsafe": false,
+    "dense_unsafe": false
+  },
+  {
+    "seed": 2,
+    "delay_s": 0.5,
+    "swept_unsafe": false,
+    "dense_unsafe": false
+  },
+  {
+    "seed": 2,
+    "delay_s": 0.6000000000000001,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 2,
+    "delay_s": 0.7000000000000001,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 2,
+    "delay_s": 0.8,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 2,
+    "delay_s": 0.9,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 2,
+    "delay_s": 1.0,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 3,
+    "delay_s": 0.0,
+    "swept_unsafe": false,
+    "dense_unsafe": false
+  },
+  {
+    "seed": 3,
+    "delay_s": 0.1,
+    "swept_unsafe": false,
+    "dense_unsafe": false
+  },
+  {
+    "seed": 3,
+    "delay_s": 0.2,
+    "swept_unsafe": false,
+    "dense_unsafe": false
+  },
+  {
+    "seed": 3,
+    "delay_s": 0.30000000000000004,
+    "swept_unsafe": false,
+    "dense_unsafe": false
+  },
+  {
+    "seed": 3,
+    "delay_s": 0.4,
+    "swept_unsafe": false,
+    "dense_unsafe": false
+  },
+  {
+    "seed": 3,
+    "delay_s": 0.5,
+    "swept_unsafe": false,
+    "dense_unsafe": false
+  },
+  {
+    "seed": 3,
+    "delay_s": 0.6000000000000001,
+    "swept_unsafe": false,
+    "dense_unsafe": false
+  },
+  {
+    "seed": 3,
+    "delay_s": 0.7000000000000001,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 3,
+    "delay_s": 0.8,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 3,
+    "delay_s": 0.9,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 3,
+    "delay_s": 1.0,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 4,
+    "delay_s": 0.0,
+    "swept_unsafe": false,
+    "dense_unsafe": false
+  },
+  {
+    "seed": 4,
+    "delay_s": 0.1,
+    "swept_unsafe": false,
+    "dense_unsafe": false
+  },
+  {
+    "seed": 4,
+    "delay_s": 0.2,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 4,
+    "delay_s": 0.30000000000000004,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 4,
+    "delay_s": 0.4,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 4,
+    "delay_s": 0.5,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 4,
+    "delay_s": 0.6000000000000001,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 4,
+    "delay_s": 0.7000000000000001,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 4,
+    "delay_s": 0.8,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 4,
+    "delay_s": 0.9,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 4,
+    "delay_s": 1.0,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 5,
+    "delay_s": 0.0,
+    "swept_unsafe": false,
+    "dense_unsafe": false
+  },
+  {
+    "seed": 5,
+    "delay_s": 0.1,
+    "swept_unsafe": false,
+    "dense_unsafe": false
+  },
+  {
+    "seed": 5,
+    "delay_s": 0.2,
+    "swept_unsafe": false,
+    "dense_unsafe": false
+  },
+  {
+    "seed": 5,
+    "delay_s": 0.30000000000000004,
+    "swept_unsafe": false,
+    "dense_unsafe": false
+  },
+  {
+    "seed": 5,
+    "delay_s": 0.4,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 5,
+    "delay_s": 0.5,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 5,
+    "delay_s": 0.6000000000000001,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 5,
+    "delay_s": 0.7000000000000001,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 5,
+    "delay_s": 0.8,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 5,
+    "delay_s": 0.9,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 5,
+    "delay_s": 1.0,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 6,
+    "delay_s": 0.0,
+    "swept_unsafe": false,
+    "dense_unsafe": false
+  },
+  {
+    "seed": 6,
+    "delay_s": 0.1,
+    "swept_unsafe": false,
+    "dense_unsafe": false
+  },
+  {
+    "seed": 6,
+    "delay_s": 0.2,
+    "swept_unsafe": false,
+    "dense_unsafe": false
+  },
+  {
+    "seed": 6,
+    "delay_s": 0.30000000000000004,
+    "swept_unsafe": false,
+    "dense_unsafe": false
+  },
+  {
+    "seed": 6,
+    "delay_s": 0.4,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 6,
+    "delay_s": 0.5,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 6,
+    "delay_s": 0.6000000000000001,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 6,
+    "delay_s": 0.7000000000000001,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 6,
+    "delay_s": 0.8,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 6,
+    "delay_s": 0.9,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 6,
+    "delay_s": 1.0,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 7,
+    "delay_s": 0.0,
+    "swept_unsafe": false,
+    "dense_unsafe": false
+  },
+  {
+    "seed": 7,
+    "delay_s": 0.1,
+    "swept_unsafe": false,
+    "dense_unsafe": false
+  },
+  {
+    "seed": 7,
+    "delay_s": 0.2,
+    "swept_unsafe": false,
+    "dense_unsafe": false
+  },
+  {
+    "seed": 7,
+    "delay_s": 0.30000000000000004,
+    "swept_unsafe": false,
+    "dense_unsafe": false
+  },
+  {
+    "seed": 7,
+    "delay_s": 0.4,
+    "swept_unsafe": false,
+    "dense_unsafe": false
+  },
+  {
+    "seed": 7,
+    "delay_s": 0.5,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 7,
+    "delay_s": 0.6000000000000001,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 7,
+    "delay_s": 0.7000000000000001,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 7,
+    "delay_s": 0.8,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 7,
+    "delay_s": 0.9,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 7,
+    "delay_s": 1.0,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 8,
+    "delay_s": 0.0,
+    "swept_unsafe": false,
+    "dense_unsafe": false
+  },
+  {
+    "seed": 8,
+    "delay_s": 0.1,
+    "swept_unsafe": false,
+    "dense_unsafe": false
+  },
+  {
+    "seed": 8,
+    "delay_s": 0.2,
+    "swept_unsafe": false,
+    "dense_unsafe": false
+  },
+  {
+    "seed": 8,
+    "delay_s": 0.30000000000000004,
+    "swept_unsafe": false,
+    "dense_unsafe": false
+  },
+  {
+    "seed": 8,
+    "delay_s": 0.4,
+    "swept_unsafe": false,
+    "dense_unsafe": false
+  },
+  {
+    "seed": 8,
+    "delay_s": 0.5,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 8,
+    "delay_s": 0.6000000000000001,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 8,
+    "delay_s": 0.7000000000000001,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 8,
+    "delay_s": 0.8,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 8,
+    "delay_s": 0.9,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 8,
+    "delay_s": 1.0,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 9,
+    "delay_s": 0.0,
+    "swept_unsafe": false,
+    "dense_unsafe": false
+  },
+  {
+    "seed": 9,
+    "delay_s": 0.1,
+    "swept_unsafe": false,
+    "dense_unsafe": false
+  },
+  {
+    "seed": 9,
+    "delay_s": 0.2,
+    "swept_unsafe": false,
+    "dense_unsafe": false
+  },
+  {
+    "seed": 9,
+    "delay_s": 0.30000000000000004,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 9,
+    "delay_s": 0.4,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 9,
+    "delay_s": 0.5,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 9,
+    "delay_s": 0.6000000000000001,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 9,
+    "delay_s": 0.7000000000000001,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 9,
+    "delay_s": 0.8,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 9,
+    "delay_s": 0.9,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 9,
+    "delay_s": 1.0,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 10,
+    "delay_s": 0.0,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 10,
+    "delay_s": 0.1,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 10,
+    "delay_s": 0.2,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 10,
+    "delay_s": 0.30000000000000004,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 10,
+    "delay_s": 0.4,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 10,
+    "delay_s": 0.5,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 10,
+    "delay_s": 0.6000000000000001,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 10,
+    "delay_s": 0.7000000000000001,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 10,
+    "delay_s": 0.8,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 10,
+    "delay_s": 0.9,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 10,
+    "delay_s": 1.0,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 11,
+    "delay_s": 0.0,
+    "swept_unsafe": false,
+    "dense_unsafe": false
+  },
+  {
+    "seed": 11,
+    "delay_s": 0.1,
+    "swept_unsafe": false,
+    "dense_unsafe": false
+  },
+  {
+    "seed": 11,
+    "delay_s": 0.2,
+    "swept_unsafe": false,
+    "dense_unsafe": false
+  },
+  {
+    "seed": 11,
+    "delay_s": 0.30000000000000004,
+    "swept_unsafe": false,
+    "dense_unsafe": false
+  },
+  {
+    "seed": 11,
+    "delay_s": 0.4,
+    "swept_unsafe": false,
+    "dense_unsafe": false
+  },
+  {
+    "seed": 11,
+    "delay_s": 0.5,
+    "swept_unsafe": false,
+    "dense_unsafe": false
+  },
+  {
+    "seed": 11,
+    "delay_s": 0.6000000000000001,
+    "swept_unsafe": false,
+    "dense_unsafe": false
+  },
+  {
+    "seed": 11,
+    "delay_s": 0.7000000000000001,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 11,
+    "delay_s": 0.8,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 11,
+    "delay_s": 0.9,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 11,
+    "delay_s": 1.0,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 12,
+    "delay_s": 0.0,
+    "swept_unsafe": false,
+    "dense_unsafe": false
+  },
+  {
+    "seed": 12,
+    "delay_s": 0.1,
+    "swept_unsafe": false,
+    "dense_unsafe": false
+  },
+  {
+    "seed": 12,
+    "delay_s": 0.2,
+    "swept_unsafe": false,
+    "dense_unsafe": false
+  },
+  {
+    "seed": 12,
+    "delay_s": 0.30000000000000004,
+    "swept_unsafe": false,
+    "dense_unsafe": false
+  },
+  {
+    "seed": 12,
+    "delay_s": 0.4,
+    "swept_unsafe": false,
+    "dense_unsafe": false
+  },
+  {
+    "seed": 12,
+    "delay_s": 0.5,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 12,
+    "delay_s": 0.6000000000000001,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 12,
+    "delay_s": 0.7000000000000001,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 12,
+    "delay_s": 0.8,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 12,
+    "delay_s": 0.9,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 12,
+    "delay_s": 1.0,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 13,
+    "delay_s": 0.0,
+    "swept_unsafe": false,
+    "dense_unsafe": false
+  },
+  {
+    "seed": 13,
+    "delay_s": 0.1,
+    "swept_unsafe": false,
+    "dense_unsafe": false
+  },
+  {
+    "seed": 13,
+    "delay_s": 0.2,
+    "swept_unsafe": false,
+    "dense_unsafe": false
+  },
+  {
+    "seed": 13,
+    "delay_s": 0.30000000000000004,
+    "swept_unsafe": false,
+    "dense_unsafe": false
+  },
+  {
+    "seed": 13,
+    "delay_s": 0.4,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 13,
+    "delay_s": 0.5,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 13,
+    "delay_s": 0.6000000000000001,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 13,
+    "delay_s": 0.7000000000000001,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 13,
+    "delay_s": 0.8,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 13,
+    "delay_s": 0.9,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 13,
+    "delay_s": 1.0,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 14,
+    "delay_s": 0.0,
+    "swept_unsafe": false,
+    "dense_unsafe": false
+  },
+  {
+    "seed": 14,
+    "delay_s": 0.1,
+    "swept_unsafe": false,
+    "dense_unsafe": false
+  },
+  {
+    "seed": 14,
+    "delay_s": 0.2,
+    "swept_unsafe": false,
+    "dense_unsafe": false
+  },
+  {
+    "seed": 14,
+    "delay_s": 0.30000000000000004,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 14,
+    "delay_s": 0.4,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 14,
+    "delay_s": 0.5,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 14,
+    "delay_s": 0.6000000000000001,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 14,
+    "delay_s": 0.7000000000000001,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 14,
+    "delay_s": 0.8,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 14,
+    "delay_s": 0.9,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 14,
+    "delay_s": 1.0,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 15,
+    "delay_s": 0.0,
+    "swept_unsafe": false,
+    "dense_unsafe": false
+  },
+  {
+    "seed": 15,
+    "delay_s": 0.1,
+    "swept_unsafe": false,
+    "dense_unsafe": false
+  },
+  {
+    "seed": 15,
+    "delay_s": 0.2,
+    "swept_unsafe": false,
+    "dense_unsafe": false
+  },
+  {
+    "seed": 15,
+    "delay_s": 0.30000000000000004,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 15,
+    "delay_s": 0.4,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 15,
+    "delay_s": 0.5,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 15,
+    "delay_s": 0.6000000000000001,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 15,
+    "delay_s": 0.7000000000000001,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 15,
+    "delay_s": 0.8,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 15,
+    "delay_s": 0.9,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 15,
+    "delay_s": 1.0,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 17,
+    "delay_s": 0.0,
+    "swept_unsafe": false,
+    "dense_unsafe": false
+  },
+  {
+    "seed": 17,
+    "delay_s": 0.1,
+    "swept_unsafe": false,
+    "dense_unsafe": false
+  },
+  {
+    "seed": 17,
+    "delay_s": 0.2,
+    "swept_unsafe": false,
+    "dense_unsafe": false
+  },
+  {
+    "seed": 17,
+    "delay_s": 0.30000000000000004,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 17,
+    "delay_s": 0.4,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 17,
+    "delay_s": 0.5,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 17,
+    "delay_s": 0.6000000000000001,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 17,
+    "delay_s": 0.7000000000000001,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 17,
+    "delay_s": 0.8,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 17,
+    "delay_s": 0.9,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 17,
+    "delay_s": 1.0,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 18,
+    "delay_s": 0.0,
+    "swept_unsafe": false,
+    "dense_unsafe": false
+  },
+  {
+    "seed": 18,
+    "delay_s": 0.1,
+    "swept_unsafe": false,
+    "dense_unsafe": false
+  },
+  {
+    "seed": 18,
+    "delay_s": 0.2,
+    "swept_unsafe": false,
+    "dense_unsafe": false
+  },
+  {
+    "seed": 18,
+    "delay_s": 0.30000000000000004,
+    "swept_unsafe": false,
+    "dense_unsafe": false
+  },
+  {
+    "seed": 18,
+    "delay_s": 0.4,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 18,
+    "delay_s": 0.5,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 18,
+    "delay_s": 0.6000000000000001,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 18,
+    "delay_s": 0.7000000000000001,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 18,
+    "delay_s": 0.8,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 18,
+    "delay_s": 0.9,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 18,
+    "delay_s": 1.0,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 19,
+    "delay_s": 0.0,
+    "swept_unsafe": false,
+    "dense_unsafe": false
+  },
+  {
+    "seed": 19,
+    "delay_s": 0.1,
+    "swept_unsafe": false,
+    "dense_unsafe": false
+  },
+  {
+    "seed": 19,
+    "delay_s": 0.2,
+    "swept_unsafe": false,
+    "dense_unsafe": false
+  },
+  {
+    "seed": 19,
+    "delay_s": 0.30000000000000004,
+    "swept_unsafe": false,
+    "dense_unsafe": false
+  },
+  {
+    "seed": 19,
+    "delay_s": 0.4,
+    "swept_unsafe": false,
+    "dense_unsafe": false
+  },
+  {
+    "seed": 19,
+    "delay_s": 0.5,
+    "swept_unsafe": false,
+    "dense_unsafe": false
+  },
+  {
+    "seed": 19,
+    "delay_s": 0.6000000000000001,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 19,
+    "delay_s": 0.7000000000000001,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 19,
+    "delay_s": 0.8,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 19,
+    "delay_s": 0.9,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  },
+  {
+    "seed": 19,
+    "delay_s": 1.0,
+    "swept_unsafe": true,
+    "dense_unsafe": true
+  }
+]

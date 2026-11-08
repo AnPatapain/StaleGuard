@@ -1,0 +1,15 @@
+pybullet build time: Jan 29 2025 23:16:28
+/home/kean/miniconda3/envs/scg/lib/python3.10/site-packages/gymnasium/spaces/box.py:130: UserWarning: [33mWARN: Box bound precision lowered by casting to float32[0m
+  gym.logger.warn(f"Box bound precision lowered by casting to {self.dtype}")
+/home/kean/miniconda3/envs/scg/lib/python3.10/site-packages/gymnasium/spaces/box.py:130: UserWarning: [33mWARN: Box bound precision lowered by casting to float32[0m
+  gym.logger.warn(f"Box bound precision lowered by casting to {self.dtype}")
+original seed=0: candidates=30 D0-feasible=14 first/max dwell(ms)=213/261
+original seed=1: candidates=38 D0-feasible=5 first/max dwell(ms)=188/188
+original seed=2: candidates=297 D0-feasible=120 first/max dwell(ms)=240/487
+original seed=3: candidates=369 D0-feasible=170 first/max dwell(ms)=225/579
+original seed=4: reused complete D=0 inventory
+original seed=5: reused complete D=0 inventory
+original seed=6: reused complete D=0 inventory
+original seed=7: reused complete D=0 inventory
+original seed=8: reused complete D=0 inventory
+original seed=9: reused complete D=0 inventory

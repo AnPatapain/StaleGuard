@@ -1,0 +1,45 @@
+{
+  "initial_complete_cache_entries": [
+    {
+      "file": "2ab32ddfc1d0a04fd53b825a9891d0613c00599c22accd3662c44b20de38db18.json",
+      "candidate_count": 68,
+      "best_safe_dwell_ticks": 420,
+      "valid_json_and_filename": true
+    },
+    {
+      "file": "b31b27fc090989f5b5560f86452cf88186096051ed2eef184995535ab7b13ef5.json",
+      "candidate_count": 52,
+      "best_safe_dwell_ticks": 349,
+      "valid_json_and_filename": true
+    },
+    {
+      "file": "80c0ed64a743200939b02a8b45f95398d1868520571f9166ef8c1fdcfc5dd0f9.json",
+      "candidate_count": 38,
+      "best_safe_dwell_ticks": 188,
+      "valid_json_and_filename": true
+    },
+    {
+      "file": "1717e9fb7be700301e105ed1191972c7a7961f79d7bbf3a30115957e7e1d9ca6.json",
+      "candidate_count": 72,
+      "best_safe_dwell_ticks": 326,
+      "valid_json_and_filename": true
+    },
+    {
+      "file": "67c7aa06a40fd4e0762c73167b78ef3635271f5404a9a5a67389dce412a00658.json",
+      "candidate_count": 30,
+      "best_safe_dwell_ticks": 261,
+      "valid_json_and_filename": true
+    }
+  ],
+  "initial_malformed_json_files": 0,
+  "initial_partial_cache_files": 0,
+  "initial_abandoned_empty_temporary_directories": 16,
+  "previous_parallel_pools": 2,
+  "previous_workers_per_pool": 8,
+  "kernel_oom_confirmation": "Unavailable: previous-boot kernel journal inaccessible",
+  "preserved_previous_logs": [
+    "calibration.log",
+    "calibration_initial.log"
+  ],
+  "preserved_pre_cleanup_source": "../before/"
+}

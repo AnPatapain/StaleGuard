@@ -1,0 +1,309 @@
+pybullet build time: Jan 29 2025 23:16:28
+{
+  "totals": {
+    "StaleGuard": {
+      "N": 209,
+      "unsafe": 2,
+      "safe_completion": 59,
+      "safe_non_completion": 148,
+      "fallbacks": 127
+    },
+    "No Recovery": {
+      "N": 209,
+      "unsafe": 128,
+      "safe_completion": 59,
+      "safe_non_completion": 22,
+      "fallbacks": 0
+    },
+    "Always-Recover": {
+      "N": 209,
+      "unsafe": 0,
+      "safe_completion": 19,
+      "safe_non_completion": 190,
+      "fallbacks": 190
+    },
+    "Use-Time Recheck": {
+      "N": 209,
+      "unsafe": 1,
+      "safe_completion": 55,
+      "safe_non_completion": 153,
+      "fallbacks": 130
+    },
+    "FBS": {
+      "N": 209,
+      "unsafe": 128,
+      "safe_completion": 59,
+      "safe_non_completion": 22,
+      "fallbacks": 0
+    }
+  },
+  "actual_new_flights": 209,
+  "reused_prior_flights": 836,
+  "infeasible_seeds": [
+    16
+  ],
+  "per_delay": [
+    {
+      "delay_s": 0.0,
+      "fbs": {
+        "N": 19,
+        "unsafe": 0,
+        "safe_completion": 19,
+        "safe_non_completion": 0,
+        "fallbacks": 0
+      },
+      "ready": 0
+    },
+    {
+      "delay_s": 0.1,
+      "fbs": {
+        "N": 19,
+        "unsafe": 1,
+        "safe_completion": 16,
+        "safe_non_completion": 2,
+        "fallbacks": 0
+      },
+      "ready": 19
+    },
+    {
+      "delay_s": 0.2,
+      "fbs": {
+        "N": 19,
+        "unsafe": 2,
+        "safe_completion": 12,
+        "safe_non_completion": 5,
+        "fallbacks": 0
+      },
+      "ready": 19
+    },
+    {
+      "delay_s": 0.3,
+      "fbs": {
+        "N": 19,
+        "unsafe": 6,
+        "safe_completion": 5,
+        "safe_non_completion": 8,
+        "fallbacks": 0
+      },
+      "ready": 19
+    },
+    {
+      "delay_s": 0.4,
+      "fbs": {
+        "N": 19,
+        "unsafe": 12,
+        "safe_completion": 3,
+        "safe_non_completion": 4,
+        "fallbacks": 0
+      },
+      "ready": 19
+    },
+    {
+      "delay_s": 0.5,
+      "fbs": {
+        "N": 19,
+        "unsafe": 14,
+        "safe_completion": 3,
+        "safe_non_completion": 2,
+        "fallbacks": 0
+      },
+      "ready": 19
+    },
+    {
+      "delay_s": 0.6,
+      "fbs": {
+        "N": 19,
+        "unsafe": 17,
+        "safe_completion": 1,
+        "safe_non_completion": 1,
+        "fallbacks": 0
+      },
+      "ready": 19
+    },
+    {
+      "delay_s": 0.7,
+      "fbs": {
+        "N": 19,
+        "unsafe": 19,
+        "safe_completion": 0,
+        "safe_non_completion": 0,
+        "fallbacks": 0
+      },
+      "ready": 19
+    },
+    {
+      "delay_s": 0.8,
+      "fbs": {
+        "N": 19,
+        "unsafe": 19,
+        "safe_completion": 0,
+        "safe_non_completion": 0,
+        "fallbacks": 0
+      },
+      "ready": 19
+    },
+    {
+      "delay_s": 0.9,
+      "fbs": {
+        "N": 19,
+        "unsafe": 19,
+        "safe_completion": 0,
+        "safe_non_completion": 0,
+        "fallbacks": 0
+      },
+      "ready": 19
+    },
+    {
+      "delay_s": 1.0,
+      "fbs": {
+        "N": 19,
+        "unsafe": 19,
+        "safe_completion": 0,
+        "safe_non_completion": 0,
+        "fallbacks": 0
+      },
+      "ready": 19
+    }
+  ],
+  "approval_computation_us": {
+    "min": 6.122005288489163,
+    "mean": 12.458904070387545,
+    "median": 10.90099976863712,
+    "p95": 24.759798543527715,
+    "max": 38.825004594400525
+  },
+  "observation_update_us": {
+    "min": 2.435001078993082,
+    "mean": 5.146400055948746,
+    "median": 3.9505030144937336,
+    "p95": 11.077051749452947,
+    "max": 34.81800376903266
+  },
+  "prior_monitoring_total_us": {
+    "min": 0.0,
+    "mean": 40.087747804232336,
+    "median": 35.886027035303414,
+    "p95": 108.38862508535384,
+    "max": 168.18902804516256
+  },
+  "ttl_steps": {
+    "min": 167.0,
+    "mean": 207.73684210526315,
+    "median": 210.0,
+    "p95": 210.0,
+    "max": 210.0
+  },
+  "ttl_seconds": {
+    "min": 3.34,
+    "mean": 4.1547368421052635,
+    "median": 4.2,
+    "p95": 4.2,
+    "max": 4.2
+  },
+  "ttl_histogram": {
+    "167": 1,
+    "210": 18
+  },
+  "approvals_at_max_ttl": 18,
+  "ready": 190,
+  "unavailable": 19,
+  "cold_start_seeds": [
+    0,
+    1,
+    12,
+    15,
+    18
+  ],
+  "cold_start": {
+    "N": 55,
+    "unsafe": 32,
+    "safe_completion": 11,
+    "safe_non_completion": 12,
+    "fallbacks": 0
+  },
+  "with_history": {
+    "N": 154,
+    "unsafe": 96,
+    "safe_completion": 48,
+    "safe_non_completion": 10,
+    "fallbacks": 0
+  },
+  "epsilon_sensitivity": [
+    {
+      "epsilon_m_per_sample": 1e-12,
+      "decisions_changed": 0,
+      "metrics": {
+        "N": 209,
+        "unsafe": 128,
+        "safe_completion": 59,
+        "safe_non_completion": 22,
+        "fallbacks": 0
+      },
+      "ttl_steps": {
+        "min": 167.0,
+        "mean": 207.73684210526315,
+        "median": 210.0,
+        "p95": 210.0,
+        "max": 210.0
+      }
+    },
+    {
+      "epsilon_m_per_sample": 1e-15,
+      "decisions_changed": 0,
+      "metrics": {
+        "N": 209,
+        "unsafe": 128,
+        "safe_completion": 59,
+        "safe_non_completion": 22,
+        "fallbacks": 0
+      },
+      "ttl_steps": {
+        "min": 167.0,
+        "mean": 207.73684210526315,
+        "median": 210.0,
+        "p95": 210.0,
+        "max": 210.0
+      }
+    },
+    {
+      "epsilon_m_per_sample": 1e-09,
+      "decisions_changed": 0,
+      "metrics": {
+        "N": 209,
+        "unsafe": 128,
+        "safe_completion": 59,
+        "safe_non_completion": 22,
+        "fallbacks": 0
+      },
+      "ttl_steps": {
+        "min": 167.0,
+        "mean": 207.73684210526315,
+        "median": 210.0,
+        "p95": 210.0,
+        "max": 210.0
+      }
+    },
+    {
+      "epsilon_m_per_sample": 1e-06,
+      "decisions_changed": 0,
+      "metrics": {
+        "N": 209,
+        "unsafe": 128,
+        "safe_completion": 59,
+        "safe_non_completion": 22,
+        "fallbacks": 0
+      },
+      "ttl_steps": {
+        "min": 167.0,
+        "mean": 207.73684210526315,
+        "median": 210.0,
+        "p95": 210.0,
+        "max": 210.0
+      }
+    }
+  ],
+  "false_rejection_safe_completion_losses": 0,
+  "reference_trace_matches": 209,
+  "max_worker_rss_mib": 636.390625,
+  "timing_model": "Measured final approval-update/TTL time; availability at scheduled simulated dispatch; fail-open, no postponed application."
+}

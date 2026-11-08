@@ -1,0 +1,15 @@
+seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,false_safe_decisions,false_reject_decisions,unsafe_prevented,unsafe_introduced,safe_completions_lost
+1001,no_recovery,3,1,2,0,0,,,,,
+1001,always_recover,3,0,0,3,2,,,1,0,2
+1001,fbs,3,1,2,0,0,1,0,0,0,0
+1001,use_time_recheck,3,1,2,1,0,0,0,0,0,0
+1001,staleguard,3,1,2,0,0,1,0,0,0,0
+1001,staleguard_early_recovery,3,1,2,0,0,1,0,0,0,0
+1001,fixed_early_recovery,3,0,1,2,2,,,1,0,1
+1002,no_recovery,3,2,1,0,0,,,,,
+1002,always_recover,3,0,0,3,2,,,2,0,1
+1002,fbs,3,2,1,0,0,2,0,0,0,0
+1002,use_time_recheck,3,0,1,2,0,0,0,2,0,0
+1002,staleguard,3,0,1,2,0,0,0,2,0,0
+1002,staleguard_early_recovery,3,0,1,2,1,0,0,2,0,0
+1002,fixed_early_recovery,3,0,1,2,2,,,2,0,0

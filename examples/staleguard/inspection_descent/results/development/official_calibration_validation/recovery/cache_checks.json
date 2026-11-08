@@ -1,0 +1,18 @@
+{
+  "hits": 20,
+  "invalidations": [
+    "scenario parameters",
+    "inspection dwell setting",
+    "calibration deadline",
+    "effective pid configuration",
+    "effective quadrotor configuration",
+    "experiment.py",
+    "staleguard_benefit.py",
+    "max_dwell_calibration.py",
+    "SCG PID source",
+    "simulation library version"
+  ],
+  "damaged_caches_rejected": 2,
+  "simulation_exception_propagated": true,
+  "all_infeasible_reported": true
+}

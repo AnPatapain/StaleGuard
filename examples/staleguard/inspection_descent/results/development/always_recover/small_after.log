@@ -1,0 +1,333 @@
+Calibration feasible: 1/1
+Infeasible seeds: none
+Policy rates use feasible scenarios; calibration failures are excluded.
+==============================================================================
+D = 0.0s | T = 4.2s | N = 1
+==============================================================================
+
+MISSION OUTCOMES
+                                 No Recovery   Always-Recover       StaleGuard
+------------------------------------------------------------------------------
+Inspection completed            1/1 (100.0%)     1/1 (100.0%)     1/1 (100.0%)
+Unsafe entry                      0/1 (0.0%)       0/1 (0.0%)       0/1 (0.0%)
+Safe mission completion         1/1 (100.0%)     1/1 (100.0%)     1/1 (100.0%)
+
+RECOVERY DECISIONS
+------------------------------------------------------------------------------
+Recovery triggered                0/1 (0.0%)       0/1 (0.0%)       0/1 (0.0%)
+Successful recoveries              N/A (0/0)        N/A (0/0)        N/A (0/0)
+
+STALEGUARD vs NO RECOVERY
+------------------------------------------------------------------------------
+Recovery benefit           0/1 (0.0%)
+Recovery harm              0/1 (0.0%)
+Net benefit                +0.0 percentage points
+
+STALEGUARD vs ALWAYS-RECOVER (StaleGuard minus Always-Recover)
+------------------------------------------------------------------------------
+Safe mission completion difference  +0.0 percentage points
+StaleGuard-only successes           0/1 (0.0%)
+Always-Recover-only successes       0/1 (0.0%)
+Recovery frequency difference       +0.0 percentage points
+==============================================================================
+
+==============================================================================
+D = 0.1s | T = 4.2s | N = 1
+==============================================================================
+
+MISSION OUTCOMES
+                                 No Recovery   Always-Recover       StaleGuard
+------------------------------------------------------------------------------
+Inspection completed            1/1 (100.0%)     1/1 (100.0%)     1/1 (100.0%)
+Unsafe entry                      0/1 (0.0%)       0/1 (0.0%)       0/1 (0.0%)
+Safe mission completion         1/1 (100.0%)     1/1 (100.0%)     1/1 (100.0%)
+
+RECOVERY DECISIONS
+------------------------------------------------------------------------------
+Recovery triggered                0/1 (0.0%)     1/1 (100.0%)       0/1 (0.0%)
+Successful recoveries              N/A (0/0)     1/1 (100.0%)        N/A (0/0)
+
+STALEGUARD vs NO RECOVERY
+------------------------------------------------------------------------------
+Recovery benefit           0/1 (0.0%)
+Recovery harm              0/1 (0.0%)
+Net benefit                +0.0 percentage points
+
+STALEGUARD vs ALWAYS-RECOVER (StaleGuard minus Always-Recover)
+------------------------------------------------------------------------------
+Safe mission completion difference  +0.0 percentage points
+StaleGuard-only successes           0/1 (0.0%)
+Always-Recover-only successes       0/1 (0.0%)
+Recovery frequency difference       -100.0 percentage points
+==============================================================================
+
+==============================================================================
+D = 0.2s | T = 4.2s | N = 1
+==============================================================================
+
+MISSION OUTCOMES
+                                 No Recovery   Always-Recover       StaleGuard
+------------------------------------------------------------------------------
+Inspection completed              0/1 (0.0%)     1/1 (100.0%)       0/1 (0.0%)
+Unsafe entry                      0/1 (0.0%)       0/1 (0.0%)       0/1 (0.0%)
+Safe mission completion           0/1 (0.0%)     1/1 (100.0%)       0/1 (0.0%)
+
+RECOVERY DECISIONS
+------------------------------------------------------------------------------
+Recovery triggered                0/1 (0.0%)     1/1 (100.0%)       0/1 (0.0%)
+Successful recoveries              N/A (0/0)     1/1 (100.0%)        N/A (0/0)
+
+STALEGUARD vs NO RECOVERY
+------------------------------------------------------------------------------
+Recovery benefit           0/1 (0.0%)
+Recovery harm              0/1 (0.0%)
+Net benefit                +0.0 percentage points
+
+STALEGUARD vs ALWAYS-RECOVER (StaleGuard minus Always-Recover)
+------------------------------------------------------------------------------
+Safe mission completion difference  -100.0 percentage points
+StaleGuard-only successes           0/1 (0.0%)
+Always-Recover-only successes       1/1 (100.0%)
+Recovery frequency difference       -100.0 percentage points
+==============================================================================
+
+==============================================================================
+D = 0.3s | T = 4.2s | N = 1
+==============================================================================
+
+MISSION OUTCOMES
+                                 No Recovery   Always-Recover       StaleGuard
+------------------------------------------------------------------------------
+Inspection completed              0/1 (0.0%)     1/1 (100.0%)       0/1 (0.0%)
+Unsafe entry                      0/1 (0.0%)       0/1 (0.0%)       0/1 (0.0%)
+Safe mission completion           0/1 (0.0%)     1/1 (100.0%)       0/1 (0.0%)
+
+RECOVERY DECISIONS
+------------------------------------------------------------------------------
+Recovery triggered                0/1 (0.0%)     1/1 (100.0%)       0/1 (0.0%)
+Successful recoveries              N/A (0/0)     1/1 (100.0%)        N/A (0/0)
+
+STALEGUARD vs NO RECOVERY
+------------------------------------------------------------------------------
+Recovery benefit           0/1 (0.0%)
+Recovery harm              0/1 (0.0%)
+Net benefit                +0.0 percentage points
+
+STALEGUARD vs ALWAYS-RECOVER (StaleGuard minus Always-Recover)
+------------------------------------------------------------------------------
+Safe mission completion difference  -100.0 percentage points
+StaleGuard-only successes           0/1 (0.0%)
+Always-Recover-only successes       1/1 (100.0%)
+Recovery frequency difference       -100.0 percentage points
+==============================================================================
+
+==============================================================================
+D = 0.4s | T = 4.2s | N = 1
+==============================================================================
+
+MISSION OUTCOMES
+                                 No Recovery   Always-Recover       StaleGuard
+------------------------------------------------------------------------------
+Inspection completed              0/1 (0.0%)     1/1 (100.0%)       0/1 (0.0%)
+Unsafe entry                      0/1 (0.0%)       0/1 (0.0%)       0/1 (0.0%)
+Safe mission completion           0/1 (0.0%)     1/1 (100.0%)       0/1 (0.0%)
+
+RECOVERY DECISIONS
+------------------------------------------------------------------------------
+Recovery triggered                0/1 (0.0%)     1/1 (100.0%)       0/1 (0.0%)
+Successful recoveries              N/A (0/0)     1/1 (100.0%)        N/A (0/0)
+
+STALEGUARD vs NO RECOVERY
+------------------------------------------------------------------------------
+Recovery benefit           0/1 (0.0%)
+Recovery harm              0/1 (0.0%)
+Net benefit                +0.0 percentage points
+
+STALEGUARD vs ALWAYS-RECOVER (StaleGuard minus Always-Recover)
+------------------------------------------------------------------------------
+Safe mission completion difference  -100.0 percentage points
+StaleGuard-only successes           0/1 (0.0%)
+Always-Recover-only successes       1/1 (100.0%)
+Recovery frequency difference       -100.0 percentage points
+==============================================================================
+
+==============================================================================
+D = 0.5s | T = 4.2s | N = 1
+==============================================================================
+
+MISSION OUTCOMES
+                                 No Recovery   Always-Recover       StaleGuard
+------------------------------------------------------------------------------
+Inspection completed              0/1 (0.0%)     1/1 (100.0%)     1/1 (100.0%)
+Unsafe entry                    1/1 (100.0%)       0/1 (0.0%)       0/1 (0.0%)
+Safe mission completion           0/1 (0.0%)     1/1 (100.0%)     1/1 (100.0%)
+
+RECOVERY DECISIONS
+------------------------------------------------------------------------------
+Recovery triggered                0/1 (0.0%)     1/1 (100.0%)     1/1 (100.0%)
+Successful recoveries              N/A (0/0)     1/1 (100.0%)     1/1 (100.0%)
+
+STALEGUARD vs NO RECOVERY
+------------------------------------------------------------------------------
+Recovery benefit           1/1 (100.0%)
+Recovery harm              0/1 (0.0%)
+Net benefit                +100.0 percentage points
+
+STALEGUARD vs ALWAYS-RECOVER (StaleGuard minus Always-Recover)
+------------------------------------------------------------------------------
+Safe mission completion difference  +0.0 percentage points
+StaleGuard-only successes           0/1 (0.0%)
+Always-Recover-only successes       0/1 (0.0%)
+Recovery frequency difference       +0.0 percentage points
+==============================================================================
+
+==============================================================================
+D = 0.6s | T = 4.2s | N = 1
+==============================================================================
+
+MISSION OUTCOMES
+                                 No Recovery   Always-Recover       StaleGuard
+------------------------------------------------------------------------------
+Inspection completed              0/1 (0.0%)     1/1 (100.0%)     1/1 (100.0%)
+Unsafe entry                    1/1 (100.0%)       0/1 (0.0%)       0/1 (0.0%)
+Safe mission completion           0/1 (0.0%)     1/1 (100.0%)     1/1 (100.0%)
+
+RECOVERY DECISIONS
+------------------------------------------------------------------------------
+Recovery triggered                0/1 (0.0%)     1/1 (100.0%)     1/1 (100.0%)
+Successful recoveries              N/A (0/0)     1/1 (100.0%)     1/1 (100.0%)
+
+STALEGUARD vs NO RECOVERY
+------------------------------------------------------------------------------
+Recovery benefit           1/1 (100.0%)
+Recovery harm              0/1 (0.0%)
+Net benefit                +100.0 percentage points
+
+STALEGUARD vs ALWAYS-RECOVER (StaleGuard minus Always-Recover)
+------------------------------------------------------------------------------
+Safe mission completion difference  +0.0 percentage points
+StaleGuard-only successes           0/1 (0.0%)
+Always-Recover-only successes       0/1 (0.0%)
+Recovery frequency difference       +0.0 percentage points
+==============================================================================
+
+==============================================================================
+D = 0.7s | T = 4.2s | N = 1
+==============================================================================
+
+MISSION OUTCOMES
+                                 No Recovery   Always-Recover       StaleGuard
+------------------------------------------------------------------------------
+Inspection completed              0/1 (0.0%)     1/1 (100.0%)     1/1 (100.0%)
+Unsafe entry                    1/1 (100.0%)       0/1 (0.0%)       0/1 (0.0%)
+Safe mission completion           0/1 (0.0%)     1/1 (100.0%)     1/1 (100.0%)
+
+RECOVERY DECISIONS
+------------------------------------------------------------------------------
+Recovery triggered                0/1 (0.0%)     1/1 (100.0%)     1/1 (100.0%)
+Successful recoveries              N/A (0/0)     1/1 (100.0%)     1/1 (100.0%)
+
+STALEGUARD vs NO RECOVERY
+------------------------------------------------------------------------------
+Recovery benefit           1/1 (100.0%)
+Recovery harm              0/1 (0.0%)
+Net benefit                +100.0 percentage points
+
+STALEGUARD vs ALWAYS-RECOVER (StaleGuard minus Always-Recover)
+------------------------------------------------------------------------------
+Safe mission completion difference  +0.0 percentage points
+StaleGuard-only successes           0/1 (0.0%)
+Always-Recover-only successes       0/1 (0.0%)
+Recovery frequency difference       +0.0 percentage points
+==============================================================================
+
+==============================================================================
+D = 0.8s | T = 4.2s | N = 1
+==============================================================================
+
+MISSION OUTCOMES
+                                 No Recovery   Always-Recover       StaleGuard
+------------------------------------------------------------------------------
+Inspection completed              0/1 (0.0%)     1/1 (100.0%)     1/1 (100.0%)
+Unsafe entry                    1/1 (100.0%)       0/1 (0.0%)       0/1 (0.0%)
+Safe mission completion           0/1 (0.0%)     1/1 (100.0%)     1/1 (100.0%)
+
+RECOVERY DECISIONS
+------------------------------------------------------------------------------
+Recovery triggered                0/1 (0.0%)     1/1 (100.0%)     1/1 (100.0%)
+Successful recoveries              N/A (0/0)     1/1 (100.0%)     1/1 (100.0%)
+
+STALEGUARD vs NO RECOVERY
+------------------------------------------------------------------------------
+Recovery benefit           1/1 (100.0%)
+Recovery harm              0/1 (0.0%)
+Net benefit                +100.0 percentage points
+
+STALEGUARD vs ALWAYS-RECOVER (StaleGuard minus Always-Recover)
+------------------------------------------------------------------------------
+Safe mission completion difference  +0.0 percentage points
+StaleGuard-only successes           0/1 (0.0%)
+Always-Recover-only successes       0/1 (0.0%)
+Recovery frequency difference       +0.0 percentage points
+==============================================================================
+
+==============================================================================
+D = 0.9s | T = 4.2s | N = 1
+==============================================================================
+
+MISSION OUTCOMES
+                                 No Recovery   Always-Recover       StaleGuard
+------------------------------------------------------------------------------
+Inspection completed              0/1 (0.0%)     1/1 (100.0%)     1/1 (100.0%)
+Unsafe entry                    1/1 (100.0%)       0/1 (0.0%)       0/1 (0.0%)
+Safe mission completion           0/1 (0.0%)     1/1 (100.0%)     1/1 (100.0%)
+
+RECOVERY DECISIONS
+------------------------------------------------------------------------------
+Recovery triggered                0/1 (0.0%)     1/1 (100.0%)     1/1 (100.0%)
+Successful recoveries              N/A (0/0)     1/1 (100.0%)     1/1 (100.0%)
+
+STALEGUARD vs NO RECOVERY
+------------------------------------------------------------------------------
+Recovery benefit           1/1 (100.0%)
+Recovery harm              0/1 (0.0%)
+Net benefit                +100.0 percentage points
+
+STALEGUARD vs ALWAYS-RECOVER (StaleGuard minus Always-Recover)
+------------------------------------------------------------------------------
+Safe mission completion difference  +0.0 percentage points
+StaleGuard-only successes           0/1 (0.0%)
+Always-Recover-only successes       0/1 (0.0%)
+Recovery frequency difference       +0.0 percentage points
+==============================================================================
+
+==============================================================================
+D = 1.0s | T = 4.2s | N = 1
+==============================================================================
+
+MISSION OUTCOMES
+                                 No Recovery   Always-Recover       StaleGuard
+------------------------------------------------------------------------------
+Inspection completed              0/1 (0.0%)     1/1 (100.0%)     1/1 (100.0%)
+Unsafe entry                    1/1 (100.0%)       0/1 (0.0%)       0/1 (0.0%)
+Safe mission completion           0/1 (0.0%)     1/1 (100.0%)     1/1 (100.0%)
+
+RECOVERY DECISIONS
+------------------------------------------------------------------------------
+Recovery triggered                0/1 (0.0%)     1/1 (100.0%)     1/1 (100.0%)
+Successful recoveries              N/A (0/0)     1/1 (100.0%)     1/1 (100.0%)
+
+STALEGUARD vs NO RECOVERY
+------------------------------------------------------------------------------
+Recovery benefit           1/1 (100.0%)
+Recovery harm              0/1 (0.0%)
+Net benefit                +100.0 percentage points
+
+STALEGUARD vs ALWAYS-RECOVER (StaleGuard minus Always-Recover)
+------------------------------------------------------------------------------
+Safe mission completion difference  +0.0 percentage points
+StaleGuard-only successes           0/1 (0.0%)
+Always-Recover-only successes       0/1 (0.0%)
+Recovery frequency difference       +0.0 percentage points
+==============================================================================
+

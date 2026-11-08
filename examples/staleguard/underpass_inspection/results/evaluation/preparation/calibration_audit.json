@@ -1,0 +1,36 @@
+{
+  "passed": true,
+  "calibration_path": "/home/kean/Documents/work/stale-guard/safe-control-gym/examples/staleguard/underpass_inspection/results/evaluation/calibration/calibrated_scenarios.json",
+  "calibration_sha256": "4d440b4dca55fe5918bd9a4097f8502eea60cc4e7a987c16f81bc7d84075cb23",
+  "attempted": 1000,
+  "accepted": 865,
+  "rejected": 135,
+  "seeds": [
+    1001,
+    2000
+  ],
+  "disjoint_from_development": true,
+  "generation_matches_all_attempts": true,
+  "protocol_matches_development": true,
+  "d0_only": true,
+  "snapshot_hashes_verified": 865,
+  "d0_replays_verified": 865,
+  "one_draw_no_replacement": true,
+  "full_horizon_1khz_records_verified": true,
+  "physical_sources_and_controller_verified": true,
+  "rejection_reasons": {
+    "d0_unsafe:pier": 135
+  },
+  "development_acceptance": {
+    "accepted": 12,
+    "attempted": 20,
+    "rate": 0.6
+  },
+  "evaluation_acceptance_rate": 0.865,
+  "calibration_provenance_sha256": "40fa46090d76439aa8a0afd400b8d5a9d04e65156cbe000b75142a9caeb3ecea",
+  "consistency_note": "All draws, rules and physical source checks agree. Both cohorts reject only D=0 pier violations; 20 development attempts are a small cohort. No cohort repair or policy tuning.",
+  "mean_sampled_pier_x_m": {
+    "development": 2.6677161565844743,
+    "evaluation": 2.7938941375802315
+  }
+}

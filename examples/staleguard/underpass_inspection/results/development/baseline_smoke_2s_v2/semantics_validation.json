@@ -1,0 +1,25 @@
+{
+  "passed": true,
+  "development_only": true,
+  "flights": 42,
+  "seeds": [
+    1,
+    3
+  ],
+  "delays_s": [
+    0.0,
+    1.0,
+    2.0
+  ],
+  "all_seven_policy_source_files_unchanged": true,
+  "predictor_candidates": 19,
+  "predictor_max_delay_s": 1.0,
+  "fbs_triggers_at_2s": true,
+  "no_expiration_prediction_permits_dispatch_at_2s": true,
+  "no_expiration_does_not_certify_safety_at_2s": true,
+  "pre_dispatch_violations_preserved": true,
+  "no_maneuver_profile_truncated": true,
+  "observation_horizon_s": 8.0,
+  "reference_profile_end_for_d2_dive_s": 5.8,
+  "resume_added_flights": 0
+}

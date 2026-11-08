@@ -1,0 +1,18 @@
+{
+  "seed": 9,
+  "candidates": 52,
+  "command": {
+    "speed": 0.7480996815880339,
+    "usual_height": 1.2217043022718888,
+    "box_x_min": 1.2222037050360934,
+    "box_x_max": 1.755463929912147,
+    "box_y_limit": 0.35,
+    "unsafe_below_z": 1.0074111944405348,
+    "approval_time": 0.2,
+    "low_height": 0.8813980962071076,
+    "low_seconds": 1.12
+  },
+  "dwell_ticks": 349,
+  "best_safe_dwell_ticks": 349,
+  "cache_key": "eac4dc8c0a1a2f4162804186c793d5b5d24029c02c4949c877444a8352037a80"
+}

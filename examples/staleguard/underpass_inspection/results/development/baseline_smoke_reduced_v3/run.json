@@ -1,0 +1,612 @@
+{
+  "format": "underpass_seven_policy_benchmark_v1",
+  "status": "complete",
+  "protocol": {
+    "stage": "physical_smoke",
+    "dataset_split": "development",
+    "scenarios": [
+      {
+        "version": "ned_east_v2",
+        "seed": 1,
+        "speed": 0.6011821624700258,
+        "cruise_z": 1.35,
+        "ramp_s": 0.4,
+        "approval_s": 0.9,
+        "observation_s": 8.0,
+        "clearance_m": 0.05,
+        "deck_front": 1.3932478838158902,
+        "deck_back": 3.8932478838158904,
+        "deck_half_width": 0.55,
+        "deck_bottom": 1.15,
+        "deck_top": 1.55,
+        "pier_x": 3.2037845024235194,
+        "pier_y": 0.0,
+        "pier_half_x": 0.12,
+        "pier_half_y": 0.15,
+        "dive_drop": 0.6,
+        "dive_s": 1.3,
+        "swerve_start_s": 2.6,
+        "swerve_s": 1.2,
+        "swerve_y": 0.85,
+        "climb_rise": 0.7,
+        "climb_s": 1.2,
+        "sideways_y": 1.0,
+        "sideways_s": 1.3,
+        "inspection_lower": [
+          1.4432478838158902,
+          -0.18,
+          0.65
+        ],
+        "inspection_upper": [
+          1.7432478838158902,
+          0.18,
+          0.85
+        ],
+        "inspection_dwell_s": 0.18
+      },
+      {
+        "version": "ned_east_v2",
+        "seed": 3,
+        "speed": 0.5585649167143625,
+        "cruise_z": 1.35,
+        "ramp_s": 0.4,
+        "approval_s": 0.74,
+        "observation_s": 8.0,
+        "clearance_m": 0.05,
+        "deck_front": 1.590382339561919,
+        "deck_back": 4.090382339561919,
+        "deck_half_width": 0.55,
+        "deck_bottom": 1.15,
+        "deck_top": 1.55,
+        "pier_x": 2.873945832457931,
+        "pier_y": 0.0,
+        "pier_half_x": 0.12,
+        "pier_half_y": 0.15,
+        "dive_drop": 0.6,
+        "dive_s": 1.3,
+        "swerve_start_s": 2.6,
+        "swerve_s": 1.2,
+        "swerve_y": 0.85,
+        "climb_rise": 0.7,
+        "climb_s": 1.2,
+        "sideways_y": 1.0,
+        "sideways_s": 1.3,
+        "inspection_lower": [
+          1.640382339561919,
+          -0.18,
+          0.65
+        ],
+        "inspection_upper": [
+          1.940382339561919,
+          0.18,
+          0.85
+        ],
+        "inspection_dwell_s": 0.18
+      }
+    ],
+    "dataset_sha256": "d02c0076e4b7f0d55b001a55437477c658a972f5344e9d70ab83b13bc466446c",
+    "snapshot_sha256": {
+      "1": "96d7ffa802b2b8e0124a3686c0d9b7e07a372dd64991ba968b6134cd876cc66a",
+      "3": "d3aa776389c3d65d563eea8c86a99a251333aeff3431a5050748c6de791ea433"
+    },
+    "calibration_statistics": {
+      "attempted": 20,
+      "accepted": 12,
+      "rejected": 8
+    },
+    "ground_truth_source": "no_recovery",
+    "ground_truth_run_sha256": null,
+    "ground_truth_journal_sha256": null,
+    "policies": [
+      "no_recovery",
+      "always_recover",
+      "fbs",
+      "use_time_recheck",
+      "staleguard",
+      "staleguard_early_recovery",
+      "fixed_early_recovery"
+    ],
+    "delays": [
+      0.0,
+      1.0,
+      2.0
+    ],
+    "ttl_grid_s": [
+      0.0,
+      0.02,
+      0.04,
+      0.06,
+      0.08,
+      0.1,
+      0.12,
+      0.14,
+      0.16,
+      0.18,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7,
+      0.8,
+      0.9,
+      1.0
+    ],
+    "protocol_version": "reduced_100x13_v3",
+    "scenario_sampling": null,
+    "temporal_resolution": "13 selected delays; 0.04 s through 0.20, then gaps up to 0.40 s; tested thresholds are coarse bounds",
+    "analysis_subsets": {
+      "full": [
+        0.0,
+        2.0
+      ],
+      "within_prediction_horizon": [
+        0.0,
+        1.0
+      ],
+      "beyond_prediction_horizon": [
+        1.2,
+        2.0
+      ]
+    },
+    "uncertainty": {
+      "unit": "scenario",
+      "method": "paired percentile bootstrap",
+      "confidence": 0.95,
+      "resamples": 2000,
+      "seed": 2027,
+      "complete_scenarios_only": true
+    },
+    "beyond_prediction_horizon": "Unchanged gate: ready finite expiry rejects; no predicted expiry permits dispatch; unavailable forecast permits dispatch",
+    "completion_observation": "Fixed 8 s after approval; inspection not observed by deadline is incomplete, not proof of impossibility later",
+    "control_hz": 50,
+    "physics_hz": 1000,
+    "model_hz": 100,
+    "observation_s": "unchanged per frozen scenario",
+    "primary_recovery": "Existing Eastward sideways maneuver only; no climb selection",
+    "fixed_early_ttl_s": 0.2,
+    "fbs": {
+      "alpha": 0.1,
+      "epsilon": 1e-12,
+      "max_ttl_steps": 210,
+      "feature": "required clearance minus minimum actual 3D body clearance; EMA through approval inclusive"
+    },
+    "readiness": "Measured warmed runtime replayed on the control clock; unavailable approval forecasts fail open",
+    "ordering": "Approval first; readiness; dispatch; pending timers; maneuver start; physical ticks. Dispatch wins timer ties.",
+    "use_time_recheck": "One immediate-command rollout from actual dispatch state; act at dispatch + floor(runtime*50)+1",
+    "representative_seeds": [
+      1
+    ],
+    "representative_delay_s": 2.0,
+    "unknown_delay": "Only the physical driver knows scheduled dispatch. Policies receive the event when it occurs."
+  },
+  "provenance": {
+    "python": "3.10.21 (main, Aug 27 2026, 14:42:07) [GCC 14.3.0]",
+    "numpy": "2.2.6",
+    "platform": "Linux-6.8.0-147-generic-x86_64-with-glibc2.39",
+    "packages": {
+      "pybullet": "3.2.7",
+      "numpy": "2.2.6",
+      "scipy": "1.15.3",
+      "gymnasium": "0.28.1",
+      "numba": "0.68.0"
+    },
+    "simulation_workers": 1,
+    "numerical_threads": 1,
+    "control_hz": 50,
+    "physics_hz": 1000,
+    "model_hz": 100,
+    "source_sha256": {
+      "__init__.py": "13eb5d3361103ea6d5b7a24f30438daf7e5605f5b911f0dfb623f942d5dcf6e1",
+      "scenario.py": "1eaff61877dd499a96249e58ed794e7e06b2e294d7d13a1cc5108b2c44b35073",
+      "simulation.py": "ad9d09664b4c4f3f802bd7cd386f2fb11eab3740a782e72d9c2d2fb421c34f36",
+      "calibration.py": "5251c33042ab7d523730d06da702f1a20dc751ab8056456ff12ed7305934f7de",
+      "pilot.py": "1e7de7011b28ff2256fd9f0b6820d6cfe36c9238608e763c4c0d9994320017b3",
+      "storage.py": "30b8542d7281e2a0624c8665956a716375eeb47924a42640ec469c4b4bfe2e91",
+      "support/visualization.py": "33c2aee29c3021b68c81b789d8e04f58297f4880b02f02ebff42c33b4e19aaf8",
+      "baselines/staleguard.py": "d9a101ae4093859ccd5d6c3889edbf3f00a77a9de68abe1c963bd4d00513c491",
+      "baselines/fbs.py": "c7354fc8d9c2f3c524ca320765e44c56994b23641755af398c375213233808f6",
+      "baselines/use_time_recheck.py": "0f577ce93d59f1cbe2dd3acf85428da38c03605e7893341becf0eb1993d8873e",
+      "baselines/fixed_early_recovery.py": "526eea923ee9083b3840216b2afb9c486d3224337c9e4e34ed206ea4a32e218a",
+      "baselines/policies.py": "7d030802f11bc10a7ca48d84a525713626b55091ec9efb04fa8c340bfa9e3808",
+      "baseline_benchmark/run.py": "b25286129edf1d7acb418c0fcb3ac38f6362c899ca4660a7f4e2ac1eb4129105",
+      "baseline_benchmark/metrics.py": "ee32c943e8b68dd66ce5fb7ad8573ca6ab484129b98157f780257b5d0c0cde97",
+      "support/validate_baseline_benchmark.py": "8b8ab794a18b08c73367b3db4d1eab51570af961fdf860e30a2081c657c7595d",
+      "support/test_final_audit.py": "fc8fd67f25f5f4b2c70279a5dae8869a86595c9c307fbad9c02dfc963be4301a",
+      "support/test_2s_protocol.py": "f1adb2b07b8d06d14362b36a7f3fa46d62ec4409b2fa577e8f603a5b27c11596",
+      "support/test_reduced_protocol.py": "ef871a8571b6a3d647b84f7c13af06f509be81836944d0d9039a1343c04ab808"
+    },
+    "shared_sha256": {
+      "model/__init__.py": "05e7dc53563467241281d3057b4f1f45f0e90d5c547726d5a842fbb7cd272ab0",
+      "model/common.py": "8e7d0d615e7977d443a8e22a096849633c2512634e3ff8c123218e533f1cd468",
+      "model/lightweight.py": "4f0b0a22d09eda8750adc903af9dddec785a1cec31f3304a86643596f80a6aac",
+      "model/scg.py": "8a1539ac1dbadac1ccaac95e0cbb16d1c3dcb28f9ca40a75a9e1870bcb999777",
+      "physics_monitor.py": "d7145e53736259b688d321449f6ce1f5b72b3cde4e07620b6c183d996d29cb91"
+    },
+    "environment_sha256": {
+      "safe_control_gym/controllers/pid/pid.py": "a9de84b6a20554f808f3d107bb2f8aafba59b6afd411813ff53367ce20e3a2cf",
+      "safe_control_gym/envs/gym_pybullet_drones/quadrotor.py": "3c5835baa64c31b99fd56efa8f0d81dc88693efea292e6c13c0fc0bac8447110",
+      "safe_control_gym/envs/gym_pybullet_drones/base_aviary.py": "c58673187cac18162c542f72a97525e0de059f4d0e426d1936d6ef00601af4c1",
+      "safe_control_gym/envs/gym_pybullet_drones/assets/cf2x.urdf": "80d69a1ee55913d074bf62cc1a97d2674641df3187eb360471ce6d6d1ef78142"
+    }
+  },
+  "predictions": {
+    "1": {
+      "results": [
+        {
+          "delay_s": 0.0,
+          "safe": true,
+          "min_clearance_m": 0.33270914080537745
+        },
+        {
+          "delay_s": 0.02,
+          "safe": true,
+          "min_clearance_m": 0.33283931064421096
+        },
+        {
+          "delay_s": 0.04,
+          "safe": true,
+          "min_clearance_m": 0.3328518736506107
+        },
+        {
+          "delay_s": 0.06,
+          "safe": true,
+          "min_clearance_m": 0.33312515351520694
+        },
+        {
+          "delay_s": 0.08,
+          "safe": true,
+          "min_clearance_m": 0.33314150971795947
+        },
+        {
+          "delay_s": 0.1,
+          "safe": true,
+          "min_clearance_m": 0.3324220077454482
+        },
+        {
+          "delay_s": 0.12,
+          "safe": true,
+          "min_clearance_m": 0.33270969252853483
+        },
+        {
+          "delay_s": 0.14,
+          "safe": true,
+          "min_clearance_m": 0.3325739484820301
+        },
+        {
+          "delay_s": 0.16,
+          "safe": true,
+          "min_clearance_m": 0.33270156629217734
+        },
+        {
+          "delay_s": 0.18,
+          "safe": true,
+          "min_clearance_m": 0.33291467060783925
+        },
+        {
+          "delay_s": 0.2,
+          "safe": true,
+          "min_clearance_m": 0.3329494548910343
+        },
+        {
+          "delay_s": 0.3,
+          "safe": true,
+          "min_clearance_m": 0.3015336117381905
+        },
+        {
+          "delay_s": 0.4,
+          "safe": true,
+          "min_clearance_m": 0.25993659209035685
+        },
+        {
+          "delay_s": 0.5,
+          "safe": true,
+          "min_clearance_m": 0.21397358417731122
+        },
+        {
+          "delay_s": 0.6,
+          "safe": true,
+          "min_clearance_m": 0.1641715437470273
+        },
+        {
+          "delay_s": 0.7,
+          "safe": true,
+          "min_clearance_m": 0.11103751975259558
+        },
+        {
+          "delay_s": 0.8,
+          "safe": true,
+          "min_clearance_m": 0.06091034349651783
+        },
+        {
+          "delay_s": 0.9,
+          "safe": false,
+          "min_clearance_m": 0.011573938424622565
+        },
+        {
+          "delay_s": 1.0,
+          "safe": false,
+          "min_clearance_m": -0.042138743515010485
+        }
+      ],
+      "expiry_steps": 45,
+      "grid_s": [
+        0.0,
+        0.02,
+        0.04,
+        0.06,
+        0.08,
+        0.1,
+        0.12,
+        0.14,
+        0.16,
+        0.18,
+        0.2,
+        0.3,
+        0.4,
+        0.5,
+        0.6,
+        0.7,
+        0.8,
+        0.9,
+        1.0
+      ],
+      "right_censored": false,
+      "non_monotonic": false,
+      "computation_s": 0.14644858904648572,
+      "wall_started_unix_s": 1794158108.1437666,
+      "wall_finished_unix_s": 1794158108.2902212
+    },
+    "3": {
+      "results": [
+        {
+          "delay_s": 0.0,
+          "safe": true,
+          "min_clearance_m": 0.33332652247266753
+        },
+        {
+          "delay_s": 0.02,
+          "safe": true,
+          "min_clearance_m": 0.33409654357224866
+        },
+        {
+          "delay_s": 0.04,
+          "safe": true,
+          "min_clearance_m": 0.33350568200267666
+        },
+        {
+          "delay_s": 0.06,
+          "safe": true,
+          "min_clearance_m": 0.33323924985644765
+        },
+        {
+          "delay_s": 0.08,
+          "safe": true,
+          "min_clearance_m": 0.33317008827043443
+        },
+        {
+          "delay_s": 0.1,
+          "safe": true,
+          "min_clearance_m": 0.3330440897137151
+        },
+        {
+          "delay_s": 0.12,
+          "safe": true,
+          "min_clearance_m": 0.33313050560901253
+        },
+        {
+          "delay_s": 0.14,
+          "safe": true,
+          "min_clearance_m": 0.33351240243035246
+        },
+        {
+          "delay_s": 0.16,
+          "safe": true,
+          "min_clearance_m": 0.33297253114567466
+        },
+        {
+          "delay_s": 0.18,
+          "safe": true,
+          "min_clearance_m": 0.3327934510983957
+        },
+        {
+          "delay_s": 0.2,
+          "safe": true,
+          "min_clearance_m": 0.33311613043231064
+        },
+        {
+          "delay_s": 0.3,
+          "safe": true,
+          "min_clearance_m": 0.3329341239838352
+        },
+        {
+          "delay_s": 0.4,
+          "safe": true,
+          "min_clearance_m": 0.33322979217882404
+        },
+        {
+          "delay_s": 0.5,
+          "safe": true,
+          "min_clearance_m": 0.3329825999767663
+        },
+        {
+          "delay_s": 0.6,
+          "safe": true,
+          "min_clearance_m": 0.28760369043832745
+        },
+        {
+          "delay_s": 0.7,
+          "safe": true,
+          "min_clearance_m": 0.23312932149245863
+        },
+        {
+          "delay_s": 0.8,
+          "safe": true,
+          "min_clearance_m": 0.1804989071529403
+        },
+        {
+          "delay_s": 0.9,
+          "safe": true,
+          "min_clearance_m": 0.12334558956023901
+        },
+        {
+          "delay_s": 1.0,
+          "safe": true,
+          "min_clearance_m": 0.07647088712477622
+        }
+      ],
+      "expiry_steps": null,
+      "grid_s": [
+        0.0,
+        0.02,
+        0.04,
+        0.06,
+        0.08,
+        0.1,
+        0.12,
+        0.14,
+        0.16,
+        0.18,
+        0.2,
+        0.3,
+        0.4,
+        0.5,
+        0.6,
+        0.7,
+        0.8,
+        0.9,
+        1.0
+      ],
+      "right_censored": true,
+      "non_monotonic": false,
+      "computation_s": 0.14214651507791132,
+      "wall_started_unix_s": 1794158119.5314863,
+      "wall_finished_unix_s": 1794158119.6736395
+    }
+  },
+  "created_utc": "2026-11-08T17:15:06Z",
+  "calibration_path": "/home/kean/Documents/work/stale-guard/safe-control-gym/examples/staleguard/underpass_inspection/results/development/calibration/calibrated_scenarios.json",
+  "freeze_path": null,
+  "freeze_sha256": null,
+  "journal_bytes": 158993,
+  "journal_sha256": "2b0518b25e25d244b34a3aac8b824b7415ad46fad3feff690d880205b5c6cdb0",
+  "completed_flights": 42,
+  "resumptions": 1,
+  "startup_warmups": [
+    {
+      "seconds": 1.776784608955495,
+      "description": "Platform load; shared PID/RK4 and checker kernel warmup; no full forecast"
+    }
+  ],
+  "platform_parameters": {
+    "quadrotor": {
+      "mass": 0.027,
+      "inertia": [
+        [
+          1.4e-05,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.4e-05,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          2.17e-05
+        ]
+      ],
+      "inertia_inv": [
+        [
+          71428.57142857143,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          71428.57142857143,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          46082.949308755764
+        ]
+      ],
+      "arm_length": 0.0397,
+      "kf": 3.16e-10,
+      "km": 7.94e-12,
+      "gravity": 9.8
+    },
+    "pid": {
+      "control_dt": 0.02,
+      "kf": 3.16e-10,
+      "gravity": 9.8,
+      "p_for": [
+        0.4,
+        0.4,
+        1.25
+      ],
+      "i_for": [
+        0.05,
+        0.05,
+        0.05
+      ],
+      "d_for": [
+        0.2,
+        0.2,
+        0.5
+      ],
+      "p_tor": [
+        70000.0,
+        70000.0,
+        60000.0
+      ],
+      "i_tor": [
+        0.0,
+        0.0,
+        500.0
+      ],
+      "d_tor": [
+        20000.0,
+        20000.0,
+        12000.0
+      ],
+      "pwm2rpm_scale": 0.2685,
+      "pwm2rpm_const": 4070.3,
+      "min_pwm": 20000.0,
+      "max_pwm": 65535.0,
+      "pos_integral_limit": 2.0,
+      "z_integral_limit": 0.15,
+      "attitude_integral_limit": 1500.0,
+      "roll_pitch_integral_limit": 1.0,
+      "torque_limit": 3200.0,
+      "mixer_matrix": [
+        [
+          0.5,
+          -0.5,
+          -1.0
+        ],
+        [
+          0.5,
+          0.5,
+          1.0
+        ],
+        [
+          -0.5,
+          0.5,
+          -1.0
+        ],
+        [
+          -0.5,
+          -0.5,
+          1.0
+        ]
+      ],
+      "target_yaw": 0.0
+    }
+  },
+  "updated_utc": "2026-11-08T17:17:50Z"
+}

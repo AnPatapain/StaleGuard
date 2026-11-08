@@ -1,0 +1,352 @@
+[
+  {
+    "seed": 0,
+    "candidates": 30,
+    "command": {
+      "speed": 0.6547846749285817,
+      "usual_height": 1.2174466784409674,
+      "box_x_min": 0.8286814667553363,
+      "box_x_max": 1.133639757413895,
+      "box_y_limit": 0.35,
+      "unsafe_below_z": 1.021990535880041,
+      "approval_time": 0.0,
+      "low_height": 0.8938986574551497,
+      "low_seconds": 0.86
+    },
+    "dwell_ticks": 261,
+    "best_safe_dwell_ticks": 261,
+    "cache_key": "e76cebfde34e2cc32a8aa58bdaa87b6033f555d47ce24a168104e24e4edb00e2"
+  },
+  {
+    "seed": 1,
+    "candidates": 38,
+    "command": {
+      "speed": 0.6047286498801028,
+      "usual_height": 1.3876159240814838,
+      "box_x_min": 0.9009117289037436,
+      "box_x_max": 1.4855065630449167,
+      "box_y_limit": 0.35,
+      "unsafe_below_z": 0.9467747178015729,
+      "approval_time": 0.0,
+      "low_height": 0.7044662649831492,
+      "low_seconds": 1.0
+    },
+    "dwell_ticks": 188,
+    "best_safe_dwell_ticks": 188,
+    "cache_key": "705a18a0c64f8c1b3e9c953cdddc1aa5a91cf0d1358e6416d25ef133b6d1519b"
+  },
+  {
+    "seed": 2,
+    "candidates": 297,
+    "command": {
+      "speed": 0.5046448536997266,
+      "usual_height": 1.2246227858535308,
+      "box_x_min": 1.3699580184159963,
+      "box_x_max": 1.6975328010565254,
+      "box_y_limit": 0.35,
+      "unsafe_below_z": 0.9900150788948481,
+      "approval_time": 0.06,
+      "low_height": 0.8112935386629947,
+      "low_seconds": 2.02
+    },
+    "dwell_ticks": 487,
+    "best_safe_dwell_ticks": 487,
+    "cache_key": "976f4a3f9170c20d9ea7315557211815a55d51c0424e50e5d0764e429acd1f62"
+  },
+  {
+    "seed": 3,
+    "candidates": 369,
+    "command": {
+      "speed": 0.43425966685744977,
+      "usual_height": 1.2092026266490248,
+      "box_x_min": 1.3608921256444777,
+      "box_x_max": 1.8355407364637881,
+      "box_y_limit": 0.35,
+      "unsafe_below_z": 0.9141192963360599,
+      "approval_time": 0.14,
+      "low_height": 0.6927408356676245,
+      "low_seconds": 2.28
+    },
+    "dwell_ticks": 579,
+    "best_safe_dwell_ticks": 579,
+    "cache_key": "77105d02f1f949da532a3a5b20eaa2a7b37333717e506cdcb5d511d505fd8fe3"
+  },
+  {
+    "seed": 4,
+    "candidates": 101,
+    "command": {
+      "speed": 0.7772224422289471,
+      "usual_height": 1.2778318882035904,
+      "box_x_min": 1.483370593995393,
+      "box_x_max": 1.8076214011640737,
+      "box_y_limit": 0.35,
+      "unsafe_below_z": 0.9911033747992545,
+      "approval_time": 0.22,
+      "low_height": 0.7095965152788684,
+      "low_seconds": 1.38
+    },
+    "dwell_ticks": 388,
+    "best_safe_dwell_ticks": 388,
+    "cache_key": "9375802aac6320943b6558cf89a2349031f243c28320c6f3115bee57bf1329dc"
+  },
+  {
+    "seed": 5,
+    "candidates": 72,
+    "command": {
+      "speed": 0.7220011694981521,
+      "usual_height": 1.3519851974341233,
+      "box_x_min": 1.1607278927294995,
+      "box_x_max": 1.546468306755942,
+      "box_y_limit": 0.35,
+      "unsafe_below_z": 0.9080896053572485,
+      "approval_time": 0.1,
+      "low_height": 0.6797750791089086,
+      "low_seconds": 1.14
+    },
+    "dwell_ticks": 326,
+    "best_safe_dwell_ticks": 326,
+    "cache_key": "99943efd7068e44aea7903259d2b09c808e512d03b142729682ac12011161fb3"
+  },
+  {
+    "seed": 6,
+    "candidates": 68,
+    "command": {
+      "speed": 0.6152657405887774,
+      "usual_height": 1.2358177174533345,
+      "box_x_min": 1.0583470678567648,
+      "box_x_max": 1.4706960975331294,
+      "box_y_limit": 0.35,
+      "unsafe_below_z": 1.04811674852797,
+      "approval_time": 0.2,
+      "low_height": 0.8202730562306776,
+      "low_seconds": 1.0
+    },
+    "dwell_ticks": 420,
+    "best_safe_dwell_ticks": 420,
+    "cache_key": "ecaccc83a760715f7b060cbf969a77b82d64b49a43646e4889a280bfa3fd7a32"
+  },
+  {
+    "seed": 7,
+    "candidates": 175,
+    "command": {
+      "speed": 0.6500381866418667,
+      "usual_height": 1.3743034502423939,
+      "box_x_min": 1.3429799831716354,
+      "box_x_max": 1.7105421401688128,
+      "box_y_limit": 0.35,
+      "unsafe_below_z": 0.9450249427366838,
+      "approval_time": 0.4,
+      "low_height": 0.8140423829356519,
+      "low_seconds": 1.3
+    },
+    "dwell_ticks": 392,
+    "best_safe_dwell_ticks": 392,
+    "cache_key": "0b43eef581193516fce669237588a746e2054268f0212c47d2da8a783674f725"
+  },
+  {
+    "seed": 8,
+    "candidates": 114,
+    "command": {
+      "speed": 0.5307889106422243,
+      "usual_height": 1.3968192108344812,
+      "box_x_min": 1.0230975869398617,
+      "box_x_max": 1.5596622676858705,
+      "box_y_limit": 0.35,
+      "unsafe_below_z": 1.0304844767544323,
+      "approval_time": 0.06,
+      "low_height": 0.729247457655714,
+      "low_seconds": 1.36
+    },
+    "dwell_ticks": 470,
+    "best_safe_dwell_ticks": 470,
+    "cache_key": "9aeaac9f21c7af20f5a0032aa2049e24e52bffb0cc4af3c647d2b17515b7826e"
+  },
+  {
+    "seed": 9,
+    "candidates": 52,
+    "command": {
+      "speed": 0.7480996815880339,
+      "usual_height": 1.2217043022718888,
+      "box_x_min": 1.2222037050360934,
+      "box_x_max": 1.755463929912147,
+      "box_y_limit": 0.35,
+      "unsafe_below_z": 1.0074111944405348,
+      "approval_time": 0.2,
+      "low_height": 0.8813980962071076,
+      "low_seconds": 1.12
+    },
+    "dwell_ticks": 349,
+    "best_safe_dwell_ticks": 349,
+    "cache_key": "eac4dc8c0a1a2f4162804186c793d5b5d24029c02c4949c877444a8352037a80"
+  },
+  {
+    "seed": 10,
+    "candidates": 87,
+    "command": {
+      "speed": 0.7824006838515902,
+      "usual_height": 1.2019204525197866,
+      "box_x_min": 1.3799114196921716,
+      "box_x_max": 1.7246960566167777,
+      "box_y_limit": 0.35,
+      "unsafe_below_z": 0.9769206924654847,
+      "approval_time": 0.22,
+      "low_height": 0.6376389508649931,
+      "low_seconds": 1.32
+    },
+    "dwell_ticks": 393,
+    "best_safe_dwell_ticks": 393,
+    "cache_key": "b67c170416a90cd7e390584096cb951d968d773a5b9b29d8dcdc445bf856ff4d"
+  },
+  {
+    "seed": 11,
+    "candidates": 289,
+    "command": {
+      "speed": 0.45142808110767985,
+      "usual_height": 1.2748194656100287,
+      "box_x_min": 1.2210488503363504,
+      "box_x_max": 1.5296555528479336,
+      "box_y_limit": 0.35,
+      "unsafe_below_z": 0.9221889126866184,
+      "approval_time": 0.58,
+      "low_height": 0.8062381979352983,
+      "low_seconds": 1.54
+    },
+    "dwell_ticks": 541,
+    "best_safe_dwell_ticks": 541,
+    "cache_key": "dd06a00d32758a21f546f05bc726b81f9f7eb71874c314e9f500c35909093759"
+  },
+  {
+    "seed": 12,
+    "candidates": 83,
+    "command": {
+      "speed": 0.5003297832433785,
+      "usual_height": 1.386688235714856,
+      "box_x_min": 0.9325242691778329,
+      "box_x_max": 1.2863116923032651,
+      "box_y_limit": 0.35,
+      "unsafe_below_z": 0.9524833860893936,
+      "approval_time": 0.0,
+      "low_height": 0.6582078345722893,
+      "low_seconds": 1.3
+    },
+    "dwell_ticks": 407,
+    "best_safe_dwell_ticks": 407,
+    "cache_key": "fd8068047752c87d4acac3ddb2d8a1d74a85db41d42af5a4ca1ab152d417c608"
+  },
+  {
+    "seed": 13,
+    "candidates": 98,
+    "command": {
+      "speed": 0.7459190348066347,
+      "usual_height": 1.3638256287330146,
+      "box_x_min": 1.3677163791490394,
+      "box_x_max": 1.7461502875739825,
+      "box_y_limit": 0.35,
+      "unsafe_below_z": 0.9115799186577632,
+      "approval_time": 0.28,
+      "low_height": 0.8002531528391345,
+      "low_seconds": 1.26
+    },
+    "dwell_ticks": 500,
+    "best_safe_dwell_ticks": 500,
+    "cache_key": "62fca4833d2658431b615561bad02bddeec251716d4213f7252b1f83110de40c"
+  },
+  {
+    "seed": 14,
+    "candidates": 75,
+    "command": {
+      "speed": 0.7323933275556447,
+      "usual_height": 1.240236666708564,
+      "box_x_min": 1.2919175139074384,
+      "box_x_max": 1.8499531499032167,
+      "box_y_limit": 0.35,
+      "unsafe_below_z": 0.9961976221182247,
+      "approval_time": 0.26,
+      "low_height": 0.7624238785076232,
+      "low_seconds": 1.16
+    },
+    "dwell_ticks": 400,
+    "best_safe_dwell_ticks": 400,
+    "cache_key": "bc522478063effe5ca2cd0731005a5f458309ba14ae82ee5896a39a145e9ee7a"
+  },
+  {
+    "seed": 15,
+    "candidates": 49,
+    "command": {
+      "speed": 0.677097347186061,
+      "usual_height": 1.3539542778340143,
+      "box_x_min": 1.0410847304549997,
+      "box_x_max": 1.3545361831621254,
+      "box_y_limit": 0.35,
+      "unsafe_below_z": 0.9857395885550597,
+      "approval_time": 0.0,
+      "low_height": 0.6417881080600599,
+      "low_seconds": 1.14
+    },
+    "dwell_ticks": 284,
+    "best_safe_dwell_ticks": 284,
+    "cache_key": "fb47ca78d0200ca7bce913fef3c5086e51fc479efd93a25ff252b56cecb8f65f"
+  },
+  {
+    "seed": 16,
+    "candidates": 29,
+    "command": null,
+    "dwell_ticks": null,
+    "best_safe_dwell_ticks": 141,
+    "cache_key": "badb2c1786229339f8763eeddea4e362658eac0a350197e4a2753dc8cea47812"
+  },
+  {
+    "seed": 17,
+    "candidates": 72,
+    "command": {
+      "speed": 0.7380299171191607,
+      "usual_height": 1.1902432727922767,
+      "box_x_min": 1.1904211831559846,
+      "box_x_max": 1.600845165655266,
+      "box_y_limit": 0.35,
+      "unsafe_below_z": 0.9322412945342653,
+      "approval_time": 0.2,
+      "low_height": 0.6896042739521525,
+      "low_seconds": 1.06
+    },
+    "dwell_ticks": 383,
+    "best_safe_dwell_ticks": 383,
+    "cache_key": "cc28f445ec2b06ca93c539fb3ec9001da0620d855059bfffbe868c6862cab9d2"
+  },
+  {
+    "seed": 18,
+    "candidates": 76,
+    "command": {
+      "speed": 0.5597223076870291,
+      "usual_height": 1.329353669822054,
+      "box_x_min": 0.9965763296252024,
+      "box_x_max": 1.3213938050246372,
+      "box_y_limit": 0.35,
+      "unsafe_below_z": 1.045465697893929,
+      "approval_time": 0.0,
+      "low_height": 0.7948173466495916,
+      "low_seconds": 1.28
+    },
+    "dwell_ticks": 420,
+    "best_safe_dwell_ticks": 420,
+    "cache_key": "03ac4ddc7ba052cb5bad7fc3fef69ed358d7dcf5e792b5c90c9c6ade6b1344fb"
+  },
+  {
+    "seed": 19,
+    "candidates": 67,
+    "command": {
+      "speed": 0.5681515182917044,
+      "usual_height": 1.3814673362041758,
+      "box_x_min": 0.9917089915287975,
+      "box_x_max": 1.3097235727655554,
+      "box_y_limit": 0.35,
+      "unsafe_below_z": 0.9465815187469668,
+      "approval_time": 0.04,
+      "low_height": 0.7770912116277788,
+      "low_seconds": 1.16
+    },
+    "dwell_ticks": 415,
+    "best_safe_dwell_ticks": 415,
+    "cache_key": "9ce86df3e554e7b6fbb26f6b533f602064a98d584940b13b7572d806fd8a9d09"
+  }
+]

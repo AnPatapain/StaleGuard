@@ -1,0 +1,1976 @@
+{
+  "format": "underpass_development_calibration_v1",
+  "protocol": {
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "generation_ranges": {
+      "speed": [
+        0.55,
+        0.65
+      ],
+      "approval_s": [
+        0.7,
+        0.9
+      ],
+      "deck_front": [
+        1.35,
+        1.65
+      ],
+      "pier_x": [
+        2.35,
+        3.25
+      ]
+    },
+    "sampling": "NumPy default_rng(seed); draw speed, approval, deck front, absolute pier X independently",
+    "approval_quantization_s": 0.02,
+    "bridge_length_m": 2.5,
+    "inspection_rule": "Translate fixed seed-0 inspection region by deck-front displacement",
+    "calibration_rule": "Single draw; nominal unsafe, D=0 safe inspection, immediate sideways safe",
+    "allowed_starts_s": [
+      0.0
+    ],
+    "candidate_count": 1,
+    "replacement": false,
+    "climb": "Immediate diagnostic only; never affects acceptance"
+  },
+  "provenance": {
+    "verification_protocol": "ned_east_v2",
+    "scenario": {
+      "version": "ned_east_v2",
+      "seed": 0,
+      "speed": 0.6,
+      "cruise_z": 1.35,
+      "ramp_s": 0.4,
+      "approval_s": 0.8,
+      "observation_s": 8.0,
+      "clearance_m": 0.05,
+      "deck_front": 1.5,
+      "deck_back": 4.0,
+      "deck_half_width": 0.55,
+      "deck_bottom": 1.15,
+      "deck_top": 1.55,
+      "pier_x": 2.55,
+      "pier_y": 0.0,
+      "pier_half_x": 0.12,
+      "pier_half_y": 0.15,
+      "dive_drop": 0.6,
+      "dive_s": 1.3,
+      "swerve_start_s": 2.6,
+      "swerve_s": 1.2,
+      "swerve_y": 0.85,
+      "climb_rise": 0.7,
+      "climb_s": 1.2,
+      "sideways_y": 1.0,
+      "sideways_s": 1.3,
+      "inspection_lower": [
+        1.55,
+        -0.18,
+        0.65
+      ],
+      "inspection_upper": [
+        1.85,
+        0.18,
+        0.85
+      ],
+      "inspection_dwell_s": 0.18
+    },
+    "body_radius_m": 0.06128825336065631,
+    "mission_coordinate_frame": "North-East-Down (NED)",
+    "world_to_ned": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        -1.0
+      ]
+    ],
+    "raw_trajectory_coordinate_frame": "PyBullet world Z-up; N=x_world, E=-y_world, D=-z_world",
+    "obstacle_boxes": [
+      {
+        "name": "deck",
+        "lower": [
+          1.5,
+          -0.55,
+          1.15
+        ],
+        "upper": [
+          4.0,
+          0.55,
+          1.55
+        ]
+      },
+      {
+        "name": "pier",
+        "lower": [
+          2.4299999999999997,
+          -0.15,
+          0.0
+        ],
+        "upper": [
+          2.67,
+          0.15,
+          1.15
+        ]
+      }
+    ],
+    "scientific_assumptions": "All new geometry, maneuver and inspection parameters are provisional pilot assumptions.",
+    "command_semantics": "Measured initiation position plus fixed scenario displacement; no replanning.",
+    "reference_smoothness": "C2 internal joins; actual-position reanchoring at dispatch retains measured nominal tracking mismatch.",
+    "obstacle_contact_forces": false,
+    "safety": "signed Euclidean point-to-box distance minus body radius >= clearance_m",
+    "inspection": "Inclusive fixed XYZ bounds, elapsed continuous dwell; safe_completion also requires whole-flight safety.",
+    "monitoring": "From reset through approval + observation_s, even after violation or completion.",
+    "control_hz": 50,
+    "physics_hz": 1000,
+    "integration": "SCG/PyBullet; no predictive model",
+    "python": "3.10.21 (main, Aug 27 2026, 14:42:07) [GCC 14.3.0]",
+    "numpy": "2.2.6",
+    "platform": "Linux-6.8.0-147-generic-x86_64-with-glibc2.39",
+    "simulation_workers": 1,
+    "numerical_threads": 1,
+    "source_sha256": {
+      "examples/staleguard/underpass_inspection/__init__.py": "13eb5d3361103ea6d5b7a24f30438daf7e5605f5b911f0dfb623f942d5dcf6e1",
+      "examples/staleguard/underpass_inspection/scenario.py": "efec174da7248c4eb15026dea53eb81aaaac884d1733062b1c997a3a2e0aad3d",
+      "examples/staleguard/underpass_inspection/simulation.py": "9413314d21eb8b46e43ce065b4a809bf0b272f7dc1acfee665a504b1554bb787",
+      "examples/staleguard/underpass_inspection/pilot.py": "062b47511c8969edb182fc49a43bd4dcae21c690785cd8e9c8fb9bfb2acd31da",
+      "examples/staleguard/underpass_inspection/support/visualization.py": "33c2aee29c3021b68c81b789d8e04f58297f4880b02f02ebff42c33b4e19aaf8",
+      "examples/staleguard/physics_monitor.py": "d7145e53736259b688d321449f6ce1f5b72b3cde4e07620b6c183d996d29cb91",
+      "examples/staleguard/geofence_turn/scenario.py": "60f2e829adcc3a894f8df55f5e9124223fda542247fdfedc58bcb1277bc13078",
+      "examples/staleguard/geofence_turn/simulation.py": "c80921f470e62bca9f24cc1177b9b78fd332c5043ff0f5d401dd7b4f32449758",
+      "examples/staleguard/model/common.py": "8e7d0d615e7977d443a8e22a096849633c2512634e3ff8c123218e533f1cd468",
+      "safe_control_gym/controllers/pid/pid.py": "a9de84b6a20554f808f3d107bb2f8aafba59b6afd411813ff53367ce20e3a2cf",
+      "safe_control_gym/envs/gym_pybullet_drones/quadrotor.py": "3c5835baa64c31b99fd56efa8f0d81dc88693efea292e6c13c0fc0bac8447110",
+      "safe_control_gym/envs/gym_pybullet_drones/base_aviary.py": "c58673187cac18162c542f72a97525e0de059f4d0e426d1936d6ef00601af4c1",
+      "safe_control_gym/envs/gym_pybullet_drones/assets/cf2x.urdf": "80d69a1ee55913d074bf62cc1a97d2674641df3187eb360471ce6d6d1ef78142"
+    },
+    "development_sources": {
+      "calibration.py": "f2f2ed7f01b5be8dda420e97f1cba466bcac4d230bc2f6bf2bf1b25ab41b5d03",
+      "support/deadline_sweep.py": "07313d13e79afa95f7b4505e0196e29148443645d57e694804e1ad4e817e4ef0"
+    }
+  },
+  "status": "complete",
+  "attempts": [
+    {
+      "seed": 1,
+      "scenario": {
+        "version": "ned_east_v2",
+        "seed": 1,
+        "speed": 0.6011821624700258,
+        "cruise_z": 1.35,
+        "ramp_s": 0.4,
+        "approval_s": 0.9,
+        "observation_s": 8.0,
+        "clearance_m": 0.05,
+        "deck_front": 1.3932478838158902,
+        "deck_back": 3.8932478838158904,
+        "deck_half_width": 0.55,
+        "deck_bottom": 1.15,
+        "deck_top": 1.55,
+        "pier_x": 3.2037845024235194,
+        "pier_y": 0.0,
+        "pier_half_x": 0.12,
+        "pier_half_y": 0.15,
+        "dive_drop": 0.6,
+        "dive_s": 1.3,
+        "swerve_start_s": 2.6,
+        "swerve_s": 1.2,
+        "swerve_y": 0.85,
+        "climb_rise": 0.7,
+        "climb_s": 1.2,
+        "sideways_y": 1.0,
+        "sideways_s": 1.3,
+        "inspection_lower": [
+          1.4432478838158902,
+          -0.18,
+          0.65
+        ],
+        "inspection_upper": [
+          1.7432478838158902,
+          0.18,
+          0.85
+        ],
+        "inspection_dwell_s": 0.18
+      },
+      "accepted": true,
+      "rejection_reasons": [],
+      "immediate_flights": {
+        "nominal": {
+          "seed": 1,
+          "mode": "nominal",
+          "start_s": null,
+          "approval_step": 45,
+          "initiation_step": null,
+          "horizon_step": 445,
+          "horizon_flight_s": 8.9,
+          "observation_s": 8.0,
+          "safe": false,
+          "inspection_completed": false,
+          "safe_completion": false,
+          "completion_approval_s": null,
+          "longest_inspection_dwell_s": 0.0,
+          "min_clearance_m": -0.26042454275932553,
+          "min_clearance_by_obstacle_m": {
+            "deck": -0.26042454275932553,
+            "pier": 0.13958735182064957
+          },
+          "first_violation": {
+            "time_flight_s": 2.317,
+            "time_approval_s": 1.4170000000000003,
+            "physics_tick": 2317,
+            "position_m": [
+              1.282375539398838,
+              -0.0055325019486275615,
+              1.350479122407074
+            ],
+            "obstacle": "deck",
+            "part": "deck_front",
+            "clearance_m": 0.04958409105639576
+          },
+          "physics_samples": 8901,
+          "control_samples": 446,
+          "maneuver_anchor_m": null,
+          "approval_state": [
+            0.42209839383837183,
+            0.7566971600618637,
+            6.81112213186084e-14,
+            -8.331969628935742e-12,
+            1.3495741892719582,
+            0.00368697707150352,
+            8.889344865748676e-11,
+            -0.08747745182694269,
+            4.853108683411584e-12,
+            -5.711954982042364e-09,
+            -0.10372040380471309,
+            -4.303550030703928e-10
+          ],
+          "pid_unchanged_at_initiation": null,
+          "physical_state_unchanged_at_initiation": null,
+          "nominal_to_measured_reference_splice": null,
+          "geometry_unchanged": true,
+          "max_physics_position_increment_m": 0.0008685859609394432,
+          "final_position_m": [
+            5.236751273579727,
+            -0.004124959017011637,
+            1.3507731593905918
+          ],
+          "final_velocity_mps": [
+            0.5563299252827554,
+            -0.03258224254469687,
+            -0.00023747477427995428
+          ],
+          "final_position_ned_m": [
+            5.236751273579727,
+            0.004124959017011637,
+            -1.3507731593905918
+          ],
+          "final_velocity_ned_mps": [
+            0.5563299252827554,
+            0.03258224254469687,
+            0.00023747477427995428
+          ],
+          "physics_sha256": "91fd27e43c3add56397075c1fd665257fe3fafe0def701fe96a5f28978d93be8",
+          "runtime_s": 0.3917087059817277,
+          "gui": false
+        },
+        "dive": {
+          "seed": 1,
+          "mode": "dive",
+          "start_s": 0.0,
+          "approval_step": 45,
+          "initiation_step": 45,
+          "horizon_step": 445,
+          "horizon_flight_s": 8.9,
+          "observation_s": 8.0,
+          "safe": true,
+          "inspection_completed": true,
+          "safe_completion": true,
+          "completion_approval_s": 1.879,
+          "longest_inspection_dwell_s": 0.486,
+          "min_clearance_m": 0.332883201552096,
+          "min_clearance_by_obstacle_m": {
+            "deck": 0.332883201552096,
+            "pier": 0.6153849317300016
+          },
+          "first_violation": null,
+          "physics_samples": 8901,
+          "control_samples": 446,
+          "maneuver_anchor_m": [
+            0.42209839383837183,
+            6.81112213186084e-14,
+            1.3495741892719582
+          ],
+          "approval_state": [
+            0.42209839383837183,
+            0.7566971600618637,
+            6.81112213186084e-14,
+            -8.331969628935742e-12,
+            1.3495741892719582,
+            0.00368697707150352,
+            8.889344865748676e-11,
+            -0.08747745182694269,
+            4.853108683411584e-12,
+            -5.711954982042364e-09,
+            -0.10372040380471309,
+            -4.303550030703928e-10
+          ],
+          "pid_unchanged_at_initiation": true,
+          "physical_state_unchanged_at_initiation": true,
+          "nominal_to_measured_reference_splice": {
+            "position_m": [
+              0.001270880109353778,
+              6.81112213186084e-14,
+              -0.000425810728041931
+            ],
+            "velocity_mps": [
+              0.0,
+              -0.0,
+              -0.0
+            ],
+            "measured_velocity_mps": [
+              0.7566971600618637,
+              -8.331969628935742e-12,
+              0.00368697707150352
+            ]
+          },
+          "geometry_unchanged": true,
+          "max_physics_position_increment_m": 0.0019309787654785172,
+          "final_position_m": [
+            5.230872560082261,
+            -0.837966389213519,
+            0.7504516207565521
+          ],
+          "final_velocity_mps": [
+            0.5910906440100606,
+            0.011141656478739192,
+            0.00013256803927177196
+          ],
+          "final_position_ned_m": [
+            5.230872560082261,
+            0.837966389213519,
+            -0.7504516207565521
+          ],
+          "final_velocity_ned_mps": [
+            0.5910906440100606,
+            -0.011141656478739192,
+            -0.00013256803927177196
+          ],
+          "physics_sha256": "57ca9f30c5bcfab3d96881c5419dca98feaddb5375bd62fdd50d9fea6cd49549",
+          "runtime_s": 0.41441466502146795,
+          "gui": false
+        },
+        "sideways": {
+          "seed": 1,
+          "mode": "sideways",
+          "start_s": 0.0,
+          "approval_step": 45,
+          "initiation_step": 45,
+          "horizon_step": 445,
+          "horizon_flight_s": 8.9,
+          "observation_s": 8.0,
+          "safe": true,
+          "inspection_completed": false,
+          "safe_completion": false,
+          "completion_approval_s": null,
+          "longest_inspection_dwell_s": 0.0,
+          "min_clearance_m": 0.37033004786165086,
+          "min_clearance_by_obstacle_m": {
+            "deck": 0.37033004786165086,
+            "pier": 0.8134446125135645
+          },
+          "first_violation": null,
+          "physics_samples": 8901,
+          "control_samples": 446,
+          "maneuver_anchor_m": [
+            0.42209839383837183,
+            6.81112213186084e-14,
+            1.3495741892719582
+          ],
+          "approval_state": [
+            0.42209839383837183,
+            0.7566971600618637,
+            6.81112213186084e-14,
+            -8.331969628935742e-12,
+            1.3495741892719582,
+            0.00368697707150352,
+            8.889344865748676e-11,
+            -0.08747745182694269,
+            4.853108683411584e-12,
+            -5.711954982042364e-09,
+            -0.10372040380471309,
+            -4.303550030703928e-10
+          ],
+          "pid_unchanged_at_initiation": true,
+          "physical_state_unchanged_at_initiation": true,
+          "nominal_to_measured_reference_splice": {
+            "position_m": [
+              0.001270880109353778,
+              6.81112213186084e-14,
+              -0.000425810728041931
+            ],
+            "velocity_mps": [
+              0.0,
+              -0.0,
+              0.0
+            ],
+            "measured_velocity_mps": [
+              0.7566971600618637,
+              -8.331969628935742e-12,
+              0.00368697707150352
+            ]
+          },
+          "geometry_unchanged": true,
+          "max_physics_position_increment_m": 0.0020514343779664272,
+          "final_position_m": [
+            5.23058612619035,
+            -0.998528582550096,
+            1.3502915964576616
+          ],
+          "final_velocity_mps": [
+            0.5792734881608639,
+            -0.036192470484071135,
+            -0.0002652124367587427
+          ],
+          "final_position_ned_m": [
+            5.23058612619035,
+            0.998528582550096,
+            -1.3502915964576616
+          ],
+          "final_velocity_ned_mps": [
+            0.5792734881608639,
+            0.036192470484071135,
+            0.0002652124367587427
+          ],
+          "physics_sha256": "497cafa10b9b589ebbe6273d348ddf6e26414911675f23c8a52477db55b197d0",
+          "runtime_s": 0.40124009997816756,
+          "gui": false
+        },
+        "climb": {
+          "seed": 1,
+          "mode": "climb",
+          "start_s": 0.0,
+          "approval_step": 45,
+          "initiation_step": 45,
+          "horizon_step": 445,
+          "horizon_flight_s": 8.9,
+          "observation_s": 8.0,
+          "safe": true,
+          "inspection_completed": false,
+          "safe_completion": false,
+          "completion_approval_s": null,
+          "longest_inspection_dwell_s": 0.0,
+          "min_clearance_m": 0.43913256058345435,
+          "min_clearance_by_obstacle_m": {
+            "deck": 0.43913256058345435,
+            "pier": 0.8391807424052854
+          },
+          "first_violation": null,
+          "physics_samples": 8901,
+          "control_samples": 446,
+          "maneuver_anchor_m": [
+            0.42209839383837183,
+            6.81112213186084e-14,
+            1.3495741892719582
+          ],
+          "approval_state": [
+            0.42209839383837183,
+            0.7566971600618637,
+            6.81112213186084e-14,
+            -8.331969628935742e-12,
+            1.3495741892719582,
+            0.00368697707150352,
+            8.889344865748676e-11,
+            -0.08747745182694269,
+            4.853108683411584e-12,
+            -5.711954982042364e-09,
+            -0.10372040380471309,
+            -4.303550030703928e-10
+          ],
+          "pid_unchanged_at_initiation": true,
+          "physical_state_unchanged_at_initiation": true,
+          "nominal_to_measured_reference_splice": {
+            "position_m": [
+              0.001270880109353778,
+              6.81112213186084e-14,
+              -0.000425810728041931
+            ],
+            "velocity_mps": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "measured_velocity_mps": [
+              0.7566971600618637,
+              -8.331969628935742e-12,
+              0.00368697707150352
+            ]
+          },
+          "geometry_unchanged": true,
+          "max_physics_position_increment_m": 0.0013182322360577496,
+          "final_position_m": [
+            5.232539607084416,
+            -0.004851017974395419,
+            2.0503537190530383
+          ],
+          "final_velocity_mps": [
+            0.5611601514626973,
+            0.0211367504038563,
+            -9.129833207894672e-05
+          ],
+          "final_position_ned_m": [
+            5.232539607084416,
+            0.004851017974395419,
+            -2.0503537190530383
+          ],
+          "final_velocity_ned_mps": [
+            0.5611601514626973,
+            -0.0211367504038563,
+            9.129833207894672e-05
+          ],
+          "physics_sha256": "9fcb843a6daa98b9aec70da313d6f2496ff1478bdcfc4d2713e12e6e771ddf2c",
+          "runtime_s": 0.38369987695477903,
+          "gui": false
+        }
+      },
+      "initial_climb_safe": true,
+      "d0_replay_physics_sha256": "57ca9f30c5bcfab3d96881c5419dca98feaddb5375bd62fdd50d9fea6cd49549"
+    },
+    {
+      "seed": 2,
+      "scenario": {
+        "version": "ned_east_v2",
+        "seed": 2,
+        "speed": 0.5761612134249317,
+        "cruise_z": 1.35,
+        "ramp_s": 0.4,
+        "approval_s": 0.76,
+        "observation_s": 8.0,
+        "clearance_m": 0.05,
+        "deck_front": 1.5942677221782842,
+        "deck_back": 4.094267722178284,
+        "deck_half_width": 0.55,
+        "deck_bottom": 1.15,
+        "deck_top": 1.55,
+        "pier_x": 2.4327243479215874,
+        "pier_y": 0.0,
+        "pier_half_x": 0.12,
+        "pier_half_y": 0.15,
+        "dive_drop": 0.6,
+        "dive_s": 1.3,
+        "swerve_start_s": 2.6,
+        "swerve_s": 1.2,
+        "swerve_y": 0.85,
+        "climb_rise": 0.7,
+        "climb_s": 1.2,
+        "sideways_y": 1.0,
+        "sideways_s": 1.3,
+        "inspection_lower": [
+          1.6442677221782842,
+          -0.18,
+          0.65
+        ],
+        "inspection_upper": [
+          1.9442677221782843,
+          0.18,
+          0.85
+        ],
+        "inspection_dwell_s": 0.18
+      },
+      "accepted": true,
+      "rejection_reasons": [],
+      "immediate_flights": {
+        "nominal": {
+          "seed": 2,
+          "mode": "nominal",
+          "start_s": null,
+          "approval_step": 38,
+          "initiation_step": null,
+          "horizon_step": 438,
+          "horizon_flight_s": 8.76,
+          "observation_s": 8.0,
+          "safe": false,
+          "inspection_completed": false,
+          "safe_completion": false,
+          "completion_approval_s": null,
+          "longest_inspection_dwell_s": 0.0,
+          "min_clearance_m": -0.26045863008926023,
+          "min_clearance_by_obstacle_m": {
+            "deck": -0.26045863008926023,
+            "pier": 0.1396794555365088
+          },
+          "first_violation": {
+            "time_flight_s": 2.771,
+            "time_approval_s": 2.011,
+            "physics_tick": 2771,
+            "position_m": [
+              1.483184606136606,
+              -0.0019914174564526817,
+              1.3506352377780244
+            ],
+            "obstacle": "deck",
+            "part": "deck_front",
+            "clearance_m": 0.049794862681021776
+          },
+          "physics_samples": 8761,
+          "control_samples": 439,
+          "maneuver_anchor_m": null,
+          "approval_state": [
+            0.28900235897149257,
+            0.8207886499446515,
+            -3.292502438286381e-17,
+            -2.3303385533599702e-14,
+            1.349363367772015,
+            0.0005193599112227553,
+            2.606576261228418e-14,
+            -0.02980876911282525,
+            -9.05195545491319e-15,
+            -2.801047154638025e-11,
+            -1.0353896141227807,
+            1.2068580312291626e-13
+          ],
+          "pid_unchanged_at_initiation": null,
+          "physical_state_unchanged_at_initiation": null,
+          "nominal_to_measured_reference_splice": null,
+          "geometry_unchanged": true,
+          "max_physics_position_increment_m": 0.000827053994249017,
+          "final_position_m": [
+            4.939359378766098,
+            0.005294988647522494,
+            1.350774247010855
+          ],
+          "final_velocity_mps": [
+            0.5522102849170811,
+            0.024803108126692126,
+            -9.702129700028696e-05
+          ],
+          "final_position_ned_m": [
+            4.939359378766098,
+            -0.005294988647522494,
+            -1.350774247010855
+          ],
+          "final_velocity_ned_mps": [
+            0.5522102849170811,
+            -0.024803108126692126,
+            9.702129700028696e-05
+          ],
+          "physics_sha256": "9e145d8c1a6ceb3b9190fe09b9dae682d90016c52fb091e4121f78e32193047a",
+          "runtime_s": 0.39791998197324574,
+          "gui": false
+        },
+        "dive": {
+          "seed": 2,
+          "mode": "dive",
+          "start_s": 0.0,
+          "approval_step": 38,
+          "initiation_step": 38,
+          "horizon_step": 438,
+          "horizon_flight_s": 8.76,
+          "observation_s": 8.0,
+          "safe": true,
+          "inspection_completed": true,
+          "safe_completion": true,
+          "completion_approval_s": 2.5410000000000004,
+          "longest_inspection_dwell_s": 0.509,
+          "min_clearance_m": 0.1437420657528513,
+          "min_clearance_by_obstacle_m": {
+            "deck": 0.3333264626936651,
+            "pier": 0.1437420657528513
+          },
+          "first_violation": null,
+          "physics_samples": 8761,
+          "control_samples": 439,
+          "maneuver_anchor_m": [
+            0.28900235897149257,
+            -3.292502438286381e-17,
+            1.349363367772015
+          ],
+          "approval_state": [
+            0.28900235897149257,
+            0.8207886499446515,
+            -3.292502438286381e-17,
+            -2.3303385533599702e-14,
+            1.349363367772015,
+            0.0005193599112227553,
+            2.606576261228418e-14,
+            -0.02980876911282525,
+            -9.05195545491319e-15,
+            -2.801047154638025e-11,
+            -1.0353896141227807,
+            1.2068580312291626e-13
+          ],
+          "pid_unchanged_at_initiation": true,
+          "physical_state_unchanged_at_initiation": true,
+          "nominal_to_measured_reference_splice": {
+            "position_m": [
+              -0.0336479205464692,
+              -3.292502438286381e-17,
+              -0.0006366322279851566
+            ],
+            "velocity_mps": [
+              0.0,
+              -0.0,
+              -0.0
+            ],
+            "measured_velocity_mps": [
+              0.8207886499446515,
+              -2.3303385533599702e-14,
+              0.0005193599112227553
+            ]
+          },
+          "geometry_unchanged": true,
+          "max_physics_position_increment_m": 0.0019007595216920259,
+          "final_position_m": [
+            4.8937726671384985,
+            -0.8446233888466705,
+            0.7501870737009851
+          ],
+          "final_velocity_mps": [
+            0.597428892546542,
+            -0.04045354673208091,
+            -0.0001188880157800136
+          ],
+          "final_position_ned_m": [
+            4.8937726671384985,
+            0.8446233888466705,
+            -0.7501870737009851
+          ],
+          "final_velocity_ned_mps": [
+            0.597428892546542,
+            0.04045354673208091,
+            0.0001188880157800136
+          ],
+          "physics_sha256": "44e3d3f780e0cae6d5690e369ac2789622ed11d6e1fcdc614162d3feb6ed44fe",
+          "runtime_s": 0.37648376502329484,
+          "gui": false
+        },
+        "sideways": {
+          "seed": 2,
+          "mode": "sideways",
+          "start_s": 0.0,
+          "approval_step": 38,
+          "initiation_step": 38,
+          "horizon_step": 438,
+          "horizon_flight_s": 8.76,
+          "observation_s": 8.0,
+          "safe": true,
+          "inspection_completed": false,
+          "safe_completion": false,
+          "completion_approval_s": null,
+          "longest_inspection_dwell_s": 0.0,
+          "min_clearance_m": 0.3797795309711655,
+          "min_clearance_by_obstacle_m": {
+            "deck": 0.3797795309711655,
+            "pier": 0.8146203735675746
+          },
+          "first_violation": null,
+          "physics_samples": 8761,
+          "control_samples": 439,
+          "maneuver_anchor_m": [
+            0.28900235897149257,
+            -3.292502438286381e-17,
+            1.349363367772015
+          ],
+          "approval_state": [
+            0.28900235897149257,
+            0.8207886499446515,
+            -3.292502438286381e-17,
+            -2.3303385533599702e-14,
+            1.349363367772015,
+            0.0005193599112227553,
+            2.606576261228418e-14,
+            -0.02980876911282525,
+            -9.05195545491319e-15,
+            -2.801047154638025e-11,
+            -1.0353896141227807,
+            1.2068580312291626e-13
+          ],
+          "pid_unchanged_at_initiation": true,
+          "physical_state_unchanged_at_initiation": true,
+          "nominal_to_measured_reference_splice": {
+            "position_m": [
+              -0.0336479205464692,
+              -3.292502438286381e-17,
+              -0.0006366322279851566
+            ],
+            "velocity_mps": [
+              0.0,
+              -0.0,
+              0.0
+            ],
+            "measured_velocity_mps": [
+              0.8207886499446515,
+              -2.3303385533599702e-14,
+              0.0005193599112227553
+            ]
+          },
+          "geometry_unchanged": true,
+          "max_physics_position_increment_m": 0.0020376066570872166,
+          "final_position_m": [
+            4.9036534892942525,
+            -1.0003272395849303,
+            1.350198394349729
+          ],
+          "final_velocity_mps": [
+            0.5641257738985306,
+            -0.007489988800847109,
+            -0.00015938342461850575
+          ],
+          "final_position_ned_m": [
+            4.9036534892942525,
+            1.0003272395849303,
+            -1.350198394349729
+          ],
+          "final_velocity_ned_mps": [
+            0.5641257738985306,
+            0.007489988800847109,
+            0.00015938342461850575
+          ],
+          "physics_sha256": "3f66f4bcd5d3c4f4587e1eead4ee9092c4edcda2dca03c25f9ebc30764d2c96b",
+          "runtime_s": 0.36371012800373137,
+          "gui": false
+        },
+        "climb": {
+          "seed": 2,
+          "mode": "climb",
+          "start_s": 0.0,
+          "approval_step": 38,
+          "initiation_step": 38,
+          "horizon_step": 438,
+          "horizon_flight_s": 8.76,
+          "observation_s": 8.0,
+          "safe": true,
+          "inspection_completed": false,
+          "safe_completion": false,
+          "completion_approval_s": null,
+          "longest_inspection_dwell_s": 0.0,
+          "min_clearance_m": 0.43883438320318574,
+          "min_clearance_by_obstacle_m": {
+            "deck": 0.43883438320318574,
+            "pier": 0.8390191816055749
+          },
+          "first_violation": null,
+          "physics_samples": 8761,
+          "control_samples": 439,
+          "maneuver_anchor_m": [
+            0.28900235897149257,
+            -3.292502438286381e-17,
+            1.349363367772015
+          ],
+          "approval_state": [
+            0.28900235897149257,
+            0.8207886499446515,
+            -3.292502438286381e-17,
+            -2.3303385533599702e-14,
+            1.349363367772015,
+            0.0005193599112227553,
+            2.606576261228418e-14,
+            -0.02980876911282525,
+            -9.05195545491319e-15,
+            -2.801047154638025e-11,
+            -1.0353896141227807,
+            1.2068580312291626e-13
+          ],
+          "pid_unchanged_at_initiation": true,
+          "physical_state_unchanged_at_initiation": true,
+          "nominal_to_measured_reference_splice": {
+            "position_m": [
+              -0.0336479205464692,
+              -3.292502438286381e-17,
+              -0.0006366322279851566
+            ],
+            "velocity_mps": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "measured_velocity_mps": [
+              0.8207886499446515,
+              -2.3303385533599702e-14,
+              0.0005193599112227553
+            ]
+          },
+          "geometry_unchanged": true,
+          "max_physics_position_increment_m": 0.0012863946396258607,
+          "final_position_m": [
+            4.903432836926441,
+            0.006890117695844764,
+            2.0501141404811114
+          ],
+          "final_velocity_mps": [
+            0.5388715274208519,
+            0.024529691142376762,
+            -0.0002764235701449229
+          ],
+          "final_position_ned_m": [
+            4.903432836926441,
+            -0.006890117695844764,
+            -2.0501141404811114
+          ],
+          "final_velocity_ned_mps": [
+            0.5388715274208519,
+            -0.024529691142376762,
+            0.0002764235701449229
+          ],
+          "physics_sha256": "8a93268098069d9a5b2cc6225bd6b1d46306cb9e0c333696015afb1fce3b5718",
+          "runtime_s": 0.36527037096675485,
+          "gui": false
+        }
+      },
+      "initial_climb_safe": true,
+      "d0_replay_physics_sha256": "44e3d3f780e0cae6d5690e369ac2789622ed11d6e1fcdc614162d3feb6ed44fe"
+    },
+    {
+      "seed": 3,
+      "scenario": {
+        "version": "ned_east_v2",
+        "seed": 3,
+        "speed": 0.5585649167143625,
+        "cruise_z": 1.35,
+        "ramp_s": 0.4,
+        "approval_s": 0.74,
+        "observation_s": 8.0,
+        "clearance_m": 0.05,
+        "deck_front": 1.590382339561919,
+        "deck_back": 4.090382339561919,
+        "deck_half_width": 0.55,
+        "deck_bottom": 1.15,
+        "deck_top": 1.55,
+        "pier_x": 2.873945832457931,
+        "pier_y": 0.0,
+        "pier_half_x": 0.12,
+        "pier_half_y": 0.15,
+        "dive_drop": 0.6,
+        "dive_s": 1.3,
+        "swerve_start_s": 2.6,
+        "swerve_s": 1.2,
+        "swerve_y": 0.85,
+        "climb_rise": 0.7,
+        "climb_s": 1.2,
+        "sideways_y": 1.0,
+        "sideways_s": 1.3,
+        "inspection_lower": [
+          1.640382339561919,
+          -0.18,
+          0.65
+        ],
+        "inspection_upper": [
+          1.940382339561919,
+          0.18,
+          0.85
+        ],
+        "inspection_dwell_s": 0.18
+      },
+      "accepted": true,
+      "rejection_reasons": [],
+      "immediate_flights": {
+        "nominal": {
+          "seed": 3,
+          "mode": "nominal",
+          "start_s": null,
+          "approval_step": 37,
+          "initiation_step": null,
+          "horizon_step": 437,
+          "horizon_flight_s": 8.74,
+          "observation_s": 8.0,
+          "safe": false,
+          "inspection_completed": false,
+          "safe_completion": false,
+          "completion_approval_s": null,
+          "longest_inspection_dwell_s": 0.0,
+          "min_clearance_m": -0.26043520098785505,
+          "min_clearance_by_obstacle_m": {
+            "deck": -0.26043520098785505,
+            "pier": 0.1395711879401686
+          },
+          "first_violation": {
+            "time_flight_s": 2.85,
+            "time_approval_s": 2.1100000000000003,
+            "physics_tick": 2850,
+            "position_m": [
+              1.4791156730199622,
+              0.00479466663079304,
+              1.3508138530154108
+            ],
+            "obstacle": "deck",
+            "part": "deck_front",
+            "clearance_m": 0.049978413181300516
+          },
+          "physics_samples": 8741,
+          "control_samples": 438,
+          "maneuver_anchor_m": null,
+          "approval_state": [
+            0.26436506418585737,
+            0.8212654011179724,
+            5.54271944351797e-16,
+            2.0714654115287483e-14,
+            1.3492771828000165,
+            -0.0019525685302912046,
+            5.050765508675019e-13,
+            -0.013825631162274827,
+            -1.593061812615508e-14,
+            5.201382479486887e-11,
+            -0.9992165171639866,
+            -4.758512526632381e-12
+          ],
+          "pid_unchanged_at_initiation": null,
+          "physical_state_unchanged_at_initiation": null,
+          "nominal_to_measured_reference_splice": null,
+          "geometry_unchanged": true,
+          "max_physics_position_increment_m": 0.0008219270351101276,
+          "final_position_m": [
+            4.767050293662266,
+            -0.005056193471848528,
+            1.3508195755955508
+          ],
+          "final_velocity_mps": [
+            0.5601156162384878,
+            -0.010472776079425043,
+            3.4012091202212746e-05
+          ],
+          "final_position_ned_m": [
+            4.767050293662266,
+            0.005056193471848528,
+            -1.3508195755955508
+          ],
+          "final_velocity_ned_mps": [
+            0.5601156162384878,
+            0.010472776079425043,
+            -3.4012091202212746e-05
+          ],
+          "physics_sha256": "2a1b80bd7f483bd3b9fe763881477ac7a94486781c64533a681aca742ebdc187",
+          "runtime_s": 0.3645306559628807,
+          "gui": false
+        },
+        "dive": {
+          "seed": 3,
+          "mode": "dive",
+          "start_s": 0.0,
+          "approval_step": 37,
+          "initiation_step": 37,
+          "horizon_step": 437,
+          "horizon_flight_s": 8.74,
+          "observation_s": 8.0,
+          "safe": true,
+          "inspection_completed": true,
+          "safe_completion": true,
+          "completion_approval_s": 2.638,
+          "longest_inspection_dwell_s": 0.545,
+          "min_clearance_m": 0.3329221627010038,
+          "min_clearance_by_obstacle_m": {
+            "deck": 0.3329221627010038,
+            "pier": 0.6187571232158705
+          },
+          "first_violation": null,
+          "physics_samples": 8741,
+          "control_samples": 438,
+          "maneuver_anchor_m": [
+            0.26436506418585737,
+            5.54271944351797e-16,
+            1.3492771828000165
+          ],
+          "approval_state": [
+            0.26436506418585737,
+            0.8212654011179724,
+            5.54271944351797e-16,
+            2.0714654115287483e-14,
+            1.3492771828000165,
+            -0.0019525685302912046,
+            5.050765508675019e-13,
+            -0.013825631162274827,
+            -1.593061812615508e-14,
+            5.201382479486887e-11,
+            -0.9992165171639866,
+            -4.758512526632381e-12
+          ],
+          "pid_unchanged_at_initiation": true,
+          "physical_state_unchanged_at_initiation": true,
+          "nominal_to_measured_reference_splice": {
+            "position_m": [
+              -0.037259990839898394,
+              5.54271944351797e-16,
+              -0.000722817199983572
+            ],
+            "velocity_mps": [
+              0.0,
+              -0.0,
+              -0.0
+            ],
+            "measured_velocity_mps": [
+              0.8212654011179724,
+              2.0714654115287483e-14,
+              -0.0019525685302912046
+            ]
+          },
+          "geometry_unchanged": true,
+          "max_physics_position_increment_m": 0.0019129042258956926,
+          "final_position_m": [
+            4.732451029184551,
+            -0.844757223528972,
+            0.7501433455637088
+          ],
+          "final_velocity_mps": [
+            0.5471884233107562,
+            0.0039304900649698915,
+            6.178803372703509e-05
+          ],
+          "final_position_ned_m": [
+            4.732451029184551,
+            0.844757223528972,
+            -0.7501433455637088
+          ],
+          "final_velocity_ned_mps": [
+            0.5471884233107562,
+            -0.0039304900649698915,
+            -6.178803372703509e-05
+          ],
+          "physics_sha256": "8d78a5463e60ba784bbb862c7ae49ffc0ff455c49c139f48b0975febe2854f05",
+          "runtime_s": 0.3696835460141301,
+          "gui": false
+        },
+        "sideways": {
+          "seed": 3,
+          "mode": "sideways",
+          "start_s": 0.0,
+          "approval_step": 37,
+          "initiation_step": 37,
+          "horizon_step": 437,
+          "horizon_flight_s": 8.74,
+          "observation_s": 8.0,
+          "safe": true,
+          "inspection_completed": false,
+          "safe_completion": false,
+          "completion_approval_s": null,
+          "longest_inspection_dwell_s": 0.0,
+          "min_clearance_m": 0.3781303211809784,
+          "min_clearance_by_obstacle_m": {
+            "deck": 0.3781303211809784,
+            "pier": 0.8039110200515431
+          },
+          "first_violation": null,
+          "physics_samples": 8741,
+          "control_samples": 438,
+          "maneuver_anchor_m": [
+            0.26436506418585737,
+            5.54271944351797e-16,
+            1.3492771828000165
+          ],
+          "approval_state": [
+            0.26436506418585737,
+            0.8212654011179724,
+            5.54271944351797e-16,
+            2.0714654115287483e-14,
+            1.3492771828000165,
+            -0.0019525685302912046,
+            5.050765508675019e-13,
+            -0.013825631162274827,
+            -1.593061812615508e-14,
+            5.201382479486887e-11,
+            -0.9992165171639866,
+            -4.758512526632381e-12
+          ],
+          "pid_unchanged_at_initiation": true,
+          "physical_state_unchanged_at_initiation": true,
+          "nominal_to_measured_reference_splice": {
+            "position_m": [
+              -0.037259990839898394,
+              5.54271944351797e-16,
+              -0.000722817199983572
+            ],
+            "velocity_mps": [
+              0.0,
+              -0.0,
+              0.0
+            ],
+            "measured_velocity_mps": [
+              0.8212654011179724,
+              2.0714654115287483e-14,
+              -0.0019525685302912046
+            ]
+          },
+          "geometry_unchanged": true,
+          "max_physics_position_increment_m": 0.0020501004701239853,
+          "final_position_m": [
+            4.735971479717675,
+            -1.0038421974174323,
+            1.350125060011656
+          ],
+          "final_velocity_mps": [
+            0.5383686832712159,
+            0.004057385678589428,
+            0.00012456724686686404
+          ],
+          "final_position_ned_m": [
+            4.735971479717675,
+            1.0038421974174323,
+            -1.350125060011656
+          ],
+          "final_velocity_ned_mps": [
+            0.5383686832712159,
+            -0.004057385678589428,
+            -0.00012456724686686404
+          ],
+          "physics_sha256": "be03e583922694814e123e4fcdc8109b4038fbf5c7622c5f8123f9ef9da8bfb9",
+          "runtime_s": 0.4353645220398903,
+          "gui": false
+        },
+        "climb": {
+          "seed": 3,
+          "mode": "climb",
+          "start_s": 0.0,
+          "approval_step": 37,
+          "initiation_step": 37,
+          "horizon_step": 437,
+          "horizon_flight_s": 8.74,
+          "observation_s": 8.0,
+          "safe": true,
+          "inspection_completed": false,
+          "safe_completion": false,
+          "completion_approval_s": null,
+          "longest_inspection_dwell_s": 0.0,
+          "min_clearance_m": 0.4387934080528641,
+          "min_clearance_by_obstacle_m": {
+            "deck": 0.4387934080528641,
+            "pier": 0.8388691706974755
+          },
+          "first_violation": null,
+          "physics_samples": 8741,
+          "control_samples": 438,
+          "maneuver_anchor_m": [
+            0.26436506418585737,
+            5.54271944351797e-16,
+            1.3492771828000165
+          ],
+          "approval_state": [
+            0.26436506418585737,
+            0.8212654011179724,
+            5.54271944351797e-16,
+            2.0714654115287483e-14,
+            1.3492771828000165,
+            -0.0019525685302912046,
+            5.050765508675019e-13,
+            -0.013825631162274827,
+            -1.593061812615508e-14,
+            5.201382479486887e-11,
+            -0.9992165171639866,
+            -4.758512526632381e-12
+          ],
+          "pid_unchanged_at_initiation": true,
+          "physical_state_unchanged_at_initiation": true,
+          "nominal_to_measured_reference_splice": {
+            "position_m": [
+              -0.037259990839898394,
+              5.54271944351797e-16,
+              -0.000722817199983572
+            ],
+            "velocity_mps": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "measured_velocity_mps": [
+              0.8212654011179724,
+              2.0714654115287483e-14,
+              -0.0019525685302912046
+            ]
+          },
+          "geometry_unchanged": true,
+          "max_physics_position_increment_m": 0.0012699187275275335,
+          "final_position_m": [
+            4.730861347324521,
+            0.009177045461832511,
+            2.050082920849002
+          ],
+          "final_velocity_mps": [
+            0.5791328978712794,
+            -0.01112552554362483,
+            -0.00019533572387990487
+          ],
+          "final_position_ned_m": [
+            4.730861347324521,
+            -0.009177045461832511,
+            -2.050082920849002
+          ],
+          "final_velocity_ned_mps": [
+            0.5791328978712794,
+            0.01112552554362483,
+            0.00019533572387990487
+          ],
+          "physics_sha256": "4066dfc2f915ce4c127ea24c6471d0cc40006e77a55e6a69b42b5b38cb25eb50",
+          "runtime_s": 1.3271328010014258,
+          "gui": false
+        }
+      },
+      "initial_climb_safe": true,
+      "d0_replay_physics_sha256": "8d78a5463e60ba784bbb862c7ae49ffc0ff455c49c139f48b0975febe2854f05"
+    }
+  ],
+  "scenarios": [
+    {
+      "seed": 1,
+      "scenario": {
+        "version": "ned_east_v2",
+        "seed": 1,
+        "speed": 0.6011821624700258,
+        "cruise_z": 1.35,
+        "ramp_s": 0.4,
+        "approval_s": 0.9,
+        "observation_s": 8.0,
+        "clearance_m": 0.05,
+        "deck_front": 1.3932478838158902,
+        "deck_back": 3.8932478838158904,
+        "deck_half_width": 0.55,
+        "deck_bottom": 1.15,
+        "deck_top": 1.55,
+        "pier_x": 3.2037845024235194,
+        "pier_y": 0.0,
+        "pier_half_x": 0.12,
+        "pier_half_y": 0.15,
+        "dive_drop": 0.6,
+        "dive_s": 1.3,
+        "swerve_start_s": 2.6,
+        "swerve_s": 1.2,
+        "swerve_y": 0.85,
+        "climb_rise": 0.7,
+        "climb_s": 1.2,
+        "sideways_y": 1.0,
+        "sideways_s": 1.3,
+        "inspection_lower": [
+          1.4432478838158902,
+          -0.18,
+          0.65
+        ],
+        "inspection_upper": [
+          1.7432478838158902,
+          0.18,
+          0.85
+        ],
+        "inspection_dwell_s": 0.18
+      },
+      "approval_snapshot": "snapshots/seed_1.pkl",
+      "snapshot_sha256": "96d7ffa802b2b8e0124a3686c0d9b7e07a372dd64991ba968b6134cd876cc66a",
+      "d0_verification": {
+        "seed": 1,
+        "mode": "dive",
+        "start_s": 0.0,
+        "approval_step": 45,
+        "initiation_step": 45,
+        "horizon_step": 445,
+        "horizon_flight_s": 8.9,
+        "observation_s": 8.0,
+        "safe": true,
+        "inspection_completed": true,
+        "safe_completion": true,
+        "completion_approval_s": 1.879,
+        "longest_inspection_dwell_s": 0.486,
+        "min_clearance_m": 0.332883201552096,
+        "min_clearance_by_obstacle_m": {
+          "deck": 0.332883201552096,
+          "pier": 0.6153849317300016
+        },
+        "first_violation": null,
+        "physics_samples": 8901,
+        "control_samples": 446,
+        "maneuver_anchor_m": [
+          0.42209839383837183,
+          6.81112213186084e-14,
+          1.3495741892719582
+        ],
+        "approval_state": [
+          0.42209839383837183,
+          0.7566971600618637,
+          6.81112213186084e-14,
+          -8.331969628935742e-12,
+          1.3495741892719582,
+          0.00368697707150352,
+          8.889344865748676e-11,
+          -0.08747745182694269,
+          4.853108683411584e-12,
+          -5.711954982042364e-09,
+          -0.10372040380471309,
+          -4.303550030703928e-10
+        ],
+        "pid_unchanged_at_initiation": true,
+        "physical_state_unchanged_at_initiation": true,
+        "nominal_to_measured_reference_splice": {
+          "position_m": [
+            0.001270880109353778,
+            6.81112213186084e-14,
+            -0.000425810728041931
+          ],
+          "velocity_mps": [
+            0.0,
+            -0.0,
+            -0.0
+          ],
+          "measured_velocity_mps": [
+            0.7566971600618637,
+            -8.331969628935742e-12,
+            0.00368697707150352
+          ]
+        },
+        "geometry_unchanged": true,
+        "max_physics_position_increment_m": 0.0019309787654785172,
+        "final_position_m": [
+          5.230872560082261,
+          -0.837966389213519,
+          0.7504516207565521
+        ],
+        "final_velocity_mps": [
+          0.5910906440100606,
+          0.011141656478739192,
+          0.00013256803927177196
+        ],
+        "final_position_ned_m": [
+          5.230872560082261,
+          0.837966389213519,
+          -0.7504516207565521
+        ],
+        "final_velocity_ned_mps": [
+          0.5910906440100606,
+          -0.011141656478739192,
+          -0.00013256803927177196
+        ],
+        "physics_sha256": "57ca9f30c5bcfab3d96881c5419dca98feaddb5375bd62fdd50d9fea6cd49549",
+        "runtime_s": 0.41441466502146795,
+        "gui": false
+      },
+      "initial_sideways": {
+        "seed": 1,
+        "mode": "sideways",
+        "start_s": 0.0,
+        "approval_step": 45,
+        "initiation_step": 45,
+        "horizon_step": 445,
+        "horizon_flight_s": 8.9,
+        "observation_s": 8.0,
+        "safe": true,
+        "inspection_completed": false,
+        "safe_completion": false,
+        "completion_approval_s": null,
+        "longest_inspection_dwell_s": 0.0,
+        "min_clearance_m": 0.37033004786165086,
+        "min_clearance_by_obstacle_m": {
+          "deck": 0.37033004786165086,
+          "pier": 0.8134446125135645
+        },
+        "first_violation": null,
+        "physics_samples": 8901,
+        "control_samples": 446,
+        "maneuver_anchor_m": [
+          0.42209839383837183,
+          6.81112213186084e-14,
+          1.3495741892719582
+        ],
+        "approval_state": [
+          0.42209839383837183,
+          0.7566971600618637,
+          6.81112213186084e-14,
+          -8.331969628935742e-12,
+          1.3495741892719582,
+          0.00368697707150352,
+          8.889344865748676e-11,
+          -0.08747745182694269,
+          4.853108683411584e-12,
+          -5.711954982042364e-09,
+          -0.10372040380471309,
+          -4.303550030703928e-10
+        ],
+        "pid_unchanged_at_initiation": true,
+        "physical_state_unchanged_at_initiation": true,
+        "nominal_to_measured_reference_splice": {
+          "position_m": [
+            0.001270880109353778,
+            6.81112213186084e-14,
+            -0.000425810728041931
+          ],
+          "velocity_mps": [
+            0.0,
+            -0.0,
+            0.0
+          ],
+          "measured_velocity_mps": [
+            0.7566971600618637,
+            -8.331969628935742e-12,
+            0.00368697707150352
+          ]
+        },
+        "geometry_unchanged": true,
+        "max_physics_position_increment_m": 0.0020514343779664272,
+        "final_position_m": [
+          5.23058612619035,
+          -0.998528582550096,
+          1.3502915964576616
+        ],
+        "final_velocity_mps": [
+          0.5792734881608639,
+          -0.036192470484071135,
+          -0.0002652124367587427
+        ],
+        "final_position_ned_m": [
+          5.23058612619035,
+          0.998528582550096,
+          -1.3502915964576616
+        ],
+        "final_velocity_ned_mps": [
+          0.5792734881608639,
+          0.036192470484071135,
+          0.0002652124367587427
+        ],
+        "physics_sha256": "497cafa10b9b589ebbe6273d348ddf6e26414911675f23c8a52477db55b197d0",
+        "runtime_s": 0.40124009997816756,
+        "gui": false
+      },
+      "initial_climb_safe": true
+    },
+    {
+      "seed": 2,
+      "scenario": {
+        "version": "ned_east_v2",
+        "seed": 2,
+        "speed": 0.5761612134249317,
+        "cruise_z": 1.35,
+        "ramp_s": 0.4,
+        "approval_s": 0.76,
+        "observation_s": 8.0,
+        "clearance_m": 0.05,
+        "deck_front": 1.5942677221782842,
+        "deck_back": 4.094267722178284,
+        "deck_half_width": 0.55,
+        "deck_bottom": 1.15,
+        "deck_top": 1.55,
+        "pier_x": 2.4327243479215874,
+        "pier_y": 0.0,
+        "pier_half_x": 0.12,
+        "pier_half_y": 0.15,
+        "dive_drop": 0.6,
+        "dive_s": 1.3,
+        "swerve_start_s": 2.6,
+        "swerve_s": 1.2,
+        "swerve_y": 0.85,
+        "climb_rise": 0.7,
+        "climb_s": 1.2,
+        "sideways_y": 1.0,
+        "sideways_s": 1.3,
+        "inspection_lower": [
+          1.6442677221782842,
+          -0.18,
+          0.65
+        ],
+        "inspection_upper": [
+          1.9442677221782843,
+          0.18,
+          0.85
+        ],
+        "inspection_dwell_s": 0.18
+      },
+      "approval_snapshot": "snapshots/seed_2.pkl",
+      "snapshot_sha256": "1cbe07f1389c038452d5468f57a4b535d0acc7d9c64c15cec2925846ee8b8793",
+      "d0_verification": {
+        "seed": 2,
+        "mode": "dive",
+        "start_s": 0.0,
+        "approval_step": 38,
+        "initiation_step": 38,
+        "horizon_step": 438,
+        "horizon_flight_s": 8.76,
+        "observation_s": 8.0,
+        "safe": true,
+        "inspection_completed": true,
+        "safe_completion": true,
+        "completion_approval_s": 2.5410000000000004,
+        "longest_inspection_dwell_s": 0.509,
+        "min_clearance_m": 0.1437420657528513,
+        "min_clearance_by_obstacle_m": {
+          "deck": 0.3333264626936651,
+          "pier": 0.1437420657528513
+        },
+        "first_violation": null,
+        "physics_samples": 8761,
+        "control_samples": 439,
+        "maneuver_anchor_m": [
+          0.28900235897149257,
+          -3.292502438286381e-17,
+          1.349363367772015
+        ],
+        "approval_state": [
+          0.28900235897149257,
+          0.8207886499446515,
+          -3.292502438286381e-17,
+          -2.3303385533599702e-14,
+          1.349363367772015,
+          0.0005193599112227553,
+          2.606576261228418e-14,
+          -0.02980876911282525,
+          -9.05195545491319e-15,
+          -2.801047154638025e-11,
+          -1.0353896141227807,
+          1.2068580312291626e-13
+        ],
+        "pid_unchanged_at_initiation": true,
+        "physical_state_unchanged_at_initiation": true,
+        "nominal_to_measured_reference_splice": {
+          "position_m": [
+            -0.0336479205464692,
+            -3.292502438286381e-17,
+            -0.0006366322279851566
+          ],
+          "velocity_mps": [
+            0.0,
+            -0.0,
+            -0.0
+          ],
+          "measured_velocity_mps": [
+            0.8207886499446515,
+            -2.3303385533599702e-14,
+            0.0005193599112227553
+          ]
+        },
+        "geometry_unchanged": true,
+        "max_physics_position_increment_m": 0.0019007595216920259,
+        "final_position_m": [
+          4.8937726671384985,
+          -0.8446233888466705,
+          0.7501870737009851
+        ],
+        "final_velocity_mps": [
+          0.597428892546542,
+          -0.04045354673208091,
+          -0.0001188880157800136
+        ],
+        "final_position_ned_m": [
+          4.8937726671384985,
+          0.8446233888466705,
+          -0.7501870737009851
+        ],
+        "final_velocity_ned_mps": [
+          0.597428892546542,
+          0.04045354673208091,
+          0.0001188880157800136
+        ],
+        "physics_sha256": "44e3d3f780e0cae6d5690e369ac2789622ed11d6e1fcdc614162d3feb6ed44fe",
+        "runtime_s": 0.37648376502329484,
+        "gui": false
+      },
+      "initial_sideways": {
+        "seed": 2,
+        "mode": "sideways",
+        "start_s": 0.0,
+        "approval_step": 38,
+        "initiation_step": 38,
+        "horizon_step": 438,
+        "horizon_flight_s": 8.76,
+        "observation_s": 8.0,
+        "safe": true,
+        "inspection_completed": false,
+        "safe_completion": false,
+        "completion_approval_s": null,
+        "longest_inspection_dwell_s": 0.0,
+        "min_clearance_m": 0.3797795309711655,
+        "min_clearance_by_obstacle_m": {
+          "deck": 0.3797795309711655,
+          "pier": 0.8146203735675746
+        },
+        "first_violation": null,
+        "physics_samples": 8761,
+        "control_samples": 439,
+        "maneuver_anchor_m": [
+          0.28900235897149257,
+          -3.292502438286381e-17,
+          1.349363367772015
+        ],
+        "approval_state": [
+          0.28900235897149257,
+          0.8207886499446515,
+          -3.292502438286381e-17,
+          -2.3303385533599702e-14,
+          1.349363367772015,
+          0.0005193599112227553,
+          2.606576261228418e-14,
+          -0.02980876911282525,
+          -9.05195545491319e-15,
+          -2.801047154638025e-11,
+          -1.0353896141227807,
+          1.2068580312291626e-13
+        ],
+        "pid_unchanged_at_initiation": true,
+        "physical_state_unchanged_at_initiation": true,
+        "nominal_to_measured_reference_splice": {
+          "position_m": [
+            -0.0336479205464692,
+            -3.292502438286381e-17,
+            -0.0006366322279851566
+          ],
+          "velocity_mps": [
+            0.0,
+            -0.0,
+            0.0
+          ],
+          "measured_velocity_mps": [
+            0.8207886499446515,
+            -2.3303385533599702e-14,
+            0.0005193599112227553
+          ]
+        },
+        "geometry_unchanged": true,
+        "max_physics_position_increment_m": 0.0020376066570872166,
+        "final_position_m": [
+          4.9036534892942525,
+          -1.0003272395849303,
+          1.350198394349729
+        ],
+        "final_velocity_mps": [
+          0.5641257738985306,
+          -0.007489988800847109,
+          -0.00015938342461850575
+        ],
+        "final_position_ned_m": [
+          4.9036534892942525,
+          1.0003272395849303,
+          -1.350198394349729
+        ],
+        "final_velocity_ned_mps": [
+          0.5641257738985306,
+          0.007489988800847109,
+          0.00015938342461850575
+        ],
+        "physics_sha256": "3f66f4bcd5d3c4f4587e1eead4ee9092c4edcda2dca03c25f9ebc30764d2c96b",
+        "runtime_s": 0.36371012800373137,
+        "gui": false
+      },
+      "initial_climb_safe": true
+    },
+    {
+      "seed": 3,
+      "scenario": {
+        "version": "ned_east_v2",
+        "seed": 3,
+        "speed": 0.5585649167143625,
+        "cruise_z": 1.35,
+        "ramp_s": 0.4,
+        "approval_s": 0.74,
+        "observation_s": 8.0,
+        "clearance_m": 0.05,
+        "deck_front": 1.590382339561919,
+        "deck_back": 4.090382339561919,
+        "deck_half_width": 0.55,
+        "deck_bottom": 1.15,
+        "deck_top": 1.55,
+        "pier_x": 2.873945832457931,
+        "pier_y": 0.0,
+        "pier_half_x": 0.12,
+        "pier_half_y": 0.15,
+        "dive_drop": 0.6,
+        "dive_s": 1.3,
+        "swerve_start_s": 2.6,
+        "swerve_s": 1.2,
+        "swerve_y": 0.85,
+        "climb_rise": 0.7,
+        "climb_s": 1.2,
+        "sideways_y": 1.0,
+        "sideways_s": 1.3,
+        "inspection_lower": [
+          1.640382339561919,
+          -0.18,
+          0.65
+        ],
+        "inspection_upper": [
+          1.940382339561919,
+          0.18,
+          0.85
+        ],
+        "inspection_dwell_s": 0.18
+      },
+      "approval_snapshot": "snapshots/seed_3.pkl",
+      "snapshot_sha256": "d3aa776389c3d65d563eea8c86a99a251333aeff3431a5050748c6de791ea433",
+      "d0_verification": {
+        "seed": 3,
+        "mode": "dive",
+        "start_s": 0.0,
+        "approval_step": 37,
+        "initiation_step": 37,
+        "horizon_step": 437,
+        "horizon_flight_s": 8.74,
+        "observation_s": 8.0,
+        "safe": true,
+        "inspection_completed": true,
+        "safe_completion": true,
+        "completion_approval_s": 2.638,
+        "longest_inspection_dwell_s": 0.545,
+        "min_clearance_m": 0.3329221627010038,
+        "min_clearance_by_obstacle_m": {
+          "deck": 0.3329221627010038,
+          "pier": 0.6187571232158705
+        },
+        "first_violation": null,
+        "physics_samples": 8741,
+        "control_samples": 438,
+        "maneuver_anchor_m": [
+          0.26436506418585737,
+          5.54271944351797e-16,
+          1.3492771828000165
+        ],
+        "approval_state": [
+          0.26436506418585737,
+          0.8212654011179724,
+          5.54271944351797e-16,
+          2.0714654115287483e-14,
+          1.3492771828000165,
+          -0.0019525685302912046,
+          5.050765508675019e-13,
+          -0.013825631162274827,
+          -1.593061812615508e-14,
+          5.201382479486887e-11,
+          -0.9992165171639866,
+          -4.758512526632381e-12
+        ],
+        "pid_unchanged_at_initiation": true,
+        "physical_state_unchanged_at_initiation": true,
+        "nominal_to_measured_reference_splice": {
+          "position_m": [
+            -0.037259990839898394,
+            5.54271944351797e-16,
+            -0.000722817199983572
+          ],
+          "velocity_mps": [
+            0.0,
+            -0.0,
+            -0.0
+          ],
+          "measured_velocity_mps": [
+            0.8212654011179724,
+            2.0714654115287483e-14,
+            -0.0019525685302912046
+          ]
+        },
+        "geometry_unchanged": true,
+        "max_physics_position_increment_m": 0.0019129042258956926,
+        "final_position_m": [
+          4.732451029184551,
+          -0.844757223528972,
+          0.7501433455637088
+        ],
+        "final_velocity_mps": [
+          0.5471884233107562,
+          0.0039304900649698915,
+          6.178803372703509e-05
+        ],
+        "final_position_ned_m": [
+          4.732451029184551,
+          0.844757223528972,
+          -0.7501433455637088
+        ],
+        "final_velocity_ned_mps": [
+          0.5471884233107562,
+          -0.0039304900649698915,
+          -6.178803372703509e-05
+        ],
+        "physics_sha256": "8d78a5463e60ba784bbb862c7ae49ffc0ff455c49c139f48b0975febe2854f05",
+        "runtime_s": 0.3696835460141301,
+        "gui": false
+      },
+      "initial_sideways": {
+        "seed": 3,
+        "mode": "sideways",
+        "start_s": 0.0,
+        "approval_step": 37,
+        "initiation_step": 37,
+        "horizon_step": 437,
+        "horizon_flight_s": 8.74,
+        "observation_s": 8.0,
+        "safe": true,
+        "inspection_completed": false,
+        "safe_completion": false,
+        "completion_approval_s": null,
+        "longest_inspection_dwell_s": 0.0,
+        "min_clearance_m": 0.3781303211809784,
+        "min_clearance_by_obstacle_m": {
+          "deck": 0.3781303211809784,
+          "pier": 0.8039110200515431
+        },
+        "first_violation": null,
+        "physics_samples": 8741,
+        "control_samples": 438,
+        "maneuver_anchor_m": [
+          0.26436506418585737,
+          5.54271944351797e-16,
+          1.3492771828000165
+        ],
+        "approval_state": [
+          0.26436506418585737,
+          0.8212654011179724,
+          5.54271944351797e-16,
+          2.0714654115287483e-14,
+          1.3492771828000165,
+          -0.0019525685302912046,
+          5.050765508675019e-13,
+          -0.013825631162274827,
+          -1.593061812615508e-14,
+          5.201382479486887e-11,
+          -0.9992165171639866,
+          -4.758512526632381e-12
+        ],
+        "pid_unchanged_at_initiation": true,
+        "physical_state_unchanged_at_initiation": true,
+        "nominal_to_measured_reference_splice": {
+          "position_m": [
+            -0.037259990839898394,
+            5.54271944351797e-16,
+            -0.000722817199983572
+          ],
+          "velocity_mps": [
+            0.0,
+            -0.0,
+            0.0
+          ],
+          "measured_velocity_mps": [
+            0.8212654011179724,
+            2.0714654115287483e-14,
+            -0.0019525685302912046
+          ]
+        },
+        "geometry_unchanged": true,
+        "max_physics_position_increment_m": 0.0020501004701239853,
+        "final_position_m": [
+          4.735971479717675,
+          -1.0038421974174323,
+          1.350125060011656
+        ],
+        "final_velocity_mps": [
+          0.5383686832712159,
+          0.004057385678589428,
+          0.00012456724686686404
+        ],
+        "final_position_ned_m": [
+          4.735971479717675,
+          1.0038421974174323,
+          -1.350125060011656
+        ],
+        "final_velocity_ned_mps": [
+          0.5383686832712159,
+          -0.004057385678589428,
+          -0.00012456724686686404
+        ],
+        "physics_sha256": "be03e583922694814e123e4fcdc8109b4038fbf5c7622c5f8123f9ef9da8bfb9",
+        "runtime_s": 0.4353645220398903,
+        "gui": false
+      },
+      "initial_climb_safe": true
+    }
+  ],
+  "statistics": {
+    "attempted": 3,
+    "accepted": 3,
+    "rejected": 0
+  }
+}

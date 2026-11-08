@@ -1,0 +1,53 @@
+{
+  "seed": 10,
+  "delay_s": 0.0,
+  "actual_ground_truth": {
+    "classification": "FINITE_TTL",
+    "results": [
+      "SAFE",
+      "UNSAFE",
+      "UNSAFE",
+      "UNSAFE",
+      "UNSAFE",
+      "UNSAFE",
+      "UNSAFE",
+      "UNSAFE",
+      "UNSAFE",
+      "UNSAFE",
+      "UNSAFE"
+    ],
+    "first_bad_delay": 0.1,
+    "last_safe_delay": 0.0
+  },
+  "model_dense_unsafe_intervals": [
+    {
+      "entry_s": 1.922,
+      "last_inside_s": 1.927,
+      "first_outside_s": 1.928,
+      "elapsed_dwell_s": 0.005
+    }
+  ],
+  "model_unsafe_at_coarse_samples": false,
+  "segment_start_time_s": 1.92,
+  "segment_start_xyz": [
+    1.3785263423191765,
+    -1.3042197491167942e-05,
+    0.9715601356172129
+  ],
+  "segment_end_xyz": [
+    1.3942548378466475,
+    -9.819678345750096e-06,
+    0.9847627182278068
+  ],
+  "command": {
+    "speed": 0.7824006838515902,
+    "usual_height": 1.2019204525197866,
+    "box_x_min": 1.3799114196921716,
+    "box_x_max": 1.7246960566167777,
+    "box_y_limit": 0.35,
+    "unsafe_below_z": 0.9769206924654847,
+    "approval_time": 0.22,
+    "low_height": 0.6376389508649931,
+    "low_seconds": 1.32
+  }
+}

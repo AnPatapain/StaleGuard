@@ -1,0 +1,55 @@
+{
+  "protocol_hash": "4fa0b2a684cac58ebd86410236cb0729f4a90d76d76c002e52103e5c68941133",
+  "complete": true,
+  "seed": 14,
+  "cohort": "fresh",
+  "generated_scenario": {
+    "speed": 0.7323933275556447,
+    "usual_height": 1.240236666708564,
+    "box_x_min": 1.2919175139074384,
+    "box_x_max": 1.8499531499032167,
+    "box_y_limit": 0.35,
+    "unsafe_below_z": 0.9961976221182247,
+    "approval_time": 0.8525794967863234,
+    "low_height": 0.7624238785076232,
+    "low_seconds": 0.8573880535187159
+  },
+  "candidate_count": 75,
+  "d0_safe_count": 44,
+  "d0_feasible_count": 28,
+  "feasible": true,
+  "best_safe_dwell_ticks": 400,
+  "selections": {
+    "first_feasible": {
+      "command": {
+        "speed": 0.7323933275556447,
+        "usual_height": 1.240236666708564,
+        "box_x_min": 1.2919175139074384,
+        "box_x_max": 1.8499531499032167,
+        "box_y_limit": 0.35,
+        "unsafe_below_z": 0.9961976221182247,
+        "approval_time": 0.46,
+        "low_height": 0.7624238785076232,
+        "low_seconds": 0.86
+      },
+      "rank": 19,
+      "d0_dwell_ticks": 241
+    },
+    "max_d0_dwell": {
+      "command": {
+        "speed": 0.7323933275556447,
+        "usual_height": 1.240236666708564,
+        "box_x_min": 1.2919175139074384,
+        "box_x_max": 1.8499531499032167,
+        "box_y_limit": 0.35,
+        "unsafe_below_z": 0.9961976221182247,
+        "approval_time": 0.26,
+        "low_height": 0.7624238785076232,
+        "low_seconds": 1.16
+      },
+      "rank": 37,
+      "d0_dwell_ticks": 400
+    }
+  },
+  "elapsed_s": 55.102287797002646
+}
