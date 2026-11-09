@@ -1,0 +1,38 @@
+{
+  "deleted_modules": [
+    {
+      "path": "baseline_benchmark/horizons.py",
+      "lines": 385
+    },
+    {
+      "path": "baselines/recovery_policies.py",
+      "lines": 73
+    },
+    {
+      "path": "support/results_layout.json",
+      "lines": 64
+    },
+    {
+      "path": "support/test_final_audit.py",
+      "lines": 109
+    },
+    {
+      "path": "support/test_2s_protocol.py",
+      "lines": 110
+    },
+    {
+      "path": "support/test_reduced_protocol.py",
+      "lines": 46
+    }
+  ],
+  "deleted_result_copies": [
+    "baseline_benchmark",
+    "recovery_horizons_benchmark_v1.zip",
+    "nine_policy_recovery_horizons_v1",
+    "baseline_benchmark.zip",
+    "recovery_horizons_benchmark_v1"
+  ],
+  "old_preparation_evidence": "Archived in canonical source_versions.zip",
+  "preserved_scientific_records": 11700,
+  "original_result_folders_required": false
+}

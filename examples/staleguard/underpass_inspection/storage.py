@@ -1,12 +1,9 @@
-"""Frozen Underpass inputs, reviewed physical equivalence and benchmark I/O.
+"""Frozen Underpass inputs and simple atomic benchmark I/O.
 
 Historical manifests/snapshots are read-only. Their original hashes are retained.
-Reviewed edits preserve physical mission behavior: policy-guarded additions,
-seed-identifier validation, CLI loading and local copies of previously imported
-helpers. Syntax hashes pin these exact reviewed versions.
+Inputs and numerical environments are checked without historical path remapping.
 New benchmark resumes require exact current source/environment hashes.
 """
-import ast
 from dataclasses import asdict
 import hashlib
 from importlib.metadata import version
@@ -17,6 +14,7 @@ from pathlib import Path
 import pickle
 import platform
 import sys
+import zipfile
 import numpy as np
 from .scenario import Scenario,HZ,POS,body_clearances,make_nominal
 from .simulation import Snapshot
@@ -47,105 +45,27 @@ def flight_key(row):
     return row['seed'], row['delay_s'], row['event']['policy']
 
 
-def read_executions(path, repair_tail=False):
-    """Read flight journal, rejecting duplicate/inconsistent outcomes."""
-    from .baselines.policies import POLICIES
-    path = Path(path)
-    if not path.exists():
-        return []
-    raw = path.read_bytes()
-    rows, seen, offset = [], set(), 0
-    lines = raw.splitlines(keepends=True)
-    for index, line in enumerate(lines):
-        try:
-            row = json.loads(line)
-        except (ValueError, UnicodeError) as error:
-            if repair_tail and index == len(lines)-1 and not line.endswith(b'\n'):
-                with path.open('r+b') as stream:
-                    stream.truncate(offset)
-                break
-            raise ValueError(f'Invalid execution JSON on line {index+1}') from error
-        key = flight_key(row)
-        if key in seen:
-            raise ValueError(f'Duplicate flight in policy journal: {key}')
-        if key[2] not in POLICIES or not math.isfinite(key[1]) or key[1] < 0:
-            raise ValueError(f'Invalid policy or delay: {key}')
-        if any(type(row[name]) is not bool for name in ('safe', 'completed', 'safe_completion')):
-            raise ValueError(f'Outcome flags must be Boolean: {key}')
-        if row['safe_completion'] != (row['safe'] and row['completed']):
-            raise ValueError(f'Inconsistent safety/completion flags: {key}')
-        seen.add(key)
-        rows.append(row)
-        offset += len(line)
-    else:
-        if repair_tail and raw and not raw.endswith(b'\n'):
-            with path.open('ab') as stream:
-                stream.write(b'\n')
-    return rows
-
-
 ROOT=Path(__file__).resolve().parent
 PROJECT=ROOT.parents[2]
 CALIBRATION_FORMATS=('underpass_development_calibration_v1','underpass_calibration_v1')
-REVIEWED={
-    'calibration.py':('ace91d7fe191bb6ad10b30280ebf91a63f8af1d65a8d66e877c7e9a6db2b7415',
-                      '2fb32f630f1a7704abd684aebb235d1ba6dd4b1b7b2d2ee36354f27a2d707c80'),
-    'simulation.py':('9413314d21eb8b46e43ce065b4a809bf0b272f7dc1acfee665a504b1554bb787',
-                     'e526ddc2c7c8acdbbca5d4efb9fde46eee45478fdf6188f46a0e69bfd010d1fa'),
-    'scenario.py':('efec174da7248c4eb15026dea53eb81aaaac884d1733062b1c997a3a2e0aad3d',
-                   '44bfdca5637e57569331dafcd433523940e06357e2551ee5b5a3ded036551a74'),
-    'pilot.py':('eddadefa80dcaa315b29e44be9f2cf453633022ff559ef007152db78ffc30055',
-                '2288161736df74b722983ecc7b8ac3dfe211f38c65499337c968021f59739728')}
-
-# Reviewed optional policy-factory injection; execute's physical syntax is unchanged.
-ADDITIVE_SOURCE_HASHES={'simulation.py':{'ad9d09664b4c4f3f802bd7cd386f2fb11eab3740a782e72d9c2d2fb421c34f36'}}
-
-
 def canonical(value):
     return json.loads(json.dumps(value))
 
 
-def physical_source_hash(source,name):
-    class StripPolicy(ast.NodeTransformer):
-        def visit_If(self,node):
-            expression=ast.unparse(node.test)
-            if expression=='policy is not None' or 'isinstance(self.seed, int)' in expression:
-                return None
-            return self.generic_visit(node)
-    tree=ast.parse(source)
-    if name=='simulation.py':
-        tree=next(n for n in tree.body if isinstance(n,ast.FunctionDef) and n.name=='execute')
-        tree.args.args=tree.args.args[:10];tree.args.defaults=tree.args.defaults[:9]
-        tree=StripPolicy().visit(tree)
-    elif name=='scenario.py':
-        tree=StripPolicy().visit(tree)
-    elif name=='pilot.py':
-        tree.body=[n for n in tree.body if not(isinstance(n,ast.FunctionDef) and n.name=='main')
-                   and not(isinstance(n,ast.If) and '__name__' in ast.unparse(n.test))]
-    return hashlib.sha256(ast.dump(tree,include_attributes=False).encode()).hexdigest()
-
-
-def check_frozen_provenance(saved):
-    if any(saved[name]!=value for name,value in
-           (('python',sys.version),('numpy',np.__version__),('platform',platform.platform()))):
-        raise ValueError('Frozen flight numerical environment differs')
-    for path,checksum in saved['source_sha256'].items():
-        location=PROJECT/path
-        if file_hash(location)==checksum:
-            continue
-        name=location.name
-        reviewed=REVIEWED.get(name) if location.parent==ROOT else None
-        if (reviewed is None or checksum not in ({reviewed[0]}|ADDITIVE_SOURCE_HASHES.get(name,set()))
-                or physical_source_hash(location.read_text(),name)!=reviewed[1]):
-            raise ValueError(f'Unreviewed frozen scientific source change: {path}')
-    for name,checksum in saved.get('development_sources',{}).items():
-        location=ROOT/name
-        if file_hash(location)==checksum:
-            continue
-        reviewed=REVIEWED.get(name)
-        if (reviewed is None or checksum not in ({reviewed[0]}|ADDITIVE_SOURCE_HASHES.get(name,set()))
-                or physical_source_hash(location.read_text(),name)!=reviewed[1]):
-            raise ValueError(f'Frozen development source changed: {name}')
+def check_environment(saved):
+    """Numerical environment only; old result analysis does not require old drivers."""
+    current=metadata()
+    for name in ('python','numpy','platform'):
+        if saved[name]!=current[name]:raise ValueError('Numerical environment differs: '+name)
+    for category in ('packages','shared_sha256','environment_sha256'):
+        if category in saved and saved[category]!=current[category]:
+            raise ValueError('Numerical environment differs: '+category)
+    # Pilot/calibration manifests store shared physics files with project paths.
+    # Mission source versions stay recorded in their unchanged input manifests.
+    for name,checksum in saved.get('source_sha256',{}).items():
+        path=PROJECT/name
+        if not path.is_relative_to(ROOT) and (not path.exists() or file_hash(path)!=checksum):
+            raise ValueError('Shared physical source changed: '+name)
 
 
 def check_approval_snapshot(actual, expected):
@@ -173,7 +93,7 @@ def load_calibrated_scenarios(dataset):
             data.get('dataset_split') not in ('development','evaluation') or
             data['dataset_split']!=data['protocol'].get('dataset_split')):
         raise ValueError('Calibration split metadata differs')
-    check_frozen_provenance(data['provenance'])
+    check_environment(data['provenance'])
     cases=[];seen=set()
     for entry in data['scenarios']:
         s=Scenario(**entry['scenario']);p=path.parent/entry['approval_snapshot']
@@ -204,10 +124,7 @@ def metadata():
         'support/visualization.py','baselines/staleguard.py','baselines/fbs.py',
         'baselines/use_time_recheck.py','baselines/fixed_early_recovery.py','baselines/policies.py',
         'baseline_benchmark/run.py','baseline_benchmark/metrics.py',
-        'baselines/recovery_horizons.py','baselines/recovery_policies.py','baseline_benchmark/horizons.py',
-        'support/profile_recovery_horizons.py','support/test_recovery_horizons.py',
-        'support/validate_baseline_benchmark.py','support/test_final_audit.py','support/test_2s_protocol.py','support/test_reduced_protocol.py',
-        'support/results_layout.json')
+        'baselines/recovery_horizons.py','support/validate_baseline_benchmark.py')
     shared=('model/__init__.py','model/common.py','model/lightweight.py','model/scg.py',
         'physics_monitor.py')
     env=('safe_control_gym/controllers/pid/pid.py','safe_control_gym/envs/gym_pybullet_drones/quadrotor.py',
@@ -221,98 +138,132 @@ def metadata():
         environment_sha256={name:file_hash(PROJECT/name) for name in env})
 
 
+def save_source_archive(path,provenance):
+    """Small source snapshot; no result journals or compatibility code."""
+    with zipfile.ZipFile(path,'w',zipfile.ZIP_DEFLATED) as archive:
+        for group,base in (('source_sha256',ROOT),('shared_sha256',ROOT.parent),('environment_sha256',PROJECT)):
+            for name,checksum in provenance[group].items():
+                source=base/name
+                if file_hash(source)!=checksum:raise ValueError('Source changed during preparation')
+                archive.write(source,str(source.relative_to(PROJECT)))
+
+
 def check_provenance(saved):
-    current=metadata()
-    if saved==current:return
-    layout=json.loads((ROOT/'support/results_layout.json').read_text())
-    fingerprint=hashlib.sha256(json.dumps(saved,sort_keys=True,separators=(',',':')).encode()).hexdigest()
-    if fingerprint not in layout['accepted_provenance_sha256']:
-        raise ValueError('Benchmark source/environment changed; use a fresh output')
-    # The original provenance stays historical. Only exact reviewed layout edits
-    # are accepted; policy, model, physics and environment differences still fail.
-    normalized=canonical(saved)
-    for name,change in layout['source_changes'].items():
-        if (normalized['source_sha256'].get(name)!=change['before_sha256'] or
-                current['source_sha256'].get(name)!=change['after_sha256']):
-            raise ValueError(f'Unreviewed source change after results relocation: {name}')
-        normalized['source_sha256'][name]=change['after_sha256']
-    normalized['source_sha256']['support/results_layout.json']=current['source_sha256']['support/results_layout.json']
-    if normalized!=current:raise ValueError('Benchmark source/environment changed; use a fresh output')
+    if saved!=metadata():raise ValueError('Source/environment changed; use a fresh experiment output')
 
 
-def relocated_result_path(path):
-    """Resolve historical audit paths through the explicit results move table."""
-    path=Path(path)
-    if path.exists():return path
-    try:relative=str(path.resolve().relative_to(ROOT))
-    except ValueError:return path
-    layout=json.loads((ROOT/'support/results_layout.json').read_text())
-    for old,new in layout['paths'].items():
-        if relative==old or relative.startswith(old+'/'):
-            return ROOT/(new+relative[len(old):])
-    return path
+def prediction_for(run,policy,seed):
+    from .baselines.policies import HORIZON_POLICIES
+    cache=run.get('predictions_by_policy',{}).get(policy,{}) if policy in HORIZON_POLICIES else run.get('predictions',{})
+    return cache.get(str(seed))
 
 
-def historical_result_matches(path,checksum):
-    location=relocated_result_path(path)
-    actual=file_hash(location)
-    if actual==checksum:return True
-    layout=json.loads((ROOT/'support/results_layout.json').read_text())
-    try:relative=str(Path(path).resolve().relative_to(ROOT))
-    except ValueError:return False
-    change=layout['metadata_path_updates'].get(relative,{})
-    return checksum==change.get('before_sha256') and actual==change.get('after_sha256')
+def save_inputs(path,cases):
+    arrays={}
+    for s,snapshot,_ in cases:
+        prefix=str(s.seed)
+        arrays[prefix+'__state']=snapshot.state
+        arrays[prefix+'__reference']=snapshot.remaining_reference
+        arrays[prefix+'__pid']=np.array([snapshot.pid_state.integral_pos_e,snapshot.pid_state.last_rpy,snapshot.pid_state.integral_rpy_e])
+    temporary=Path(path).with_suffix('.tmp.npz');np.savez_compressed(temporary,**arrays);temporary.replace(path)
 
 
-def committed_hasher(out,run,repair=False):
-    """Check only the committed prefix; discard uncommitted bytes on resume."""
-    path=Path(out)/'executions.jsonl';size=run['journal_bytes'];digest=hashlib.sha256()
+def load_inputs(out,run):
+    from model.common import PIDState
+    path=Path(out)/'approval_snapshots.npz'
+    if file_hash(path)!=run['inputs_sha256']:raise ValueError('Frozen approval inputs changed')
+    cases=[]
+    with np.load(path) as archive:
+        for raw in run['protocol']['scenarios']:
+            s=Scenario(**raw);key=str(s.seed);memory=archive[key+'__pid']
+            snap=Snapshot(state=archive[key+'__state'],remaining_reference=archive[key+'__reference'],
+                pid_state=PIDState(*memory),horizon_steps=round(s.observation_s*HZ),approval_time=s.approval_s,
+                scenario=s,prefix_min_clearance_m=min(body_clearances(archive[key+'__state'][POS],s.obstacles).values()))
+            np.testing.assert_array_equal(snap.remaining_reference,make_nominal(round((s.approval_s+s.observation_s)*HZ)+1,s)[round(s.approval_s*HZ):])
+            cases.append((s,snap,None))
+    return cases
+
+
+def _journal(kind):
+    return ('executions.jsonl','journal_bytes','journal_sha256','completed_flights') if kind=='flight' else (
+        'predictions.jsonl','prediction_bytes','prediction_sha256','completed_predictions')
+
+
+def committed_hasher(out,run,repair=False,kind='flight'):
+    filename,size_key,hash_key,_=_journal(kind)
+    path=Path(out)/filename;size=run[size_key];digest=hashlib.sha256()
     with path.open('rb') as stream:
         remaining=size
         while remaining:
             block=stream.read(min(1024*1024,remaining))
-            if not block:raise ValueError('Previously committed flight journal shortened')
+            if not block:raise ValueError('Committed journal shortened: '+filename)
             digest.update(block);remaining-=len(block)
-        if digest.hexdigest()!=run['journal_sha256']:
-            raise ValueError('Previously committed flight journal changed')
+        if digest.hexdigest()!=run[hash_key]:raise ValueError('Committed journal changed: '+filename)
         extra=stream.read(1)
     if extra:
-        if not repair:raise ValueError('Uncommitted journal tail; resume before regenerating metrics')
-        with path.open('r+b') as stream:
-            stream.truncate(size);stream.flush();os.fsync(stream.fileno())
+        if not repair:raise ValueError('Uncommitted tail; resume first: '+filename)
+        with path.open('r+b') as stream:stream.truncate(size);stream.flush();os.fsync(stream.fileno())
     return digest
 
 
-def iter_committed(out,run):
-    """Read records without retaining the full multi-scenario journal in RAM."""
-    with (Path(out)/'executions.jsonl').open('rb') as stream:
-        remaining=run['journal_bytes']
+def iter_committed(out,run,kind='flight'):
+    filename,size_key,_,_=_journal(kind)
+    with (Path(out)/filename).open('rb') as stream:
+        remaining=run[size_key]
         while remaining:
             line=stream.readline(remaining)
             if not line or not line.endswith(b'\n'):raise ValueError('Incomplete committed record')
-            remaining-=len(line)
-            yield json.loads(line)
+            remaining-=len(line);yield json.loads(line)
 
 
-def read_committed(out,run,repair=False):
-    committed_hasher(out,run,repair)
-    return list(iter_committed(out,run))
+PROGRESS_FIELDS=('status','journal_bytes','journal_sha256','completed_flights','prediction_bytes',
+    'prediction_sha256','completed_predictions','config_sha256','resumptions','startup_warmups')
 
 
-def commit_execution(out,run,row,digest):
+def write_progress(out,run):
+    write_json(Path(out)/'progress.json',{k:run[k] for k in PROGRESS_FIELDS if k in run})
+
+
+def initialize_run(out,config):
+    out=Path(out);out.mkdir(parents=True,exist_ok=True)
+    if (out/'run.json').exists():raise FileExistsError(out/'run.json')
+    write_json(out/'run.json',config)
+    for filename in ('executions.jsonl','predictions.jsonl'):(out/filename).touch()
+    empty=hashlib.sha256(b'').hexdigest()
+    run=dict(config,status='prepared',journal_bytes=0,journal_sha256=empty,completed_flights=0,
+        prediction_bytes=0,prediction_sha256=empty,completed_predictions=0,resumptions=0,
+        config_sha256=file_hash(out/'run.json'),predictions={},predictions_by_policy={})
+    write_progress(out,run);return run
+
+
+def read_run(out,repair=False):
+    out=Path(out);config=json.loads((out/'run.json').read_text());progress=json.loads((out/'progress.json').read_text())
+    if file_hash(out/'run.json')!=progress['config_sha256']:raise ValueError('Experiment configuration changed')
+    run=dict(config,**progress,predictions={},predictions_by_policy={})
+    committed_hasher(out,run,repair);committed_hasher(out,run,repair,kind='prediction')
+    seen=set()
+    for row in iter_committed(out,run,kind='prediction'):
+        key=row['policy'],row['seed']
+        if key in seen:raise ValueError('Duplicate prediction cache entry')
+        seen.add(key)
+        cache=run['predictions'] if row['policy']=='staleguard' else run['predictions_by_policy'].setdefault(row['policy'],{})
+        cache[str(row['seed'])]=row['forecast']
+    if len(seen)!=run['completed_predictions']:raise ValueError('Prediction count differs')
+    return run
+
+
+def commit_record(out,run,row,digest,kind='flight'):
+    filename,size_key,hash_key,count_key=_journal(kind)
     line=(json.dumps(row,allow_nan=False)+'\n').encode()
-    with (Path(out)/'executions.jsonl').open('ab') as stream:
-        stream.write(line);stream.flush();os.fsync(stream.fileno())
-    digest.update(line)
-    run.update(journal_bytes=run['journal_bytes']+len(line),journal_sha256=digest.hexdigest(),
-               completed_flights=run.get('completed_flights',0)+1)
-    write_json(Path(out)/'run.json',run)
+    with (Path(out)/filename).open('ab') as stream:stream.write(line);stream.flush();os.fsync(stream.fileno())
+    digest.update(line);run.update({size_key:run[size_key]+len(line),hash_key:digest.hexdigest(),count_key:run[count_key]+1})
+    write_progress(out,run)
 
 
 def load_ground_truth(folder):
     folder=Path(folder);run=json.loads((folder/'run.json').read_text())
     if run['status']!='complete':raise ValueError('Use completed physical deadline truth')
-    check_frozen_provenance(run['provenance'])
+    check_environment(run['provenance'])
     raw=(folder/'executions.jsonl').read_bytes()
     if len(raw)!=run['journal_bytes'] or hashlib.sha256(raw).hexdigest()!=run['journal_sha256']:
         raise ValueError('Archived physical truth changed')
@@ -320,23 +271,3 @@ def load_ground_truth(folder):
     result={(r['seed'],r['mode'],r['start_s']):r for r in rows}
     if len(result)!=len(rows):raise ValueError('Duplicate archived truth')
     return result,run
-
-
-def verify_physical_reference(row,truth):
-    policy=row['event']['policy']
-    if policy=='no_recovery':key=(row['seed'],'dive',row['delay_s'])
-    elif row['event']['fallback_step'] is not None:
-        key=(row['seed'],'sideways',row['start_s'])
-    elif row['event']['application_step'] is not None:
-        key=(row['seed'],'dive',row['start_s'])
-    else:return False
-    if key not in truth:
-        if policy in ('no_recovery','always_recover'):
-            raise ValueError(f'Missing required reference flight {key}')
-        return False
-    expected=truth[key]
-    for name in ('safe','inspection_completed','safe_completion','min_clearance_m',
-                 'first_violation','physics_sha256'):
-        if row[name]!=expected[name]:
-            raise ValueError(f'Physical reference mismatch: {key}, {name}')
-    return True

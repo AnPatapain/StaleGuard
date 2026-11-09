@@ -1,24 +1,39 @@
 # Underpass evaluation results
 
-- [baseline_benchmark/REPORT.md](baseline_benchmark/REPORT.md): completed 9,100-flight held-out benchmark.
-- `baseline_benchmark/`: the eight original result files, plus validation after relocation.
-- `baseline_benchmark.zip`: your original export, preserved byte-for-byte (its internal root retains the old versioned folder name).
-- `calibration/`: the unchanged 865-scenario accepted evaluation calibration.
-- `baseline_benchmark_smoke/`: original small evaluation smoke test.
-- `preparation/`: freezes, preparation reports, audits and source backups, grouped away from the main results.
+| Folder | Scenarios | Policies | Flights | Status |
+|---|---:|---:|---:|---|
+| [baseline_benchmark](baseline_benchmark/REPORT.md) | 100 | 9 | 11,700 | Complete, independently validated; exploratory |
+| baseline_benchmark_v2 | 400 new | 9 | 46,800 planned | Prepared; no physical flights launched |
+| calibration | 865 accepted | — | — | Original frozen cohort, unchanged |
+| baseline_benchmark_smoke | Original small operational smoke | — | — | Preserved unrelated experiment |
 
-Flight records, numerical metrics, CSVs, reports and trajectories were moved without changing their bytes.
-Only stored freeze paths in two run headers were updated. Original headers/source are in
-`preparation/before_layout.zip`; reviewed path/source changes are documented in
-`preparation/layout_migration.json` and `../../support/results_layout.json`.
-Historical preparation reports retain their original text/paths. Current commands are in the mission README.
-No simulations were rerun to reorganize these results.
+There is one canonical historical nine-policy benchmark. All 11,700 scientific
+records match the previous combined journal byte-for-byte; numerical metrics and
+paired confidence intervals reproduce exactly. Old seven/two-policy source
+folders and redundant ZIP exports have been deleted after validation.
 
-Validate the completed benchmark from `examples/staleguard`:
+The canonical folder bundles approval snapshots, forecasts, representative actual
+trajectories, original experiment provenance and code/preparation evidence.
+Validation and metrics-only regeneration do not depend on any deleted folder.
+Old freezes, audits and source backups are archived in
+`baseline_benchmark/source_versions.zip`; they are historical evidence, not active
+compatibility machinery.
+
+The v2 cohort uses RNG seed **20261109** to sample 400 accepted IDs uniformly
+without replacement from the remaining 765, excluding all historical 100.
+The cohorts have zero overlap and cover 500 unique scenarios. No selection used
+policy outcomes. Its immutable configuration is `baseline_benchmark_v2/run.json`;
+status and completed counts are in `baseline_benchmark_v2/progress.json`.
+
+Use the single runner from `examples/staleguard`:
 
 ```bash
-conda run --no-capture-output -n scg python underpass_inspection/support/validate_baseline_benchmark.py \
-  --calibration underpass_inspection/results/evaluation/calibration \
-  --run underpass_inspection/results/evaluation/baseline_benchmark \
-  --prior-hashes underpass_inspection/results/evaluation/preparation/historical_artifact_hashes_reduced_v3.json
+python underpass_inspection/baseline_benchmark/run.py \
+  --out underpass_inspection/results/evaluation/baseline_benchmark --validate
+python underpass_inspection/baseline_benchmark/run.py \
+  --out underpass_inspection/results/evaluation/baseline_benchmark --metrics-only
 ```
+
+The [mission README](../../README.md) contains v2 launch/resume commands and the
+current result layout. No historical or v2 evaluation flight was rerun during
+consolidation; physical smoke flights were development-only.

@@ -1,0 +1,17 @@
+{
+  "status": "complete",
+  "journal_bytes": 176132722,
+  "journal_sha256": "5965bd834fe02c6eb2921f489a11cef0f9302e9f539ccffafd0d71fea4c4739e",
+  "completed_flights": 46800,
+  "prediction_bytes": 5281338,
+  "prediction_sha256": "5cae2fa26e8a89ed7372cbb55fbca501612adb3a9f4ccdd1e906d47dc91147f6",
+  "completed_predictions": 1200,
+  "config_sha256": "22f6808ff24f3e668022fcc1043594c2630354af846c20b949d65535c9a8281e",
+  "resumptions": 0,
+  "startup_warmups": [
+    {
+      "seconds": 1.6592100099660456,
+      "scope": "Discarded development-only warmup; no evaluation forecast/cache; not online readiness"
+    }
+  ]
+}

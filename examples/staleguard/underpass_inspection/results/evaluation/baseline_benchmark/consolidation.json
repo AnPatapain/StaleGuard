@@ -1,0 +1,8 @@
+{
+  "scientific_records_preserved": 11700,
+  "execution_bytes_identical": true,
+  "historical_metrics_exactly_equal": true,
+  "forecast_records_preserved": 300,
+  "journal_sha256": "f8399db245b190b4c5cc526e9e860bb88e99f8fd1f9b874f514bb48512f382f3",
+  "source_directories_required": false
+}

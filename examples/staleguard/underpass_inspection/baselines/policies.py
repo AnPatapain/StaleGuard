@@ -1,4 +1,4 @@
-"""Seven single-command policies. This object never receives a dispatch schedule.
+"""Nine single-command policies. This object never receives a dispatch schedule.
 
 The physical driver announces dispatch only when it occurs. Pending timers run
 from elapsed approval time. Decision rules and timers live in this mission; the physical predictor uses
@@ -13,9 +13,10 @@ from ..scenario import HZ
 from .fbs import safety_feature
 from .use_time_recheck import predict_immediate
 
+HORIZON_POLICIES=('staleguard_recovery_aware','staleguard_dual_horizon')
 POLICIES=('no_recovery','always_recover','fbs','use_time_recheck','staleguard',
-          'staleguard_early_recovery','fixed_early_recovery')
-APPROVAL_POLICIES=('staleguard','staleguard_early_recovery')
+          'staleguard_early_recovery','fixed_early_recovery')+HORIZON_POLICIES
+APPROVAL_POLICIES=('staleguard','staleguard_early_recovery')+HORIZON_POLICIES
 
 
 class PendingCommand:
@@ -163,3 +164,67 @@ class PendingCommand:
         event['events']=self.events+[dict(kind='observation_horizon_end',control_step=total_step,
             flight_s=total_step/HZ,approval_s=(total_step-self.approval)/HZ)]
         return event
+
+
+class HorizonCommand(PendingCommand):
+    def __init__(self,name,scenario,received=None):
+        if name not in POLICIES:raise ValueError(name)
+        # Reuse lifecycle, readiness, cancellation and event recording exactly.
+        super().__init__('staleguard_early_recovery',scenario,received)
+        self.variant=name;self.event['policy']=name
+        r=received['boundaries']['recovery'];c=received['boundaries']['completion']
+        plan=received['policy_plans'][name]
+        self.trigger=plan['trigger_steps'];self.reasons=plan['reasons']
+        self.recovery_verified_through=plan['recovery_verified_through_steps']
+        self.event.update(policy=name,recovery_expiry_steps=r['first_invalid_steps'],
+            recovery_verified_through_steps=self.recovery_verified_through,
+            completion_expiry_steps=c['first_invalid_steps'],early_trigger_steps=self.trigger,
+            early_trigger_reasons=self.reasons,prediction_kind='command_completion_recovery')
+        self.missed_announced=False
+
+    def approve(self):
+        super().approve()
+        self.event['prediction_available_by_trigger']=(None if self.trigger is None else
+            self._forecast['computation_s']<=self.trigger/HZ)
+        self.event['prediction_available_by_recovery_prefix']=(None if self.recovery_verified_through is None else
+            self._forecast['computation_s']<=self.recovery_verified_through/HZ)
+
+    def _recovery_verified(self,age):
+        return self.recovery_verified_through is not None and age<=self.recovery_verified_through
+
+    def _recover(self,step,reason):
+        verified=self._recovery_verified(step-self.approval)
+        self.event.update(predicted_recovery_verified_at_start=verified,best_effort_recovery=not verified)
+        self._start('sideways',step,reason)
+
+    def dispatch(self,step,snapshot,platform):
+        self.event['dispatch_observed_step']=step
+        self.event['prediction_ready_at_dispatch']=self.ready_announced
+        self.log('command_dispatch',step,canceled=self.phase=='recovery')
+        if self.phase!='pending':self.log('dispatch_ignored',step);return
+        age=step-self.approval;ready,expired=staleguard_status(self._forecast,age)
+        self.event['prediction_ready']=ready
+        completion_expired=(self.event['completion_expiry_steps'] is not None and age>=self.event['completion_expiry_steps'])
+        if ready and expired:self._recover(step,'dispatch')
+        elif (ready and self.variant=='staleguard_dual_horizon' and completion_expired
+              and self._recovery_verified(age)):
+            self._recover(step,'completion_at_dispatch')
+        else:self._start('dive',step,'dispatch')
+
+    def tick(self,step):
+        if self.phase!='pending':return
+        age=step-self.approval;ready,expired=staleguard_status(self._forecast,age)
+        if not ready or self.trigger is None or age<self.trigger:return
+        if self._recovery_verified(age) or expired:
+            self.event['prediction_ready']=True
+            self.log('horizon_trigger_reached',step,reasons=self.reasons)
+            self._recover(step,'horizon_trigger')
+        elif not self.missed_announced:
+            self.missed_announced=True;self.event['recovery_prefix_missed_before_prediction_ready']=True
+            self.log('recovery_prefix_missed',step)
+
+
+def make_policy(name,scenario,received=None):
+    """The only physical policy factory; no dispatch schedule is an input."""
+    cls=HorizonCommand if name in HORIZON_POLICIES else PendingCommand
+    return cls(name,scenario,received)

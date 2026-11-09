@@ -6,6 +6,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1008,staleguard,13,3,10,0,0,3,0,0,0,0,full
 1008,staleguard_early_recovery,13,3,10,0,0,3,0,0,0,0,full
 1008,fixed_early_recovery,13,0,5,8,7,,,3,0,5,full
+1008,staleguard_recovery_aware,13,0,9,4,4,0,1,3,0,1,full
+1008,staleguard_dual_horizon,13,0,9,4,4,0,1,3,0,1,full
 1022,no_recovery,13,3,10,0,0,,,,,,full
 1022,always_recover,13,0,0,13,12,,,3,0,10,full
 1022,fbs,13,3,10,2,0,1,0,0,0,0,full
@@ -13,6 +15,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1022,staleguard,13,3,10,0,0,3,0,0,0,0,full
 1022,staleguard_early_recovery,13,3,10,0,0,3,0,0,0,0,full
 1022,fixed_early_recovery,13,0,5,8,7,,,3,0,5,full
+1022,staleguard_recovery_aware,13,3,10,0,0,3,0,0,0,0,full
+1022,staleguard_dual_horizon,13,3,10,0,0,3,0,0,0,0,full
 1023,no_recovery,13,4,9,0,0,,,,,,full
 1023,always_recover,13,0,0,13,12,,,4,0,9,full
 1023,fbs,13,4,9,2,0,2,0,0,0,0,full
@@ -20,6 +24,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1023,staleguard,13,3,9,4,0,0,0,1,0,0,full
 1023,staleguard_early_recovery,13,0,9,4,3,0,0,4,0,0,full
 1023,fixed_early_recovery,13,0,5,8,7,,,4,0,4,full
+1023,staleguard_recovery_aware,13,0,9,4,3,0,0,4,0,0,full
+1023,staleguard_dual_horizon,13,0,9,4,3,0,0,4,0,0,full
 1024,no_recovery,13,3,10,0,0,,,,,,full
 1024,always_recover,13,0,0,13,12,,,3,0,10,full
 1024,fbs,13,3,10,2,0,1,0,0,0,0,full
@@ -27,6 +33,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1024,staleguard,13,3,10,0,0,3,0,0,0,0,full
 1024,staleguard_early_recovery,13,3,10,0,0,3,0,0,0,0,full
 1024,fixed_early_recovery,13,0,5,8,7,,,3,0,5,full
+1024,staleguard_recovery_aware,13,0,9,4,4,0,1,3,0,1,full
+1024,staleguard_dual_horizon,13,0,9,4,4,0,1,3,0,1,full
 1072,no_recovery,13,7,6,0,0,,,,,,full
 1072,always_recover,13,0,0,13,12,,,7,0,6,full
 1072,fbs,13,7,6,2,0,5,0,0,0,0,full
@@ -34,6 +42,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1072,staleguard,13,3,6,7,0,0,0,4,0,0,full
 1072,staleguard_early_recovery,13,0,6,7,6,0,0,7,0,0,full
 1072,fixed_early_recovery,13,0,5,8,7,,,7,0,1,full
+1072,staleguard_recovery_aware,13,0,6,7,6,0,0,7,0,0,full
+1072,staleguard_dual_horizon,13,0,6,7,6,0,0,7,0,0,full
 1085,no_recovery,13,7,6,0,0,,,,,,full
 1085,always_recover,13,0,0,13,12,,,7,0,6,full
 1085,fbs,13,7,6,2,0,5,0,0,0,0,full
@@ -41,6 +51,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1085,staleguard,13,4,6,7,0,0,0,3,0,0,full
 1085,staleguard_early_recovery,13,0,6,7,7,0,0,7,0,0,full
 1085,fixed_early_recovery,13,0,5,8,7,,,7,0,1,full
+1085,staleguard_recovery_aware,13,0,6,7,7,0,0,7,0,0,full
+1085,staleguard_dual_horizon,13,0,6,7,7,0,0,7,0,0,full
 1089,no_recovery,13,7,6,0,0,,,,,,full
 1089,always_recover,13,0,0,13,12,,,7,0,6,full
 1089,fbs,13,7,6,2,0,5,0,0,0,0,full
@@ -48,6 +60,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1089,staleguard,13,3,6,7,0,0,0,4,0,0,full
 1089,staleguard_early_recovery,13,0,6,7,7,0,0,7,0,0,full
 1089,fixed_early_recovery,13,0,5,8,7,,,7,0,1,full
+1089,staleguard_recovery_aware,13,0,6,7,7,0,0,7,0,0,full
+1089,staleguard_dual_horizon,13,0,6,7,7,0,0,7,0,0,full
 1103,no_recovery,13,8,5,0,0,,,,,,full
 1103,always_recover,13,0,0,13,12,,,8,0,5,full
 1103,fbs,13,8,5,2,0,6,0,0,0,0,full
@@ -55,6 +69,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1103,staleguard,13,3,5,8,0,0,0,5,0,0,full
 1103,staleguard_early_recovery,13,0,5,8,7,0,0,8,0,0,full
 1103,fixed_early_recovery,13,0,5,8,7,,,8,0,0,full
+1103,staleguard_recovery_aware,13,0,5,8,7,0,0,8,0,0,full
+1103,staleguard_dual_horizon,13,0,5,8,7,0,0,8,0,0,full
 1117,no_recovery,13,11,2,0,0,,,,,,full
 1117,always_recover,13,0,0,13,12,,,11,0,2,full
 1117,fbs,13,11,2,2,0,9,0,0,0,0,full
@@ -62,6 +78,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1117,staleguard,13,7,2,9,0,0,0,4,0,0,full
 1117,staleguard_early_recovery,13,2,2,9,8,0,0,9,0,0,full
 1117,fixed_early_recovery,13,3,2,8,7,,,8,0,0,full
+1117,staleguard_recovery_aware,13,1,2,10,9,0,0,10,0,0,full
+1117,staleguard_dual_horizon,13,1,2,10,9,0,0,10,0,0,full
 1120,no_recovery,13,4,9,0,0,,,,,,full
 1120,always_recover,13,0,0,13,12,,,4,0,9,full
 1120,fbs,13,4,9,2,0,2,0,0,0,0,full
@@ -69,6 +87,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1120,staleguard,13,3,9,4,0,0,0,1,0,0,full
 1120,staleguard_early_recovery,13,0,9,4,3,0,0,4,0,0,full
 1120,fixed_early_recovery,13,0,5,8,7,,,4,0,4,full
+1120,staleguard_recovery_aware,13,0,9,4,3,0,0,4,0,0,full
+1120,staleguard_dual_horizon,13,0,9,4,3,0,0,4,0,0,full
 1129,no_recovery,13,3,10,0,0,,,,,,full
 1129,always_recover,13,0,0,13,12,,,3,0,10,full
 1129,fbs,13,3,10,2,0,1,0,0,0,0,full
@@ -76,6 +96,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1129,staleguard,13,3,10,0,0,3,0,0,0,0,full
 1129,staleguard_early_recovery,13,3,10,0,0,3,0,0,0,0,full
 1129,fixed_early_recovery,13,0,5,8,7,,,3,0,5,full
+1129,staleguard_recovery_aware,13,4,9,4,4,0,1,0,1,1,full
+1129,staleguard_dual_horizon,13,4,9,4,4,0,1,0,1,1,full
 1132,no_recovery,13,2,11,0,0,,,,,,full
 1132,always_recover,13,0,0,13,12,,,2,0,11,full
 1132,fbs,13,2,11,1,0,1,0,0,0,0,full
@@ -83,6 +105,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1132,staleguard,13,2,11,0,0,2,0,0,0,0,full
 1132,staleguard_early_recovery,13,2,11,0,0,2,0,0,0,0,full
 1132,fixed_early_recovery,13,0,5,8,7,,,2,0,6,full
+1132,staleguard_recovery_aware,13,2,11,0,0,2,0,0,0,0,full
+1132,staleguard_dual_horizon,13,2,11,0,0,2,0,0,0,0,full
 1158,no_recovery,13,7,6,0,0,,,,,,full
 1158,always_recover,13,0,0,13,12,,,7,0,6,full
 1158,fbs,13,7,6,1,0,6,0,0,0,0,full
@@ -90,6 +114,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1158,staleguard,13,3,5,8,0,0,1,4,0,1,full
 1158,staleguard_early_recovery,13,0,5,8,7,0,1,7,0,1,full
 1158,fixed_early_recovery,13,0,5,8,7,,,7,0,1,full
+1158,staleguard_recovery_aware,13,0,5,8,7,0,1,7,0,1,full
+1158,staleguard_dual_horizon,13,0,5,8,7,0,1,7,0,1,full
 1174,no_recovery,13,4,9,0,0,,,,,,full
 1174,always_recover,13,0,0,13,12,,,4,0,9,full
 1174,fbs,13,4,9,2,0,2,0,0,0,0,full
@@ -97,6 +123,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1174,staleguard,13,4,9,4,0,0,0,0,0,0,full
 1174,staleguard_early_recovery,13,0,9,4,4,0,0,4,0,0,full
 1174,fixed_early_recovery,13,0,5,8,7,,,4,0,4,full
+1174,staleguard_recovery_aware,13,0,9,4,4,0,0,4,0,0,full
+1174,staleguard_dual_horizon,13,0,9,4,4,0,0,4,0,0,full
 1189,no_recovery,13,7,6,0,0,,,,,,full
 1189,always_recover,13,0,0,13,12,,,7,0,6,full
 1189,fbs,13,7,6,2,0,5,0,0,0,0,full
@@ -104,6 +132,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1189,staleguard,13,5,6,7,0,0,0,2,0,0,full
 1189,staleguard_early_recovery,13,0,6,7,7,0,0,7,0,0,full
 1189,fixed_early_recovery,13,0,5,8,7,,,7,0,1,full
+1189,staleguard_recovery_aware,13,0,6,7,7,0,0,7,0,0,full
+1189,staleguard_dual_horizon,13,0,6,7,7,0,0,7,0,0,full
 1203,no_recovery,13,2,11,0,0,,,,,,full
 1203,always_recover,13,0,0,13,12,,,2,0,11,full
 1203,fbs,13,2,11,2,0,0,0,0,0,0,full
@@ -111,6 +141,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1203,staleguard,13,2,11,0,0,2,0,0,0,0,full
 1203,staleguard_early_recovery,13,2,11,0,0,2,0,0,0,0,full
 1203,fixed_early_recovery,13,0,5,8,7,,,2,0,6,full
+1203,staleguard_recovery_aware,13,2,11,0,0,2,0,0,0,0,full
+1203,staleguard_dual_horizon,13,2,11,0,0,2,0,0,0,0,full
 1207,no_recovery,13,10,3,0,0,,,,,,full
 1207,always_recover,13,0,0,13,12,,,10,0,3,full
 1207,fbs,13,10,3,1,0,9,0,0,0,0,full
@@ -118,6 +150,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1207,staleguard,13,3,3,9,0,0,0,7,0,0,full
 1207,staleguard_early_recovery,13,1,3,9,9,0,0,9,0,0,full
 1207,fixed_early_recovery,13,2,3,8,7,,,8,0,0,full
+1207,staleguard_recovery_aware,13,1,3,9,9,0,0,9,0,0,full
+1207,staleguard_dual_horizon,13,1,3,9,9,0,0,9,0,0,full
 1213,no_recovery,13,4,9,0,0,,,,,,full
 1213,always_recover,13,0,0,13,12,,,4,0,9,full
 1213,fbs,13,4,9,1,0,3,0,0,0,0,full
@@ -125,6 +159,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1213,staleguard,13,3,9,4,0,0,0,1,0,0,full
 1213,staleguard_early_recovery,13,0,9,4,3,0,0,4,0,0,full
 1213,fixed_early_recovery,13,0,5,8,7,,,4,0,4,full
+1213,staleguard_recovery_aware,13,0,9,4,3,0,0,4,0,0,full
+1213,staleguard_dual_horizon,13,0,9,4,3,0,0,4,0,0,full
 1219,no_recovery,13,8,5,0,0,,,,,,full
 1219,always_recover,13,0,0,13,12,,,8,0,5,full
 1219,fbs,13,8,5,2,0,6,0,0,0,0,full
@@ -132,6 +168,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1219,staleguard,13,4,5,8,0,0,0,4,0,0,full
 1219,staleguard_early_recovery,13,0,5,8,8,0,0,8,0,0,full
 1219,fixed_early_recovery,13,0,5,8,7,,,8,0,0,full
+1219,staleguard_recovery_aware,13,0,5,8,8,0,0,8,0,0,full
+1219,staleguard_dual_horizon,13,0,5,8,8,0,0,8,0,0,full
 1224,no_recovery,13,5,8,0,0,,,,,,full
 1224,always_recover,13,0,0,13,12,,,5,0,8,full
 1224,fbs,13,5,8,2,0,3,0,0,0,0,full
@@ -139,6 +177,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1224,staleguard,13,3,8,5,0,0,0,2,0,0,full
 1224,staleguard_early_recovery,13,0,8,5,5,0,0,5,0,0,full
 1224,fixed_early_recovery,13,0,5,8,7,,,5,0,3,full
+1224,staleguard_recovery_aware,13,0,8,5,5,0,0,5,0,0,full
+1224,staleguard_dual_horizon,13,0,8,5,5,0,0,5,0,0,full
 1230,no_recovery,13,11,2,0,0,,,,,,full
 1230,always_recover,13,0,0,13,12,,,11,0,2,full
 1230,fbs,13,11,2,1,0,10,0,0,0,0,full
@@ -146,6 +186,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1230,staleguard,13,5,2,9,0,0,0,6,0,0,full
 1230,staleguard_early_recovery,13,2,2,9,9,0,0,9,0,0,full
 1230,fixed_early_recovery,13,3,2,8,7,,,8,0,0,full
+1230,staleguard_recovery_aware,13,2,2,9,9,0,0,9,0,0,full
+1230,staleguard_dual_horizon,13,2,2,9,9,0,0,9,0,0,full
 1238,no_recovery,13,6,7,0,0,,,,,,full
 1238,always_recover,13,0,0,13,12,,,6,0,7,full
 1238,fbs,13,6,7,1,0,5,0,0,0,0,full
@@ -153,6 +195,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1238,staleguard,13,4,7,6,0,0,0,2,0,0,full
 1238,staleguard_early_recovery,13,0,7,6,6,0,0,6,0,0,full
 1238,fixed_early_recovery,13,0,5,8,7,,,6,0,2,full
+1238,staleguard_recovery_aware,13,0,7,6,6,0,0,6,0,0,full
+1238,staleguard_dual_horizon,13,0,7,6,6,0,0,6,0,0,full
 1250,no_recovery,13,6,7,0,0,,,,,,full
 1250,always_recover,13,0,0,13,12,,,6,0,7,full
 1250,fbs,13,6,7,3,0,3,0,0,0,0,full
@@ -160,6 +204,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1250,staleguard,13,6,7,6,0,0,0,0,0,0,full
 1250,staleguard_early_recovery,13,6,7,6,5,0,0,0,0,0,full
 1250,fixed_early_recovery,13,0,5,8,7,,,6,0,2,full
+1250,staleguard_recovery_aware,13,0,7,6,6,0,0,6,0,0,full
+1250,staleguard_dual_horizon,13,0,7,6,6,0,0,6,0,0,full
 1254,no_recovery,13,6,7,0,0,,,,,,full
 1254,always_recover,13,0,0,13,12,,,6,0,7,full
 1254,fbs,13,6,7,1,0,5,0,0,0,0,full
@@ -167,6 +213,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1254,staleguard,13,2,7,6,0,0,0,4,0,0,full
 1254,staleguard_early_recovery,13,0,7,6,6,0,0,6,0,0,full
 1254,fixed_early_recovery,13,0,5,8,7,,,6,0,2,full
+1254,staleguard_recovery_aware,13,0,7,6,6,0,0,6,0,0,full
+1254,staleguard_dual_horizon,13,0,7,6,6,0,0,6,0,0,full
 1255,no_recovery,13,8,5,0,0,,,,,,full
 1255,always_recover,13,0,0,13,12,,,8,0,5,full
 1255,fbs,13,8,5,2,0,6,0,0,0,0,full
@@ -174,6 +222,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1255,staleguard,13,4,5,8,0,0,0,4,0,0,full
 1255,staleguard_early_recovery,13,0,5,8,7,0,0,8,0,0,full
 1255,fixed_early_recovery,13,0,5,8,7,,,8,0,0,full
+1255,staleguard_recovery_aware,13,0,5,8,7,0,0,8,0,0,full
+1255,staleguard_dual_horizon,13,0,5,8,7,0,0,8,0,0,full
 1256,no_recovery,13,9,4,0,0,,,,,,full
 1256,always_recover,13,0,0,13,12,,,9,0,4,full
 1256,fbs,13,9,4,1,0,8,0,0,0,0,full
@@ -181,6 +231,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1256,staleguard,13,5,4,8,0,1,0,4,0,0,full
 1256,staleguard_early_recovery,13,1,4,8,8,1,0,8,0,0,full
 1256,fixed_early_recovery,13,1,4,8,7,,,8,0,0,full
+1256,staleguard_recovery_aware,13,1,4,8,8,1,0,8,0,0,full
+1256,staleguard_dual_horizon,13,1,4,8,8,1,0,8,0,0,full
 1258,no_recovery,13,5,8,0,0,,,,,,full
 1258,always_recover,13,0,0,13,12,,,5,0,8,full
 1258,fbs,13,5,8,1,0,4,0,0,0,0,full
@@ -188,6 +240,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1258,staleguard,13,4,8,5,0,0,0,1,0,0,full
 1258,staleguard_early_recovery,13,0,8,5,5,0,0,5,0,0,full
 1258,fixed_early_recovery,13,0,5,8,7,,,5,0,3,full
+1258,staleguard_recovery_aware,13,0,8,5,5,0,0,5,0,0,full
+1258,staleguard_dual_horizon,13,0,8,5,5,0,0,5,0,0,full
 1277,no_recovery,13,2,11,0,0,,,,,,full
 1277,always_recover,13,0,0,13,12,,,2,0,11,full
 1277,fbs,13,2,11,2,0,0,0,0,0,0,full
@@ -195,6 +249,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1277,staleguard,13,2,11,0,0,2,0,0,0,0,full
 1277,staleguard_early_recovery,13,2,11,0,0,2,0,0,0,0,full
 1277,fixed_early_recovery,13,0,5,8,7,,,2,0,6,full
+1277,staleguard_recovery_aware,13,2,11,0,0,2,0,0,0,0,full
+1277,staleguard_dual_horizon,13,2,11,0,0,2,0,0,0,0,full
 1278,no_recovery,13,3,10,0,0,,,,,,full
 1278,always_recover,13,0,0,13,12,,,3,0,10,full
 1278,fbs,13,3,10,1,0,2,0,0,0,0,full
@@ -202,6 +258,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1278,staleguard,13,3,10,0,0,3,0,0,0,0,full
 1278,staleguard_early_recovery,13,3,10,0,0,3,0,0,0,0,full
 1278,fixed_early_recovery,13,0,5,8,7,,,3,0,5,full
+1278,staleguard_recovery_aware,13,0,9,4,4,0,1,3,0,1,full
+1278,staleguard_dual_horizon,13,0,9,4,4,0,1,3,0,1,full
 1281,no_recovery,13,9,4,0,0,,,,,,full
 1281,always_recover,13,0,0,13,12,,,9,0,4,full
 1281,fbs,13,9,4,2,0,7,0,0,0,0,full
@@ -209,6 +267,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1281,staleguard,13,4,4,9,0,0,0,5,0,0,full
 1281,staleguard_early_recovery,13,0,4,9,9,0,0,9,0,0,full
 1281,fixed_early_recovery,13,1,4,8,7,,,8,0,0,full
+1281,staleguard_recovery_aware,13,0,4,9,9,0,0,9,0,0,full
+1281,staleguard_dual_horizon,13,0,4,9,9,0,0,9,0,0,full
 1282,no_recovery,13,5,8,0,0,,,,,,full
 1282,always_recover,13,0,0,13,12,,,5,0,8,full
 1282,fbs,13,5,8,2,0,3,0,0,0,0,full
@@ -216,6 +276,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1282,staleguard,13,4,8,5,0,0,0,1,0,0,full
 1282,staleguard_early_recovery,13,0,8,5,5,0,0,5,0,0,full
 1282,fixed_early_recovery,13,0,5,8,7,,,5,0,3,full
+1282,staleguard_recovery_aware,13,0,8,5,5,0,0,5,0,0,full
+1282,staleguard_dual_horizon,13,0,8,5,5,0,0,5,0,0,full
 1286,no_recovery,13,3,10,0,0,,,,,,full
 1286,always_recover,13,0,0,13,12,,,3,0,10,full
 1286,fbs,13,3,10,1,0,2,0,0,0,0,full
@@ -223,6 +285,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1286,staleguard,13,3,10,0,0,3,0,0,0,0,full
 1286,staleguard_early_recovery,13,3,10,0,0,3,0,0,0,0,full
 1286,fixed_early_recovery,13,0,5,8,7,,,3,0,5,full
+1286,staleguard_recovery_aware,13,0,9,4,4,0,1,3,0,1,full
+1286,staleguard_dual_horizon,13,0,9,4,4,0,1,3,0,1,full
 1288,no_recovery,13,5,8,0,0,,,,,,full
 1288,always_recover,13,0,0,13,12,,,5,0,8,full
 1288,fbs,13,5,8,1,0,4,0,0,0,0,full
@@ -230,6 +294,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1288,staleguard,13,3,8,5,0,0,0,2,0,0,full
 1288,staleguard_early_recovery,13,0,8,5,4,0,0,5,0,0,full
 1288,fixed_early_recovery,13,0,5,8,7,,,5,0,3,full
+1288,staleguard_recovery_aware,13,0,8,5,4,0,0,5,0,0,full
+1288,staleguard_dual_horizon,13,0,8,5,4,0,0,5,0,0,full
 1297,no_recovery,13,6,7,0,0,,,,,,full
 1297,always_recover,13,0,0,13,12,,,6,0,7,full
 1297,fbs,13,6,7,2,0,4,0,0,0,0,full
@@ -237,6 +303,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1297,staleguard,13,4,7,6,0,0,0,2,0,0,full
 1297,staleguard_early_recovery,13,0,7,6,5,0,0,6,0,0,full
 1297,fixed_early_recovery,13,0,5,8,7,,,6,0,2,full
+1297,staleguard_recovery_aware,13,0,7,6,5,0,0,6,0,0,full
+1297,staleguard_dual_horizon,13,0,7,6,5,0,0,6,0,0,full
 1309,no_recovery,13,8,5,0,0,,,,,,full
 1309,always_recover,13,0,0,13,12,,,8,0,5,full
 1309,fbs,13,8,5,2,0,6,0,0,0,0,full
@@ -244,6 +312,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1309,staleguard,13,4,5,8,0,0,0,4,0,0,full
 1309,staleguard_early_recovery,13,0,5,8,8,0,0,8,0,0,full
 1309,fixed_early_recovery,13,0,5,8,7,,,8,0,0,full
+1309,staleguard_recovery_aware,13,0,5,8,8,0,0,8,0,0,full
+1309,staleguard_dual_horizon,13,0,5,8,8,0,0,8,0,0,full
 1324,no_recovery,13,3,10,0,0,,,,,,full
 1324,always_recover,13,0,0,13,12,,,3,0,10,full
 1324,fbs,13,3,10,2,0,1,0,0,0,0,full
@@ -251,6 +321,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1324,staleguard,13,3,10,0,0,3,0,0,0,0,full
 1324,staleguard_early_recovery,13,3,10,0,0,3,0,0,0,0,full
 1324,fixed_early_recovery,13,0,5,8,7,,,3,0,5,full
+1324,staleguard_recovery_aware,13,0,9,4,4,0,1,3,0,1,full
+1324,staleguard_dual_horizon,13,0,9,4,4,0,1,3,0,1,full
 1366,no_recovery,13,8,5,0,0,,,,,,full
 1366,always_recover,13,0,0,13,12,,,8,0,5,full
 1366,fbs,13,8,5,2,0,6,0,0,0,0,full
@@ -258,6 +330,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1366,staleguard,13,5,5,8,0,0,0,3,0,0,full
 1366,staleguard_early_recovery,13,0,5,8,7,0,0,8,0,0,full
 1366,fixed_early_recovery,13,0,5,8,7,,,8,0,0,full
+1366,staleguard_recovery_aware,13,0,5,8,7,0,0,8,0,0,full
+1366,staleguard_dual_horizon,13,0,5,8,7,0,0,8,0,0,full
 1370,no_recovery,13,7,6,0,0,,,,,,full
 1370,always_recover,13,0,0,13,12,,,7,0,6,full
 1370,fbs,13,7,6,2,0,5,0,0,0,0,full
@@ -265,6 +339,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1370,staleguard,13,4,6,7,0,0,0,3,0,0,full
 1370,staleguard_early_recovery,13,0,6,7,7,0,0,7,0,0,full
 1370,fixed_early_recovery,13,0,5,8,7,,,7,0,1,full
+1370,staleguard_recovery_aware,13,0,6,7,7,0,0,7,0,0,full
+1370,staleguard_dual_horizon,13,0,6,7,7,0,0,7,0,0,full
 1378,no_recovery,13,6,7,0,0,,,,,,full
 1378,always_recover,13,0,0,13,12,,,6,0,7,full
 1378,fbs,13,6,7,2,0,4,0,0,0,0,full
@@ -272,6 +348,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1378,staleguard,13,5,7,6,0,0,0,1,0,0,full
 1378,staleguard_early_recovery,13,0,7,6,6,0,0,6,0,0,full
 1378,fixed_early_recovery,13,0,5,8,7,,,6,0,2,full
+1378,staleguard_recovery_aware,13,0,7,6,6,0,0,6,0,0,full
+1378,staleguard_dual_horizon,13,0,7,6,6,0,0,6,0,0,full
 1392,no_recovery,13,4,9,0,0,,,,,,full
 1392,always_recover,13,0,0,13,12,,,4,0,9,full
 1392,fbs,13,4,9,1,0,3,0,0,0,0,full
@@ -279,6 +357,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1392,staleguard,13,3,9,4,0,0,0,1,0,0,full
 1392,staleguard_early_recovery,13,0,9,4,4,0,0,4,0,0,full
 1392,fixed_early_recovery,13,0,5,8,7,,,4,0,4,full
+1392,staleguard_recovery_aware,13,0,9,4,4,0,0,4,0,0,full
+1392,staleguard_dual_horizon,13,0,9,4,4,0,0,4,0,0,full
 1409,no_recovery,13,7,6,0,0,,,,,,full
 1409,always_recover,13,0,0,13,12,,,7,0,6,full
 1409,fbs,13,7,6,3,0,4,0,0,0,0,full
@@ -286,6 +366,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1409,staleguard,13,5,6,7,0,0,0,2,0,0,full
 1409,staleguard_early_recovery,13,0,6,7,7,0,0,7,0,0,full
 1409,fixed_early_recovery,13,0,5,8,7,,,7,0,1,full
+1409,staleguard_recovery_aware,13,0,6,7,7,0,0,7,0,0,full
+1409,staleguard_dual_horizon,13,0,6,7,7,0,0,7,0,0,full
 1413,no_recovery,13,11,2,0,0,,,,,,full
 1413,always_recover,13,0,0,13,12,,,11,0,2,full
 1413,fbs,13,11,2,2,0,9,0,0,0,0,full
@@ -293,6 +375,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1413,staleguard,13,7,2,9,0,0,0,4,0,0,full
 1413,staleguard_early_recovery,13,2,2,9,9,0,0,9,0,0,full
 1413,fixed_early_recovery,13,3,2,8,7,,,8,0,0,full
+1413,staleguard_recovery_aware,13,1,2,10,9,0,0,10,0,0,full
+1413,staleguard_dual_horizon,13,1,2,10,9,0,0,10,0,0,full
 1417,no_recovery,13,6,7,0,0,,,,,,full
 1417,always_recover,13,0,0,13,12,,,6,0,7,full
 1417,fbs,13,6,7,1,0,5,0,0,0,0,full
@@ -300,6 +384,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1417,staleguard,13,3,7,6,0,0,0,3,0,0,full
 1417,staleguard_early_recovery,13,0,7,6,5,0,0,6,0,0,full
 1417,fixed_early_recovery,13,0,5,8,7,,,6,0,2,full
+1417,staleguard_recovery_aware,13,0,7,6,5,0,0,6,0,0,full
+1417,staleguard_dual_horizon,13,0,7,6,5,0,0,6,0,0,full
 1418,no_recovery,13,4,9,0,0,,,,,,full
 1418,always_recover,13,0,0,13,12,,,4,0,9,full
 1418,fbs,13,4,9,2,0,2,0,0,0,0,full
@@ -307,6 +393,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1418,staleguard,13,4,9,4,0,0,0,0,0,0,full
 1418,staleguard_early_recovery,13,4,9,4,4,0,0,0,0,0,full
 1418,fixed_early_recovery,13,0,5,8,7,,,4,0,4,full
+1418,staleguard_recovery_aware,13,0,8,5,5,0,1,4,0,1,full
+1418,staleguard_dual_horizon,13,0,8,5,5,0,1,4,0,1,full
 1429,no_recovery,13,12,1,0,0,,,,,,full
 1429,always_recover,13,0,0,13,12,,,12,0,1,full
 1429,fbs,13,12,1,3,0,9,0,0,0,0,full
@@ -314,6 +402,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1429,staleguard,13,8,1,9,0,0,0,4,0,0,full
 1429,staleguard_early_recovery,13,3,1,9,8,0,0,9,0,0,full
 1429,fixed_early_recovery,13,4,1,8,7,,,8,0,0,full
+1429,staleguard_recovery_aware,13,2,1,10,9,0,0,10,0,0,full
+1429,staleguard_dual_horizon,13,2,1,10,9,0,0,10,0,0,full
 1437,no_recovery,13,3,10,0,0,,,,,,full
 1437,always_recover,13,0,0,13,12,,,3,0,10,full
 1437,fbs,13,3,10,2,0,1,0,0,0,0,full
@@ -321,6 +411,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1437,staleguard,13,3,10,0,0,3,0,0,0,0,full
 1437,staleguard_early_recovery,13,3,10,0,0,3,0,0,0,0,full
 1437,fixed_early_recovery,13,0,5,8,7,,,3,0,5,full
+1437,staleguard_recovery_aware,13,0,9,4,4,0,1,3,0,1,full
+1437,staleguard_dual_horizon,13,0,9,4,4,0,1,3,0,1,full
 1453,no_recovery,13,7,6,0,0,,,,,,full
 1453,always_recover,13,0,0,13,12,,,7,0,6,full
 1453,fbs,13,7,6,2,0,5,0,0,0,0,full
@@ -328,6 +420,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1453,staleguard,13,3,6,7,0,0,0,4,0,0,full
 1453,staleguard_early_recovery,13,0,6,7,6,0,0,7,0,0,full
 1453,fixed_early_recovery,13,0,5,8,7,,,7,0,1,full
+1453,staleguard_recovery_aware,13,0,6,7,6,0,0,7,0,0,full
+1453,staleguard_dual_horizon,13,0,6,7,6,0,0,7,0,0,full
 1460,no_recovery,13,6,7,0,0,,,,,,full
 1460,always_recover,13,0,0,13,12,,,6,0,7,full
 1460,fbs,13,6,7,1,0,5,0,0,0,0,full
@@ -335,6 +429,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1460,staleguard,13,3,7,6,0,0,0,3,0,0,full
 1460,staleguard_early_recovery,13,0,7,6,6,0,0,6,0,0,full
 1460,fixed_early_recovery,13,0,5,8,7,,,6,0,2,full
+1460,staleguard_recovery_aware,13,0,7,6,6,0,0,6,0,0,full
+1460,staleguard_dual_horizon,13,0,7,6,6,0,0,6,0,0,full
 1461,no_recovery,13,6,7,0,0,,,,,,full
 1461,always_recover,13,0,0,13,12,,,6,0,7,full
 1461,fbs,13,6,7,1,0,5,0,0,0,0,full
@@ -342,6 +438,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1461,staleguard,13,3,7,6,0,0,0,3,0,0,full
 1461,staleguard_early_recovery,13,0,7,6,5,0,0,6,0,0,full
 1461,fixed_early_recovery,13,0,5,8,7,,,6,0,2,full
+1461,staleguard_recovery_aware,13,0,7,6,5,0,0,6,0,0,full
+1461,staleguard_dual_horizon,13,0,7,6,5,0,0,6,0,0,full
 1474,no_recovery,13,3,10,0,0,,,,,,full
 1474,always_recover,13,0,0,13,12,,,3,0,10,full
 1474,fbs,13,3,10,2,0,1,0,0,0,0,full
@@ -349,6 +447,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1474,staleguard,13,3,10,0,0,3,0,0,0,0,full
 1474,staleguard_early_recovery,13,3,10,0,0,3,0,0,0,0,full
 1474,fixed_early_recovery,13,0,5,8,7,,,3,0,5,full
+1474,staleguard_recovery_aware,13,0,9,4,4,0,1,3,0,1,full
+1474,staleguard_dual_horizon,13,0,9,4,4,0,1,3,0,1,full
 1497,no_recovery,13,8,5,0,0,,,,,,full
 1497,always_recover,13,0,0,13,12,,,8,0,5,full
 1497,fbs,13,8,5,2,0,6,0,0,0,0,full
@@ -356,6 +456,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1497,staleguard,13,5,5,8,0,0,0,3,0,0,full
 1497,staleguard_early_recovery,13,0,5,8,7,0,0,8,0,0,full
 1497,fixed_early_recovery,13,0,5,8,7,,,8,0,0,full
+1497,staleguard_recovery_aware,13,0,5,8,7,0,0,8,0,0,full
+1497,staleguard_dual_horizon,13,0,5,8,7,0,0,8,0,0,full
 1503,no_recovery,13,5,8,0,0,,,,,,full
 1503,always_recover,13,0,0,13,12,,,5,0,8,full
 1503,fbs,13,5,8,3,0,2,0,0,0,0,full
@@ -363,6 +465,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1503,staleguard,13,5,8,5,0,0,0,0,0,0,full
 1503,staleguard_early_recovery,13,5,8,5,5,0,0,0,0,0,full
 1503,fixed_early_recovery,13,0,5,8,7,,,5,0,3,full
+1503,staleguard_recovery_aware,13,0,8,5,5,0,0,5,0,0,full
+1503,staleguard_dual_horizon,13,0,8,5,5,0,0,5,0,0,full
 1506,no_recovery,13,5,8,0,0,,,,,,full
 1506,always_recover,13,0,0,13,12,,,5,0,8,full
 1506,fbs,13,5,8,2,0,3,0,0,0,0,full
@@ -370,6 +474,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1506,staleguard,13,3,8,5,0,0,0,2,0,0,full
 1506,staleguard_early_recovery,13,0,8,5,5,0,0,5,0,0,full
 1506,fixed_early_recovery,13,0,5,8,7,,,5,0,3,full
+1506,staleguard_recovery_aware,13,0,8,5,5,0,0,5,0,0,full
+1506,staleguard_dual_horizon,13,0,8,5,5,0,0,5,0,0,full
 1523,no_recovery,13,3,10,0,0,,,,,,full
 1523,always_recover,13,0,0,13,12,,,3,0,10,full
 1523,fbs,13,3,10,2,0,1,0,0,0,0,full
@@ -377,6 +483,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1523,staleguard,13,3,10,0,0,3,0,0,0,0,full
 1523,staleguard_early_recovery,13,3,10,0,0,3,0,0,0,0,full
 1523,fixed_early_recovery,13,0,5,8,7,,,3,0,5,full
+1523,staleguard_recovery_aware,13,0,9,4,4,0,1,3,0,1,full
+1523,staleguard_dual_horizon,13,0,9,4,4,0,1,3,0,1,full
 1561,no_recovery,13,6,7,0,0,,,,,,full
 1561,always_recover,13,0,0,13,12,,,6,0,7,full
 1561,fbs,13,6,7,1,0,5,0,0,0,0,full
@@ -384,6 +492,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1561,staleguard,13,3,7,6,0,0,0,3,0,0,full
 1561,staleguard_early_recovery,13,0,7,6,6,0,0,6,0,0,full
 1561,fixed_early_recovery,13,0,5,8,7,,,6,0,2,full
+1561,staleguard_recovery_aware,13,0,7,6,6,0,0,6,0,0,full
+1561,staleguard_dual_horizon,13,0,7,6,6,0,0,6,0,0,full
 1566,no_recovery,13,6,7,0,0,,,,,,full
 1566,always_recover,13,0,0,13,12,,,6,0,7,full
 1566,fbs,13,6,7,2,0,4,0,0,0,0,full
@@ -391,6 +501,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1566,staleguard,13,5,6,7,0,0,1,1,0,1,full
 1566,staleguard_early_recovery,13,0,6,7,6,0,1,6,0,1,full
 1566,fixed_early_recovery,13,0,5,8,7,,,6,0,2,full
+1566,staleguard_recovery_aware,13,0,6,7,6,0,1,6,0,1,full
+1566,staleguard_dual_horizon,13,0,6,7,6,0,1,6,0,1,full
 1572,no_recovery,13,3,10,0,0,,,,,,full
 1572,always_recover,13,0,0,13,12,,,3,0,10,full
 1572,fbs,13,3,10,2,0,1,0,0,0,0,full
@@ -398,6 +510,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1572,staleguard,13,3,10,0,0,3,0,0,0,0,full
 1572,staleguard_early_recovery,13,3,10,0,0,3,0,0,0,0,full
 1572,fixed_early_recovery,13,0,5,8,7,,,3,0,5,full
+1572,staleguard_recovery_aware,13,3,10,0,0,3,0,0,0,0,full
+1572,staleguard_dual_horizon,13,3,10,0,0,3,0,0,0,0,full
 1593,no_recovery,13,4,9,0,0,,,,,,full
 1593,always_recover,13,0,0,13,12,,,4,0,9,full
 1593,fbs,13,4,9,2,0,2,0,0,0,0,full
@@ -405,6 +519,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1593,staleguard,13,4,9,4,0,0,0,0,0,0,full
 1593,staleguard_early_recovery,13,4,9,4,3,0,0,0,0,0,full
 1593,fixed_early_recovery,13,0,5,8,7,,,4,0,4,full
+1593,staleguard_recovery_aware,13,0,9,4,4,0,0,4,0,0,full
+1593,staleguard_dual_horizon,13,0,9,4,4,0,0,4,0,0,full
 1600,no_recovery,13,8,5,0,0,,,,,,full
 1600,always_recover,13,0,0,13,12,,,8,0,5,full
 1600,fbs,13,8,5,2,0,6,0,0,0,0,full
@@ -412,6 +528,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1600,staleguard,13,5,5,8,0,0,0,3,0,0,full
 1600,staleguard_early_recovery,13,0,5,8,8,0,0,8,0,0,full
 1600,fixed_early_recovery,13,0,5,8,7,,,8,0,0,full
+1600,staleguard_recovery_aware,13,0,5,8,8,0,0,8,0,0,full
+1600,staleguard_dual_horizon,13,0,5,8,8,0,0,8,0,0,full
 1603,no_recovery,13,2,11,0,0,,,,,,full
 1603,always_recover,13,0,0,13,12,,,2,0,11,full
 1603,fbs,13,2,11,0,0,2,0,0,0,0,full
@@ -419,6 +537,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1603,staleguard,13,2,11,0,0,2,0,0,0,0,full
 1603,staleguard_early_recovery,13,2,11,0,0,2,0,0,0,0,full
 1603,fixed_early_recovery,13,0,5,8,7,,,2,0,6,full
+1603,staleguard_recovery_aware,13,2,11,0,0,2,0,0,0,0,full
+1603,staleguard_dual_horizon,13,2,11,0,0,2,0,0,0,0,full
 1604,no_recovery,13,5,8,0,0,,,,,,full
 1604,always_recover,13,0,0,13,12,,,5,0,8,full
 1604,fbs,13,5,8,2,0,3,0,0,0,0,full
@@ -426,6 +546,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1604,staleguard,13,5,8,5,0,0,0,0,0,0,full
 1604,staleguard_early_recovery,13,5,8,5,4,0,0,0,0,0,full
 1604,fixed_early_recovery,13,0,5,8,7,,,5,0,3,full
+1604,staleguard_recovery_aware,13,0,8,5,5,0,0,5,0,0,full
+1604,staleguard_dual_horizon,13,0,8,5,5,0,0,5,0,0,full
 1615,no_recovery,13,5,8,0,0,,,,,,full
 1615,always_recover,13,0,0,13,12,,,5,0,8,full
 1615,fbs,13,5,8,3,0,2,0,0,0,0,full
@@ -433,6 +555,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1615,staleguard,13,5,8,5,0,0,0,0,0,0,full
 1615,staleguard_early_recovery,13,5,8,5,4,0,0,0,0,0,full
 1615,fixed_early_recovery,13,0,5,8,7,,,5,0,3,full
+1615,staleguard_recovery_aware,13,0,8,5,5,0,0,5,0,0,full
+1615,staleguard_dual_horizon,13,0,8,5,5,0,0,5,0,0,full
 1629,no_recovery,13,3,10,0,0,,,,,,full
 1629,always_recover,13,0,0,13,12,,,3,0,10,full
 1629,fbs,13,3,10,2,0,1,0,0,0,0,full
@@ -440,6 +564,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1629,staleguard,13,3,10,0,0,3,0,0,0,0,full
 1629,staleguard_early_recovery,13,3,10,0,0,3,0,0,0,0,full
 1629,fixed_early_recovery,13,0,5,8,7,,,3,0,5,full
+1629,staleguard_recovery_aware,13,0,9,4,4,0,1,3,0,1,full
+1629,staleguard_dual_horizon,13,0,9,4,4,0,1,3,0,1,full
 1630,no_recovery,13,6,7,0,0,,,,,,full
 1630,always_recover,13,0,0,13,12,,,6,0,7,full
 1630,fbs,13,6,7,2,0,4,0,0,0,0,full
@@ -447,6 +573,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1630,staleguard,13,3,7,6,0,0,0,3,0,0,full
 1630,staleguard_early_recovery,13,0,7,6,6,0,0,6,0,0,full
 1630,fixed_early_recovery,13,0,5,8,7,,,6,0,2,full
+1630,staleguard_recovery_aware,13,0,7,6,6,0,0,6,0,0,full
+1630,staleguard_dual_horizon,13,0,7,6,6,0,0,6,0,0,full
 1644,no_recovery,13,3,10,0,0,,,,,,full
 1644,always_recover,13,0,0,13,12,,,3,0,10,full
 1644,fbs,13,3,10,2,0,1,0,0,0,0,full
@@ -454,6 +582,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1644,staleguard,13,3,10,0,0,3,0,0,0,0,full
 1644,staleguard_early_recovery,13,3,10,0,0,3,0,0,0,0,full
 1644,fixed_early_recovery,13,0,5,8,7,,,3,0,5,full
+1644,staleguard_recovery_aware,13,3,10,0,0,3,0,0,0,0,full
+1644,staleguard_dual_horizon,13,3,10,0,0,3,0,0,0,0,full
 1657,no_recovery,13,4,9,0,0,,,,,,full
 1657,always_recover,13,0,0,13,12,,,4,0,9,full
 1657,fbs,13,4,9,2,0,2,0,0,0,0,full
@@ -461,6 +591,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1657,staleguard,13,4,9,4,0,0,0,0,0,0,full
 1657,staleguard_early_recovery,13,4,9,4,4,0,0,0,0,0,full
 1657,fixed_early_recovery,13,0,5,8,7,,,4,0,4,full
+1657,staleguard_recovery_aware,13,0,8,5,5,0,1,4,0,1,full
+1657,staleguard_dual_horizon,13,0,8,5,5,0,1,4,0,1,full
 1662,no_recovery,13,2,11,0,0,,,,,,full
 1662,always_recover,13,0,0,13,12,,,2,0,11,full
 1662,fbs,13,2,11,1,0,1,0,0,0,0,full
@@ -468,6 +600,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1662,staleguard,13,2,11,0,0,2,0,0,0,0,full
 1662,staleguard_early_recovery,13,2,11,0,0,2,0,0,0,0,full
 1662,fixed_early_recovery,13,0,5,8,7,,,2,0,6,full
+1662,staleguard_recovery_aware,13,2,11,0,0,2,0,0,0,0,full
+1662,staleguard_dual_horizon,13,2,11,0,0,2,0,0,0,0,full
 1686,no_recovery,13,3,10,0,0,,,,,,full
 1686,always_recover,13,0,0,13,12,,,3,0,10,full
 1686,fbs,13,3,10,1,0,2,0,0,0,0,full
@@ -475,6 +609,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1686,staleguard,13,3,10,0,0,3,0,0,0,0,full
 1686,staleguard_early_recovery,13,3,10,0,0,3,0,0,0,0,full
 1686,fixed_early_recovery,13,0,5,8,7,,,3,0,5,full
+1686,staleguard_recovery_aware,13,3,10,0,0,3,0,0,0,0,full
+1686,staleguard_dual_horizon,13,3,10,0,0,3,0,0,0,0,full
 1689,no_recovery,13,7,6,0,0,,,,,,full
 1689,always_recover,13,0,0,13,12,,,7,0,6,full
 1689,fbs,13,7,6,2,0,5,0,0,0,0,full
@@ -482,6 +618,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1689,staleguard,13,5,6,7,0,0,0,2,0,0,full
 1689,staleguard_early_recovery,13,0,6,7,6,0,0,7,0,0,full
 1689,fixed_early_recovery,13,0,5,8,7,,,7,0,1,full
+1689,staleguard_recovery_aware,13,0,6,7,6,0,0,7,0,0,full
+1689,staleguard_dual_horizon,13,0,6,7,6,0,0,7,0,0,full
 1690,no_recovery,13,7,6,0,0,,,,,,full
 1690,always_recover,13,0,0,13,12,,,7,0,6,full
 1690,fbs,13,7,6,2,0,5,0,0,0,0,full
@@ -489,6 +627,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1690,staleguard,13,3,6,7,0,0,0,4,0,0,full
 1690,staleguard_early_recovery,13,0,6,7,7,0,0,7,0,0,full
 1690,fixed_early_recovery,13,0,5,8,7,,,7,0,1,full
+1690,staleguard_recovery_aware,13,0,6,7,7,0,0,7,0,0,full
+1690,staleguard_dual_horizon,13,0,6,7,7,0,0,7,0,0,full
 1693,no_recovery,13,3,10,0,0,,,,,,full
 1693,always_recover,13,0,0,13,12,,,3,0,10,full
 1693,fbs,13,3,10,1,0,2,0,0,0,0,full
@@ -496,6 +636,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1693,staleguard,13,3,10,0,0,3,0,0,0,0,full
 1693,staleguard_early_recovery,13,3,10,0,0,3,0,0,0,0,full
 1693,fixed_early_recovery,13,0,5,8,7,,,3,0,5,full
+1693,staleguard_recovery_aware,13,3,10,0,0,3,0,0,0,0,full
+1693,staleguard_dual_horizon,13,3,10,0,0,3,0,0,0,0,full
 1696,no_recovery,13,6,7,0,0,,,,,,full
 1696,always_recover,13,0,0,13,12,,,6,0,7,full
 1696,fbs,13,6,7,2,0,4,0,0,0,0,full
@@ -503,6 +645,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1696,staleguard,13,4,7,6,0,0,0,2,0,0,full
 1696,staleguard_early_recovery,13,0,7,6,6,0,0,6,0,0,full
 1696,fixed_early_recovery,13,0,5,8,7,,,6,0,2,full
+1696,staleguard_recovery_aware,13,0,7,6,6,0,0,6,0,0,full
+1696,staleguard_dual_horizon,13,0,7,6,6,0,0,6,0,0,full
 1697,no_recovery,13,8,5,0,0,,,,,,full
 1697,always_recover,13,0,0,13,12,,,8,0,5,full
 1697,fbs,13,8,5,2,0,6,0,0,0,0,full
@@ -510,6 +654,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1697,staleguard,13,4,5,8,0,0,0,4,0,0,full
 1697,staleguard_early_recovery,13,0,5,8,8,0,0,8,0,0,full
 1697,fixed_early_recovery,13,0,5,8,7,,,8,0,0,full
+1697,staleguard_recovery_aware,13,0,5,8,8,0,0,8,0,0,full
+1697,staleguard_dual_horizon,13,0,5,8,8,0,0,8,0,0,full
 1699,no_recovery,13,4,9,0,0,,,,,,full
 1699,always_recover,13,0,0,13,12,,,4,0,9,full
 1699,fbs,13,4,9,2,0,2,0,0,0,0,full
@@ -517,6 +663,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1699,staleguard,13,4,9,4,0,0,0,0,0,0,full
 1699,staleguard_early_recovery,13,4,9,4,4,0,0,0,0,0,full
 1699,fixed_early_recovery,13,0,5,8,7,,,4,0,4,full
+1699,staleguard_recovery_aware,13,0,9,4,4,0,0,4,0,0,full
+1699,staleguard_dual_horizon,13,0,9,4,4,0,0,4,0,0,full
 1713,no_recovery,13,2,11,0,0,,,,,,full
 1713,always_recover,13,0,0,13,12,,,2,0,11,full
 1713,fbs,13,2,11,1,0,1,0,0,0,0,full
@@ -524,6 +672,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1713,staleguard,13,2,11,0,0,2,0,0,0,0,full
 1713,staleguard_early_recovery,13,2,11,0,0,2,0,0,0,0,full
 1713,fixed_early_recovery,13,0,5,8,7,,,2,0,6,full
+1713,staleguard_recovery_aware,13,2,11,0,0,2,0,0,0,0,full
+1713,staleguard_dual_horizon,13,2,11,0,0,2,0,0,0,0,full
 1721,no_recovery,13,9,4,0,0,,,,,,full
 1721,always_recover,13,0,0,13,12,,,9,0,4,full
 1721,fbs,13,9,4,2,0,7,0,0,0,0,full
@@ -531,6 +681,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1721,staleguard,13,6,4,8,0,1,0,3,0,0,full
 1721,staleguard_early_recovery,13,1,4,8,8,1,0,8,0,0,full
 1721,fixed_early_recovery,13,1,4,8,7,,,8,0,0,full
+1721,staleguard_recovery_aware,13,1,4,8,8,1,0,8,0,0,full
+1721,staleguard_dual_horizon,13,1,4,8,8,1,0,8,0,0,full
 1725,no_recovery,13,3,10,0,0,,,,,,full
 1725,always_recover,13,0,0,13,12,,,3,0,10,full
 1725,fbs,13,3,10,2,0,1,0,0,0,0,full
@@ -538,6 +690,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1725,staleguard,13,3,10,0,0,3,0,0,0,0,full
 1725,staleguard_early_recovery,13,3,10,0,0,3,0,0,0,0,full
 1725,fixed_early_recovery,13,0,5,8,7,,,3,0,5,full
+1725,staleguard_recovery_aware,13,0,9,4,4,0,1,3,0,1,full
+1725,staleguard_dual_horizon,13,0,9,4,4,0,1,3,0,1,full
 1726,no_recovery,13,3,10,0,0,,,,,,full
 1726,always_recover,13,0,0,13,12,,,3,0,10,full
 1726,fbs,13,3,10,1,0,2,0,0,0,0,full
@@ -545,6 +699,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1726,staleguard,13,3,10,0,0,3,0,0,0,0,full
 1726,staleguard_early_recovery,13,3,10,0,0,3,0,0,0,0,full
 1726,fixed_early_recovery,13,0,5,8,7,,,3,0,5,full
+1726,staleguard_recovery_aware,13,3,10,0,0,3,0,0,0,0,full
+1726,staleguard_dual_horizon,13,3,10,0,0,3,0,0,0,0,full
 1735,no_recovery,13,10,3,0,0,,,,,,full
 1735,always_recover,13,0,0,13,12,,,10,0,3,full
 1735,fbs,13,10,3,2,0,8,0,0,0,0,full
@@ -552,6 +708,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1735,staleguard,13,5,3,9,0,0,0,5,0,0,full
 1735,staleguard_early_recovery,13,1,3,9,9,0,0,9,0,0,full
 1735,fixed_early_recovery,13,2,3,8,7,,,8,0,0,full
+1735,staleguard_recovery_aware,13,1,3,9,9,0,0,9,0,0,full
+1735,staleguard_dual_horizon,13,0,3,10,9,0,0,10,0,0,full
 1737,no_recovery,13,6,7,0,0,,,,,,full
 1737,always_recover,13,0,0,13,12,,,6,0,7,full
 1737,fbs,13,6,7,2,0,4,0,0,0,0,full
@@ -559,6 +717,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1737,staleguard,13,4,7,6,0,0,0,2,0,0,full
 1737,staleguard_early_recovery,13,0,7,6,5,0,0,6,0,0,full
 1737,fixed_early_recovery,13,0,5,8,7,,,6,0,2,full
+1737,staleguard_recovery_aware,13,0,7,6,5,0,0,6,0,0,full
+1737,staleguard_dual_horizon,13,0,7,6,5,0,0,6,0,0,full
 1740,no_recovery,13,5,8,0,0,,,,,,full
 1740,always_recover,13,0,0,13,12,,,5,0,8,full
 1740,fbs,13,5,8,2,0,3,0,0,0,0,full
@@ -566,6 +726,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1740,staleguard,13,3,8,5,0,0,0,2,0,0,full
 1740,staleguard_early_recovery,13,0,8,5,5,0,0,5,0,0,full
 1740,fixed_early_recovery,13,0,5,8,7,,,5,0,3,full
+1740,staleguard_recovery_aware,13,0,8,5,5,0,0,5,0,0,full
+1740,staleguard_dual_horizon,13,0,8,5,5,0,0,5,0,0,full
 1744,no_recovery,13,2,11,0,0,,,,,,full
 1744,always_recover,13,0,0,13,12,,,2,0,11,full
 1744,fbs,13,2,11,1,0,1,0,0,0,0,full
@@ -573,6 +735,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1744,staleguard,13,2,11,0,0,2,0,0,0,0,full
 1744,staleguard_early_recovery,13,2,11,0,0,2,0,0,0,0,full
 1744,fixed_early_recovery,13,0,5,8,7,,,2,0,6,full
+1744,staleguard_recovery_aware,13,2,11,0,0,2,0,0,0,0,full
+1744,staleguard_dual_horizon,13,2,11,0,0,2,0,0,0,0,full
 1750,no_recovery,13,4,9,0,0,,,,,,full
 1750,always_recover,13,0,0,13,12,,,4,0,9,full
 1750,fbs,13,4,9,2,0,2,0,0,0,0,full
@@ -580,6 +744,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1750,staleguard,13,4,9,4,0,0,0,0,0,0,full
 1750,staleguard_early_recovery,13,0,9,4,4,0,0,4,0,0,full
 1750,fixed_early_recovery,13,0,5,8,7,,,4,0,4,full
+1750,staleguard_recovery_aware,13,0,9,4,4,0,0,4,0,0,full
+1750,staleguard_dual_horizon,13,0,9,4,4,0,0,4,0,0,full
 1785,no_recovery,13,5,8,0,0,,,,,,full
 1785,always_recover,13,0,0,13,12,,,5,0,8,full
 1785,fbs,13,5,8,1,0,4,0,0,0,0,full
@@ -587,6 +753,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1785,staleguard,13,4,8,5,0,0,0,1,0,0,full
 1785,staleguard_early_recovery,13,0,8,5,5,0,0,5,0,0,full
 1785,fixed_early_recovery,13,0,5,8,7,,,5,0,3,full
+1785,staleguard_recovery_aware,13,0,8,5,5,0,0,5,0,0,full
+1785,staleguard_dual_horizon,13,0,8,5,5,0,0,5,0,0,full
 1794,no_recovery,13,4,9,0,0,,,,,,full
 1794,always_recover,13,0,0,13,12,,,4,0,9,full
 1794,fbs,13,4,9,2,0,2,0,0,0,0,full
@@ -594,6 +762,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1794,staleguard,13,4,9,4,0,0,0,0,0,0,full
 1794,staleguard_early_recovery,13,4,9,4,4,0,0,0,0,0,full
 1794,fixed_early_recovery,13,0,5,8,7,,,4,0,4,full
+1794,staleguard_recovery_aware,13,0,9,4,4,0,0,4,0,0,full
+1794,staleguard_dual_horizon,13,0,9,4,4,0,0,4,0,0,full
 1803,no_recovery,13,9,4,0,0,,,,,,full
 1803,always_recover,13,0,0,13,12,,,9,0,4,full
 1803,fbs,13,9,4,3,0,6,0,0,0,0,full
@@ -601,6 +771,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1803,staleguard,13,6,4,8,0,1,0,3,0,0,full
 1803,staleguard_early_recovery,13,1,4,8,8,1,0,8,0,0,full
 1803,fixed_early_recovery,13,1,4,8,7,,,8,0,0,full
+1803,staleguard_recovery_aware,13,1,4,8,8,1,0,8,0,0,full
+1803,staleguard_dual_horizon,13,1,4,8,8,1,0,8,0,0,full
 1815,no_recovery,13,2,11,0,0,,,,,,full
 1815,always_recover,13,0,0,13,12,,,2,0,11,full
 1815,fbs,13,2,11,1,0,1,0,0,0,0,full
@@ -608,6 +780,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1815,staleguard,13,2,11,0,0,2,0,0,0,0,full
 1815,staleguard_early_recovery,13,2,11,0,0,2,0,0,0,0,full
 1815,fixed_early_recovery,13,0,5,8,7,,,2,0,6,full
+1815,staleguard_recovery_aware,13,2,11,0,0,2,0,0,0,0,full
+1815,staleguard_dual_horizon,13,2,11,0,0,2,0,0,0,0,full
 1817,no_recovery,13,7,6,0,0,,,,,,full
 1817,always_recover,13,0,0,13,12,,,7,0,6,full
 1817,fbs,13,7,6,3,0,4,0,0,0,0,full
@@ -615,6 +789,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1817,staleguard,13,5,6,7,0,0,0,2,0,0,full
 1817,staleguard_early_recovery,13,0,6,7,6,0,0,7,0,0,full
 1817,fixed_early_recovery,13,0,5,8,7,,,7,0,1,full
+1817,staleguard_recovery_aware,13,0,6,7,6,0,0,7,0,0,full
+1817,staleguard_dual_horizon,13,0,6,7,6,0,0,7,0,0,full
 1828,no_recovery,13,4,9,0,0,,,,,,full
 1828,always_recover,13,0,0,13,12,,,4,0,9,full
 1828,fbs,13,4,9,2,0,2,0,0,0,0,full
@@ -622,6 +798,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1828,staleguard,13,4,9,4,0,0,0,0,0,0,full
 1828,staleguard_early_recovery,13,4,9,4,3,0,0,0,0,0,full
 1828,fixed_early_recovery,13,0,5,8,7,,,4,0,4,full
+1828,staleguard_recovery_aware,13,0,9,4,4,0,0,4,0,0,full
+1828,staleguard_dual_horizon,13,0,9,4,4,0,0,4,0,0,full
 1835,no_recovery,13,5,8,0,0,,,,,,full
 1835,always_recover,13,0,0,13,12,,,5,0,8,full
 1835,fbs,13,5,8,2,0,3,0,0,0,0,full
@@ -629,6 +807,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1835,staleguard,13,4,8,5,0,0,0,1,0,0,full
 1835,staleguard_early_recovery,13,0,8,5,5,0,0,5,0,0,full
 1835,fixed_early_recovery,13,0,5,8,7,,,5,0,3,full
+1835,staleguard_recovery_aware,13,0,8,5,5,0,0,5,0,0,full
+1835,staleguard_dual_horizon,13,0,8,5,5,0,0,5,0,0,full
 1843,no_recovery,13,4,9,0,0,,,,,,full
 1843,always_recover,13,0,0,13,12,,,4,0,9,full
 1843,fbs,13,4,9,2,0,2,0,0,0,0,full
@@ -636,6 +816,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1843,staleguard,13,4,9,4,0,0,0,0,0,0,full
 1843,staleguard_early_recovery,13,4,9,4,4,0,0,0,0,0,full
 1843,fixed_early_recovery,13,0,5,8,7,,,4,0,4,full
+1843,staleguard_recovery_aware,13,0,9,4,4,0,0,4,0,0,full
+1843,staleguard_dual_horizon,13,0,9,4,4,0,0,4,0,0,full
 1847,no_recovery,13,7,6,0,0,,,,,,full
 1847,always_recover,13,0,0,13,12,,,7,0,6,full
 1847,fbs,13,7,6,2,0,5,0,0,0,0,full
@@ -643,6 +825,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1847,staleguard,13,4,6,7,0,0,0,3,0,0,full
 1847,staleguard_early_recovery,13,0,6,7,6,0,0,7,0,0,full
 1847,fixed_early_recovery,13,0,5,8,7,,,7,0,1,full
+1847,staleguard_recovery_aware,13,0,6,7,6,0,0,7,0,0,full
+1847,staleguard_dual_horizon,13,0,6,7,6,0,0,7,0,0,full
 1866,no_recovery,13,4,9,0,0,,,,,,full
 1866,always_recover,13,0,0,13,12,,,4,0,9,full
 1866,fbs,13,4,9,2,0,2,0,0,0,0,full
@@ -650,6 +834,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1866,staleguard,13,4,9,4,0,0,0,0,0,0,full
 1866,staleguard_early_recovery,13,4,9,4,3,0,0,0,0,0,full
 1866,fixed_early_recovery,13,0,5,8,7,,,4,0,4,full
+1866,staleguard_recovery_aware,13,0,8,5,5,0,1,4,0,1,full
+1866,staleguard_dual_horizon,13,0,8,5,5,0,1,4,0,1,full
 1875,no_recovery,13,5,8,0,0,,,,,,full
 1875,always_recover,13,0,0,13,12,,,5,0,8,full
 1875,fbs,13,5,8,2,0,3,0,0,0,0,full
@@ -657,6 +843,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1875,staleguard,13,4,8,5,0,0,0,1,0,0,full
 1875,staleguard_early_recovery,13,0,8,5,4,0,0,5,0,0,full
 1875,fixed_early_recovery,13,0,5,8,7,,,5,0,3,full
+1875,staleguard_recovery_aware,13,0,8,5,4,0,0,5,0,0,full
+1875,staleguard_dual_horizon,13,0,8,5,4,0,0,5,0,0,full
 1925,no_recovery,13,4,9,0,0,,,,,,full
 1925,always_recover,13,0,0,13,12,,,4,0,9,full
 1925,fbs,13,4,9,2,0,2,0,0,0,0,full
@@ -664,6 +852,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1925,staleguard,13,4,9,4,0,0,0,0,0,0,full
 1925,staleguard_early_recovery,13,4,9,4,3,0,0,0,0,0,full
 1925,fixed_early_recovery,13,0,5,8,7,,,4,0,4,full
+1925,staleguard_recovery_aware,13,0,8,5,5,0,1,4,0,1,full
+1925,staleguard_dual_horizon,13,0,8,5,5,0,1,4,0,1,full
 1926,no_recovery,13,4,9,0,0,,,,,,full
 1926,always_recover,13,0,0,13,12,,,4,0,9,full
 1926,fbs,13,4,9,1,0,3,0,0,0,0,full
@@ -671,6 +861,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1926,staleguard,13,3,9,4,0,0,0,1,0,0,full
 1926,staleguard_early_recovery,13,0,9,4,4,0,0,4,0,0,full
 1926,fixed_early_recovery,13,0,5,8,7,,,4,0,4,full
+1926,staleguard_recovery_aware,13,0,9,4,4,0,0,4,0,0,full
+1926,staleguard_dual_horizon,13,0,9,4,4,0,0,4,0,0,full
 1933,no_recovery,13,4,9,0,0,,,,,,full
 1933,always_recover,13,0,0,13,12,,,4,0,9,full
 1933,fbs,13,4,9,2,0,2,0,0,0,0,full
@@ -678,6 +870,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1933,staleguard,13,4,9,4,0,0,0,0,0,0,full
 1933,staleguard_early_recovery,13,4,9,4,3,0,0,0,0,0,full
 1933,fixed_early_recovery,13,0,5,8,7,,,4,0,4,full
+1933,staleguard_recovery_aware,13,0,9,4,4,0,0,4,0,0,full
+1933,staleguard_dual_horizon,13,0,9,4,4,0,0,4,0,0,full
 1964,no_recovery,13,6,7,0,0,,,,,,full
 1964,always_recover,13,0,0,13,12,,,6,0,7,full
 1964,fbs,13,6,7,1,0,5,0,0,0,0,full
@@ -685,6 +879,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1964,staleguard,13,3,7,6,0,0,0,3,0,0,full
 1964,staleguard_early_recovery,13,0,7,6,5,0,0,6,0,0,full
 1964,fixed_early_recovery,13,0,5,8,7,,,6,0,2,full
+1964,staleguard_recovery_aware,13,0,7,6,5,0,0,6,0,0,full
+1964,staleguard_dual_horizon,13,0,7,6,5,0,0,6,0,0,full
 1973,no_recovery,13,6,7,0,0,,,,,,full
 1973,always_recover,13,0,0,13,12,,,6,0,7,full
 1973,fbs,13,6,7,2,0,4,0,0,0,0,full
@@ -692,6 +888,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1973,staleguard,13,4,7,6,0,0,0,2,0,0,full
 1973,staleguard_early_recovery,13,0,7,6,6,0,0,6,0,0,full
 1973,fixed_early_recovery,13,0,5,8,7,,,6,0,2,full
+1973,staleguard_recovery_aware,13,0,7,6,6,0,0,6,0,0,full
+1973,staleguard_dual_horizon,13,0,7,6,6,0,0,6,0,0,full
 1996,no_recovery,13,5,8,0,0,,,,,,full
 1996,always_recover,13,0,0,13,12,,,5,0,8,full
 1996,fbs,13,5,8,2,0,3,0,0,0,0,full
@@ -699,6 +897,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1996,staleguard,13,4,8,5,0,0,0,1,0,0,full
 1996,staleguard_early_recovery,13,0,8,5,4,0,0,5,0,0,full
 1996,fixed_early_recovery,13,0,5,8,7,,,5,0,3,full
+1996,staleguard_recovery_aware,13,0,8,5,4,0,0,5,0,0,full
+1996,staleguard_dual_horizon,13,0,8,5,4,0,0,5,0,0,full
 1008,no_recovery,10,0,10,0,0,,,,,,within_prediction_horizon
 1008,always_recover,10,0,0,10,9,,,0,0,10,within_prediction_horizon
 1008,fbs,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
@@ -706,6 +906,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1008,staleguard,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
 1008,staleguard_early_recovery,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
 1008,fixed_early_recovery,10,0,5,5,4,,,0,0,5,within_prediction_horizon
+1008,staleguard_recovery_aware,10,0,9,1,1,0,1,0,0,1,within_prediction_horizon
+1008,staleguard_dual_horizon,10,0,9,1,1,0,1,0,0,1,within_prediction_horizon
 1022,no_recovery,10,0,10,0,0,,,,,,within_prediction_horizon
 1022,always_recover,10,0,0,10,9,,,0,0,10,within_prediction_horizon
 1022,fbs,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
@@ -713,6 +915,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1022,staleguard,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
 1022,staleguard_early_recovery,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
 1022,fixed_early_recovery,10,0,5,5,4,,,0,0,5,within_prediction_horizon
+1022,staleguard_recovery_aware,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
+1022,staleguard_dual_horizon,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
 1023,no_recovery,10,1,9,0,0,,,,,,within_prediction_horizon
 1023,always_recover,10,0,0,10,9,,,1,0,9,within_prediction_horizon
 1023,fbs,10,1,9,0,0,1,0,0,0,0,within_prediction_horizon
@@ -720,6 +924,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1023,staleguard,10,0,9,1,0,0,0,1,0,0,within_prediction_horizon
 1023,staleguard_early_recovery,10,0,9,1,0,0,0,1,0,0,within_prediction_horizon
 1023,fixed_early_recovery,10,0,5,5,4,,,1,0,4,within_prediction_horizon
+1023,staleguard_recovery_aware,10,0,9,1,0,0,0,1,0,0,within_prediction_horizon
+1023,staleguard_dual_horizon,10,0,9,1,0,0,0,1,0,0,within_prediction_horizon
 1024,no_recovery,10,0,10,0,0,,,,,,within_prediction_horizon
 1024,always_recover,10,0,0,10,9,,,0,0,10,within_prediction_horizon
 1024,fbs,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
@@ -727,6 +933,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1024,staleguard,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
 1024,staleguard_early_recovery,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
 1024,fixed_early_recovery,10,0,5,5,4,,,0,0,5,within_prediction_horizon
+1024,staleguard_recovery_aware,10,0,9,1,1,0,1,0,0,1,within_prediction_horizon
+1024,staleguard_dual_horizon,10,0,9,1,1,0,1,0,0,1,within_prediction_horizon
 1072,no_recovery,10,4,6,0,0,,,,,,within_prediction_horizon
 1072,always_recover,10,0,0,10,9,,,4,0,6,within_prediction_horizon
 1072,fbs,10,4,6,0,0,4,0,0,0,0,within_prediction_horizon
@@ -734,6 +942,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1072,staleguard,10,0,6,4,0,0,0,4,0,0,within_prediction_horizon
 1072,staleguard_early_recovery,10,0,6,4,3,0,0,4,0,0,within_prediction_horizon
 1072,fixed_early_recovery,10,0,5,5,4,,,4,0,1,within_prediction_horizon
+1072,staleguard_recovery_aware,10,0,6,4,3,0,0,4,0,0,within_prediction_horizon
+1072,staleguard_dual_horizon,10,0,6,4,3,0,0,4,0,0,within_prediction_horizon
 1085,no_recovery,10,4,6,0,0,,,,,,within_prediction_horizon
 1085,always_recover,10,0,0,10,9,,,4,0,6,within_prediction_horizon
 1085,fbs,10,4,6,0,0,4,0,0,0,0,within_prediction_horizon
@@ -741,6 +951,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1085,staleguard,10,1,6,4,0,0,0,3,0,0,within_prediction_horizon
 1085,staleguard_early_recovery,10,0,6,4,4,0,0,4,0,0,within_prediction_horizon
 1085,fixed_early_recovery,10,0,5,5,4,,,4,0,1,within_prediction_horizon
+1085,staleguard_recovery_aware,10,0,6,4,4,0,0,4,0,0,within_prediction_horizon
+1085,staleguard_dual_horizon,10,0,6,4,4,0,0,4,0,0,within_prediction_horizon
 1089,no_recovery,10,4,6,0,0,,,,,,within_prediction_horizon
 1089,always_recover,10,0,0,10,9,,,4,0,6,within_prediction_horizon
 1089,fbs,10,4,6,0,0,4,0,0,0,0,within_prediction_horizon
@@ -748,6 +960,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1089,staleguard,10,0,6,4,0,0,0,4,0,0,within_prediction_horizon
 1089,staleguard_early_recovery,10,0,6,4,4,0,0,4,0,0,within_prediction_horizon
 1089,fixed_early_recovery,10,0,5,5,4,,,4,0,1,within_prediction_horizon
+1089,staleguard_recovery_aware,10,0,6,4,4,0,0,4,0,0,within_prediction_horizon
+1089,staleguard_dual_horizon,10,0,6,4,4,0,0,4,0,0,within_prediction_horizon
 1103,no_recovery,10,5,5,0,0,,,,,,within_prediction_horizon
 1103,always_recover,10,0,0,10,9,,,5,0,5,within_prediction_horizon
 1103,fbs,10,5,5,0,0,5,0,0,0,0,within_prediction_horizon
@@ -755,6 +969,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1103,staleguard,10,0,5,5,0,0,0,5,0,0,within_prediction_horizon
 1103,staleguard_early_recovery,10,0,5,5,4,0,0,5,0,0,within_prediction_horizon
 1103,fixed_early_recovery,10,0,5,5,4,,,5,0,0,within_prediction_horizon
+1103,staleguard_recovery_aware,10,0,5,5,4,0,0,5,0,0,within_prediction_horizon
+1103,staleguard_dual_horizon,10,0,5,5,4,0,0,5,0,0,within_prediction_horizon
 1117,no_recovery,10,8,2,0,0,,,,,,within_prediction_horizon
 1117,always_recover,10,0,0,10,9,,,8,0,2,within_prediction_horizon
 1117,fbs,10,8,2,0,0,8,0,0,0,0,within_prediction_horizon
@@ -762,6 +978,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1117,staleguard,10,4,2,6,0,0,0,4,0,0,within_prediction_horizon
 1117,staleguard_early_recovery,10,2,2,6,5,0,0,6,0,0,within_prediction_horizon
 1117,fixed_early_recovery,10,3,2,5,4,,,5,0,0,within_prediction_horizon
+1117,staleguard_recovery_aware,10,1,2,7,6,0,0,7,0,0,within_prediction_horizon
+1117,staleguard_dual_horizon,10,1,2,7,6,0,0,7,0,0,within_prediction_horizon
 1120,no_recovery,10,1,9,0,0,,,,,,within_prediction_horizon
 1120,always_recover,10,0,0,10,9,,,1,0,9,within_prediction_horizon
 1120,fbs,10,1,9,0,0,1,0,0,0,0,within_prediction_horizon
@@ -769,6 +987,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1120,staleguard,10,0,9,1,0,0,0,1,0,0,within_prediction_horizon
 1120,staleguard_early_recovery,10,0,9,1,0,0,0,1,0,0,within_prediction_horizon
 1120,fixed_early_recovery,10,0,5,5,4,,,1,0,4,within_prediction_horizon
+1120,staleguard_recovery_aware,10,0,9,1,0,0,0,1,0,0,within_prediction_horizon
+1120,staleguard_dual_horizon,10,0,9,1,0,0,0,1,0,0,within_prediction_horizon
 1129,no_recovery,10,0,10,0,0,,,,,,within_prediction_horizon
 1129,always_recover,10,0,0,10,9,,,0,0,10,within_prediction_horizon
 1129,fbs,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
@@ -776,6 +996,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1129,staleguard,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
 1129,staleguard_early_recovery,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
 1129,fixed_early_recovery,10,0,5,5,4,,,0,0,5,within_prediction_horizon
+1129,staleguard_recovery_aware,10,1,9,1,1,0,1,0,1,1,within_prediction_horizon
+1129,staleguard_dual_horizon,10,1,9,1,1,0,1,0,1,1,within_prediction_horizon
 1132,no_recovery,10,0,10,0,0,,,,,,within_prediction_horizon
 1132,always_recover,10,0,0,10,9,,,0,0,10,within_prediction_horizon
 1132,fbs,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
@@ -783,6 +1005,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1132,staleguard,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
 1132,staleguard_early_recovery,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
 1132,fixed_early_recovery,10,0,5,5,4,,,0,0,5,within_prediction_horizon
+1132,staleguard_recovery_aware,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
+1132,staleguard_dual_horizon,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
 1158,no_recovery,10,4,6,0,0,,,,,,within_prediction_horizon
 1158,always_recover,10,0,0,10,9,,,4,0,6,within_prediction_horizon
 1158,fbs,10,4,6,0,0,4,0,0,0,0,within_prediction_horizon
@@ -790,6 +1014,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1158,staleguard,10,0,5,5,0,0,1,4,0,1,within_prediction_horizon
 1158,staleguard_early_recovery,10,0,5,5,4,0,1,4,0,1,within_prediction_horizon
 1158,fixed_early_recovery,10,0,5,5,4,,,4,0,1,within_prediction_horizon
+1158,staleguard_recovery_aware,10,0,5,5,4,0,1,4,0,1,within_prediction_horizon
+1158,staleguard_dual_horizon,10,0,5,5,4,0,1,4,0,1,within_prediction_horizon
 1174,no_recovery,10,1,9,0,0,,,,,,within_prediction_horizon
 1174,always_recover,10,0,0,10,9,,,1,0,9,within_prediction_horizon
 1174,fbs,10,1,9,0,0,1,0,0,0,0,within_prediction_horizon
@@ -797,6 +1023,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1174,staleguard,10,1,9,1,0,0,0,0,0,0,within_prediction_horizon
 1174,staleguard_early_recovery,10,0,9,1,1,0,0,1,0,0,within_prediction_horizon
 1174,fixed_early_recovery,10,0,5,5,4,,,1,0,4,within_prediction_horizon
+1174,staleguard_recovery_aware,10,0,9,1,1,0,0,1,0,0,within_prediction_horizon
+1174,staleguard_dual_horizon,10,0,9,1,1,0,0,1,0,0,within_prediction_horizon
 1189,no_recovery,10,4,6,0,0,,,,,,within_prediction_horizon
 1189,always_recover,10,0,0,10,9,,,4,0,6,within_prediction_horizon
 1189,fbs,10,4,6,0,0,4,0,0,0,0,within_prediction_horizon
@@ -804,6 +1032,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1189,staleguard,10,2,6,4,0,0,0,2,0,0,within_prediction_horizon
 1189,staleguard_early_recovery,10,0,6,4,4,0,0,4,0,0,within_prediction_horizon
 1189,fixed_early_recovery,10,0,5,5,4,,,4,0,1,within_prediction_horizon
+1189,staleguard_recovery_aware,10,0,6,4,4,0,0,4,0,0,within_prediction_horizon
+1189,staleguard_dual_horizon,10,0,6,4,4,0,0,4,0,0,within_prediction_horizon
 1203,no_recovery,10,0,10,0,0,,,,,,within_prediction_horizon
 1203,always_recover,10,0,0,10,9,,,0,0,10,within_prediction_horizon
 1203,fbs,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
@@ -811,6 +1041,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1203,staleguard,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
 1203,staleguard_early_recovery,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
 1203,fixed_early_recovery,10,0,5,5,4,,,0,0,5,within_prediction_horizon
+1203,staleguard_recovery_aware,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
+1203,staleguard_dual_horizon,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
 1207,no_recovery,10,7,3,0,0,,,,,,within_prediction_horizon
 1207,always_recover,10,0,0,10,9,,,7,0,3,within_prediction_horizon
 1207,fbs,10,7,3,0,0,7,0,0,0,0,within_prediction_horizon
@@ -818,6 +1050,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1207,staleguard,10,1,3,6,0,0,0,6,0,0,within_prediction_horizon
 1207,staleguard_early_recovery,10,1,3,6,6,0,0,6,0,0,within_prediction_horizon
 1207,fixed_early_recovery,10,2,3,5,4,,,5,0,0,within_prediction_horizon
+1207,staleguard_recovery_aware,10,1,3,6,6,0,0,6,0,0,within_prediction_horizon
+1207,staleguard_dual_horizon,10,1,3,6,6,0,0,6,0,0,within_prediction_horizon
 1213,no_recovery,10,1,9,0,0,,,,,,within_prediction_horizon
 1213,always_recover,10,0,0,10,9,,,1,0,9,within_prediction_horizon
 1213,fbs,10,1,9,0,0,1,0,0,0,0,within_prediction_horizon
@@ -825,6 +1059,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1213,staleguard,10,0,9,1,0,0,0,1,0,0,within_prediction_horizon
 1213,staleguard_early_recovery,10,0,9,1,0,0,0,1,0,0,within_prediction_horizon
 1213,fixed_early_recovery,10,0,5,5,4,,,1,0,4,within_prediction_horizon
+1213,staleguard_recovery_aware,10,0,9,1,0,0,0,1,0,0,within_prediction_horizon
+1213,staleguard_dual_horizon,10,0,9,1,0,0,0,1,0,0,within_prediction_horizon
 1219,no_recovery,10,5,5,0,0,,,,,,within_prediction_horizon
 1219,always_recover,10,0,0,10,9,,,5,0,5,within_prediction_horizon
 1219,fbs,10,5,5,0,0,5,0,0,0,0,within_prediction_horizon
@@ -832,6 +1068,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1219,staleguard,10,1,5,5,0,0,0,4,0,0,within_prediction_horizon
 1219,staleguard_early_recovery,10,0,5,5,5,0,0,5,0,0,within_prediction_horizon
 1219,fixed_early_recovery,10,0,5,5,4,,,5,0,0,within_prediction_horizon
+1219,staleguard_recovery_aware,10,0,5,5,5,0,0,5,0,0,within_prediction_horizon
+1219,staleguard_dual_horizon,10,0,5,5,5,0,0,5,0,0,within_prediction_horizon
 1224,no_recovery,10,2,8,0,0,,,,,,within_prediction_horizon
 1224,always_recover,10,0,0,10,9,,,2,0,8,within_prediction_horizon
 1224,fbs,10,2,8,0,0,2,0,0,0,0,within_prediction_horizon
@@ -839,6 +1077,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1224,staleguard,10,0,8,2,0,0,0,2,0,0,within_prediction_horizon
 1224,staleguard_early_recovery,10,0,8,2,2,0,0,2,0,0,within_prediction_horizon
 1224,fixed_early_recovery,10,0,5,5,4,,,2,0,3,within_prediction_horizon
+1224,staleguard_recovery_aware,10,0,8,2,2,0,0,2,0,0,within_prediction_horizon
+1224,staleguard_dual_horizon,10,0,8,2,2,0,0,2,0,0,within_prediction_horizon
 1230,no_recovery,10,8,2,0,0,,,,,,within_prediction_horizon
 1230,always_recover,10,0,0,10,9,,,8,0,2,within_prediction_horizon
 1230,fbs,10,8,2,0,0,8,0,0,0,0,within_prediction_horizon
@@ -846,6 +1086,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1230,staleguard,10,2,2,6,0,0,0,6,0,0,within_prediction_horizon
 1230,staleguard_early_recovery,10,2,2,6,6,0,0,6,0,0,within_prediction_horizon
 1230,fixed_early_recovery,10,3,2,5,4,,,5,0,0,within_prediction_horizon
+1230,staleguard_recovery_aware,10,2,2,6,6,0,0,6,0,0,within_prediction_horizon
+1230,staleguard_dual_horizon,10,2,2,6,6,0,0,6,0,0,within_prediction_horizon
 1238,no_recovery,10,3,7,0,0,,,,,,within_prediction_horizon
 1238,always_recover,10,0,0,10,9,,,3,0,7,within_prediction_horizon
 1238,fbs,10,3,7,0,0,3,0,0,0,0,within_prediction_horizon
@@ -853,6 +1095,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1238,staleguard,10,1,7,3,0,0,0,2,0,0,within_prediction_horizon
 1238,staleguard_early_recovery,10,0,7,3,3,0,0,3,0,0,within_prediction_horizon
 1238,fixed_early_recovery,10,0,5,5,4,,,3,0,2,within_prediction_horizon
+1238,staleguard_recovery_aware,10,0,7,3,3,0,0,3,0,0,within_prediction_horizon
+1238,staleguard_dual_horizon,10,0,7,3,3,0,0,3,0,0,within_prediction_horizon
 1250,no_recovery,10,3,7,0,0,,,,,,within_prediction_horizon
 1250,always_recover,10,0,0,10,9,,,3,0,7,within_prediction_horizon
 1250,fbs,10,3,7,0,0,3,0,0,0,0,within_prediction_horizon
@@ -860,6 +1104,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1250,staleguard,10,3,7,3,0,0,0,0,0,0,within_prediction_horizon
 1250,staleguard_early_recovery,10,3,7,3,2,0,0,0,0,0,within_prediction_horizon
 1250,fixed_early_recovery,10,0,5,5,4,,,3,0,2,within_prediction_horizon
+1250,staleguard_recovery_aware,10,0,7,3,3,0,0,3,0,0,within_prediction_horizon
+1250,staleguard_dual_horizon,10,0,7,3,3,0,0,3,0,0,within_prediction_horizon
 1254,no_recovery,10,3,7,0,0,,,,,,within_prediction_horizon
 1254,always_recover,10,0,0,10,9,,,3,0,7,within_prediction_horizon
 1254,fbs,10,3,7,0,0,3,0,0,0,0,within_prediction_horizon
@@ -867,6 +1113,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1254,staleguard,10,0,7,3,0,0,0,3,0,0,within_prediction_horizon
 1254,staleguard_early_recovery,10,0,7,3,3,0,0,3,0,0,within_prediction_horizon
 1254,fixed_early_recovery,10,0,5,5,4,,,3,0,2,within_prediction_horizon
+1254,staleguard_recovery_aware,10,0,7,3,3,0,0,3,0,0,within_prediction_horizon
+1254,staleguard_dual_horizon,10,0,7,3,3,0,0,3,0,0,within_prediction_horizon
 1255,no_recovery,10,5,5,0,0,,,,,,within_prediction_horizon
 1255,always_recover,10,0,0,10,9,,,5,0,5,within_prediction_horizon
 1255,fbs,10,5,5,0,0,5,0,0,0,0,within_prediction_horizon
@@ -874,6 +1122,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1255,staleguard,10,1,5,5,0,0,0,4,0,0,within_prediction_horizon
 1255,staleguard_early_recovery,10,0,5,5,4,0,0,5,0,0,within_prediction_horizon
 1255,fixed_early_recovery,10,0,5,5,4,,,5,0,0,within_prediction_horizon
+1255,staleguard_recovery_aware,10,0,5,5,4,0,0,5,0,0,within_prediction_horizon
+1255,staleguard_dual_horizon,10,0,5,5,4,0,0,5,0,0,within_prediction_horizon
 1256,no_recovery,10,6,4,0,0,,,,,,within_prediction_horizon
 1256,always_recover,10,0,0,10,9,,,6,0,4,within_prediction_horizon
 1256,fbs,10,6,4,0,0,6,0,0,0,0,within_prediction_horizon
@@ -881,6 +1131,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1256,staleguard,10,2,4,5,0,1,0,4,0,0,within_prediction_horizon
 1256,staleguard_early_recovery,10,1,4,5,5,1,0,5,0,0,within_prediction_horizon
 1256,fixed_early_recovery,10,1,4,5,4,,,5,0,0,within_prediction_horizon
+1256,staleguard_recovery_aware,10,1,4,5,5,1,0,5,0,0,within_prediction_horizon
+1256,staleguard_dual_horizon,10,1,4,5,5,1,0,5,0,0,within_prediction_horizon
 1258,no_recovery,10,2,8,0,0,,,,,,within_prediction_horizon
 1258,always_recover,10,0,0,10,9,,,2,0,8,within_prediction_horizon
 1258,fbs,10,2,8,0,0,2,0,0,0,0,within_prediction_horizon
@@ -888,6 +1140,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1258,staleguard,10,1,8,2,0,0,0,1,0,0,within_prediction_horizon
 1258,staleguard_early_recovery,10,0,8,2,2,0,0,2,0,0,within_prediction_horizon
 1258,fixed_early_recovery,10,0,5,5,4,,,2,0,3,within_prediction_horizon
+1258,staleguard_recovery_aware,10,0,8,2,2,0,0,2,0,0,within_prediction_horizon
+1258,staleguard_dual_horizon,10,0,8,2,2,0,0,2,0,0,within_prediction_horizon
 1277,no_recovery,10,0,10,0,0,,,,,,within_prediction_horizon
 1277,always_recover,10,0,0,10,9,,,0,0,10,within_prediction_horizon
 1277,fbs,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
@@ -895,6 +1149,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1277,staleguard,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
 1277,staleguard_early_recovery,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
 1277,fixed_early_recovery,10,0,5,5,4,,,0,0,5,within_prediction_horizon
+1277,staleguard_recovery_aware,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
+1277,staleguard_dual_horizon,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
 1278,no_recovery,10,0,10,0,0,,,,,,within_prediction_horizon
 1278,always_recover,10,0,0,10,9,,,0,0,10,within_prediction_horizon
 1278,fbs,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
@@ -902,6 +1158,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1278,staleguard,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
 1278,staleguard_early_recovery,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
 1278,fixed_early_recovery,10,0,5,5,4,,,0,0,5,within_prediction_horizon
+1278,staleguard_recovery_aware,10,0,9,1,1,0,1,0,0,1,within_prediction_horizon
+1278,staleguard_dual_horizon,10,0,9,1,1,0,1,0,0,1,within_prediction_horizon
 1281,no_recovery,10,6,4,0,0,,,,,,within_prediction_horizon
 1281,always_recover,10,0,0,10,9,,,6,0,4,within_prediction_horizon
 1281,fbs,10,6,4,0,0,6,0,0,0,0,within_prediction_horizon
@@ -909,6 +1167,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1281,staleguard,10,1,4,6,0,0,0,5,0,0,within_prediction_horizon
 1281,staleguard_early_recovery,10,0,4,6,6,0,0,6,0,0,within_prediction_horizon
 1281,fixed_early_recovery,10,1,4,5,4,,,5,0,0,within_prediction_horizon
+1281,staleguard_recovery_aware,10,0,4,6,6,0,0,6,0,0,within_prediction_horizon
+1281,staleguard_dual_horizon,10,0,4,6,6,0,0,6,0,0,within_prediction_horizon
 1282,no_recovery,10,2,8,0,0,,,,,,within_prediction_horizon
 1282,always_recover,10,0,0,10,9,,,2,0,8,within_prediction_horizon
 1282,fbs,10,2,8,0,0,2,0,0,0,0,within_prediction_horizon
@@ -916,6 +1176,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1282,staleguard,10,1,8,2,0,0,0,1,0,0,within_prediction_horizon
 1282,staleguard_early_recovery,10,0,8,2,2,0,0,2,0,0,within_prediction_horizon
 1282,fixed_early_recovery,10,0,5,5,4,,,2,0,3,within_prediction_horizon
+1282,staleguard_recovery_aware,10,0,8,2,2,0,0,2,0,0,within_prediction_horizon
+1282,staleguard_dual_horizon,10,0,8,2,2,0,0,2,0,0,within_prediction_horizon
 1286,no_recovery,10,0,10,0,0,,,,,,within_prediction_horizon
 1286,always_recover,10,0,0,10,9,,,0,0,10,within_prediction_horizon
 1286,fbs,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
@@ -923,6 +1185,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1286,staleguard,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
 1286,staleguard_early_recovery,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
 1286,fixed_early_recovery,10,0,5,5,4,,,0,0,5,within_prediction_horizon
+1286,staleguard_recovery_aware,10,0,9,1,1,0,1,0,0,1,within_prediction_horizon
+1286,staleguard_dual_horizon,10,0,9,1,1,0,1,0,0,1,within_prediction_horizon
 1288,no_recovery,10,2,8,0,0,,,,,,within_prediction_horizon
 1288,always_recover,10,0,0,10,9,,,2,0,8,within_prediction_horizon
 1288,fbs,10,2,8,0,0,2,0,0,0,0,within_prediction_horizon
@@ -930,6 +1194,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1288,staleguard,10,0,8,2,0,0,0,2,0,0,within_prediction_horizon
 1288,staleguard_early_recovery,10,0,8,2,1,0,0,2,0,0,within_prediction_horizon
 1288,fixed_early_recovery,10,0,5,5,4,,,2,0,3,within_prediction_horizon
+1288,staleguard_recovery_aware,10,0,8,2,1,0,0,2,0,0,within_prediction_horizon
+1288,staleguard_dual_horizon,10,0,8,2,1,0,0,2,0,0,within_prediction_horizon
 1297,no_recovery,10,3,7,0,0,,,,,,within_prediction_horizon
 1297,always_recover,10,0,0,10,9,,,3,0,7,within_prediction_horizon
 1297,fbs,10,3,7,0,0,3,0,0,0,0,within_prediction_horizon
@@ -937,6 +1203,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1297,staleguard,10,1,7,3,0,0,0,2,0,0,within_prediction_horizon
 1297,staleguard_early_recovery,10,0,7,3,2,0,0,3,0,0,within_prediction_horizon
 1297,fixed_early_recovery,10,0,5,5,4,,,3,0,2,within_prediction_horizon
+1297,staleguard_recovery_aware,10,0,7,3,2,0,0,3,0,0,within_prediction_horizon
+1297,staleguard_dual_horizon,10,0,7,3,2,0,0,3,0,0,within_prediction_horizon
 1309,no_recovery,10,5,5,0,0,,,,,,within_prediction_horizon
 1309,always_recover,10,0,0,10,9,,,5,0,5,within_prediction_horizon
 1309,fbs,10,5,5,0,0,5,0,0,0,0,within_prediction_horizon
@@ -944,6 +1212,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1309,staleguard,10,1,5,5,0,0,0,4,0,0,within_prediction_horizon
 1309,staleguard_early_recovery,10,0,5,5,5,0,0,5,0,0,within_prediction_horizon
 1309,fixed_early_recovery,10,0,5,5,4,,,5,0,0,within_prediction_horizon
+1309,staleguard_recovery_aware,10,0,5,5,5,0,0,5,0,0,within_prediction_horizon
+1309,staleguard_dual_horizon,10,0,5,5,5,0,0,5,0,0,within_prediction_horizon
 1324,no_recovery,10,0,10,0,0,,,,,,within_prediction_horizon
 1324,always_recover,10,0,0,10,9,,,0,0,10,within_prediction_horizon
 1324,fbs,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
@@ -951,6 +1221,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1324,staleguard,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
 1324,staleguard_early_recovery,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
 1324,fixed_early_recovery,10,0,5,5,4,,,0,0,5,within_prediction_horizon
+1324,staleguard_recovery_aware,10,0,9,1,1,0,1,0,0,1,within_prediction_horizon
+1324,staleguard_dual_horizon,10,0,9,1,1,0,1,0,0,1,within_prediction_horizon
 1366,no_recovery,10,5,5,0,0,,,,,,within_prediction_horizon
 1366,always_recover,10,0,0,10,9,,,5,0,5,within_prediction_horizon
 1366,fbs,10,5,5,0,0,5,0,0,0,0,within_prediction_horizon
@@ -958,6 +1230,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1366,staleguard,10,2,5,5,0,0,0,3,0,0,within_prediction_horizon
 1366,staleguard_early_recovery,10,0,5,5,4,0,0,5,0,0,within_prediction_horizon
 1366,fixed_early_recovery,10,0,5,5,4,,,5,0,0,within_prediction_horizon
+1366,staleguard_recovery_aware,10,0,5,5,4,0,0,5,0,0,within_prediction_horizon
+1366,staleguard_dual_horizon,10,0,5,5,4,0,0,5,0,0,within_prediction_horizon
 1370,no_recovery,10,4,6,0,0,,,,,,within_prediction_horizon
 1370,always_recover,10,0,0,10,9,,,4,0,6,within_prediction_horizon
 1370,fbs,10,4,6,0,0,4,0,0,0,0,within_prediction_horizon
@@ -965,6 +1239,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1370,staleguard,10,1,6,4,0,0,0,3,0,0,within_prediction_horizon
 1370,staleguard_early_recovery,10,0,6,4,4,0,0,4,0,0,within_prediction_horizon
 1370,fixed_early_recovery,10,0,5,5,4,,,4,0,1,within_prediction_horizon
+1370,staleguard_recovery_aware,10,0,6,4,4,0,0,4,0,0,within_prediction_horizon
+1370,staleguard_dual_horizon,10,0,6,4,4,0,0,4,0,0,within_prediction_horizon
 1378,no_recovery,10,3,7,0,0,,,,,,within_prediction_horizon
 1378,always_recover,10,0,0,10,9,,,3,0,7,within_prediction_horizon
 1378,fbs,10,3,7,0,0,3,0,0,0,0,within_prediction_horizon
@@ -972,6 +1248,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1378,staleguard,10,2,7,3,0,0,0,1,0,0,within_prediction_horizon
 1378,staleguard_early_recovery,10,0,7,3,3,0,0,3,0,0,within_prediction_horizon
 1378,fixed_early_recovery,10,0,5,5,4,,,3,0,2,within_prediction_horizon
+1378,staleguard_recovery_aware,10,0,7,3,3,0,0,3,0,0,within_prediction_horizon
+1378,staleguard_dual_horizon,10,0,7,3,3,0,0,3,0,0,within_prediction_horizon
 1392,no_recovery,10,1,9,0,0,,,,,,within_prediction_horizon
 1392,always_recover,10,0,0,10,9,,,1,0,9,within_prediction_horizon
 1392,fbs,10,1,9,0,0,1,0,0,0,0,within_prediction_horizon
@@ -979,6 +1257,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1392,staleguard,10,0,9,1,0,0,0,1,0,0,within_prediction_horizon
 1392,staleguard_early_recovery,10,0,9,1,1,0,0,1,0,0,within_prediction_horizon
 1392,fixed_early_recovery,10,0,5,5,4,,,1,0,4,within_prediction_horizon
+1392,staleguard_recovery_aware,10,0,9,1,1,0,0,1,0,0,within_prediction_horizon
+1392,staleguard_dual_horizon,10,0,9,1,1,0,0,1,0,0,within_prediction_horizon
 1409,no_recovery,10,4,6,0,0,,,,,,within_prediction_horizon
 1409,always_recover,10,0,0,10,9,,,4,0,6,within_prediction_horizon
 1409,fbs,10,4,6,0,0,4,0,0,0,0,within_prediction_horizon
@@ -986,6 +1266,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1409,staleguard,10,2,6,4,0,0,0,2,0,0,within_prediction_horizon
 1409,staleguard_early_recovery,10,0,6,4,4,0,0,4,0,0,within_prediction_horizon
 1409,fixed_early_recovery,10,0,5,5,4,,,4,0,1,within_prediction_horizon
+1409,staleguard_recovery_aware,10,0,6,4,4,0,0,4,0,0,within_prediction_horizon
+1409,staleguard_dual_horizon,10,0,6,4,4,0,0,4,0,0,within_prediction_horizon
 1413,no_recovery,10,8,2,0,0,,,,,,within_prediction_horizon
 1413,always_recover,10,0,0,10,9,,,8,0,2,within_prediction_horizon
 1413,fbs,10,8,2,0,0,8,0,0,0,0,within_prediction_horizon
@@ -993,6 +1275,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1413,staleguard,10,4,2,6,0,0,0,4,0,0,within_prediction_horizon
 1413,staleguard_early_recovery,10,2,2,6,6,0,0,6,0,0,within_prediction_horizon
 1413,fixed_early_recovery,10,3,2,5,4,,,5,0,0,within_prediction_horizon
+1413,staleguard_recovery_aware,10,1,2,7,6,0,0,7,0,0,within_prediction_horizon
+1413,staleguard_dual_horizon,10,1,2,7,6,0,0,7,0,0,within_prediction_horizon
 1417,no_recovery,10,3,7,0,0,,,,,,within_prediction_horizon
 1417,always_recover,10,0,0,10,9,,,3,0,7,within_prediction_horizon
 1417,fbs,10,3,7,0,0,3,0,0,0,0,within_prediction_horizon
@@ -1000,6 +1284,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1417,staleguard,10,0,7,3,0,0,0,3,0,0,within_prediction_horizon
 1417,staleguard_early_recovery,10,0,7,3,2,0,0,3,0,0,within_prediction_horizon
 1417,fixed_early_recovery,10,0,5,5,4,,,3,0,2,within_prediction_horizon
+1417,staleguard_recovery_aware,10,0,7,3,2,0,0,3,0,0,within_prediction_horizon
+1417,staleguard_dual_horizon,10,0,7,3,2,0,0,3,0,0,within_prediction_horizon
 1418,no_recovery,10,1,9,0,0,,,,,,within_prediction_horizon
 1418,always_recover,10,0,0,10,9,,,1,0,9,within_prediction_horizon
 1418,fbs,10,1,9,0,0,1,0,0,0,0,within_prediction_horizon
@@ -1007,6 +1293,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1418,staleguard,10,1,9,1,0,0,0,0,0,0,within_prediction_horizon
 1418,staleguard_early_recovery,10,1,9,1,1,0,0,0,0,0,within_prediction_horizon
 1418,fixed_early_recovery,10,0,5,5,4,,,1,0,4,within_prediction_horizon
+1418,staleguard_recovery_aware,10,0,8,2,2,0,1,1,0,1,within_prediction_horizon
+1418,staleguard_dual_horizon,10,0,8,2,2,0,1,1,0,1,within_prediction_horizon
 1429,no_recovery,10,9,1,0,0,,,,,,within_prediction_horizon
 1429,always_recover,10,0,0,10,9,,,9,0,1,within_prediction_horizon
 1429,fbs,10,9,1,0,0,9,0,0,0,0,within_prediction_horizon
@@ -1014,6 +1302,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1429,staleguard,10,5,1,6,0,0,0,4,0,0,within_prediction_horizon
 1429,staleguard_early_recovery,10,3,1,6,5,0,0,6,0,0,within_prediction_horizon
 1429,fixed_early_recovery,10,4,1,5,4,,,5,0,0,within_prediction_horizon
+1429,staleguard_recovery_aware,10,2,1,7,6,0,0,7,0,0,within_prediction_horizon
+1429,staleguard_dual_horizon,10,2,1,7,6,0,0,7,0,0,within_prediction_horizon
 1437,no_recovery,10,0,10,0,0,,,,,,within_prediction_horizon
 1437,always_recover,10,0,0,10,9,,,0,0,10,within_prediction_horizon
 1437,fbs,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
@@ -1021,6 +1311,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1437,staleguard,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
 1437,staleguard_early_recovery,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
 1437,fixed_early_recovery,10,0,5,5,4,,,0,0,5,within_prediction_horizon
+1437,staleguard_recovery_aware,10,0,9,1,1,0,1,0,0,1,within_prediction_horizon
+1437,staleguard_dual_horizon,10,0,9,1,1,0,1,0,0,1,within_prediction_horizon
 1453,no_recovery,10,4,6,0,0,,,,,,within_prediction_horizon
 1453,always_recover,10,0,0,10,9,,,4,0,6,within_prediction_horizon
 1453,fbs,10,4,6,0,0,4,0,0,0,0,within_prediction_horizon
@@ -1028,6 +1320,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1453,staleguard,10,0,6,4,0,0,0,4,0,0,within_prediction_horizon
 1453,staleguard_early_recovery,10,0,6,4,3,0,0,4,0,0,within_prediction_horizon
 1453,fixed_early_recovery,10,0,5,5,4,,,4,0,1,within_prediction_horizon
+1453,staleguard_recovery_aware,10,0,6,4,3,0,0,4,0,0,within_prediction_horizon
+1453,staleguard_dual_horizon,10,0,6,4,3,0,0,4,0,0,within_prediction_horizon
 1460,no_recovery,10,3,7,0,0,,,,,,within_prediction_horizon
 1460,always_recover,10,0,0,10,9,,,3,0,7,within_prediction_horizon
 1460,fbs,10,3,7,0,0,3,0,0,0,0,within_prediction_horizon
@@ -1035,6 +1329,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1460,staleguard,10,0,7,3,0,0,0,3,0,0,within_prediction_horizon
 1460,staleguard_early_recovery,10,0,7,3,3,0,0,3,0,0,within_prediction_horizon
 1460,fixed_early_recovery,10,0,5,5,4,,,3,0,2,within_prediction_horizon
+1460,staleguard_recovery_aware,10,0,7,3,3,0,0,3,0,0,within_prediction_horizon
+1460,staleguard_dual_horizon,10,0,7,3,3,0,0,3,0,0,within_prediction_horizon
 1461,no_recovery,10,3,7,0,0,,,,,,within_prediction_horizon
 1461,always_recover,10,0,0,10,9,,,3,0,7,within_prediction_horizon
 1461,fbs,10,3,7,0,0,3,0,0,0,0,within_prediction_horizon
@@ -1042,6 +1338,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1461,staleguard,10,0,7,3,0,0,0,3,0,0,within_prediction_horizon
 1461,staleguard_early_recovery,10,0,7,3,2,0,0,3,0,0,within_prediction_horizon
 1461,fixed_early_recovery,10,0,5,5,4,,,3,0,2,within_prediction_horizon
+1461,staleguard_recovery_aware,10,0,7,3,2,0,0,3,0,0,within_prediction_horizon
+1461,staleguard_dual_horizon,10,0,7,3,2,0,0,3,0,0,within_prediction_horizon
 1474,no_recovery,10,0,10,0,0,,,,,,within_prediction_horizon
 1474,always_recover,10,0,0,10,9,,,0,0,10,within_prediction_horizon
 1474,fbs,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
@@ -1049,6 +1347,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1474,staleguard,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
 1474,staleguard_early_recovery,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
 1474,fixed_early_recovery,10,0,5,5,4,,,0,0,5,within_prediction_horizon
+1474,staleguard_recovery_aware,10,0,9,1,1,0,1,0,0,1,within_prediction_horizon
+1474,staleguard_dual_horizon,10,0,9,1,1,0,1,0,0,1,within_prediction_horizon
 1497,no_recovery,10,5,5,0,0,,,,,,within_prediction_horizon
 1497,always_recover,10,0,0,10,9,,,5,0,5,within_prediction_horizon
 1497,fbs,10,5,5,0,0,5,0,0,0,0,within_prediction_horizon
@@ -1056,6 +1356,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1497,staleguard,10,2,5,5,0,0,0,3,0,0,within_prediction_horizon
 1497,staleguard_early_recovery,10,0,5,5,4,0,0,5,0,0,within_prediction_horizon
 1497,fixed_early_recovery,10,0,5,5,4,,,5,0,0,within_prediction_horizon
+1497,staleguard_recovery_aware,10,0,5,5,4,0,0,5,0,0,within_prediction_horizon
+1497,staleguard_dual_horizon,10,0,5,5,4,0,0,5,0,0,within_prediction_horizon
 1503,no_recovery,10,2,8,0,0,,,,,,within_prediction_horizon
 1503,always_recover,10,0,0,10,9,,,2,0,8,within_prediction_horizon
 1503,fbs,10,2,8,0,0,2,0,0,0,0,within_prediction_horizon
@@ -1063,6 +1365,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1503,staleguard,10,2,8,2,0,0,0,0,0,0,within_prediction_horizon
 1503,staleguard_early_recovery,10,2,8,2,2,0,0,0,0,0,within_prediction_horizon
 1503,fixed_early_recovery,10,0,5,5,4,,,2,0,3,within_prediction_horizon
+1503,staleguard_recovery_aware,10,0,8,2,2,0,0,2,0,0,within_prediction_horizon
+1503,staleguard_dual_horizon,10,0,8,2,2,0,0,2,0,0,within_prediction_horizon
 1506,no_recovery,10,2,8,0,0,,,,,,within_prediction_horizon
 1506,always_recover,10,0,0,10,9,,,2,0,8,within_prediction_horizon
 1506,fbs,10,2,8,0,0,2,0,0,0,0,within_prediction_horizon
@@ -1070,6 +1374,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1506,staleguard,10,0,8,2,0,0,0,2,0,0,within_prediction_horizon
 1506,staleguard_early_recovery,10,0,8,2,2,0,0,2,0,0,within_prediction_horizon
 1506,fixed_early_recovery,10,0,5,5,4,,,2,0,3,within_prediction_horizon
+1506,staleguard_recovery_aware,10,0,8,2,2,0,0,2,0,0,within_prediction_horizon
+1506,staleguard_dual_horizon,10,0,8,2,2,0,0,2,0,0,within_prediction_horizon
 1523,no_recovery,10,0,10,0,0,,,,,,within_prediction_horizon
 1523,always_recover,10,0,0,10,9,,,0,0,10,within_prediction_horizon
 1523,fbs,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
@@ -1077,6 +1383,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1523,staleguard,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
 1523,staleguard_early_recovery,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
 1523,fixed_early_recovery,10,0,5,5,4,,,0,0,5,within_prediction_horizon
+1523,staleguard_recovery_aware,10,0,9,1,1,0,1,0,0,1,within_prediction_horizon
+1523,staleguard_dual_horizon,10,0,9,1,1,0,1,0,0,1,within_prediction_horizon
 1561,no_recovery,10,3,7,0,0,,,,,,within_prediction_horizon
 1561,always_recover,10,0,0,10,9,,,3,0,7,within_prediction_horizon
 1561,fbs,10,3,7,0,0,3,0,0,0,0,within_prediction_horizon
@@ -1084,6 +1392,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1561,staleguard,10,0,7,3,0,0,0,3,0,0,within_prediction_horizon
 1561,staleguard_early_recovery,10,0,7,3,3,0,0,3,0,0,within_prediction_horizon
 1561,fixed_early_recovery,10,0,5,5,4,,,3,0,2,within_prediction_horizon
+1561,staleguard_recovery_aware,10,0,7,3,3,0,0,3,0,0,within_prediction_horizon
+1561,staleguard_dual_horizon,10,0,7,3,3,0,0,3,0,0,within_prediction_horizon
 1566,no_recovery,10,3,7,0,0,,,,,,within_prediction_horizon
 1566,always_recover,10,0,0,10,9,,,3,0,7,within_prediction_horizon
 1566,fbs,10,3,7,0,0,3,0,0,0,0,within_prediction_horizon
@@ -1091,6 +1401,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1566,staleguard,10,2,6,4,0,0,1,1,0,1,within_prediction_horizon
 1566,staleguard_early_recovery,10,0,6,4,3,0,1,3,0,1,within_prediction_horizon
 1566,fixed_early_recovery,10,0,5,5,4,,,3,0,2,within_prediction_horizon
+1566,staleguard_recovery_aware,10,0,6,4,3,0,1,3,0,1,within_prediction_horizon
+1566,staleguard_dual_horizon,10,0,6,4,3,0,1,3,0,1,within_prediction_horizon
 1572,no_recovery,10,0,10,0,0,,,,,,within_prediction_horizon
 1572,always_recover,10,0,0,10,9,,,0,0,10,within_prediction_horizon
 1572,fbs,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
@@ -1098,6 +1410,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1572,staleguard,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
 1572,staleguard_early_recovery,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
 1572,fixed_early_recovery,10,0,5,5,4,,,0,0,5,within_prediction_horizon
+1572,staleguard_recovery_aware,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
+1572,staleguard_dual_horizon,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
 1593,no_recovery,10,1,9,0,0,,,,,,within_prediction_horizon
 1593,always_recover,10,0,0,10,9,,,1,0,9,within_prediction_horizon
 1593,fbs,10,1,9,0,0,1,0,0,0,0,within_prediction_horizon
@@ -1105,6 +1419,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1593,staleguard,10,1,9,1,0,0,0,0,0,0,within_prediction_horizon
 1593,staleguard_early_recovery,10,1,9,1,0,0,0,0,0,0,within_prediction_horizon
 1593,fixed_early_recovery,10,0,5,5,4,,,1,0,4,within_prediction_horizon
+1593,staleguard_recovery_aware,10,0,9,1,1,0,0,1,0,0,within_prediction_horizon
+1593,staleguard_dual_horizon,10,0,9,1,1,0,0,1,0,0,within_prediction_horizon
 1600,no_recovery,10,5,5,0,0,,,,,,within_prediction_horizon
 1600,always_recover,10,0,0,10,9,,,5,0,5,within_prediction_horizon
 1600,fbs,10,5,5,0,0,5,0,0,0,0,within_prediction_horizon
@@ -1112,6 +1428,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1600,staleguard,10,2,5,5,0,0,0,3,0,0,within_prediction_horizon
 1600,staleguard_early_recovery,10,0,5,5,5,0,0,5,0,0,within_prediction_horizon
 1600,fixed_early_recovery,10,0,5,5,4,,,5,0,0,within_prediction_horizon
+1600,staleguard_recovery_aware,10,0,5,5,5,0,0,5,0,0,within_prediction_horizon
+1600,staleguard_dual_horizon,10,0,5,5,5,0,0,5,0,0,within_prediction_horizon
 1603,no_recovery,10,0,10,0,0,,,,,,within_prediction_horizon
 1603,always_recover,10,0,0,10,9,,,0,0,10,within_prediction_horizon
 1603,fbs,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
@@ -1119,6 +1437,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1603,staleguard,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
 1603,staleguard_early_recovery,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
 1603,fixed_early_recovery,10,0,5,5,4,,,0,0,5,within_prediction_horizon
+1603,staleguard_recovery_aware,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
+1603,staleguard_dual_horizon,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
 1604,no_recovery,10,2,8,0,0,,,,,,within_prediction_horizon
 1604,always_recover,10,0,0,10,9,,,2,0,8,within_prediction_horizon
 1604,fbs,10,2,8,0,0,2,0,0,0,0,within_prediction_horizon
@@ -1126,6 +1446,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1604,staleguard,10,2,8,2,0,0,0,0,0,0,within_prediction_horizon
 1604,staleguard_early_recovery,10,2,8,2,1,0,0,0,0,0,within_prediction_horizon
 1604,fixed_early_recovery,10,0,5,5,4,,,2,0,3,within_prediction_horizon
+1604,staleguard_recovery_aware,10,0,8,2,2,0,0,2,0,0,within_prediction_horizon
+1604,staleguard_dual_horizon,10,0,8,2,2,0,0,2,0,0,within_prediction_horizon
 1615,no_recovery,10,2,8,0,0,,,,,,within_prediction_horizon
 1615,always_recover,10,0,0,10,9,,,2,0,8,within_prediction_horizon
 1615,fbs,10,2,8,0,0,2,0,0,0,0,within_prediction_horizon
@@ -1133,6 +1455,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1615,staleguard,10,2,8,2,0,0,0,0,0,0,within_prediction_horizon
 1615,staleguard_early_recovery,10,2,8,2,1,0,0,0,0,0,within_prediction_horizon
 1615,fixed_early_recovery,10,0,5,5,4,,,2,0,3,within_prediction_horizon
+1615,staleguard_recovery_aware,10,0,8,2,2,0,0,2,0,0,within_prediction_horizon
+1615,staleguard_dual_horizon,10,0,8,2,2,0,0,2,0,0,within_prediction_horizon
 1629,no_recovery,10,0,10,0,0,,,,,,within_prediction_horizon
 1629,always_recover,10,0,0,10,9,,,0,0,10,within_prediction_horizon
 1629,fbs,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
@@ -1140,6 +1464,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1629,staleguard,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
 1629,staleguard_early_recovery,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
 1629,fixed_early_recovery,10,0,5,5,4,,,0,0,5,within_prediction_horizon
+1629,staleguard_recovery_aware,10,0,9,1,1,0,1,0,0,1,within_prediction_horizon
+1629,staleguard_dual_horizon,10,0,9,1,1,0,1,0,0,1,within_prediction_horizon
 1630,no_recovery,10,3,7,0,0,,,,,,within_prediction_horizon
 1630,always_recover,10,0,0,10,9,,,3,0,7,within_prediction_horizon
 1630,fbs,10,3,7,0,0,3,0,0,0,0,within_prediction_horizon
@@ -1147,6 +1473,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1630,staleguard,10,0,7,3,0,0,0,3,0,0,within_prediction_horizon
 1630,staleguard_early_recovery,10,0,7,3,3,0,0,3,0,0,within_prediction_horizon
 1630,fixed_early_recovery,10,0,5,5,4,,,3,0,2,within_prediction_horizon
+1630,staleguard_recovery_aware,10,0,7,3,3,0,0,3,0,0,within_prediction_horizon
+1630,staleguard_dual_horizon,10,0,7,3,3,0,0,3,0,0,within_prediction_horizon
 1644,no_recovery,10,0,10,0,0,,,,,,within_prediction_horizon
 1644,always_recover,10,0,0,10,9,,,0,0,10,within_prediction_horizon
 1644,fbs,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
@@ -1154,6 +1482,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1644,staleguard,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
 1644,staleguard_early_recovery,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
 1644,fixed_early_recovery,10,0,5,5,4,,,0,0,5,within_prediction_horizon
+1644,staleguard_recovery_aware,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
+1644,staleguard_dual_horizon,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
 1657,no_recovery,10,1,9,0,0,,,,,,within_prediction_horizon
 1657,always_recover,10,0,0,10,9,,,1,0,9,within_prediction_horizon
 1657,fbs,10,1,9,0,0,1,0,0,0,0,within_prediction_horizon
@@ -1161,6 +1491,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1657,staleguard,10,1,9,1,0,0,0,0,0,0,within_prediction_horizon
 1657,staleguard_early_recovery,10,1,9,1,1,0,0,0,0,0,within_prediction_horizon
 1657,fixed_early_recovery,10,0,5,5,4,,,1,0,4,within_prediction_horizon
+1657,staleguard_recovery_aware,10,0,8,2,2,0,1,1,0,1,within_prediction_horizon
+1657,staleguard_dual_horizon,10,0,8,2,2,0,1,1,0,1,within_prediction_horizon
 1662,no_recovery,10,0,10,0,0,,,,,,within_prediction_horizon
 1662,always_recover,10,0,0,10,9,,,0,0,10,within_prediction_horizon
 1662,fbs,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
@@ -1168,6 +1500,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1662,staleguard,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
 1662,staleguard_early_recovery,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
 1662,fixed_early_recovery,10,0,5,5,4,,,0,0,5,within_prediction_horizon
+1662,staleguard_recovery_aware,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
+1662,staleguard_dual_horizon,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
 1686,no_recovery,10,0,10,0,0,,,,,,within_prediction_horizon
 1686,always_recover,10,0,0,10,9,,,0,0,10,within_prediction_horizon
 1686,fbs,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
@@ -1175,6 +1509,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1686,staleguard,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
 1686,staleguard_early_recovery,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
 1686,fixed_early_recovery,10,0,5,5,4,,,0,0,5,within_prediction_horizon
+1686,staleguard_recovery_aware,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
+1686,staleguard_dual_horizon,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
 1689,no_recovery,10,4,6,0,0,,,,,,within_prediction_horizon
 1689,always_recover,10,0,0,10,9,,,4,0,6,within_prediction_horizon
 1689,fbs,10,4,6,0,0,4,0,0,0,0,within_prediction_horizon
@@ -1182,6 +1518,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1689,staleguard,10,2,6,4,0,0,0,2,0,0,within_prediction_horizon
 1689,staleguard_early_recovery,10,0,6,4,3,0,0,4,0,0,within_prediction_horizon
 1689,fixed_early_recovery,10,0,5,5,4,,,4,0,1,within_prediction_horizon
+1689,staleguard_recovery_aware,10,0,6,4,3,0,0,4,0,0,within_prediction_horizon
+1689,staleguard_dual_horizon,10,0,6,4,3,0,0,4,0,0,within_prediction_horizon
 1690,no_recovery,10,4,6,0,0,,,,,,within_prediction_horizon
 1690,always_recover,10,0,0,10,9,,,4,0,6,within_prediction_horizon
 1690,fbs,10,4,6,0,0,4,0,0,0,0,within_prediction_horizon
@@ -1189,6 +1527,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1690,staleguard,10,0,6,4,0,0,0,4,0,0,within_prediction_horizon
 1690,staleguard_early_recovery,10,0,6,4,4,0,0,4,0,0,within_prediction_horizon
 1690,fixed_early_recovery,10,0,5,5,4,,,4,0,1,within_prediction_horizon
+1690,staleguard_recovery_aware,10,0,6,4,4,0,0,4,0,0,within_prediction_horizon
+1690,staleguard_dual_horizon,10,0,6,4,4,0,0,4,0,0,within_prediction_horizon
 1693,no_recovery,10,0,10,0,0,,,,,,within_prediction_horizon
 1693,always_recover,10,0,0,10,9,,,0,0,10,within_prediction_horizon
 1693,fbs,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
@@ -1196,6 +1536,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1693,staleguard,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
 1693,staleguard_early_recovery,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
 1693,fixed_early_recovery,10,0,5,5,4,,,0,0,5,within_prediction_horizon
+1693,staleguard_recovery_aware,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
+1693,staleguard_dual_horizon,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
 1696,no_recovery,10,3,7,0,0,,,,,,within_prediction_horizon
 1696,always_recover,10,0,0,10,9,,,3,0,7,within_prediction_horizon
 1696,fbs,10,3,7,0,0,3,0,0,0,0,within_prediction_horizon
@@ -1203,6 +1545,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1696,staleguard,10,1,7,3,0,0,0,2,0,0,within_prediction_horizon
 1696,staleguard_early_recovery,10,0,7,3,3,0,0,3,0,0,within_prediction_horizon
 1696,fixed_early_recovery,10,0,5,5,4,,,3,0,2,within_prediction_horizon
+1696,staleguard_recovery_aware,10,0,7,3,3,0,0,3,0,0,within_prediction_horizon
+1696,staleguard_dual_horizon,10,0,7,3,3,0,0,3,0,0,within_prediction_horizon
 1697,no_recovery,10,5,5,0,0,,,,,,within_prediction_horizon
 1697,always_recover,10,0,0,10,9,,,5,0,5,within_prediction_horizon
 1697,fbs,10,5,5,0,0,5,0,0,0,0,within_prediction_horizon
@@ -1210,6 +1554,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1697,staleguard,10,1,5,5,0,0,0,4,0,0,within_prediction_horizon
 1697,staleguard_early_recovery,10,0,5,5,5,0,0,5,0,0,within_prediction_horizon
 1697,fixed_early_recovery,10,0,5,5,4,,,5,0,0,within_prediction_horizon
+1697,staleguard_recovery_aware,10,0,5,5,5,0,0,5,0,0,within_prediction_horizon
+1697,staleguard_dual_horizon,10,0,5,5,5,0,0,5,0,0,within_prediction_horizon
 1699,no_recovery,10,1,9,0,0,,,,,,within_prediction_horizon
 1699,always_recover,10,0,0,10,9,,,1,0,9,within_prediction_horizon
 1699,fbs,10,1,9,0,0,1,0,0,0,0,within_prediction_horizon
@@ -1217,6 +1563,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1699,staleguard,10,1,9,1,0,0,0,0,0,0,within_prediction_horizon
 1699,staleguard_early_recovery,10,1,9,1,1,0,0,0,0,0,within_prediction_horizon
 1699,fixed_early_recovery,10,0,5,5,4,,,1,0,4,within_prediction_horizon
+1699,staleguard_recovery_aware,10,0,9,1,1,0,0,1,0,0,within_prediction_horizon
+1699,staleguard_dual_horizon,10,0,9,1,1,0,0,1,0,0,within_prediction_horizon
 1713,no_recovery,10,0,10,0,0,,,,,,within_prediction_horizon
 1713,always_recover,10,0,0,10,9,,,0,0,10,within_prediction_horizon
 1713,fbs,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
@@ -1224,6 +1572,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1713,staleguard,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
 1713,staleguard_early_recovery,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
 1713,fixed_early_recovery,10,0,5,5,4,,,0,0,5,within_prediction_horizon
+1713,staleguard_recovery_aware,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
+1713,staleguard_dual_horizon,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
 1721,no_recovery,10,6,4,0,0,,,,,,within_prediction_horizon
 1721,always_recover,10,0,0,10,9,,,6,0,4,within_prediction_horizon
 1721,fbs,10,6,4,0,0,6,0,0,0,0,within_prediction_horizon
@@ -1231,6 +1581,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1721,staleguard,10,3,4,5,0,1,0,3,0,0,within_prediction_horizon
 1721,staleguard_early_recovery,10,1,4,5,5,1,0,5,0,0,within_prediction_horizon
 1721,fixed_early_recovery,10,1,4,5,4,,,5,0,0,within_prediction_horizon
+1721,staleguard_recovery_aware,10,1,4,5,5,1,0,5,0,0,within_prediction_horizon
+1721,staleguard_dual_horizon,10,1,4,5,5,1,0,5,0,0,within_prediction_horizon
 1725,no_recovery,10,0,10,0,0,,,,,,within_prediction_horizon
 1725,always_recover,10,0,0,10,9,,,0,0,10,within_prediction_horizon
 1725,fbs,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
@@ -1238,6 +1590,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1725,staleguard,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
 1725,staleguard_early_recovery,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
 1725,fixed_early_recovery,10,0,5,5,4,,,0,0,5,within_prediction_horizon
+1725,staleguard_recovery_aware,10,0,9,1,1,0,1,0,0,1,within_prediction_horizon
+1725,staleguard_dual_horizon,10,0,9,1,1,0,1,0,0,1,within_prediction_horizon
 1726,no_recovery,10,0,10,0,0,,,,,,within_prediction_horizon
 1726,always_recover,10,0,0,10,9,,,0,0,10,within_prediction_horizon
 1726,fbs,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
@@ -1245,6 +1599,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1726,staleguard,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
 1726,staleguard_early_recovery,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
 1726,fixed_early_recovery,10,0,5,5,4,,,0,0,5,within_prediction_horizon
+1726,staleguard_recovery_aware,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
+1726,staleguard_dual_horizon,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
 1735,no_recovery,10,7,3,0,0,,,,,,within_prediction_horizon
 1735,always_recover,10,0,0,10,9,,,7,0,3,within_prediction_horizon
 1735,fbs,10,7,3,0,0,7,0,0,0,0,within_prediction_horizon
@@ -1252,6 +1608,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1735,staleguard,10,2,3,6,0,0,0,5,0,0,within_prediction_horizon
 1735,staleguard_early_recovery,10,1,3,6,6,0,0,6,0,0,within_prediction_horizon
 1735,fixed_early_recovery,10,2,3,5,4,,,5,0,0,within_prediction_horizon
+1735,staleguard_recovery_aware,10,1,3,6,6,0,0,6,0,0,within_prediction_horizon
+1735,staleguard_dual_horizon,10,0,3,7,6,0,0,7,0,0,within_prediction_horizon
 1737,no_recovery,10,3,7,0,0,,,,,,within_prediction_horizon
 1737,always_recover,10,0,0,10,9,,,3,0,7,within_prediction_horizon
 1737,fbs,10,3,7,0,0,3,0,0,0,0,within_prediction_horizon
@@ -1259,6 +1617,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1737,staleguard,10,1,7,3,0,0,0,2,0,0,within_prediction_horizon
 1737,staleguard_early_recovery,10,0,7,3,2,0,0,3,0,0,within_prediction_horizon
 1737,fixed_early_recovery,10,0,5,5,4,,,3,0,2,within_prediction_horizon
+1737,staleguard_recovery_aware,10,0,7,3,2,0,0,3,0,0,within_prediction_horizon
+1737,staleguard_dual_horizon,10,0,7,3,2,0,0,3,0,0,within_prediction_horizon
 1740,no_recovery,10,2,8,0,0,,,,,,within_prediction_horizon
 1740,always_recover,10,0,0,10,9,,,2,0,8,within_prediction_horizon
 1740,fbs,10,2,8,0,0,2,0,0,0,0,within_prediction_horizon
@@ -1266,6 +1626,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1740,staleguard,10,0,8,2,0,0,0,2,0,0,within_prediction_horizon
 1740,staleguard_early_recovery,10,0,8,2,2,0,0,2,0,0,within_prediction_horizon
 1740,fixed_early_recovery,10,0,5,5,4,,,2,0,3,within_prediction_horizon
+1740,staleguard_recovery_aware,10,0,8,2,2,0,0,2,0,0,within_prediction_horizon
+1740,staleguard_dual_horizon,10,0,8,2,2,0,0,2,0,0,within_prediction_horizon
 1744,no_recovery,10,0,10,0,0,,,,,,within_prediction_horizon
 1744,always_recover,10,0,0,10,9,,,0,0,10,within_prediction_horizon
 1744,fbs,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
@@ -1273,6 +1635,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1744,staleguard,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
 1744,staleguard_early_recovery,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
 1744,fixed_early_recovery,10,0,5,5,4,,,0,0,5,within_prediction_horizon
+1744,staleguard_recovery_aware,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
+1744,staleguard_dual_horizon,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
 1750,no_recovery,10,1,9,0,0,,,,,,within_prediction_horizon
 1750,always_recover,10,0,0,10,9,,,1,0,9,within_prediction_horizon
 1750,fbs,10,1,9,0,0,1,0,0,0,0,within_prediction_horizon
@@ -1280,6 +1644,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1750,staleguard,10,1,9,1,0,0,0,0,0,0,within_prediction_horizon
 1750,staleguard_early_recovery,10,0,9,1,1,0,0,1,0,0,within_prediction_horizon
 1750,fixed_early_recovery,10,0,5,5,4,,,1,0,4,within_prediction_horizon
+1750,staleguard_recovery_aware,10,0,9,1,1,0,0,1,0,0,within_prediction_horizon
+1750,staleguard_dual_horizon,10,0,9,1,1,0,0,1,0,0,within_prediction_horizon
 1785,no_recovery,10,2,8,0,0,,,,,,within_prediction_horizon
 1785,always_recover,10,0,0,10,9,,,2,0,8,within_prediction_horizon
 1785,fbs,10,2,8,0,0,2,0,0,0,0,within_prediction_horizon
@@ -1287,6 +1653,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1785,staleguard,10,1,8,2,0,0,0,1,0,0,within_prediction_horizon
 1785,staleguard_early_recovery,10,0,8,2,2,0,0,2,0,0,within_prediction_horizon
 1785,fixed_early_recovery,10,0,5,5,4,,,2,0,3,within_prediction_horizon
+1785,staleguard_recovery_aware,10,0,8,2,2,0,0,2,0,0,within_prediction_horizon
+1785,staleguard_dual_horizon,10,0,8,2,2,0,0,2,0,0,within_prediction_horizon
 1794,no_recovery,10,1,9,0,0,,,,,,within_prediction_horizon
 1794,always_recover,10,0,0,10,9,,,1,0,9,within_prediction_horizon
 1794,fbs,10,1,9,0,0,1,0,0,0,0,within_prediction_horizon
@@ -1294,6 +1662,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1794,staleguard,10,1,9,1,0,0,0,0,0,0,within_prediction_horizon
 1794,staleguard_early_recovery,10,1,9,1,1,0,0,0,0,0,within_prediction_horizon
 1794,fixed_early_recovery,10,0,5,5,4,,,1,0,4,within_prediction_horizon
+1794,staleguard_recovery_aware,10,0,9,1,1,0,0,1,0,0,within_prediction_horizon
+1794,staleguard_dual_horizon,10,0,9,1,1,0,0,1,0,0,within_prediction_horizon
 1803,no_recovery,10,6,4,0,0,,,,,,within_prediction_horizon
 1803,always_recover,10,0,0,10,9,,,6,0,4,within_prediction_horizon
 1803,fbs,10,6,4,0,0,6,0,0,0,0,within_prediction_horizon
@@ -1301,6 +1671,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1803,staleguard,10,3,4,5,0,1,0,3,0,0,within_prediction_horizon
 1803,staleguard_early_recovery,10,1,4,5,5,1,0,5,0,0,within_prediction_horizon
 1803,fixed_early_recovery,10,1,4,5,4,,,5,0,0,within_prediction_horizon
+1803,staleguard_recovery_aware,10,1,4,5,5,1,0,5,0,0,within_prediction_horizon
+1803,staleguard_dual_horizon,10,1,4,5,5,1,0,5,0,0,within_prediction_horizon
 1815,no_recovery,10,0,10,0,0,,,,,,within_prediction_horizon
 1815,always_recover,10,0,0,10,9,,,0,0,10,within_prediction_horizon
 1815,fbs,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
@@ -1308,6 +1680,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1815,staleguard,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
 1815,staleguard_early_recovery,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
 1815,fixed_early_recovery,10,0,5,5,4,,,0,0,5,within_prediction_horizon
+1815,staleguard_recovery_aware,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
+1815,staleguard_dual_horizon,10,0,10,0,0,0,0,0,0,0,within_prediction_horizon
 1817,no_recovery,10,4,6,0,0,,,,,,within_prediction_horizon
 1817,always_recover,10,0,0,10,9,,,4,0,6,within_prediction_horizon
 1817,fbs,10,4,6,0,0,4,0,0,0,0,within_prediction_horizon
@@ -1315,6 +1689,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1817,staleguard,10,2,6,4,0,0,0,2,0,0,within_prediction_horizon
 1817,staleguard_early_recovery,10,0,6,4,3,0,0,4,0,0,within_prediction_horizon
 1817,fixed_early_recovery,10,0,5,5,4,,,4,0,1,within_prediction_horizon
+1817,staleguard_recovery_aware,10,0,6,4,3,0,0,4,0,0,within_prediction_horizon
+1817,staleguard_dual_horizon,10,0,6,4,3,0,0,4,0,0,within_prediction_horizon
 1828,no_recovery,10,1,9,0,0,,,,,,within_prediction_horizon
 1828,always_recover,10,0,0,10,9,,,1,0,9,within_prediction_horizon
 1828,fbs,10,1,9,0,0,1,0,0,0,0,within_prediction_horizon
@@ -1322,6 +1698,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1828,staleguard,10,1,9,1,0,0,0,0,0,0,within_prediction_horizon
 1828,staleguard_early_recovery,10,1,9,1,0,0,0,0,0,0,within_prediction_horizon
 1828,fixed_early_recovery,10,0,5,5,4,,,1,0,4,within_prediction_horizon
+1828,staleguard_recovery_aware,10,0,9,1,1,0,0,1,0,0,within_prediction_horizon
+1828,staleguard_dual_horizon,10,0,9,1,1,0,0,1,0,0,within_prediction_horizon
 1835,no_recovery,10,2,8,0,0,,,,,,within_prediction_horizon
 1835,always_recover,10,0,0,10,9,,,2,0,8,within_prediction_horizon
 1835,fbs,10,2,8,0,0,2,0,0,0,0,within_prediction_horizon
@@ -1329,6 +1707,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1835,staleguard,10,1,8,2,0,0,0,1,0,0,within_prediction_horizon
 1835,staleguard_early_recovery,10,0,8,2,2,0,0,2,0,0,within_prediction_horizon
 1835,fixed_early_recovery,10,0,5,5,4,,,2,0,3,within_prediction_horizon
+1835,staleguard_recovery_aware,10,0,8,2,2,0,0,2,0,0,within_prediction_horizon
+1835,staleguard_dual_horizon,10,0,8,2,2,0,0,2,0,0,within_prediction_horizon
 1843,no_recovery,10,1,9,0,0,,,,,,within_prediction_horizon
 1843,always_recover,10,0,0,10,9,,,1,0,9,within_prediction_horizon
 1843,fbs,10,1,9,0,0,1,0,0,0,0,within_prediction_horizon
@@ -1336,6 +1716,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1843,staleguard,10,1,9,1,0,0,0,0,0,0,within_prediction_horizon
 1843,staleguard_early_recovery,10,1,9,1,1,0,0,0,0,0,within_prediction_horizon
 1843,fixed_early_recovery,10,0,5,5,4,,,1,0,4,within_prediction_horizon
+1843,staleguard_recovery_aware,10,0,9,1,1,0,0,1,0,0,within_prediction_horizon
+1843,staleguard_dual_horizon,10,0,9,1,1,0,0,1,0,0,within_prediction_horizon
 1847,no_recovery,10,4,6,0,0,,,,,,within_prediction_horizon
 1847,always_recover,10,0,0,10,9,,,4,0,6,within_prediction_horizon
 1847,fbs,10,4,6,0,0,4,0,0,0,0,within_prediction_horizon
@@ -1343,6 +1725,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1847,staleguard,10,1,6,4,0,0,0,3,0,0,within_prediction_horizon
 1847,staleguard_early_recovery,10,0,6,4,3,0,0,4,0,0,within_prediction_horizon
 1847,fixed_early_recovery,10,0,5,5,4,,,4,0,1,within_prediction_horizon
+1847,staleguard_recovery_aware,10,0,6,4,3,0,0,4,0,0,within_prediction_horizon
+1847,staleguard_dual_horizon,10,0,6,4,3,0,0,4,0,0,within_prediction_horizon
 1866,no_recovery,10,1,9,0,0,,,,,,within_prediction_horizon
 1866,always_recover,10,0,0,10,9,,,1,0,9,within_prediction_horizon
 1866,fbs,10,1,9,0,0,1,0,0,0,0,within_prediction_horizon
@@ -1350,6 +1734,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1866,staleguard,10,1,9,1,0,0,0,0,0,0,within_prediction_horizon
 1866,staleguard_early_recovery,10,1,9,1,0,0,0,0,0,0,within_prediction_horizon
 1866,fixed_early_recovery,10,0,5,5,4,,,1,0,4,within_prediction_horizon
+1866,staleguard_recovery_aware,10,0,8,2,2,0,1,1,0,1,within_prediction_horizon
+1866,staleguard_dual_horizon,10,0,8,2,2,0,1,1,0,1,within_prediction_horizon
 1875,no_recovery,10,2,8,0,0,,,,,,within_prediction_horizon
 1875,always_recover,10,0,0,10,9,,,2,0,8,within_prediction_horizon
 1875,fbs,10,2,8,0,0,2,0,0,0,0,within_prediction_horizon
@@ -1357,6 +1743,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1875,staleguard,10,1,8,2,0,0,0,1,0,0,within_prediction_horizon
 1875,staleguard_early_recovery,10,0,8,2,1,0,0,2,0,0,within_prediction_horizon
 1875,fixed_early_recovery,10,0,5,5,4,,,2,0,3,within_prediction_horizon
+1875,staleguard_recovery_aware,10,0,8,2,1,0,0,2,0,0,within_prediction_horizon
+1875,staleguard_dual_horizon,10,0,8,2,1,0,0,2,0,0,within_prediction_horizon
 1925,no_recovery,10,1,9,0,0,,,,,,within_prediction_horizon
 1925,always_recover,10,0,0,10,9,,,1,0,9,within_prediction_horizon
 1925,fbs,10,1,9,0,0,1,0,0,0,0,within_prediction_horizon
@@ -1364,6 +1752,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1925,staleguard,10,1,9,1,0,0,0,0,0,0,within_prediction_horizon
 1925,staleguard_early_recovery,10,1,9,1,0,0,0,0,0,0,within_prediction_horizon
 1925,fixed_early_recovery,10,0,5,5,4,,,1,0,4,within_prediction_horizon
+1925,staleguard_recovery_aware,10,0,8,2,2,0,1,1,0,1,within_prediction_horizon
+1925,staleguard_dual_horizon,10,0,8,2,2,0,1,1,0,1,within_prediction_horizon
 1926,no_recovery,10,1,9,0,0,,,,,,within_prediction_horizon
 1926,always_recover,10,0,0,10,9,,,1,0,9,within_prediction_horizon
 1926,fbs,10,1,9,0,0,1,0,0,0,0,within_prediction_horizon
@@ -1371,6 +1761,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1926,staleguard,10,0,9,1,0,0,0,1,0,0,within_prediction_horizon
 1926,staleguard_early_recovery,10,0,9,1,1,0,0,1,0,0,within_prediction_horizon
 1926,fixed_early_recovery,10,0,5,5,4,,,1,0,4,within_prediction_horizon
+1926,staleguard_recovery_aware,10,0,9,1,1,0,0,1,0,0,within_prediction_horizon
+1926,staleguard_dual_horizon,10,0,9,1,1,0,0,1,0,0,within_prediction_horizon
 1933,no_recovery,10,1,9,0,0,,,,,,within_prediction_horizon
 1933,always_recover,10,0,0,10,9,,,1,0,9,within_prediction_horizon
 1933,fbs,10,1,9,0,0,1,0,0,0,0,within_prediction_horizon
@@ -1378,6 +1770,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1933,staleguard,10,1,9,1,0,0,0,0,0,0,within_prediction_horizon
 1933,staleguard_early_recovery,10,1,9,1,0,0,0,0,0,0,within_prediction_horizon
 1933,fixed_early_recovery,10,0,5,5,4,,,1,0,4,within_prediction_horizon
+1933,staleguard_recovery_aware,10,0,9,1,1,0,0,1,0,0,within_prediction_horizon
+1933,staleguard_dual_horizon,10,0,9,1,1,0,0,1,0,0,within_prediction_horizon
 1964,no_recovery,10,3,7,0,0,,,,,,within_prediction_horizon
 1964,always_recover,10,0,0,10,9,,,3,0,7,within_prediction_horizon
 1964,fbs,10,3,7,0,0,3,0,0,0,0,within_prediction_horizon
@@ -1385,6 +1779,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1964,staleguard,10,0,7,3,0,0,0,3,0,0,within_prediction_horizon
 1964,staleguard_early_recovery,10,0,7,3,2,0,0,3,0,0,within_prediction_horizon
 1964,fixed_early_recovery,10,0,5,5,4,,,3,0,2,within_prediction_horizon
+1964,staleguard_recovery_aware,10,0,7,3,2,0,0,3,0,0,within_prediction_horizon
+1964,staleguard_dual_horizon,10,0,7,3,2,0,0,3,0,0,within_prediction_horizon
 1973,no_recovery,10,3,7,0,0,,,,,,within_prediction_horizon
 1973,always_recover,10,0,0,10,9,,,3,0,7,within_prediction_horizon
 1973,fbs,10,3,7,0,0,3,0,0,0,0,within_prediction_horizon
@@ -1392,6 +1788,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1973,staleguard,10,1,7,3,0,0,0,2,0,0,within_prediction_horizon
 1973,staleguard_early_recovery,10,0,7,3,3,0,0,3,0,0,within_prediction_horizon
 1973,fixed_early_recovery,10,0,5,5,4,,,3,0,2,within_prediction_horizon
+1973,staleguard_recovery_aware,10,0,7,3,3,0,0,3,0,0,within_prediction_horizon
+1973,staleguard_dual_horizon,10,0,7,3,3,0,0,3,0,0,within_prediction_horizon
 1996,no_recovery,10,2,8,0,0,,,,,,within_prediction_horizon
 1996,always_recover,10,0,0,10,9,,,2,0,8,within_prediction_horizon
 1996,fbs,10,2,8,0,0,2,0,0,0,0,within_prediction_horizon
@@ -1399,6 +1797,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1996,staleguard,10,1,8,2,0,0,0,1,0,0,within_prediction_horizon
 1996,staleguard_early_recovery,10,0,8,2,1,0,0,2,0,0,within_prediction_horizon
 1996,fixed_early_recovery,10,0,5,5,4,,,2,0,3,within_prediction_horizon
+1996,staleguard_recovery_aware,10,0,8,2,1,0,0,2,0,0,within_prediction_horizon
+1996,staleguard_dual_horizon,10,0,8,2,1,0,0,2,0,0,within_prediction_horizon
 1008,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1008,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1008,fbs,3,3,0,2,0,1,0,0,0,0,beyond_prediction_horizon
@@ -1406,6 +1806,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1008,staleguard,3,3,0,0,0,3,0,0,0,0,beyond_prediction_horizon
 1008,staleguard_early_recovery,3,3,0,0,0,3,0,0,0,0,beyond_prediction_horizon
 1008,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1008,staleguard_recovery_aware,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
+1008,staleguard_dual_horizon,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1022,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1022,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1022,fbs,3,3,0,2,0,1,0,0,0,0,beyond_prediction_horizon
@@ -1413,6 +1815,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1022,staleguard,3,3,0,0,0,3,0,0,0,0,beyond_prediction_horizon
 1022,staleguard_early_recovery,3,3,0,0,0,3,0,0,0,0,beyond_prediction_horizon
 1022,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1022,staleguard_recovery_aware,3,3,0,0,0,3,0,0,0,0,beyond_prediction_horizon
+1022,staleguard_dual_horizon,3,3,0,0,0,3,0,0,0,0,beyond_prediction_horizon
 1023,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1023,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1023,fbs,3,3,0,2,0,1,0,0,0,0,beyond_prediction_horizon
@@ -1420,6 +1824,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1023,staleguard,3,3,0,3,0,0,0,0,0,0,beyond_prediction_horizon
 1023,staleguard_early_recovery,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1023,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1023,staleguard_recovery_aware,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
+1023,staleguard_dual_horizon,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1024,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1024,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1024,fbs,3,3,0,2,0,1,0,0,0,0,beyond_prediction_horizon
@@ -1427,6 +1833,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1024,staleguard,3,3,0,0,0,3,0,0,0,0,beyond_prediction_horizon
 1024,staleguard_early_recovery,3,3,0,0,0,3,0,0,0,0,beyond_prediction_horizon
 1024,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1024,staleguard_recovery_aware,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
+1024,staleguard_dual_horizon,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1072,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1072,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1072,fbs,3,3,0,2,0,1,0,0,0,0,beyond_prediction_horizon
@@ -1434,6 +1842,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1072,staleguard,3,3,0,3,0,0,0,0,0,0,beyond_prediction_horizon
 1072,staleguard_early_recovery,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1072,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1072,staleguard_recovery_aware,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
+1072,staleguard_dual_horizon,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1085,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1085,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1085,fbs,3,3,0,2,0,1,0,0,0,0,beyond_prediction_horizon
@@ -1441,6 +1851,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1085,staleguard,3,3,0,3,0,0,0,0,0,0,beyond_prediction_horizon
 1085,staleguard_early_recovery,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1085,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1085,staleguard_recovery_aware,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
+1085,staleguard_dual_horizon,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1089,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1089,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1089,fbs,3,3,0,2,0,1,0,0,0,0,beyond_prediction_horizon
@@ -1448,6 +1860,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1089,staleguard,3,3,0,3,0,0,0,0,0,0,beyond_prediction_horizon
 1089,staleguard_early_recovery,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1089,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1089,staleguard_recovery_aware,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
+1089,staleguard_dual_horizon,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1103,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1103,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1103,fbs,3,3,0,2,0,1,0,0,0,0,beyond_prediction_horizon
@@ -1455,6 +1869,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1103,staleguard,3,3,0,3,0,0,0,0,0,0,beyond_prediction_horizon
 1103,staleguard_early_recovery,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1103,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1103,staleguard_recovery_aware,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
+1103,staleguard_dual_horizon,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1117,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1117,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1117,fbs,3,3,0,2,0,1,0,0,0,0,beyond_prediction_horizon
@@ -1462,6 +1878,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1117,staleguard,3,3,0,3,0,0,0,0,0,0,beyond_prediction_horizon
 1117,staleguard_early_recovery,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1117,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1117,staleguard_recovery_aware,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
+1117,staleguard_dual_horizon,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1120,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1120,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1120,fbs,3,3,0,2,0,1,0,0,0,0,beyond_prediction_horizon
@@ -1469,6 +1887,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1120,staleguard,3,3,0,3,0,0,0,0,0,0,beyond_prediction_horizon
 1120,staleguard_early_recovery,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1120,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1120,staleguard_recovery_aware,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
+1120,staleguard_dual_horizon,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1129,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1129,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1129,fbs,3,3,0,2,0,1,0,0,0,0,beyond_prediction_horizon
@@ -1476,6 +1896,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1129,staleguard,3,3,0,0,0,3,0,0,0,0,beyond_prediction_horizon
 1129,staleguard_early_recovery,3,3,0,0,0,3,0,0,0,0,beyond_prediction_horizon
 1129,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1129,staleguard_recovery_aware,3,3,0,3,3,0,0,0,0,0,beyond_prediction_horizon
+1129,staleguard_dual_horizon,3,3,0,3,3,0,0,0,0,0,beyond_prediction_horizon
 1132,no_recovery,3,2,1,0,0,,,,,,beyond_prediction_horizon
 1132,always_recover,3,0,0,3,3,,,2,0,1,beyond_prediction_horizon
 1132,fbs,3,2,1,1,0,1,0,0,0,0,beyond_prediction_horizon
@@ -1483,6 +1905,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1132,staleguard,3,2,1,0,0,2,0,0,0,0,beyond_prediction_horizon
 1132,staleguard_early_recovery,3,2,1,0,0,2,0,0,0,0,beyond_prediction_horizon
 1132,fixed_early_recovery,3,0,0,3,3,,,2,0,1,beyond_prediction_horizon
+1132,staleguard_recovery_aware,3,2,1,0,0,2,0,0,0,0,beyond_prediction_horizon
+1132,staleguard_dual_horizon,3,2,1,0,0,2,0,0,0,0,beyond_prediction_horizon
 1158,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1158,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1158,fbs,3,3,0,1,0,2,0,0,0,0,beyond_prediction_horizon
@@ -1490,6 +1914,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1158,staleguard,3,3,0,3,0,0,0,0,0,0,beyond_prediction_horizon
 1158,staleguard_early_recovery,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1158,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1158,staleguard_recovery_aware,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
+1158,staleguard_dual_horizon,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1174,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1174,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1174,fbs,3,3,0,2,0,1,0,0,0,0,beyond_prediction_horizon
@@ -1497,6 +1923,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1174,staleguard,3,3,0,3,0,0,0,0,0,0,beyond_prediction_horizon
 1174,staleguard_early_recovery,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1174,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1174,staleguard_recovery_aware,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
+1174,staleguard_dual_horizon,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1189,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1189,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1189,fbs,3,3,0,2,0,1,0,0,0,0,beyond_prediction_horizon
@@ -1504,6 +1932,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1189,staleguard,3,3,0,3,0,0,0,0,0,0,beyond_prediction_horizon
 1189,staleguard_early_recovery,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1189,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1189,staleguard_recovery_aware,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
+1189,staleguard_dual_horizon,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1203,no_recovery,3,2,1,0,0,,,,,,beyond_prediction_horizon
 1203,always_recover,3,0,0,3,3,,,2,0,1,beyond_prediction_horizon
 1203,fbs,3,2,1,2,0,0,0,0,0,0,beyond_prediction_horizon
@@ -1511,6 +1941,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1203,staleguard,3,2,1,0,0,2,0,0,0,0,beyond_prediction_horizon
 1203,staleguard_early_recovery,3,2,1,0,0,2,0,0,0,0,beyond_prediction_horizon
 1203,fixed_early_recovery,3,0,0,3,3,,,2,0,1,beyond_prediction_horizon
+1203,staleguard_recovery_aware,3,2,1,0,0,2,0,0,0,0,beyond_prediction_horizon
+1203,staleguard_dual_horizon,3,2,1,0,0,2,0,0,0,0,beyond_prediction_horizon
 1207,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1207,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1207,fbs,3,3,0,1,0,2,0,0,0,0,beyond_prediction_horizon
@@ -1518,6 +1950,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1207,staleguard,3,2,0,3,0,0,0,1,0,0,beyond_prediction_horizon
 1207,staleguard_early_recovery,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1207,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1207,staleguard_recovery_aware,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
+1207,staleguard_dual_horizon,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1213,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1213,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1213,fbs,3,3,0,1,0,2,0,0,0,0,beyond_prediction_horizon
@@ -1525,6 +1959,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1213,staleguard,3,3,0,3,0,0,0,0,0,0,beyond_prediction_horizon
 1213,staleguard_early_recovery,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1213,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1213,staleguard_recovery_aware,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
+1213,staleguard_dual_horizon,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1219,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1219,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1219,fbs,3,3,0,2,0,1,0,0,0,0,beyond_prediction_horizon
@@ -1532,6 +1968,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1219,staleguard,3,3,0,3,0,0,0,0,0,0,beyond_prediction_horizon
 1219,staleguard_early_recovery,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1219,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1219,staleguard_recovery_aware,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
+1219,staleguard_dual_horizon,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1224,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1224,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1224,fbs,3,3,0,2,0,1,0,0,0,0,beyond_prediction_horizon
@@ -1539,6 +1977,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1224,staleguard,3,3,0,3,0,0,0,0,0,0,beyond_prediction_horizon
 1224,staleguard_early_recovery,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1224,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1224,staleguard_recovery_aware,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
+1224,staleguard_dual_horizon,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1230,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1230,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1230,fbs,3,3,0,1,0,2,0,0,0,0,beyond_prediction_horizon
@@ -1546,6 +1986,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1230,staleguard,3,3,0,3,0,0,0,0,0,0,beyond_prediction_horizon
 1230,staleguard_early_recovery,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1230,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1230,staleguard_recovery_aware,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
+1230,staleguard_dual_horizon,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1238,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1238,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1238,fbs,3,3,0,1,0,2,0,0,0,0,beyond_prediction_horizon
@@ -1553,6 +1995,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1238,staleguard,3,3,0,3,0,0,0,0,0,0,beyond_prediction_horizon
 1238,staleguard_early_recovery,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1238,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1238,staleguard_recovery_aware,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
+1238,staleguard_dual_horizon,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1250,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1250,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1250,fbs,3,3,0,3,0,0,0,0,0,0,beyond_prediction_horizon
@@ -1560,6 +2004,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1250,staleguard,3,3,0,3,0,0,0,0,0,0,beyond_prediction_horizon
 1250,staleguard_early_recovery,3,3,0,3,3,0,0,0,0,0,beyond_prediction_horizon
 1250,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1250,staleguard_recovery_aware,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
+1250,staleguard_dual_horizon,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1254,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1254,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1254,fbs,3,3,0,1,0,2,0,0,0,0,beyond_prediction_horizon
@@ -1567,6 +2013,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1254,staleguard,3,2,0,3,0,0,0,1,0,0,beyond_prediction_horizon
 1254,staleguard_early_recovery,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1254,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1254,staleguard_recovery_aware,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
+1254,staleguard_dual_horizon,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1255,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1255,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1255,fbs,3,3,0,2,0,1,0,0,0,0,beyond_prediction_horizon
@@ -1574,6 +2022,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1255,staleguard,3,3,0,3,0,0,0,0,0,0,beyond_prediction_horizon
 1255,staleguard_early_recovery,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1255,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1255,staleguard_recovery_aware,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
+1255,staleguard_dual_horizon,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1256,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1256,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1256,fbs,3,3,0,1,0,2,0,0,0,0,beyond_prediction_horizon
@@ -1581,6 +2031,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1256,staleguard,3,3,0,3,0,0,0,0,0,0,beyond_prediction_horizon
 1256,staleguard_early_recovery,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1256,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1256,staleguard_recovery_aware,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
+1256,staleguard_dual_horizon,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1258,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1258,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1258,fbs,3,3,0,1,0,2,0,0,0,0,beyond_prediction_horizon
@@ -1588,6 +2040,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1258,staleguard,3,3,0,3,0,0,0,0,0,0,beyond_prediction_horizon
 1258,staleguard_early_recovery,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1258,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1258,staleguard_recovery_aware,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
+1258,staleguard_dual_horizon,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1277,no_recovery,3,2,1,0,0,,,,,,beyond_prediction_horizon
 1277,always_recover,3,0,0,3,3,,,2,0,1,beyond_prediction_horizon
 1277,fbs,3,2,1,2,0,0,0,0,0,0,beyond_prediction_horizon
@@ -1595,6 +2049,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1277,staleguard,3,2,1,0,0,2,0,0,0,0,beyond_prediction_horizon
 1277,staleguard_early_recovery,3,2,1,0,0,2,0,0,0,0,beyond_prediction_horizon
 1277,fixed_early_recovery,3,0,0,3,3,,,2,0,1,beyond_prediction_horizon
+1277,staleguard_recovery_aware,3,2,1,0,0,2,0,0,0,0,beyond_prediction_horizon
+1277,staleguard_dual_horizon,3,2,1,0,0,2,0,0,0,0,beyond_prediction_horizon
 1278,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1278,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1278,fbs,3,3,0,1,0,2,0,0,0,0,beyond_prediction_horizon
@@ -1602,6 +2058,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1278,staleguard,3,3,0,0,0,3,0,0,0,0,beyond_prediction_horizon
 1278,staleguard_early_recovery,3,3,0,0,0,3,0,0,0,0,beyond_prediction_horizon
 1278,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1278,staleguard_recovery_aware,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
+1278,staleguard_dual_horizon,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1281,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1281,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1281,fbs,3,3,0,2,0,1,0,0,0,0,beyond_prediction_horizon
@@ -1609,6 +2067,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1281,staleguard,3,3,0,3,0,0,0,0,0,0,beyond_prediction_horizon
 1281,staleguard_early_recovery,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1281,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1281,staleguard_recovery_aware,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
+1281,staleguard_dual_horizon,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1282,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1282,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1282,fbs,3,3,0,2,0,1,0,0,0,0,beyond_prediction_horizon
@@ -1616,6 +2076,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1282,staleguard,3,3,0,3,0,0,0,0,0,0,beyond_prediction_horizon
 1282,staleguard_early_recovery,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1282,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1282,staleguard_recovery_aware,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
+1282,staleguard_dual_horizon,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1286,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1286,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1286,fbs,3,3,0,1,0,2,0,0,0,0,beyond_prediction_horizon
@@ -1623,6 +2085,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1286,staleguard,3,3,0,0,0,3,0,0,0,0,beyond_prediction_horizon
 1286,staleguard_early_recovery,3,3,0,0,0,3,0,0,0,0,beyond_prediction_horizon
 1286,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1286,staleguard_recovery_aware,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
+1286,staleguard_dual_horizon,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1288,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1288,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1288,fbs,3,3,0,1,0,2,0,0,0,0,beyond_prediction_horizon
@@ -1630,6 +2094,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1288,staleguard,3,3,0,3,0,0,0,0,0,0,beyond_prediction_horizon
 1288,staleguard_early_recovery,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1288,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1288,staleguard_recovery_aware,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
+1288,staleguard_dual_horizon,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1297,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1297,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1297,fbs,3,3,0,2,0,1,0,0,0,0,beyond_prediction_horizon
@@ -1637,6 +2103,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1297,staleguard,3,3,0,3,0,0,0,0,0,0,beyond_prediction_horizon
 1297,staleguard_early_recovery,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1297,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1297,staleguard_recovery_aware,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
+1297,staleguard_dual_horizon,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1309,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1309,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1309,fbs,3,3,0,2,0,1,0,0,0,0,beyond_prediction_horizon
@@ -1644,6 +2112,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1309,staleguard,3,3,0,3,0,0,0,0,0,0,beyond_prediction_horizon
 1309,staleguard_early_recovery,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1309,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1309,staleguard_recovery_aware,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
+1309,staleguard_dual_horizon,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1324,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1324,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1324,fbs,3,3,0,2,0,1,0,0,0,0,beyond_prediction_horizon
@@ -1651,6 +2121,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1324,staleguard,3,3,0,0,0,3,0,0,0,0,beyond_prediction_horizon
 1324,staleguard_early_recovery,3,3,0,0,0,3,0,0,0,0,beyond_prediction_horizon
 1324,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1324,staleguard_recovery_aware,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
+1324,staleguard_dual_horizon,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1366,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1366,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1366,fbs,3,3,0,2,0,1,0,0,0,0,beyond_prediction_horizon
@@ -1658,6 +2130,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1366,staleguard,3,3,0,3,0,0,0,0,0,0,beyond_prediction_horizon
 1366,staleguard_early_recovery,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1366,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1366,staleguard_recovery_aware,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
+1366,staleguard_dual_horizon,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1370,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1370,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1370,fbs,3,3,0,2,0,1,0,0,0,0,beyond_prediction_horizon
@@ -1665,6 +2139,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1370,staleguard,3,3,0,3,0,0,0,0,0,0,beyond_prediction_horizon
 1370,staleguard_early_recovery,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1370,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1370,staleguard_recovery_aware,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
+1370,staleguard_dual_horizon,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1378,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1378,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1378,fbs,3,3,0,2,0,1,0,0,0,0,beyond_prediction_horizon
@@ -1672,6 +2148,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1378,staleguard,3,3,0,3,0,0,0,0,0,0,beyond_prediction_horizon
 1378,staleguard_early_recovery,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1378,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1378,staleguard_recovery_aware,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
+1378,staleguard_dual_horizon,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1392,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1392,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1392,fbs,3,3,0,1,0,2,0,0,0,0,beyond_prediction_horizon
@@ -1679,6 +2157,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1392,staleguard,3,3,0,3,0,0,0,0,0,0,beyond_prediction_horizon
 1392,staleguard_early_recovery,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1392,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1392,staleguard_recovery_aware,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
+1392,staleguard_dual_horizon,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1409,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1409,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1409,fbs,3,3,0,3,0,0,0,0,0,0,beyond_prediction_horizon
@@ -1686,6 +2166,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1409,staleguard,3,3,0,3,0,0,0,0,0,0,beyond_prediction_horizon
 1409,staleguard_early_recovery,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1409,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1409,staleguard_recovery_aware,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
+1409,staleguard_dual_horizon,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1413,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1413,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1413,fbs,3,3,0,2,0,1,0,0,0,0,beyond_prediction_horizon
@@ -1693,6 +2175,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1413,staleguard,3,3,0,3,0,0,0,0,0,0,beyond_prediction_horizon
 1413,staleguard_early_recovery,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1413,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1413,staleguard_recovery_aware,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
+1413,staleguard_dual_horizon,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1417,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1417,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1417,fbs,3,3,0,1,0,2,0,0,0,0,beyond_prediction_horizon
@@ -1700,6 +2184,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1417,staleguard,3,3,0,3,0,0,0,0,0,0,beyond_prediction_horizon
 1417,staleguard_early_recovery,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1417,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1417,staleguard_recovery_aware,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
+1417,staleguard_dual_horizon,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1418,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1418,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1418,fbs,3,3,0,2,0,1,0,0,0,0,beyond_prediction_horizon
@@ -1707,6 +2193,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1418,staleguard,3,3,0,3,0,0,0,0,0,0,beyond_prediction_horizon
 1418,staleguard_early_recovery,3,3,0,3,3,0,0,0,0,0,beyond_prediction_horizon
 1418,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1418,staleguard_recovery_aware,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
+1418,staleguard_dual_horizon,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1429,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1429,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1429,fbs,3,3,0,3,0,0,0,0,0,0,beyond_prediction_horizon
@@ -1714,6 +2202,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1429,staleguard,3,3,0,3,0,0,0,0,0,0,beyond_prediction_horizon
 1429,staleguard_early_recovery,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1429,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1429,staleguard_recovery_aware,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
+1429,staleguard_dual_horizon,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1437,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1437,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1437,fbs,3,3,0,2,0,1,0,0,0,0,beyond_prediction_horizon
@@ -1721,6 +2211,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1437,staleguard,3,3,0,0,0,3,0,0,0,0,beyond_prediction_horizon
 1437,staleguard_early_recovery,3,3,0,0,0,3,0,0,0,0,beyond_prediction_horizon
 1437,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1437,staleguard_recovery_aware,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
+1437,staleguard_dual_horizon,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1453,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1453,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1453,fbs,3,3,0,2,0,1,0,0,0,0,beyond_prediction_horizon
@@ -1728,6 +2220,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1453,staleguard,3,3,0,3,0,0,0,0,0,0,beyond_prediction_horizon
 1453,staleguard_early_recovery,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1453,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1453,staleguard_recovery_aware,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
+1453,staleguard_dual_horizon,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1460,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1460,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1460,fbs,3,3,0,1,0,2,0,0,0,0,beyond_prediction_horizon
@@ -1735,6 +2229,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1460,staleguard,3,3,0,3,0,0,0,0,0,0,beyond_prediction_horizon
 1460,staleguard_early_recovery,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1460,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1460,staleguard_recovery_aware,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
+1460,staleguard_dual_horizon,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1461,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1461,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1461,fbs,3,3,0,1,0,2,0,0,0,0,beyond_prediction_horizon
@@ -1742,6 +2238,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1461,staleguard,3,3,0,3,0,0,0,0,0,0,beyond_prediction_horizon
 1461,staleguard_early_recovery,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1461,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1461,staleguard_recovery_aware,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
+1461,staleguard_dual_horizon,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1474,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1474,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1474,fbs,3,3,0,2,0,1,0,0,0,0,beyond_prediction_horizon
@@ -1749,6 +2247,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1474,staleguard,3,3,0,0,0,3,0,0,0,0,beyond_prediction_horizon
 1474,staleguard_early_recovery,3,3,0,0,0,3,0,0,0,0,beyond_prediction_horizon
 1474,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1474,staleguard_recovery_aware,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
+1474,staleguard_dual_horizon,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1497,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1497,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1497,fbs,3,3,0,2,0,1,0,0,0,0,beyond_prediction_horizon
@@ -1756,6 +2256,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1497,staleguard,3,3,0,3,0,0,0,0,0,0,beyond_prediction_horizon
 1497,staleguard_early_recovery,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1497,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1497,staleguard_recovery_aware,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
+1497,staleguard_dual_horizon,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1503,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1503,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1503,fbs,3,3,0,3,0,0,0,0,0,0,beyond_prediction_horizon
@@ -1763,6 +2265,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1503,staleguard,3,3,0,3,0,0,0,0,0,0,beyond_prediction_horizon
 1503,staleguard_early_recovery,3,3,0,3,3,0,0,0,0,0,beyond_prediction_horizon
 1503,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1503,staleguard_recovery_aware,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
+1503,staleguard_dual_horizon,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1506,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1506,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1506,fbs,3,3,0,2,0,1,0,0,0,0,beyond_prediction_horizon
@@ -1770,6 +2274,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1506,staleguard,3,3,0,3,0,0,0,0,0,0,beyond_prediction_horizon
 1506,staleguard_early_recovery,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1506,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1506,staleguard_recovery_aware,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
+1506,staleguard_dual_horizon,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1523,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1523,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1523,fbs,3,3,0,2,0,1,0,0,0,0,beyond_prediction_horizon
@@ -1777,6 +2283,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1523,staleguard,3,3,0,0,0,3,0,0,0,0,beyond_prediction_horizon
 1523,staleguard_early_recovery,3,3,0,0,0,3,0,0,0,0,beyond_prediction_horizon
 1523,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1523,staleguard_recovery_aware,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
+1523,staleguard_dual_horizon,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1561,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1561,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1561,fbs,3,3,0,1,0,2,0,0,0,0,beyond_prediction_horizon
@@ -1784,6 +2292,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1561,staleguard,3,3,0,3,0,0,0,0,0,0,beyond_prediction_horizon
 1561,staleguard_early_recovery,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1561,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1561,staleguard_recovery_aware,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
+1561,staleguard_dual_horizon,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1566,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1566,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1566,fbs,3,3,0,2,0,1,0,0,0,0,beyond_prediction_horizon
@@ -1791,6 +2301,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1566,staleguard,3,3,0,3,0,0,0,0,0,0,beyond_prediction_horizon
 1566,staleguard_early_recovery,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1566,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1566,staleguard_recovery_aware,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
+1566,staleguard_dual_horizon,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1572,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1572,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1572,fbs,3,3,0,2,0,1,0,0,0,0,beyond_prediction_horizon
@@ -1798,6 +2310,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1572,staleguard,3,3,0,0,0,3,0,0,0,0,beyond_prediction_horizon
 1572,staleguard_early_recovery,3,3,0,0,0,3,0,0,0,0,beyond_prediction_horizon
 1572,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1572,staleguard_recovery_aware,3,3,0,0,0,3,0,0,0,0,beyond_prediction_horizon
+1572,staleguard_dual_horizon,3,3,0,0,0,3,0,0,0,0,beyond_prediction_horizon
 1593,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1593,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1593,fbs,3,3,0,2,0,1,0,0,0,0,beyond_prediction_horizon
@@ -1805,6 +2319,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1593,staleguard,3,3,0,3,0,0,0,0,0,0,beyond_prediction_horizon
 1593,staleguard_early_recovery,3,3,0,3,3,0,0,0,0,0,beyond_prediction_horizon
 1593,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1593,staleguard_recovery_aware,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
+1593,staleguard_dual_horizon,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1600,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1600,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1600,fbs,3,3,0,2,0,1,0,0,0,0,beyond_prediction_horizon
@@ -1812,6 +2328,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1600,staleguard,3,3,0,3,0,0,0,0,0,0,beyond_prediction_horizon
 1600,staleguard_early_recovery,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1600,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1600,staleguard_recovery_aware,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
+1600,staleguard_dual_horizon,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1603,no_recovery,3,2,1,0,0,,,,,,beyond_prediction_horizon
 1603,always_recover,3,0,0,3,3,,,2,0,1,beyond_prediction_horizon
 1603,fbs,3,2,1,0,0,2,0,0,0,0,beyond_prediction_horizon
@@ -1819,6 +2337,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1603,staleguard,3,2,1,0,0,2,0,0,0,0,beyond_prediction_horizon
 1603,staleguard_early_recovery,3,2,1,0,0,2,0,0,0,0,beyond_prediction_horizon
 1603,fixed_early_recovery,3,0,0,3,3,,,2,0,1,beyond_prediction_horizon
+1603,staleguard_recovery_aware,3,2,1,0,0,2,0,0,0,0,beyond_prediction_horizon
+1603,staleguard_dual_horizon,3,2,1,0,0,2,0,0,0,0,beyond_prediction_horizon
 1604,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1604,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1604,fbs,3,3,0,2,0,1,0,0,0,0,beyond_prediction_horizon
@@ -1826,6 +2346,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1604,staleguard,3,3,0,3,0,0,0,0,0,0,beyond_prediction_horizon
 1604,staleguard_early_recovery,3,3,0,3,3,0,0,0,0,0,beyond_prediction_horizon
 1604,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1604,staleguard_recovery_aware,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
+1604,staleguard_dual_horizon,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1615,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1615,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1615,fbs,3,3,0,3,0,0,0,0,0,0,beyond_prediction_horizon
@@ -1833,6 +2355,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1615,staleguard,3,3,0,3,0,0,0,0,0,0,beyond_prediction_horizon
 1615,staleguard_early_recovery,3,3,0,3,3,0,0,0,0,0,beyond_prediction_horizon
 1615,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1615,staleguard_recovery_aware,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
+1615,staleguard_dual_horizon,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1629,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1629,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1629,fbs,3,3,0,2,0,1,0,0,0,0,beyond_prediction_horizon
@@ -1840,6 +2364,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1629,staleguard,3,3,0,0,0,3,0,0,0,0,beyond_prediction_horizon
 1629,staleguard_early_recovery,3,3,0,0,0,3,0,0,0,0,beyond_prediction_horizon
 1629,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1629,staleguard_recovery_aware,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
+1629,staleguard_dual_horizon,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1630,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1630,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1630,fbs,3,3,0,2,0,1,0,0,0,0,beyond_prediction_horizon
@@ -1847,6 +2373,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1630,staleguard,3,3,0,3,0,0,0,0,0,0,beyond_prediction_horizon
 1630,staleguard_early_recovery,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1630,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1630,staleguard_recovery_aware,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
+1630,staleguard_dual_horizon,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1644,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1644,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1644,fbs,3,3,0,2,0,1,0,0,0,0,beyond_prediction_horizon
@@ -1854,6 +2382,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1644,staleguard,3,3,0,0,0,3,0,0,0,0,beyond_prediction_horizon
 1644,staleguard_early_recovery,3,3,0,0,0,3,0,0,0,0,beyond_prediction_horizon
 1644,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1644,staleguard_recovery_aware,3,3,0,0,0,3,0,0,0,0,beyond_prediction_horizon
+1644,staleguard_dual_horizon,3,3,0,0,0,3,0,0,0,0,beyond_prediction_horizon
 1657,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1657,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1657,fbs,3,3,0,2,0,1,0,0,0,0,beyond_prediction_horizon
@@ -1861,6 +2391,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1657,staleguard,3,3,0,3,0,0,0,0,0,0,beyond_prediction_horizon
 1657,staleguard_early_recovery,3,3,0,3,3,0,0,0,0,0,beyond_prediction_horizon
 1657,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1657,staleguard_recovery_aware,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
+1657,staleguard_dual_horizon,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1662,no_recovery,3,2,1,0,0,,,,,,beyond_prediction_horizon
 1662,always_recover,3,0,0,3,3,,,2,0,1,beyond_prediction_horizon
 1662,fbs,3,2,1,1,0,1,0,0,0,0,beyond_prediction_horizon
@@ -1868,6 +2400,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1662,staleguard,3,2,1,0,0,2,0,0,0,0,beyond_prediction_horizon
 1662,staleguard_early_recovery,3,2,1,0,0,2,0,0,0,0,beyond_prediction_horizon
 1662,fixed_early_recovery,3,0,0,3,3,,,2,0,1,beyond_prediction_horizon
+1662,staleguard_recovery_aware,3,2,1,0,0,2,0,0,0,0,beyond_prediction_horizon
+1662,staleguard_dual_horizon,3,2,1,0,0,2,0,0,0,0,beyond_prediction_horizon
 1686,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1686,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1686,fbs,3,3,0,1,0,2,0,0,0,0,beyond_prediction_horizon
@@ -1875,6 +2409,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1686,staleguard,3,3,0,0,0,3,0,0,0,0,beyond_prediction_horizon
 1686,staleguard_early_recovery,3,3,0,0,0,3,0,0,0,0,beyond_prediction_horizon
 1686,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1686,staleguard_recovery_aware,3,3,0,0,0,3,0,0,0,0,beyond_prediction_horizon
+1686,staleguard_dual_horizon,3,3,0,0,0,3,0,0,0,0,beyond_prediction_horizon
 1689,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1689,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1689,fbs,3,3,0,2,0,1,0,0,0,0,beyond_prediction_horizon
@@ -1882,6 +2418,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1689,staleguard,3,3,0,3,0,0,0,0,0,0,beyond_prediction_horizon
 1689,staleguard_early_recovery,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1689,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1689,staleguard_recovery_aware,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
+1689,staleguard_dual_horizon,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1690,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1690,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1690,fbs,3,3,0,2,0,1,0,0,0,0,beyond_prediction_horizon
@@ -1889,6 +2427,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1690,staleguard,3,3,0,3,0,0,0,0,0,0,beyond_prediction_horizon
 1690,staleguard_early_recovery,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1690,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1690,staleguard_recovery_aware,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
+1690,staleguard_dual_horizon,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1693,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1693,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1693,fbs,3,3,0,1,0,2,0,0,0,0,beyond_prediction_horizon
@@ -1896,6 +2436,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1693,staleguard,3,3,0,0,0,3,0,0,0,0,beyond_prediction_horizon
 1693,staleguard_early_recovery,3,3,0,0,0,3,0,0,0,0,beyond_prediction_horizon
 1693,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1693,staleguard_recovery_aware,3,3,0,0,0,3,0,0,0,0,beyond_prediction_horizon
+1693,staleguard_dual_horizon,3,3,0,0,0,3,0,0,0,0,beyond_prediction_horizon
 1696,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1696,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1696,fbs,3,3,0,2,0,1,0,0,0,0,beyond_prediction_horizon
@@ -1903,6 +2445,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1696,staleguard,3,3,0,3,0,0,0,0,0,0,beyond_prediction_horizon
 1696,staleguard_early_recovery,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1696,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1696,staleguard_recovery_aware,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
+1696,staleguard_dual_horizon,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1697,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1697,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1697,fbs,3,3,0,2,0,1,0,0,0,0,beyond_prediction_horizon
@@ -1910,6 +2454,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1697,staleguard,3,3,0,3,0,0,0,0,0,0,beyond_prediction_horizon
 1697,staleguard_early_recovery,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1697,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1697,staleguard_recovery_aware,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
+1697,staleguard_dual_horizon,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1699,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1699,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1699,fbs,3,3,0,2,0,1,0,0,0,0,beyond_prediction_horizon
@@ -1917,6 +2463,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1699,staleguard,3,3,0,3,0,0,0,0,0,0,beyond_prediction_horizon
 1699,staleguard_early_recovery,3,3,0,3,3,0,0,0,0,0,beyond_prediction_horizon
 1699,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1699,staleguard_recovery_aware,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
+1699,staleguard_dual_horizon,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1713,no_recovery,3,2,1,0,0,,,,,,beyond_prediction_horizon
 1713,always_recover,3,0,0,3,3,,,2,0,1,beyond_prediction_horizon
 1713,fbs,3,2,1,1,0,1,0,0,0,0,beyond_prediction_horizon
@@ -1924,6 +2472,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1713,staleguard,3,2,1,0,0,2,0,0,0,0,beyond_prediction_horizon
 1713,staleguard_early_recovery,3,2,1,0,0,2,0,0,0,0,beyond_prediction_horizon
 1713,fixed_early_recovery,3,0,0,3,3,,,2,0,1,beyond_prediction_horizon
+1713,staleguard_recovery_aware,3,2,1,0,0,2,0,0,0,0,beyond_prediction_horizon
+1713,staleguard_dual_horizon,3,2,1,0,0,2,0,0,0,0,beyond_prediction_horizon
 1721,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1721,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1721,fbs,3,3,0,2,0,1,0,0,0,0,beyond_prediction_horizon
@@ -1931,6 +2481,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1721,staleguard,3,3,0,3,0,0,0,0,0,0,beyond_prediction_horizon
 1721,staleguard_early_recovery,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1721,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1721,staleguard_recovery_aware,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
+1721,staleguard_dual_horizon,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1725,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1725,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1725,fbs,3,3,0,2,0,1,0,0,0,0,beyond_prediction_horizon
@@ -1938,6 +2490,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1725,staleguard,3,3,0,0,0,3,0,0,0,0,beyond_prediction_horizon
 1725,staleguard_early_recovery,3,3,0,0,0,3,0,0,0,0,beyond_prediction_horizon
 1725,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1725,staleguard_recovery_aware,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
+1725,staleguard_dual_horizon,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1726,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1726,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1726,fbs,3,3,0,1,0,2,0,0,0,0,beyond_prediction_horizon
@@ -1945,6 +2499,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1726,staleguard,3,3,0,0,0,3,0,0,0,0,beyond_prediction_horizon
 1726,staleguard_early_recovery,3,3,0,0,0,3,0,0,0,0,beyond_prediction_horizon
 1726,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1726,staleguard_recovery_aware,3,3,0,0,0,3,0,0,0,0,beyond_prediction_horizon
+1726,staleguard_dual_horizon,3,3,0,0,0,3,0,0,0,0,beyond_prediction_horizon
 1735,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1735,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1735,fbs,3,3,0,2,0,1,0,0,0,0,beyond_prediction_horizon
@@ -1952,6 +2508,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1735,staleguard,3,3,0,3,0,0,0,0,0,0,beyond_prediction_horizon
 1735,staleguard_early_recovery,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1735,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1735,staleguard_recovery_aware,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
+1735,staleguard_dual_horizon,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1737,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1737,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1737,fbs,3,3,0,2,0,1,0,0,0,0,beyond_prediction_horizon
@@ -1959,6 +2517,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1737,staleguard,3,3,0,3,0,0,0,0,0,0,beyond_prediction_horizon
 1737,staleguard_early_recovery,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1737,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1737,staleguard_recovery_aware,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
+1737,staleguard_dual_horizon,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1740,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1740,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1740,fbs,3,3,0,2,0,1,0,0,0,0,beyond_prediction_horizon
@@ -1966,6 +2526,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1740,staleguard,3,3,0,3,0,0,0,0,0,0,beyond_prediction_horizon
 1740,staleguard_early_recovery,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1740,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1740,staleguard_recovery_aware,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
+1740,staleguard_dual_horizon,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1744,no_recovery,3,2,1,0,0,,,,,,beyond_prediction_horizon
 1744,always_recover,3,0,0,3,3,,,2,0,1,beyond_prediction_horizon
 1744,fbs,3,2,1,1,0,1,0,0,0,0,beyond_prediction_horizon
@@ -1973,6 +2535,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1744,staleguard,3,2,1,0,0,2,0,0,0,0,beyond_prediction_horizon
 1744,staleguard_early_recovery,3,2,1,0,0,2,0,0,0,0,beyond_prediction_horizon
 1744,fixed_early_recovery,3,0,0,3,3,,,2,0,1,beyond_prediction_horizon
+1744,staleguard_recovery_aware,3,2,1,0,0,2,0,0,0,0,beyond_prediction_horizon
+1744,staleguard_dual_horizon,3,2,1,0,0,2,0,0,0,0,beyond_prediction_horizon
 1750,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1750,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1750,fbs,3,3,0,2,0,1,0,0,0,0,beyond_prediction_horizon
@@ -1980,6 +2544,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1750,staleguard,3,3,0,3,0,0,0,0,0,0,beyond_prediction_horizon
 1750,staleguard_early_recovery,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1750,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1750,staleguard_recovery_aware,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
+1750,staleguard_dual_horizon,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1785,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1785,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1785,fbs,3,3,0,1,0,2,0,0,0,0,beyond_prediction_horizon
@@ -1987,6 +2553,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1785,staleguard,3,3,0,3,0,0,0,0,0,0,beyond_prediction_horizon
 1785,staleguard_early_recovery,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1785,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1785,staleguard_recovery_aware,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
+1785,staleguard_dual_horizon,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1794,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1794,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1794,fbs,3,3,0,2,0,1,0,0,0,0,beyond_prediction_horizon
@@ -1994,6 +2562,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1794,staleguard,3,3,0,3,0,0,0,0,0,0,beyond_prediction_horizon
 1794,staleguard_early_recovery,3,3,0,3,3,0,0,0,0,0,beyond_prediction_horizon
 1794,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1794,staleguard_recovery_aware,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
+1794,staleguard_dual_horizon,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1803,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1803,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1803,fbs,3,3,0,3,0,0,0,0,0,0,beyond_prediction_horizon
@@ -2001,6 +2571,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1803,staleguard,3,3,0,3,0,0,0,0,0,0,beyond_prediction_horizon
 1803,staleguard_early_recovery,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1803,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1803,staleguard_recovery_aware,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
+1803,staleguard_dual_horizon,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1815,no_recovery,3,2,1,0,0,,,,,,beyond_prediction_horizon
 1815,always_recover,3,0,0,3,3,,,2,0,1,beyond_prediction_horizon
 1815,fbs,3,2,1,1,0,1,0,0,0,0,beyond_prediction_horizon
@@ -2008,6 +2580,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1815,staleguard,3,2,1,0,0,2,0,0,0,0,beyond_prediction_horizon
 1815,staleguard_early_recovery,3,2,1,0,0,2,0,0,0,0,beyond_prediction_horizon
 1815,fixed_early_recovery,3,0,0,3,3,,,2,0,1,beyond_prediction_horizon
+1815,staleguard_recovery_aware,3,2,1,0,0,2,0,0,0,0,beyond_prediction_horizon
+1815,staleguard_dual_horizon,3,2,1,0,0,2,0,0,0,0,beyond_prediction_horizon
 1817,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1817,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1817,fbs,3,3,0,3,0,0,0,0,0,0,beyond_prediction_horizon
@@ -2015,6 +2589,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1817,staleguard,3,3,0,3,0,0,0,0,0,0,beyond_prediction_horizon
 1817,staleguard_early_recovery,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1817,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1817,staleguard_recovery_aware,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
+1817,staleguard_dual_horizon,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1828,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1828,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1828,fbs,3,3,0,2,0,1,0,0,0,0,beyond_prediction_horizon
@@ -2022,6 +2598,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1828,staleguard,3,3,0,3,0,0,0,0,0,0,beyond_prediction_horizon
 1828,staleguard_early_recovery,3,3,0,3,3,0,0,0,0,0,beyond_prediction_horizon
 1828,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1828,staleguard_recovery_aware,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
+1828,staleguard_dual_horizon,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1835,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1835,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1835,fbs,3,3,0,2,0,1,0,0,0,0,beyond_prediction_horizon
@@ -2029,6 +2607,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1835,staleguard,3,3,0,3,0,0,0,0,0,0,beyond_prediction_horizon
 1835,staleguard_early_recovery,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1835,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1835,staleguard_recovery_aware,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
+1835,staleguard_dual_horizon,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1843,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1843,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1843,fbs,3,3,0,2,0,1,0,0,0,0,beyond_prediction_horizon
@@ -2036,6 +2616,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1843,staleguard,3,3,0,3,0,0,0,0,0,0,beyond_prediction_horizon
 1843,staleguard_early_recovery,3,3,0,3,3,0,0,0,0,0,beyond_prediction_horizon
 1843,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1843,staleguard_recovery_aware,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
+1843,staleguard_dual_horizon,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1847,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1847,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1847,fbs,3,3,0,2,0,1,0,0,0,0,beyond_prediction_horizon
@@ -2043,6 +2625,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1847,staleguard,3,3,0,3,0,0,0,0,0,0,beyond_prediction_horizon
 1847,staleguard_early_recovery,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1847,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1847,staleguard_recovery_aware,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
+1847,staleguard_dual_horizon,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1866,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1866,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1866,fbs,3,3,0,2,0,1,0,0,0,0,beyond_prediction_horizon
@@ -2050,6 +2634,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1866,staleguard,3,3,0,3,0,0,0,0,0,0,beyond_prediction_horizon
 1866,staleguard_early_recovery,3,3,0,3,3,0,0,0,0,0,beyond_prediction_horizon
 1866,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1866,staleguard_recovery_aware,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
+1866,staleguard_dual_horizon,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1875,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1875,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1875,fbs,3,3,0,2,0,1,0,0,0,0,beyond_prediction_horizon
@@ -2057,6 +2643,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1875,staleguard,3,3,0,3,0,0,0,0,0,0,beyond_prediction_horizon
 1875,staleguard_early_recovery,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1875,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1875,staleguard_recovery_aware,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
+1875,staleguard_dual_horizon,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1925,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1925,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1925,fbs,3,3,0,2,0,1,0,0,0,0,beyond_prediction_horizon
@@ -2064,6 +2652,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1925,staleguard,3,3,0,3,0,0,0,0,0,0,beyond_prediction_horizon
 1925,staleguard_early_recovery,3,3,0,3,3,0,0,0,0,0,beyond_prediction_horizon
 1925,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1925,staleguard_recovery_aware,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
+1925,staleguard_dual_horizon,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1926,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1926,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1926,fbs,3,3,0,1,0,2,0,0,0,0,beyond_prediction_horizon
@@ -2071,6 +2661,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1926,staleguard,3,3,0,3,0,0,0,0,0,0,beyond_prediction_horizon
 1926,staleguard_early_recovery,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1926,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1926,staleguard_recovery_aware,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
+1926,staleguard_dual_horizon,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1933,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1933,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1933,fbs,3,3,0,2,0,1,0,0,0,0,beyond_prediction_horizon
@@ -2078,6 +2670,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1933,staleguard,3,3,0,3,0,0,0,0,0,0,beyond_prediction_horizon
 1933,staleguard_early_recovery,3,3,0,3,3,0,0,0,0,0,beyond_prediction_horizon
 1933,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1933,staleguard_recovery_aware,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
+1933,staleguard_dual_horizon,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1964,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1964,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1964,fbs,3,3,0,1,0,2,0,0,0,0,beyond_prediction_horizon
@@ -2085,6 +2679,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1964,staleguard,3,3,0,3,0,0,0,0,0,0,beyond_prediction_horizon
 1964,staleguard_early_recovery,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1964,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1964,staleguard_recovery_aware,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
+1964,staleguard_dual_horizon,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1973,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1973,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1973,fbs,3,3,0,2,0,1,0,0,0,0,beyond_prediction_horizon
@@ -2092,6 +2688,8 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1973,staleguard,3,3,0,3,0,0,0,0,0,0,beyond_prediction_horizon
 1973,staleguard_early_recovery,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1973,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1973,staleguard_recovery_aware,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
+1973,staleguard_dual_horizon,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1996,no_recovery,3,3,0,0,0,,,,,,beyond_prediction_horizon
 1996,always_recover,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
 1996,fbs,3,3,0,2,0,1,0,0,0,0,beyond_prediction_horizon
@@ -2099,3 +2697,5 @@ seed,policy,flights,unsafe,safe_completion,recovery_attempts,early_recoveries,fa
 1996,staleguard,3,3,0,3,0,0,0,0,0,0,beyond_prediction_horizon
 1996,staleguard_early_recovery,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
 1996,fixed_early_recovery,3,0,0,3,3,,,3,0,0,beyond_prediction_horizon
+1996,staleguard_recovery_aware,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon
+1996,staleguard_dual_horizon,3,0,0,3,3,0,0,3,0,0,beyond_prediction_horizon

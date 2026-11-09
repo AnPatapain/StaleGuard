@@ -18,7 +18,7 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from matplotlib.patches import Rectangle
-from underpass_inspection.storage import ROOT,load_calibrated_scenarios,read_committed
+from underpass_inspection.storage import ROOT,load_inputs,read_run,iter_committed
 from underpass_inspection.scenario import Scenario
 from underpass_inspection.simulation import execute
 from underpass_inspection.baselines.policies import POLICIES
@@ -27,7 +27,6 @@ from underpass_inspection.baselines.policies import POLICIES
 def main():
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--run',type=Path,default=ROOT/'results/development/baseline_benchmark')
-    p.add_argument('--calibration',type=Path,default=ROOT/'results/development/calibration')
     p.add_argument('--seed',type=int)
     p.add_argument('--delay',type=float,default=.92)
     p.add_argument('--out',type=Path)
@@ -36,10 +35,10 @@ def main():
     p.add_argument('--playback-speed',type=float,default=.5)
     p.add_argument('--hold',type=float,default=10.)
     p.add_argument('--capture',type=Path)
-    a=p.parse_args();run=json.loads((a.run/'run.json').read_text())
+    a=p.parse_args();run=read_run(a.run)
     seed=a.seed if a.seed is not None else run['protocol']['representative_seeds'][0]
     s=Scenario(**next(v for v in run['protocol']['scenarios'] if v['seed']==seed))
-    rows=[r for r in read_committed(a.run,run) if r['seed']==seed and r['delay_s']==a.delay]
+    rows=[r for r in iter_committed(a.run,run) if r['seed']==seed and r['delay_s']==a.delay]
     if not rows:raise ValueError('No retained comparison at this seed/delay')
     figure,axes=plt.subplots(1,2,figsize=(12,5.5))
     for box,color in zip(s.obstacles,('#cba976','#80664e')):
@@ -77,7 +76,7 @@ def main():
     print(f'Saved actual-flight comparison: {target}',flush=True)
     if a.gui:
         row=next(r for r in rows if r['event']['policy']==a.policy)
-        case=next(case for case in load_calibrated_scenarios(a.calibration) if case[0].seed==seed)
+        case=next(case for case in load_inputs(a.run,run) if case[0].seed==seed)
         if case[0].__dict__!=s.__dict__:raise ValueError('GUI calibration differs from the recorded scenario')
         with (ROOT/'support/.simulation.lock').open('a') as lock:
             fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)

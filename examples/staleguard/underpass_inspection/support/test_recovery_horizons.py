@@ -9,9 +9,9 @@ from tempfile import TemporaryDirectory
 from unittest.mock import patch
 import numpy as np
 from model.scg import load_scg_platform_params
-from underpass_inspection.storage import ROOT,physical_source_hash,REVIEWED,load_calibrated_scenarios
+from underpass_inspection.storage import ROOT,load_calibrated_scenarios
 from underpass_inspection.baselines import recovery_horizons as predictor
-from underpass_inspection.baselines.recovery_policies import HorizonCommand,POLICIES
+from underpass_inspection.baselines.policies import HorizonCommand,HORIZON_POLICIES as POLICIES
 from underpass_inspection.baselines.staleguard import TTL_GRID,first_ready_step
 from underpass_inspection.scenario import Scenario
 
@@ -133,26 +133,15 @@ class HorizonPredictionTests(unittest.TestCase):
         self.assertLess(sum(r['control_steps'] for r in fast['rollouts']),sum(r['control_steps'] for r in full['rollouts']))
         self.assertLessEqual(fast['recovery_profile_finished_s'],fast['computation_s'])
 
-    def test_unchanged_physical_source(self):
-        for name,(_,checksum) in REVIEWED.items():self.assertEqual(physical_source_hash((ROOT/name).read_text(),name),checksum)
 
 
 class HorizonAnalysisTests(unittest.TestCase):
-    def test_metrics_regeneration_uses_only_selected_pairs(self):
-        from underpass_inspection.baseline_benchmark import horizons
-        run=dict(protocol=dict(scenarios=[dict(seed=1)],delays=[0.,.2],policies=[]),predictions_by_policy={})
-        truth={(1,'dive',0.):{},(1,'dive',.2):{},(1,'dive',.4):{},(2,'dive',0.):{}}
-        with TemporaryDirectory() as folder, patch.object(horizons.metrics,'journal_metrics',return_value=dict(predictor={})) as call, \
-             patch.object(horizons.metrics,'write_outputs'),patch.object(horizons,'iter_committed',return_value=iter(())):
-            horizons.write_results(Path(folder),run,truth)
-            self.assertEqual(set(call.call_args.args[2]),{(1,'dive',0.),(1,'dive',.2)})
-
     def test_nine_policy_pairs_and_scenario_clustered_intervals(self):
         from underpass_inspection.baselines.policies import POLICIES as old
         from underpass_inspection.baseline_benchmark import metrics
         source=ROOT/'results/development/baseline_benchmark/executions.jsonl'
         with source.open() as f:template=json.loads(next(f))
-        protocol=dict(scenarios=[dict(seed=s) for s in (1,2)],delays=[0.,.2],policies=list(old+POLICIES),
+        protocol=dict(scenarios=[dict(seed=s) for s in (1,2)],delays=[0.,.2],policies=list(old),
                       uncertainty=dict(unit='scenario',method='paired percentile bootstrap',confidence=.95,resamples=2000,seed=2027,complete_scenarios_only=True))
         rows=[]
         for seed in (1,2):

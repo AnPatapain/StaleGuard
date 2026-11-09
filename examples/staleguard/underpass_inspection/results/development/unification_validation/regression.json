@@ -1,0 +1,14 @@
+{
+  "simulator_physical_syntax_identical": true,
+  "policy_methods_identical": true,
+  "unchanged_numerical_modules": [
+    "scenario.py",
+    "baselines/staleguard.py",
+    "baselines/recovery_horizons.py",
+    "baselines/fbs.py",
+    "baselines/use_time_recheck.py",
+    "baselines/fixed_early_recovery.py"
+  ],
+  "before_after_prediction_scenarios_identical": 12,
+  "before_after_profile_points_identical": 228
+}

@@ -1,5 +1,5 @@
 # Project-specific temporary files
-results/
+#results/
 temp-data/
 
 # acados
@@ -42,3 +42,5 @@ __pycache__/
 *.pyc
 *.nbc
 *.nbi
+# Raw experiment journals remain local
+/examples/staleguard/*/results/**/executions.jsonl

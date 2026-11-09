@@ -7,11 +7,8 @@ import json
 import math
 import statistics
 import numpy as np
-from ..storage import read_executions, flight_key, write_json, iter_committed
-from ..baselines.policies import POLICIES,APPROVAL_POLICIES as LEGACY_APPROVAL_POLICIES
-
-HORIZON_POLICIES=('staleguard_recovery_aware','staleguard_dual_horizon')
-APPROVAL_POLICIES=LEGACY_APPROVAL_POLICIES+HORIZON_POLICIES
+from ..storage import flight_key, write_json, iter_committed
+from ..baselines.policies import POLICIES,APPROVAL_POLICIES,HORIZON_POLICIES
 from ..scenario import HZ
 
 
@@ -380,7 +377,57 @@ def scenario_uncertainty(result,protocol):
     return output
 
 
+def quality(rows,run,truth):
+    result={};forecasts=run.get('predictions_by_policy',{})
+    for policy,cache in forecasts.items():
+        scores=dict(command_false_safe=0,command_false_reject=0,completion_false_safe=0,completion_false_reject=0,
+                    command_completion_label_pairs=0,recovery_sampled_pairs=0,recovery_false_safe=0,recovery_false_reject=0,
+                    completion_differs_from_safety=0)
+        for seed,forecast in cache.items():
+            for item in forecast['results']:
+                key=int(seed),'dive',item['delay_s']
+                scores['completion_differs_from_safety']+=item['command_complete']!=item['command_safe']
+                if key not in truth:continue
+                actual=truth[key];scores['command_completion_label_pairs']+=1
+                for name,predicted,observed in [('command',item['command_safe'],actual['safe']),('completion',item['command_complete'],actual['safe_completion'])]:
+                    scores[name+'_false_safe']+=predicted and not observed
+                    scores[name+'_false_reject']+=observed and not predicted
+        scores['runtime']=timing_summary(f['computation_s'] for f in cache.values())
+        result[policy]=scores
+    failures={p:dict(unsafe_accepted_commands=0,unsafe_recovery_attempts=0,
+        unsafe_recovery_predicted_verified=0,unsafe_best_effort_recovery=0,
+        predictions_late_for_trigger=0) for p in run['protocol']['policies']}
+    seen={};seed=None
+    for row in rows:
+        if seed!=row['seed']:seed=row['seed'];seen={}
+        event=row['event'];policy=event['policy'];f=failures[policy]
+        f['unsafe_accepted_commands']+=not row['safe'] and event['application_step'] is not None
+        f['unsafe_recovery_attempts']+=not row['safe'] and event['fallback_step'] is not None
+        f['unsafe_recovery_predicted_verified']+=not row['safe'] and event.get('predicted_recovery_verified_at_start') is True
+        f['unsafe_best_effort_recovery']+=not row['safe'] and event.get('best_effort_recovery') is True
+        f['predictions_late_for_trigger']+=event.get('prediction_available_by_trigger') is False
+        if policy not in forecasts or row['mode']!='sideways':continue
+        forecast=forecasts[policy][str(seed)]
+        sampled=next((r['recovery_safe'] for r in forecast['results'] if r['delay_s']==row['start_s']),None)
+        if sampled is None:continue
+        key=policy,row['start_s'];label=sampled,row['safe']
+        if key in seen:
+            if seen[key]!=label:raise ValueError('Inconsistent repeated physical recovery label')
+            continue
+        seen[key]=label;scores=result[policy]
+        scores['recovery_sampled_pairs']+=1
+        scores['recovery_false_safe']+=sampled and not row['safe']
+        scores['recovery_false_reject']+=row['safe'] and not sampled
+    return result,failures
+
+
+
 def journal_metrics(out,run,truth=None):
+    root_scope=next((p for p in ('staleguard','staleguard_early_recovery') if p in run['protocol']['policies']),None)
+    if not root_scope and run.get('predictions_by_policy'):
+        root_scope=next(iter(run['predictions_by_policy']))
+    if not run.get('predictions') and run.get('predictions_by_policy'):
+        run=dict(run,predictions=run['predictions_by_policy'][root_scope])
     metrics=summarize_journal(out,run,truth)
     if run['protocol'].get('analysis_subsets'):
         metrics['analysis_subsets']={}
@@ -394,6 +441,12 @@ def journal_metrics(out,run,truth=None):
             part.pop('predictor')
             part['dispatch_delays_s']=delays
             metrics['analysis_subsets'][name]=part
+    if set(run['protocol']['policies'])&set(HORIZON_POLICIES):
+        labels=command_truth(iter_committed(out,run)) if truth is None else truth
+        ids={s['seed'] for s in run['protocol']['scenarios']};delays=set(run['protocol']['delays'])
+        labels={k:v for k,v in labels.items() if k[0] in ids and k[2] in delays}
+        metrics['prediction_by_policy'],metrics['failure_decomposition']=quality(iter_committed(out,run),run,labels)
+        metrics['predictor']['scope_policy']=root_scope
     return metrics
 
 
@@ -459,13 +512,26 @@ def write_outputs(out,run,rows,truth=None,metrics=None):
     lines+=['','Early means recovery starts strictly before the scheduled dispatch, including Always Recover at '
         'approval for positive delays. At D=0 Always Recover still cancels immediately. Fixed EarlyRecovery uses '
         '0.20 s with >= equality. Climb is never selected. A rejected command can still lead to an unsafe flight '
-        'when sideways recovery starts too late.','',
-        '| Policy versus No Recovery | Unsafe prevented | Unsafe introduced | Safe inspections preserved | Safe inspections lost |',
-        '|---|---:|---:|---:|---:|']
+        'when sideways recovery starts too late.','']
+    if m['paired_against_no_recovery']:
+        lines+=['| Policy versus No Recovery | Unsafe prevented | Unsafe introduced | Safe inspections preserved | Safe inspections lost |',
+                '|---|---:|---:|---:|---:|']
+    else:
+        lines+=['No paired No Recovery comparison was collected in this policy subset.','']
     for p,v in m['paired_against_no_recovery'].items():
         lines.append(f'| {p} | {v["unsafe_prevented"]} | {v["unsafe_introduced"]} | '
                      f'{v["safe_completions_preserved"]} | {v["completion_harms"]} |')
+    sampling=run['protocol'].get('scenario_sampling')
+    if sampling and 'excluded_seeds' in sampling:
+        lines+=['',f'**Fresh evaluation:** {sampling["sample_count"]} scenarios sampled without replacement from '
+            f'{sampling["eligible_count"]} eligible accepted scenarios, with RNG seed {sampling["rng_seed"]}. '
+            f'The {len(sampling["excluded_seeds"])} previously evaluated scenarios are excluded. '
+            'Selection used accepted IDs only, without policy outcomes.']
     if m.get('analysis_subsets'):
+        if len(run['protocol']['delays'])==13 and run['protocol'].get('protocol_version')!='reduced_100x13_v3':
+            lines+=['','**Temporal resolution:** 13 selected dispatch delays; gaps range from 0.04 to 0.40 s. '
+                'Tested expiration boundaries are coarse observations. Rates weight the selected delays equally, '
+                'not a uniform continuous delay distribution. The 19-point prediction grid is unchanged.']
         if run['protocol'].get('protocol_version')=='reduced_100x13_v3':
             sample=run['protocol'].get('scenario_sampling')
             lines+=['','**Reduced protocol:** '+('100 scenarios uniformly sampled without replacement from 865 accepted, '
@@ -550,12 +616,16 @@ def write_outputs(out,run,rows,truth=None,metrics=None):
             'No Recovery flights when no external truth is configured. Command expiration is the first tested '
             'unsafe delay; all-safe complete grids remain censored. No independent recovery deadline is inferred. '
             'Full intervals expose non-monotonic command safety. Scenario-level rates use complete scenario grids only.\n\n'
-            'Each journal append is fsynced before its offset/hash is atomically committed in run.json. Resume '
-            'checks that prefix and rolls back only uncommitted tail bytes. Metrics are regenerated one scenario '
+            'Each flight/forecast append is fsynced before its offset/hash is atomically committed in progress.json. '
+            'Resume checks those prefixes and rolls back only uncommitted tail bytes. Metrics are regenerated one scenario '
             'at a time, without simulation. Source/environment, frozen protocol and cached forecast runtimes '
             'must match on resume.\n\n'
-            + 'Freeze SHA-256: '+str(run.get('freeze_sha256','not supplied'))+'\n\n'
-            + 'Protocol and source provenance are recorded verbatim in run.json.\n\n'
+            + 'Frozen configuration SHA-256: '+str(run.get('config_sha256','recorded in progress.json'))+'\n\n'
+            + 'Protocol and source/environment information are recorded in the immutable run.json. '
+            'Actual approval state, PID memory and references are bundled in approval_snapshots.npz. '
+            'Validation and metrics use only this folder; no original benchmark directories or calibration '
+            'folder are required. Historical experiment provenance remains in original_experiments, with '
+            'source/preparation evidence in source_versions.zip.\n\n'
             + 'For the 2 s protocol the predictor candidate grid is still 19 points through 1 s. '
             'No predicted expiration continues to permit dispatch beyond 1 s; finite TTL and readiness gates '
             'are unchanged. The displacement profile ends 3.8 s after a dive starts, so D=2 leaves 2.2 s '
@@ -590,4 +660,20 @@ def write_outputs(out,run,rows,truth=None,metrics=None):
             stream.write('\nPaired completion-rate intervals and all scenario-level values are retained in metrics.json. '
                 'Inspection abandonment is separate from an inspection not observed by the fixed deadline.\n')
 
+    if m.get('prediction_by_policy'):
+        with (Path(out)/'REPORT.md').open('a') as stream:
+            stream.write('\nNew policy predictor runtime (warmed, independently computed per policy/scenario):\n\n'
+                '| Policy | Forecasts | Median ms | p95 ms |\n|---|---:|---:|---:|\n')
+            for p,q in m['prediction_by_policy'].items():
+                t=q['runtime'];med='undefined' if t['median_s'] is None else f'{1000*t["median_s"]:.1f}'
+                hi='undefined' if t['p95_s'] is None else f'{1000*t["p95_s"]:.1f}'
+                stream.write(f'| {p} | {t["samples"]} | {med} | {hi} |\n')
+            stream.write('\nRecoveryAware proactively uses the earlier of command expiry and the last safe recovery-prefix '
+                'grid point. DualHorizon also considers completion expiry. A late prediction does not retroactively act. '
+                'A missed recovery prefix does not invalidate an otherwise safe command; known-expired commands use '
+                'the existing recovery as best-effort. Completion-only abandonment requires verified recovery. '
+                'All-safe grids are censored; no horizon-end rejection is invented.\n\n'
+                'Whole-flight failure decomposition and command/completion/recovery prediction labels are in metrics.json. '
+                'Recovery-label comparisons include only actual starts that coincide with predicted grid points. '
+                'The root predictor summary refers to the policy named by predictor.scope_policy.\n')
     return m

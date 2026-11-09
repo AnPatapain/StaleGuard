@@ -1,0 +1,17 @@
+{
+  "historical_scenarios": 100,
+  "historical_flights": 11700,
+  "historical_journal_sha256": "f8399db245b190b4c5cc526e9e860bb88e99f8fd1f9b874f514bb48512f382f3",
+  "historical_metrics_identical": true,
+  "prepared_scenarios": 400,
+  "remaining_population": 765,
+  "rng_seed": 20261109,
+  "overlap": 0,
+  "unique_union": 500,
+  "expected_v2_flights": 46800,
+  "actual_v2_flights": 0,
+  "actual_v2_predictions": 0,
+  "v2_config_sha256": "22f6808ff24f3e668022fcc1043594c2630354af846c20b949d65535c9a8281e",
+  "development_smoke_flights": 54,
+  "focused_tests_passed": 51
+}

@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "status": "complete",
+  "flights": 11700,
+  "scenarios": 100,
+  "no_duplicates": true,
+  "full_horizon_1khz": true,
+  "approval_inputs_identical": true,
+  "decisions_replayed": true,
+  "policy_runtime_and_cancellation_verified": true,
+  "physical_replay_hash_consistency": true,
+  "representative_physics_independently_checked": 9,
+  "metrics_recomputed_identically": true
+}

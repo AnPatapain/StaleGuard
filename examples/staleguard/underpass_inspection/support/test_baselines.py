@@ -12,10 +12,10 @@ from unittest.mock import patch
 import numpy as np
 from underpass_inspection.baselines import fbs as freshness
 from underpass_inspection.scenario import Scenario,BODY_RADIUS_M,POS,body_clearances
-from underpass_inspection.storage import load_calibrated_scenarios,physical_source_hash,REVIEWED,ROOT
+from underpass_inspection.storage import load_calibrated_scenarios,ROOT
 from underpass_inspection.simulation import Snapshot
 from underpass_inspection.baselines import staleguard,policies
-from underpass_inspection.baselines.policies import PendingCommand,POLICIES
+from underpass_inspection.baselines.policies import PendingCommand,POLICIES,HORIZON_POLICIES
 
 
 class KinematicModel:
@@ -76,6 +76,7 @@ class PolicyTests(unittest.TestCase):
             self.assertFalse({'dispatch_time','dispatch_step','delay_s','ground_truth','recovery_deadline'}&
                              set(inspect.signature(call).parameters))
         for name in POLICIES:
+            if name in HORIZON_POLICIES:continue
             a=self.agent(name)
             self.assertNotIn('scheduled_dispatch_step',a.event)
             self.assertIsNone(a.event['dispatch_observed_step'])
@@ -173,10 +174,7 @@ class PolicyTests(unittest.TestCase):
         self.assertEqual(a.event['prediction'],prediction);self.assertEqual(a.features,history)
         self.assertEqual(len(a.features),a.approval+1)
 
-    def test_reviewed_physical_paths_equal_the_frozen_syntax(self):
-        for name,(_,expected) in REVIEWED.items():
-            self.assertEqual(physical_source_hash((ROOT/name).read_text(),name),expected)
-        # Future dataset IDs are identifiers, not inputs to policy branches.
+    def test_dataset_ids_are_identifiers(self):
         self.assertEqual(Scenario(seed=101).seed,101)
 
 
