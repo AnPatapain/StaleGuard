@@ -1,0 +1,225 @@
+{
+  "first_warmed_forecast_s": 0.1411699509480968,
+  "p50_s": 0.14238539600046352,
+  "p95_s": 0.15162544895429164,
+  "measurements": [
+    {
+      "seed": 1,
+      "repeat": 0,
+      "wall_s": 0.14172271208371967,
+      "reported_s": 0.14167814701795578
+    },
+    {
+      "seed": 1,
+      "repeat": 1,
+      "wall_s": 0.14311318506952375,
+      "reported_s": 0.1430649079848081
+    },
+    {
+      "seed": 1,
+      "repeat": 2,
+      "wall_s": 0.1423990309704095,
+      "reported_s": 0.14234407793264836
+    },
+    {
+      "seed": 2,
+      "repeat": 0,
+      "wall_s": 0.14308425795752555,
+      "reported_s": 0.14302956499159336
+    },
+    {
+      "seed": 2,
+      "repeat": 1,
+      "wall_s": 0.14757084904704243,
+      "reported_s": 0.1475253680255264
+    },
+    {
+      "seed": 2,
+      "repeat": 2,
+      "wall_s": 0.1469246909255162,
+      "reported_s": 0.14684848103206605
+    },
+    {
+      "seed": 3,
+      "repeat": 0,
+      "wall_s": 0.15357858000788838,
+      "reported_s": 0.153480313019827
+    },
+    {
+      "seed": 3,
+      "repeat": 1,
+      "wall_s": 0.14837498299311846,
+      "reported_s": 0.14832994702737778
+    },
+    {
+      "seed": 3,
+      "repeat": 2,
+      "wall_s": 0.15050392295233905,
+      "reported_s": 0.150462377932854
+    },
+    {
+      "seed": 6,
+      "repeat": 0,
+      "wall_s": 0.14305829699151218,
+      "reported_s": 0.14301393297500908
+    },
+    {
+      "seed": 6,
+      "repeat": 1,
+      "wall_s": 0.1410954809980467,
+      "reported_s": 0.14103958394844085
+    },
+    {
+      "seed": 6,
+      "repeat": 2,
+      "wall_s": 0.13792058394756168,
+      "reported_s": 0.13786720903590322
+    },
+    {
+      "seed": 8,
+      "repeat": 0,
+      "wall_s": 0.14237176103051752,
+      "reported_s": 0.14231328992173076
+    },
+    {
+      "seed": 8,
+      "repeat": 1,
+      "wall_s": 0.13920717197470367,
+      "reported_s": 0.13914894696790725
+    },
+    {
+      "seed": 8,
+      "repeat": 2,
+      "wall_s": 0.14281470503192395,
+      "reported_s": 0.14276299893390387
+    },
+    {
+      "seed": 9,
+      "repeat": 0,
+      "wall_s": 0.14097365795169026,
+      "reported_s": 0.1409224480157718
+    },
+    {
+      "seed": 9,
+      "repeat": 1,
+      "wall_s": 0.14125343004707247,
+      "reported_s": 0.14120104408357292
+    },
+    {
+      "seed": 9,
+      "repeat": 2,
+      "wall_s": 0.14531187200918794,
+      "reported_s": 0.14526639797259122
+    },
+    {
+      "seed": 11,
+      "repeat": 0,
+      "wall_s": 0.14334574597887695,
+      "reported_s": 0.14327956305351108
+    },
+    {
+      "seed": 11,
+      "repeat": 1,
+      "wall_s": 0.14178686798550189,
+      "reported_s": 0.14171258604619652
+    },
+    {
+      "seed": 11,
+      "repeat": 2,
+      "wall_s": 0.14068828406743705,
+      "reported_s": 0.14062136504799128
+    },
+    {
+      "seed": 12,
+      "repeat": 0,
+      "wall_s": 0.1406799069372937,
+      "reported_s": 0.1406252160668373
+    },
+    {
+      "seed": 12,
+      "repeat": 1,
+      "wall_s": 0.1434478770243004,
+      "reported_s": 0.1434021140448749
+    },
+    {
+      "seed": 12,
+      "repeat": 2,
+      "wall_s": 0.13922645209822804,
+      "reported_s": 0.13916912104468793
+    },
+    {
+      "seed": 14,
+      "repeat": 0,
+      "wall_s": 0.1396788660204038,
+      "reported_s": 0.13962848705705255
+    },
+    {
+      "seed": 14,
+      "repeat": 1,
+      "wall_s": 0.14052783604711294,
+      "reported_s": 0.14045932400040329
+    },
+    {
+      "seed": 14,
+      "repeat": 2,
+      "wall_s": 0.13943287509027869,
+      "reported_s": 0.13937432097736746
+    },
+    {
+      "seed": 16,
+      "repeat": 0,
+      "wall_s": 0.14138103905133903,
+      "reported_s": 0.14132320205681026
+    },
+    {
+      "seed": 16,
+      "repeat": 1,
+      "wall_s": 0.15162544895429164,
+      "reported_s": 0.15157757000997663
+    },
+    {
+      "seed": 16,
+      "repeat": 2,
+      "wall_s": 0.1433177039725706,
+      "reported_s": 0.143265257938765
+    },
+    {
+      "seed": 17,
+      "repeat": 0,
+      "wall_s": 0.13846893410664052,
+      "reported_s": 0.13841037498787045
+    },
+    {
+      "seed": 17,
+      "repeat": 1,
+      "wall_s": 0.13844301004428416,
+      "reported_s": 0.13837687100749463
+    },
+    {
+      "seed": 17,
+      "repeat": 2,
+      "wall_s": 0.14400713192299008,
+      "reported_s": 0.14395474595949054
+    },
+    {
+      "seed": 20,
+      "repeat": 0,
+      "wall_s": 0.14181581407319754,
+      "reported_s": 0.14177279500290751
+    },
+    {
+      "seed": 20,
+      "repeat": 1,
+      "wall_s": 0.14274583698716015,
+      "reported_s": 0.14270098903216422
+    },
+    {
+      "seed": 20,
+      "repeat": 2,
+      "wall_s": 0.14450046606361866,
+      "reported_s": 0.14444937300868332
+    }
+  ],
+  "cprofile": "         258762 function calls (244016 primitive calls) in 0.228 seconds\n\n   Ordered by: cumulative time\n   List reduced from 73 to 16 due to restriction <16>\n\n   ncalls  tottime  percall  cumtime  percall filename:lineno(function)\n        1    0.008    0.008    0.228    0.228 staleguard.py:93(predict_delays)\n     7335    0.012    0.000    0.125    0.000 lightweight.py:476(step)\n     7335    0.077    0.000    0.079    0.000 lightweight.py:440(control_step)\n     7336    0.012    0.000    0.048    0.000 staleguard.py:88(segment_clearance)\n     7335    0.018    0.000    0.043    0.000 lightweight.py:289(select_action)\n    14672    0.004    0.000    0.037    0.000 {built-in method builtins.min}\n    22008    0.022    0.000    0.033    0.000 staleguard.py:90(<genexpr>)\n22119/7373    0.016    0.000    0.033    0.000 copy.py:128(deepcopy)\n     7335    0.023    0.000    0.025    0.000 lightweight.py:59(pid_step)\n     7373    0.006    0.000    0.020    0.000 copy.py:227(_deepcopy_dict)\n    14672    0.011    0.000    0.011    0.000 staleguard.py:22(segment_box_clearance)\n     7373    0.004    0.000    0.004    0.000 copy.py:243(_keep_alive)\n    14670    0.003    0.000    0.003    0.000 serialize.py:30(_numba_unpickle)\n    44238    0.003    0.000    0.003    0.000 {method 'get' of 'dict' objects}\n    44238    0.002    0.000    0.002    0.000 {built-in method builtins.id}\n       19    0.001    0.000    0.002    0.000 scenario.py:208(apply_maneuver)\n\n\n",
+  "evidence": "Development-only diagnostic; not policy flights"
+}

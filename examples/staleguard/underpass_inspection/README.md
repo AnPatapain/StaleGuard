@@ -580,3 +580,84 @@ be used to overwrite the preserved pilot validation after development edits.
 One simulation worker and one numerical thread are used. The shared memory guard
 retains a 2 GiB process limit and 2 GiB available-host-memory reserve. A mission lock
 prevents overlapping pilot CLI runs. Existing mission code and results are untouched.
+
+## Exploratory recovery-aware extension
+
+Two additional policies share an optimized approval-time predictor. It evaluates
+all original 19 delays through 1 s, predicting command safety, safe inspection
+completion, and the independent Eastward sideways recovery. It reuses nominal
+waiting/PID checkpoints, runs the unchanged numerical kernels in compiled loops,
+and stops a continuation only after whole-flight safety has irreversibly failed.
+It preserves every candidate outcome, including non-monotonic and censored profiles.
+No online forecast reads physical counterfactual labels or the future dispatch time.
+
+`staleguard_recovery_aware` triggers on the earlier of command expiration and the
+last safe sampled recovery-prefix point. `staleguard_dual_horizon` also considers
+safe-completion expiration. Both wait for the entire measured computation and
+50 Hz scheduling. Dispatch wins timer ties; equality at an available command
+expiration rejects. A late result never acts retroactively. Once the recovery
+prefix is missed, neither policy forces recovery merely because recovery is
+predicted unsafe; an expired command uses the existing fallback as best-effort.
+Completion-only abandonment requires remaining predicted recovery feasibility.
+All-safe sampled profiles have unobserved expiration; no 1 s rejection is invented.
+Sampled prefixes do not establish safety between prediction-grid points or beyond
+1 s. The unavailable-prediction rule remains fail-open.
+
+The two policies independently compute/time the same forecast per scenario;
+there is no cross-policy forecast cache. Full publication includes waiting, both
+continuations, completion monitoring, extraction and cleanup. Compilation warmup
+uses a discarded development snapshot and is recorded separately. Recovery is
+computed first, but its intermediate result is diagnostic, never prematurely used.
+
+The [development validation report](results/development/recovery_horizons/REPORT.md)
+and [technical appendix](results/development/recovery_horizons/TECHNICAL_APPENDIX.md)
+contain timing, physical prediction errors and limitations. The existing 9,100
+flights remain unchanged. The extension executes **only 2,600 new flights**, on
+exactly the same frozen 100 scenarios and 13 delays. A nine-policy merge is
+**exploratory**, because these scenarios have already been examined.
+
+From `examples/staleguard`, in the existing `scg` environment:
+
+```bash
+# Launch only the two new policies. Defaults use results/evaluation/calibration
+# and the completed results/evaluation/baseline_benchmark as the paired source.
+python underpass_inspection/baseline_benchmark/horizons.py \
+  --freeze underpass_inspection/results/evaluation/preparation/freeze_recovery_horizons_v1.json \
+  --out underpass_inspection/results/evaluation/recovery_horizons_benchmark_v1
+
+# Resume the identical run; uncommitted tail bytes are rolled back.
+python underpass_inspection/baseline_benchmark/horizons.py \
+  --freeze underpass_inspection/results/evaluation/preparation/freeze_recovery_horizons_v1.json \
+  --out underpass_inspection/results/evaluation/recovery_horizons_benchmark_v1 --resume
+
+# Validate completion and deterministic metrics regeneration (no simulation).
+python underpass_inspection/baseline_benchmark/horizons.py \
+  --out underpass_inspection/results/evaluation/recovery_horizons_benchmark_v1 --validate
+
+# Merge the unchanged 9,100 flights and completed 2,600 new flights; no simulation.
+python underpass_inspection/baseline_benchmark/horizons.py --merge \
+  --new-run underpass_inspection/results/evaluation/recovery_horizons_benchmark_v1 \
+  --out underpass_inspection/results/evaluation/nine_policy_recovery_horizons_v1
+
+# Regenerate the merged reports, metrics and CSVs without simulation.
+python underpass_inspection/baseline_benchmark/horizons.py \
+  --out underpass_inspection/results/evaluation/nine_policy_recovery_horizons_v1 --metrics-only
+
+# Validate the merged journal and its two source journals.
+python underpass_inspection/baseline_benchmark/horizons.py \
+  --out underpass_inspection/results/evaluation/nine_policy_recovery_horizons_v1 --validate
+```
+
+Each new output retains `run.json`, `executions.jsonl`, `metrics.json`,
+`per_scenario.csv`, `per_delay.csv`, `REPORT.md`, `TECHNICAL_APPENDIX.md` and
+validation results. Only representative new physical trajectories are saved.
+Metrics stream one scenario at a time. Paired differences and 95% bootstrap
+intervals resample whole scenarios, with full / <=1 s / >1 s analyses. Prediction
+quality is explicitly limited to matching physical labels: command/completion
+labels use archived No Recovery flights; recovery labels use realized matching
+starts, without inferring an independent recovery deadline from policy outcomes.
+
+Focused tests and development-only smoke commands are in the technical appendix.
+The prepared freeze verifies source/environment and the paired calibration/protocol;
+changing scientific code requires a new versioned freeze/output, not editing an
+existing result header. The two-policy held-out experiment is prepared, not run.

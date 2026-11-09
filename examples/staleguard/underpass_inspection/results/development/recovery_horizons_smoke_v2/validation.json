@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "flights": 18,
+  "full_horizon_1khz": true,
+  "common_approval_state": true,
+  "physical_reference_compatibility": true,
+  "prediction_readiness": true,
+  "no_duplicate_keys": true,
+  "metrics_regeneration_identical": true,
+  "identical_profiles_independent_computation": true,
+  "single_action_cancellation": true
+}

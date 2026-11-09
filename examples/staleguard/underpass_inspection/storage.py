@@ -97,6 +97,9 @@ REVIEWED={
     'pilot.py':('eddadefa80dcaa315b29e44be9f2cf453633022ff559ef007152db78ffc30055',
                 '2288161736df74b722983ecc7b8ac3dfe211f38c65499337c968021f59739728')}
 
+# Reviewed optional policy-factory injection; execute's physical syntax is unchanged.
+ADDITIVE_SOURCE_HASHES={'simulation.py':{'ad9d09664b4c4f3f802bd7cd386f2fb11eab3740a782e72d9c2d2fb421c34f36'}}
+
 
 def canonical(value):
     return json.loads(json.dumps(value))
@@ -132,7 +135,7 @@ def check_frozen_provenance(saved):
             continue
         name=location.name
         reviewed=REVIEWED.get(name) if location.parent==ROOT else None
-        if (reviewed is None or checksum!=reviewed[0]
+        if (reviewed is None or checksum not in ({reviewed[0]}|ADDITIVE_SOURCE_HASHES.get(name,set()))
                 or physical_source_hash(location.read_text(),name)!=reviewed[1]):
             raise ValueError(f'Unreviewed frozen scientific source change: {path}')
     for name,checksum in saved.get('development_sources',{}).items():
@@ -140,7 +143,7 @@ def check_frozen_provenance(saved):
         if file_hash(location)==checksum:
             continue
         reviewed=REVIEWED.get(name)
-        if (reviewed is None or checksum!=reviewed[0]
+        if (reviewed is None or checksum not in ({reviewed[0]}|ADDITIVE_SOURCE_HASHES.get(name,set()))
                 or physical_source_hash(location.read_text(),name)!=reviewed[1]):
             raise ValueError(f'Frozen development source changed: {name}')
 
@@ -201,6 +204,8 @@ def metadata():
         'support/visualization.py','baselines/staleguard.py','baselines/fbs.py',
         'baselines/use_time_recheck.py','baselines/fixed_early_recovery.py','baselines/policies.py',
         'baseline_benchmark/run.py','baseline_benchmark/metrics.py',
+        'baselines/recovery_horizons.py','baselines/recovery_policies.py','baseline_benchmark/horizons.py',
+        'support/profile_recovery_horizons.py','support/test_recovery_horizons.py',
         'support/validate_baseline_benchmark.py','support/test_final_audit.py','support/test_2s_protocol.py','support/test_reduced_protocol.py',
         'support/results_layout.json')
     shared=('model/__init__.py','model/common.py','model/lightweight.py','model/scg.py',

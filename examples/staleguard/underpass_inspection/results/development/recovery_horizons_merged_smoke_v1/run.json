@@ -1,0 +1,3286 @@
+{
+  "format": "underpass_recovery_horizons_v1",
+  "status": "complete",
+  "protocol": {
+    "stage": "exploratory_nine_policy_comparison",
+    "scenarios": [
+      {
+        "version": "ned_east_v2",
+        "seed": 1,
+        "speed": 0.6011821624700258,
+        "cruise_z": 1.35,
+        "ramp_s": 0.4,
+        "approval_s": 0.9,
+        "observation_s": 8.0,
+        "clearance_m": 0.05,
+        "deck_front": 1.3932478838158902,
+        "deck_back": 3.8932478838158904,
+        "deck_half_width": 0.55,
+        "deck_bottom": 1.15,
+        "deck_top": 1.55,
+        "pier_x": 3.2037845024235194,
+        "pier_y": 0.0,
+        "pier_half_x": 0.12,
+        "pier_half_y": 0.15,
+        "dive_drop": 0.6,
+        "dive_s": 1.3,
+        "swerve_start_s": 2.6,
+        "swerve_s": 1.2,
+        "swerve_y": 0.85,
+        "climb_rise": 0.7,
+        "climb_s": 1.2,
+        "sideways_y": 1.0,
+        "sideways_s": 1.3,
+        "inspection_lower": [
+          1.4432478838158902,
+          -0.18,
+          0.65
+        ],
+        "inspection_upper": [
+          1.7432478838158902,
+          0.18,
+          0.85
+        ],
+        "inspection_dwell_s": 0.18
+      },
+      {
+        "version": "ned_east_v2",
+        "seed": 3,
+        "speed": 0.5585649167143625,
+        "cruise_z": 1.35,
+        "ramp_s": 0.4,
+        "approval_s": 0.74,
+        "observation_s": 8.0,
+        "clearance_m": 0.05,
+        "deck_front": 1.590382339561919,
+        "deck_back": 4.090382339561919,
+        "deck_half_width": 0.55,
+        "deck_bottom": 1.15,
+        "deck_top": 1.55,
+        "pier_x": 2.873945832457931,
+        "pier_y": 0.0,
+        "pier_half_x": 0.12,
+        "pier_half_y": 0.15,
+        "dive_drop": 0.6,
+        "dive_s": 1.3,
+        "swerve_start_s": 2.6,
+        "swerve_s": 1.2,
+        "swerve_y": 0.85,
+        "climb_rise": 0.7,
+        "climb_s": 1.2,
+        "sideways_y": 1.0,
+        "sideways_s": 1.3,
+        "inspection_lower": [
+          1.640382339561919,
+          -0.18,
+          0.65
+        ],
+        "inspection_upper": [
+          1.940382339561919,
+          0.18,
+          0.85
+        ],
+        "inspection_dwell_s": 0.18
+      },
+      {
+        "version": "ned_east_v2",
+        "seed": 6,
+        "speed": 0.6038164351471944,
+        "cruise_z": 1.35,
+        "ramp_s": 0.4,
+        "approval_s": 0.76,
+        "observation_s": 8.0,
+        "clearance_m": 0.05,
+        "deck_front": 1.4607201719386136,
+        "deck_back": 3.960720171938614,
+        "deck_half_width": 0.55,
+        "deck_bottom": 1.15,
+        "deck_top": 1.55,
+        "pier_x": 2.687047089029094,
+        "pier_y": 0.0,
+        "pier_half_x": 0.12,
+        "pier_half_y": 0.15,
+        "dive_drop": 0.6,
+        "dive_s": 1.3,
+        "swerve_start_s": 2.6,
+        "swerve_s": 1.2,
+        "swerve_y": 0.85,
+        "climb_rise": 0.7,
+        "climb_s": 1.2,
+        "sideways_y": 1.0,
+        "sideways_s": 1.3,
+        "inspection_lower": [
+          1.5107201719386136,
+          -0.18,
+          0.65
+        ],
+        "inspection_upper": [
+          1.8107201719386137,
+          0.18,
+          0.85
+        ],
+        "inspection_dwell_s": 0.18
+      }
+    ],
+    "dataset_sha256": "d02c0076e4b7f0d55b001a55437477c658a972f5344e9d70ab83b13bc466446c",
+    "snapshot_sha256": {
+      "1": "96d7ffa802b2b8e0124a3686c0d9b7e07a372dd64991ba968b6134cd876cc66a",
+      "3": "d3aa776389c3d65d563eea8c86a99a251333aeff3431a5050748c6de791ea433",
+      "6": "0bafa7b1115b25114d764588e09a683809e20e8a7c3d4b8f15325e89c01609fe"
+    },
+    "calibration_statistics": {
+      "attempted": 20,
+      "accepted": 12,
+      "rejected": 8
+    },
+    "ground_truth_run_sha256": "66828c7090a892c23f06f179942775735429cf0f12fb1ce7edb811d807228ccc",
+    "ground_truth_journal_sha256": "573ff5759f16c9620db83909e83f0b45bd5e25ced6631162582bb68f1b00731c",
+    "policies": [
+      "no_recovery",
+      "always_recover",
+      "fbs",
+      "use_time_recheck",
+      "staleguard",
+      "staleguard_early_recovery",
+      "fixed_early_recovery",
+      "staleguard_recovery_aware",
+      "staleguard_dual_horizon"
+    ],
+    "delays": [
+      0.0,
+      0.2,
+      1.0
+    ],
+    "ttl_grid_s": [
+      0.0,
+      0.02,
+      0.04,
+      0.06,
+      0.08,
+      0.1,
+      0.12,
+      0.14,
+      0.16,
+      0.18,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7,
+      0.8,
+      0.9,
+      1.0
+    ],
+    "control_hz": 50,
+    "physics_hz": 1000,
+    "model_hz": 100,
+    "observation_s": "unchanged per frozen scenario",
+    "primary_recovery": "Existing Eastward sideways maneuver only; no climb selection",
+    "fixed_early_ttl_s": 0.2,
+    "fbs": {
+      "alpha": 0.1,
+      "epsilon": 1e-12,
+      "max_ttl_steps": 210,
+      "feature": "required clearance minus minimum actual 3D body clearance; EMA through approval inclusive"
+    },
+    "readiness": "Atomic profiles/plans, full measured warmed computation; startup compile separate; unavailable predictions fail open",
+    "ordering": "Approval first; readiness; dispatch; pending timers; maneuver start; physical ticks. Dispatch wins timer ties.",
+    "use_time_recheck": "One immediate-command rollout from actual dispatch state; act at dispatch + floor(runtime*50)+1",
+    "representative_seeds": [
+      1
+    ],
+    "representative_delay_s": 0.2,
+    "unknown_delay": "Only the physical driver knows scheduled dispatch. Policies receive the event when it occurs.",
+    "exploratory": true,
+    "analysis_subsets": {
+      "full": [
+        0.0,
+        2.0
+      ],
+      "within_prediction_horizon": [
+        0.0,
+        1.0
+      ],
+      "beyond_prediction_horizon": [
+        1.2,
+        2.0
+      ]
+    },
+    "uncertainty": {
+      "unit": "scenario",
+      "method": "paired percentile bootstrap",
+      "confidence": 0.95,
+      "resamples": 2000,
+      "seed": 2027,
+      "complete_scenarios_only": true
+    },
+    "baseline_run_sha256": "540734195023ab62025b620a65f6831f4e557c74c1e580f7effeffad030515b6",
+    "baseline_journal_sha256": "4a835b5b773c29e874138b16db8baebfab6993bb188b39efb47765cd75e936fd",
+    "independent_forecasts": "One full timed computation per (policy, approval snapshot); no cross-policy result caching",
+    "horizon_rule": "First-invalid command/completion cutoff; recovery trigger is the last safe grid point before first recovery failure; all-safe profiles are censored",
+    "late_rule": "Only recover proactively within verified recovery prefix unless command safety has expired; expired-command fallback is best-effort",
+    "dispatch_rule": "Dispatch wins timer ties. RecoveryAware preserves safety gate; Dual adds completion rejection only while recovery is verified"
+  },
+  "provenance": {
+    "python": "3.10.21 (main, Aug 27 2026, 14:42:07) [GCC 14.3.0]",
+    "numpy": "2.2.6",
+    "platform": "Linux-6.8.0-147-generic-x86_64-with-glibc2.39",
+    "packages": {
+      "pybullet": "3.2.7",
+      "numpy": "2.2.6",
+      "scipy": "1.15.3",
+      "gymnasium": "0.28.1",
+      "numba": "0.68.0"
+    },
+    "simulation_workers": 1,
+    "numerical_threads": 1,
+    "control_hz": 50,
+    "physics_hz": 1000,
+    "model_hz": 100,
+    "source_sha256": {
+      "__init__.py": "13eb5d3361103ea6d5b7a24f30438daf7e5605f5b911f0dfb623f942d5dcf6e1",
+      "scenario.py": "1eaff61877dd499a96249e58ed794e7e06b2e294d7d13a1cc5108b2c44b35073",
+      "simulation.py": "574081a6209799c45679c724ec7269220703dc6bbfd747d002af8c58f468e1ad",
+      "calibration.py": "5251c33042ab7d523730d06da702f1a20dc751ab8056456ff12ed7305934f7de",
+      "pilot.py": "1e7de7011b28ff2256fd9f0b6820d6cfe36c9238608e763c4c0d9994320017b3",
+      "storage.py": "6c2dd37e1e06df0dd71f6e95c83ef7e23680b83d9eef1b46d665375323979419",
+      "support/visualization.py": "33c2aee29c3021b68c81b789d8e04f58297f4880b02f02ebff42c33b4e19aaf8",
+      "baselines/staleguard.py": "d9a101ae4093859ccd5d6c3889edbf3f00a77a9de68abe1c963bd4d00513c491",
+      "baselines/fbs.py": "c7354fc8d9c2f3c524ca320765e44c56994b23641755af398c375213233808f6",
+      "baselines/use_time_recheck.py": "0f577ce93d59f1cbe2dd3acf85428da38c03605e7893341becf0eb1993d8873e",
+      "baselines/fixed_early_recovery.py": "526eea923ee9083b3840216b2afb9c486d3224337c9e4e34ed206ea4a32e218a",
+      "baselines/policies.py": "7d030802f11bc10a7ca48d84a525713626b55091ec9efb04fa8c340bfa9e3808",
+      "baseline_benchmark/run.py": "4affa3224be6274f79ebc226105c356bdf8f180424332302230ff0e0e495ed32",
+      "baseline_benchmark/metrics.py": "617b29104b5c62d8277647b82e7e5b7f686b16e5b23249ad037a47ee704a371c",
+      "baselines/recovery_horizons.py": "b71c7a99dc21d30befc4e1b4d50afb6dfcb5c3b54fe098e1a116e04decdee48c",
+      "baselines/recovery_policies.py": "69201a452ff0f719a9f3867b1395f886df6978a46ea93774e0b02564da5855a4",
+      "baseline_benchmark/horizons.py": "28dd281591639a9501dbbd84bc5f88f6b551f2f1681a32a7f74a0e9782b44b23",
+      "support/profile_recovery_horizons.py": "d91c5ea3c822b872ea70cfa5db042d2428335ec7248bf40d1b4b90cc44262d67",
+      "support/test_recovery_horizons.py": "ed6fe2373e03826837b4cd4b7836c02ff7c28eb957348bcd3b6413150e9232a2",
+      "support/validate_baseline_benchmark.py": "63c8b03191113b55a654ef152daff15b1b31aacf2ea14bb1b33e4d6938c052cf",
+      "support/test_final_audit.py": "fc8fd67f25f5f4b2c70279a5dae8869a86595c9c307fbad9c02dfc963be4301a",
+      "support/test_2s_protocol.py": "a914bf067e405b9180a1d270668cffcc8c2e1aad077584aa83d0c4a398a7de03",
+      "support/test_reduced_protocol.py": "ef871a8571b6a3d647b84f7c13af06f509be81836944d0d9039a1343c04ab808",
+      "support/results_layout.json": "386dabc2421240e02216b66b4d1cbf53a766ea8c1f93e2f89f9ce8b614c2c4a2"
+    },
+    "shared_sha256": {
+      "model/__init__.py": "05e7dc53563467241281d3057b4f1f45f0e90d5c547726d5a842fbb7cd272ab0",
+      "model/common.py": "8e7d0d615e7977d443a8e22a096849633c2512634e3ff8c123218e533f1cd468",
+      "model/lightweight.py": "4f0b0a22d09eda8750adc903af9dddec785a1cec31f3304a86643596f80a6aac",
+      "model/scg.py": "8a1539ac1dbadac1ccaac95e0cbb16d1c3dcb28f9ca40a75a9e1870bcb999777",
+      "physics_monitor.py": "d7145e53736259b688d321449f6ce1f5b72b3cde4e07620b6c183d996d29cb91"
+    },
+    "environment_sha256": {
+      "safe_control_gym/controllers/pid/pid.py": "a9de84b6a20554f808f3d107bb2f8aafba59b6afd411813ff53367ce20e3a2cf",
+      "safe_control_gym/envs/gym_pybullet_drones/quadrotor.py": "3c5835baa64c31b99fd56efa8f0d81dc88693efea292e6c13c0fc0bac8447110",
+      "safe_control_gym/envs/gym_pybullet_drones/base_aviary.py": "c58673187cac18162c542f72a97525e0de059f4d0e426d1936d6ef00601af4c1",
+      "safe_control_gym/envs/gym_pybullet_drones/assets/cf2x.urdf": "80d69a1ee55913d074bf62cc1a97d2674641df3187eb360471ce6d6d1ef78142"
+    }
+  },
+  "predictions": {
+    "1": {
+      "results": [
+        {
+          "delay_s": 0.0,
+          "safe": true,
+          "min_clearance_m": 0.33270914080537745
+        },
+        {
+          "delay_s": 0.02,
+          "safe": true,
+          "min_clearance_m": 0.33283931064421096
+        },
+        {
+          "delay_s": 0.04,
+          "safe": true,
+          "min_clearance_m": 0.3328518736506107
+        },
+        {
+          "delay_s": 0.06,
+          "safe": true,
+          "min_clearance_m": 0.33312515351520694
+        },
+        {
+          "delay_s": 0.08,
+          "safe": true,
+          "min_clearance_m": 0.33314150971795947
+        },
+        {
+          "delay_s": 0.1,
+          "safe": true,
+          "min_clearance_m": 0.3324220077454482
+        },
+        {
+          "delay_s": 0.12,
+          "safe": true,
+          "min_clearance_m": 0.33270969252853483
+        },
+        {
+          "delay_s": 0.14,
+          "safe": true,
+          "min_clearance_m": 0.3325739484820301
+        },
+        {
+          "delay_s": 0.16,
+          "safe": true,
+          "min_clearance_m": 0.33270156629217734
+        },
+        {
+          "delay_s": 0.18,
+          "safe": true,
+          "min_clearance_m": 0.33291467060783925
+        },
+        {
+          "delay_s": 0.2,
+          "safe": true,
+          "min_clearance_m": 0.3329494548910343
+        },
+        {
+          "delay_s": 0.3,
+          "safe": true,
+          "min_clearance_m": 0.3015336117381905
+        },
+        {
+          "delay_s": 0.4,
+          "safe": true,
+          "min_clearance_m": 0.25993659209035685
+        },
+        {
+          "delay_s": 0.5,
+          "safe": true,
+          "min_clearance_m": 0.21397358417731122
+        },
+        {
+          "delay_s": 0.6,
+          "safe": true,
+          "min_clearance_m": 0.1641715437470273
+        },
+        {
+          "delay_s": 0.7,
+          "safe": true,
+          "min_clearance_m": 0.11103751975259558
+        },
+        {
+          "delay_s": 0.8,
+          "safe": true,
+          "min_clearance_m": 0.06091034349651783
+        },
+        {
+          "delay_s": 0.9,
+          "safe": false,
+          "min_clearance_m": 0.011573938424622565
+        },
+        {
+          "delay_s": 1.0,
+          "safe": false,
+          "min_clearance_m": -0.042138743515010485
+        }
+      ],
+      "expiry_steps": 45,
+      "grid_s": [
+        0.0,
+        0.02,
+        0.04,
+        0.06,
+        0.08,
+        0.1,
+        0.12,
+        0.14,
+        0.16,
+        0.18,
+        0.2,
+        0.3,
+        0.4,
+        0.5,
+        0.6,
+        0.7,
+        0.8,
+        0.9,
+        1.0
+      ],
+      "right_censored": false,
+      "non_monotonic": false,
+      "computation_s": 0.14161511103156954,
+      "wall_started_unix_s": 1794090311.7861264,
+      "wall_finished_unix_s": 1794090311.9277482
+    },
+    "3": {
+      "results": [
+        {
+          "delay_s": 0.0,
+          "safe": true,
+          "min_clearance_m": 0.33332652247266753
+        },
+        {
+          "delay_s": 0.02,
+          "safe": true,
+          "min_clearance_m": 0.33409654357224866
+        },
+        {
+          "delay_s": 0.04,
+          "safe": true,
+          "min_clearance_m": 0.33350568200267666
+        },
+        {
+          "delay_s": 0.06,
+          "safe": true,
+          "min_clearance_m": 0.33323924985644765
+        },
+        {
+          "delay_s": 0.08,
+          "safe": true,
+          "min_clearance_m": 0.33317008827043443
+        },
+        {
+          "delay_s": 0.1,
+          "safe": true,
+          "min_clearance_m": 0.3330440897137151
+        },
+        {
+          "delay_s": 0.12,
+          "safe": true,
+          "min_clearance_m": 0.33313050560901253
+        },
+        {
+          "delay_s": 0.14,
+          "safe": true,
+          "min_clearance_m": 0.33351240243035246
+        },
+        {
+          "delay_s": 0.16,
+          "safe": true,
+          "min_clearance_m": 0.33297253114567466
+        },
+        {
+          "delay_s": 0.18,
+          "safe": true,
+          "min_clearance_m": 0.3327934510983957
+        },
+        {
+          "delay_s": 0.2,
+          "safe": true,
+          "min_clearance_m": 0.33311613043231064
+        },
+        {
+          "delay_s": 0.3,
+          "safe": true,
+          "min_clearance_m": 0.3329341239838352
+        },
+        {
+          "delay_s": 0.4,
+          "safe": true,
+          "min_clearance_m": 0.33322979217882404
+        },
+        {
+          "delay_s": 0.5,
+          "safe": true,
+          "min_clearance_m": 0.3329825999767663
+        },
+        {
+          "delay_s": 0.6,
+          "safe": true,
+          "min_clearance_m": 0.28760369043832745
+        },
+        {
+          "delay_s": 0.7,
+          "safe": true,
+          "min_clearance_m": 0.23312932149245863
+        },
+        {
+          "delay_s": 0.8,
+          "safe": true,
+          "min_clearance_m": 0.1804989071529403
+        },
+        {
+          "delay_s": 0.9,
+          "safe": true,
+          "min_clearance_m": 0.12334558956023901
+        },
+        {
+          "delay_s": 1.0,
+          "safe": true,
+          "min_clearance_m": 0.07647088712477622
+        }
+      ],
+      "expiry_steps": null,
+      "grid_s": [
+        0.0,
+        0.02,
+        0.04,
+        0.06,
+        0.08,
+        0.1,
+        0.12,
+        0.14,
+        0.16,
+        0.18,
+        0.2,
+        0.3,
+        0.4,
+        0.5,
+        0.6,
+        0.7,
+        0.8,
+        0.9,
+        1.0
+      ],
+      "right_censored": true,
+      "non_monotonic": false,
+      "computation_s": 0.1628996140207164,
+      "wall_started_unix_s": 1794090744.9065943,
+      "wall_finished_unix_s": 1794090745.0695004
+    },
+    "6": {
+      "results": [
+        {
+          "delay_s": 0.0,
+          "safe": true,
+          "min_clearance_m": 0.27807296665979064
+        },
+        {
+          "delay_s": 0.02,
+          "safe": true,
+          "min_clearance_m": 0.25777755954630105
+        },
+        {
+          "delay_s": 0.04,
+          "safe": true,
+          "min_clearance_m": 0.25160088083806875
+        },
+        {
+          "delay_s": 0.06,
+          "safe": true,
+          "min_clearance_m": 0.2301805996320322
+        },
+        {
+          "delay_s": 0.08,
+          "safe": true,
+          "min_clearance_m": 0.22363735873616514
+        },
+        {
+          "delay_s": 0.1,
+          "safe": true,
+          "min_clearance_m": 0.1998232636290485
+        },
+        {
+          "delay_s": 0.12,
+          "safe": true,
+          "min_clearance_m": 0.19572635627168788
+        },
+        {
+          "delay_s": 0.14,
+          "safe": true,
+          "min_clearance_m": 0.17426992955122372
+        },
+        {
+          "delay_s": 0.16,
+          "safe": true,
+          "min_clearance_m": 0.16369934694122218
+        },
+        {
+          "delay_s": 0.18,
+          "safe": true,
+          "min_clearance_m": 0.14933600111057838
+        },
+        {
+          "delay_s": 0.2,
+          "safe": true,
+          "min_clearance_m": 0.1300333524971286
+        },
+        {
+          "delay_s": 0.3,
+          "safe": true,
+          "min_clearance_m": 0.08358310475174478
+        },
+        {
+          "delay_s": 0.4,
+          "safe": false,
+          "min_clearance_m": 0.020580181212134785
+        },
+        {
+          "delay_s": 0.5,
+          "safe": false,
+          "min_clearance_m": -0.029206253349374683
+        },
+        {
+          "delay_s": 0.6,
+          "safe": false,
+          "min_clearance_m": -0.06820767212403338
+        },
+        {
+          "delay_s": 0.7,
+          "safe": false,
+          "min_clearance_m": -0.10909402884079136
+        },
+        {
+          "delay_s": 0.8,
+          "safe": false,
+          "min_clearance_m": -0.1444758832511071
+        },
+        {
+          "delay_s": 0.9,
+          "safe": false,
+          "min_clearance_m": -0.17235725261859725
+        },
+        {
+          "delay_s": 1.0,
+          "safe": false,
+          "min_clearance_m": -0.1812882533606564
+        }
+      ],
+      "expiry_steps": 20,
+      "grid_s": [
+        0.0,
+        0.02,
+        0.04,
+        0.06,
+        0.08,
+        0.1,
+        0.12,
+        0.14,
+        0.16,
+        0.18,
+        0.2,
+        0.3,
+        0.4,
+        0.5,
+        0.6,
+        0.7,
+        0.8,
+        0.9,
+        1.0
+      ],
+      "right_censored": false,
+      "non_monotonic": false,
+      "computation_s": 0.14122077001957223,
+      "wall_started_unix_s": 1794090944.3380451,
+      "wall_finished_unix_s": 1794090944.4792752
+    }
+  },
+  "predictions_by_policy": {
+    "staleguard_recovery_aware": {
+      "1": {
+        "results": [
+          {
+            "delay_s": 0.0,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.02,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.04,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.06,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.08,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.1,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.12,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.14,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.16,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.18,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.2,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.3,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.4,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.5,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.6,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.7,
+            "recovery_safe": false,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.8,
+            "recovery_safe": false,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.9,
+            "recovery_safe": false,
+            "safe": false,
+            "command_safe": false,
+            "command_complete": false
+          },
+          {
+            "delay_s": 1.0,
+            "recovery_safe": false,
+            "safe": false,
+            "command_safe": false,
+            "command_complete": false
+          }
+        ],
+        "boundaries": {
+          "command": {
+            "first_invalid_steps": 45,
+            "last_safe_prefix_steps": 40,
+            "last_tested_safe_steps": 40,
+            "right_censored": false,
+            "non_monotonic": false
+          },
+          "completion": {
+            "first_invalid_steps": 45,
+            "last_safe_prefix_steps": 40,
+            "last_tested_safe_steps": 40,
+            "right_censored": false,
+            "non_monotonic": false
+          },
+          "recovery": {
+            "first_invalid_steps": 35,
+            "last_safe_prefix_steps": 30,
+            "last_tested_safe_steps": 30,
+            "right_censored": false,
+            "non_monotonic": false
+          }
+        },
+        "grid_s": [
+          0.0,
+          0.02,
+          0.04,
+          0.06,
+          0.08,
+          0.1,
+          0.12,
+          0.14,
+          0.16,
+          0.18,
+          0.2,
+          0.3,
+          0.4,
+          0.5,
+          0.6,
+          0.7,
+          0.8,
+          0.9,
+          1.0
+        ],
+        "expiry_steps": 45,
+        "non_monotonic": false,
+        "any_profile_non_monotonic": false,
+        "right_censored": false,
+        "backend": "compiled",
+        "early_exit": true,
+        "broadphase": true,
+        "rollouts": [
+          {
+            "mode": "sideways",
+            "delay_s": 0.0,
+            "control_steps": 400
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.02,
+            "control_steps": 399
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.04,
+            "control_steps": 398
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.06,
+            "control_steps": 397
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.08,
+            "control_steps": 396
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.1,
+            "control_steps": 395
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.12,
+            "control_steps": 394
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.14,
+            "control_steps": 393
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.16,
+            "control_steps": 392
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.18,
+            "control_steps": 391
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.2,
+            "control_steps": 390
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.3,
+            "control_steps": 385
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.4,
+            "control_steps": 380
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.5,
+            "control_steps": 375
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.6,
+            "control_steps": 370
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.7,
+            "control_steps": 37
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.8,
+            "control_steps": 32
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.9,
+            "control_steps": 27
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 1.0,
+            "control_steps": 22
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.0,
+            "control_steps": 400
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.02,
+            "control_steps": 399
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.04,
+            "control_steps": 398
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.06,
+            "control_steps": 397
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.08,
+            "control_steps": 396
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.1,
+            "control_steps": 395
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.12,
+            "control_steps": 394
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.14,
+            "control_steps": 393
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.16,
+            "control_steps": 392
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.18,
+            "control_steps": 391
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.2,
+            "control_steps": 390
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.3,
+            "control_steps": 385
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.4,
+            "control_steps": 380
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.5,
+            "control_steps": 375
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.6,
+            "control_steps": 370
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.7,
+            "control_steps": 365
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.8,
+            "control_steps": 360
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.9,
+            "control_steps": 27
+          },
+          {
+            "mode": "dive",
+            "delay_s": 1.0,
+            "control_steps": 22
+          }
+        ],
+        "recovery_profile_finished_s": 0.0716270370176062,
+        "completion_model": "Continuous residence on piecewise-linear 100 Hz RK4 segments; same inspection box/dwell/horizon",
+        "publication": "Atomic: all profiles and boundaries ready together; partial recovery results are not consumed",
+        "policy_plans": {
+          "staleguard_recovery_aware": {
+            "trigger_steps": 30,
+            "reasons": [
+              "recovery_prefix_end"
+            ],
+            "recovery_verified_through_steps": 30
+          },
+          "staleguard_dual_horizon": {
+            "trigger_steps": 30,
+            "reasons": [
+              "recovery_prefix_end"
+            ],
+            "recovery_verified_through_steps": 30
+          }
+        },
+        "computation_s": 0.14738325495272875,
+        "wall_started_unix_s": 1794170359.0627472,
+        "wall_finished_unix_s": 1794170359.210132
+      },
+      "3": {
+        "results": [
+          {
+            "delay_s": 0.0,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.02,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.04,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.06,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.08,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.1,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.12,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.14,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.16,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.18,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.2,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.3,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.4,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.5,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.6,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.7,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.8,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.9,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 1.0,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          }
+        ],
+        "boundaries": {
+          "command": {
+            "first_invalid_steps": null,
+            "last_safe_prefix_steps": null,
+            "last_tested_safe_steps": 50,
+            "right_censored": true,
+            "non_monotonic": false
+          },
+          "completion": {
+            "first_invalid_steps": null,
+            "last_safe_prefix_steps": null,
+            "last_tested_safe_steps": 50,
+            "right_censored": true,
+            "non_monotonic": false
+          },
+          "recovery": {
+            "first_invalid_steps": null,
+            "last_safe_prefix_steps": null,
+            "last_tested_safe_steps": 50,
+            "right_censored": true,
+            "non_monotonic": false
+          }
+        },
+        "grid_s": [
+          0.0,
+          0.02,
+          0.04,
+          0.06,
+          0.08,
+          0.1,
+          0.12,
+          0.14,
+          0.16,
+          0.18,
+          0.2,
+          0.3,
+          0.4,
+          0.5,
+          0.6,
+          0.7,
+          0.8,
+          0.9,
+          1.0
+        ],
+        "expiry_steps": null,
+        "non_monotonic": false,
+        "any_profile_non_monotonic": false,
+        "right_censored": true,
+        "backend": "compiled",
+        "early_exit": true,
+        "broadphase": true,
+        "rollouts": [
+          {
+            "mode": "sideways",
+            "delay_s": 0.0,
+            "control_steps": 400
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.02,
+            "control_steps": 399
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.04,
+            "control_steps": 398
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.06,
+            "control_steps": 397
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.08,
+            "control_steps": 396
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.1,
+            "control_steps": 395
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.12,
+            "control_steps": 394
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.14,
+            "control_steps": 393
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.16,
+            "control_steps": 392
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.18,
+            "control_steps": 391
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.2,
+            "control_steps": 390
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.3,
+            "control_steps": 385
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.4,
+            "control_steps": 380
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.5,
+            "control_steps": 375
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.6,
+            "control_steps": 370
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.7,
+            "control_steps": 365
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.8,
+            "control_steps": 360
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.9,
+            "control_steps": 355
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 1.0,
+            "control_steps": 350
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.0,
+            "control_steps": 400
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.02,
+            "control_steps": 399
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.04,
+            "control_steps": 398
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.06,
+            "control_steps": 397
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.08,
+            "control_steps": 396
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.1,
+            "control_steps": 395
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.12,
+            "control_steps": 394
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.14,
+            "control_steps": 393
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.16,
+            "control_steps": 392
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.18,
+            "control_steps": 391
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.2,
+            "control_steps": 390
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.3,
+            "control_steps": 385
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.4,
+            "control_steps": 380
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.5,
+            "control_steps": 375
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.6,
+            "control_steps": 370
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.7,
+            "control_steps": 365
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.8,
+            "control_steps": 360
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.9,
+            "control_steps": 355
+          },
+          {
+            "mode": "dive",
+            "delay_s": 1.0,
+            "control_steps": 350
+          }
+        ],
+        "recovery_profile_finished_s": 0.0859032419975847,
+        "completion_model": "Continuous residence on piecewise-linear 100 Hz RK4 segments; same inspection box/dwell/horizon",
+        "publication": "Atomic: all profiles and boundaries ready together; partial recovery results are not consumed",
+        "policy_plans": {
+          "staleguard_recovery_aware": {
+            "trigger_steps": null,
+            "reasons": [],
+            "recovery_verified_through_steps": 50
+          },
+          "staleguard_dual_horizon": {
+            "trigger_steps": null,
+            "reasons": [],
+            "recovery_verified_through_steps": 50
+          }
+        },
+        "computation_s": 0.1720479050418362,
+        "wall_started_unix_s": 1794170387.1293952,
+        "wall_finished_unix_s": 1794170387.301445
+      },
+      "6": {
+        "results": [
+          {
+            "delay_s": 0.0,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.02,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.04,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.06,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.08,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.1,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.12,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.14,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.16,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.18,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.2,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.3,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.4,
+            "recovery_safe": true,
+            "safe": false,
+            "command_safe": false,
+            "command_complete": false
+          },
+          {
+            "delay_s": 0.5,
+            "recovery_safe": true,
+            "safe": false,
+            "command_safe": false,
+            "command_complete": false
+          },
+          {
+            "delay_s": 0.6,
+            "recovery_safe": true,
+            "safe": false,
+            "command_safe": false,
+            "command_complete": false
+          },
+          {
+            "delay_s": 0.7,
+            "recovery_safe": true,
+            "safe": false,
+            "command_safe": false,
+            "command_complete": false
+          },
+          {
+            "delay_s": 0.8,
+            "recovery_safe": true,
+            "safe": false,
+            "command_safe": false,
+            "command_complete": false
+          },
+          {
+            "delay_s": 0.9,
+            "recovery_safe": false,
+            "safe": false,
+            "command_safe": false,
+            "command_complete": false
+          },
+          {
+            "delay_s": 1.0,
+            "recovery_safe": false,
+            "safe": false,
+            "command_safe": false,
+            "command_complete": false
+          }
+        ],
+        "boundaries": {
+          "command": {
+            "first_invalid_steps": 20,
+            "last_safe_prefix_steps": 15,
+            "last_tested_safe_steps": 15,
+            "right_censored": false,
+            "non_monotonic": false
+          },
+          "completion": {
+            "first_invalid_steps": 20,
+            "last_safe_prefix_steps": 15,
+            "last_tested_safe_steps": 15,
+            "right_censored": false,
+            "non_monotonic": false
+          },
+          "recovery": {
+            "first_invalid_steps": 45,
+            "last_safe_prefix_steps": 40,
+            "last_tested_safe_steps": 40,
+            "right_censored": false,
+            "non_monotonic": false
+          }
+        },
+        "grid_s": [
+          0.0,
+          0.02,
+          0.04,
+          0.06,
+          0.08,
+          0.1,
+          0.12,
+          0.14,
+          0.16,
+          0.18,
+          0.2,
+          0.3,
+          0.4,
+          0.5,
+          0.6,
+          0.7,
+          0.8,
+          0.9,
+          1.0
+        ],
+        "expiry_steps": 20,
+        "non_monotonic": false,
+        "any_profile_non_monotonic": false,
+        "right_censored": false,
+        "backend": "compiled",
+        "early_exit": true,
+        "broadphase": true,
+        "rollouts": [
+          {
+            "mode": "sideways",
+            "delay_s": 0.0,
+            "control_steps": 400
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.02,
+            "control_steps": 399
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.04,
+            "control_steps": 398
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.06,
+            "control_steps": 397
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.08,
+            "control_steps": 396
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.1,
+            "control_steps": 395
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.12,
+            "control_steps": 394
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.14,
+            "control_steps": 393
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.16,
+            "control_steps": 392
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.18,
+            "control_steps": 391
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.2,
+            "control_steps": 390
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.3,
+            "control_steps": 385
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.4,
+            "control_steps": 380
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.5,
+            "control_steps": 375
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.6,
+            "control_steps": 370
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.7,
+            "control_steps": 365
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.8,
+            "control_steps": 360
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.9,
+            "control_steps": 39
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 1.0,
+            "control_steps": 34
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.0,
+            "control_steps": 400
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.02,
+            "control_steps": 399
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.04,
+            "control_steps": 398
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.06,
+            "control_steps": 397
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.08,
+            "control_steps": 396
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.1,
+            "control_steps": 395
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.12,
+            "control_steps": 394
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.14,
+            "control_steps": 393
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.16,
+            "control_steps": 392
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.18,
+            "control_steps": 391
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.2,
+            "control_steps": 390
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.3,
+            "control_steps": 385
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.4,
+            "control_steps": 155
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.5,
+            "control_steps": 150
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.6,
+            "control_steps": 146
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.7,
+            "control_steps": 140
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.8,
+            "control_steps": 136
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.9,
+            "control_steps": 130
+          },
+          {
+            "mode": "dive",
+            "delay_s": 1.0,
+            "control_steps": 126
+          }
+        ],
+        "recovery_profile_finished_s": 0.07677137001883239,
+        "completion_model": "Continuous residence on piecewise-linear 100 Hz RK4 segments; same inspection box/dwell/horizon",
+        "publication": "Atomic: all profiles and boundaries ready together; partial recovery results are not consumed",
+        "policy_plans": {
+          "staleguard_recovery_aware": {
+            "trigger_steps": 20,
+            "reasons": [
+              "command_expiry"
+            ],
+            "recovery_verified_through_steps": 40
+          },
+          "staleguard_dual_horizon": {
+            "trigger_steps": 20,
+            "reasons": [
+              "command_expiry",
+              "completion_expiry"
+            ],
+            "recovery_verified_through_steps": 40
+          }
+        },
+        "computation_s": 0.14129599300213158,
+        "wall_started_unix_s": 1794170390.7464898,
+        "wall_finished_unix_s": 1794170390.8877885
+      }
+    },
+    "staleguard_dual_horizon": {
+      "1": {
+        "results": [
+          {
+            "delay_s": 0.0,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.02,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.04,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.06,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.08,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.1,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.12,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.14,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.16,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.18,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.2,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.3,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.4,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.5,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.6,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.7,
+            "recovery_safe": false,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.8,
+            "recovery_safe": false,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.9,
+            "recovery_safe": false,
+            "safe": false,
+            "command_safe": false,
+            "command_complete": false
+          },
+          {
+            "delay_s": 1.0,
+            "recovery_safe": false,
+            "safe": false,
+            "command_safe": false,
+            "command_complete": false
+          }
+        ],
+        "boundaries": {
+          "command": {
+            "first_invalid_steps": 45,
+            "last_safe_prefix_steps": 40,
+            "last_tested_safe_steps": 40,
+            "right_censored": false,
+            "non_monotonic": false
+          },
+          "completion": {
+            "first_invalid_steps": 45,
+            "last_safe_prefix_steps": 40,
+            "last_tested_safe_steps": 40,
+            "right_censored": false,
+            "non_monotonic": false
+          },
+          "recovery": {
+            "first_invalid_steps": 35,
+            "last_safe_prefix_steps": 30,
+            "last_tested_safe_steps": 30,
+            "right_censored": false,
+            "non_monotonic": false
+          }
+        },
+        "grid_s": [
+          0.0,
+          0.02,
+          0.04,
+          0.06,
+          0.08,
+          0.1,
+          0.12,
+          0.14,
+          0.16,
+          0.18,
+          0.2,
+          0.3,
+          0.4,
+          0.5,
+          0.6,
+          0.7,
+          0.8,
+          0.9,
+          1.0
+        ],
+        "expiry_steps": 45,
+        "non_monotonic": false,
+        "any_profile_non_monotonic": false,
+        "right_censored": false,
+        "backend": "compiled",
+        "early_exit": true,
+        "broadphase": true,
+        "rollouts": [
+          {
+            "mode": "sideways",
+            "delay_s": 0.0,
+            "control_steps": 400
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.02,
+            "control_steps": 399
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.04,
+            "control_steps": 398
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.06,
+            "control_steps": 397
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.08,
+            "control_steps": 396
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.1,
+            "control_steps": 395
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.12,
+            "control_steps": 394
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.14,
+            "control_steps": 393
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.16,
+            "control_steps": 392
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.18,
+            "control_steps": 391
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.2,
+            "control_steps": 390
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.3,
+            "control_steps": 385
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.4,
+            "control_steps": 380
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.5,
+            "control_steps": 375
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.6,
+            "control_steps": 370
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.7,
+            "control_steps": 37
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.8,
+            "control_steps": 32
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.9,
+            "control_steps": 27
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 1.0,
+            "control_steps": 22
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.0,
+            "control_steps": 400
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.02,
+            "control_steps": 399
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.04,
+            "control_steps": 398
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.06,
+            "control_steps": 397
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.08,
+            "control_steps": 396
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.1,
+            "control_steps": 395
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.12,
+            "control_steps": 394
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.14,
+            "control_steps": 393
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.16,
+            "control_steps": 392
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.18,
+            "control_steps": 391
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.2,
+            "control_steps": 390
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.3,
+            "control_steps": 385
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.4,
+            "control_steps": 380
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.5,
+            "control_steps": 375
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.6,
+            "control_steps": 370
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.7,
+            "control_steps": 365
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.8,
+            "control_steps": 360
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.9,
+            "control_steps": 27
+          },
+          {
+            "mode": "dive",
+            "delay_s": 1.0,
+            "control_steps": 22
+          }
+        ],
+        "recovery_profile_finished_s": 0.06918717594817281,
+        "completion_model": "Continuous residence on piecewise-linear 100 Hz RK4 segments; same inspection box/dwell/horizon",
+        "publication": "Atomic: all profiles and boundaries ready together; partial recovery results are not consumed",
+        "policy_plans": {
+          "staleguard_recovery_aware": {
+            "trigger_steps": 30,
+            "reasons": [
+              "recovery_prefix_end"
+            ],
+            "recovery_verified_through_steps": 30
+          },
+          "staleguard_dual_horizon": {
+            "trigger_steps": 30,
+            "reasons": [
+              "recovery_prefix_end"
+            ],
+            "recovery_verified_through_steps": 30
+          }
+        },
+        "computation_s": 0.13972552900668234,
+        "wall_started_unix_s": 1794170359.283319,
+        "wall_finished_unix_s": 1794170359.4230466
+      },
+      "3": {
+        "results": [
+          {
+            "delay_s": 0.0,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.02,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.04,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.06,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.08,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.1,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.12,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.14,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.16,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.18,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.2,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.3,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.4,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.5,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.6,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.7,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.8,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.9,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 1.0,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          }
+        ],
+        "boundaries": {
+          "command": {
+            "first_invalid_steps": null,
+            "last_safe_prefix_steps": null,
+            "last_tested_safe_steps": 50,
+            "right_censored": true,
+            "non_monotonic": false
+          },
+          "completion": {
+            "first_invalid_steps": null,
+            "last_safe_prefix_steps": null,
+            "last_tested_safe_steps": 50,
+            "right_censored": true,
+            "non_monotonic": false
+          },
+          "recovery": {
+            "first_invalid_steps": null,
+            "last_safe_prefix_steps": null,
+            "last_tested_safe_steps": 50,
+            "right_censored": true,
+            "non_monotonic": false
+          }
+        },
+        "grid_s": [
+          0.0,
+          0.02,
+          0.04,
+          0.06,
+          0.08,
+          0.1,
+          0.12,
+          0.14,
+          0.16,
+          0.18,
+          0.2,
+          0.3,
+          0.4,
+          0.5,
+          0.6,
+          0.7,
+          0.8,
+          0.9,
+          1.0
+        ],
+        "expiry_steps": null,
+        "non_monotonic": false,
+        "any_profile_non_monotonic": false,
+        "right_censored": true,
+        "backend": "compiled",
+        "early_exit": true,
+        "broadphase": true,
+        "rollouts": [
+          {
+            "mode": "sideways",
+            "delay_s": 0.0,
+            "control_steps": 400
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.02,
+            "control_steps": 399
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.04,
+            "control_steps": 398
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.06,
+            "control_steps": 397
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.08,
+            "control_steps": 396
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.1,
+            "control_steps": 395
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.12,
+            "control_steps": 394
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.14,
+            "control_steps": 393
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.16,
+            "control_steps": 392
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.18,
+            "control_steps": 391
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.2,
+            "control_steps": 390
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.3,
+            "control_steps": 385
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.4,
+            "control_steps": 380
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.5,
+            "control_steps": 375
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.6,
+            "control_steps": 370
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.7,
+            "control_steps": 365
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.8,
+            "control_steps": 360
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.9,
+            "control_steps": 355
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 1.0,
+            "control_steps": 350
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.0,
+            "control_steps": 400
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.02,
+            "control_steps": 399
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.04,
+            "control_steps": 398
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.06,
+            "control_steps": 397
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.08,
+            "control_steps": 396
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.1,
+            "control_steps": 395
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.12,
+            "control_steps": 394
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.14,
+            "control_steps": 393
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.16,
+            "control_steps": 392
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.18,
+            "control_steps": 391
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.2,
+            "control_steps": 390
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.3,
+            "control_steps": 385
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.4,
+            "control_steps": 380
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.5,
+            "control_steps": 375
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.6,
+            "control_steps": 370
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.7,
+            "control_steps": 365
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.8,
+            "control_steps": 360
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.9,
+            "control_steps": 355
+          },
+          {
+            "mode": "dive",
+            "delay_s": 1.0,
+            "control_steps": 350
+          }
+        ],
+        "recovery_profile_finished_s": 0.08114788203965873,
+        "completion_model": "Continuous residence on piecewise-linear 100 Hz RK4 segments; same inspection box/dwell/horizon",
+        "publication": "Atomic: all profiles and boundaries ready together; partial recovery results are not consumed",
+        "policy_plans": {
+          "staleguard_recovery_aware": {
+            "trigger_steps": null,
+            "reasons": [],
+            "recovery_verified_through_steps": 50
+          },
+          "staleguard_dual_horizon": {
+            "trigger_steps": null,
+            "reasons": [],
+            "recovery_verified_through_steps": 50
+          }
+        },
+        "computation_s": 0.16264757700264454,
+        "wall_started_unix_s": 1794170387.370273,
+        "wall_finished_unix_s": 1794170387.532923
+      },
+      "6": {
+        "results": [
+          {
+            "delay_s": 0.0,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.02,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.04,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.06,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.08,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.1,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.12,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.14,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.16,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.18,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.2,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.3,
+            "recovery_safe": true,
+            "safe": true,
+            "command_safe": true,
+            "command_complete": true
+          },
+          {
+            "delay_s": 0.4,
+            "recovery_safe": true,
+            "safe": false,
+            "command_safe": false,
+            "command_complete": false
+          },
+          {
+            "delay_s": 0.5,
+            "recovery_safe": true,
+            "safe": false,
+            "command_safe": false,
+            "command_complete": false
+          },
+          {
+            "delay_s": 0.6,
+            "recovery_safe": true,
+            "safe": false,
+            "command_safe": false,
+            "command_complete": false
+          },
+          {
+            "delay_s": 0.7,
+            "recovery_safe": true,
+            "safe": false,
+            "command_safe": false,
+            "command_complete": false
+          },
+          {
+            "delay_s": 0.8,
+            "recovery_safe": true,
+            "safe": false,
+            "command_safe": false,
+            "command_complete": false
+          },
+          {
+            "delay_s": 0.9,
+            "recovery_safe": false,
+            "safe": false,
+            "command_safe": false,
+            "command_complete": false
+          },
+          {
+            "delay_s": 1.0,
+            "recovery_safe": false,
+            "safe": false,
+            "command_safe": false,
+            "command_complete": false
+          }
+        ],
+        "boundaries": {
+          "command": {
+            "first_invalid_steps": 20,
+            "last_safe_prefix_steps": 15,
+            "last_tested_safe_steps": 15,
+            "right_censored": false,
+            "non_monotonic": false
+          },
+          "completion": {
+            "first_invalid_steps": 20,
+            "last_safe_prefix_steps": 15,
+            "last_tested_safe_steps": 15,
+            "right_censored": false,
+            "non_monotonic": false
+          },
+          "recovery": {
+            "first_invalid_steps": 45,
+            "last_safe_prefix_steps": 40,
+            "last_tested_safe_steps": 40,
+            "right_censored": false,
+            "non_monotonic": false
+          }
+        },
+        "grid_s": [
+          0.0,
+          0.02,
+          0.04,
+          0.06,
+          0.08,
+          0.1,
+          0.12,
+          0.14,
+          0.16,
+          0.18,
+          0.2,
+          0.3,
+          0.4,
+          0.5,
+          0.6,
+          0.7,
+          0.8,
+          0.9,
+          1.0
+        ],
+        "expiry_steps": 20,
+        "non_monotonic": false,
+        "any_profile_non_monotonic": false,
+        "right_censored": false,
+        "backend": "compiled",
+        "early_exit": true,
+        "broadphase": true,
+        "rollouts": [
+          {
+            "mode": "sideways",
+            "delay_s": 0.0,
+            "control_steps": 400
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.02,
+            "control_steps": 399
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.04,
+            "control_steps": 398
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.06,
+            "control_steps": 397
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.08,
+            "control_steps": 396
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.1,
+            "control_steps": 395
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.12,
+            "control_steps": 394
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.14,
+            "control_steps": 393
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.16,
+            "control_steps": 392
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.18,
+            "control_steps": 391
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.2,
+            "control_steps": 390
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.3,
+            "control_steps": 385
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.4,
+            "control_steps": 380
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.5,
+            "control_steps": 375
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.6,
+            "control_steps": 370
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.7,
+            "control_steps": 365
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.8,
+            "control_steps": 360
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 0.9,
+            "control_steps": 39
+          },
+          {
+            "mode": "sideways",
+            "delay_s": 1.0,
+            "control_steps": 34
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.0,
+            "control_steps": 400
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.02,
+            "control_steps": 399
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.04,
+            "control_steps": 398
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.06,
+            "control_steps": 397
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.08,
+            "control_steps": 396
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.1,
+            "control_steps": 395
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.12,
+            "control_steps": 394
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.14,
+            "control_steps": 393
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.16,
+            "control_steps": 392
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.18,
+            "control_steps": 391
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.2,
+            "control_steps": 390
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.3,
+            "control_steps": 385
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.4,
+            "control_steps": 155
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.5,
+            "control_steps": 150
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.6,
+            "control_steps": 146
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.7,
+            "control_steps": 140
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.8,
+            "control_steps": 136
+          },
+          {
+            "mode": "dive",
+            "delay_s": 0.9,
+            "control_steps": 130
+          },
+          {
+            "mode": "dive",
+            "delay_s": 1.0,
+            "control_steps": 126
+          }
+        ],
+        "recovery_profile_finished_s": 0.07575010892469436,
+        "completion_model": "Continuous residence on piecewise-linear 100 Hz RK4 segments; same inspection box/dwell/horizon",
+        "publication": "Atomic: all profiles and boundaries ready together; partial recovery results are not consumed",
+        "policy_plans": {
+          "staleguard_recovery_aware": {
+            "trigger_steps": 20,
+            "reasons": [
+              "command_expiry"
+            ],
+            "recovery_verified_through_steps": 40
+          },
+          "staleguard_dual_horizon": {
+            "trigger_steps": 20,
+            "reasons": [
+              "command_expiry",
+              "completion_expiry"
+            ],
+            "recovery_verified_through_steps": 40
+          }
+        },
+        "computation_s": 0.14360806194599718,
+        "wall_started_unix_s": 1794170390.9582996,
+        "wall_finished_unix_s": 1794170391.1019094
+      }
+    }
+  },
+  "baseline_path": "/home/kean/Documents/work/stale-guard/safe-control-gym/examples/staleguard/underpass_inspection/results/development/baseline_benchmark",
+  "calibration_path": "/home/kean/Documents/work/stale-guard/safe-control-gym/examples/staleguard/underpass_inspection/results/development/calibration",
+  "freeze_path": null,
+  "freeze_sha256": null,
+  "journal_bytes": 296193,
+  "journal_sha256": "6746d09fbb19d03f66aa9ddbaf99c6de4941494c28a47828b9f1ea611dc43c6e",
+  "completed_flights": 81,
+  "resumptions": 1,
+  "startup_warmups": [
+    {
+      "seconds": 1.7651732499944046,
+      "scope": "Development-only discarded warmup; not online prediction"
+    },
+    {
+      "seconds": 1.5807874529855326,
+      "scope": "Development-only discarded warmup; not online prediction"
+    }
+  ],
+  "validation_analysis_updates": [
+    {
+      "reason": "Correct consistent truth-grid filtering during metrics regeneration and subset merge; no predictor, policy or physical execution changes",
+      "previous_provenance": {
+        "python": "3.10.21 (main, Aug 27 2026, 14:42:07) [GCC 14.3.0]",
+        "numpy": "2.2.6",
+        "platform": "Linux-6.8.0-147-generic-x86_64-with-glibc2.39",
+        "packages": {
+          "pybullet": "3.2.7",
+          "numpy": "2.2.6",
+          "scipy": "1.15.3",
+          "gymnasium": "0.28.1",
+          "numba": "0.68.0"
+        },
+        "simulation_workers": 1,
+        "numerical_threads": 1,
+        "control_hz": 50,
+        "physics_hz": 1000,
+        "model_hz": 100,
+        "source_sha256": {
+          "__init__.py": "13eb5d3361103ea6d5b7a24f30438daf7e5605f5b911f0dfb623f942d5dcf6e1",
+          "scenario.py": "1eaff61877dd499a96249e58ed794e7e06b2e294d7d13a1cc5108b2c44b35073",
+          "simulation.py": "574081a6209799c45679c724ec7269220703dc6bbfd747d002af8c58f468e1ad",
+          "calibration.py": "5251c33042ab7d523730d06da702f1a20dc751ab8056456ff12ed7305934f7de",
+          "pilot.py": "1e7de7011b28ff2256fd9f0b6820d6cfe36c9238608e763c4c0d9994320017b3",
+          "storage.py": "6c2dd37e1e06df0dd71f6e95c83ef7e23680b83d9eef1b46d665375323979419",
+          "support/visualization.py": "33c2aee29c3021b68c81b789d8e04f58297f4880b02f02ebff42c33b4e19aaf8",
+          "baselines/staleguard.py": "d9a101ae4093859ccd5d6c3889edbf3f00a77a9de68abe1c963bd4d00513c491",
+          "baselines/fbs.py": "c7354fc8d9c2f3c524ca320765e44c56994b23641755af398c375213233808f6",
+          "baselines/use_time_recheck.py": "0f577ce93d59f1cbe2dd3acf85428da38c03605e7893341becf0eb1993d8873e",
+          "baselines/fixed_early_recovery.py": "526eea923ee9083b3840216b2afb9c486d3224337c9e4e34ed206ea4a32e218a",
+          "baselines/policies.py": "7d030802f11bc10a7ca48d84a525713626b55091ec9efb04fa8c340bfa9e3808",
+          "baseline_benchmark/run.py": "4affa3224be6274f79ebc226105c356bdf8f180424332302230ff0e0e495ed32",
+          "baseline_benchmark/metrics.py": "617b29104b5c62d8277647b82e7e5b7f686b16e5b23249ad037a47ee704a371c",
+          "baselines/recovery_horizons.py": "b71c7a99dc21d30befc4e1b4d50afb6dfcb5c3b54fe098e1a116e04decdee48c",
+          "baselines/recovery_policies.py": "69201a452ff0f719a9f3867b1395f886df6978a46ea93774e0b02564da5855a4",
+          "baseline_benchmark/horizons.py": "c26f7394c423b9a0c87f738fdafadc8dbb7237b7334945d273983313bb9e8831",
+          "support/profile_recovery_horizons.py": "d91c5ea3c822b872ea70cfa5db042d2428335ec7248bf40d1b4b90cc44262d67",
+          "support/test_recovery_horizons.py": "cf9e832436e47a11a32a4b4e3be381c3f25b006cb2cdb3cd3cc2db8417695250",
+          "support/validate_baseline_benchmark.py": "63c8b03191113b55a654ef152daff15b1b31aacf2ea14bb1b33e4d6938c052cf",
+          "support/test_final_audit.py": "fc8fd67f25f5f4b2c70279a5dae8869a86595c9c307fbad9c02dfc963be4301a",
+          "support/test_2s_protocol.py": "a914bf067e405b9180a1d270668cffcc8c2e1aad077584aa83d0c4a398a7de03",
+          "support/test_reduced_protocol.py": "ef871a8571b6a3d647b84f7c13af06f509be81836944d0d9039a1343c04ab808",
+          "support/results_layout.json": "386dabc2421240e02216b66b4d1cbf53a766ea8c1f93e2f89f9ce8b614c2c4a2"
+        },
+        "shared_sha256": {
+          "model/__init__.py": "05e7dc53563467241281d3057b4f1f45f0e90d5c547726d5a842fbb7cd272ab0",
+          "model/common.py": "8e7d0d615e7977d443a8e22a096849633c2512634e3ff8c123218e533f1cd468",
+          "model/lightweight.py": "4f0b0a22d09eda8750adc903af9dddec785a1cec31f3304a86643596f80a6aac",
+          "model/scg.py": "8a1539ac1dbadac1ccaac95e0cbb16d1c3dcb28f9ca40a75a9e1870bcb999777",
+          "physics_monitor.py": "d7145e53736259b688d321449f6ce1f5b72b3cde4e07620b6c183d996d29cb91"
+        },
+        "environment_sha256": {
+          "safe_control_gym/controllers/pid/pid.py": "a9de84b6a20554f808f3d107bb2f8aafba59b6afd411813ff53367ce20e3a2cf",
+          "safe_control_gym/envs/gym_pybullet_drones/quadrotor.py": "3c5835baa64c31b99fd56efa8f0d81dc88693efea292e6c13c0fc0bac8447110",
+          "safe_control_gym/envs/gym_pybullet_drones/base_aviary.py": "c58673187cac18162c542f72a97525e0de059f4d0e426d1936d6ef00601af4c1",
+          "safe_control_gym/envs/gym_pybullet_drones/assets/cf2x.urdf": "80d69a1ee55913d074bf62cc1a97d2674641df3187eb360471ce6d6d1ef78142"
+        }
+      },
+      "changed_files": [
+        "baseline_benchmark/horizons.py"
+      ]
+    },
+    {
+      "reason": "Added regression tests for selected truth-grid filtering and nine-policy scenario bootstrap; scientific implementation unchanged",
+      "previous_provenance": {
+        "python": "3.10.21 (main, Aug 27 2026, 14:42:07) [GCC 14.3.0]",
+        "numpy": "2.2.6",
+        "platform": "Linux-6.8.0-147-generic-x86_64-with-glibc2.39",
+        "packages": {
+          "pybullet": "3.2.7",
+          "numpy": "2.2.6",
+          "scipy": "1.15.3",
+          "gymnasium": "0.28.1",
+          "numba": "0.68.0"
+        },
+        "simulation_workers": 1,
+        "numerical_threads": 1,
+        "control_hz": 50,
+        "physics_hz": 1000,
+        "model_hz": 100,
+        "source_sha256": {
+          "__init__.py": "13eb5d3361103ea6d5b7a24f30438daf7e5605f5b911f0dfb623f942d5dcf6e1",
+          "scenario.py": "1eaff61877dd499a96249e58ed794e7e06b2e294d7d13a1cc5108b2c44b35073",
+          "simulation.py": "574081a6209799c45679c724ec7269220703dc6bbfd747d002af8c58f468e1ad",
+          "calibration.py": "5251c33042ab7d523730d06da702f1a20dc751ab8056456ff12ed7305934f7de",
+          "pilot.py": "1e7de7011b28ff2256fd9f0b6820d6cfe36c9238608e763c4c0d9994320017b3",
+          "storage.py": "6c2dd37e1e06df0dd71f6e95c83ef7e23680b83d9eef1b46d665375323979419",
+          "support/visualization.py": "33c2aee29c3021b68c81b789d8e04f58297f4880b02f02ebff42c33b4e19aaf8",
+          "baselines/staleguard.py": "d9a101ae4093859ccd5d6c3889edbf3f00a77a9de68abe1c963bd4d00513c491",
+          "baselines/fbs.py": "c7354fc8d9c2f3c524ca320765e44c56994b23641755af398c375213233808f6",
+          "baselines/use_time_recheck.py": "0f577ce93d59f1cbe2dd3acf85428da38c03605e7893341becf0eb1993d8873e",
+          "baselines/fixed_early_recovery.py": "526eea923ee9083b3840216b2afb9c486d3224337c9e4e34ed206ea4a32e218a",
+          "baselines/policies.py": "7d030802f11bc10a7ca48d84a525713626b55091ec9efb04fa8c340bfa9e3808",
+          "baseline_benchmark/run.py": "4affa3224be6274f79ebc226105c356bdf8f180424332302230ff0e0e495ed32",
+          "baseline_benchmark/metrics.py": "617b29104b5c62d8277647b82e7e5b7f686b16e5b23249ad037a47ee704a371c",
+          "baselines/recovery_horizons.py": "b71c7a99dc21d30befc4e1b4d50afb6dfcb5c3b54fe098e1a116e04decdee48c",
+          "baselines/recovery_policies.py": "69201a452ff0f719a9f3867b1395f886df6978a46ea93774e0b02564da5855a4",
+          "baseline_benchmark/horizons.py": "c2236fdd0b7998f5b6c09afae3fb75f9580aa5b885c7a9a93e89516eb4a9f92c",
+          "support/profile_recovery_horizons.py": "d91c5ea3c822b872ea70cfa5db042d2428335ec7248bf40d1b4b90cc44262d67",
+          "support/test_recovery_horizons.py": "cf9e832436e47a11a32a4b4e3be381c3f25b006cb2cdb3cd3cc2db8417695250",
+          "support/validate_baseline_benchmark.py": "63c8b03191113b55a654ef152daff15b1b31aacf2ea14bb1b33e4d6938c052cf",
+          "support/test_final_audit.py": "fc8fd67f25f5f4b2c70279a5dae8869a86595c9c307fbad9c02dfc963be4301a",
+          "support/test_2s_protocol.py": "a914bf067e405b9180a1d270668cffcc8c2e1aad077584aa83d0c4a398a7de03",
+          "support/test_reduced_protocol.py": "ef871a8571b6a3d647b84f7c13af06f509be81836944d0d9039a1343c04ab808",
+          "support/results_layout.json": "386dabc2421240e02216b66b4d1cbf53a766ea8c1f93e2f89f9ce8b614c2c4a2"
+        },
+        "shared_sha256": {
+          "model/__init__.py": "05e7dc53563467241281d3057b4f1f45f0e90d5c547726d5a842fbb7cd272ab0",
+          "model/common.py": "8e7d0d615e7977d443a8e22a096849633c2512634e3ff8c123218e533f1cd468",
+          "model/lightweight.py": "4f0b0a22d09eda8750adc903af9dddec785a1cec31f3304a86643596f80a6aac",
+          "model/scg.py": "8a1539ac1dbadac1ccaac95e0cbb16d1c3dcb28f9ca40a75a9e1870bcb999777",
+          "physics_monitor.py": "d7145e53736259b688d321449f6ce1f5b72b3cde4e07620b6c183d996d29cb91"
+        },
+        "environment_sha256": {
+          "safe_control_gym/controllers/pid/pid.py": "a9de84b6a20554f808f3d107bb2f8aafba59b6afd411813ff53367ce20e3a2cf",
+          "safe_control_gym/envs/gym_pybullet_drones/quadrotor.py": "3c5835baa64c31b99fd56efa8f0d81dc88693efea292e6c13c0fc0bac8447110",
+          "safe_control_gym/envs/gym_pybullet_drones/base_aviary.py": "c58673187cac18162c542f72a97525e0de059f4d0e426d1936d6ef00601af4c1",
+          "safe_control_gym/envs/gym_pybullet_drones/assets/cf2x.urdf": "80d69a1ee55913d074bf62cc1a97d2674641df3187eb360471ce6d6d1ef78142"
+        }
+      },
+      "changed_files": [
+        "support/test_recovery_horizons.py"
+      ]
+    },
+    {
+      "reason": "Replace compact whole-journal diagnostic list with streaming counters; no predictor, policy, physics or numerical metric changes",
+      "previous_provenance": {
+        "python": "3.10.21 (main, Aug 27 2026, 14:42:07) [GCC 14.3.0]",
+        "numpy": "2.2.6",
+        "platform": "Linux-6.8.0-147-generic-x86_64-with-glibc2.39",
+        "packages": {
+          "pybullet": "3.2.7",
+          "numpy": "2.2.6",
+          "scipy": "1.15.3",
+          "gymnasium": "0.28.1",
+          "numba": "0.68.0"
+        },
+        "simulation_workers": 1,
+        "numerical_threads": 1,
+        "control_hz": 50,
+        "physics_hz": 1000,
+        "model_hz": 100,
+        "source_sha256": {
+          "__init__.py": "13eb5d3361103ea6d5b7a24f30438daf7e5605f5b911f0dfb623f942d5dcf6e1",
+          "scenario.py": "1eaff61877dd499a96249e58ed794e7e06b2e294d7d13a1cc5108b2c44b35073",
+          "simulation.py": "574081a6209799c45679c724ec7269220703dc6bbfd747d002af8c58f468e1ad",
+          "calibration.py": "5251c33042ab7d523730d06da702f1a20dc751ab8056456ff12ed7305934f7de",
+          "pilot.py": "1e7de7011b28ff2256fd9f0b6820d6cfe36c9238608e763c4c0d9994320017b3",
+          "storage.py": "6c2dd37e1e06df0dd71f6e95c83ef7e23680b83d9eef1b46d665375323979419",
+          "support/visualization.py": "33c2aee29c3021b68c81b789d8e04f58297f4880b02f02ebff42c33b4e19aaf8",
+          "baselines/staleguard.py": "d9a101ae4093859ccd5d6c3889edbf3f00a77a9de68abe1c963bd4d00513c491",
+          "baselines/fbs.py": "c7354fc8d9c2f3c524ca320765e44c56994b23641755af398c375213233808f6",
+          "baselines/use_time_recheck.py": "0f577ce93d59f1cbe2dd3acf85428da38c03605e7893341becf0eb1993d8873e",
+          "baselines/fixed_early_recovery.py": "526eea923ee9083b3840216b2afb9c486d3224337c9e4e34ed206ea4a32e218a",
+          "baselines/policies.py": "7d030802f11bc10a7ca48d84a525713626b55091ec9efb04fa8c340bfa9e3808",
+          "baseline_benchmark/run.py": "4affa3224be6274f79ebc226105c356bdf8f180424332302230ff0e0e495ed32",
+          "baseline_benchmark/metrics.py": "617b29104b5c62d8277647b82e7e5b7f686b16e5b23249ad037a47ee704a371c",
+          "baselines/recovery_horizons.py": "b71c7a99dc21d30befc4e1b4d50afb6dfcb5c3b54fe098e1a116e04decdee48c",
+          "baselines/recovery_policies.py": "69201a452ff0f719a9f3867b1395f886df6978a46ea93774e0b02564da5855a4",
+          "baseline_benchmark/horizons.py": "c2236fdd0b7998f5b6c09afae3fb75f9580aa5b885c7a9a93e89516eb4a9f92c",
+          "support/profile_recovery_horizons.py": "d91c5ea3c822b872ea70cfa5db042d2428335ec7248bf40d1b4b90cc44262d67",
+          "support/test_recovery_horizons.py": "ed6fe2373e03826837b4cd4b7836c02ff7c28eb957348bcd3b6413150e9232a2",
+          "support/validate_baseline_benchmark.py": "63c8b03191113b55a654ef152daff15b1b31aacf2ea14bb1b33e4d6938c052cf",
+          "support/test_final_audit.py": "fc8fd67f25f5f4b2c70279a5dae8869a86595c9c307fbad9c02dfc963be4301a",
+          "support/test_2s_protocol.py": "a914bf067e405b9180a1d270668cffcc8c2e1aad077584aa83d0c4a398a7de03",
+          "support/test_reduced_protocol.py": "ef871a8571b6a3d647b84f7c13af06f509be81836944d0d9039a1343c04ab808",
+          "support/results_layout.json": "386dabc2421240e02216b66b4d1cbf53a766ea8c1f93e2f89f9ce8b614c2c4a2"
+        },
+        "shared_sha256": {
+          "model/__init__.py": "05e7dc53563467241281d3057b4f1f45f0e90d5c547726d5a842fbb7cd272ab0",
+          "model/common.py": "8e7d0d615e7977d443a8e22a096849633c2512634e3ff8c123218e533f1cd468",
+          "model/lightweight.py": "4f0b0a22d09eda8750adc903af9dddec785a1cec31f3304a86643596f80a6aac",
+          "model/scg.py": "8a1539ac1dbadac1ccaac95e0cbb16d1c3dcb28f9ca40a75a9e1870bcb999777",
+          "physics_monitor.py": "d7145e53736259b688d321449f6ce1f5b72b3cde4e07620b6c183d996d29cb91"
+        },
+        "environment_sha256": {
+          "safe_control_gym/controllers/pid/pid.py": "a9de84b6a20554f808f3d107bb2f8aafba59b6afd411813ff53367ce20e3a2cf",
+          "safe_control_gym/envs/gym_pybullet_drones/quadrotor.py": "3c5835baa64c31b99fd56efa8f0d81dc88693efea292e6c13c0fc0bac8447110",
+          "safe_control_gym/envs/gym_pybullet_drones/base_aviary.py": "c58673187cac18162c542f72a97525e0de059f4d0e426d1936d6ef00601af4c1",
+          "safe_control_gym/envs/gym_pybullet_drones/assets/cf2x.urdf": "80d69a1ee55913d074bf62cc1a97d2674641df3187eb360471ce6d6d1ef78142"
+        }
+      },
+      "changed_files": [
+        "baseline_benchmark/horizons.py"
+      ]
+    }
+  ],
+  "merge_sources": {
+    "new_run_path": "/home/kean/Documents/work/stale-guard/safe-control-gym/examples/staleguard/underpass_inspection/results/development/recovery_horizons_smoke_v2",
+    "baseline_run_sha256": "540734195023ab62025b620a65f6831f4e557c74c1e580f7effeffad030515b6",
+    "baseline_journal_sha256": "4a835b5b773c29e874138b16db8baebfab6993bb188b39efb47765cd75e936fd",
+    "new_run_sha256": "5b03ff3aeab325771a4f05e6d7682412b2a18b6e3908f2ff3ad4a4a4cc917331",
+    "new_journal_sha256": "7717b9e91f373c78ee4a4b8508c9c3207d7a89eb52a6819f471912e19f463116"
+  }
+}

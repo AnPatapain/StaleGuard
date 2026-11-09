@@ -1,0 +1,801 @@
+{
+  "evidence": "Four development-only diagnostic flights at D=2; separately computed per-policy smoke forecasts reused under the existing within-policy convention",
+  "provenance": {
+    "python": "3.10.21 (main, Aug 27 2026, 14:42:07) [GCC 14.3.0]",
+    "numpy": "2.2.6",
+    "platform": "Linux-6.8.0-147-generic-x86_64-with-glibc2.39",
+    "packages": {
+      "pybullet": "3.2.7",
+      "numpy": "2.2.6",
+      "scipy": "1.15.3",
+      "gymnasium": "0.28.1",
+      "numba": "0.68.0"
+    },
+    "simulation_workers": 1,
+    "numerical_threads": 1,
+    "control_hz": 50,
+    "physics_hz": 1000,
+    "model_hz": 100,
+    "source_sha256": {
+      "__init__.py": "13eb5d3361103ea6d5b7a24f30438daf7e5605f5b911f0dfb623f942d5dcf6e1",
+      "scenario.py": "1eaff61877dd499a96249e58ed794e7e06b2e294d7d13a1cc5108b2c44b35073",
+      "simulation.py": "574081a6209799c45679c724ec7269220703dc6bbfd747d002af8c58f468e1ad",
+      "calibration.py": "5251c33042ab7d523730d06da702f1a20dc751ab8056456ff12ed7305934f7de",
+      "pilot.py": "1e7de7011b28ff2256fd9f0b6820d6cfe36c9238608e763c4c0d9994320017b3",
+      "storage.py": "6c2dd37e1e06df0dd71f6e95c83ef7e23680b83d9eef1b46d665375323979419",
+      "support/visualization.py": "33c2aee29c3021b68c81b789d8e04f58297f4880b02f02ebff42c33b4e19aaf8",
+      "baselines/staleguard.py": "d9a101ae4093859ccd5d6c3889edbf3f00a77a9de68abe1c963bd4d00513c491",
+      "baselines/fbs.py": "c7354fc8d9c2f3c524ca320765e44c56994b23641755af398c375213233808f6",
+      "baselines/use_time_recheck.py": "0f577ce93d59f1cbe2dd3acf85428da38c03605e7893341becf0eb1993d8873e",
+      "baselines/fixed_early_recovery.py": "526eea923ee9083b3840216b2afb9c486d3224337c9e4e34ed206ea4a32e218a",
+      "baselines/policies.py": "7d030802f11bc10a7ca48d84a525713626b55091ec9efb04fa8c340bfa9e3808",
+      "baseline_benchmark/run.py": "4affa3224be6274f79ebc226105c356bdf8f180424332302230ff0e0e495ed32",
+      "baseline_benchmark/metrics.py": "617b29104b5c62d8277647b82e7e5b7f686b16e5b23249ad037a47ee704a371c",
+      "baselines/recovery_horizons.py": "b71c7a99dc21d30befc4e1b4d50afb6dfcb5c3b54fe098e1a116e04decdee48c",
+      "baselines/recovery_policies.py": "69201a452ff0f719a9f3867b1395f886df6978a46ea93774e0b02564da5855a4",
+      "baseline_benchmark/horizons.py": "c2236fdd0b7998f5b6c09afae3fb75f9580aa5b885c7a9a93e89516eb4a9f92c",
+      "support/profile_recovery_horizons.py": "d91c5ea3c822b872ea70cfa5db042d2428335ec7248bf40d1b4b90cc44262d67",
+      "support/test_recovery_horizons.py": "ed6fe2373e03826837b4cd4b7836c02ff7c28eb957348bcd3b6413150e9232a2",
+      "support/validate_baseline_benchmark.py": "63c8b03191113b55a654ef152daff15b1b31aacf2ea14bb1b33e4d6938c052cf",
+      "support/test_final_audit.py": "fc8fd67f25f5f4b2c70279a5dae8869a86595c9c307fbad9c02dfc963be4301a",
+      "support/test_2s_protocol.py": "a914bf067e405b9180a1d270668cffcc8c2e1aad077584aa83d0c4a398a7de03",
+      "support/test_reduced_protocol.py": "ef871a8571b6a3d647b84f7c13af06f509be81836944d0d9039a1343c04ab808",
+      "support/results_layout.json": "386dabc2421240e02216b66b4d1cbf53a766ea8c1f93e2f89f9ce8b614c2c4a2"
+    },
+    "shared_sha256": {
+      "model/__init__.py": "05e7dc53563467241281d3057b4f1f45f0e90d5c547726d5a842fbb7cd272ab0",
+      "model/common.py": "8e7d0d615e7977d443a8e22a096849633c2512634e3ff8c123218e533f1cd468",
+      "model/lightweight.py": "4f0b0a22d09eda8750adc903af9dddec785a1cec31f3304a86643596f80a6aac",
+      "model/scg.py": "8a1539ac1dbadac1ccaac95e0cbb16d1c3dcb28f9ca40a75a9e1870bcb999777",
+      "physics_monitor.py": "d7145e53736259b688d321449f6ce1f5b72b3cde4e07620b6c183d996d29cb91"
+    },
+    "environment_sha256": {
+      "safe_control_gym/controllers/pid/pid.py": "a9de84b6a20554f808f3d107bb2f8aafba59b6afd411813ff53367ce20e3a2cf",
+      "safe_control_gym/envs/gym_pybullet_drones/quadrotor.py": "3c5835baa64c31b99fd56efa8f0d81dc88693efea292e6c13c0fc0bac8447110",
+      "safe_control_gym/envs/gym_pybullet_drones/base_aviary.py": "c58673187cac18162c542f72a97525e0de059f4d0e426d1936d6ef00601af4c1",
+      "safe_control_gym/envs/gym_pybullet_drones/assets/cf2x.urdf": "80d69a1ee55913d074bf62cc1a97d2674641df3187eb360471ce6d6d1ef78142"
+    }
+  },
+  "executions": [
+    {
+      "seed": 1,
+      "mode": "sideways",
+      "start_s": 0.6,
+      "approval_step": 45,
+      "initiation_step": 75,
+      "horizon_step": 445,
+      "horizon_flight_s": 8.9,
+      "observation_s": 8.0,
+      "safe": true,
+      "inspection_completed": false,
+      "safe_completion": false,
+      "completion_approval_s": null,
+      "longest_inspection_dwell_s": 0.0,
+      "min_clearance_m": 0.08183242518137519,
+      "min_clearance_by_obstacle_m": {
+        "deck": 0.08183242518137519,
+        "pier": 0.8114107978644355
+      },
+      "first_violation": null,
+      "physics_samples": 8901,
+      "control_samples": 446,
+      "maneuver_anchor_m": [
+        0.7785407374964325,
+        -3.84334819709325e-09,
+        1.3498774347915763
+      ],
+      "approval_state": [
+        0.42209839383837183,
+        0.7566971600618637,
+        6.81112213186084e-14,
+        -8.331969628935742e-12,
+        1.3495741892719582,
+        0.00368697707150352,
+        8.889344865748676e-11,
+        -0.08747745182694269,
+        4.853108683411584e-12,
+        -5.711954982042364e-09,
+        -0.10372040380471309,
+        -4.303550030703928e-10
+      ],
+      "pid_unchanged_at_initiation": true,
+      "physical_state_unchanged_at_initiation": true,
+      "nominal_to_measured_reference_splice": {
+        "position_m": [
+          -0.0029960737146009775,
+          -3.84334819709325e-09,
+          -0.00012256520842379715
+        ],
+        "velocity_mps": [
+          0.0,
+          -0.0,
+          0.0
+        ],
+        "measured_velocity_mps": [
+          0.6126215534756241,
+          9.403591160476979e-07,
+          0.0002679662833004447
+        ]
+      },
+      "geometry_unchanged": true,
+      "max_physics_position_increment_m": 0.002043368551971097,
+      "final_position_m": [
+        5.227226868296598,
+        -0.9899302393939657,
+        1.3506990949263378
+      ],
+      "final_velocity_mps": [
+        0.5839843080678174,
+        -0.017459533490533485,
+        -0.00014423629558594597
+      ],
+      "final_position_ned_m": [
+        5.227226868296598,
+        0.9899302393939657,
+        -1.3506990949263378
+      ],
+      "final_velocity_ned_mps": [
+        0.5839843080678174,
+        0.017459533490533485,
+        0.00014423629558594597
+      ],
+      "physics_sha256": "12a7cc39d5f210a949ac831c85e1fc5f866a3833719d90cea24b916c840c4fa3",
+      "runtime_s": 0.3920629860367626,
+      "gui": false,
+      "delay_s": 2.0,
+      "completed": false,
+      "completion_s": null,
+      "event": {
+        "policy": "staleguard_recovery_aware",
+        "application_step": null,
+        "fallback_step": 75,
+        "early_recovery": true,
+        "prediction_ready": true,
+        "command_rejected": true,
+        "command_canceled": true,
+        "dispatch_observed_step": 145,
+        "recovery_expiry_steps": 35,
+        "recovery_verified_through_steps": 30,
+        "completion_expiry_steps": 45,
+        "early_trigger_steps": 30,
+        "early_trigger_reasons": [
+          "recovery_prefix_end"
+        ],
+        "prediction_kind": "command_completion_recovery",
+        "computation_s": 0.14738325495272875,
+        "prediction_start_flight_s": 0.9,
+        "prediction_completion_flight_s": 1.0473832549527287,
+        "prediction_wall_started_unix_s": 1794170359.0627472,
+        "prediction_wall_finished_unix_s": 1794170359.210132,
+        "expiry_steps": 45,
+        "prediction_available_by_trigger": true,
+        "prediction_available_by_recovery_prefix": true,
+        "prediction_ready_step": 53,
+        "predicted_recovery_verified_at_start": true,
+        "best_effort_recovery": false,
+        "recovery_reason": "horizon_trigger",
+        "prediction_ready_at_dispatch": true,
+        "scheduled_dispatch_step": 145,
+        "recovery_at_dispatch": false,
+        "prediction_available_before_dispatch": true,
+        "prediction_available_at_expiry": true,
+        "prediction_ready_control_step": 53,
+        "events": [
+          {
+            "kind": "approval",
+            "control_step": 45,
+            "flight_s": 0.9,
+            "approval_s": 0.0
+          },
+          {
+            "kind": "prediction_started",
+            "control_step": 45,
+            "flight_s": 0.9,
+            "approval_s": 0.0
+          },
+          {
+            "kind": "prediction_ready",
+            "control_step": 53,
+            "flight_s": 1.06,
+            "approval_s": 0.16
+          },
+          {
+            "kind": "horizon_trigger_reached",
+            "control_step": 75,
+            "flight_s": 1.5,
+            "approval_s": 0.6,
+            "reasons": [
+              "recovery_prefix_end"
+            ]
+          },
+          {
+            "kind": "recovery_started",
+            "control_step": 75,
+            "flight_s": 1.5,
+            "approval_s": 0.6,
+            "maneuver": "sideways",
+            "reason": "horizon_trigger"
+          },
+          {
+            "kind": "command_dispatch",
+            "control_step": 145,
+            "flight_s": 2.9,
+            "approval_s": 2.0,
+            "canceled": true
+          },
+          {
+            "kind": "dispatch_ignored",
+            "control_step": 145,
+            "flight_s": 2.9,
+            "approval_s": 2.0
+          },
+          {
+            "kind": "observation_horizon_end",
+            "control_step": 445,
+            "flight_s": 8.9,
+            "approval_s": 8.0
+          }
+        ]
+      },
+      "first_violation_s": null,
+      "pre_dispatch_violation_s": null,
+      "violation_before_intervention": false,
+      "approval_snapshot_verified": true
+    },
+    {
+      "seed": 1,
+      "mode": "sideways",
+      "start_s": 0.6,
+      "approval_step": 45,
+      "initiation_step": 75,
+      "horizon_step": 445,
+      "horizon_flight_s": 8.9,
+      "observation_s": 8.0,
+      "safe": true,
+      "inspection_completed": false,
+      "safe_completion": false,
+      "completion_approval_s": null,
+      "longest_inspection_dwell_s": 0.0,
+      "min_clearance_m": 0.08183242518137519,
+      "min_clearance_by_obstacle_m": {
+        "deck": 0.08183242518137519,
+        "pier": 0.8114107978644355
+      },
+      "first_violation": null,
+      "physics_samples": 8901,
+      "control_samples": 446,
+      "maneuver_anchor_m": [
+        0.7785407374964325,
+        -3.84334819709325e-09,
+        1.3498774347915763
+      ],
+      "approval_state": [
+        0.42209839383837183,
+        0.7566971600618637,
+        6.81112213186084e-14,
+        -8.331969628935742e-12,
+        1.3495741892719582,
+        0.00368697707150352,
+        8.889344865748676e-11,
+        -0.08747745182694269,
+        4.853108683411584e-12,
+        -5.711954982042364e-09,
+        -0.10372040380471309,
+        -4.303550030703928e-10
+      ],
+      "pid_unchanged_at_initiation": true,
+      "physical_state_unchanged_at_initiation": true,
+      "nominal_to_measured_reference_splice": {
+        "position_m": [
+          -0.0029960737146009775,
+          -3.84334819709325e-09,
+          -0.00012256520842379715
+        ],
+        "velocity_mps": [
+          0.0,
+          -0.0,
+          0.0
+        ],
+        "measured_velocity_mps": [
+          0.6126215534756241,
+          9.403591160476979e-07,
+          0.0002679662833004447
+        ]
+      },
+      "geometry_unchanged": true,
+      "max_physics_position_increment_m": 0.002043368551971097,
+      "final_position_m": [
+        5.227226868296598,
+        -0.9899302393939657,
+        1.3506990949263378
+      ],
+      "final_velocity_mps": [
+        0.5839843080678174,
+        -0.017459533490533485,
+        -0.00014423629558594597
+      ],
+      "final_position_ned_m": [
+        5.227226868296598,
+        0.9899302393939657,
+        -1.3506990949263378
+      ],
+      "final_velocity_ned_mps": [
+        0.5839843080678174,
+        0.017459533490533485,
+        0.00014423629558594597
+      ],
+      "physics_sha256": "12a7cc39d5f210a949ac831c85e1fc5f866a3833719d90cea24b916c840c4fa3",
+      "runtime_s": 0.3846267770277336,
+      "gui": false,
+      "delay_s": 2.0,
+      "completed": false,
+      "completion_s": null,
+      "event": {
+        "policy": "staleguard_dual_horizon",
+        "application_step": null,
+        "fallback_step": 75,
+        "early_recovery": true,
+        "prediction_ready": true,
+        "command_rejected": true,
+        "command_canceled": true,
+        "dispatch_observed_step": 145,
+        "recovery_expiry_steps": 35,
+        "recovery_verified_through_steps": 30,
+        "completion_expiry_steps": 45,
+        "early_trigger_steps": 30,
+        "early_trigger_reasons": [
+          "recovery_prefix_end"
+        ],
+        "prediction_kind": "command_completion_recovery",
+        "computation_s": 0.13972552900668234,
+        "prediction_start_flight_s": 0.9,
+        "prediction_completion_flight_s": 1.0397255290066822,
+        "prediction_wall_started_unix_s": 1794170359.283319,
+        "prediction_wall_finished_unix_s": 1794170359.4230466,
+        "expiry_steps": 45,
+        "prediction_available_by_trigger": true,
+        "prediction_available_by_recovery_prefix": true,
+        "prediction_ready_step": 52,
+        "predicted_recovery_verified_at_start": true,
+        "best_effort_recovery": false,
+        "recovery_reason": "horizon_trigger",
+        "prediction_ready_at_dispatch": true,
+        "scheduled_dispatch_step": 145,
+        "recovery_at_dispatch": false,
+        "prediction_available_before_dispatch": true,
+        "prediction_available_at_expiry": true,
+        "prediction_ready_control_step": 52,
+        "events": [
+          {
+            "kind": "approval",
+            "control_step": 45,
+            "flight_s": 0.9,
+            "approval_s": 0.0
+          },
+          {
+            "kind": "prediction_started",
+            "control_step": 45,
+            "flight_s": 0.9,
+            "approval_s": 0.0
+          },
+          {
+            "kind": "prediction_ready",
+            "control_step": 52,
+            "flight_s": 1.04,
+            "approval_s": 0.14
+          },
+          {
+            "kind": "horizon_trigger_reached",
+            "control_step": 75,
+            "flight_s": 1.5,
+            "approval_s": 0.6,
+            "reasons": [
+              "recovery_prefix_end"
+            ]
+          },
+          {
+            "kind": "recovery_started",
+            "control_step": 75,
+            "flight_s": 1.5,
+            "approval_s": 0.6,
+            "maneuver": "sideways",
+            "reason": "horizon_trigger"
+          },
+          {
+            "kind": "command_dispatch",
+            "control_step": 145,
+            "flight_s": 2.9,
+            "approval_s": 2.0,
+            "canceled": true
+          },
+          {
+            "kind": "dispatch_ignored",
+            "control_step": 145,
+            "flight_s": 2.9,
+            "approval_s": 2.0
+          },
+          {
+            "kind": "observation_horizon_end",
+            "control_step": 445,
+            "flight_s": 8.9,
+            "approval_s": 8.0
+          }
+        ]
+      },
+      "first_violation_s": null,
+      "pre_dispatch_violation_s": null,
+      "violation_before_intervention": false,
+      "approval_snapshot_verified": true
+    },
+    {
+      "seed": 3,
+      "mode": "dive",
+      "start_s": 2.0,
+      "approval_step": 37,
+      "initiation_step": 137,
+      "horizon_step": 437,
+      "horizon_flight_s": 8.74,
+      "observation_s": 8.0,
+      "safe": false,
+      "inspection_completed": false,
+      "safe_completion": false,
+      "completion_approval_s": null,
+      "longest_inspection_dwell_s": 0.018,
+      "min_clearance_m": -0.18117444632789553,
+      "min_clearance_by_obstacle_m": {
+        "deck": -0.14317260703851892,
+        "pier": -0.18117444632789553
+      },
+      "first_violation": {
+        "time_flight_s": 2.85,
+        "time_approval_s": 2.1100000000000003,
+        "physics_tick": 2850,
+        "position_m": [
+          1.479125597487041,
+          0.004963174047121339,
+          1.3499298656177767
+        ],
+        "obstacle": "deck",
+        "part": "deck_front",
+        "clearance_m": 0.0499684887142217
+      },
+      "physics_samples": 8741,
+      "control_samples": 438,
+      "maneuver_anchor_m": [
+        1.41992564805807,
+        0.004931106942147677,
+        1.350752914225549
+      ],
+      "approval_state": [
+        0.26436506418585737,
+        0.8212654011179724,
+        5.54271944351797e-16,
+        2.0714654115287483e-14,
+        1.3492771828000165,
+        -0.0019525685302912046,
+        5.050765508675019e-13,
+        -0.013825631162274827,
+        -1.593061812615508e-14,
+        5.201382479486887e-11,
+        -0.9992165171639866,
+        -4.758512526632381e-12
+      ],
+      "pid_unchanged_at_initiation": true,
+      "physical_state_unchanged_at_initiation": true,
+      "nominal_to_measured_reference_splice": {
+        "position_m": [
+          0.0011707596035890333,
+          0.004931106942147677,
+          0.0007529142255489063
+        ],
+        "velocity_mps": [
+          0.0,
+          -0.0,
+          -0.0
+        ],
+        "measured_velocity_mps": [
+          0.5382033402632056,
+          0.01442424761363089,
+          0.0009096966163571725
+        ]
+      },
+      "geometry_unchanged": true,
+      "max_physics_position_increment_m": 0.0019041089547547014,
+      "final_position_m": [
+        4.763966919417253,
+        -0.8397962387213178,
+        0.7515517209126014
+      ],
+      "final_velocity_mps": [
+        0.5474399668454809,
+        0.03842187562791163,
+        2.160029161923605e-05
+      ],
+      "final_position_ned_m": [
+        4.763966919417253,
+        0.8397962387213178,
+        -0.7515517209126014
+      ],
+      "final_velocity_ned_mps": [
+        0.5474399668454809,
+        -0.03842187562791163,
+        -2.160029161923605e-05
+      ],
+      "physics_sha256": "d520f685c9d5720576e43b79dbbfff52ef52949cb6822d44505adb8c39eee7ab",
+      "runtime_s": 0.3627239550696686,
+      "gui": false,
+      "delay_s": 2.0,
+      "completed": false,
+      "completion_s": null,
+      "event": {
+        "policy": "staleguard_recovery_aware",
+        "application_step": 137,
+        "fallback_step": null,
+        "early_recovery": false,
+        "prediction_ready": true,
+        "command_rejected": false,
+        "command_canceled": false,
+        "dispatch_observed_step": 137,
+        "recovery_expiry_steps": null,
+        "recovery_verified_through_steps": 50,
+        "completion_expiry_steps": null,
+        "early_trigger_steps": null,
+        "early_trigger_reasons": [],
+        "prediction_kind": "command_completion_recovery",
+        "computation_s": 0.1720479050418362,
+        "prediction_start_flight_s": 0.74,
+        "prediction_completion_flight_s": 0.9120479050418362,
+        "prediction_wall_started_unix_s": 1794170387.1293952,
+        "prediction_wall_finished_unix_s": 1794170387.301445,
+        "expiry_steps": null,
+        "prediction_available_by_trigger": null,
+        "prediction_available_by_recovery_prefix": true,
+        "prediction_ready_step": 46,
+        "prediction_ready_at_dispatch": true,
+        "scheduled_dispatch_step": 137,
+        "recovery_at_dispatch": false,
+        "prediction_available_before_dispatch": true,
+        "prediction_available_at_expiry": null,
+        "prediction_ready_control_step": 46,
+        "events": [
+          {
+            "kind": "approval",
+            "control_step": 37,
+            "flight_s": 0.74,
+            "approval_s": 0.0
+          },
+          {
+            "kind": "prediction_started",
+            "control_step": 37,
+            "flight_s": 0.74,
+            "approval_s": 0.0
+          },
+          {
+            "kind": "prediction_ready",
+            "control_step": 46,
+            "flight_s": 0.92,
+            "approval_s": 0.18
+          },
+          {
+            "kind": "command_dispatch",
+            "control_step": 137,
+            "flight_s": 2.74,
+            "approval_s": 2.0,
+            "canceled": false
+          },
+          {
+            "kind": "command_started",
+            "control_step": 137,
+            "flight_s": 2.74,
+            "approval_s": 2.0,
+            "maneuver": "dive",
+            "reason": "dispatch"
+          },
+          {
+            "kind": "safety_violation",
+            "physics_tick": 2850,
+            "flight_s": 2.85,
+            "approval_s": 2.1100000000000003,
+            "obstacle": "deck",
+            "part": "deck_front"
+          },
+          {
+            "kind": "observation_horizon_end",
+            "control_step": 437,
+            "flight_s": 8.74,
+            "approval_s": 8.0
+          }
+        ]
+      },
+      "first_violation_s": 2.85,
+      "pre_dispatch_violation_s": null,
+      "violation_before_intervention": false,
+      "approval_snapshot_verified": true
+    },
+    {
+      "seed": 3,
+      "mode": "dive",
+      "start_s": 2.0,
+      "approval_step": 37,
+      "initiation_step": 137,
+      "horizon_step": 437,
+      "horizon_flight_s": 8.74,
+      "observation_s": 8.0,
+      "safe": false,
+      "inspection_completed": false,
+      "safe_completion": false,
+      "completion_approval_s": null,
+      "longest_inspection_dwell_s": 0.018,
+      "min_clearance_m": -0.18117444632789553,
+      "min_clearance_by_obstacle_m": {
+        "deck": -0.14317260703851892,
+        "pier": -0.18117444632789553
+      },
+      "first_violation": {
+        "time_flight_s": 2.85,
+        "time_approval_s": 2.1100000000000003,
+        "physics_tick": 2850,
+        "position_m": [
+          1.479125597487041,
+          0.004963174047121339,
+          1.3499298656177767
+        ],
+        "obstacle": "deck",
+        "part": "deck_front",
+        "clearance_m": 0.0499684887142217
+      },
+      "physics_samples": 8741,
+      "control_samples": 438,
+      "maneuver_anchor_m": [
+        1.41992564805807,
+        0.004931106942147677,
+        1.350752914225549
+      ],
+      "approval_state": [
+        0.26436506418585737,
+        0.8212654011179724,
+        5.54271944351797e-16,
+        2.0714654115287483e-14,
+        1.3492771828000165,
+        -0.0019525685302912046,
+        5.050765508675019e-13,
+        -0.013825631162274827,
+        -1.593061812615508e-14,
+        5.201382479486887e-11,
+        -0.9992165171639866,
+        -4.758512526632381e-12
+      ],
+      "pid_unchanged_at_initiation": true,
+      "physical_state_unchanged_at_initiation": true,
+      "nominal_to_measured_reference_splice": {
+        "position_m": [
+          0.0011707596035890333,
+          0.004931106942147677,
+          0.0007529142255489063
+        ],
+        "velocity_mps": [
+          0.0,
+          -0.0,
+          -0.0
+        ],
+        "measured_velocity_mps": [
+          0.5382033402632056,
+          0.01442424761363089,
+          0.0009096966163571725
+        ]
+      },
+      "geometry_unchanged": true,
+      "max_physics_position_increment_m": 0.0019041089547547014,
+      "final_position_m": [
+        4.763966919417253,
+        -0.8397962387213178,
+        0.7515517209126014
+      ],
+      "final_velocity_mps": [
+        0.5474399668454809,
+        0.03842187562791163,
+        2.160029161923605e-05
+      ],
+      "final_position_ned_m": [
+        4.763966919417253,
+        0.8397962387213178,
+        -0.7515517209126014
+      ],
+      "final_velocity_ned_mps": [
+        0.5474399668454809,
+        -0.03842187562791163,
+        -2.160029161923605e-05
+      ],
+      "physics_sha256": "d520f685c9d5720576e43b79dbbfff52ef52949cb6822d44505adb8c39eee7ab",
+      "runtime_s": 0.3697518779663369,
+      "gui": false,
+      "delay_s": 2.0,
+      "completed": false,
+      "completion_s": null,
+      "event": {
+        "policy": "staleguard_dual_horizon",
+        "application_step": 137,
+        "fallback_step": null,
+        "early_recovery": false,
+        "prediction_ready": true,
+        "command_rejected": false,
+        "command_canceled": false,
+        "dispatch_observed_step": 137,
+        "recovery_expiry_steps": null,
+        "recovery_verified_through_steps": 50,
+        "completion_expiry_steps": null,
+        "early_trigger_steps": null,
+        "early_trigger_reasons": [],
+        "prediction_kind": "command_completion_recovery",
+        "computation_s": 0.16264757700264454,
+        "prediction_start_flight_s": 0.74,
+        "prediction_completion_flight_s": 0.9026475770026445,
+        "prediction_wall_started_unix_s": 1794170387.370273,
+        "prediction_wall_finished_unix_s": 1794170387.532923,
+        "expiry_steps": null,
+        "prediction_available_by_trigger": null,
+        "prediction_available_by_recovery_prefix": true,
+        "prediction_ready_step": 46,
+        "prediction_ready_at_dispatch": true,
+        "scheduled_dispatch_step": 137,
+        "recovery_at_dispatch": false,
+        "prediction_available_before_dispatch": true,
+        "prediction_available_at_expiry": null,
+        "prediction_ready_control_step": 46,
+        "events": [
+          {
+            "kind": "approval",
+            "control_step": 37,
+            "flight_s": 0.74,
+            "approval_s": 0.0
+          },
+          {
+            "kind": "prediction_started",
+            "control_step": 37,
+            "flight_s": 0.74,
+            "approval_s": 0.0
+          },
+          {
+            "kind": "prediction_ready",
+            "control_step": 46,
+            "flight_s": 0.92,
+            "approval_s": 0.18
+          },
+          {
+            "kind": "command_dispatch",
+            "control_step": 137,
+            "flight_s": 2.74,
+            "approval_s": 2.0,
+            "canceled": false
+          },
+          {
+            "kind": "command_started",
+            "control_step": 137,
+            "flight_s": 2.74,
+            "approval_s": 2.0,
+            "maneuver": "dive",
+            "reason": "dispatch"
+          },
+          {
+            "kind": "safety_violation",
+            "physics_tick": 2850,
+            "flight_s": 2.85,
+            "approval_s": 2.1100000000000003,
+            "obstacle": "deck",
+            "part": "deck_front"
+          },
+          {
+            "kind": "observation_horizon_end",
+            "control_step": 437,
+            "flight_s": 8.74,
+            "approval_s": 8.0
+          }
+        ]
+      },
+      "first_violation_s": 2.85,
+      "pre_dispatch_violation_s": null,
+      "violation_before_intervention": false,
+      "approval_snapshot_verified": true
+    }
+  ]
+}

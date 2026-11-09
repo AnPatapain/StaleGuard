@@ -1,0 +1,5672 @@
+{
+  "provenance": {
+    "python": "3.10.21 (main, Aug 27 2026, 14:42:07) [GCC 14.3.0]",
+    "numpy": "2.2.6",
+    "platform": "Linux-6.8.0-147-generic-x86_64-with-glibc2.39",
+    "packages": {
+      "pybullet": "3.2.7",
+      "numpy": "2.2.6",
+      "scipy": "1.15.3",
+      "gymnasium": "0.28.1",
+      "numba": "0.68.0"
+    },
+    "simulation_workers": 1,
+    "numerical_threads": 1,
+    "control_hz": 50,
+    "physics_hz": 1000,
+    "model_hz": 100,
+    "source_sha256": {
+      "__init__.py": "13eb5d3361103ea6d5b7a24f30438daf7e5605f5b911f0dfb623f942d5dcf6e1",
+      "scenario.py": "1eaff61877dd499a96249e58ed794e7e06b2e294d7d13a1cc5108b2c44b35073",
+      "simulation.py": "574081a6209799c45679c724ec7269220703dc6bbfd747d002af8c58f468e1ad",
+      "calibration.py": "5251c33042ab7d523730d06da702f1a20dc751ab8056456ff12ed7305934f7de",
+      "pilot.py": "1e7de7011b28ff2256fd9f0b6820d6cfe36c9238608e763c4c0d9994320017b3",
+      "storage.py": "6c2dd37e1e06df0dd71f6e95c83ef7e23680b83d9eef1b46d665375323979419",
+      "support/visualization.py": "33c2aee29c3021b68c81b789d8e04f58297f4880b02f02ebff42c33b4e19aaf8",
+      "baselines/staleguard.py": "d9a101ae4093859ccd5d6c3889edbf3f00a77a9de68abe1c963bd4d00513c491",
+      "baselines/fbs.py": "c7354fc8d9c2f3c524ca320765e44c56994b23641755af398c375213233808f6",
+      "baselines/use_time_recheck.py": "0f577ce93d59f1cbe2dd3acf85428da38c03605e7893341becf0eb1993d8873e",
+      "baselines/fixed_early_recovery.py": "526eea923ee9083b3840216b2afb9c486d3224337c9e4e34ed206ea4a32e218a",
+      "baselines/policies.py": "7d030802f11bc10a7ca48d84a525713626b55091ec9efb04fa8c340bfa9e3808",
+      "baseline_benchmark/run.py": "4affa3224be6274f79ebc226105c356bdf8f180424332302230ff0e0e495ed32",
+      "baseline_benchmark/metrics.py": "617b29104b5c62d8277647b82e7e5b7f686b16e5b23249ad037a47ee704a371c",
+      "baselines/recovery_horizons.py": "b71c7a99dc21d30befc4e1b4d50afb6dfcb5c3b54fe098e1a116e04decdee48c",
+      "baselines/recovery_policies.py": "69201a452ff0f719a9f3867b1395f886df6978a46ea93774e0b02564da5855a4",
+      "baseline_benchmark/horizons.py": "28dd281591639a9501dbbd84bc5f88f6b551f2f1681a32a7f74a0e9782b44b23",
+      "support/profile_recovery_horizons.py": "d91c5ea3c822b872ea70cfa5db042d2428335ec7248bf40d1b4b90cc44262d67",
+      "support/test_recovery_horizons.py": "ed6fe2373e03826837b4cd4b7836c02ff7c28eb957348bcd3b6413150e9232a2",
+      "support/validate_baseline_benchmark.py": "63c8b03191113b55a654ef152daff15b1b31aacf2ea14bb1b33e4d6938c052cf",
+      "support/test_final_audit.py": "fc8fd67f25f5f4b2c70279a5dae8869a86595c9c307fbad9c02dfc963be4301a",
+      "support/test_2s_protocol.py": "a914bf067e405b9180a1d270668cffcc8c2e1aad077584aa83d0c4a398a7de03",
+      "support/test_reduced_protocol.py": "ef871a8571b6a3d647b84f7c13af06f509be81836944d0d9039a1343c04ab808",
+      "support/results_layout.json": "386dabc2421240e02216b66b4d1cbf53a766ea8c1f93e2f89f9ce8b614c2c4a2"
+    },
+    "shared_sha256": {
+      "model/__init__.py": "05e7dc53563467241281d3057b4f1f45f0e90d5c547726d5a842fbb7cd272ab0",
+      "model/common.py": "8e7d0d615e7977d443a8e22a096849633c2512634e3ff8c123218e533f1cd468",
+      "model/lightweight.py": "4f0b0a22d09eda8750adc903af9dddec785a1cec31f3304a86643596f80a6aac",
+      "model/scg.py": "8a1539ac1dbadac1ccaac95e0cbb16d1c3dcb28f9ca40a75a9e1870bcb999777",
+      "physics_monitor.py": "d7145e53736259b688d321449f6ce1f5b72b3cde4e07620b6c183d996d29cb91"
+    },
+    "environment_sha256": {
+      "safe_control_gym/controllers/pid/pid.py": "a9de84b6a20554f808f3d107bb2f8aafba59b6afd411813ff53367ce20e3a2cf",
+      "safe_control_gym/envs/gym_pybullet_drones/quadrotor.py": "3c5835baa64c31b99fd56efa8f0d81dc88693efea292e6c13c0fc0bac8447110",
+      "safe_control_gym/envs/gym_pybullet_drones/base_aviary.py": "c58673187cac18162c542f72a97525e0de059f4d0e426d1936d6ef00601af4c1",
+      "safe_control_gym/envs/gym_pybullet_drones/assets/cf2x.urdf": "80d69a1ee55913d074bf62cc1a97d2674641df3187eb360471ce6d6d1ef78142"
+    }
+  },
+  "evidence": "Development-only predictive diagnostic; physical labels from independent archived sweeps",
+  "startup_compile_warmup_s": 0.3351157149299979,
+  "timing": {
+    "reference_full": {
+      "samples": 36,
+      "p50_s": 0.2859316039830446,
+      "p95_s": 0.29356007499154657
+    },
+    "compiled_full": {
+      "samples": 36,
+      "p50_s": 0.17956922005396336,
+      "p95_s": 0.18576244404539466
+    },
+    "compiled_early_exact": {
+      "samples": 36,
+      "p50_s": 0.15868361748289317,
+      "p95_s": 0.1785589070059359
+    },
+    "compiled_early_broadphase": {
+      "samples": 36,
+      "p50_s": 0.14200017653638497,
+      "p95_s": 0.16982981003820896
+    }
+  },
+  "measurements": {
+    "reference_full": [
+      {
+        "seed": 1,
+        "repeat": 0,
+        "seconds": 0.28478757210541517
+      },
+      {
+        "seed": 1,
+        "repeat": 1,
+        "seconds": 0.27633837203029543
+      },
+      {
+        "seed": 1,
+        "repeat": 2,
+        "seconds": 0.27641460101585835
+      },
+      {
+        "seed": 2,
+        "repeat": 0,
+        "seconds": 0.2793088969774544
+      },
+      {
+        "seed": 2,
+        "repeat": 1,
+        "seconds": 0.2797580169280991
+      },
+      {
+        "seed": 2,
+        "repeat": 2,
+        "seconds": 0.2747909929603338
+      },
+      {
+        "seed": 3,
+        "repeat": 0,
+        "seconds": 0.29102340596728027
+      },
+      {
+        "seed": 3,
+        "repeat": 1,
+        "seconds": 0.28797070193104446
+      },
+      {
+        "seed": 3,
+        "repeat": 2,
+        "seconds": 0.28356567688751966
+      },
+      {
+        "seed": 6,
+        "repeat": 0,
+        "seconds": 0.27799734799191356
+      },
+      {
+        "seed": 6,
+        "repeat": 1,
+        "seconds": 0.289715428953059
+      },
+      {
+        "seed": 6,
+        "repeat": 2,
+        "seconds": 0.2883062509354204
+      },
+      {
+        "seed": 8,
+        "repeat": 0,
+        "seconds": 0.28803722199518234
+      },
+      {
+        "seed": 8,
+        "repeat": 1,
+        "seconds": 0.284194387961179
+      },
+      {
+        "seed": 8,
+        "repeat": 2,
+        "seconds": 0.2869967599399388
+      },
+      {
+        "seed": 9,
+        "repeat": 0,
+        "seconds": 0.28612240904476494
+      },
+      {
+        "seed": 9,
+        "repeat": 1,
+        "seconds": 0.2861702690133825
+      },
+      {
+        "seed": 9,
+        "repeat": 2,
+        "seconds": 0.287282551988028
+      },
+      {
+        "seed": 11,
+        "repeat": 0,
+        "seconds": 0.2851063369307667
+      },
+      {
+        "seed": 11,
+        "repeat": 1,
+        "seconds": 0.2841660180129111
+      },
+      {
+        "seed": 11,
+        "repeat": 2,
+        "seconds": 0.27417574590072036
+      },
+      {
+        "seed": 12,
+        "repeat": 0,
+        "seconds": 0.2774039600044489
+      },
+      {
+        "seed": 12,
+        "repeat": 1,
+        "seconds": 0.27569593698717654
+      },
+      {
+        "seed": 12,
+        "repeat": 2,
+        "seconds": 0.2857407989213243
+      },
+      {
+        "seed": 14,
+        "repeat": 0,
+        "seconds": 0.2879670149413869
+      },
+      {
+        "seed": 14,
+        "repeat": 1,
+        "seconds": 0.28869904193561524
+      },
+      {
+        "seed": 14,
+        "repeat": 2,
+        "seconds": 0.2891367729753256
+      },
+      {
+        "seed": 16,
+        "repeat": 0,
+        "seconds": 0.27825913100969046
+      },
+      {
+        "seed": 16,
+        "repeat": 1,
+        "seconds": 0.2805065111024305
+      },
+      {
+        "seed": 16,
+        "repeat": 2,
+        "seconds": 0.28173032007180154
+      },
+      {
+        "seed": 17,
+        "repeat": 0,
+        "seconds": 0.29421341593842953
+      },
+      {
+        "seed": 17,
+        "repeat": 1,
+        "seconds": 0.29356007499154657
+      },
+      {
+        "seed": 17,
+        "repeat": 2,
+        "seconds": 0.28944169799797237
+      },
+      {
+        "seed": 20,
+        "repeat": 0,
+        "seconds": 0.29146654496435076
+      },
+      {
+        "seed": 20,
+        "repeat": 1,
+        "seconds": 0.28716363408602774
+      },
+      {
+        "seed": 20,
+        "repeat": 2,
+        "seconds": 0.28764066100120544
+      }
+    ],
+    "compiled_full": [
+      {
+        "seed": 1,
+        "repeat": 0,
+        "seconds": 0.17832831596024334
+      },
+      {
+        "seed": 1,
+        "repeat": 1,
+        "seconds": 0.180107029969804
+      },
+      {
+        "seed": 1,
+        "repeat": 2,
+        "seconds": 0.1839332840172574
+      },
+      {
+        "seed": 2,
+        "repeat": 0,
+        "seconds": 0.17407210101373494
+      },
+      {
+        "seed": 2,
+        "repeat": 1,
+        "seconds": 0.1795609580585733
+      },
+      {
+        "seed": 2,
+        "repeat": 2,
+        "seconds": 0.17185827204957604
+      },
+      {
+        "seed": 3,
+        "repeat": 0,
+        "seconds": 0.1764219889882952
+      },
+      {
+        "seed": 3,
+        "repeat": 1,
+        "seconds": 0.17596974002663046
+      },
+      {
+        "seed": 3,
+        "repeat": 2,
+        "seconds": 0.17684489593375474
+      },
+      {
+        "seed": 6,
+        "repeat": 0,
+        "seconds": 0.18433541699778289
+      },
+      {
+        "seed": 6,
+        "repeat": 1,
+        "seconds": 0.18299481994472444
+      },
+      {
+        "seed": 6,
+        "repeat": 2,
+        "seconds": 0.17567452893126756
+      },
+      {
+        "seed": 8,
+        "repeat": 0,
+        "seconds": 0.17799171898514032
+      },
+      {
+        "seed": 8,
+        "repeat": 1,
+        "seconds": 0.17525829502847046
+      },
+      {
+        "seed": 8,
+        "repeat": 2,
+        "seconds": 0.17948191205505282
+      },
+      {
+        "seed": 9,
+        "repeat": 0,
+        "seconds": 0.17788506601937115
+      },
+      {
+        "seed": 9,
+        "repeat": 1,
+        "seconds": 0.17617982591036707
+      },
+      {
+        "seed": 9,
+        "repeat": 2,
+        "seconds": 0.1816452780039981
+      },
+      {
+        "seed": 11,
+        "repeat": 0,
+        "seconds": 0.17719823005609214
+      },
+      {
+        "seed": 11,
+        "repeat": 1,
+        "seconds": 0.17480793502181768
+      },
+      {
+        "seed": 11,
+        "repeat": 2,
+        "seconds": 0.17617238801904023
+      },
+      {
+        "seed": 12,
+        "repeat": 0,
+        "seconds": 0.18072213709820062
+      },
+      {
+        "seed": 12,
+        "repeat": 1,
+        "seconds": 0.1821703399764374
+      },
+      {
+        "seed": 12,
+        "repeat": 2,
+        "seconds": 0.18207786395214498
+      },
+      {
+        "seed": 14,
+        "repeat": 0,
+        "seconds": 0.18241859902627766
+      },
+      {
+        "seed": 14,
+        "repeat": 1,
+        "seconds": 0.18313573009800166
+      },
+      {
+        "seed": 14,
+        "repeat": 2,
+        "seconds": 0.17957748204935342
+      },
+      {
+        "seed": 16,
+        "repeat": 0,
+        "seconds": 0.17789845098741353
+      },
+      {
+        "seed": 16,
+        "repeat": 1,
+        "seconds": 0.18446748703718185
+      },
+      {
+        "seed": 16,
+        "repeat": 2,
+        "seconds": 0.181734589044936
+      },
+      {
+        "seed": 17,
+        "repeat": 0,
+        "seconds": 0.18023853295017034
+      },
+      {
+        "seed": 17,
+        "repeat": 1,
+        "seconds": 0.1821905740071088
+      },
+      {
+        "seed": 17,
+        "repeat": 2,
+        "seconds": 0.1792565839132294
+      },
+      {
+        "seed": 20,
+        "repeat": 0,
+        "seconds": 0.18071015807799995
+      },
+      {
+        "seed": 20,
+        "repeat": 1,
+        "seconds": 0.18576244404539466
+      },
+      {
+        "seed": 20,
+        "repeat": 2,
+        "seconds": 0.18838254595175385
+      }
+    ],
+    "compiled_early_exact": [
+      {
+        "seed": 1,
+        "repeat": 0,
+        "seconds": 0.16064558003563434
+      },
+      {
+        "seed": 1,
+        "repeat": 1,
+        "seconds": 0.15837774996180087
+      },
+      {
+        "seed": 1,
+        "repeat": 2,
+        "seconds": 0.1734255359042436
+      },
+      {
+        "seed": 2,
+        "repeat": 0,
+        "seconds": 0.14669716299977154
+      },
+      {
+        "seed": 2,
+        "repeat": 1,
+        "seconds": 0.14097017899621278
+      },
+      {
+        "seed": 2,
+        "repeat": 2,
+        "seconds": 0.14396021608263254
+      },
+      {
+        "seed": 3,
+        "repeat": 0,
+        "seconds": 0.1785589070059359
+      },
+      {
+        "seed": 3,
+        "repeat": 1,
+        "seconds": 0.17909989797044545
+      },
+      {
+        "seed": 3,
+        "repeat": 2,
+        "seconds": 0.1783482739701867
+      },
+      {
+        "seed": 6,
+        "repeat": 0,
+        "seconds": 0.15898948500398546
+      },
+      {
+        "seed": 6,
+        "repeat": 1,
+        "seconds": 0.15207546390593052
+      },
+      {
+        "seed": 6,
+        "repeat": 2,
+        "seconds": 0.15177213796414435
+      },
+      {
+        "seed": 8,
+        "repeat": 0,
+        "seconds": 0.1725309370085597
+      },
+      {
+        "seed": 8,
+        "repeat": 1,
+        "seconds": 0.17718946991954
+      },
+      {
+        "seed": 8,
+        "repeat": 2,
+        "seconds": 0.1727116359397769
+      },
+      {
+        "seed": 9,
+        "repeat": 0,
+        "seconds": 0.1654409629991278
+      },
+      {
+        "seed": 9,
+        "repeat": 1,
+        "seconds": 0.16412636800669134
+      },
+      {
+        "seed": 9,
+        "repeat": 2,
+        "seconds": 0.1771648289868608
+      },
+      {
+        "seed": 11,
+        "repeat": 0,
+        "seconds": 0.13504855590872467
+      },
+      {
+        "seed": 11,
+        "repeat": 1,
+        "seconds": 0.13510920805856586
+      },
+      {
+        "seed": 11,
+        "repeat": 2,
+        "seconds": 0.13751636201050133
+      },
+      {
+        "seed": 12,
+        "repeat": 0,
+        "seconds": 0.1495473269606009
+      },
+      {
+        "seed": 12,
+        "repeat": 1,
+        "seconds": 0.13866857590619475
+      },
+      {
+        "seed": 12,
+        "repeat": 2,
+        "seconds": 0.13635151600465178
+      },
+      {
+        "seed": 14,
+        "repeat": 0,
+        "seconds": 0.17007063701748848
+      },
+      {
+        "seed": 14,
+        "repeat": 1,
+        "seconds": 0.17147268203552812
+      },
+      {
+        "seed": 14,
+        "repeat": 2,
+        "seconds": 0.17231795005500317
+      },
+      {
+        "seed": 16,
+        "repeat": 0,
+        "seconds": 0.14918537891935557
+      },
+      {
+        "seed": 16,
+        "repeat": 1,
+        "seconds": 0.14639779506251216
+      },
+      {
+        "seed": 16,
+        "repeat": 2,
+        "seconds": 0.14685390004888177
+      },
+      {
+        "seed": 17,
+        "repeat": 0,
+        "seconds": 0.15271414199378341
+      },
+      {
+        "seed": 17,
+        "repeat": 1,
+        "seconds": 0.14561589004006237
+      },
+      {
+        "seed": 17,
+        "repeat": 2,
+        "seconds": 0.14834104292094707
+      },
+      {
+        "seed": 20,
+        "repeat": 0,
+        "seconds": 0.16892988397739828
+      },
+      {
+        "seed": 20,
+        "repeat": 1,
+        "seconds": 0.17395371303427964
+      },
+      {
+        "seed": 20,
+        "repeat": 2,
+        "seconds": 0.16790620202664286
+      }
+    ],
+    "compiled_early_broadphase": [
+      {
+        "seed": 1,
+        "repeat": 0,
+        "seconds": 0.1509587309556082
+      },
+      {
+        "seed": 1,
+        "repeat": 1,
+        "seconds": 0.14148397999815643
+      },
+      {
+        "seed": 1,
+        "repeat": 2,
+        "seconds": 0.16140674403868616
+      },
+      {
+        "seed": 2,
+        "repeat": 0,
+        "seconds": 0.1329432399943471
+      },
+      {
+        "seed": 2,
+        "repeat": 1,
+        "seconds": 0.13246154901571572
+      },
+      {
+        "seed": 2,
+        "repeat": 2,
+        "seconds": 0.1385561981005594
+      },
+      {
+        "seed": 3,
+        "repeat": 0,
+        "seconds": 0.1704554200405255
+      },
+      {
+        "seed": 3,
+        "repeat": 1,
+        "seconds": 0.1692437829915434
+      },
+      {
+        "seed": 3,
+        "repeat": 2,
+        "seconds": 0.1682930369861424
+      },
+      {
+        "seed": 6,
+        "repeat": 0,
+        "seconds": 0.1425163730746135
+      },
+      {
+        "seed": 6,
+        "repeat": 1,
+        "seconds": 0.14139612403232604
+      },
+      {
+        "seed": 6,
+        "repeat": 2,
+        "seconds": 0.14142679399810731
+      },
+      {
+        "seed": 8,
+        "repeat": 0,
+        "seconds": 0.1632785559631884
+      },
+      {
+        "seed": 8,
+        "repeat": 1,
+        "seconds": 0.1614799639210105
+      },
+      {
+        "seed": 8,
+        "repeat": 2,
+        "seconds": 0.15882303600665182
+      },
+      {
+        "seed": 9,
+        "repeat": 0,
+        "seconds": 0.154394514975138
+      },
+      {
+        "seed": 9,
+        "repeat": 1,
+        "seconds": 0.15212854894343764
+      },
+      {
+        "seed": 9,
+        "repeat": 2,
+        "seconds": 0.15303012006916106
+      },
+      {
+        "seed": 11,
+        "repeat": 0,
+        "seconds": 0.12840453500393778
+      },
+      {
+        "seed": 11,
+        "repeat": 1,
+        "seconds": 0.13608908595051616
+      },
+      {
+        "seed": 11,
+        "repeat": 2,
+        "seconds": 0.12863642198499292
+      },
+      {
+        "seed": 12,
+        "repeat": 0,
+        "seconds": 0.12842586799524724
+      },
+      {
+        "seed": 12,
+        "repeat": 1,
+        "seconds": 0.12886771198827773
+      },
+      {
+        "seed": 12,
+        "repeat": 2,
+        "seconds": 0.12900418997742236
+      },
+      {
+        "seed": 14,
+        "repeat": 0,
+        "seconds": 0.1684633019613102
+      },
+      {
+        "seed": 14,
+        "repeat": 1,
+        "seconds": 0.16982981003820896
+      },
+      {
+        "seed": 14,
+        "repeat": 2,
+        "seconds": 0.16727328905835748
+      },
+      {
+        "seed": 16,
+        "repeat": 0,
+        "seconds": 0.1372278940398246
+      },
+      {
+        "seed": 16,
+        "repeat": 1,
+        "seconds": 0.13875672791618854
+      },
+      {
+        "seed": 16,
+        "repeat": 2,
+        "seconds": 0.13491883198730648
+      },
+      {
+        "seed": 17,
+        "repeat": 0,
+        "seconds": 0.13899891602341086
+      },
+      {
+        "seed": 17,
+        "repeat": 1,
+        "seconds": 0.13888926908839494
+      },
+      {
+        "seed": 17,
+        "repeat": 2,
+        "seconds": 0.13881822989787906
+      },
+      {
+        "seed": 20,
+        "repeat": 0,
+        "seconds": 0.15631591097917408
+      },
+      {
+        "seed": 20,
+        "repeat": 1,
+        "seconds": 0.15573860600125045
+      },
+      {
+        "seed": 20,
+        "repeat": 2,
+        "seconds": 0.15477851498872042
+      }
+    ]
+  },
+  "profile_disagreements": [],
+  "max_state_error": 0.0,
+  "max_pid_error": 0.0,
+  "original_command_label_disagreements": 0,
+  "physical_label_quality": {
+    "command": {
+      "false_safe": 1,
+      "false_reject": 1,
+      "total": 228
+    },
+    "completion": {
+      "false_safe": 1,
+      "false_reject": 1,
+      "total": 228
+    },
+    "recovery": {
+      "false_safe": 1,
+      "false_reject": 0,
+      "total": 228
+    }
+  },
+  "broadphase_random_checks": 10000,
+  "predictions": {
+    "1": {
+      "results": [
+        {
+          "delay_s": 0.0,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.02,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.04,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.06,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.08,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.1,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.12,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.14,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.16,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.18,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.2,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.3,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.4,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.5,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.6,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.7,
+          "recovery_safe": false,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.8,
+          "recovery_safe": false,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.9,
+          "recovery_safe": false,
+          "safe": false,
+          "command_safe": false,
+          "command_complete": false
+        },
+        {
+          "delay_s": 1.0,
+          "recovery_safe": false,
+          "safe": false,
+          "command_safe": false,
+          "command_complete": false
+        }
+      ],
+      "boundaries": {
+        "command": {
+          "first_invalid_steps": 45,
+          "last_safe_prefix_steps": 40,
+          "last_tested_safe_steps": 40,
+          "right_censored": false,
+          "non_monotonic": false
+        },
+        "completion": {
+          "first_invalid_steps": 45,
+          "last_safe_prefix_steps": 40,
+          "last_tested_safe_steps": 40,
+          "right_censored": false,
+          "non_monotonic": false
+        },
+        "recovery": {
+          "first_invalid_steps": 35,
+          "last_safe_prefix_steps": 30,
+          "last_tested_safe_steps": 30,
+          "right_censored": false,
+          "non_monotonic": false
+        }
+      },
+      "grid_s": [
+        0.0,
+        0.02,
+        0.04,
+        0.06,
+        0.08,
+        0.1,
+        0.12,
+        0.14,
+        0.16,
+        0.18,
+        0.2,
+        0.3,
+        0.4,
+        0.5,
+        0.6,
+        0.7,
+        0.8,
+        0.9,
+        1.0
+      ],
+      "expiry_steps": 45,
+      "non_monotonic": false,
+      "any_profile_non_monotonic": false,
+      "right_censored": false,
+      "backend": "compiled",
+      "early_exit": true,
+      "broadphase": true,
+      "rollouts": [
+        {
+          "mode": "sideways",
+          "delay_s": 0.0,
+          "control_steps": 400
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.02,
+          "control_steps": 399
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.04,
+          "control_steps": 398
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.06,
+          "control_steps": 397
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.08,
+          "control_steps": 396
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.1,
+          "control_steps": 395
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.12,
+          "control_steps": 394
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.14,
+          "control_steps": 393
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.16,
+          "control_steps": 392
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.18,
+          "control_steps": 391
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.2,
+          "control_steps": 390
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.3,
+          "control_steps": 385
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.4,
+          "control_steps": 380
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.5,
+          "control_steps": 375
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.6,
+          "control_steps": 370
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.7,
+          "control_steps": 37
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.8,
+          "control_steps": 32
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.9,
+          "control_steps": 27
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 1.0,
+          "control_steps": 22
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.0,
+          "control_steps": 400
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.02,
+          "control_steps": 399
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.04,
+          "control_steps": 398
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.06,
+          "control_steps": 397
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.08,
+          "control_steps": 396
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.1,
+          "control_steps": 395
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.12,
+          "control_steps": 394
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.14,
+          "control_steps": 393
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.16,
+          "control_steps": 392
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.18,
+          "control_steps": 391
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.2,
+          "control_steps": 390
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.3,
+          "control_steps": 385
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.4,
+          "control_steps": 380
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.5,
+          "control_steps": 375
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.6,
+          "control_steps": 370
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.7,
+          "control_steps": 365
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.8,
+          "control_steps": 360
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.9,
+          "control_steps": 27
+        },
+        {
+          "mode": "dive",
+          "delay_s": 1.0,
+          "control_steps": 22
+        }
+      ],
+      "recovery_profile_finished_s": 0.0739083259832114,
+      "completion_model": "Continuous residence on piecewise-linear 100 Hz RK4 segments; same inspection box/dwell/horizon",
+      "publication": "Atomic: all profiles and boundaries ready together; partial recovery results are not consumed",
+      "policy_plans": {
+        "staleguard_recovery_aware": {
+          "trigger_steps": 30,
+          "reasons": [
+            "recovery_prefix_end"
+          ],
+          "recovery_verified_through_steps": 30
+        },
+        "staleguard_dual_horizon": {
+          "trigger_steps": 30,
+          "reasons": [
+            "recovery_prefix_end"
+          ],
+          "recovery_verified_through_steps": 30
+        }
+      },
+      "computation_s": 0.16140674403868616,
+      "wall_started_unix_s": 1794170720.4854288,
+      "wall_finished_unix_s": 1794170720.646837
+    },
+    "2": {
+      "results": [
+        {
+          "delay_s": 0.0,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.02,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.04,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.06,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.08,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.1,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.12,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.14,
+          "recovery_safe": true,
+          "safe": false,
+          "command_safe": false,
+          "command_complete": false
+        },
+        {
+          "delay_s": 0.16,
+          "recovery_safe": true,
+          "safe": false,
+          "command_safe": false,
+          "command_complete": false
+        },
+        {
+          "delay_s": 0.18,
+          "recovery_safe": true,
+          "safe": false,
+          "command_safe": false,
+          "command_complete": false
+        },
+        {
+          "delay_s": 0.2,
+          "recovery_safe": true,
+          "safe": false,
+          "command_safe": false,
+          "command_complete": false
+        },
+        {
+          "delay_s": 0.3,
+          "recovery_safe": true,
+          "safe": false,
+          "command_safe": false,
+          "command_complete": false
+        },
+        {
+          "delay_s": 0.4,
+          "recovery_safe": true,
+          "safe": false,
+          "command_safe": false,
+          "command_complete": false
+        },
+        {
+          "delay_s": 0.5,
+          "recovery_safe": true,
+          "safe": false,
+          "command_safe": false,
+          "command_complete": false
+        },
+        {
+          "delay_s": 0.6,
+          "recovery_safe": true,
+          "safe": false,
+          "command_safe": false,
+          "command_complete": false
+        },
+        {
+          "delay_s": 0.7,
+          "recovery_safe": true,
+          "safe": false,
+          "command_safe": false,
+          "command_complete": false
+        },
+        {
+          "delay_s": 0.8,
+          "recovery_safe": true,
+          "safe": false,
+          "command_safe": false,
+          "command_complete": false
+        },
+        {
+          "delay_s": 0.9,
+          "recovery_safe": true,
+          "safe": false,
+          "command_safe": false,
+          "command_complete": false
+        },
+        {
+          "delay_s": 1.0,
+          "recovery_safe": true,
+          "safe": false,
+          "command_safe": false,
+          "command_complete": false
+        }
+      ],
+      "boundaries": {
+        "command": {
+          "first_invalid_steps": 7,
+          "last_safe_prefix_steps": 6,
+          "last_tested_safe_steps": 6,
+          "right_censored": false,
+          "non_monotonic": false
+        },
+        "completion": {
+          "first_invalid_steps": 7,
+          "last_safe_prefix_steps": 6,
+          "last_tested_safe_steps": 6,
+          "right_censored": false,
+          "non_monotonic": false
+        },
+        "recovery": {
+          "first_invalid_steps": null,
+          "last_safe_prefix_steps": null,
+          "last_tested_safe_steps": 50,
+          "right_censored": true,
+          "non_monotonic": false
+        }
+      },
+      "grid_s": [
+        0.0,
+        0.02,
+        0.04,
+        0.06,
+        0.08,
+        0.1,
+        0.12,
+        0.14,
+        0.16,
+        0.18,
+        0.2,
+        0.3,
+        0.4,
+        0.5,
+        0.6,
+        0.7,
+        0.8,
+        0.9,
+        1.0
+      ],
+      "expiry_steps": 7,
+      "non_monotonic": false,
+      "any_profile_non_monotonic": false,
+      "right_censored": false,
+      "backend": "compiled",
+      "early_exit": true,
+      "broadphase": true,
+      "rollouts": [
+        {
+          "mode": "sideways",
+          "delay_s": 0.0,
+          "control_steps": 400
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.02,
+          "control_steps": 399
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.04,
+          "control_steps": 398
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.06,
+          "control_steps": 397
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.08,
+          "control_steps": 396
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.1,
+          "control_steps": 395
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.12,
+          "control_steps": 394
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.14,
+          "control_steps": 393
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.16,
+          "control_steps": 392
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.18,
+          "control_steps": 391
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.2,
+          "control_steps": 390
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.3,
+          "control_steps": 385
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.4,
+          "control_steps": 380
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.5,
+          "control_steps": 375
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.6,
+          "control_steps": 370
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.7,
+          "control_steps": 365
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.8,
+          "control_steps": 360
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.9,
+          "control_steps": 355
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 1.0,
+          "control_steps": 350
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.0,
+          "control_steps": 400
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.02,
+          "control_steps": 399
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.04,
+          "control_steps": 398
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.06,
+          "control_steps": 397
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.08,
+          "control_steps": 396
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.1,
+          "control_steps": 395
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.12,
+          "control_steps": 394
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.14,
+          "control_steps": 157
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.16,
+          "control_steps": 155
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.18,
+          "control_steps": 154
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.2,
+          "control_steps": 153
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.3,
+          "control_steps": 148
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.4,
+          "control_steps": 143
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.5,
+          "control_steps": 138
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.6,
+          "control_steps": 134
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.7,
+          "control_steps": 129
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.8,
+          "control_steps": 123
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.9,
+          "control_steps": 119
+        },
+        {
+          "mode": "dive",
+          "delay_s": 1.0,
+          "control_steps": 114
+        }
+      ],
+      "recovery_profile_finished_s": 0.0832623140886426,
+      "completion_model": "Continuous residence on piecewise-linear 100 Hz RK4 segments; same inspection box/dwell/horizon",
+      "publication": "Atomic: all profiles and boundaries ready together; partial recovery results are not consumed",
+      "policy_plans": {
+        "staleguard_recovery_aware": {
+          "trigger_steps": 7,
+          "reasons": [
+            "command_expiry"
+          ],
+          "recovery_verified_through_steps": 50
+        },
+        "staleguard_dual_horizon": {
+          "trigger_steps": 7,
+          "reasons": [
+            "command_expiry",
+            "completion_expiry"
+          ],
+          "recovery_verified_through_steps": 50
+        }
+      },
+      "computation_s": 0.1385561981005594,
+      "wall_started_unix_s": 1794170723.2994094,
+      "wall_finished_unix_s": 1794170723.4379673
+    },
+    "3": {
+      "results": [
+        {
+          "delay_s": 0.0,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.02,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.04,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.06,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.08,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.1,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.12,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.14,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.16,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.18,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.2,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.3,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.4,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.5,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.6,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.7,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.8,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.9,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 1.0,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        }
+      ],
+      "boundaries": {
+        "command": {
+          "first_invalid_steps": null,
+          "last_safe_prefix_steps": null,
+          "last_tested_safe_steps": 50,
+          "right_censored": true,
+          "non_monotonic": false
+        },
+        "completion": {
+          "first_invalid_steps": null,
+          "last_safe_prefix_steps": null,
+          "last_tested_safe_steps": 50,
+          "right_censored": true,
+          "non_monotonic": false
+        },
+        "recovery": {
+          "first_invalid_steps": null,
+          "last_safe_prefix_steps": null,
+          "last_tested_safe_steps": 50,
+          "right_censored": true,
+          "non_monotonic": false
+        }
+      },
+      "grid_s": [
+        0.0,
+        0.02,
+        0.04,
+        0.06,
+        0.08,
+        0.1,
+        0.12,
+        0.14,
+        0.16,
+        0.18,
+        0.2,
+        0.3,
+        0.4,
+        0.5,
+        0.6,
+        0.7,
+        0.8,
+        0.9,
+        1.0
+      ],
+      "expiry_steps": null,
+      "non_monotonic": false,
+      "any_profile_non_monotonic": false,
+      "right_censored": true,
+      "backend": "compiled",
+      "early_exit": true,
+      "broadphase": true,
+      "rollouts": [
+        {
+          "mode": "sideways",
+          "delay_s": 0.0,
+          "control_steps": 400
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.02,
+          "control_steps": 399
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.04,
+          "control_steps": 398
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.06,
+          "control_steps": 397
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.08,
+          "control_steps": 396
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.1,
+          "control_steps": 395
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.12,
+          "control_steps": 394
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.14,
+          "control_steps": 393
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.16,
+          "control_steps": 392
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.18,
+          "control_steps": 391
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.2,
+          "control_steps": 390
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.3,
+          "control_steps": 385
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.4,
+          "control_steps": 380
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.5,
+          "control_steps": 375
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.6,
+          "control_steps": 370
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.7,
+          "control_steps": 365
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.8,
+          "control_steps": 360
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.9,
+          "control_steps": 355
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 1.0,
+          "control_steps": 350
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.0,
+          "control_steps": 400
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.02,
+          "control_steps": 399
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.04,
+          "control_steps": 398
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.06,
+          "control_steps": 397
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.08,
+          "control_steps": 396
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.1,
+          "control_steps": 395
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.12,
+          "control_steps": 394
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.14,
+          "control_steps": 393
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.16,
+          "control_steps": 392
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.18,
+          "control_steps": 391
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.2,
+          "control_steps": 390
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.3,
+          "control_steps": 385
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.4,
+          "control_steps": 380
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.5,
+          "control_steps": 375
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.6,
+          "control_steps": 370
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.7,
+          "control_steps": 365
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.8,
+          "control_steps": 360
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.9,
+          "control_steps": 355
+        },
+        {
+          "mode": "dive",
+          "delay_s": 1.0,
+          "control_steps": 350
+        }
+      ],
+      "recovery_profile_finished_s": 0.08619917999021709,
+      "completion_model": "Continuous residence on piecewise-linear 100 Hz RK4 segments; same inspection box/dwell/horizon",
+      "publication": "Atomic: all profiles and boundaries ready together; partial recovery results are not consumed",
+      "policy_plans": {
+        "staleguard_recovery_aware": {
+          "trigger_steps": null,
+          "reasons": [],
+          "recovery_verified_through_steps": 50
+        },
+        "staleguard_dual_horizon": {
+          "trigger_steps": null,
+          "reasons": [],
+          "recovery_verified_through_steps": 50
+        }
+      },
+      "computation_s": 0.1682930369861424,
+      "wall_started_unix_s": 1794170726.3354256,
+      "wall_finished_unix_s": 1794170726.5037196
+    },
+    "6": {
+      "results": [
+        {
+          "delay_s": 0.0,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.02,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.04,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.06,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.08,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.1,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.12,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.14,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.16,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.18,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.2,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.3,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.4,
+          "recovery_safe": true,
+          "safe": false,
+          "command_safe": false,
+          "command_complete": false
+        },
+        {
+          "delay_s": 0.5,
+          "recovery_safe": true,
+          "safe": false,
+          "command_safe": false,
+          "command_complete": false
+        },
+        {
+          "delay_s": 0.6,
+          "recovery_safe": true,
+          "safe": false,
+          "command_safe": false,
+          "command_complete": false
+        },
+        {
+          "delay_s": 0.7,
+          "recovery_safe": true,
+          "safe": false,
+          "command_safe": false,
+          "command_complete": false
+        },
+        {
+          "delay_s": 0.8,
+          "recovery_safe": true,
+          "safe": false,
+          "command_safe": false,
+          "command_complete": false
+        },
+        {
+          "delay_s": 0.9,
+          "recovery_safe": false,
+          "safe": false,
+          "command_safe": false,
+          "command_complete": false
+        },
+        {
+          "delay_s": 1.0,
+          "recovery_safe": false,
+          "safe": false,
+          "command_safe": false,
+          "command_complete": false
+        }
+      ],
+      "boundaries": {
+        "command": {
+          "first_invalid_steps": 20,
+          "last_safe_prefix_steps": 15,
+          "last_tested_safe_steps": 15,
+          "right_censored": false,
+          "non_monotonic": false
+        },
+        "completion": {
+          "first_invalid_steps": 20,
+          "last_safe_prefix_steps": 15,
+          "last_tested_safe_steps": 15,
+          "right_censored": false,
+          "non_monotonic": false
+        },
+        "recovery": {
+          "first_invalid_steps": 45,
+          "last_safe_prefix_steps": 40,
+          "last_tested_safe_steps": 40,
+          "right_censored": false,
+          "non_monotonic": false
+        }
+      },
+      "grid_s": [
+        0.0,
+        0.02,
+        0.04,
+        0.06,
+        0.08,
+        0.1,
+        0.12,
+        0.14,
+        0.16,
+        0.18,
+        0.2,
+        0.3,
+        0.4,
+        0.5,
+        0.6,
+        0.7,
+        0.8,
+        0.9,
+        1.0
+      ],
+      "expiry_steps": 20,
+      "non_monotonic": false,
+      "any_profile_non_monotonic": false,
+      "right_censored": false,
+      "backend": "compiled",
+      "early_exit": true,
+      "broadphase": true,
+      "rollouts": [
+        {
+          "mode": "sideways",
+          "delay_s": 0.0,
+          "control_steps": 400
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.02,
+          "control_steps": 399
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.04,
+          "control_steps": 398
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.06,
+          "control_steps": 397
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.08,
+          "control_steps": 396
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.1,
+          "control_steps": 395
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.12,
+          "control_steps": 394
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.14,
+          "control_steps": 393
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.16,
+          "control_steps": 392
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.18,
+          "control_steps": 391
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.2,
+          "control_steps": 390
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.3,
+          "control_steps": 385
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.4,
+          "control_steps": 380
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.5,
+          "control_steps": 375
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.6,
+          "control_steps": 370
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.7,
+          "control_steps": 365
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.8,
+          "control_steps": 360
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.9,
+          "control_steps": 39
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 1.0,
+          "control_steps": 34
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.0,
+          "control_steps": 400
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.02,
+          "control_steps": 399
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.04,
+          "control_steps": 398
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.06,
+          "control_steps": 397
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.08,
+          "control_steps": 396
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.1,
+          "control_steps": 395
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.12,
+          "control_steps": 394
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.14,
+          "control_steps": 393
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.16,
+          "control_steps": 392
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.18,
+          "control_steps": 391
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.2,
+          "control_steps": 390
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.3,
+          "control_steps": 385
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.4,
+          "control_steps": 155
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.5,
+          "control_steps": 150
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.6,
+          "control_steps": 146
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.7,
+          "control_steps": 140
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.8,
+          "control_steps": 136
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.9,
+          "control_steps": 130
+        },
+        {
+          "mode": "dive",
+          "delay_s": 1.0,
+          "control_steps": 126
+        }
+      ],
+      "recovery_profile_finished_s": 0.07685450895223767,
+      "completion_model": "Continuous residence on piecewise-linear 100 Hz RK4 segments; same inspection box/dwell/horizon",
+      "publication": "Atomic: all profiles and boundaries ready together; partial recovery results are not consumed",
+      "policy_plans": {
+        "staleguard_recovery_aware": {
+          "trigger_steps": 20,
+          "reasons": [
+            "command_expiry"
+          ],
+          "recovery_verified_through_steps": 40
+        },
+        "staleguard_dual_horizon": {
+          "trigger_steps": 20,
+          "reasons": [
+            "command_expiry",
+            "completion_expiry"
+          ],
+          "recovery_verified_through_steps": 40
+        }
+      },
+      "computation_s": 0.14142679399810731,
+      "wall_started_unix_s": 1794170729.2499976,
+      "wall_finished_unix_s": 1794170729.3914258
+    },
+    "8": {
+      "results": [
+        {
+          "delay_s": 0.0,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.02,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.04,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.06,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.08,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.1,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.12,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.14,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.16,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.18,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.2,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.3,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.4,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.5,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.6,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.7,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.8,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.9,
+          "recovery_safe": false,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 1.0,
+          "recovery_safe": false,
+          "safe": false,
+          "command_safe": false,
+          "command_complete": false
+        }
+      ],
+      "boundaries": {
+        "command": {
+          "first_invalid_steps": 50,
+          "last_safe_prefix_steps": 45,
+          "last_tested_safe_steps": 45,
+          "right_censored": false,
+          "non_monotonic": false
+        },
+        "completion": {
+          "first_invalid_steps": 50,
+          "last_safe_prefix_steps": 45,
+          "last_tested_safe_steps": 45,
+          "right_censored": false,
+          "non_monotonic": false
+        },
+        "recovery": {
+          "first_invalid_steps": 45,
+          "last_safe_prefix_steps": 40,
+          "last_tested_safe_steps": 40,
+          "right_censored": false,
+          "non_monotonic": false
+        }
+      },
+      "grid_s": [
+        0.0,
+        0.02,
+        0.04,
+        0.06,
+        0.08,
+        0.1,
+        0.12,
+        0.14,
+        0.16,
+        0.18,
+        0.2,
+        0.3,
+        0.4,
+        0.5,
+        0.6,
+        0.7,
+        0.8,
+        0.9,
+        1.0
+      ],
+      "expiry_steps": 50,
+      "non_monotonic": false,
+      "any_profile_non_monotonic": false,
+      "right_censored": false,
+      "backend": "compiled",
+      "early_exit": true,
+      "broadphase": true,
+      "rollouts": [
+        {
+          "mode": "sideways",
+          "delay_s": 0.0,
+          "control_steps": 400
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.02,
+          "control_steps": 399
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.04,
+          "control_steps": 398
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.06,
+          "control_steps": 397
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.08,
+          "control_steps": 396
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.1,
+          "control_steps": 395
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.12,
+          "control_steps": 394
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.14,
+          "control_steps": 393
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.16,
+          "control_steps": 392
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.18,
+          "control_steps": 391
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.2,
+          "control_steps": 390
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.3,
+          "control_steps": 385
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.4,
+          "control_steps": 380
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.5,
+          "control_steps": 375
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.6,
+          "control_steps": 370
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.7,
+          "control_steps": 365
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.8,
+          "control_steps": 360
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.9,
+          "control_steps": 34
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 1.0,
+          "control_steps": 29
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.0,
+          "control_steps": 400
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.02,
+          "control_steps": 399
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.04,
+          "control_steps": 398
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.06,
+          "control_steps": 397
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.08,
+          "control_steps": 396
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.1,
+          "control_steps": 395
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.12,
+          "control_steps": 394
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.14,
+          "control_steps": 393
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.16,
+          "control_steps": 392
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.18,
+          "control_steps": 391
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.2,
+          "control_steps": 390
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.3,
+          "control_steps": 385
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.4,
+          "control_steps": 380
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.5,
+          "control_steps": 375
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.6,
+          "control_steps": 370
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.7,
+          "control_steps": 365
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.8,
+          "control_steps": 360
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.9,
+          "control_steps": 355
+        },
+        {
+          "mode": "dive",
+          "delay_s": 1.0,
+          "control_steps": 29
+        }
+      ],
+      "recovery_profile_finished_s": 0.07725205703172833,
+      "completion_model": "Continuous residence on piecewise-linear 100 Hz RK4 segments; same inspection box/dwell/horizon",
+      "publication": "Atomic: all profiles and boundaries ready together; partial recovery results are not consumed",
+      "policy_plans": {
+        "staleguard_recovery_aware": {
+          "trigger_steps": 40,
+          "reasons": [
+            "recovery_prefix_end"
+          ],
+          "recovery_verified_through_steps": 40
+        },
+        "staleguard_dual_horizon": {
+          "trigger_steps": 40,
+          "reasons": [
+            "recovery_prefix_end"
+          ],
+          "recovery_verified_through_steps": 40
+        }
+      },
+      "computation_s": 0.15882303600665182,
+      "wall_started_unix_s": 1794170732.2373452,
+      "wall_finished_unix_s": 1794170732.3961692
+    },
+    "9": {
+      "results": [
+        {
+          "delay_s": 0.0,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.02,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.04,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.06,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.08,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.1,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.12,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.14,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.16,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.18,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.2,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.3,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.4,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.5,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.6,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.7,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.8,
+          "recovery_safe": true,
+          "safe": false,
+          "command_safe": false,
+          "command_complete": false
+        },
+        {
+          "delay_s": 0.9,
+          "recovery_safe": false,
+          "safe": false,
+          "command_safe": false,
+          "command_complete": false
+        },
+        {
+          "delay_s": 1.0,
+          "recovery_safe": false,
+          "safe": false,
+          "command_safe": false,
+          "command_complete": false
+        }
+      ],
+      "boundaries": {
+        "command": {
+          "first_invalid_steps": 40,
+          "last_safe_prefix_steps": 35,
+          "last_tested_safe_steps": 35,
+          "right_censored": false,
+          "non_monotonic": false
+        },
+        "completion": {
+          "first_invalid_steps": 40,
+          "last_safe_prefix_steps": 35,
+          "last_tested_safe_steps": 35,
+          "right_censored": false,
+          "non_monotonic": false
+        },
+        "recovery": {
+          "first_invalid_steps": 45,
+          "last_safe_prefix_steps": 40,
+          "last_tested_safe_steps": 40,
+          "right_censored": false,
+          "non_monotonic": false
+        }
+      },
+      "grid_s": [
+        0.0,
+        0.02,
+        0.04,
+        0.06,
+        0.08,
+        0.1,
+        0.12,
+        0.14,
+        0.16,
+        0.18,
+        0.2,
+        0.3,
+        0.4,
+        0.5,
+        0.6,
+        0.7,
+        0.8,
+        0.9,
+        1.0
+      ],
+      "expiry_steps": 40,
+      "non_monotonic": false,
+      "any_profile_non_monotonic": false,
+      "right_censored": false,
+      "backend": "compiled",
+      "early_exit": true,
+      "broadphase": true,
+      "rollouts": [
+        {
+          "mode": "sideways",
+          "delay_s": 0.0,
+          "control_steps": 400
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.02,
+          "control_steps": 399
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.04,
+          "control_steps": 398
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.06,
+          "control_steps": 397
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.08,
+          "control_steps": 396
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.1,
+          "control_steps": 395
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.12,
+          "control_steps": 394
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.14,
+          "control_steps": 393
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.16,
+          "control_steps": 392
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.18,
+          "control_steps": 391
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.2,
+          "control_steps": 390
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.3,
+          "control_steps": 385
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.4,
+          "control_steps": 380
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.5,
+          "control_steps": 375
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.6,
+          "control_steps": 370
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.7,
+          "control_steps": 365
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.8,
+          "control_steps": 360
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.9,
+          "control_steps": 40
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 1.0,
+          "control_steps": 34
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.0,
+          "control_steps": 400
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.02,
+          "control_steps": 399
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.04,
+          "control_steps": 398
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.06,
+          "control_steps": 397
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.08,
+          "control_steps": 396
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.1,
+          "control_steps": 395
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.12,
+          "control_steps": 394
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.14,
+          "control_steps": 393
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.16,
+          "control_steps": 392
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.18,
+          "control_steps": 391
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.2,
+          "control_steps": 390
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.3,
+          "control_steps": 385
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.4,
+          "control_steps": 380
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.5,
+          "control_steps": 375
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.6,
+          "control_steps": 370
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.7,
+          "control_steps": 365
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.8,
+          "control_steps": 153
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.9,
+          "control_steps": 149
+        },
+        {
+          "mode": "dive",
+          "delay_s": 1.0,
+          "control_steps": 143
+        }
+      ],
+      "recovery_profile_finished_s": 0.07639929000288248,
+      "completion_model": "Continuous residence on piecewise-linear 100 Hz RK4 segments; same inspection box/dwell/horizon",
+      "publication": "Atomic: all profiles and boundaries ready together; partial recovery results are not consumed",
+      "policy_plans": {
+        "staleguard_recovery_aware": {
+          "trigger_steps": 40,
+          "reasons": [
+            "command_expiry",
+            "recovery_prefix_end"
+          ],
+          "recovery_verified_through_steps": 40
+        },
+        "staleguard_dual_horizon": {
+          "trigger_steps": 40,
+          "reasons": [
+            "command_expiry",
+            "recovery_prefix_end",
+            "completion_expiry"
+          ],
+          "recovery_verified_through_steps": 40
+        }
+      },
+      "computation_s": 0.15303012006916106,
+      "wall_started_unix_s": 1794170735.2103424,
+      "wall_finished_unix_s": 1794170735.3633735
+    },
+    "11": {
+      "results": [
+        {
+          "delay_s": 0.0,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.02,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.04,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.06,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.08,
+          "recovery_safe": true,
+          "safe": false,
+          "command_safe": false,
+          "command_complete": false
+        },
+        {
+          "delay_s": 0.1,
+          "recovery_safe": true,
+          "safe": false,
+          "command_safe": false,
+          "command_complete": false
+        },
+        {
+          "delay_s": 0.12,
+          "recovery_safe": true,
+          "safe": false,
+          "command_safe": false,
+          "command_complete": false
+        },
+        {
+          "delay_s": 0.14,
+          "recovery_safe": true,
+          "safe": false,
+          "command_safe": false,
+          "command_complete": false
+        },
+        {
+          "delay_s": 0.16,
+          "recovery_safe": true,
+          "safe": false,
+          "command_safe": false,
+          "command_complete": false
+        },
+        {
+          "delay_s": 0.18,
+          "recovery_safe": true,
+          "safe": false,
+          "command_safe": false,
+          "command_complete": false
+        },
+        {
+          "delay_s": 0.2,
+          "recovery_safe": true,
+          "safe": false,
+          "command_safe": false,
+          "command_complete": false
+        },
+        {
+          "delay_s": 0.3,
+          "recovery_safe": true,
+          "safe": false,
+          "command_safe": false,
+          "command_complete": false
+        },
+        {
+          "delay_s": 0.4,
+          "recovery_safe": true,
+          "safe": false,
+          "command_safe": false,
+          "command_complete": false
+        },
+        {
+          "delay_s": 0.5,
+          "recovery_safe": true,
+          "safe": false,
+          "command_safe": false,
+          "command_complete": false
+        },
+        {
+          "delay_s": 0.6,
+          "recovery_safe": true,
+          "safe": false,
+          "command_safe": false,
+          "command_complete": false
+        },
+        {
+          "delay_s": 0.7,
+          "recovery_safe": true,
+          "safe": false,
+          "command_safe": false,
+          "command_complete": false
+        },
+        {
+          "delay_s": 0.8,
+          "recovery_safe": true,
+          "safe": false,
+          "command_safe": false,
+          "command_complete": false
+        },
+        {
+          "delay_s": 0.9,
+          "recovery_safe": true,
+          "safe": false,
+          "command_safe": false,
+          "command_complete": false
+        },
+        {
+          "delay_s": 1.0,
+          "recovery_safe": true,
+          "safe": false,
+          "command_safe": false,
+          "command_complete": false
+        }
+      ],
+      "boundaries": {
+        "command": {
+          "first_invalid_steps": 4,
+          "last_safe_prefix_steps": 3,
+          "last_tested_safe_steps": 3,
+          "right_censored": false,
+          "non_monotonic": false
+        },
+        "completion": {
+          "first_invalid_steps": 4,
+          "last_safe_prefix_steps": 3,
+          "last_tested_safe_steps": 3,
+          "right_censored": false,
+          "non_monotonic": false
+        },
+        "recovery": {
+          "first_invalid_steps": null,
+          "last_safe_prefix_steps": null,
+          "last_tested_safe_steps": 50,
+          "right_censored": true,
+          "non_monotonic": false
+        }
+      },
+      "grid_s": [
+        0.0,
+        0.02,
+        0.04,
+        0.06,
+        0.08,
+        0.1,
+        0.12,
+        0.14,
+        0.16,
+        0.18,
+        0.2,
+        0.3,
+        0.4,
+        0.5,
+        0.6,
+        0.7,
+        0.8,
+        0.9,
+        1.0
+      ],
+      "expiry_steps": 4,
+      "non_monotonic": false,
+      "any_profile_non_monotonic": false,
+      "right_censored": false,
+      "backend": "compiled",
+      "early_exit": true,
+      "broadphase": true,
+      "rollouts": [
+        {
+          "mode": "sideways",
+          "delay_s": 0.0,
+          "control_steps": 400
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.02,
+          "control_steps": 399
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.04,
+          "control_steps": 398
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.06,
+          "control_steps": 397
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.08,
+          "control_steps": 396
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.1,
+          "control_steps": 395
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.12,
+          "control_steps": 394
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.14,
+          "control_steps": 393
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.16,
+          "control_steps": 392
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.18,
+          "control_steps": 391
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.2,
+          "control_steps": 390
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.3,
+          "control_steps": 385
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.4,
+          "control_steps": 380
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.5,
+          "control_steps": 375
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.6,
+          "control_steps": 370
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.7,
+          "control_steps": 365
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.8,
+          "control_steps": 360
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.9,
+          "control_steps": 355
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 1.0,
+          "control_steps": 350
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.0,
+          "control_steps": 400
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.02,
+          "control_steps": 399
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.04,
+          "control_steps": 398
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.06,
+          "control_steps": 397
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.08,
+          "control_steps": 158
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.1,
+          "control_steps": 156
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.12,
+          "control_steps": 155
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.14,
+          "control_steps": 154
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.16,
+          "control_steps": 152
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.18,
+          "control_steps": 152
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.2,
+          "control_steps": 151
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.3,
+          "control_steps": 146
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.4,
+          "control_steps": 140
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.5,
+          "control_steps": 135
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.6,
+          "control_steps": 131
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.7,
+          "control_steps": 126
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.8,
+          "control_steps": 121
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.9,
+          "control_steps": 116
+        },
+        {
+          "mode": "dive",
+          "delay_s": 1.0,
+          "control_steps": 110
+        }
+      ],
+      "recovery_profile_finished_s": 0.0832029749872163,
+      "completion_model": "Continuous residence on piecewise-linear 100 Hz RK4 segments; same inspection box/dwell/horizon",
+      "publication": "Atomic: all profiles and boundaries ready together; partial recovery results are not consumed",
+      "policy_plans": {
+        "staleguard_recovery_aware": {
+          "trigger_steps": 4,
+          "reasons": [
+            "command_expiry"
+          ],
+          "recovery_verified_through_steps": 50
+        },
+        "staleguard_dual_horizon": {
+          "trigger_steps": 4,
+          "reasons": [
+            "command_expiry",
+            "completion_expiry"
+          ],
+          "recovery_verified_through_steps": 50
+        }
+      },
+      "computation_s": 0.12863642198499292,
+      "wall_started_unix_s": 1794170738.0224082,
+      "wall_finished_unix_s": 1794170738.1510456
+    },
+    "12": {
+      "results": [
+        {
+          "delay_s": 0.0,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.02,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.04,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.06,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.08,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.1,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.12,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.14,
+          "recovery_safe": true,
+          "safe": false,
+          "command_safe": false,
+          "command_complete": false
+        },
+        {
+          "delay_s": 0.16,
+          "recovery_safe": true,
+          "safe": false,
+          "command_safe": false,
+          "command_complete": false
+        },
+        {
+          "delay_s": 0.18,
+          "recovery_safe": true,
+          "safe": false,
+          "command_safe": false,
+          "command_complete": false
+        },
+        {
+          "delay_s": 0.2,
+          "recovery_safe": true,
+          "safe": false,
+          "command_safe": false,
+          "command_complete": false
+        },
+        {
+          "delay_s": 0.3,
+          "recovery_safe": true,
+          "safe": false,
+          "command_safe": false,
+          "command_complete": false
+        },
+        {
+          "delay_s": 0.4,
+          "recovery_safe": true,
+          "safe": false,
+          "command_safe": false,
+          "command_complete": false
+        },
+        {
+          "delay_s": 0.5,
+          "recovery_safe": true,
+          "safe": false,
+          "command_safe": false,
+          "command_complete": false
+        },
+        {
+          "delay_s": 0.6,
+          "recovery_safe": true,
+          "safe": false,
+          "command_safe": false,
+          "command_complete": false
+        },
+        {
+          "delay_s": 0.7,
+          "recovery_safe": true,
+          "safe": false,
+          "command_safe": false,
+          "command_complete": false
+        },
+        {
+          "delay_s": 0.8,
+          "recovery_safe": true,
+          "safe": false,
+          "command_safe": false,
+          "command_complete": false
+        },
+        {
+          "delay_s": 0.9,
+          "recovery_safe": false,
+          "safe": false,
+          "command_safe": false,
+          "command_complete": false
+        },
+        {
+          "delay_s": 1.0,
+          "recovery_safe": false,
+          "safe": false,
+          "command_safe": false,
+          "command_complete": false
+        }
+      ],
+      "boundaries": {
+        "command": {
+          "first_invalid_steps": 7,
+          "last_safe_prefix_steps": 6,
+          "last_tested_safe_steps": 6,
+          "right_censored": false,
+          "non_monotonic": false
+        },
+        "completion": {
+          "first_invalid_steps": 7,
+          "last_safe_prefix_steps": 6,
+          "last_tested_safe_steps": 6,
+          "right_censored": false,
+          "non_monotonic": false
+        },
+        "recovery": {
+          "first_invalid_steps": 45,
+          "last_safe_prefix_steps": 40,
+          "last_tested_safe_steps": 40,
+          "right_censored": false,
+          "non_monotonic": false
+        }
+      },
+      "grid_s": [
+        0.0,
+        0.02,
+        0.04,
+        0.06,
+        0.08,
+        0.1,
+        0.12,
+        0.14,
+        0.16,
+        0.18,
+        0.2,
+        0.3,
+        0.4,
+        0.5,
+        0.6,
+        0.7,
+        0.8,
+        0.9,
+        1.0
+      ],
+      "expiry_steps": 7,
+      "non_monotonic": false,
+      "any_profile_non_monotonic": false,
+      "right_censored": false,
+      "backend": "compiled",
+      "early_exit": true,
+      "broadphase": true,
+      "rollouts": [
+        {
+          "mode": "sideways",
+          "delay_s": 0.0,
+          "control_steps": 400
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.02,
+          "control_steps": 399
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.04,
+          "control_steps": 398
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.06,
+          "control_steps": 397
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.08,
+          "control_steps": 396
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.1,
+          "control_steps": 395
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.12,
+          "control_steps": 394
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.14,
+          "control_steps": 393
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.16,
+          "control_steps": 392
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.18,
+          "control_steps": 391
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.2,
+          "control_steps": 390
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.3,
+          "control_steps": 385
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.4,
+          "control_steps": 380
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.5,
+          "control_steps": 375
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.6,
+          "control_steps": 370
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.7,
+          "control_steps": 365
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.8,
+          "control_steps": 360
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.9,
+          "control_steps": 33
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 1.0,
+          "control_steps": 28
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.0,
+          "control_steps": 400
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.02,
+          "control_steps": 399
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.04,
+          "control_steps": 398
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.06,
+          "control_steps": 397
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.08,
+          "control_steps": 396
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.1,
+          "control_steps": 395
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.12,
+          "control_steps": 394
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.14,
+          "control_steps": 157
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.16,
+          "control_steps": 156
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.18,
+          "control_steps": 155
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.2,
+          "control_steps": 154
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.3,
+          "control_steps": 149
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.4,
+          "control_steps": 144
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.5,
+          "control_steps": 139
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.6,
+          "control_steps": 135
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.7,
+          "control_steps": 130
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.8,
+          "control_steps": 125
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.9,
+          "control_steps": 119
+        },
+        {
+          "mode": "dive",
+          "delay_s": 1.0,
+          "control_steps": 28
+        }
+      ],
+      "recovery_profile_finished_s": 0.07704940694384277,
+      "completion_model": "Continuous residence on piecewise-linear 100 Hz RK4 segments; same inspection box/dwell/horizon",
+      "publication": "Atomic: all profiles and boundaries ready together; partial recovery results are not consumed",
+      "policy_plans": {
+        "staleguard_recovery_aware": {
+          "trigger_steps": 7,
+          "reasons": [
+            "command_expiry"
+          ],
+          "recovery_verified_through_steps": 40
+        },
+        "staleguard_dual_horizon": {
+          "trigger_steps": 7,
+          "reasons": [
+            "command_expiry",
+            "completion_expiry"
+          ],
+          "recovery_verified_through_steps": 40
+        }
+      },
+      "computation_s": 0.12900418997742236,
+      "wall_started_unix_s": 1794170740.8341708,
+      "wall_finished_unix_s": 1794170740.9631767
+    },
+    "14": {
+      "results": [
+        {
+          "delay_s": 0.0,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.02,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.04,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.06,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.08,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.1,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.12,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.14,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.16,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.18,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.2,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.3,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.4,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.5,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.6,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.7,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.8,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.9,
+          "recovery_safe": true,
+          "safe": false,
+          "command_safe": false,
+          "command_complete": false
+        },
+        {
+          "delay_s": 1.0,
+          "recovery_safe": false,
+          "safe": false,
+          "command_safe": false,
+          "command_complete": false
+        }
+      ],
+      "boundaries": {
+        "command": {
+          "first_invalid_steps": 45,
+          "last_safe_prefix_steps": 40,
+          "last_tested_safe_steps": 40,
+          "right_censored": false,
+          "non_monotonic": false
+        },
+        "completion": {
+          "first_invalid_steps": 45,
+          "last_safe_prefix_steps": 40,
+          "last_tested_safe_steps": 40,
+          "right_censored": false,
+          "non_monotonic": false
+        },
+        "recovery": {
+          "first_invalid_steps": 50,
+          "last_safe_prefix_steps": 45,
+          "last_tested_safe_steps": 45,
+          "right_censored": false,
+          "non_monotonic": false
+        }
+      },
+      "grid_s": [
+        0.0,
+        0.02,
+        0.04,
+        0.06,
+        0.08,
+        0.1,
+        0.12,
+        0.14,
+        0.16,
+        0.18,
+        0.2,
+        0.3,
+        0.4,
+        0.5,
+        0.6,
+        0.7,
+        0.8,
+        0.9,
+        1.0
+      ],
+      "expiry_steps": 45,
+      "non_monotonic": false,
+      "any_profile_non_monotonic": false,
+      "right_censored": false,
+      "backend": "compiled",
+      "early_exit": true,
+      "broadphase": true,
+      "rollouts": [
+        {
+          "mode": "sideways",
+          "delay_s": 0.0,
+          "control_steps": 400
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.02,
+          "control_steps": 399
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.04,
+          "control_steps": 398
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.06,
+          "control_steps": 397
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.08,
+          "control_steps": 396
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.1,
+          "control_steps": 395
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.12,
+          "control_steps": 394
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.14,
+          "control_steps": 393
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.16,
+          "control_steps": 392
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.18,
+          "control_steps": 391
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.2,
+          "control_steps": 390
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.3,
+          "control_steps": 385
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.4,
+          "control_steps": 380
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.5,
+          "control_steps": 375
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.6,
+          "control_steps": 370
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.7,
+          "control_steps": 365
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.8,
+          "control_steps": 360
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.9,
+          "control_steps": 355
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 1.0,
+          "control_steps": 35
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.0,
+          "control_steps": 400
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.02,
+          "control_steps": 399
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.04,
+          "control_steps": 398
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.06,
+          "control_steps": 397
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.08,
+          "control_steps": 396
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.1,
+          "control_steps": 395
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.12,
+          "control_steps": 394
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.14,
+          "control_steps": 393
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.16,
+          "control_steps": 392
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.18,
+          "control_steps": 391
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.2,
+          "control_steps": 390
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.3,
+          "control_steps": 385
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.4,
+          "control_steps": 380
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.5,
+          "control_steps": 375
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.6,
+          "control_steps": 370
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.7,
+          "control_steps": 365
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.8,
+          "control_steps": 360
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.9,
+          "control_steps": 154
+        },
+        {
+          "mode": "dive",
+          "delay_s": 1.0,
+          "control_steps": 149
+        }
+      ],
+      "recovery_profile_finished_s": 0.08572464005555958,
+      "completion_model": "Continuous residence on piecewise-linear 100 Hz RK4 segments; same inspection box/dwell/horizon",
+      "publication": "Atomic: all profiles and boundaries ready together; partial recovery results are not consumed",
+      "policy_plans": {
+        "staleguard_recovery_aware": {
+          "trigger_steps": 45,
+          "reasons": [
+            "command_expiry",
+            "recovery_prefix_end"
+          ],
+          "recovery_verified_through_steps": 45
+        },
+        "staleguard_dual_horizon": {
+          "trigger_steps": 45,
+          "reasons": [
+            "command_expiry",
+            "recovery_prefix_end",
+            "completion_expiry"
+          ],
+          "recovery_verified_through_steps": 45
+        }
+      },
+      "computation_s": 0.16727328905835748,
+      "wall_started_unix_s": 1794170743.8389084,
+      "wall_finished_unix_s": 1794170744.0061834
+    },
+    "16": {
+      "results": [
+        {
+          "delay_s": 0.0,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.02,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.04,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.06,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.08,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.1,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.12,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.14,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.16,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.18,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.2,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.3,
+          "recovery_safe": true,
+          "safe": false,
+          "command_safe": false,
+          "command_complete": false
+        },
+        {
+          "delay_s": 0.4,
+          "recovery_safe": true,
+          "safe": false,
+          "command_safe": false,
+          "command_complete": false
+        },
+        {
+          "delay_s": 0.5,
+          "recovery_safe": true,
+          "safe": false,
+          "command_safe": false,
+          "command_complete": false
+        },
+        {
+          "delay_s": 0.6,
+          "recovery_safe": true,
+          "safe": false,
+          "command_safe": false,
+          "command_complete": false
+        },
+        {
+          "delay_s": 0.7,
+          "recovery_safe": true,
+          "safe": false,
+          "command_safe": false,
+          "command_complete": false
+        },
+        {
+          "delay_s": 0.8,
+          "recovery_safe": false,
+          "safe": false,
+          "command_safe": false,
+          "command_complete": false
+        },
+        {
+          "delay_s": 0.9,
+          "recovery_safe": false,
+          "safe": false,
+          "command_safe": false,
+          "command_complete": false
+        },
+        {
+          "delay_s": 1.0,
+          "recovery_safe": false,
+          "safe": false,
+          "command_safe": false,
+          "command_complete": false
+        }
+      ],
+      "boundaries": {
+        "command": {
+          "first_invalid_steps": 15,
+          "last_safe_prefix_steps": 10,
+          "last_tested_safe_steps": 10,
+          "right_censored": false,
+          "non_monotonic": false
+        },
+        "completion": {
+          "first_invalid_steps": 15,
+          "last_safe_prefix_steps": 10,
+          "last_tested_safe_steps": 10,
+          "right_censored": false,
+          "non_monotonic": false
+        },
+        "recovery": {
+          "first_invalid_steps": 40,
+          "last_safe_prefix_steps": 35,
+          "last_tested_safe_steps": 35,
+          "right_censored": false,
+          "non_monotonic": false
+        }
+      },
+      "grid_s": [
+        0.0,
+        0.02,
+        0.04,
+        0.06,
+        0.08,
+        0.1,
+        0.12,
+        0.14,
+        0.16,
+        0.18,
+        0.2,
+        0.3,
+        0.4,
+        0.5,
+        0.6,
+        0.7,
+        0.8,
+        0.9,
+        1.0
+      ],
+      "expiry_steps": 15,
+      "non_monotonic": false,
+      "any_profile_non_monotonic": false,
+      "right_censored": false,
+      "backend": "compiled",
+      "early_exit": true,
+      "broadphase": true,
+      "rollouts": [
+        {
+          "mode": "sideways",
+          "delay_s": 0.0,
+          "control_steps": 400
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.02,
+          "control_steps": 399
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.04,
+          "control_steps": 398
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.06,
+          "control_steps": 397
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.08,
+          "control_steps": 396
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.1,
+          "control_steps": 395
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.12,
+          "control_steps": 394
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.14,
+          "control_steps": 393
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.16,
+          "control_steps": 392
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.18,
+          "control_steps": 391
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.2,
+          "control_steps": 390
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.3,
+          "control_steps": 385
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.4,
+          "control_steps": 380
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.5,
+          "control_steps": 375
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.6,
+          "control_steps": 370
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.7,
+          "control_steps": 365
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.8,
+          "control_steps": 36
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.9,
+          "control_steps": 30
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 1.0,
+          "control_steps": 25
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.0,
+          "control_steps": 400
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.02,
+          "control_steps": 399
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.04,
+          "control_steps": 398
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.06,
+          "control_steps": 397
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.08,
+          "control_steps": 396
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.1,
+          "control_steps": 395
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.12,
+          "control_steps": 394
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.14,
+          "control_steps": 393
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.16,
+          "control_steps": 392
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.18,
+          "control_steps": 391
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.2,
+          "control_steps": 390
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.3,
+          "control_steps": 156
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.4,
+          "control_steps": 152
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.5,
+          "control_steps": 146
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.6,
+          "control_steps": 142
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.7,
+          "control_steps": 137
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.8,
+          "control_steps": 132
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.9,
+          "control_steps": 127
+        },
+        {
+          "mode": "dive",
+          "delay_s": 1.0,
+          "control_steps": 25
+        }
+      ],
+      "recovery_profile_finished_s": 0.07223937602248043,
+      "completion_model": "Continuous residence on piecewise-linear 100 Hz RK4 segments; same inspection box/dwell/horizon",
+      "publication": "Atomic: all profiles and boundaries ready together; partial recovery results are not consumed",
+      "policy_plans": {
+        "staleguard_recovery_aware": {
+          "trigger_steps": 15,
+          "reasons": [
+            "command_expiry"
+          ],
+          "recovery_verified_through_steps": 35
+        },
+        "staleguard_dual_horizon": {
+          "trigger_steps": 15,
+          "reasons": [
+            "command_expiry",
+            "completion_expiry"
+          ],
+          "recovery_verified_through_steps": 35
+        }
+      },
+      "computation_s": 0.13491883198730648,
+      "wall_started_unix_s": 1794170746.7300358,
+      "wall_finished_unix_s": 1794170746.8649564
+    },
+    "17": {
+      "results": [
+        {
+          "delay_s": 0.0,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.02,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.04,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.06,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.08,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.1,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.12,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.14,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.16,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.18,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.2,
+          "recovery_safe": true,
+          "safe": false,
+          "command_safe": false,
+          "command_complete": false
+        },
+        {
+          "delay_s": 0.3,
+          "recovery_safe": true,
+          "safe": false,
+          "command_safe": false,
+          "command_complete": false
+        },
+        {
+          "delay_s": 0.4,
+          "recovery_safe": true,
+          "safe": false,
+          "command_safe": false,
+          "command_complete": false
+        },
+        {
+          "delay_s": 0.5,
+          "recovery_safe": true,
+          "safe": false,
+          "command_safe": false,
+          "command_complete": false
+        },
+        {
+          "delay_s": 0.6,
+          "recovery_safe": true,
+          "safe": false,
+          "command_safe": false,
+          "command_complete": false
+        },
+        {
+          "delay_s": 0.7,
+          "recovery_safe": true,
+          "safe": false,
+          "command_safe": false,
+          "command_complete": false
+        },
+        {
+          "delay_s": 0.8,
+          "recovery_safe": true,
+          "safe": false,
+          "command_safe": false,
+          "command_complete": false
+        },
+        {
+          "delay_s": 0.9,
+          "recovery_safe": false,
+          "safe": false,
+          "command_safe": false,
+          "command_complete": false
+        },
+        {
+          "delay_s": 1.0,
+          "recovery_safe": false,
+          "safe": false,
+          "command_safe": false,
+          "command_complete": false
+        }
+      ],
+      "boundaries": {
+        "command": {
+          "first_invalid_steps": 10,
+          "last_safe_prefix_steps": 9,
+          "last_tested_safe_steps": 9,
+          "right_censored": false,
+          "non_monotonic": false
+        },
+        "completion": {
+          "first_invalid_steps": 10,
+          "last_safe_prefix_steps": 9,
+          "last_tested_safe_steps": 9,
+          "right_censored": false,
+          "non_monotonic": false
+        },
+        "recovery": {
+          "first_invalid_steps": 45,
+          "last_safe_prefix_steps": 40,
+          "last_tested_safe_steps": 40,
+          "right_censored": false,
+          "non_monotonic": false
+        }
+      },
+      "grid_s": [
+        0.0,
+        0.02,
+        0.04,
+        0.06,
+        0.08,
+        0.1,
+        0.12,
+        0.14,
+        0.16,
+        0.18,
+        0.2,
+        0.3,
+        0.4,
+        0.5,
+        0.6,
+        0.7,
+        0.8,
+        0.9,
+        1.0
+      ],
+      "expiry_steps": 10,
+      "non_monotonic": false,
+      "any_profile_non_monotonic": false,
+      "right_censored": false,
+      "backend": "compiled",
+      "early_exit": true,
+      "broadphase": true,
+      "rollouts": [
+        {
+          "mode": "sideways",
+          "delay_s": 0.0,
+          "control_steps": 400
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.02,
+          "control_steps": 399
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.04,
+          "control_steps": 398
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.06,
+          "control_steps": 397
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.08,
+          "control_steps": 396
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.1,
+          "control_steps": 395
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.12,
+          "control_steps": 394
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.14,
+          "control_steps": 393
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.16,
+          "control_steps": 392
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.18,
+          "control_steps": 391
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.2,
+          "control_steps": 390
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.3,
+          "control_steps": 385
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.4,
+          "control_steps": 380
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.5,
+          "control_steps": 375
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.6,
+          "control_steps": 370
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.7,
+          "control_steps": 365
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.8,
+          "control_steps": 360
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.9,
+          "control_steps": 39
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 1.0,
+          "control_steps": 34
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.0,
+          "control_steps": 400
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.02,
+          "control_steps": 399
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.04,
+          "control_steps": 398
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.06,
+          "control_steps": 397
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.08,
+          "control_steps": 396
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.1,
+          "control_steps": 395
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.12,
+          "control_steps": 394
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.14,
+          "control_steps": 393
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.16,
+          "control_steps": 392
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.18,
+          "control_steps": 391
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.2,
+          "control_steps": 156
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.3,
+          "control_steps": 151
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.4,
+          "control_steps": 146
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.5,
+          "control_steps": 141
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.6,
+          "control_steps": 137
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.7,
+          "control_steps": 132
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.8,
+          "control_steps": 127
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.9,
+          "control_steps": 121
+        },
+        {
+          "mode": "dive",
+          "delay_s": 1.0,
+          "control_steps": 116
+        }
+      ],
+      "recovery_profile_finished_s": 0.0773773118853569,
+      "completion_model": "Continuous residence on piecewise-linear 100 Hz RK4 segments; same inspection box/dwell/horizon",
+      "publication": "Atomic: all profiles and boundaries ready together; partial recovery results are not consumed",
+      "policy_plans": {
+        "staleguard_recovery_aware": {
+          "trigger_steps": 10,
+          "reasons": [
+            "command_expiry"
+          ],
+          "recovery_verified_through_steps": 40
+        },
+        "staleguard_dual_horizon": {
+          "trigger_steps": 10,
+          "reasons": [
+            "command_expiry",
+            "completion_expiry"
+          ],
+          "recovery_verified_through_steps": 40
+        }
+      },
+      "computation_s": 0.13881822989787906,
+      "wall_started_unix_s": 1794170749.6168396,
+      "wall_finished_unix_s": 1794170749.7556596
+    },
+    "20": {
+      "results": [
+        {
+          "delay_s": 0.0,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.02,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.04,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.06,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.08,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.1,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.12,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.14,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.16,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.18,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.2,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.3,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.4,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.5,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.6,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.7,
+          "recovery_safe": true,
+          "safe": true,
+          "command_safe": true,
+          "command_complete": true
+        },
+        {
+          "delay_s": 0.8,
+          "recovery_safe": true,
+          "safe": false,
+          "command_safe": false,
+          "command_complete": false
+        },
+        {
+          "delay_s": 0.9,
+          "recovery_safe": false,
+          "safe": false,
+          "command_safe": false,
+          "command_complete": false
+        },
+        {
+          "delay_s": 1.0,
+          "recovery_safe": false,
+          "safe": false,
+          "command_safe": false,
+          "command_complete": false
+        }
+      ],
+      "boundaries": {
+        "command": {
+          "first_invalid_steps": 40,
+          "last_safe_prefix_steps": 35,
+          "last_tested_safe_steps": 35,
+          "right_censored": false,
+          "non_monotonic": false
+        },
+        "completion": {
+          "first_invalid_steps": 40,
+          "last_safe_prefix_steps": 35,
+          "last_tested_safe_steps": 35,
+          "right_censored": false,
+          "non_monotonic": false
+        },
+        "recovery": {
+          "first_invalid_steps": 45,
+          "last_safe_prefix_steps": 40,
+          "last_tested_safe_steps": 40,
+          "right_censored": false,
+          "non_monotonic": false
+        }
+      },
+      "grid_s": [
+        0.0,
+        0.02,
+        0.04,
+        0.06,
+        0.08,
+        0.1,
+        0.12,
+        0.14,
+        0.16,
+        0.18,
+        0.2,
+        0.3,
+        0.4,
+        0.5,
+        0.6,
+        0.7,
+        0.8,
+        0.9,
+        1.0
+      ],
+      "expiry_steps": 40,
+      "non_monotonic": false,
+      "any_profile_non_monotonic": false,
+      "right_censored": false,
+      "backend": "compiled",
+      "early_exit": true,
+      "broadphase": true,
+      "rollouts": [
+        {
+          "mode": "sideways",
+          "delay_s": 0.0,
+          "control_steps": 400
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.02,
+          "control_steps": 399
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.04,
+          "control_steps": 398
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.06,
+          "control_steps": 397
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.08,
+          "control_steps": 396
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.1,
+          "control_steps": 395
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.12,
+          "control_steps": 394
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.14,
+          "control_steps": 393
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.16,
+          "control_steps": 392
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.18,
+          "control_steps": 391
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.2,
+          "control_steps": 390
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.3,
+          "control_steps": 385
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.4,
+          "control_steps": 380
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.5,
+          "control_steps": 375
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.6,
+          "control_steps": 370
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.7,
+          "control_steps": 365
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.8,
+          "control_steps": 360
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 0.9,
+          "control_steps": 35
+        },
+        {
+          "mode": "sideways",
+          "delay_s": 1.0,
+          "control_steps": 31
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.0,
+          "control_steps": 400
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.02,
+          "control_steps": 399
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.04,
+          "control_steps": 398
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.06,
+          "control_steps": 397
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.08,
+          "control_steps": 396
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.1,
+          "control_steps": 395
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.12,
+          "control_steps": 394
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.14,
+          "control_steps": 393
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.16,
+          "control_steps": 392
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.18,
+          "control_steps": 391
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.2,
+          "control_steps": 390
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.3,
+          "control_steps": 385
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.4,
+          "control_steps": 380
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.5,
+          "control_steps": 375
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.6,
+          "control_steps": 370
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.7,
+          "control_steps": 365
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.8,
+          "control_steps": 154
+        },
+        {
+          "mode": "dive",
+          "delay_s": 0.9,
+          "control_steps": 148
+        },
+        {
+          "mode": "dive",
+          "delay_s": 1.0,
+          "control_steps": 31
+        }
+      ],
+      "recovery_profile_finished_s": 0.07805495895445347,
+      "completion_model": "Continuous residence on piecewise-linear 100 Hz RK4 segments; same inspection box/dwell/horizon",
+      "publication": "Atomic: all profiles and boundaries ready together; partial recovery results are not consumed",
+      "policy_plans": {
+        "staleguard_recovery_aware": {
+          "trigger_steps": 40,
+          "reasons": [
+            "command_expiry",
+            "recovery_prefix_end"
+          ],
+          "recovery_verified_through_steps": 40
+        },
+        "staleguard_dual_horizon": {
+          "trigger_steps": 40,
+          "reasons": [
+            "command_expiry",
+            "recovery_prefix_end",
+            "completion_expiry"
+          ],
+          "recovery_verified_through_steps": 40
+        }
+      },
+      "computation_s": 0.15477851498872042,
+      "wall_started_unix_s": 1794170752.6181693,
+      "wall_finished_unix_s": 1794170752.7729495
+    }
+  },
+  "completion_vs_safety_differences": 0
+}

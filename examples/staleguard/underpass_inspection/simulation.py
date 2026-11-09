@@ -38,7 +38,7 @@ class Snapshot:
 def execute(s, mode='nominal', start_s=0., gui=False, playback_speed=.5,
             hold_s=0., capture=None, overlay_all=False, capture_snapshot=False,
             overlay_paths=None, policy=None, delay_s=0., received=None,
-            platform=None, expected_snapshot=None):
+            platform=None, expected_snapshot=None, policy_factory=None):
     if policy is not None:
         from .baselines.policies import PendingCommand
         if (not np.isfinite(delay_s) or delay_s<0 or delay_s>=s.observation_s
@@ -46,7 +46,7 @@ def execute(s, mode='nominal', start_s=0., gui=False, playback_speed=.5,
             raise ValueError('Use a nonnegative control-grid dispatch delay inside the horizon')
         if mode!='nominal' or start_s!=0.:
             raise ValueError('Policies start on nominal control; the policy selects the maneuver')
-        agent=PendingCommand(policy,s,received)
+        agent=(policy_factory or PendingCommand)(policy,s,received)
         scheduled_dispatch=round(s.approval_s*HZ)+round(delay_s*HZ)
         capture_snapshot=True
     if mode not in MODES:

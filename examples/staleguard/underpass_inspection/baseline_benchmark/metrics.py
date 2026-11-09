@@ -8,7 +8,10 @@ import math
 import statistics
 import numpy as np
 from ..storage import read_executions, flight_key, write_json, iter_committed
-from ..baselines.policies import POLICIES,APPROVAL_POLICIES
+from ..baselines.policies import POLICIES,APPROVAL_POLICIES as LEGACY_APPROVAL_POLICIES
+
+HORIZON_POLICIES=('staleguard_recovery_aware','staleguard_dual_horizon')
+APPROVAL_POLICIES=LEGACY_APPROVAL_POLICIES+HORIZON_POLICIES
 from ..scenario import HZ
 
 
@@ -62,7 +65,8 @@ def prediction_availability_report(m):
         'by an earlier recovery.','',
         '| Policy | Available by scheduled dispatch | Availability rate |',
         '|---|---:|---:|']
-    names={'staleguard':'StaleGuard Dispatch','staleguard_early_recovery':'StaleGuard EarlyRecovery'}
+    names={'staleguard':'StaleGuard Dispatch','staleguard_early_recovery':'StaleGuard EarlyRecovery',
+        'staleguard_recovery_aware':'StaleGuard RecoveryAware','staleguard_dual_horizon':'StaleGuard DualHorizon'}
     for policy,name in names.items():
         if policy not in m['by_policy']:continue
         values=m['by_policy'][policy];total=values['flights']
@@ -73,8 +77,9 @@ def prediction_availability_report(m):
     ready=prediction['prediction_ready_by_predicted_expiry']
     late=prediction['prediction_late_for_predicted_expiry'];finite=ready+late
     rate=f'{ready/finite:.1%}' if finite else 'undefined'
-    lines+=['','Both variants share the same forecasts and computation times, so their availability rates '
-        'are identical for the same scenario-delay cases. For proactive recovery, a second measure is readiness '
+    lines+=['','The original StaleGuard pair shares forecasts/runtime. Each new policy has an independently timed '
+        'run of the same three-profile predictor; no cross-policy computation cache advances readiness. '
+        'For the root predictor summary (scope_policy in metrics.json), a second measure is readiness '
         f'by predicted command expiration: **{ready}/{finite} scenario forecasts ({rate})** finish by that time; '
         f'{late}/{finite} finish later. '
         'Scenarios with no predicted expiration within the prediction grid are excluded only from this second '
@@ -205,6 +210,16 @@ def command_truth(rows):
         safe_completion=r['safe_completion']) for r in rows if r['event']['policy']=='no_recovery'}
 
 
+def extension_pairs(rows,pairs,policies):
+    comparisons=[]
+    for policy in HORIZON_POLICIES:
+        if policy not in policies:continue
+        for other in ('staleguard_early_recovery','fixed_early_recovery','use_time_recheck'):
+            if other in policies:comparisons.append((policy,other))
+    if set(HORIZON_POLICIES)<=set(policies):comparisons.append((HORIZON_POLICIES[1],HORIZON_POLICIES[0]))
+    return {p+'__vs__'+other:paired_metrics(rows,pairs,reference=p,other=other) for p,other in comparisons}
+
+
 def summarize(rows,run,truth=None):
     if truth is None:truth=command_truth(rows)
     protocol=run['protocol'];policies=protocol['policies']
@@ -231,7 +246,7 @@ def summarize(rows,run,truth=None):
     for p in ('staleguard','use_time_recheck','fixed_early_recovery'):
         if p in policies and 'staleguard_early_recovery' in policies:
             early[p]=paired_metrics(rows,expected_pairs,other=p,reference='staleguard_early_recovery')
-    return dict(status='complete' if keys==expected else 'partial',recorded_flights=len(rows),expected_flights=len(expected),
+    result=dict(status='complete' if keys==expected else 'partial',recorded_flights=len(rows),expected_flights=len(expected),
         independent_scenario_count=len(protocol['scenarios']),
         denominator_note='Scenario is the independent unit. Delay/policy cells are repeated deterministic flights, not independent sampled scenarios.',
         false_decision_definition='False-safe: ready check/forecast permits a command whose original scheduled-delay No-Recovery truth is unsafe. False-reject: rejected/canceled command whose scheduled-delay No-Recovery truth is safe. Unavailable unsafe dispatches and actual unsafe accepted commands are separate.',
@@ -239,6 +254,12 @@ def summarize(rows,run,truth=None):
         by_delay={str(d):policy_group([r for r in rows if r['delay_s']==d]) for d in protocol['delays']},
         paired_against_no_recovery=against_no_recovery(rows,expected_pairs),paired_early_recovery=early,
         predictor=predictor_metrics(run,truth))
+    if set(policies)&set(HORIZON_POLICIES):
+        result['paired_extensions']=extension_pairs(rows,expected_pairs,policies)
+        for seed,group in by_scenario.items():
+            selected=[r for r in rows if r['seed']==int(seed)]
+            group['paired_extensions']=extension_pairs(selected,{x for x in expected_pairs if x[0]==int(seed)},policies)
+    return result
 
 
 def summarize_journal(out,run,truth=None,delay_subset=None):
@@ -253,7 +274,7 @@ def summarize_journal(out,run,truth=None,delay_subset=None):
     timings={p:{} for p in policies};fbs_times={p:[] for p in policies}
     delay_times={str(d):{p:{} for p in policies} for d in delays}
     delay_fbs={str(d):{p:[] for p in policies} for d in delays}
-    pairs={};early={};labels={} if truth is None else truth;recorded=0
+    pairs={};early={};extended={};labels={} if truth is None else truth;recorded=0
 
     def merge(target,value):
         for key,item in value.items():
@@ -293,6 +314,7 @@ def summarize_journal(out,run,truth=None,delay_subset=None):
             for p,value in values.items():merge(by_delay[delay][p],value)
         for p,value in summary['paired_against_no_recovery'].items():merge(pairs.setdefault(p,{}),value)
         for p,value in summary['paired_early_recovery'].items():merge(early.setdefault(p,{}),value)
+        for p,value in summary.get('paired_extensions',{}).items():merge(extended.setdefault(p,{}),value)
         collect(rows,timings,fbs_times)
         for delay,selected in groupby(rows,key=lambda r:str(r['delay_s'])):
             collect(list(selected),delay_times[delay],delay_fbs[delay])
@@ -308,6 +330,7 @@ def summarize_journal(out,run,truth=None,delay_subset=None):
         denominator_note=summary['denominator_note'],false_decision_definition=summary['false_decision_definition'],
         by_policy=by_policy,by_scenario=by_scenario,by_delay=by_delay,
         paired_against_no_recovery=pairs,paired_early_recovery=early,predictor=predictor_metrics(original_run,labels))
+    if set(policies)&set(HORIZON_POLICIES):result['paired_extensions']=extended
     if protocol.get('analysis_subsets'):
         result['uncertainty']=scenario_uncertainty(result,protocol)
     if protocol.get('ground_truth_source')=='no_recovery':
@@ -333,7 +356,7 @@ def scenario_uncertainty(result,protocol):
         for field in ('unsafe','safe_completion','recovery_attempts'):
             names.append(('by_policy',p,field))
             columns.append([g['by_policy'][p][field]/n_delays for g in groups])
-    for category in ('paired_against_no_recovery','paired_early_recovery'):
+    for category in ('paired_against_no_recovery','paired_early_recovery')+ (('paired_extensions',) if 'paired_extensions' in result else ()):
         comparisons=result[category]
         for p in comparisons:
             for field in ('net_unsafe_reduction','net_completion_benefit'):
@@ -341,6 +364,7 @@ def scenario_uncertainty(result,protocol):
                 columns.append([g[category][p][field]/n_delays for g in groups])
     settings=protocol['uncertainty'];count=len(groups)
     output=dict(settings,complete_scenarios=count,by_policy={},paired_against_no_recovery={},paired_early_recovery={})
+    if 'paired_extensions' in result:output['paired_extensions']={}
     means=np.asarray(columns,dtype=float).T if count else np.empty((0,len(names)))
     intervals=None
     if count>=2:
@@ -412,13 +436,14 @@ def write_outputs(out,run,rows,truth=None,metrics=None):
     count=m['independent_scenario_count'];n=m['recorded_flights'];sg=m['by_policy'].get('staleguard',{})
     early=m['by_policy'].get('staleguard_early_recovery',{})
     cohort=run['protocol'].get('dataset_split','development')
-    lines=[f'# Underpass seven-policy {cohort} benchmark','',
-        f'Implemented seven policies on {count} frozen {cohort} scenarios. The UAV flies North toward a bridge; '
+    lines=[f'# Underpass {len(run["protocol"]["policies"])}-policy {cohort} benchmark','',
+        f'Implemented {len(run["protocol"]["policies"])} policies on {count} frozen {cohort} scenarios. The UAV flies North toward a bridge; '
         'its approved command dives underneath to inspect and swerves East around a pier. Every recovery instead '
         'abandons inspection and uses the same independent Eastward sideways maneuver. '
-        f'This journal contains {n}/{m["expected_flights"]} actual PyBullet executions. '
-        f'StaleGuard has {sg.get("unsafe",0)} unsafe flights and its EarlyRecovery variant has '
-        f'{early.get("unsafe",0)}. Prediction readiness, false-safe decisions and abandoned inspections are reported '
+        f'This journal contains {n}/{m["expected_flights"]} actual PyBullet executions. ' +
+        (f'StaleGuard has {sg["unsafe"]} unsafe flights and its EarlyRecovery variant has {early["unsafe"]}. '
+         if sg and early else 'The two new policies are physically executed; original policy outcomes are not rerun. ') +
+        'Prediction readiness, false-safe decisions and abandoned inspections are reported '
         f'separately. The scenario is the independent experimental unit; '
         'simulation results do not establish real-world safety.','',
         'All policies use the same physical scenario, PID and eight-second horizon after approval. Safety is monitored '
@@ -471,9 +496,16 @@ def write_outputs(out,run,rows,truth=None,metrics=None):
             '2027). Complete scenario grids contribute; fewer than two complete scenarios gives no interval. '
             'Paired net safety/completion differences use the same scenario resamples and are in metrics.json; '
             'correlated delay trials are never treated as independent scenarios.']
+    if run['protocol'].get('exploratory'):
+        lines+=['','**Exploratory extension:** these scenarios were examined in the earlier seven-policy study. '
+            'New policies were developed/profiler-tested only on development scenarios, but this is not a fresh '
+            'held-out superiority test. Existing flights were not rerun. New policy forecasts are independently '
+            'computed/timed; all online waiting, both continuations, completion checks and boundary extraction '
+            'count toward their atomic readiness.']
     lines+=['']+prediction_availability_report(m)
     prediction=m['predictor'];timing=prediction['timing']
-    lines+=['','The StaleGuard variants share one measured approval forecast per scenario and the same runtime. '
+    lines+=['','The original StaleGuard pair shares one measured approval forecast per scenario and runtime. '
+        'Each new policy independently computes/times the shared three-profile predictor. '
         'The shared 100 Hz lightweight model preserves PID memory, predicts nominal waiting and then anchors the '
         'same dive to each predicted dispatch state. A swept 3D Euclidean box/body checker applies the unchanged '
         'clearance threshold. The fixed prediction grid follows Geofence (19 candidate delays); actual dispatch '
@@ -509,7 +541,8 @@ def write_outputs(out,run,rows,truth=None,metrics=None):
             'Each recorded outcome is an actual PID/PyBullet flight. Safety is monitored at 1,000 Hz over the '
             'whole fixed horizon; earlier violations persist. All recovery is the same Eastward sideways maneuver.\n\n'
             'StaleGuard uses the fixed 19-point grid and first-unsafe cutoff; equality rejects only when ready. '
-            'Both variants share one warmed forecast/runtime per scenario. The early variant can recover while pending. '
+            'The original two variants share one warmed forecast/runtime per scenario. New variants independently '
+            'time the same three-profile predictor; neither consumes the other policy forecast. The early variant can recover while pending. '
             'Unavailable forecasts permit dispatch. Fixed EarlyRecovery uses 0.20 s; FBS uses alpha 0.1, epsilon '
             '1e-12 and a 210-step cap, with strict age > TTL expiration. Use-Time Recheck observes at dispatch, '
             'continues nominal motion while computing and acts at dispatch + floor(runtime*50) + 1.\n\n'
@@ -544,6 +577,16 @@ def write_outputs(out,run,rows,truth=None,metrics=None):
                     ci=stat['ci95'];interval='undefined' if ci is None else f'{ci[0]:.4f}–{ci[1]:.4f}'
                     mean='undefined' if stat['mean'] is None else f'{stat["mean"]:.4f}'
                     stream.write(f'| {name} | {p} | {value["unsafe_prevented"]} | {value["unsafe_introduced"]} | {mean} [{interval}] |\n')
+            if m.get('paired_extensions'):
+                stream.write('\n## Exploratory new-policy paired comparisons\n\n'
+                    '| Window | Comparison | Unsafe prevented | Unsafe introduced | Net unsafe-rate reduction [95% CI] |\n'
+                    '|---|---|---:|---:|---|\n')
+                for name,window in {'full':m,**m['analysis_subsets']}.items():
+                    for comparison,value in window.get('paired_extensions',{}).items():
+                        stat=window['uncertainty']['paired_extensions'][comparison]['net_unsafe_reduction']
+                        ci=stat['ci95'];bounds='undefined' if ci is None else f'{ci[0]:.4f}–{ci[1]:.4f}'
+                        mean='undefined' if stat['mean'] is None else f'{stat["mean"]:.4f}'
+                        stream.write(f'| {name} | {comparison} | {value["unsafe_prevented"]} | {value["unsafe_introduced"]} | {mean} [{bounds}] |\n')
             stream.write('\nPaired completion-rate intervals and all scenario-level values are retained in metrics.json. '
                 'Inspection abandonment is separate from an inspection not observed by the fixed deadline.\n')
 

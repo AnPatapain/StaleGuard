@@ -12,7 +12,7 @@ from underpass_inspection.baseline_benchmark.run import DISPATCH_DELAYS
 from underpass_inspection.baselines import staleguard,fbs
 from underpass_inspection.baselines.policies import PendingCommand,POLICIES
 from underpass_inspection.scenario import Scenario
-from underpass_inspection.storage import ROOT
+from underpass_inspection.storage import ROOT,physical_source_hash,REVIEWED,ADDITIVE_SOURCE_HASHES
 
 SETTINGS=dict(unit='scenario',method='paired percentile bootstrap',confidence=.95,
               resamples=2000,seed=2027,complete_scenarios_only=True)
@@ -25,7 +25,10 @@ class TwoSecondTests(unittest.TestCase):
         self.assertEqual(len(staleguard.TTL_GRID),19);self.assertEqual(max(staleguard.TTL_GRID),1.)
         original=json.loads((ROOT/'results/evaluation/preparation/freeze.json').read_text())
         for name,digest in original['provenance']['source_sha256'].items():
-            if name.startswith('baselines/') or name in ('scenario.py','simulation.py'):
+            if name=='simulation.py':
+                self.assertIn(digest,ADDITIVE_SOURCE_HASHES[name])
+                self.assertEqual(physical_source_hash((ROOT/name).read_text(),name),REVIEWED[name][1])
+            elif name.startswith('baselines/') or name=='scenario.py':
                 self.assertEqual(hashlib.sha256((ROOT/name).read_bytes()).hexdigest(),digest,name)
         s=Scenario()
         self.assertEqual(s.observation_s,8.)

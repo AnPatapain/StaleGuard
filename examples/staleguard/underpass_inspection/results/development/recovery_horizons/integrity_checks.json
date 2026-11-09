@@ -1,0 +1,8 @@
+{
+  "passed": true,
+  "checks": [
+    "duplicate key rejected",
+    "mismatched physical protocol rejected",
+    "source change rejected"
+  ]
+}
