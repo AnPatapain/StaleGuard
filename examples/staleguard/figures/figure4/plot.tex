@@ -1,0 +1,262 @@
+% Input from the manuscript root:
+%   \input{figures/figure4/plot.tex}
+% Required in the manuscript preamble:
+%   \usepackage{pgfplots}
+%   \usepgfplotslibrary{groupplots}
+%   \usetikzlibrary{calc}
+%   \pgfplotsset{compat=1.18}
+% Optional path override (before \input):
+%   \newcommand{\StaleGuardFigureTwoData}{your/path/to/data}
+% Compile twice to resolve the shared named legend.
+% CSV entries are percentages, not fractions. No smoothing is applied.
+
+\begin{figure*}[t]
+\centering
+\providecommand{\StaleGuardFigureTwoData}{figures/figure4}
+\begin{tikzpicture}
+\pgfplotsset{
+  sgfigtwo-norec/.style={
+    color=black!50, solid, line width=1.35pt, mark=none},
+  sgfigtwo-recheck/.style={
+    color=red!78!black, solid, line width=1.15pt,
+    mark=diamond*, mark repeat=2, mark size=1.1pt},
+  sgfigtwo-dispatch/.style={
+    color=violet!85!black, dashed, line width=1.25pt,
+    mark=o, mark repeat=2, mark size=1.15pt},
+  sgfigtwo-early/.style={
+    color=blue!75!black, solid, line width=1.6pt,
+    mark=*, mark repeat=2, mark size=1.15pt},
+  sgfigtwo-fixedearly/.style={
+    color=teal!85!black, dashdotted, line width=1.35pt,
+    mark=triangle*, mark repeat=2, mark size=1.55pt,
+    mark options={fill=white, draw=teal!85!black, line width=0.7pt}},
+  sgfigtwo-full/.style={
+    color=green!45!black, solid, line width=1.8pt,
+    mark=square*, mark repeat=2, mark size=1.2pt},
+}
+\begin{groupplot}[
+  group style={
+    group size=2 by 3,
+    horizontal sep=1.1cm,
+    vertical sep=1.45cm
+  },
+  width=0.398\textwidth,
+  height=0.19\textwidth,
+  scale only axis,
+  xmin=0, xmax=1,
+  ymin=0, ymax=100,
+  xtick={0,0.2,0.4,0.6,0.8,1},
+  ytick={0,20,40,60,80,100},
+  xticklabel style={font=\fontsize{8}{9.5}\selectfont},
+  yticklabel style={font=\fontsize{8}{9.5}\selectfont},
+  xlabel={Dispatch delay (s)},
+  xlabel style={font=\fontsize{9}{10.5}\selectfont},
+  ylabel style={font=\fontsize{9}{10.5}\selectfont},
+  title style={font=\fontsize{9.5}{11}\selectfont},
+  tick align=outside,
+  axis lines=left,
+  grid=major,
+  grid style={gray!22, thin},
+  unbounded coords=discard,
+  legend columns=3,
+  legend cell align=left,
+  legend style={
+    draw=none, fill=none,
+    font=\fontsize{7.5}{9}\selectfont,
+    column sep=7pt,
+    row sep=2pt
+  },
+  clip=true,
+]
+
+% Row 1, column 1: Inspection Descent, unsafe rate.
+\nextgroupplot[
+  title={(a) Inspection Descent --- Unsafe rate},
+  ylabel={Percentage of flights},
+  yticklabel={\pgfmathprintnumber{\tick}\%}
+]
+
+\addplot+[sgfigtwo-norec]
+  table[col sep=comma, x=delay_s, y=no_recovery]
+  {\StaleGuardFigureTwoData/inspection_unsafe_rates.csv};
+
+\addplot+[sgfigtwo-recheck]
+  table[col sep=comma, x=delay_s, y=use_time_recheck]
+  {\StaleGuardFigureTwoData/inspection_unsafe_rates.csv};
+
+\addplot+[sgfigtwo-dispatch]
+  table[col sep=comma, x=delay_s, y=staleguard_dispatch_recovery]
+  {\StaleGuardFigureTwoData/inspection_unsafe_rates.csv};
+
+% Row 1, column 2: Inspection Descent, safe completion.
+\nextgroupplot[
+  title={(b) Inspection Descent --- Safe completion},
+  yticklabels=\empty
+]
+
+\addplot+[sgfigtwo-norec]
+  table[col sep=comma, x=delay_s, y=no_recovery]
+  {\StaleGuardFigureTwoData/inspection_safe_completion_rates.csv};
+
+\addplot+[sgfigtwo-recheck]
+  table[col sep=comma, x=delay_s, y=use_time_recheck]
+  {\StaleGuardFigureTwoData/inspection_safe_completion_rates.csv};
+
+\addplot+[sgfigtwo-dispatch]
+  table[col sep=comma, x=delay_s, y=staleguard_dispatch_recovery]
+  {\StaleGuardFigureTwoData/inspection_safe_completion_rates.csv};
+
+% Row 2, column 1: Geofence Turn, unsafe rate.
+\nextgroupplot[
+  title={(c) Geofence Turn --- Unsafe rate},
+  ylabel={Percentage of flights},
+  yticklabel={\pgfmathprintnumber{\tick}\%}
+]
+
+\addplot+[sgfigtwo-norec]
+  table[col sep=comma, x=delay_s, y=no_recovery]
+  {\StaleGuardFigureTwoData/geofence_unsafe_rates.csv};
+
+\addplot+[sgfigtwo-recheck]
+  table[col sep=comma, x=delay_s, y=use_time_recheck]
+  {\StaleGuardFigureTwoData/geofence_unsafe_rates.csv};
+
+\addplot+[sgfigtwo-dispatch]
+  table[col sep=comma, x=delay_s, y=staleguard_dispatch_recovery]
+  {\StaleGuardFigureTwoData/geofence_unsafe_rates.csv};
+
+\addplot+[sgfigtwo-early]
+  table[col sep=comma, x=delay_s, y=staleguard_early_recovery]
+  {\StaleGuardFigureTwoData/geofence_unsafe_rates.csv};
+
+\addplot+[sgfigtwo-fixedearly]
+  table[col sep=comma, x=delay_s, y=fixed_early_recovery]
+  {\StaleGuardFigureTwoData/geofence_unsafe_rates.csv};
+
+% Row 2, column 2: Geofence Turn, safe completion.
+\nextgroupplot[
+  title={(d) Geofence Turn --- Safe completion},
+  yticklabels=\empty
+]
+
+\addplot+[sgfigtwo-norec]
+  table[col sep=comma, x=delay_s, y=no_recovery]
+  {\StaleGuardFigureTwoData/geofence_safe_completion_rates.csv};
+
+\addplot+[sgfigtwo-recheck]
+  table[col sep=comma, x=delay_s, y=use_time_recheck]
+  {\StaleGuardFigureTwoData/geofence_safe_completion_rates.csv};
+
+\addplot+[sgfigtwo-dispatch]
+  table[col sep=comma, x=delay_s, y=staleguard_dispatch_recovery]
+  {\StaleGuardFigureTwoData/geofence_safe_completion_rates.csv};
+
+\addplot+[sgfigtwo-early]
+  table[col sep=comma, x=delay_s, y=staleguard_early_recovery]
+  {\StaleGuardFigureTwoData/geofence_safe_completion_rates.csv};
+
+\addplot+[sgfigtwo-fixedearly]
+  table[col sep=comma, x=delay_s, y=fixed_early_recovery]
+  {\StaleGuardFigureTwoData/geofence_safe_completion_rates.csv};
+
+% Row 3, column 1: Underpass Inspection, unsafe rate.
+\nextgroupplot[
+  title={(e) Underpass Inspection --- Unsafe rate},
+  ylabel={Percentage of flights},
+  yticklabel={\pgfmathprintnumber{\tick}\%},
+  xmax=2,
+  xtick={0,0.5,1,1.5,2},
+  legend to name=staleguardThreeMissionPolicyLegend
+]
+% The command/recovery predictor still ends at 1 s.
+\draw[gray!65, densely dashed, line width=0.65pt]
+  (axis cs:1,0) -- (axis cs:1,100);
+
+\addplot+[sgfigtwo-norec]
+  table[col sep=comma, x=delay_s, y=no_recovery]
+  {\StaleGuardFigureTwoData/underpass_unsafe_rates.csv};
+\addlegendentry{No Recovery}
+
+\addplot+[sgfigtwo-recheck]
+  table[col sep=comma, x=delay_s, y=use_time_recheck]
+  {\StaleGuardFigureTwoData/underpass_unsafe_rates.csv};
+\addlegendentry{Use-Time Recheck}
+
+\addplot+[sgfigtwo-dispatch]
+  table[col sep=comma, x=delay_s, y=staleguard_dispatch_recovery]
+  {\StaleGuardFigureTwoData/underpass_unsafe_rates.csv};
+\addlegendentry{StaleGuard (dispatch)}
+
+\addplot+[sgfigtwo-early]
+  table[col sep=comma, x=delay_s, y=staleguard_early_recovery]
+  {\StaleGuardFigureTwoData/underpass_unsafe_rates.csv};
+\addlegendentry{Command-only EarlyRecovery}
+
+\addplot+[sgfigtwo-fixedearly]
+  table[col sep=comma, x=delay_s, y=fixed_early_recovery]
+  {\StaleGuardFigureTwoData/underpass_unsafe_rates.csv};
+\addlegendentry{Fixed EarlyRecovery (0.20\,s)}
+
+\addplot+[sgfigtwo-full]
+  table[col sep=comma, x=delay_s, y=staleguard_dual_horizon]
+  {\StaleGuardFigureTwoData/underpass_unsafe_rates.csv};
+\addlegendentry{StaleGuard (full)}
+
+% Row 3, column 2: Underpass Inspection, safe completion.
+\nextgroupplot[
+  title={(f) Underpass Inspection --- Safe completion},
+  yticklabels=\empty,
+  xmax=2,
+  xtick={0,0.5,1,1.5,2}
+]
+% The command/recovery predictor still ends at 1 s.
+\draw[gray!65, densely dashed, line width=0.65pt]
+  (axis cs:1,0) -- (axis cs:1,100);
+
+\addplot+[sgfigtwo-norec]
+  table[col sep=comma, x=delay_s, y=no_recovery]
+  {\StaleGuardFigureTwoData/underpass_safe_completion_rates.csv};
+
+\addplot+[sgfigtwo-recheck]
+  table[col sep=comma, x=delay_s, y=use_time_recheck]
+  {\StaleGuardFigureTwoData/underpass_safe_completion_rates.csv};
+
+\addplot+[sgfigtwo-dispatch]
+  table[col sep=comma, x=delay_s, y=staleguard_dispatch_recovery]
+  {\StaleGuardFigureTwoData/underpass_safe_completion_rates.csv};
+
+\addplot+[sgfigtwo-early]
+  table[col sep=comma, x=delay_s, y=staleguard_early_recovery]
+  {\StaleGuardFigureTwoData/underpass_safe_completion_rates.csv};
+
+\addplot+[sgfigtwo-fixedearly]
+  table[col sep=comma, x=delay_s, y=fixed_early_recovery]
+  {\StaleGuardFigureTwoData/underpass_safe_completion_rates.csv};
+
+\addplot+[sgfigtwo-full]
+  table[col sep=comma, x=delay_s, y=staleguard_dual_horizon]
+  {\StaleGuardFigureTwoData/underpass_safe_completion_rates.csv};
+
+\end{groupplot}
+
+% Shared legend below the third row. Policies absent from a mission are not drawn.
+\node[anchor=north] at
+  ($(group c1r3.south east)!0.5!(group c2r3.south west)+(0,-0.82cm)$)
+  {\pgfplotslegendfromname{staleguardThreeMissionPolicyLegend}};
+\end{tikzpicture}
+
+\caption{Unsafe flight rate (left) and safe mission-completion rate (right)
+versus approval-relative dispatch delay for Inspection Descent
+(276 scenarios; top), Geofence Turn (300 scenarios; middle), and
+Underpass Inspection (400 scenarios; bottom). Each tested delay uses all
+scenarios in that mission; lines connect sampled delays. Inspection and
+Geofence cover 0--1\,s using 11 and 23 delays, respectively; Underpass
+covers 0--2\,s using 13 delays. The dashed gray lines mark Underpass's
+unchanged 1\,s prediction horizon. Command-only EarlyRecovery and
+Fixed EarlyRecovery (0.20\,s) are shown where evaluated. StaleGuard (full),
+the three-profile DualHorizon policy, was evaluated only on Underpass;
+its curves coincide with the RecoveryAware ablation, which is omitted
+for clarity. Dispatch-only StaleGuard and command-only EarlyRecovery
+retain their original definitions.}
+\label{fig:policy_curves_3x2}
+\end{figure*}

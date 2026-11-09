@@ -1,0 +1,8 @@
+{
+  "passed": true,
+  "seed": 1002,
+  "actual_validation_flights": 4,
+  "serial_parallel_trajectory_hashes_identical": true,
+  "archived_d0_command_and_recovery_hashes_identical": true,
+  "full_horizon_1khz": true
+}
