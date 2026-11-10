@@ -1,0 +1,9 @@
+{
+  "pid": 1151714,
+  "session": "staleguard-tables-v1",
+  "hostname": "kean-Zenbook",
+  "boot_id": "a0e7e699-45a0-4518-b213-efb98aa955fb",
+  "pid1": "systemd",
+  "cwd": "/home/kean/Documents/work/stale-guard/safe-control-gym/examples/staleguard",
+  "python": "/home/kean/miniconda3/envs/scg/bin/python"
+}

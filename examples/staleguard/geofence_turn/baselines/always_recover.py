@@ -1,4 +1,4 @@
-"""Reject the turn at scheduled dispatch and use the existing safety recovery."""
+"""Cancel at approval and use the existing safety recovery, including D=0."""
 
 
 def should_recover():

@@ -155,20 +155,17 @@ class NewBaselineTests(unittest.TestCase):
             self.assertEqual(event['application_step'],round((s.approval_s+delay)*HZ))
             self.assertEqual(len(trace),round((s.approval_s+s.deadline_s)*HZ)+1)
 
-    def test_always_recovers_at_dispatch_without_prediction(self):
+    def test_always_recovers_at_approval_without_prediction(self):
         for delay in (0.,.02,.1):
             with patch.object(fbs,'safety_feature',side_effect=AssertionError('Unexpected FBS observation')), \
                  patch('geofence_turn.baselines.staleguard.predict_delays',side_effect=AssertionError('Unexpected prediction')):
                 s,result,_,trace = self.flight('always_recover',delay)
             event = result['event']
             self.assertTrue(always_recover.should_recover())
-            self.assertEqual(event['fallback_step'],round((s.approval_s+delay)*HZ))
+            self.assertEqual(event['fallback_step'],round(s.approval_s*HZ))
             self.assertIsNone(event['application_step'])
             self.assertNotIn('computation_s',event)
             self.assertNotIn('features_m',event)
-            if delay==.1:
-                self.assertIsNotNone(result['pre_dispatch_violation_s'])
-                self.assertFalse(result['safe'])
 
     def test_optional_fbs_diagnostics_do_not_change_decision_or_timing(self):
         for delay,computation in ((0.,.001),(.02,.001),(.02,.1)):

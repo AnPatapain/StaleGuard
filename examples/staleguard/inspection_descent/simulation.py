@@ -371,7 +371,7 @@ def run_actual(
         env.close()
 
 def execute(s, delay=0., policy='no_recovery', snapshot=None, seed=None,
-            received=None, platform=None, save_trace=False):
+            received=None, platform=None, save_trace=False, forced_action=None):
     """One original physical flight; approval forecasts remain frozen inputs."""
     from .storage import check_memory, check_approval_snapshot
     from .baselines import always_recover, fixed_ttl
@@ -389,7 +389,14 @@ def execute(s, delay=0., policy='no_recovery', snapshot=None, seed=None,
                  fallback_step=None, early_recovery=False, prediction_ready=None)
     kwargs, log = {}, {}
     recover, recover_step = False, dispatch
-    if policy == 'always_recover':
+    if forced_action is not None:
+        kind, action_step = forced_action
+        if kind not in ('command','recovery') or not approval <= action_step < deadline:
+            raise ValueError('Invalid recorded clock-policy action')
+        if kind == 'command' and action_step != dispatch:
+            raise ValueError('Approved command starts only at dispatch')
+        recover, recover_step = kind == 'recovery', action_step
+    elif policy == 'always_recover':
         recover, recover_step = always_recover.decision(approval,dispatch)
     elif policy in ('staleguard','staleguard_early_recovery'):
         if received is None:

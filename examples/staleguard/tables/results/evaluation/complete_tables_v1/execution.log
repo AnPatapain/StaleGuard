@@ -1,0 +1,357 @@
+pybullet build time: Jan 29 2025 23:16:28
+.pybullet build time: Jan 29 2025 23:16:28
+/home/kean/miniconda3/envs/scg/lib/python3.10/site-packages/gymnasium/spaces/box.py:130: UserWarning: [33mWARN: Box bound precision lowered by casting to float32[0m
+  gym.logger.warn(f"Box bound precision lowered by casting to {self.dtype}")
+..
+----------------------------------------------------------------------
+Ran 3 tests in 2.156s
+
+OK
+2026-11-10 01:20:09 inspection_descent Always Recover correction complete (existing physical approval recoveries reused)
+2026-11-10 01:20:27 geofence_turn Always Recover correction complete (existing physical approval recoveries reused)
+/home/kean/miniconda3/envs/scg/lib/python3.10/site-packages/gymnasium/spaces/box.py:130: UserWarning: [33mWARN: Box bound precision lowered by casting to float32[0m
+  gym.logger.warn(f"Box bound precision lowered by casting to {self.dtype}")
+2026-11-10 01:20:29 inspection_descent predictor warmup (excluded from latency): 0.17s
+2026-11-10 01:20:29 inspection_descent forecast seed 20; 2/552 cached
+2026-11-10 01:20:30 inspection_descent forecast seed 30; 22/552 cached
+2026-11-10 01:20:31 inspection_descent forecast seed 40; 40/552 cached
+2026-11-10 01:20:32 inspection_descent forecast seed 50; 56/552 cached
+2026-11-10 01:20:33 inspection_descent forecast seed 60; 74/552 cached
+2026-11-10 01:20:33 inspection_descent forecast seed 70; 88/552 cached
+2026-11-10 01:20:35 inspection_descent forecast seed 90; 124/552 cached
+2026-11-10 01:20:36 inspection_descent forecast seed 100; 142/552 cached
+2026-11-10 01:20:37 inspection_descent forecast seed 110; 156/552 cached
+2026-11-10 01:20:37 inspection_descent forecast seed 120; 174/552 cached
+2026-11-10 01:20:38 inspection_descent forecast seed 130; 194/552 cached
+2026-11-10 01:20:39 inspection_descent forecast seed 140; 214/552 cached
+2026-11-10 01:20:40 inspection_descent forecast seed 150; 232/552 cached
+2026-11-10 01:20:41 inspection_descent forecast seed 160; 252/552 cached
+2026-11-10 01:20:42 inspection_descent forecast seed 170; 272/552 cached
+2026-11-10 01:20:43 inspection_descent forecast seed 180; 290/552 cached
+2026-11-10 01:20:44 inspection_descent forecast seed 190; 310/552 cached
+2026-11-10 01:20:46 inspection_descent forecast seed 210; 344/552 cached
+2026-11-10 01:20:47 inspection_descent forecast seed 220; 364/552 cached
+2026-11-10 01:20:48 inspection_descent forecast seed 230; 382/552 cached
+2026-11-10 01:20:48 inspection_descent forecast seed 240; 402/552 cached
+2026-11-10 01:20:49 inspection_descent forecast seed 250; 420/552 cached
+2026-11-10 01:20:50 inspection_descent forecast seed 260; 440/552 cached
+2026-11-10 01:20:52 inspection_descent forecast seed 270; 460/552 cached
+2026-11-10 01:20:52 inspection_descent forecast seed 280; 478/552 cached
+2026-11-10 01:20:54 inspection_descent forecast seed 290; 496/552 cached
+2026-11-10 01:20:55 inspection_descent forecast seed 300; 514/552 cached
+2026-11-10 01:20:56 inspection_descent forecast seed 310; 534/552 cached
+pybullet build time: Jan 29 2025 23:16:28
+pybullet build time: Jan 29 2025 23:16:28
+pybullet build time: Jan 29 2025 23:16:28
+pybullet build time: Jan 29 2025 23:16:28
+/home/kean/miniconda3/envs/scg/lib/python3.10/site-packages/gymnasium/spaces/box.py:130: UserWarning: [33mWARN: Box bound precision lowered by casting to float32[0m
+  gym.logger.warn(f"Box bound precision lowered by casting to {self.dtype}")
+/home/kean/miniconda3/envs/scg/lib/python3.10/site-packages/gymnasium/spaces/box.py:130: UserWarning: [33mWARN: Box bound precision lowered by casting to float32[0m
+  gym.logger.warn(f"Box bound precision lowered by casting to {self.dtype}")
+/home/kean/miniconda3/envs/scg/lib/python3.10/site-packages/gymnasium/spaces/box.py:130: UserWarning: [33mWARN: Box bound precision lowered by casting to float32[0m
+  gym.logger.warn(f"Box bound precision lowered by casting to {self.dtype}")
+/home/kean/miniconda3/envs/scg/lib/python3.10/site-packages/gymnasium/spaces/box.py:130: UserWarning: [33mWARN: Box bound precision lowered by casting to float32[0m
+  gym.logger.warn(f"Box bound precision lowered by casting to {self.dtype}")
+/home/kean/miniconda3/envs/scg/lib/python3.10/site-packages/gymnasium/spaces/box.py:130: UserWarning: [33mWARN: Box bound precision lowered by casting to float32[0m
+  gym.logger.warn(f"Box bound precision lowered by casting to {self.dtype}")
+/home/kean/miniconda3/envs/scg/lib/python3.10/site-packages/gymnasium/spaces/box.py:130: UserWarning: [33mWARN: Box bound precision lowered by casting to float32[0m
+  gym.logger.warn(f"Box bound precision lowered by casting to {self.dtype}")
+/home/kean/miniconda3/envs/scg/lib/python3.10/site-packages/gymnasium/spaces/box.py:130: UserWarning: [33mWARN: Box bound precision lowered by casting to float32[0m
+  gym.logger.warn(f"Box bound precision lowered by casting to {self.dtype}")
+/home/kean/miniconda3/envs/scg/lib/python3.10/site-packages/gymnasium/spaces/box.py:130: UserWarning: [33mWARN: Box bound precision lowered by casting to float32[0m
+  gym.logger.warn(f"Box bound precision lowered by casting to {self.dtype}")
+2026-11-10 01:21:18 inspection_descent/supplementary_feasibility_v1: 3412 cases, 100 new physical flights this invocation
+2026-11-10 01:21:31 inspection_descent/supplementary_feasibility_v1: 3512 cases, 200 new physical flights this invocation
+2026-11-10 01:21:43 inspection_descent/supplementary_feasibility_v1: 3612 cases, 300 new physical flights this invocation
+2026-11-10 01:21:57 inspection_descent/supplementary_feasibility_v1: 3712 cases, 400 new physical flights this invocation
+2026-11-10 01:22:10 inspection_descent/supplementary_feasibility_v1: 3812 cases, 500 new physical flights this invocation
+2026-11-10 01:22:22 inspection_descent/supplementary_feasibility_v1: 3912 cases, 600 new physical flights this invocation
+2026-11-10 01:22:36 inspection_descent/supplementary_feasibility_v1: 4012 cases, 700 new physical flights this invocation
+2026-11-10 01:22:48 inspection_descent/supplementary_feasibility_v1: 4112 cases, 800 new physical flights this invocation
+2026-11-10 01:23:01 inspection_descent/supplementary_feasibility_v1: 4212 cases, 900 new physical flights this invocation
+2026-11-10 01:23:15 inspection_descent/supplementary_feasibility_v1: 4312 cases, 1000 new physical flights this invocation
+2026-11-10 01:23:29 inspection_descent/supplementary_feasibility_v1: 4412 cases, 1100 new physical flights this invocation
+2026-11-10 01:23:44 inspection_descent/supplementary_feasibility_v1: 4512 cases, 1200 new physical flights this invocation
+2026-11-10 01:23:57 inspection_descent/supplementary_feasibility_v1: 4612 cases, 1300 new physical flights this invocation
+2026-11-10 01:24:11 inspection_descent/supplementary_feasibility_v1: 4712 cases, 1400 new physical flights this invocation
+2026-11-10 01:24:24 inspection_descent/supplementary_feasibility_v1: 4812 cases, 1500 new physical flights this invocation
+2026-11-10 01:24:37 inspection_descent/supplementary_feasibility_v1: 4912 cases, 1600 new physical flights this invocation
+2026-11-10 01:24:50 inspection_descent/supplementary_feasibility_v1: 5012 cases, 1700 new physical flights this invocation
+2026-11-10 01:25:04 inspection_descent/supplementary_feasibility_v1: 5112 cases, 1800 new physical flights this invocation
+2026-11-10 01:25:17 inspection_descent/supplementary_feasibility_v1: 5212 cases, 1900 new physical flights this invocation
+2026-11-10 01:25:30 inspection_descent/supplementary_feasibility_v1: 5312 cases, 2000 new physical flights this invocation
+2026-11-10 01:25:44 inspection_descent/supplementary_feasibility_v1: 5412 cases, 2100 new physical flights this invocation
+2026-11-10 01:25:58 inspection_descent/supplementary_feasibility_v1: 5512 cases, 2200 new physical flights this invocation
+2026-11-10 01:26:12 inspection_descent/supplementary_feasibility_v1: 5612 cases, 2300 new physical flights this invocation
+2026-11-10 01:26:25 inspection_descent/supplementary_feasibility_v1: 5712 cases, 2400 new physical flights this invocation
+2026-11-10 01:26:38 inspection_descent/supplementary_feasibility_v1: 5812 cases, 2500 new physical flights this invocation
+2026-11-10 01:26:51 inspection_descent/supplementary_feasibility_v1: 5912 cases, 2600 new physical flights this invocation
+2026-11-10 01:27:05 inspection_descent/supplementary_feasibility_v1: 6012 cases, 2700 new physical flights this invocation
+2026-11-10 01:27:14 inspection_descent independent feasibility complete; 6072 physical outcome records, 2760 new candidate flights
+/home/kean/miniconda3/envs/scg/lib/python3.10/site-packages/gymnasium/spaces/box.py:130: UserWarning: [33mWARN: Box bound precision lowered by casting to float32[0m
+  gym.logger.warn(f"Box bound precision lowered by casting to {self.dtype}")
+2026-11-10 01:27:15 geofence_turn predictor warmup (excluded from latency): 0.08s
+2026-11-10 01:27:16 geofence_turn forecast seed 30; 16/600 cached
+2026-11-10 01:27:19 geofence_turn forecast seed 40; 36/600 cached
+2026-11-10 01:27:21 geofence_turn forecast seed 50; 56/600 cached
+2026-11-10 01:27:23 geofence_turn forecast seed 60; 76/600 cached
+2026-11-10 01:27:25 geofence_turn forecast seed 70; 96/600 cached
+2026-11-10 01:27:27 geofence_turn forecast seed 80; 116/600 cached
+2026-11-10 01:27:28 geofence_turn forecast seed 90; 136/600 cached
+2026-11-10 01:27:30 geofence_turn forecast seed 100; 156/600 cached
+2026-11-10 01:27:32 geofence_turn forecast seed 110; 176/600 cached
+2026-11-10 01:27:34 geofence_turn forecast seed 120; 194/600 cached
+2026-11-10 01:27:36 geofence_turn forecast seed 130; 212/600 cached
+2026-11-10 01:27:39 geofence_turn forecast seed 140; 232/600 cached
+2026-11-10 01:27:41 geofence_turn forecast seed 150; 252/600 cached
+2026-11-10 01:27:43 geofence_turn forecast seed 160; 272/600 cached
+2026-11-10 01:27:45 geofence_turn forecast seed 170; 292/600 cached
+2026-11-10 01:27:47 geofence_turn forecast seed 180; 310/600 cached
+2026-11-10 01:27:49 geofence_turn forecast seed 190; 330/600 cached
+2026-11-10 01:27:51 geofence_turn forecast seed 200; 350/600 cached
+2026-11-10 01:27:53 geofence_turn forecast seed 210; 368/600 cached
+2026-11-10 01:27:55 geofence_turn forecast seed 220; 388/600 cached
+2026-11-10 01:27:57 geofence_turn forecast seed 230; 408/600 cached
+2026-11-10 01:27:59 geofence_turn forecast seed 240; 428/600 cached
+2026-11-10 01:28:01 geofence_turn forecast seed 250; 448/600 cached
+2026-11-10 01:28:03 geofence_turn forecast seed 260; 468/600 cached
+2026-11-10 01:28:04 Traceback (most recent call last):
+  File "/home/kean/miniconda3/envs/scg/lib/python3.10/site-packages/numba/core/serialize.py", line 30, in _numba_unpickle
+    def _numba_unpickle(address, bytedata, hashed):
+KeyboardInterrupt
+
+The above exception was the direct cause of the following exception:
+
+SystemError: _PyEval_EvalFrameDefault returned a result with an exception set
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/kean/Documents/work/stale-guard/safe-control-gym/examples/staleguard/tables/complete_experiments.py", line 330, in execute
+    path,run,digest=forecast_phase(mission,data,source)
+  File "/home/kean/Documents/work/stale-guard/safe-control-gym/examples/staleguard/tables/complete_experiments.py", line 159, in forecast_phase
+    f=prediction(mission,s,snap,platform)
+  File "/home/kean/Documents/work/stale-guard/safe-control-gym/examples/staleguard/model/mission_evaluation.py", line 58, in prediction
+    result=module.predict(s,snap,platform,**kwargs)
+  File "/home/kean/Documents/work/stale-guard/safe-control-gym/examples/staleguard/geofence_turn/baselines/recovery_horizons.py", line 17, in predict
+    def predict(s,snapshot,platform,**kwargs):return shared_predict(snapshot,platform,adapter(s,snapshot),**kwargs)
+  File "/home/kean/Documents/work/stale-guard/safe-control-gym/examples/staleguard/model/feasibility_profiles.py", line 127, in predict
+    safe,complete,state,mem=continuation(states[i].copy(),memories[i].copy(),changed,int(step),*args,
+SystemError: CPUDispatcher(<function continuation at 0x7f35b185ea70>) returned a result with an exception set
+
+Aggregation PARTIALLY COMPLETE missing: ['inspection_descent/three_opportunity_benchmark_v1', 'inspection_descent/staleguard_early_recovery: missing cases', 'inspection_descent/fixed_early_recovery: missing cases', 'inspection_descent/staleguard_recovery_aware: missing cases', 'inspection_descent/staleguard_dual_horizon: missing cases', 'geofence_turn/three_opportunity_benchmark_v1', 'geofence_turn/staleguard_recovery_aware: missing cases', 'geofence_turn/staleguard_dual_horizon: missing cases', 'geofence_turn/physical_feasibility: incomplete']
+pybullet build time: Jan 29 2025 23:16:28
+pybullet build time: Jan 29 2025 23:16:28
+pybullet build time: Jan 29 2025 23:16:28
+pybullet build time: Jan 29 2025 23:16:28
+/home/kean/miniconda3/envs/scg/lib/python3.10/site-packages/gymnasium/spaces/box.py:130: UserWarning: [33mWARN: Box bound precision lowered by casting to float32[0m
+  gym.logger.warn(f"Box bound precision lowered by casting to {self.dtype}")
+/home/kean/miniconda3/envs/scg/lib/python3.10/site-packages/gymnasium/spaces/box.py:130: UserWarning: [33mWARN: Box bound precision lowered by casting to float32[0m
+  gym.logger.warn(f"Box bound precision lowered by casting to {self.dtype}")
+/home/kean/miniconda3/envs/scg/lib/python3.10/site-packages/gymnasium/spaces/box.py:130: UserWarning: [33mWARN: Box bound precision lowered by casting to float32[0m
+  gym.logger.warn(f"Box bound precision lowered by casting to {self.dtype}")
+/home/kean/miniconda3/envs/scg/lib/python3.10/site-packages/gymnasium/spaces/box.py:130: UserWarning: [33mWARN: Box bound precision lowered by casting to float32[0m
+  gym.logger.warn(f"Box bound precision lowered by casting to {self.dtype}")
+/home/kean/miniconda3/envs/scg/lib/python3.10/site-packages/gymnasium/spaces/box.py:130: UserWarning: [33mWARN: Box bound precision lowered by casting to float32[0m
+  gym.logger.warn(f"Box bound precision lowered by casting to {self.dtype}")
+/home/kean/miniconda3/envs/scg/lib/python3.10/site-packages/gymnasium/spaces/box.py:130: UserWarning: [33mWARN: Box bound precision lowered by casting to float32[0m
+  gym.logger.warn(f"Box bound precision lowered by casting to {self.dtype}")
+/home/kean/miniconda3/envs/scg/lib/python3.10/site-packages/gymnasium/spaces/box.py:130: UserWarning: [33mWARN: Box bound precision lowered by casting to float32[0m
+  gym.logger.warn(f"Box bound precision lowered by casting to {self.dtype}")
+/home/kean/miniconda3/envs/scg/lib/python3.10/site-packages/gymnasium/spaces/box.py:130: UserWarning: [33mWARN: Box bound precision lowered by casting to float32[0m
+  gym.logger.warn(f"Box bound precision lowered by casting to {self.dtype}")
+2026-11-10 01:28:28 inspection_descent/three_opportunity_benchmark_v1: 100 cases, 100 new physical flights this invocation
+2026-11-10 01:28:41 inspection_descent/three_opportunity_benchmark_v1: 200 cases, 200 new physical flights this invocation
+2026-11-10 01:28:54 inspection_descent/three_opportunity_benchmark_v1: 300 cases, 300 new physical flights this invocation
+2026-11-10 01:29:08 inspection_descent/three_opportunity_benchmark_v1: 400 cases, 400 new physical flights this invocation
+2026-11-10 01:29:24 inspection_descent/three_opportunity_benchmark_v1: 500 cases, 500 new physical flights this invocation
+2026-11-10 01:29:36 inspection_descent/three_opportunity_benchmark_v1: 600 cases, 600 new physical flights this invocation
+2026-11-10 01:29:38 Traceback (most recent call last):
+  File "/home/kean/Documents/work/stale-guard/safe-control-gym/examples/staleguard/tables/complete_experiments.py", line 338, in execute
+    a,e=clock_action('always_recover',snap,.2,horizon_steps=210 if mission=='inspection_descent' else snap.horizon_steps)
+  File "/home/kean/Documents/work/stale-guard/safe-control-gym/examples/staleguard/tables/complete_experiments.py", line 242, in benchmark_phase
+    r['physical_source']['journal']=str(source_path.relative_to(ROOT))
+  File "/home/kean/Documents/work/stale-guard/safe-control-gym/examples/staleguard/tables/complete_experiments.py", line 185, in pool_flights
+    row=future.result();break
+  File "/home/kean/miniconda3/envs/scg/lib/python3.10/concurrent/futures/_base.py", line 453, in result
+    self._condition.wait(timeout)
+  File "/home/kean/miniconda3/envs/scg/lib/python3.10/threading.py", line 320, in wait
+    waiter.acquire()
+KeyboardInterrupt
+
+Aggregation PARTIALLY COMPLETE missing: ['inspection_descent/three_opportunity_benchmark_v1: incomplete', 'inspection_descent/staleguard_early_recovery: missing cases', 'inspection_descent/fixed_early_recovery: missing cases', 'inspection_descent/staleguard_recovery_aware: missing cases', 'inspection_descent/staleguard_dual_horizon: missing cases', 'geofence_turn/three_opportunity_benchmark_v1', 'geofence_turn/staleguard_recovery_aware: missing cases', 'geofence_turn/staleguard_dual_horizon: missing cases', 'geofence_turn/physical_feasibility: incomplete']
+Traceback (most recent call last):
+  File "/home/kean/Documents/work/stale-guard/safe-control-gym/examples/staleguard/tables/complete_experiments.py", line 368, in <module>
+    status(status='RUNNING',pid=os.getpid(),phase='preflight',errors=[])
+  File "/home/kean/Documents/work/stale-guard/safe-control-gym/examples/staleguard/tables/complete_experiments.py", line 358, in main
+    from aggregate_results import aggregate as run
+  File "/home/kean/Documents/work/stale-guard/safe-control-gym/examples/staleguard/tables/complete_experiments.py", line 338, in execute
+    a,e=clock_action('always_recover',snap,.2,horizon_steps=210 if mission=='inspection_descent' else snap.horizon_steps)
+  File "/home/kean/Documents/work/stale-guard/safe-control-gym/examples/staleguard/tables/complete_experiments.py", line 242, in benchmark_phase
+    r['physical_source']['journal']=str(source_path.relative_to(ROOT))
+  File "/home/kean/Documents/work/stale-guard/safe-control-gym/examples/staleguard/tables/complete_experiments.py", line 185, in pool_flights
+    row=future.result();break
+  File "/home/kean/miniconda3/envs/scg/lib/python3.10/concurrent/futures/_base.py", line 453, in result
+    self._condition.wait(timeout)
+  File "/home/kean/miniconda3/envs/scg/lib/python3.10/threading.py", line 320, in wait
+    waiter.acquire()
+KeyboardInterrupt
+.pybullet build time: Jan 29 2025 23:16:28
+/home/kean/miniconda3/envs/scg/lib/python3.10/site-packages/gymnasium/spaces/box.py:130: UserWarning: [33mWARN: Box bound precision lowered by casting to float32[0m
+  gym.logger.warn(f"Box bound precision lowered by casting to {self.dtype}")
+....
+----------------------------------------------------------------------
+Ran 5 tests in 2.200s
+
+OK
+pybullet build time: Jan 29 2025 23:16:28
+/home/kean/miniconda3/envs/scg/lib/python3.10/site-packages/gymnasium/spaces/box.py:130: UserWarning: [33mWARN: Box bound precision lowered by casting to float32[0m
+  gym.logger.warn(f"Box bound precision lowered by casting to {self.dtype}")
+2026-11-10 01:30:53 Physical trajectory reuse smoke passed: 4 flights
+2026-11-10 01:30:53 inspection_descent Always Recover correction complete (existing physical approval recoveries reused)
+2026-11-10 01:30:53 geofence_turn Always Recover correction complete (existing physical approval recoveries reused)
+2026-11-10 01:30:53 inspection_descent independent feasibility complete; 6072 physical outcome records, 0 new candidate flights
+/home/kean/miniconda3/envs/scg/lib/python3.10/site-packages/gymnasium/spaces/box.py:130: UserWarning: [33mWARN: Box bound precision lowered by casting to float32[0m
+  gym.logger.warn(f"Box bound precision lowered by casting to {self.dtype}")
+2026-11-10 01:30:54 geofence_turn predictor warmup (excluded from latency): 0.06s
+2026-11-10 01:30:54 geofence_turn forecast seed 30; 481/600 cached
+2026-11-10 01:30:54 geofence_turn forecast seed 40; 481/600 cached
+2026-11-10 01:30:54 geofence_turn forecast seed 50; 481/600 cached
+2026-11-10 01:30:54 geofence_turn forecast seed 60; 481/600 cached
+2026-11-10 01:30:54 geofence_turn forecast seed 70; 481/600 cached
+2026-11-10 01:30:54 geofence_turn forecast seed 80; 481/600 cached
+2026-11-10 01:30:54 geofence_turn forecast seed 90; 481/600 cached
+2026-11-10 01:30:54 geofence_turn forecast seed 100; 481/600 cached
+2026-11-10 01:30:54 geofence_turn forecast seed 110; 481/600 cached
+2026-11-10 01:30:54 geofence_turn forecast seed 120; 481/600 cached
+2026-11-10 01:30:54 geofence_turn forecast seed 130; 481/600 cached
+2026-11-10 01:30:54 geofence_turn forecast seed 140; 481/600 cached
+2026-11-10 01:30:54 geofence_turn forecast seed 150; 481/600 cached
+2026-11-10 01:30:54 geofence_turn forecast seed 160; 481/600 cached
+2026-11-10 01:30:54 geofence_turn forecast seed 170; 481/600 cached
+2026-11-10 01:30:54 geofence_turn forecast seed 180; 481/600 cached
+2026-11-10 01:30:54 geofence_turn forecast seed 190; 481/600 cached
+2026-11-10 01:30:54 geofence_turn forecast seed 200; 481/600 cached
+2026-11-10 01:30:54 geofence_turn forecast seed 210; 481/600 cached
+2026-11-10 01:30:54 geofence_turn forecast seed 220; 481/600 cached
+2026-11-10 01:30:54 geofence_turn forecast seed 230; 481/600 cached
+2026-11-10 01:30:54 geofence_turn forecast seed 240; 481/600 cached
+2026-11-10 01:30:54 geofence_turn forecast seed 250; 481/600 cached
+2026-11-10 01:30:54 geofence_turn forecast seed 260; 481/600 cached
+2026-11-10 01:30:54 geofence_turn forecast seed 270; 488/600 cached
+2026-11-10 01:30:56 geofence_turn forecast seed 280; 508/600 cached
+2026-11-10 01:30:58 geofence_turn forecast seed 290; 526/600 cached
+2026-11-10 01:31:01 geofence_turn forecast seed 300; 546/600 cached
+2026-11-10 01:31:03 geofence_turn forecast seed 310; 566/600 cached
+2026-11-10 01:31:05 geofence_turn forecast seed 320; 586/600 cached
+2026-11-10 01:31:30 geofence_turn independent feasibility complete; 11400 physical outcome records, 0 new candidate flights
+Aggregation PARTIALLY COMPLETE missing: ['inspection_descent/three_opportunity_benchmark_v1: incomplete', 'inspection_descent/staleguard_early_recovery: missing cases', 'inspection_descent/fixed_early_recovery: missing cases', 'inspection_descent/staleguard_recovery_aware: missing cases', 'inspection_descent/staleguard_dual_horizon: missing cases', 'geofence_turn/three_opportunity_benchmark_v1', 'geofence_turn/staleguard_recovery_aware: missing cases', 'geofence_turn/staleguard_dual_horizon: missing cases']
+2026-11-10 01:32:11 inspection_descent: 11513 policy cases reuse measured identical actions; 3 distinct missing physical trajectories
+pybullet build time: Jan 29 2025 23:16:28
+pybullet build time: Jan 29 2025 23:16:28
+pybullet build time: Jan 29 2025 23:16:28
+/home/kean/miniconda3/envs/scg/lib/python3.10/site-packages/gymnasium/spaces/box.py:130: UserWarning: [33mWARN: Box bound precision lowered by casting to float32[0m
+  gym.logger.warn(f"Box bound precision lowered by casting to {self.dtype}")
+/home/kean/miniconda3/envs/scg/lib/python3.10/site-packages/gymnasium/spaces/box.py:130: UserWarning: [33mWARN: Box bound precision lowered by casting to float32[0m
+  gym.logger.warn(f"Box bound precision lowered by casting to {self.dtype}")
+/home/kean/miniconda3/envs/scg/lib/python3.10/site-packages/gymnasium/spaces/box.py:130: UserWarning: [33mWARN: Box bound precision lowered by casting to float32[0m
+  gym.logger.warn(f"Box bound precision lowered by casting to {self.dtype}")
+/home/kean/miniconda3/envs/scg/lib/python3.10/site-packages/gymnasium/spaces/box.py:130: UserWarning: [33mWARN: Box bound precision lowered by casting to float32[0m
+  gym.logger.warn(f"Box bound precision lowered by casting to {self.dtype}")
+/home/kean/miniconda3/envs/scg/lib/python3.10/site-packages/gymnasium/spaces/box.py:130: UserWarning: [33mWARN: Box bound precision lowered by casting to float32[0m
+  gym.logger.warn(f"Box bound precision lowered by casting to {self.dtype}")
+/home/kean/miniconda3/envs/scg/lib/python3.10/site-packages/gymnasium/spaces/box.py:130: UserWarning: [33mWARN: Box bound precision lowered by casting to float32[0m
+  gym.logger.warn(f"Box bound precision lowered by casting to {self.dtype}")
+2026-11-10 01:32:15 inspection_descent missing policy matrix complete
+2026-11-10 01:32:48 geofence_turn: 13211 policy cases reuse measured identical actions; 581 distinct missing physical trajectories
+pybullet build time: Jan 29 2025 23:16:28
+pybullet build time: Jan 29 2025 23:16:28
+pybullet build time: Jan 29 2025 23:16:28
+pybullet build time: Jan 29 2025 23:16:28
+/home/kean/miniconda3/envs/scg/lib/python3.10/site-packages/gymnasium/spaces/box.py:130: UserWarning: [33mWARN: Box bound precision lowered by casting to float32[0m
+  gym.logger.warn(f"Box bound precision lowered by casting to {self.dtype}")
+/home/kean/miniconda3/envs/scg/lib/python3.10/site-packages/gymnasium/spaces/box.py:130: UserWarning: [33mWARN: Box bound precision lowered by casting to float32[0m
+  gym.logger.warn(f"Box bound precision lowered by casting to {self.dtype}")
+/home/kean/miniconda3/envs/scg/lib/python3.10/site-packages/gymnasium/spaces/box.py:130: UserWarning: [33mWARN: Box bound precision lowered by casting to float32[0m
+  gym.logger.warn(f"Box bound precision lowered by casting to {self.dtype}")
+/home/kean/miniconda3/envs/scg/lib/python3.10/site-packages/gymnasium/spaces/box.py:130: UserWarning: [33mWARN: Box bound precision lowered by casting to float32[0m
+  gym.logger.warn(f"Box bound precision lowered by casting to {self.dtype}")
+/home/kean/miniconda3/envs/scg/lib/python3.10/site-packages/gymnasium/spaces/box.py:130: UserWarning: [33mWARN: Box bound precision lowered by casting to float32[0m
+  gym.logger.warn(f"Box bound precision lowered by casting to {self.dtype}")
+/home/kean/miniconda3/envs/scg/lib/python3.10/site-packages/gymnasium/spaces/box.py:130: UserWarning: [33mWARN: Box bound precision lowered by casting to float32[0m
+  gym.logger.warn(f"Box bound precision lowered by casting to {self.dtype}")
+/home/kean/miniconda3/envs/scg/lib/python3.10/site-packages/gymnasium/spaces/box.py:130: UserWarning: [33mWARN: Box bound precision lowered by casting to float32[0m
+  gym.logger.warn(f"Box bound precision lowered by casting to {self.dtype}")
+/home/kean/miniconda3/envs/scg/lib/python3.10/site-packages/gymnasium/spaces/box.py:130: UserWarning: [33mWARN: Box bound precision lowered by casting to float32[0m
+  gym.logger.warn(f"Box bound precision lowered by casting to {self.dtype}")
+2026-11-10 01:33:07 Traceback (most recent call last):
+  File "/home/kean/Documents/work/stale-guard/safe-control-gym/examples/staleguard/tables/complete_experiments.py", line 426, in execute
+    smoke();bundles={m:inputs(m) for m in MISSIONS};reuse_smoke(bundles)
+  File "/home/kean/Documents/work/stale-guard/safe-control-gym/examples/staleguard/tables/complete_experiments.py", line 291, in benchmark_phase
+    action,event=clock_action(policy,snap,delay,f,horizon_steps=210 if mission=='inspection_descent' else snap.horizon_steps)
+  File "/home/kean/Documents/work/stale-guard/safe-control-gym/examples/staleguard/tables/complete_experiments.py", line 185, in pool_flights
+    row=future.result();break
+  File "/home/kean/miniconda3/envs/scg/lib/python3.10/concurrent/futures/_base.py", line 453, in result
+    self._condition.wait(timeout)
+  File "/home/kean/miniconda3/envs/scg/lib/python3.10/threading.py", line 320, in wait
+    waiter.acquire()
+KeyboardInterrupt
+
+Aggregation PARTIALLY COMPLETE missing: ['geofence_turn/three_opportunity_benchmark_v1: incomplete', 'geofence_turn/staleguard_recovery_aware: missing cases', 'geofence_turn/staleguard_dual_horizon: missing cases']
+Traceback (most recent call last):
+  File "/home/kean/Documents/work/stale-guard/safe-control-gym/examples/staleguard/tables/complete_experiments.py", line 456, in <module>
+    p=OUT/'status.json';print(p.read_text() if p.exists() else 'NOT STARTED')
+  File "/home/kean/Documents/work/stale-guard/safe-control-gym/examples/staleguard/tables/complete_experiments.py", line 446, in main
+    message=traceback.format_exc();log(message);status(status='BLOCKED',phase='exception',last_error=message)
+  File "/home/kean/Documents/work/stale-guard/safe-control-gym/examples/staleguard/tables/complete_experiments.py", line 426, in execute
+    smoke();bundles={m:inputs(m) for m in MISSIONS};reuse_smoke(bundles)
+  File "/home/kean/Documents/work/stale-guard/safe-control-gym/examples/staleguard/tables/complete_experiments.py", line 291, in benchmark_phase
+    action,event=clock_action(policy,snap,delay,f,horizon_steps=210 if mission=='inspection_descent' else snap.horizon_steps)
+  File "/home/kean/Documents/work/stale-guard/safe-control-gym/examples/staleguard/tables/complete_experiments.py", line 185, in pool_flights
+    row=future.result();break
+  File "/home/kean/miniconda3/envs/scg/lib/python3.10/concurrent/futures/_base.py", line 453, in result
+    self._condition.wait(timeout)
+  File "/home/kean/miniconda3/envs/scg/lib/python3.10/threading.py", line 320, in wait
+    waiter.acquire()
+KeyboardInterrupt
+.pybullet build time: Jan 29 2025 23:16:28
+/home/kean/miniconda3/envs/scg/lib/python3.10/site-packages/gymnasium/spaces/box.py:130: UserWarning: [33mWARN: Box bound precision lowered by casting to float32[0m
+  gym.logger.warn(f"Box bound precision lowered by casting to {self.dtype}")
+....
+----------------------------------------------------------------------
+Ran 5 tests in 2.212s
+
+OK
+pybullet build time: Jan 29 2025 23:16:28
+/home/kean/miniconda3/envs/scg/lib/python3.10/site-packages/gymnasium/spaces/box.py:130: UserWarning: [33mWARN: Box bound precision lowered by casting to float32[0m
+  gym.logger.warn(f"Box bound precision lowered by casting to {self.dtype}")
+2026-11-10 01:33:38 Physical trajectory reuse smoke passed: 4 flights
+2026-11-10 01:33:38 inspection_descent Always Recover correction complete (existing physical approval recoveries reused)
+2026-11-10 01:33:38 geofence_turn Always Recover correction complete (existing physical approval recoveries reused)
+2026-11-10 01:33:39 inspection_descent independent feasibility complete; 6072 physical outcome records, 0 new candidate flights
+2026-11-10 01:33:39 geofence_turn independent feasibility complete; 11400 physical outcome records, 0 new candidate flights
+Aggregation PARTIALLY COMPLETE missing: ['geofence_turn/three_opportunity_benchmark_v1: incomplete', 'geofence_turn/staleguard_recovery_aware: missing cases', 'geofence_turn/staleguard_dual_horizon: missing cases']
+2026-11-10 01:33:49 inspection_descent: 0 policy cases reuse measured identical actions; 0 distinct missing physical trajectories
+2026-11-10 01:33:51 inspection_descent missing policy matrix complete
+2026-11-10 01:33:54 geofence_turn: 514 policy cases reuse measured identical actions; 0 distinct missing physical trajectories
+2026-11-10 01:33:56 geofence_turn missing policy matrix complete
+Aggregation COMPLETE missing: []
+.pybullet build time: Jan 29 2025 23:16:28
+/home/kean/miniconda3/envs/scg/lib/python3.10/site-packages/gymnasium/spaces/box.py:130: UserWarning: [33mWARN: Box bound precision lowered by casting to float32[0m
+  gym.logger.warn(f"Box bound precision lowered by casting to {self.dtype}")
+....
+----------------------------------------------------------------------
+Ran 5 tests in 2.412s
+
+OK
+pybullet build time: Jan 29 2025 23:16:28
+2026-11-10 01:37:36 inspection_descent Always Recover correction complete (existing physical approval recoveries reused)
+2026-11-10 01:37:36 geofence_turn Always Recover correction complete (existing physical approval recoveries reused)
+2026-11-10 01:37:36 inspection_descent independent feasibility complete; 6072 physical outcome records, 0 new candidate flights
+2026-11-10 01:37:37 geofence_turn independent feasibility complete; 11400 physical outcome records, 0 new candidate flights
+Aggregation COMPLETE missing: []
+2026-11-10 01:37:53 inspection_descent: 0 policy cases reuse measured identical actions; 0 distinct missing physical trajectories
+2026-11-10 01:37:54 inspection_descent missing policy matrix complete
+2026-11-10 01:37:56 geofence_turn: 0 policy cases reuse measured identical actions; 0 distinct missing physical trajectories
+2026-11-10 01:37:58 geofence_turn missing policy matrix complete
+Aggregation COMPLETE missing: []

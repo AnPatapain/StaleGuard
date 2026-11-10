@@ -71,7 +71,7 @@ def env_factory(s, total_steps):
 
 
 def execute(s, delay=0., config=Config(), policy='no_recovery', received=None,
-            platform=None, save_trace=False, work=None):
+            platform=None, save_trace=False, work=None, forced_action=None):
     """Replay from initial state, with no simulator reset/teleport at approval.
 
     received is computed from approval information before the caller enumerates
@@ -140,8 +140,13 @@ def execute(s, delay=0., config=Config(), policy='no_recovery', received=None,
         ref = make_forward_trajectory(total + 1, s)
         ctrl.reference = ref
         env.X_GOAL = ref
-        action_step = dispatch
-        recover = False
+        action_step = approval if policy == 'always_recover' else dispatch
+        recover = policy == 'always_recover'
+        if forced_action is not None:
+            kind, action_step = forced_action
+            if kind not in ('command', 'recovery') or not approval <= action_step < total:
+                raise ValueError('Invalid recorded clock-policy action')
+            recover = kind == 'recovery'
 
         def observe(position, tick):
             nonlocal min_clear, first_violation, first_wait_violation
@@ -248,7 +253,7 @@ def execute(s, delay=0., config=Config(), policy='no_recovery', received=None,
                     # The already-approved turn cannot be dispatched afterward.
                     action_step = None
 
-            if step == dispatch:
+            if step == dispatch and forced_action is None:
                 if policy == 'ppr' and ppr_pending is not None:
                     ppr_pending['discarded_at_dispatch'] = True
                 if policy in ('staleguard', 'staleguard_early_recovery'):

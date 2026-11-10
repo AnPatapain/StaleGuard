@@ -1,3 +1,6 @@
-"""Historical rule: fallback at approval for D>0; execute normally for D=0."""
+"""Unconditionally cancel and recover at approval, including simultaneous dispatch.
+
+Archived historical executions retain their documented D=0 exception.
+"""
 def decision(approval_step, dispatch_step):
-    return approval_step < dispatch_step, approval_step
+    return True, approval_step

@@ -1,0 +1,9 @@
+{
+  "passed": true,
+  "physical_records": 11400,
+  "expected": 11400,
+  "predicted_labels_per_property": 5700,
+  "cohort": "evaluation",
+  "duplicates": 0,
+  "all_three_properties_compared": true
+}

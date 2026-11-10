@@ -1,0 +1,11 @@
+{
+  "status": "complete",
+  "journal_bytes": 45607430,
+  "journal_sha256": "91115f8fa5ad29cdaa463e696627934d85650fdf68bfb2aa4950eb1b80a5f52f",
+  "completed_flights": 13800,
+  "prediction_bytes": 0,
+  "prediction_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "completed_predictions": 0,
+  "config_sha256": "aae62a723aab0361186f117c4e53c4aade6a46f059f81cce05ea6a20e7769832",
+  "resumptions": 0
+}

@@ -1,0 +1,16 @@
+{
+  "status": "COMPLETE",
+  "pid": 1151714,
+  "phase": "finished",
+  "errors": [],
+  "updated_unix_s": 1794271204.5473833,
+  "mission": "geofence_turn",
+  "forecasts": 1152,
+  "forecast_target": 1152,
+  "completed": 146160,
+  "new_physical_this_stage": null,
+  "pending": 0,
+  "last_error": null,
+  "validated_case_count": 146160,
+  "new_physical_records": 3439
+}
