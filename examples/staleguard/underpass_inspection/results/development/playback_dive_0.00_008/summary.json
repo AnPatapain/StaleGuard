@@ -1,0 +1,171 @@
+{
+  "verification_protocol": "ned_east_v2",
+  "scenario": {
+    "version": "ned_east_v2",
+    "seed": 0,
+    "speed": 0.6,
+    "cruise_z": 1.35,
+    "ramp_s": 0.4,
+    "approval_s": 0.8,
+    "observation_s": 8.0,
+    "clearance_m": 0.05,
+    "deck_front": 1.5,
+    "deck_back": 4.0,
+    "deck_half_width": 0.55,
+    "deck_bottom": 1.15,
+    "deck_top": 1.55,
+    "pier_x": 2.55,
+    "pier_y": 0.0,
+    "pier_half_x": 0.12,
+    "pier_half_y": 0.15,
+    "dive_drop": 0.6,
+    "dive_s": 1.3,
+    "swerve_start_s": 2.6,
+    "swerve_s": 1.2,
+    "swerve_y": 0.85,
+    "climb_rise": 0.7,
+    "climb_s": 1.2,
+    "sideways_y": 1.0,
+    "sideways_s": 1.3,
+    "inspection_lower": [
+      1.55,
+      -0.18,
+      0.65
+    ],
+    "inspection_upper": [
+      1.85,
+      0.18,
+      0.85
+    ],
+    "inspection_dwell_s": 0.18
+  },
+  "body_radius_m": 0.06128825336065631,
+  "mission_coordinate_frame": "North-East-Down (NED)",
+  "world_to_ned": [
+    [
+      1.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      -1.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      -1.0
+    ]
+  ],
+  "raw_trajectory_coordinate_frame": "PyBullet world Z-up; N=x_world, E=-y_world, D=-z_world",
+  "obstacle_boxes": [
+    {
+      "name": "deck",
+      "lower": [
+        1.5,
+        -0.55,
+        1.15
+      ],
+      "upper": [
+        4.0,
+        0.55,
+        1.55
+      ]
+    },
+    {
+      "name": "pier",
+      "lower": [
+        2.4299999999999997,
+        -0.15,
+        0.0
+      ],
+      "upper": [
+        2.67,
+        0.15,
+        1.15
+      ]
+    }
+  ],
+  "scientific_assumptions": "All new geometry, maneuver and inspection parameters are provisional pilot assumptions.",
+  "command_semantics": "Measured initiation position plus fixed scenario displacement; no replanning.",
+  "reference_smoothness": "C2 internal joins; actual-position reanchoring at dispatch retains measured nominal tracking mismatch.",
+  "obstacle_contact_forces": false,
+  "safety": "signed Euclidean point-to-box distance minus body radius >= clearance_m",
+  "inspection": "Inclusive fixed XYZ bounds, elapsed continuous dwell; safe_completion also requires whole-flight safety.",
+  "monitoring": "From reset through approval + observation_s, even after violation or completion.",
+  "control_hz": 50,
+  "physics_hz": 1000,
+  "integration": "SCG/PyBullet; no predictive model",
+  "python": "3.10.22 (main, Oct  1 2026, 20:14:04) [GCC 14.3.0]",
+  "numpy": "2.2.6",
+  "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.39",
+  "simulation_workers": 1,
+  "numerical_threads": 1,
+  "source_sha256": {
+    "examples/staleguard/underpass_inspection/__init__.py": "13eb5d3361103ea6d5b7a24f30438daf7e5605f5b911f0dfb623f942d5dcf6e1",
+    "examples/staleguard/underpass_inspection/scenario.py": "1eaff61877dd499a96249e58ed794e7e06b2e294d7d13a1cc5108b2c44b35073",
+    "examples/staleguard/underpass_inspection/simulation.py": "a3299971d4c520f4e7209b24d8fbcb2bf82039b0ced49f6f8e33578c0518f8c6",
+    "examples/staleguard/underpass_inspection/pilot.py": "589ee99d5e9dbbdde99018e2ee09f88afce5b80f37d84a2588c056967e2fd2ae",
+    "examples/staleguard/underpass_inspection/support/visualization.py": "708ca3c355cbf00051dd72341853bd525f284af3bdf786e45b539ae4e5767312",
+    "examples/staleguard/physics_monitor.py": "d7145e53736259b688d321449f6ce1f5b72b3cde4e07620b6c183d996d29cb91",
+    "examples/staleguard/model/common.py": "8e7d0d615e7977d443a8e22a096849633c2512634e3ff8c123218e533f1cd468",
+    "safe_control_gym/controllers/pid/pid.py": "a9de84b6a20554f808f3d107bb2f8aafba59b6afd411813ff53367ce20e3a2cf",
+    "safe_control_gym/envs/gym_pybullet_drones/quadrotor.py": "3c5835baa64c31b99fd56efa8f0d81dc88693efea292e6c13c0fc0bac8447110",
+    "safe_control_gym/envs/gym_pybullet_drones/base_aviary.py": "c58673187cac18162c542f72a97525e0de059f4d0e426d1936d6ef00601af4c1",
+    "safe_control_gym/envs/gym_pybullet_drones/assets/cf2x.urdf": "80d69a1ee55913d074bf62cc1a97d2674641df3187eb360471ce6d6d1ef78142"
+  },
+  "launched_utc": "2026-11-12T16:23:07Z",
+  "argv": [
+    "underpass_inspection/pilot.py",
+    "--mode",
+    "dive",
+    "--delay",
+    "0",
+    "--gui",
+    "--paper-figure",
+    "--capture",
+    "underpass_fig3.png",
+    "--hold",
+    "10"
+  ],
+  "trajectory_columns": {
+    "physics": [
+      "flight_s",
+      "x",
+      "y",
+      "z"
+    ],
+    "control": [
+      "flight_s",
+      "x",
+      "vx",
+      "y",
+      "vy",
+      "z",
+      "vz",
+      "roll",
+      "pitch",
+      "yaw",
+      "p",
+      "q",
+      "r"
+    ],
+    "reference": [
+      "flight_s",
+      "x",
+      "y",
+      "z",
+      "vx",
+      "vy",
+      "vz"
+    ]
+  },
+  "status": "complete",
+  "flight_count": 1,
+  "validation": null,
+  "sweep_grid_s": null,
+  "evidence": "Actual deterministic seed-0 SCG/PyBullet flights, not model predictions.",
+  "gui_inspected": false,
+  "deadline_interpretation": "20 ms tested grid; no interpolation or monotonicity assumption."
+}

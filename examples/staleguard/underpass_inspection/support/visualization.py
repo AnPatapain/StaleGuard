@@ -4,6 +4,7 @@ from itertools import product
 from pathlib import Path
 import hashlib
 import json
+import os
 import re
 import shutil
 import subprocess
@@ -16,7 +17,16 @@ from underpass_inspection.scenario import POS, BODY_RADIUS_M, SCENARIO_VERSION, 
 COLORS = {'nominal': (.36, .39, .42), 'dive': (.10, .60, .22),
           'climb': (.12, .32, .87), 'sideways': (0., .65, .75)}
 DEFAULT_CAMERA = dict(distance=3.4, yaw=-35., pitch=-20., target=[2.2, .25, 1.0])
+PAPER_CAMERA = dict(distance=2.7, yaw=-35., pitch=-20., target=[1.85, .1, 1.0])
+PAPER_COLORS = {'nominal': (.36, .39, .42),
+                'safe_inspection': (.10, .60, .22),
+                'late_inspection': (.86, .16, .13),
+                'safe_recovery': (1., .50, .05)}
 PILOT = Path(__file__).resolve().parents[1]/f'results/development/pilot_{SCENARIO_VERSION}'
+
+
+def paper_mode():
+    return os.environ.get('STALEGUARD_PAPER_FIGURE') == '1'
 
 
 def polyline(points, client, color, width=1., dashed=False):
@@ -70,6 +80,8 @@ def deck_faces(box, client):
 
 
 def draw_reference(reference, client, mode):
+    if paper_mode():
+        return
     color = tuple(.62+.38*c for c in COLORS[mode])
     polyline(reference[:, POS], client, color, .8, dashed=mode == 'nominal')
 
@@ -78,7 +90,7 @@ def draw_scene(s, client, plane=None):
     p.configureDebugVisualizer(p.COV_ENABLE_GUI, 0, physicsClientId=client)
     p.configureDebugVisualizer(p.COV_ENABLE_SHADOWS, 0, physicsClientId=client)
     p.configureDebugVisualizer(rgbBackground=[.98, .985, .99], physicsClientId=client)
-    camera = DEFAULT_CAMERA
+    camera = PAPER_CAMERA if paper_mode() else DEFAULT_CAMERA
     p.resetDebugVisualizerCamera(camera['distance'], camera['yaw'], camera['pitch'],
                                  camera['target'], physicsClientId=client)
     # Leave the stock SCG/PyBullet checkerboard plane completely untouched.
@@ -93,21 +105,32 @@ def draw_scene(s, client, plane=None):
         wire_box(box, client, (.90, .78, .76), BODY_RADIUS_M+s.clearance_m)
 
 
-def recorded_paths(s, mode, start_s):
+def recorded_paths(s, mode, start_s, paper=False):
     """Load physical samples from the unchanged frozen scenario; never predict paths."""
     summary = json.loads((PILOT/'summary.json').read_text())
     if json.loads(json.dumps(asdict(s))) != summary['scenario']:
         raise ValueError('--overlay-all requires the frozen pilot scenario; custom geometry is not compatible')
     rows = [json.loads(line) for line in (PILOT/'flights.jsonl').read_text().splitlines()]
-    starts = {'nominal': None, 'dive': 0., 'climb': .5, 'sideways': .5}
-    if mode != 'nominal':
-        starts[mode] = start_s
+
+    if paper:
+        starts = {'nominal': ('nominal', None),
+                  'safe_inspection': ('dive', 0.),
+                  'late_inspection': ('dive', .4),
+                  'safe_recovery': ('sideways', .5)}
+    else:
+        starts = {'nominal': ('nominal', None),
+                  'dive': ('dive', 0.),
+                  'climb': ('climb', .5),
+                  'sideways': ('sideways', .5)}
+        if mode != 'nominal':
+            starts[mode] = (mode, start_s)
+
     result = {}
     with np.load(PILOT/'trajectories.npz') as archive:
-        for name, delay in starts.items():
-            row = next((r for r in rows if r['mode'] == name and r['start_s'] == delay), None)
+        for name, (flight_mode, delay) in starts.items():
+            row = next((r for r in rows if r['mode'] == flight_mode and r['start_s'] == delay), None)
             if row is None:
-                raise ValueError(f'No recorded {name} flight at +{delay}s for comparison overlay')
+                raise ValueError(f'No recorded {flight_mode} flight at +{delay}s for comparison overlay')
             physics = archive[row['trajectory_key']+'__physics']
             if hashlib.sha256(physics.tobytes()).hexdigest() != row['physics_sha256']:
                 raise ValueError('Recorded overlay trajectory checksum mismatch')
@@ -143,16 +166,25 @@ class FlightView:
         self.client, self.mode, self.start_s = env.PYB_CLIENT, mode, start_s
         self.s = s
         self.world_y, self.world_vy = float(env.state[2]), float(env.state[3])
-        self.overlay = ((overlay_paths if overlay_paths is not None else recorded_paths(s, mode, start_s))
+        self.paper = paper_mode()
+        self.paper_capture = os.environ.get('STALEGUARD_PAPER_CAPTURE') if self.paper else None
+        self.paper_capture_at = float(os.environ.get('STALEGUARD_PAPER_AT', '0'))
+        self.paper_captured = False
+        self.overlay = ((overlay_paths if overlay_paths is not None else
+                         recorded_paths(s, mode, start_s, paper=self.paper))
                         if overlay_all else None)
         self.text_ids, self.line_ids, self.events = {}, {}, {}
         self.frame, self.camera_key = None, None
         draw_scene(s, self.client, env.PLANE_ID)
         if self.overlay:
             for name, path in self.overlay.items():
-                polyline(path['points'], self.client, COLORS[name], 2.8, dashed=name == 'nominal')
+                color = PAPER_COLORS[name] if self.paper else COLORS[name]
+                polyline(path['points'], self.client, color,
+                         3.8 if self.paper else 2.8, dashed=name == 'nominal')
 
     def event(self, label, position, color):
+        if self.paper:
+            return
         self.events[label] = np.asarray(position).copy()
         p.addUserDebugPoints([position], [color], pointSize=6, physicsClientId=self.client)
 
@@ -176,6 +208,8 @@ class FlightView:
             color, 1.5, replaceItemUniqueId=self.line_ids.get(key, -1), physicsClientId=self.client)
 
     def refresh(self, flight_s, active, unsafe):
+        if self.paper:
+            return
         camera = p.getDebugVisualizerCamera(physicsClientId=self.client)
         view = np.asarray(camera[2]).reshape(4, 4, order='F')
         projection = np.asarray(camera[3]).reshape(4, 4, order='F')
@@ -216,12 +250,87 @@ class FlightView:
 
     def update(self, a, b, step, active, unsafe, world_y, world_vy):
         self.world_y, self.world_vy = float(world_y), float(world_vy)
+        if self.paper:
+            if (self.paper_capture and not self.paper_captured
+                    and (step+1)/50 >= self.paper_capture_at):
+                self.paper_captured = True
+                save_camera(self.paper_capture, self.client)
+            return
         name = self.mode if active else 'nominal'
         color = (.86, .16, .13) if unsafe else COLORS[name]
         if name != 'nominal' or step % 6 < 3:
             p.addUserDebugLine(a, b, color, 3.4, physicsClientId=self.client)
         if step % 5 == 0:
             self.refresh((step+1)/50, active, unsafe)
+
+
+# Fraction of the captured height cut away after labeling (paper figure only).
+PAPER_CROP_TOP, PAPER_CROP_BOTTOM = .14, .17
+
+
+def label_paper_capture(path, client):
+    """Add sharp 2D text after capture, then crop empty space; never change simulator geometry or trajectories."""
+    from PIL import Image, ImageDraw, ImageFont
+
+    image = Image.open(path).convert('RGB')
+    width, height = image.size
+    scale = max(.8, min(width/1000, height/800))
+    top = round(PAPER_CROP_TOP*height)
+    bottom = height-round(PAPER_CROP_BOTTOM*height)  # new bottom edge of the image
+
+    def font(size):
+        try:
+            return ImageFont.truetype('DejaVuSans.ttf', round(size*scale))
+        except OSError:
+            return ImageFont.load_default()
+
+    draw = ImageDraw.Draw(image, 'RGBA')
+    # Sharp NED coordinate inset, oriented using the actual PyBullet camera.
+    camera = p.getDebugVisualizerCamera(physicsClientId=client)
+    view = np.asarray(camera[2]).reshape(4, 4, order='F')
+
+    draw.text((34, round(.21 * height)), 'NED coordinate frame',
+              font=font(15), fill=(45, 52, 60, 255))
+
+    origin = np.array([.075 * width, .29 * height])
+    axes = (
+        ('+X North (forward)', WORLD_TO_NED[0], (180, 75, 50, 255)),
+        ('+Y East (right)', WORLD_TO_NED[1], (55, 140, 85, 255)),
+        ('+Z Down', WORLD_TO_NED[2], (55, 95, 180, 255)),
+    )
+
+    for label, direction, color in axes:
+        projected = view[:2, :3] @ direction
+        end = origin + np.array([
+            projected[0] * .085 * width,
+            -projected[1] * .105 * height
+        ])
+
+        draw.line((*origin, *end), fill=color, width=max(2, round(3 * scale)))
+        draw.text((end[0] + 7, end[1] - 9), label,
+                  font=font(14), fill=color)
+
+    # Legend sits just above the new bottom edge.
+    draw.rectangle((18, bottom-112, width-18, bottom-15),
+                   fill=(255, 255, 255, 235))
+
+    labels = [
+        ('nominal', 'Nominal', 34, bottom-94),
+        ('safe_inspection', 'Safe inspection (D=0)', width//2, bottom-94),
+        ('late_inspection', 'Late inspection (D=0.4 s)', 34, bottom-51),
+        ('safe_recovery', 'Safe recovery (+0.5 s)', width//2, bottom-51)
+    ]
+    for name, label, x, y in labels:
+        color = tuple(round(255*c) for c in PAPER_COLORS[name])+(255,)
+        if name == 'nominal':
+            draw.line((x, y+11, x+12, y+11), fill=color, width=4)
+            draw.line((x+19, y+11, x+32, y+11), fill=color, width=4)
+        else:
+            draw.line((x, y+11, x+32, y+11), fill=color, width=5)
+        draw.text((x+43, y), label, font=font(17),
+                  fill=(35, 42, 48, 255))
+
+    image.crop((0, top, width, bottom)).save(path)
 
 
 def save_camera(path, client):
@@ -233,9 +342,16 @@ def save_camera(path, client):
             windows = [line for line in tree.splitlines() if 'Bullet Physics ExampleBrowser' in line]
             window = re.search(r'0x[0-9a-fA-F]+', windows[-1]).group()
             subprocess.run(['import', '-window', window, str(path)], check=True, stderr=subprocess.DEVNULL)
+            if paper_mode():
+                label_paper_capture(path, client)
             return
         except (subprocess.SubprocessError, IndexError, AttributeError):
             pass
+    if paper_mode():
+        raise RuntimeError(
+            'Paper capture needs an X11 window capture to preserve trajectory overlays. '
+            'Install xwininfo/ImageMagick import, or capture the GUI window manually.'
+        )
     from PIL import Image
     camera = p.getDebugVisualizerCamera(physicsClientId=client)
     width, height = 1200, 800

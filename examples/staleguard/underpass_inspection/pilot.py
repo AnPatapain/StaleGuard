@@ -1,3 +1,4 @@
+
 """Seed-0 physical feasibility pilot. Times are always relative to approval."""
 from pathlib import Path
 import sys
@@ -13,6 +14,7 @@ import fcntl
 import gc
 import hashlib
 import json
+import os
 import platform
 import time
 import numpy as np
@@ -196,6 +198,10 @@ def main():
     parser.add_argument('--gui', action='store_true')
     parser.add_argument('--overlay-all', action='store_true',
                         help='GUI only: compare saved actual nominal/dive/climb/sideways flights from the frozen pilot')
+    parser.add_argument('--paper-figure', action='store_true',
+                        help='GUI-only clean four-trajectory publication view')
+    parser.add_argument('--paper-at', type=float, default=1.8,
+                        help='Paper screenshot time in seconds after approval')
     parser.add_argument('--playback-speed', type=float, default=.5, help='Simulated seconds per wall second; .5 = slow motion')
     parser.add_argument('--hold', type=float, default=0., help='Keep final GUI scene open for this many seconds')
     parser.add_argument('--capture', type=Path, help='Optional final GUI camera PNG')
@@ -212,6 +218,12 @@ def main():
         parser.error('--capture requires --gui')
     if args.overlay_all and not args.gui:
         parser.error('--overlay-all requires --gui')
+    if args.paper_figure:
+        if (not args.gui or args.sweep or args.smoke or args.calibration
+                or args.scenario or args.seed is not None
+                or args.mode != 'dive' or args.delay not in (0., .4)):
+            parser.error('--paper-figure requires --gui, frozen pilot scenario and dive delay 0 or 0.4')
+        args.overlay_all = True
     if args.mode == 'dive' and args.start != 0. or args.mode != 'dive' and args.delay != 0.:
         parser.error('Use --delay for dive and --start for recovery')
     if args.capture:
@@ -228,6 +240,17 @@ def main():
         if args.seed is not None:
             parser.error('--seed requires --calibration')
         s = Scenario(**json.loads(args.scenario.read_text())) if args.scenario else Scenario()
+
+    if args.paper_figure:
+        if not 0 <= args.paper_at < s.observation_s:
+            parser.error('--paper-at must be within the observation horizon after approval')
+        os.environ['STALEGUARD_PAPER_FIGURE'] = '1'
+        os.environ['STALEGUARD_PAPER_AT'] = str(s.approval_s+args.paper_at)
+        if args.capture:
+            os.environ['STALEGUARD_PAPER_CAPTURE'] = str(args.capture.resolve())
+        else:
+            os.environ.pop('STALEGUARD_PAPER_CAPTURE', None)
+
     name = f'pilot_{SCENARIO_VERSION}' if args.sweep else 'smoke' if args.smoke else f'playback_{args.mode}_{args.delay if args.mode == "dive" else args.start:.2f}'
     try:
         out = prepare_output(args.out or ROOT/'results/development'/name,
@@ -266,8 +289,8 @@ def main():
                 if index % 8 == 0:
                     ctypes.CDLL(None).malloc_trim(0)
                 record, data = execute(s, mode, start, args.gui, args.playback_speed,
-                                       args.hold, args.capture, overlay_all=args.overlay_all,
-                                       overlay_paths=overlay_paths)
+                                       args.hold, None if args.paper_figure else args.capture,
+                                       overlay_all=args.overlay_all, overlay_paths=overlay_paths)
                 key = f'{mode}_{round(start*HZ):03d}'
                 record['trajectory_key'] = key
                 rows.append(record); traces[key] = data
@@ -279,7 +302,6 @@ def main():
             if args.smoke:
                 validation = validate_smoke(rows, traces, s)
                 if not validation['passed']:
-                    status = 'basic_feasibility_failed'
                     raise RuntimeError('Basic feasibility failed')
             status = 'complete'
         finally:
