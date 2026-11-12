@@ -443,6 +443,21 @@
           }
         }
       },
+      "dual_horizon_replay": {
+        "scenarios": 276,
+        "decisions_re_evaluated": 3036,
+        "decisions_changed": 0,
+        "physical_executions_rerun": 0,
+        "physical_executions_reused": 3036,
+        "replayed_forecast_readiness": true,
+        "other_policy_execution_rows_byte_identical": true,
+        "decision_metadata_only_rows": 0,
+        "outcomes_changed": {
+          "safe": 0,
+          "safe_completion": 0,
+          "completed": 0
+        }
+      },
       "prediction": {
         "status": "COMPLETE",
         "cohort": "evaluation",
@@ -50862,16 +50877,17 @@
           "safe_completion": 1656,
           "unsafe_rate": 0.006376811594202898,
           "safe_completion_rate": 0.24,
-          "recovery_attempts": 4846,
+          "recovery_attempts": 4841,
           "recovery_failures": 0,
-          "early_recoveries": 4546,
-          "command_cancellations": 4846,
-          "explicit_cancellations": 4846,
+          "early_recoveries": 4537,
+          "command_cancellations": 4841,
+          "explicit_cancellations": 4841,
           "inferred_cancellations": 0,
           "planned_cancellations_not_physically_reached": 0,
-          "new_physical_flights": 0,
+          "new_physical_flights": 56,
           "source_kind_counts": {
-            "verified_physical_equivalence_reuse": 6900
+            "verified_physical_equivalence_reuse": 6844,
+            "new_physical_flight": 56
           },
           "unique_reused_physical_source_records": 2354
         }
@@ -50885,7 +50901,7 @@
           "safe_completions_preserved": 1656,
           "safe_completions_sacrificed": 28,
           "safe_completions_gained": 0,
-          "different_actions": 4151,
+          "different_actions": 4146,
           "scenarios": 300,
           "different_action_scenarios": 256,
           "different_outcome_scenarios": 82,
@@ -50913,7 +50929,7 @@
           "safe_completions_preserved": 1656,
           "safe_completions_sacrificed": 26,
           "safe_completions_gained": 0,
-          "different_actions": 3904,
+          "different_actions": 3899,
           "scenarios": 300,
           "different_action_scenarios": 243,
           "different_outcome_scenarios": 70,
@@ -50941,7 +50957,7 @@
           "safe_completions_preserved": 1656,
           "safe_completions_sacrificed": 36,
           "safe_completions_gained": 0,
-          "different_actions": 4628,
+          "different_actions": 4599,
           "scenarios": 300,
           "different_action_scenarios": 282,
           "different_outcome_scenarios": 103,
@@ -51000,7 +51016,7 @@
             "safe_completions_preserved": 1656,
             "safe_completions_sacrificed": 28,
             "safe_completions_gained": 0,
-            "different_actions": 4151,
+            "different_actions": 4146,
             "scenarios": 300,
             "different_action_scenarios": 256,
             "different_outcome_scenarios": 82,
@@ -51028,7 +51044,7 @@
             "safe_completions_preserved": 1656,
             "safe_completions_sacrificed": 26,
             "safe_completions_gained": 0,
-            "different_actions": 3904,
+            "different_actions": 3899,
             "scenarios": 300,
             "different_action_scenarios": 243,
             "different_outcome_scenarios": 70,
@@ -51056,7 +51072,7 @@
             "safe_completions_preserved": 1656,
             "safe_completions_sacrificed": 36,
             "safe_completions_gained": 0,
-            "different_actions": 4628,
+            "different_actions": 4599,
             "scenarios": 300,
             "different_action_scenarios": 282,
             "different_outcome_scenarios": 103,
@@ -51104,6 +51120,21 @@
               "seed": 2027
             }
           }
+        }
+      },
+      "dual_horizon_replay": {
+        "scenarios": 300,
+        "decisions_re_evaluated": 6900,
+        "decisions_changed": 56,
+        "physical_executions_rerun": 56,
+        "physical_executions_reused": 6844,
+        "replayed_forecast_readiness": true,
+        "other_policy_execution_rows_byte_identical": true,
+        "decision_metadata_only_rows": 128,
+        "outcomes_changed": {
+          "safe": 0,
+          "safe_completion": 0,
+          "completed": 0
         }
       },
       "prediction": {
@@ -107064,7 +107095,7 @@
         "type": "clock-only diagnostic; no physical outcome inferred",
         "forecast_and_runtime": "same recorded full forecast for both conditions",
         "scenario_delay_pairs": 6900,
-        "different_actions": 3813,
+        "different_actions": 3808,
         "different_action_scenarios": 238,
         "distinct_command_completion_profile_scenarios": 245,
         "profile_scenarios": [
@@ -113533,18 +113564,6 @@
           },
           {
             "seed": 65,
-            "delay_s": 0.16,
-            "recovery_aware_action": [
-              "command",
-              208
-            ],
-            "full_action": [
-              "recovery",
-              207
-            ]
-          },
-          {
-            "seed": 65,
             "delay_s": 0.18,
             "recovery_aware_action": [
               "command",
@@ -113552,7 +113571,7 @@
             ],
             "full_action": [
               "recovery",
-              207
+              209
             ]
           },
           {
@@ -113564,7 +113583,7 @@
             ],
             "full_action": [
               "recovery",
-              207
+              209
             ]
           },
           {
@@ -113576,7 +113595,7 @@
             ],
             "full_action": [
               "recovery",
-              207
+              209
             ]
           },
           {
@@ -113588,7 +113607,7 @@
             ],
             "full_action": [
               "recovery",
-              207
+              209
             ]
           },
           {
@@ -113600,7 +113619,7 @@
             ],
             "full_action": [
               "recovery",
-              207
+              209
             ]
           },
           {
@@ -113612,7 +113631,7 @@
             ],
             "full_action": [
               "recovery",
-              207
+              209
             ]
           },
           {
@@ -113624,7 +113643,7 @@
             ],
             "full_action": [
               "recovery",
-              207
+              209
             ]
           },
           {
@@ -113636,7 +113655,7 @@
             ],
             "full_action": [
               "recovery",
-              207
+              209
             ]
           },
           {
@@ -113648,7 +113667,7 @@
             ],
             "full_action": [
               "recovery",
-              207
+              209
             ]
           },
           {
@@ -113660,7 +113679,7 @@
             ],
             "full_action": [
               "recovery",
-              207
+              209
             ]
           },
           {
@@ -113672,7 +113691,7 @@
             ],
             "full_action": [
               "recovery",
-              207
+              209
             ]
           },
           {
@@ -113684,7 +113703,7 @@
             ],
             "full_action": [
               "recovery",
-              207
+              209
             ]
           },
           {
@@ -113696,7 +113715,7 @@
             ],
             "full_action": [
               "recovery",
-              207
+              209
             ]
           },
           {
@@ -113708,7 +113727,7 @@
             ],
             "full_action": [
               "recovery",
-              207
+              209
             ]
           },
           {
@@ -132625,18 +132644,6 @@
           },
           {
             "seed": 191,
-            "delay_s": 0.18,
-            "recovery_aware_action": [
-              "command",
-              159
-            ],
-            "full_action": [
-              "recovery",
-              158
-            ]
-          },
-          {
-            "seed": 191,
             "delay_s": 0.2,
             "recovery_aware_action": [
               "command",
@@ -132644,7 +132651,7 @@
             ],
             "full_action": [
               "recovery",
-              158
+              160
             ]
           },
           {
@@ -132656,7 +132663,7 @@
             ],
             "full_action": [
               "recovery",
-              158
+              160
             ]
           },
           {
@@ -132668,7 +132675,7 @@
             ],
             "full_action": [
               "recovery",
-              158
+              160
             ]
           },
           {
@@ -132680,7 +132687,7 @@
             ],
             "full_action": [
               "recovery",
-              158
+              160
             ]
           },
           {
@@ -132692,7 +132699,7 @@
             ],
             "full_action": [
               "recovery",
-              158
+              160
             ]
           },
           {
@@ -132704,7 +132711,7 @@
             ],
             "full_action": [
               "recovery",
-              158
+              160
             ]
           },
           {
@@ -132716,7 +132723,7 @@
             ],
             "full_action": [
               "recovery",
-              158
+              160
             ]
           },
           {
@@ -132728,7 +132735,7 @@
             ],
             "full_action": [
               "recovery",
-              158
+              160
             ]
           },
           {
@@ -132740,7 +132747,7 @@
             ],
             "full_action": [
               "recovery",
-              158
+              160
             ]
           },
           {
@@ -132752,7 +132759,7 @@
             ],
             "full_action": [
               "recovery",
-              158
+              160
             ]
           },
           {
@@ -132764,7 +132771,7 @@
             ],
             "full_action": [
               "recovery",
-              158
+              160
             ]
           },
           {
@@ -132776,7 +132783,7 @@
             ],
             "full_action": [
               "recovery",
-              158
+              160
             ]
           },
           {
@@ -132788,7 +132795,7 @@
             ],
             "full_action": [
               "recovery",
-              158
+              160
             ]
           },
           {
@@ -151381,30 +151388,6 @@
           },
           {
             "seed": 318,
-            "delay_s": 0.2,
-            "recovery_aware_action": [
-              "command",
-              140
-            ],
-            "full_action": [
-              "recovery",
-              139
-            ]
-          },
-          {
-            "seed": 318,
-            "delay_s": 0.24,
-            "recovery_aware_action": [
-              "command",
-              142
-            ],
-            "full_action": [
-              "recovery",
-              139
-            ]
-          },
-          {
-            "seed": 318,
             "delay_s": 0.3,
             "recovery_aware_action": [
               "command",
@@ -151412,7 +151395,7 @@
             ],
             "full_action": [
               "recovery",
-              139
+              145
             ]
           },
           {
@@ -151424,7 +151407,7 @@
             ],
             "full_action": [
               "recovery",
-              139
+              145
             ]
           },
           {
@@ -151436,7 +151419,7 @@
             ],
             "full_action": [
               "recovery",
-              139
+              145
             ]
           },
           {
@@ -151448,7 +151431,7 @@
             ],
             "full_action": [
               "recovery",
-              139
+              145
             ]
           },
           {
@@ -151460,7 +151443,7 @@
             ],
             "full_action": [
               "recovery",
-              139
+              145
             ]
           },
           {
@@ -151472,7 +151455,7 @@
             ],
             "full_action": [
               "recovery",
-              139
+              145
             ]
           },
           {
@@ -151484,7 +151467,7 @@
             ],
             "full_action": [
               "recovery",
-              139
+              145
             ]
           },
           {
@@ -151496,7 +151479,7 @@
             ],
             "full_action": [
               "recovery",
-              139
+              145
             ]
           },
           {
@@ -151508,7 +151491,7 @@
             ],
             "full_action": [
               "recovery",
-              139
+              145
             ]
           },
           {
@@ -151520,7 +151503,7 @@
             ],
             "full_action": [
               "recovery",
-              139
+              145
             ]
           },
           {
@@ -151532,7 +151515,7 @@
             ],
             "full_action": [
               "recovery",
-              139
+              145
             ]
           },
           {
@@ -152725,18 +152708,6 @@
           },
           {
             "seed": 326,
-            "delay_s": 0.18,
-            "recovery_aware_action": [
-              "command",
-              179
-            ],
-            "full_action": [
-              "recovery",
-              178
-            ]
-          },
-          {
-            "seed": 326,
             "delay_s": 0.2,
             "recovery_aware_action": [
               "command",
@@ -152744,7 +152715,7 @@
             ],
             "full_action": [
               "recovery",
-              178
+              180
             ]
           },
           {
@@ -152756,7 +152727,7 @@
             ],
             "full_action": [
               "recovery",
-              178
+              180
             ]
           },
           {
@@ -152768,7 +152739,7 @@
             ],
             "full_action": [
               "recovery",
-              178
+              180
             ]
           },
           {
@@ -152780,7 +152751,7 @@
             ],
             "full_action": [
               "recovery",
-              178
+              180
             ]
           },
           {
@@ -152792,7 +152763,7 @@
             ],
             "full_action": [
               "recovery",
-              178
+              180
             ]
           },
           {
@@ -152804,7 +152775,7 @@
             ],
             "full_action": [
               "recovery",
-              178
+              180
             ]
           },
           {
@@ -152816,7 +152787,7 @@
             ],
             "full_action": [
               "recovery",
-              178
+              180
             ]
           },
           {
@@ -152828,7 +152799,7 @@
             ],
             "full_action": [
               "recovery",
-              178
+              180
             ]
           },
           {
@@ -152840,7 +152811,7 @@
             ],
             "full_action": [
               "recovery",
-              178
+              180
             ]
           },
           {
@@ -152852,7 +152823,7 @@
             ],
             "full_action": [
               "recovery",
-              178
+              180
             ]
           },
           {
@@ -152864,7 +152835,7 @@
             ],
             "full_action": [
               "recovery",
-              178
+              180
             ]
           },
           {
@@ -152876,7 +152847,7 @@
             ],
             "full_action": [
               "recovery",
-              178
+              180
             ]
           },
           {
@@ -152888,7 +152859,7 @@
             ],
             "full_action": [
               "recovery",
-              178
+              180
             ]
           },
           {
@@ -153606,6 +153577,21 @@
               "seed": 2027
             }
           }
+        }
+      },
+      "dual_horizon_replay": {
+        "scenarios": 400,
+        "decisions_re_evaluated": 5200,
+        "decisions_changed": 0,
+        "physical_executions_rerun": 0,
+        "physical_executions_reused": 5200,
+        "replayed_forecast_readiness": true,
+        "other_policy_execution_rows_byte_identical": true,
+        "decision_metadata_only_rows": 13,
+        "outcomes_changed": {
+          "safe": 0,
+          "safe_completion": 0,
+          "completed": 0
         }
       },
       "prediction": {
@@ -228183,15 +228169,15 @@
     "geofence_turn/results/evaluation/baseline_benchmark": "1b996e43923e662b4c0a35104f900542ededb2d41585c075cec20ee481889422",
     "geofence_turn/results/evaluation/fixed_early_benchmark": "faa2a84c0ddb0c2de9599a710006c7bb64e068d81f58ded2b221eaf11c9040c3",
     "geofence_turn/results/evaluation/always_recover_corrected_v1": "05782a175440ff6c4b46b51233612d41790fa2de12489694b20c6b67f72ff605",
-    "geofence_turn/results/evaluation/three_opportunity_benchmark_v1": "91115f8fa5ad29cdaa463e696627934d85650fdf68bfb2aa4950eb1b80a5f52f",
+    "geofence_turn/results/evaluation/three_opportunity_benchmark_v1": "32450bbf681ccb2bc8d824b0386cfe727aee8a3e7923784406567e0e38e6be1b",
     "geofence_turn/results/evaluation/supplementary_feasibility_v1": "cb9380d6a12f5e0140d2f883bc52612825fc27da4b965024e00a7761516e4c4e",
-    "underpass_inspection/results/evaluation/baseline_benchmark_v2": "5965bd834fe02c6eb2921f489a11cef0f9302e9f539ccffafd0d71fea4c4739e",
+    "underpass_inspection/results/evaluation/baseline_benchmark_v2": "8692aa2d9b1bb7cfb8b111743f92aff0c329862292862ee7e84639e5bac8f2e6",
     "underpass_inspection/results/evaluation/supplementary_feasibility_v1": "1d7003c10a511b91ea40ccab705254307b5011a83b566a496fd4df250150e14a"
   },
   "bootstrap_unit": "scenario",
   "first_loss": "first sampled infeasible start; initially infeasible at zero; right-censored errors null",
   "analysis_source_sha256": {
-    "tables/aggregate_results.py": "98ddb7a1dc95f25fee81a3aa9c9e496685e2dceb8cc768d290ad06f350627378",
+    "tables/aggregate_results.py": "6ffe4a7893cb5e4ac05bedd12923797a99f8893c932e872d0f158a072193da3a",
     "tables/complete_experiments.py": "55e7dfcba573c440e9658bae832306f79dbe49ed7d033b9957455f7139e6b2f9",
     "tables/tables_test_complete.py": "0ea1ca8db05c695a49ad4e88ff4b93c76a70763188196ae23b147f8e913a4080"
   },
@@ -228222,11 +228208,11 @@
       "model/lightweight.py": "4f0b0a22d09eda8750adc903af9dddec785a1cec31f3304a86643596f80a6aac",
       "model/common.py": "8e7d0d615e7977d443a8e22a096849633c2512634e3ff8c123218e533f1cd468",
       "model/scg.py": "8a1539ac1dbadac1ccaac95e0cbb16d1c3dcb28f9ca40a75a9e1870bcb999777",
-      "model/feasibility_profiles.py": "a8420d724476093f83c5b805ad7745d7b84039e5c10c52db70d2764d2b0cee6f",
+      "model/feasibility_profiles.py": "16192f730044ce1a953ab0b9ee4700a7b622347782bd86d7861600da25d2159c",
       "model/mission_evaluation.py": "4073f5f747bfa706886d8eb5d9abe5bdd52a7005e30006e6cb5e9d6b23fcaae5",
       "physics_monitor.py": "d7145e53736259b688d321449f6ce1f5b72b3cde4e07620b6c183d996d29cb91",
-      "underpass_inspection/baselines/policies.py": "ceb46e7a26c911c08c1d874361e2225eeab25e140403e39bd16a532e44f0dc03",
-      "underpass_inspection/baselines/recovery_horizons.py": "b71c7a99dc21d30befc4e1b4d50afb6dfcb5c3b54fe098e1a116e04decdee48c",
+      "underpass_inspection/baselines/policies.py": "45948a007951e135aeb8724e637244d75ba35368f83ad356ecb7d72e200f078b",
+      "underpass_inspection/baselines/recovery_horizons.py": "8098e0d2de787d577ad427b0dd222ac9bae6505db95cf5663a9740bd8dd8e912",
       "underpass_inspection/baselines/staleguard.py": "d9a101ae4093859ccd5d6c3889edbf3f00a77a9de68abe1c963bd4d00513c491",
       "underpass_inspection/baselines/fixed_early_recovery.py": "526eea923ee9083b3840216b2afb9c486d3224337c9e4e34ed206ea4a32e218a",
       "inspection_descent/scenario.py": "2f67143e3395ede38310816aadb363a8d84e745b454f21a562f6f4b3918a7ff5",
@@ -228238,7 +228224,7 @@
       "geofence_turn/baselines/always_recover.py": "3f39c1f8e2d883a1b51015b0bd2ebbe3a5e34a45f84e279fe207298d7c6fc823",
       "geofence_turn/baselines/recovery_horizons.py": "dfe25b69b4a2e2f03a93c410ba6865ab51477e46f9dbcc3aa61a8ebf153e2961"
     },
-    "git_revision": "1e1caf7abfec5aea657b4b001f7f6f56c8ea52da",
+    "git_revision": "e4e8a4193d3af5c9bc602ea37b1600211cadd1db",
     "numerical_threads": 1
   }
 }

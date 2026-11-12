@@ -3,8 +3,8 @@
   "journal_bytes": 13327379,
   "journal_sha256": "cb9380d6a12f5e0140d2f883bc52612825fc27da4b965024e00a7761516e4c4e",
   "completed_flights": 11400,
-  "prediction_bytes": 1925145,
-  "prediction_sha256": "855e06ee29590d93f42c2154a3161b0e7d161efe36a788428ace5aed34b9116a",
+  "prediction_bytes": 1925187,
+  "prediction_sha256": "898188e0b85e031643aab18cf2c094864b9b575e39639dad6dc05a7e94b0a102",
   "completed_predictions": 600,
   "config_sha256": "8a238e9db8f323cd13d19274bacb32fa89df198a379efda4d8aa6cf2582073b0",
   "resumptions": 0

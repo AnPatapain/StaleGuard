@@ -8,13 +8,13 @@ The workflow fills the missing three-opportunity prediction and policy evaluatio
 | Geofence Turn | 300 × 23 | 44 / 6900 | 1656 | 96.38 / 141.10 |
 | Underpass | 400 × 13 | 182 / 5200 | 2900 | 149.00 / 167.44 |
 
-The new policy matrices contain 25,944 cases: 679 new native physical records and 25265 cases linked to physically identical measured continuations. Inspection additionally required 2,760 delayed-recovery physical records; Geofence reused its complete existing independent recovery grid. Prediction timing remains independently measured for each policy. Smoke flights are separate validation evidence. Underpass was not rerun.
+The new policy matrices contain 25,944 cases: 735 new native physical records and 25209 cases linked to physically identical measured continuations. Inspection additionally required 2,760 delayed-recovery physical records; Geofence reused its complete existing independent recovery grid. Prediction timing remains independently measured for each policy. Smoke flights are separate validation evidence. Underpass was not rerun.
 
 See [Table I](table_I.md), [Table II](table_II.md), machine-readable CSVs, metrics.json and paired_comparisons.json.
 
 ## Scientific limitations
 
-All deadlines are first sampled losses; unobserved boundaries remain censored. The new three-profile Inspection adapter uses the unchanged operational approval+4.2 s horizon, while its archived command-only guard forecast uses 8.5 s from flight start. That legacy horizon difference is retained, explicitly reported, and must not be attributed solely to intervention conditions. The full policy and RecoveryAware use exactly the same full-predictor horizon and numerical profile. Geofence command/completion/recovery predictions use its original operational horizon and command anchor; completion includes the original velocity and dwell conditions. Different missions are not pooled. Timing is warmed offline computation replayed on the simulation clock. Model error and finite prediction coverage remain possible; no hardware guarantee is established.
+Command-safety and recovery boundaries use first sampled losses. A pending command retains its completion opportunity through the final feasible sampled interval, with exhaustion at the next sample. At dispatch, the most recent sample supplies the completion label. Completion-based recovery requires a ready forecast and verified recovery. Unobserved boundaries remain censored. Inspection uses an operational horizon of approval plus 4.2 s for its three profiles. Its command-only forecast extends to 8.5 s from flight start, so horizon length also differs in that comparison. The full policy and RecoveryAware use the same predictor horizon and numerical profile. Geofence completion includes the original velocity and dwell conditions. Timing uses recorded offline computation replayed on the simulator clock.
 
 Always Recover is now unconditional at approval, including a dispatch at D=0. Original historical outcomes remain immutable. Corrected legacy cases are physically equivalent reuses, not newly flown delay-specific trials. Their physical source references are recorded.
 
@@ -22,5 +22,7 @@ All 276 Inspection recovery profiles remain physically feasible throughout the s
 
 ## Completion condition: Geofence
 
-Full StaleGuard and RecoveryAware differ in 3904 actual scenario–delay actions across 243 scenarios, and in safety/completion outcomes across 70 scenarios. Identical outcomes, if observed, are a negative ablation finding; no trigger is tuned to produce a difference.
-With the same recorded forecast and runtime supplied to both existing decision rules, enabling the completion condition changes 3813 actions across 238 scenarios. This clock-only diagnostic separates the completion condition from timing differences; it does not supply additional physical outcomes. Details are in metrics.json.
+Full StaleGuard and RecoveryAware differ in 3899 actual scenario–delay actions across 243 scenarios, and in safety/completion outcomes across 70 scenarios. Identical outcomes, if observed, are a negative ablation finding; no trigger is tuned to produce a difference.
+With the same recorded forecast and runtime supplied to both existing decision rules, enabling the completion condition changes 3808 actions across 238 scenarios. This clock-only diagnostic separates the completion condition from timing differences; it does not supply additional physical outcomes. Details are in metrics.json.
+
+The Geofence DualHorizon matrix contains 6,900 cases. Physical simulation covers 56 cases with revised actions, and the other 6,844 use their measured physical records. The reruns changed 0 safety labels and 0 safe-completion labels. The run manifest identifies each simulated seed and dispatch delay. Figure 4 rates use these same execution records.

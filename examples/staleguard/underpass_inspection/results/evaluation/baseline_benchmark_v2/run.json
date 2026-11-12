@@ -17132,5 +17132,25 @@
   "source_archive_sha256": "ff82601f5754798e16802b00334a7879a6e6a342a3f080aba6806e02c32b10b2",
   "inputs_sha256": "3bb6d0dacb404fe8ea022e53592207d70e3189d9d532506533f5be23ac5b2fb5",
   "historical": false,
-  "created_utc": "2026-11-09T00:53:03Z"
+  "created_utc": "2026-11-09T00:53:03Z",
+  "dual_horizon_decision_rule": "completion uses remaining feasible sampled intervals while pending and the most recent sample at dispatch",
+  "dual_horizon_decision_source_sha256": {
+    "underpass_inspection/baselines/policies.py": "45948a007951e135aeb8724e637244d75ba35368f83ad356ecb7d72e200f078b",
+    "underpass_inspection/baselines/recovery_horizons.py": "8098e0d2de787d577ad427b0dd222ac9bae6505db95cf5663a9740bd8dd8e912"
+  },
+  "dual_horizon_replay": {
+    "scenarios": 400,
+    "decisions_re_evaluated": 5200,
+    "decisions_changed": 0,
+    "physical_executions_rerun": 0,
+    "physical_executions_reused": 5200,
+    "replayed_forecast_readiness": true,
+    "other_policy_execution_rows_byte_identical": true,
+    "decision_metadata_only_rows": 13,
+    "outcomes_changed": {
+      "safe": 0,
+      "safe_completion": 0,
+      "completed": 0
+    }
+  }
 }

@@ -30,6 +30,21 @@
         0.9,
         1.0
       ],
+      "dual_horizon_replay": {
+        "scenarios": 276,
+        "decisions_re_evaluated": 3036,
+        "decisions_changed": 0,
+        "physical_executions_rerun": 0,
+        "physical_executions_reused": 3036,
+        "replayed_forecast_readiness": true,
+        "other_policy_execution_rows_byte_identical": true,
+        "decision_metadata_only_rows": 0,
+        "outcomes_changed": {
+          "safe": 0,
+          "safe_completion": 0,
+          "completed": 0
+        }
+      },
       "independent_record_validation": {
         "passed": true,
         "physical_reuse_records_verified": 14576,
@@ -77,9 +92,24 @@
         0.9,
         1.0
       ],
+      "dual_horizon_replay": {
+        "scenarios": 300,
+        "decisions_re_evaluated": 6900,
+        "decisions_changed": 56,
+        "physical_executions_rerun": 56,
+        "physical_executions_reused": 6844,
+        "replayed_forecast_readiness": true,
+        "other_policy_execution_rows_byte_identical": true,
+        "decision_metadata_only_rows": 128,
+        "outcomes_changed": {
+          "safe": 0,
+          "safe_completion": 0,
+          "completed": 0
+        }
+      },
       "independent_record_validation": {
         "passed": true,
-        "physical_reuse_records_verified": 20625,
+        "physical_reuse_records_verified": 20569,
         "policy_actions_recomputed": 20700,
         "frozen_snapshots_verified": 300
       }
@@ -112,7 +142,22 @@
         1.2,
         1.6,
         2.0
-      ]
+      ],
+      "dual_horizon_replay": {
+        "scenarios": 400,
+        "decisions_re_evaluated": 5200,
+        "decisions_changed": 0,
+        "physical_executions_rerun": 0,
+        "physical_executions_reused": 5200,
+        "replayed_forecast_readiness": true,
+        "other_policy_execution_rows_byte_identical": true,
+        "decision_metadata_only_rows": 13,
+        "outcomes_changed": {
+          "safe": 0,
+          "safe_completion": 0,
+          "completed": 0
+        }
+      }
     }
   },
   "table_I_rows": 9,

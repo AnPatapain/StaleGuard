@@ -3,8 +3,23 @@
   "expected_cases": 13800,
   "recorded_cases": 13800,
   "duplicates": 0,
-  "new_physical_runs": 75,
-  "reused_cases": 13725,
+  "new_physical_runs": 131,
+  "reused_cases": 13669,
   "source_and_input_checks": true,
-  "monitoring_hz": 1000
+  "monitoring_hz": 1000,
+  "dual_horizon_replay": {
+    "scenarios": 300,
+    "decisions_re_evaluated": 6900,
+    "decisions_changed": 56,
+    "physical_executions_rerun": 56,
+    "physical_executions_reused": 6844,
+    "replayed_forecast_readiness": true,
+    "other_policy_execution_rows_byte_identical": true,
+    "decision_metadata_only_rows": 128,
+    "outcomes_changed": {
+      "safe": 0,
+      "safe_completion": 0,
+      "completed": 0
+    }
+  }
 }

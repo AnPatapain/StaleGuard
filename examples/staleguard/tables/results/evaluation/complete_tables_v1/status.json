@@ -3,7 +3,7 @@
   "pid": 1151714,
   "phase": "finished",
   "errors": [],
-  "updated_unix_s": 1794271204.5473833,
+  "updated_unix_s": 1794351550.215888,
   "mission": "geofence_turn",
   "forecasts": 1152,
   "forecast_target": 1152,
@@ -12,5 +12,5 @@
   "pending": 0,
   "last_error": null,
   "validated_case_count": 146160,
-  "new_physical_records": 3439
+  "new_physical_records": 3495
 }

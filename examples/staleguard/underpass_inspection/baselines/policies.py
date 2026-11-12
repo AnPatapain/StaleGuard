@@ -6,7 +6,9 @@ the shared lightweight dynamics model.
 """
 import math
 import time
+from bisect import bisect_right
 from . import fbs as freshness, fixed_early_recovery
+from .recovery_horizons import completion_expiry_steps, policy_plans
 from .staleguard import staleguard_status, first_ready_step
 from .use_time_recheck import first_step_after_check
 from ..scenario import HZ
@@ -173,12 +175,19 @@ class HorizonCommand(PendingCommand):
         super().__init__('staleguard_early_recovery',scenario,received)
         self.variant=name;self.event['policy']=name
         r=received['boundaries']['recovery'];c=received['boundaries']['completion']
-        plan=received['policy_plans'][name]
+        if name=='staleguard_dual_horizon':
+            plan=policy_plans(received)[name]
+            self.completion_steps=tuple(round(row['delay_s']*HZ) for row in received['results'])
+            self.completion_feasible=tuple(row['command_complete'] for row in received['results'])
+            completion_expiry=completion_expiry_steps(received['results'])
+        else:
+            plan=received['policy_plans'][name]
+            completion_expiry=c['first_invalid_steps']
         self.trigger=plan['trigger_steps'];self.reasons=plan['reasons']
         self.recovery_verified_through=plan['recovery_verified_through_steps']
         self.event.update(policy=name,recovery_expiry_steps=r['first_invalid_steps'],
             recovery_verified_through_steps=self.recovery_verified_through,
-            completion_expiry_steps=c['first_invalid_steps'],early_trigger_steps=self.trigger,
+            completion_expiry_steps=completion_expiry,early_trigger_steps=self.trigger,
             early_trigger_reasons=self.reasons,prediction_kind='command_completion_recovery')
         self.missed_announced=False
 
@@ -204,9 +213,10 @@ class HorizonCommand(PendingCommand):
         if self.phase!='pending':self.log('dispatch_ignored',step);return
         age=step-self.approval;ready,expired=staleguard_status(self._forecast,age)
         self.event['prediction_ready']=ready
-        completion_expired=(self.event['completion_expiry_steps'] is not None and age>=self.event['completion_expiry_steps'])
         if ready and expired:self._recover(step,'dispatch')
-        elif (ready and self.variant=='staleguard_dual_horizon' and completion_expired
+        # A dispatch in an infeasible sampled interval cannot use a later slot.
+        elif (ready and self.variant=='staleguard_dual_horizon'
+              and not self.completion_feasible[bisect_right(self.completion_steps,age)-1]
               and self._recovery_verified(age)):
             self._recover(step,'completion_at_dispatch')
         else:self._start('dive',step,'dispatch')

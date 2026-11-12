@@ -47,9 +47,56 @@
     "numerical_threads": 1
   },
   "coordinator_sha256": "17dee3d7074de9752b13b5c2861b2872762ee8b859204564c3f8f4a519e7bea8",
-  "aggregator_sha256": "42c4949fce518a3d938af869bd582ae7952a25363718527314495377fb71df3c",
+  "aggregator_sha256": "6ffe4a7893cb5e4ac05bedd12923797a99f8893c932e872d0f158a072193da3a",
   "expected_new_policy_flights": 25944,
   "expected_new_feasibility_flights": 2760,
   "underpass": "reuse completed 400-scenario benchmark and validation",
-  "always_recover": "cancel at approval for all D, including D=0; reuse equivalent physical recoveries"
+  "always_recover": "cancel at approval for all D, including D=0; reuse equivalent physical recoveries",
+  "dual_horizon_replay": {
+    "geofence_turn": {
+      "scenarios": 300,
+      "decisions_re_evaluated": 6900,
+      "decisions_changed": 56,
+      "physical_executions_rerun": 56,
+      "physical_executions_reused": 6844,
+      "replayed_forecast_readiness": true,
+      "other_policy_execution_rows_byte_identical": true,
+      "decision_metadata_only_rows": 128,
+      "outcomes_changed": {
+        "safe": 0,
+        "safe_completion": 0,
+        "completed": 0
+      }
+    },
+    "inspection_descent": {
+      "scenarios": 276,
+      "decisions_re_evaluated": 3036,
+      "decisions_changed": 0,
+      "physical_executions_rerun": 0,
+      "physical_executions_reused": 3036,
+      "replayed_forecast_readiness": true,
+      "other_policy_execution_rows_byte_identical": true,
+      "decision_metadata_only_rows": 0,
+      "outcomes_changed": {
+        "safe": 0,
+        "safe_completion": 0,
+        "completed": 0
+      }
+    },
+    "underpass_inspection": {
+      "scenarios": 400,
+      "decisions_re_evaluated": 5200,
+      "decisions_changed": 0,
+      "physical_executions_rerun": 0,
+      "physical_executions_reused": 5200,
+      "replayed_forecast_readiness": true,
+      "other_policy_execution_rows_byte_identical": true,
+      "decision_metadata_only_rows": 13,
+      "outcomes_changed": {
+        "safe": 0,
+        "safe_completion": 0,
+        "completed": 0
+      }
+    }
+  }
 }

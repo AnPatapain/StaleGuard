@@ -9,7 +9,7 @@ import math
 import numpy as np
 from numba import njit
 from model.lightweight import LightweightPredictiveModel,pid_step,rk4
-from underpass_inspection.baselines.recovery_horizons import kernel_parameters,_boundary
+from underpass_inspection.baselines.recovery_horizons import kernel_parameters,_boundary,policy_plans
 
 @njit(cache=True)
 def safe_segment(a,b,kind,g):
@@ -94,19 +94,11 @@ def continuation(state,memory,reference,start,pid,quad,kind,g,lo,hi,target,toler
 
 
 def finalize(profiles,grid):
-    """Exactly the frozen Underpass boundary/trigger construction, arbitrary grid."""
+    """Extract sampled boundaries and build the shared intervention timers."""
     boundaries={name:_boundary(profiles,field) for name,field in
         (('command','command_safe'),('completion','command_complete'),('recovery','recovery_safe'))}
     result=dict(results=profiles,boundaries=boundaries,grid_s=list(grid),expiry_steps=boundaries['command']['first_invalid_steps'])
-    r=boundaries['recovery'];trigger=(0 if r['last_safe_prefix_steps'] is None else r['last_safe_prefix_steps']) if r['first_invalid_steps'] is not None else None
-    plans={}
-    for name in ('staleguard_recovery_aware','staleguard_dual_horizon'):
-        triggers=[('command_expiry',result['expiry_steps']),('recovery_prefix_end',trigger)]
-        if name=='staleguard_dual_horizon':triggers.append(('completion_expiry',boundaries['completion']['first_invalid_steps']))
-        step=min((v for _,v in triggers if v is not None),default=None)
-        plans[name]=dict(trigger_steps=step,reasons=[k for k,v in triggers if v is not None and v==step],
-            recovery_verified_through_steps=r['last_safe_prefix_steps'] if r['first_invalid_steps'] is not None else round(max(grid)*50))
-    result['policy_plans']=plans
+    result['policy_plans']=policy_plans(result)
     return result
 
 

@@ -1,12 +1,12 @@
 {
   "status": "complete",
-  "journal_bytes": 176132722,
-  "journal_sha256": "5965bd834fe02c6eb2921f489a11cef0f9302e9f539ccffafd0d71fea4c4739e",
+  "journal_bytes": 176132260,
+  "journal_sha256": "8692aa2d9b1bb7cfb8b111743f92aff0c329862292862ee7e84639e5bac8f2e6",
   "completed_flights": 46800,
-  "prediction_bytes": 5281338,
-  "prediction_sha256": "5cae2fa26e8a89ed7372cbb55fbca501612adb3a9f4ccdd1e906d47dc91147f6",
+  "prediction_bytes": 5281296,
+  "prediction_sha256": "c20004c42276a63b3db511cf88b1a16c9418d6b5283bfff2451f398e7357c0b4",
   "completed_predictions": 1200,
-  "config_sha256": "22f6808ff24f3e668022fcc1043594c2630354af846c20b949d65535c9a8281e",
+  "config_sha256": "796637f4cae6f954acd48af472e68bc841ba34c17211b9b0f606a2f7f8675205",
   "resumptions": 0,
   "startup_warmups": [
     {

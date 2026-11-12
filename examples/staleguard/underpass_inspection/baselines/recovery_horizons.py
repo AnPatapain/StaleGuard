@@ -89,6 +89,33 @@ def _boundary(results,field):
         non_monotonic=any(not a[field] and b[field] for a,b in zip(results,results[1:])))
 
 
+def completion_expiry_steps(rows):
+    """First sample after the last feasible completion interval, if observed."""
+    last_success=max((i for i,row in enumerate(rows) if row['command_complete']),default=-1)
+    # The next sample closes the final feasible interval. A feasible final
+    # sample leaves the completion cutoff unobserved beyond the grid.
+    return round(rows[last_success+1]['delay_s']*HZ) if last_success+1<len(rows) else None
+
+
+def policy_plans(forecast):
+    """Build intervention timers on the sampled grid from the saved labels."""
+    rows=forecast['results']
+    completion=completion_expiry_steps(rows)
+    recovery=forecast['boundaries']['recovery']
+    recovery_lost=recovery['first_invalid_steps'] is not None
+    last_recovery=recovery['last_safe_prefix_steps']
+    recovery_trigger=(last_recovery or 0) if recovery_lost else None
+    verified_through=last_recovery if recovery_lost else round(rows[-1]['delay_s']*HZ)
+    shared=[('command_expiry',forecast['expiry_steps']),('recovery_prefix_end',recovery_trigger)]
+    plans={}
+    for name,triggers in (('staleguard_recovery_aware',shared),
+                          ('staleguard_dual_horizon',shared+[('completion_expiry',completion)])):
+        step=min((value for _,value in triggers if value is not None),default=None)
+        plans[name]=dict(trigger_steps=step,reasons=[reason for reason,value in triggers if value is not None and value==step],
+                         recovery_verified_through_steps=verified_through)
+    return plans
+
+
 def predict(snapshot,platform,*,backend='compiled',early_exit=True,broadphase=True,diagnostics=False):
     """Atomic publication: all profiles/extraction/cleanup count toward readiness."""
     began_wall=time.time();began=time.perf_counter()
@@ -153,15 +180,7 @@ def predict(snapshot,platform,*,backend='compiled',early_exit=True,broadphase=Tr
         recovery_profile_finished_s=recovery_finished,
         completion_model='Continuous residence on piecewise-linear 100 Hz RK4 segments; same inspection box/dwell/horizon',
         publication='Atomic: all profiles and boundaries ready together; partial recovery results are not consumed')
-    plans={}
-    r=boundaries['recovery'];rec_trigger=(0 if r['last_safe_prefix_steps'] is None else r['last_safe_prefix_steps']) if r['first_invalid_steps'] is not None else None
-    for name in ('staleguard_recovery_aware','staleguard_dual_horizon'):
-        triggers=[('command_expiry',result['expiry_steps']),('recovery_prefix_end',rec_trigger)]
-        if name=='staleguard_dual_horizon':triggers.append(('completion_expiry',boundaries['completion']['first_invalid_steps']))
-        step=min((value for _,value in triggers if value is not None),default=None)
-        plans[name]=dict(trigger_steps=step,reasons=[reason for reason,value in triggers if value is not None and value==step],
-            recovery_verified_through_steps=r['last_safe_prefix_steps'] if r['first_invalid_steps'] is not None else round(max(TTL_GRID)*HZ))
-    result['policy_plans']=plans
+    result['policy_plans']=policy_plans(result)
     result['computation_s']=time.perf_counter()-began
     result['wall_started_unix_s']=began_wall;result['wall_finished_unix_s']=time.time()
     return result

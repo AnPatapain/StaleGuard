@@ -22,12 +22,10 @@ def forecast(command=10,recovery=30,completion=None,runtime=.02):
         return dict(first_invalid_steps=step,last_safe_prefix_steps=None if step is None or step==0 else step-1,
                     last_tested_safe_steps=50 if step is None else step-1,right_censored=step is None,non_monotonic=False)
     b={k:boundary(v) for k,v in [('command',command),('recovery',recovery),('completion',completion)]}
-    plans={}
-    for p in POLICIES:
-        candidates=[x for x in (command,None if recovery is None else max(0,recovery-1),completion if p==POLICIES[1] else None) if x is not None]
-        plans[p]=dict(trigger_steps=min(candidates,default=None),reasons=['fixture'],
-                      recovery_verified_through_steps=50 if recovery is None else b['recovery']['last_safe_prefix_steps'])
-    return dict(computation_s=runtime,expiry_steps=command,boundaries=b,policy_plans=plans)
+    rows=[dict(delay_s=i/50,command_complete=completion is None or i<completion) for i in range(51)]
+    result=dict(computation_s=runtime,expiry_steps=command,boundaries=b,results=rows)
+    result['policy_plans']=predictor.policy_plans(result)
+    return result
 
 
 class HorizonPolicyTests(unittest.TestCase):
@@ -58,6 +56,24 @@ class HorizonPolicyTests(unittest.TestCase):
             b=self.agent(POLICIES[1],command=20,recovery=30,completion=5)
             self.assertEqual(self.advance(a,5,dispatch), 'dive' if dispatch else None)
             self.assertEqual(self.advance(b,5,dispatch),'sideways')
+
+    def test_later_completion_success_and_dispatch_in_gap(self):
+        f=forecast(command=None,recovery=None,completion=5)
+        f['results'][7]['command_complete']=True
+        def agent():
+            a=HorizonCommand(POLICIES[1],Scenario(),f)
+            a.approve()
+            return a
+        a=agent()
+        self.assertIsNone(self.advance(a,5))
+        self.assertIsNone(self.advance(a,7))
+        self.assertEqual(self.advance(a,8),'sideways')
+        self.assertEqual(self.advance(agent(),6,True),'sideways')
+        self.assertEqual(self.advance(agent(),7,True),'dive')
+        f['results'][-1]['command_complete']=True
+        a=agent()
+        self.assertIsNone(self.advance(a,50))
+        self.assertEqual(self.advance(a,51,True),'dive')
 
     def test_dispatch_wins_timer_tie(self):
         a=self.agent(command=20,recovery=6)

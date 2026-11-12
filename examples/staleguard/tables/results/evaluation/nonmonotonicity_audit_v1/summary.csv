@@ -1,0 +1,10 @@
+mission,opportunity,scenarios,candidate_delays,affected_scenarios,affected_pct,feasible_infeasible_feasible_scenarios,initially_infeasible_scenarios,initially_infeasible_then_feasible_scenarios,multiple_return_episode_scenarios,multiple_label_changes_among_affected_scenarios,first_loss_observed_scenarios
+inspection_descent,command_safety,276,11,0,0.0,0,1,0,0,0,276
+inspection_descent,safe_mission_completion,276,11,0,0.0,0,1,0,0,0,276
+inspection_descent,recovery_feasibility,276,11,0,0.0,0,0,0,0,0,0
+geofence_turn,command_safety,300,19,0,0.0,0,0,0,0,0,248
+geofence_turn,safe_mission_completion,300,19,8,2.6666666666666665,8,5,0,0,8,300
+geofence_turn,recovery_feasibility,300,19,0,0.0,0,0,0,0,0,123
+underpass_inspection,command_safety,400,19,1,0.25,1,1,0,0,1,321
+underpass_inspection,safe_mission_completion,400,19,1,0.25,1,1,0,0,1,321
+underpass_inspection,recovery_feasibility,400,19,0,0.0,0,0,0,0,0,244

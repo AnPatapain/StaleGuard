@@ -8473,7 +8473,7 @@
       "staleguard_recovery_aware",
       "staleguard_dual_horizon"
     ],
-    "forecasts_sha256": "855e06ee29590d93f42c2154a3161b0e7d161efe36a788428ace5aed34b9116a"
+    "forecasts_sha256": "898188e0b85e031643aab18cf2c094864b9b575e39639dad6dc05a7e94b0a102"
   },
   "provenance": {
     "python": "3.10.21 (main, Aug 27 2026, 14:42:07) [GCC 14.3.0]",
@@ -8520,5 +8520,595 @@
     },
     "git_revision": "1e1caf7abfec5aea657b4b001f7f6f56c8ea52da",
     "numerical_threads": 1
+  },
+  "dual_horizon_decision_rule": "completion uses remaining feasible sampled intervals while pending and the most recent sample at dispatch",
+  "dual_horizon_decision_source_sha256": {
+    "underpass_inspection/baselines/policies.py": "45948a007951e135aeb8724e637244d75ba35368f83ad356ecb7d72e200f078b",
+    "underpass_inspection/baselines/recovery_horizons.py": "8098e0d2de787d577ad427b0dd222ac9bae6505db95cf5663a9740bd8dd8e912"
+  },
+  "dual_horizon_replay": {
+    "scenarios": 300,
+    "decisions_re_evaluated": 6900,
+    "decisions_changed": 56,
+    "physical_executions_rerun": 56,
+    "physical_executions_reused": 6844,
+    "replayed_forecast_readiness": true,
+    "other_policy_execution_rows_byte_identical": true,
+    "decision_metadata_only_rows": 128,
+    "outcomes_changed": {
+      "safe": 0,
+      "safe_completion": 0,
+      "completed": 0
+    }
+  },
+  "dual_horizon_physical_reruns": [
+    {
+      "seed": 65,
+      "delay_s": 0.16,
+      "action": [
+        "command",
+        208
+      ],
+      "safe": true,
+      "safe_completion": false
+    },
+    {
+      "seed": 65,
+      "delay_s": 0.18,
+      "action": [
+        "recovery",
+        209
+      ],
+      "safe": true,
+      "safe_completion": false
+    },
+    {
+      "seed": 65,
+      "delay_s": 0.2,
+      "action": [
+        "recovery",
+        209
+      ],
+      "safe": true,
+      "safe_completion": false
+    },
+    {
+      "seed": 65,
+      "delay_s": 0.24,
+      "action": [
+        "recovery",
+        209
+      ],
+      "safe": true,
+      "safe_completion": false
+    },
+    {
+      "seed": 65,
+      "delay_s": 0.3,
+      "action": [
+        "recovery",
+        209
+      ],
+      "safe": true,
+      "safe_completion": false
+    },
+    {
+      "seed": 65,
+      "delay_s": 0.4,
+      "action": [
+        "recovery",
+        209
+      ],
+      "safe": true,
+      "safe_completion": false
+    },
+    {
+      "seed": 65,
+      "delay_s": 0.44,
+      "action": [
+        "recovery",
+        209
+      ],
+      "safe": true,
+      "safe_completion": false
+    },
+    {
+      "seed": 65,
+      "delay_s": 0.5,
+      "action": [
+        "recovery",
+        209
+      ],
+      "safe": true,
+      "safe_completion": false
+    },
+    {
+      "seed": 65,
+      "delay_s": 0.6,
+      "action": [
+        "recovery",
+        209
+      ],
+      "safe": true,
+      "safe_completion": false
+    },
+    {
+      "seed": 65,
+      "delay_s": 0.64,
+      "action": [
+        "recovery",
+        209
+      ],
+      "safe": true,
+      "safe_completion": false
+    },
+    {
+      "seed": 65,
+      "delay_s": 0.7,
+      "action": [
+        "recovery",
+        209
+      ],
+      "safe": true,
+      "safe_completion": false
+    },
+    {
+      "seed": 65,
+      "delay_s": 0.8,
+      "action": [
+        "recovery",
+        209
+      ],
+      "safe": true,
+      "safe_completion": false
+    },
+    {
+      "seed": 65,
+      "delay_s": 0.84,
+      "action": [
+        "recovery",
+        209
+      ],
+      "safe": true,
+      "safe_completion": false
+    },
+    {
+      "seed": 65,
+      "delay_s": 0.9,
+      "action": [
+        "recovery",
+        209
+      ],
+      "safe": true,
+      "safe_completion": false
+    },
+    {
+      "seed": 65,
+      "delay_s": 1.0,
+      "action": [
+        "recovery",
+        209
+      ],
+      "safe": true,
+      "safe_completion": false
+    },
+    {
+      "seed": 191,
+      "delay_s": 0.18,
+      "action": [
+        "command",
+        159
+      ],
+      "safe": true,
+      "safe_completion": false
+    },
+    {
+      "seed": 191,
+      "delay_s": 0.2,
+      "action": [
+        "recovery",
+        160
+      ],
+      "safe": true,
+      "safe_completion": false
+    },
+    {
+      "seed": 191,
+      "delay_s": 0.24,
+      "action": [
+        "recovery",
+        160
+      ],
+      "safe": true,
+      "safe_completion": false
+    },
+    {
+      "seed": 191,
+      "delay_s": 0.3,
+      "action": [
+        "recovery",
+        160
+      ],
+      "safe": true,
+      "safe_completion": false
+    },
+    {
+      "seed": 191,
+      "delay_s": 0.4,
+      "action": [
+        "recovery",
+        160
+      ],
+      "safe": true,
+      "safe_completion": false
+    },
+    {
+      "seed": 191,
+      "delay_s": 0.44,
+      "action": [
+        "recovery",
+        160
+      ],
+      "safe": true,
+      "safe_completion": false
+    },
+    {
+      "seed": 191,
+      "delay_s": 0.5,
+      "action": [
+        "recovery",
+        160
+      ],
+      "safe": true,
+      "safe_completion": false
+    },
+    {
+      "seed": 191,
+      "delay_s": 0.6,
+      "action": [
+        "recovery",
+        160
+      ],
+      "safe": true,
+      "safe_completion": false
+    },
+    {
+      "seed": 191,
+      "delay_s": 0.64,
+      "action": [
+        "recovery",
+        160
+      ],
+      "safe": true,
+      "safe_completion": false
+    },
+    {
+      "seed": 191,
+      "delay_s": 0.7,
+      "action": [
+        "recovery",
+        160
+      ],
+      "safe": true,
+      "safe_completion": false
+    },
+    {
+      "seed": 191,
+      "delay_s": 0.8,
+      "action": [
+        "recovery",
+        160
+      ],
+      "safe": true,
+      "safe_completion": false
+    },
+    {
+      "seed": 191,
+      "delay_s": 0.84,
+      "action": [
+        "recovery",
+        160
+      ],
+      "safe": true,
+      "safe_completion": false
+    },
+    {
+      "seed": 191,
+      "delay_s": 0.9,
+      "action": [
+        "recovery",
+        160
+      ],
+      "safe": true,
+      "safe_completion": false
+    },
+    {
+      "seed": 191,
+      "delay_s": 1.0,
+      "action": [
+        "recovery",
+        160
+      ],
+      "safe": true,
+      "safe_completion": false
+    },
+    {
+      "seed": 318,
+      "delay_s": 0.2,
+      "action": [
+        "command",
+        140
+      ],
+      "safe": true,
+      "safe_completion": false
+    },
+    {
+      "seed": 318,
+      "delay_s": 0.24,
+      "action": [
+        "command",
+        142
+      ],
+      "safe": true,
+      "safe_completion": false
+    },
+    {
+      "seed": 318,
+      "delay_s": 0.3,
+      "action": [
+        "recovery",
+        145
+      ],
+      "safe": true,
+      "safe_completion": false
+    },
+    {
+      "seed": 318,
+      "delay_s": 0.4,
+      "action": [
+        "recovery",
+        145
+      ],
+      "safe": true,
+      "safe_completion": false
+    },
+    {
+      "seed": 318,
+      "delay_s": 0.44,
+      "action": [
+        "recovery",
+        145
+      ],
+      "safe": true,
+      "safe_completion": false
+    },
+    {
+      "seed": 318,
+      "delay_s": 0.5,
+      "action": [
+        "recovery",
+        145
+      ],
+      "safe": true,
+      "safe_completion": false
+    },
+    {
+      "seed": 318,
+      "delay_s": 0.6,
+      "action": [
+        "recovery",
+        145
+      ],
+      "safe": true,
+      "safe_completion": false
+    },
+    {
+      "seed": 318,
+      "delay_s": 0.64,
+      "action": [
+        "recovery",
+        145
+      ],
+      "safe": true,
+      "safe_completion": false
+    },
+    {
+      "seed": 318,
+      "delay_s": 0.7,
+      "action": [
+        "recovery",
+        145
+      ],
+      "safe": true,
+      "safe_completion": false
+    },
+    {
+      "seed": 318,
+      "delay_s": 0.8,
+      "action": [
+        "recovery",
+        145
+      ],
+      "safe": true,
+      "safe_completion": false
+    },
+    {
+      "seed": 318,
+      "delay_s": 0.84,
+      "action": [
+        "recovery",
+        145
+      ],
+      "safe": true,
+      "safe_completion": false
+    },
+    {
+      "seed": 318,
+      "delay_s": 0.9,
+      "action": [
+        "recovery",
+        145
+      ],
+      "safe": true,
+      "safe_completion": false
+    },
+    {
+      "seed": 318,
+      "delay_s": 1.0,
+      "action": [
+        "recovery",
+        145
+      ],
+      "safe": true,
+      "safe_completion": false
+    },
+    {
+      "seed": 326,
+      "delay_s": 0.18,
+      "action": [
+        "command",
+        179
+      ],
+      "safe": true,
+      "safe_completion": false
+    },
+    {
+      "seed": 326,
+      "delay_s": 0.2,
+      "action": [
+        "recovery",
+        180
+      ],
+      "safe": true,
+      "safe_completion": false
+    },
+    {
+      "seed": 326,
+      "delay_s": 0.24,
+      "action": [
+        "recovery",
+        180
+      ],
+      "safe": true,
+      "safe_completion": false
+    },
+    {
+      "seed": 326,
+      "delay_s": 0.3,
+      "action": [
+        "recovery",
+        180
+      ],
+      "safe": true,
+      "safe_completion": false
+    },
+    {
+      "seed": 326,
+      "delay_s": 0.4,
+      "action": [
+        "recovery",
+        180
+      ],
+      "safe": true,
+      "safe_completion": false
+    },
+    {
+      "seed": 326,
+      "delay_s": 0.44,
+      "action": [
+        "recovery",
+        180
+      ],
+      "safe": true,
+      "safe_completion": false
+    },
+    {
+      "seed": 326,
+      "delay_s": 0.5,
+      "action": [
+        "recovery",
+        180
+      ],
+      "safe": true,
+      "safe_completion": false
+    },
+    {
+      "seed": 326,
+      "delay_s": 0.6,
+      "action": [
+        "recovery",
+        180
+      ],
+      "safe": true,
+      "safe_completion": false
+    },
+    {
+      "seed": 326,
+      "delay_s": 0.64,
+      "action": [
+        "recovery",
+        180
+      ],
+      "safe": true,
+      "safe_completion": false
+    },
+    {
+      "seed": 326,
+      "delay_s": 0.7,
+      "action": [
+        "recovery",
+        180
+      ],
+      "safe": true,
+      "safe_completion": false
+    },
+    {
+      "seed": 326,
+      "delay_s": 0.8,
+      "action": [
+        "recovery",
+        180
+      ],
+      "safe": true,
+      "safe_completion": false
+    },
+    {
+      "seed": 326,
+      "delay_s": 0.84,
+      "action": [
+        "recovery",
+        180
+      ],
+      "safe": true,
+      "safe_completion": false
+    },
+    {
+      "seed": 326,
+      "delay_s": 0.9,
+      "action": [
+        "recovery",
+        180
+      ],
+      "safe": true,
+      "safe_completion": false
+    },
+    {
+      "seed": 326,
+      "delay_s": 1.0,
+      "action": [
+        "recovery",
+        180
+      ],
+      "safe": true,
+      "safe_completion": false
+    }
+  ],
+  "physical_rerun_resource_limits": {
+    "serial": true,
+    "free_memory_floor_mib": [
+      1280,
+      1024
+    ],
+    "scope": "operational guard only"
   }
 }

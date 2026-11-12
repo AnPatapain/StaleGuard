@@ -23,9 +23,9 @@ Always Recover cancels at approval for every D, including D=0. Corrected Inspect
 | Inspection Descent: RecoveryAware (ablation) | 14 / 0 | 913 / 4 / 0 | 0.46 [0.23, 0.69] | -0.13 [-0.26, -0.03] | 997 / 124 |
 | Inspection Descent: Fixed EarlyRecovery (0.20 s) | 9 / 7 | 516 / 2 / 397 | 0.07 [-0.20, 0.33] | 13.01 [11.50, 14.59] | 1924 / 210 |
 | Inspection Descent: Use-Time Recheck | 60 / 5 | 859 / 5 / 54 | 1.81 [1.35, 2.31] | 1.61 [1.15, 2.08] | 3036 / 276 |
-| Geofence Turn: Command-only EarlyRecovery | 59 / 5 | 1656 / 28 / 0 | 0.78 [0.54, 1.01] | -0.41 [-0.57, -0.26] | 4151 / 256 |
-| Geofence Turn: RecoveryAware (ablation) | 50 / 3 | 1656 / 26 / 0 | 0.68 [0.48, 0.90] | -0.38 [-0.52, -0.25] | 3904 / 243 |
-| Geofence Turn: Fixed EarlyRecovery (0.20 s) | 274 / 3 | 1656 / 36 / 0 | 3.93 [3.06, 4.84] | -0.52 [-0.70, -0.36] | 4628 / 282 |
+| Geofence Turn: Command-only EarlyRecovery | 59 / 5 | 1656 / 28 / 0 | 0.78 [0.54, 1.01] | -0.41 [-0.57, -0.26] | 4146 / 256 |
+| Geofence Turn: RecoveryAware (ablation) | 50 / 3 | 1656 / 26 / 0 | 0.68 [0.48, 0.90] | -0.38 [-0.52, -0.25] | 3899 / 243 |
+| Geofence Turn: Fixed EarlyRecovery (0.20 s) | 274 / 3 | 1656 / 36 / 0 | 3.93 [3.06, 4.84] | -0.52 [-0.70, -0.36] | 4599 / 282 |
 | Geofence Turn: Use-Time Recheck | 664 / 37 | 1382 / 11 / 274 | 9.09 [7.77, 10.48] | 3.81 [3.64, 3.97] | 6900 / 300 |
 | Underpass: Command-only EarlyRecovery | 383 / 2 | 2900 / 58 / 0 | 7.33 [6.12, 8.63] | -1.12 [-1.38, -0.87] | 780 / 133 |
 | Underpass: RecoveryAware (ablation) | 0 / 0 | 2900 / 0 / 0 | 0.00 [0.00, 0.00] | 0.00 [0.00, 0.00] | 0 / 0 |

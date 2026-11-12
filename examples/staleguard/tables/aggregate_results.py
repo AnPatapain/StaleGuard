@@ -17,6 +17,27 @@ def write_csv(path,rows):
  with path.open('w',newline='') as f:
   writer=csv.DictWriter(f,fieldnames=fields);writer.writeheader();writer.writerows(rows)
 
+def update_geofence_figure_data(rows,seeds,delays):
+ policy='staleguard_dual_horizon'
+ groups=defaultdict(list)
+ for r in rows:
+  if r['policy']==policy:groups[r['delay_s']].append(r)
+ assert set(groups)==set(delays) and all(len(group)==len(seeds) for group in groups.values())
+ for filename,metric in (('geofence_unsafe_rates.csv',lambda r:not r['safe']),
+                         ('geofence_safe_completion_rates.csv',lambda r:r['safe_completion'])):
+  path=ROOT/'figures/figure4'/filename
+  with path.open(newline='') as f:
+   reader=csv.DictReader(f);fields=reader.fieldnames;data=list(reader)
+  assert [float(r['delay_s']) for r in data]==list(delays)
+  if policy not in fields:fields.append(policy)
+  for r in data:
+   group=groups[float(r['delay_s'])]
+   r[policy]=f'{100*sum(metric(x) for x in group)/len(group):.10f}'
+  temporary=path.with_suffix('.csv.tmp')
+  with temporary.open('w',newline='') as f:
+   writer=csv.DictWriter(f,fieldnames=fields,lineterminator='\n');writer.writeheader();writer.writerows(data)
+  temporary.replace(path)
+
 def ratio(a,b):return None if not b else a/b
 
 def boundary(flags,grid):
@@ -174,6 +195,8 @@ def validate_new_records(mission,source,old,stages):
 
 def aggregate(out):
  out=Path(out);out.mkdir(parents=True,exist_ok=True);missing=[];allmetrics={};allpairs={};table1=[];table2=[];checks={};sources={}
+ replay=json.loads((out/'run.json').read_text()).get('dual_horizon_replay',{}) if (out/'run.json').exists() else {}
+ geofence_figure_data=None
  for mission in (*W.MISSIONS,'underpass_inspection'):
   label=NAMES[mission];is_u=mission=='underpass_inspection';scenario_n=400 if is_u else 276 if mission=='inspection_descent' else 300
   bench=ROOT/mission/'results/evaluation'/('baseline_benchmark_v2' if is_u else 'baseline_benchmark')
@@ -225,6 +248,12 @@ def aggregate(out):
   subsets={name:paired([r for r in combined if (r['delay_s']<=1 if name=='within_prediction_horizon' else r['delay_s']>1)],seeds,[d for d in delays if (d<=1 if name=='within_prediction_horizon' else d>1)]) for name in ('within_prediction_horizon','beyond_prediction_horizon') if any(d<=1 if name=='within_prediction_horizon' else d>1 for d in delays)}
   allmetrics[mission]=dict(scenarios=len(seeds),delays=delays,by_policy=by_policy,paired=allpairs[mission],paired_subsets=subsets)
   checks[mission]=dict(unique_cases=len(seen),per_policy_complete=sorted(by_policy),scenarios=len(seeds),delay_grid=delays)
+  if mission in replay:
+   q=replay[mission];n=len(seeds)*len(delays)
+   assert q['decisions_re_evaluated']==n==q['physical_executions_reused']+q['physical_executions_rerun']
+   checks[mission]['dual_horizon_replay']=q
+   allmetrics[mission]['dual_horizon_replay']=q
+   if mission=='geofence_turn':geofence_figure_data=(combined,seeds,delays)
   feasibility=ROOT/mission/'results/evaluation/supplementary_feasibility_v1'
   if not (feasibility/'progress.json').exists():missing.append(f'{mission}/physical_feasibility');continue
   frun=read_run(feasibility)
@@ -332,6 +361,7 @@ def aggregate(out):
   duplicate_checks=True,evaluation_cohorts_only=True,original_artifact_hashes_verified=True,paired_resampling_unit='scenario'))
  report(out,complete,allmetrics,missing)
  if complete:
+  if geofence_figure_data:update_geofence_figure_data(*geofence_figure_data)
   total=sum(q['case_count'] for m in allmetrics.values() for q in m['by_policy'].values())
   native=sum(q['new_physical_flights'] for m in allmetrics.values() for q in m['by_policy'].values())+sum(m['prediction']['new_physical_flights'] for m in allmetrics.values())
   W.status(last_error=None,validated_case_count=total,completed=total,pending=0,
@@ -365,7 +395,7 @@ def report(out,complete,metrics,missing):
   lines+=['',f'The new policy matrices contain 25,944 cases: {native} new native physical records and {25944-native} cases linked to physically identical measured continuations. Inspection additionally required 2,760 delayed-recovery physical records; Geofence reused its complete existing independent recovery grid. Prediction timing remains independently measured for each policy. Smoke flights are separate validation evidence. Underpass was not rerun.']
  lines+=['','See [Table I](table_I.md), [Table II](table_II.md), machine-readable CSVs, metrics.json and paired_comparisons.json.','',
  '## Scientific limitations','',
- 'All deadlines are first sampled losses; unobserved boundaries remain censored. The new three-profile Inspection adapter uses the unchanged operational approval+4.2 s horizon, while its archived command-only guard forecast uses 8.5 s from flight start. That legacy horizon difference is retained, explicitly reported, and must not be attributed solely to intervention conditions. The full policy and RecoveryAware use exactly the same full-predictor horizon and numerical profile. Geofence command/completion/recovery predictions use its original operational horizon and command anchor; completion includes the original velocity and dwell conditions. Different missions are not pooled. Timing is warmed offline computation replayed on the simulation clock. Model error and finite prediction coverage remain possible; no hardware guarantee is established.','',
+ 'Command-safety and recovery boundaries use first sampled losses. A pending command retains its completion opportunity through the final feasible sampled interval, with exhaustion at the next sample. At dispatch, the most recent sample supplies the completion label. Completion-based recovery requires a ready forecast and verified recovery. Unobserved boundaries remain censored. Inspection uses an operational horizon of approval plus 4.2 s for its three profiles. Its command-only forecast extends to 8.5 s from flight start, so horizon length also differs in that comparison. The full policy and RecoveryAware use the same predictor horizon and numerical profile. Geofence completion includes the original velocity and dwell conditions. Timing uses recorded offline computation replayed on the simulator clock.','',
  'Always Recover is now unconditional at approval, including a dispatch at D=0. Original historical outcomes remain immutable. Corrected legacy cases are physically equivalent reuses, not newly flown delay-specific trials. Their physical source references are recorded.','',
  'All 276 Inspection recovery profiles remain physically feasible throughout the sampled 0–1 s grid. Its 100% recovery classification agreement therefore does not estimate a recovery expiration error: no physical loss was observed, and the false-feasible conditional rate has no denominator. These fields remain inapplicable or censored rather than being reported as zero error.','',
  '## Completion condition: Geofence','']
@@ -374,5 +404,11 @@ def report(out,complete,metrics,missing):
  else:lines.append('Not yet complete; no comparative outcome is inferred.')
  diagnostic=metrics['geofence_turn'].get('completion_condition_diagnostic')
  if diagnostic:lines.append(f'With the same recorded forecast and runtime supplied to both existing decision rules, enabling the completion condition changes {diagnostic["different_actions"]} actions across {diagnostic["different_action_scenarios"]} scenarios. This clock-only diagnostic separates the completion condition from timing differences; it does not supply additional physical outcomes. Details are in metrics.json.')
+ replay=metrics['geofence_turn'].get('dual_horizon_replay')
+ if replay:
+  lines+=['',f'The Geofence DualHorizon matrix contains {replay["decisions_re_evaluated"]:,} cases. '
+          f'Physical simulation covers {replay["physical_executions_rerun"]} cases with revised actions, and the other {replay["physical_executions_reused"]:,} use their measured physical records. '
+          f'The reruns changed {replay["outcomes_changed"]["safe"]} safety labels and {replay["outcomes_changed"]["safe_completion"]} safe-completion labels. '
+          'The run manifest identifies each simulated seed and dispatch delay. Figure 4 rates use these same execution records.']
  if missing:lines+=['','## Incomplete work','']+[f'- {s}' for s in missing]
  (out/'REPORT.md').write_text('\n'.join(lines)+'\n')
