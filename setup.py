@@ -1,7 +1,11 @@
-from setuptools import setup
+from setuptools import setup, find_namespace_packages
 
 setup(name='safe_control_gym',
       version='2.0.0',
+      packages=find_namespace_packages(include=['safe_control_gym*', 'staleguard*'],
+          exclude=['*.__pycache__*', 'staleguard.*.results*', 'staleguard.*.logs*',
+                   'staleguard.*.independent_evaluation*', 'staleguard.*.__pycache__*']),
+      package_data={'staleguard': ['source_relocation.json', 'source_root_relocation.json']},
       install_requires=[
           'matplotlib',
           'munch',

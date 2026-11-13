@@ -230,3 +230,9 @@ pre-commit run --all  # Run the hooks on all files
 
 -----
 > University of Toronto's [Dynamic Systems Lab](https://github.com/learnsyslab) / [Vector Institute for Artificial Intelligence](https://github.com/VectorInstitute)
+
+## StaleGuard research package
+
+The UAV runtime-assurance implementation is in [`staleguard/`](staleguard/README.md),
+alongside `safe_control_gym/`. Execute its tools from this repository root with
+`python -m staleguard.<module>`. Existing Safe-Control-Gym examples are unchanged.

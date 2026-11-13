@@ -43,4 +43,4 @@ __pycache__/
 *.nbc
 *.nbi
 # Raw experiment journals remain local
-/examples/staleguard/*/results/**/executions.jsonl
+/staleguard/*/results/**/executions.jsonl
