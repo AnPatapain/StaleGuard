@@ -199,7 +199,7 @@ def main():
     parser.add_argument('--overlay-all', action='store_true',
                         help='GUI only: compare saved actual nominal/dive/climb/sideways flights from the frozen pilot')
     parser.add_argument('--paper-figure', action='store_true',
-                        help='GUI-only clean four-trajectory publication view')
+                        help='GUI-only four-trajectory publication view with a near-white ground and faint gray grid')
     parser.add_argument('--paper-at', type=float, default=1.8,
                         help='Paper screenshot time in seconds after approval')
     parser.add_argument('--playback-speed', type=float, default=.5, help='Simulated seconds per wall second; .5 = slow motion')

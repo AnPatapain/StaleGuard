@@ -12,7 +12,7 @@ import time
 import numpy as np
 import pybullet as p
 
-from underpass_inspection.scenario import POS, BODY_RADIUS_M, SCENARIO_VERSION, WORLD_TO_NED
+from underpass_inspection.scenario import Box, POS, BODY_RADIUS_M, SCENARIO_VERSION, WORLD_TO_NED
 
 COLORS = {'nominal': (.36, .39, .42), 'dive': (.10, .60, .22),
           'climb': (.12, .32, .87), 'sideways': (0., .65, .75)}
@@ -69,9 +69,9 @@ def deck_faces(box, client):
                 vertex[other[0]] = (lo, hi)[a][other[0]]
                 vertex[other[1]] = (lo, hi)[b][other[1]]
                 vertices.append(vertex.tolist())
-            color = ((.86, .52, .18, .20) if axis == 0 and side == 0 else
-                     (.95, .72, .40, .17) if axis == 2 and side == 0 else
-                     (.83, .76, .61, .07) if axis == 2 else (.87, .69, .43, .07))
+            color = ((.70, .74, .77, .82) if axis == 0 and side == 0 else
+                     (.64, .69, .72, .68) if axis == 2 and side == 0 else
+                     (.91, .93, .94, .88) if axis == 2 else (.79, .82, .84, .80))
             shape = p.createVisualShape(p.GEOM_MESH, vertices=vertices,
                 indices=[0, 1, 2, 0, 2, 3, 2, 1, 0, 3, 2, 0],
                 rgbaColor=color, physicsClientId=client)
@@ -86,23 +86,65 @@ def draw_reference(reference, client, mode):
     polyline(reference[:, POS], client, color, .8, dashed=mode == 'nominal')
 
 
+def draw_ground(plane, client, center):
+    """Restyle the existing ground's visual material and add a faint local grid."""
+    if plane is None:
+        return
+    ground = np.full(3, 250/255)  # #FAFAFA
+    grid = np.full(3, 218/255)  # #DADADA
+    # A light translucent material blends the shaded floor into the white
+    # background without a contrasting horizon; its collision is untouched.
+    p.changeVisualShape(plane, -1, textureUniqueId=-1,
+                        rgbaColor=[*ground, .06], specularColor=[0., 0., 0.],
+                        physicsClientId=client)
+    height = p.getBasePositionAndOrientation(plane, physicsClientId=client)[0][2] + .001
+    cx, cy = np.floor(np.asarray(center)/.5)*.5
+    extent = 10.
+    vertices, indices = [], []
+    # Thin flat strips respect depth, unlike debug lines drawn over obstacles.
+    for offset in np.arange(-extent, extent+.25, .5):
+        for axis in (0, 1):
+            strip = [[offset+dx, y, 0.] for dx, y in
+                     ((-.003, -extent), (.003, -extent),
+                      (.003, extent), (-.003, extent))]
+            if axis:
+                strip = [[y, x, z] for x, y, z in strip]
+            i = len(vertices)
+            vertices.extend(strip)
+            indices.extend((i, i+1, i+2, i, i+2, i+3,
+                            i+2, i+1, i, i+3, i+2, i))
+    shape = p.createVisualShape(p.GEOM_MESH, vertices=vertices, indices=indices,
+                                rgbaColor=[*grid, .55], physicsClientId=client)
+    p.createMultiBody(baseMass=0, baseCollisionShapeIndex=-1,
+                      baseVisualShapeIndex=shape, basePosition=[cx, cy, height],
+                      physicsClientId=client)
+
+
 def draw_scene(s, client, plane=None):
     p.configureDebugVisualizer(p.COV_ENABLE_GUI, 0, physicsClientId=client)
     p.configureDebugVisualizer(p.COV_ENABLE_SHADOWS, 0, physicsClientId=client)
-    p.configureDebugVisualizer(rgbBackground=[.98, .985, .99], physicsClientId=client)
+    p.configureDebugVisualizer(rgbBackground=[1., 1., 1.], physicsClientId=client)
     camera = PAPER_CAMERA if paper_mode() else DEFAULT_CAMERA
     p.resetDebugVisualizerCamera(camera['distance'], camera['yaw'], camera['pitch'],
                                  camera['target'], physicsClientId=client)
-    # Leave the stock SCG/PyBullet checkerboard plane completely untouched.
+    draw_ground(plane, client, camera['target'][:2])
     deck_faces(s.obstacles[0], client)
-    visual_box(s.obstacles[1], (.43, .32, .26, .83), client)
+    # Presentation-only footing: no collision shape or mission safety predicate.
+    pier = s.obstacles[1]
+    ground_z = (p.getBasePositionAndOrientation(plane, physicsClientId=client)[0][2]
+                if plane is not None else -.05)
+    base = Box('visual_base', (pier.lower[0]-.18, pier.lower[1]-.22, ground_z),
+               (pier.upper[0]+.18, pier.upper[1]+.22, pier.lower[2]+.04))
+    visual_box(base, (.76, .80, .83, 1.), client)
+    wire_box(base, client, (.47, .51, .55))
+    visual_box(pier, (.67, .69, .71, 1.), client)
     visual_box(s.inspection, (.3, .75, .42, .045), client)
-    wire_box(s.obstacles[0], client, (.70, .48, .24))
-    wire_box(s.obstacles[1], client, (.49, .37, .30))
+    wire_box(s.obstacles[0], client, (.47, .51, .55))
+    wire_box(pier, client, (.47, .51, .55))
     wire_box(s.inspection, client, (.44, .70, .49))
     for box in s.obstacles:
         # Conservative guide; decisions still use exact sphere-to-box distance.
-        wire_box(box, client, (.90, .78, .76), BODY_RADIUS_M+s.clearance_m)
+        wire_box(box, client, (.79, .81, .83), BODY_RADIUS_M+s.clearance_m)
 
 
 def recorded_paths(s, mode, start_s, paper=False):
@@ -160,6 +202,24 @@ def replay_paths(s, mode, start_s):
     return paths
 
 
+def paper_quadrotor(drone, client):
+    """Larger display mesh only; the physical UAV and its collision stay intact."""
+    visual = next(v for v in p.getVisualShapeData(drone, physicsClientId=client)
+                  if v[1] == -1 and v[2] == p.GEOM_MESH)
+    shape = p.createVisualShape(p.GEOM_MESH, fileName=visual[4].decode(),
+        meshScale=(1.6*np.asarray(visual[3])).tolist(),
+        visualFramePosition=visual[5], visualFrameOrientation=visual[6],
+        rgbaColor=[.12, .15, .18, 1.], physicsClientId=client)
+    position, orientation = p.getBasePositionAndOrientation(drone, physicsClientId=client)
+    display = p.createMultiBody(baseMass=0, baseCollisionShapeIndex=-1,
+        baseVisualShapeIndex=shape, basePosition=position, baseOrientation=orientation,
+        physicsClientId=client)
+    p.changeVisualShape(display, -1, textureUniqueId=-1,
+                        specularColor=[0., 0., 0.], physicsClientId=client)
+    p.changeVisualShape(drone, -1, rgbaColor=[1., 1., 1., 0.], physicsClientId=client)
+    return display
+
+
 class FlightView:
     """Small GUI drawing helper. Every live point comes from the running simulator."""
     def __init__(self, s, env, mode, start_s, overlay_all=False, overlay_paths=None):
@@ -167,6 +227,7 @@ class FlightView:
         self.s = s
         self.world_y, self.world_vy = float(env.state[2]), float(env.state[3])
         self.paper = paper_mode()
+        self.drone = env.DRONE_ID
         self.paper_capture = os.environ.get('STALEGUARD_PAPER_CAPTURE') if self.paper else None
         self.paper_capture_at = float(os.environ.get('STALEGUARD_PAPER_AT', '0'))
         self.paper_captured = False
@@ -176,11 +237,12 @@ class FlightView:
         self.text_ids, self.line_ids, self.events = {}, {}, {}
         self.frame, self.camera_key = None, None
         draw_scene(s, self.client, env.PLANE_ID)
+        self.quad_display = paper_quadrotor(self.drone, self.client) if self.paper else None
         if self.overlay:
             for name, path in self.overlay.items():
                 color = PAPER_COLORS[name] if self.paper else COLORS[name]
                 polyline(path['points'], self.client, color,
-                         3.8 if self.paper else 2.8, dashed=name == 'nominal')
+                         2.8 if self.paper else 2.2, dashed=name == 'nominal')
 
     def event(self, label, position, color):
         if self.paper:
@@ -251,6 +313,10 @@ class FlightView:
     def update(self, a, b, step, active, unsafe, world_y, world_vy):
         self.world_y, self.world_vy = float(world_y), float(world_vy)
         if self.paper:
+            position, orientation = p.getBasePositionAndOrientation(
+                self.drone, physicsClientId=self.client)
+            p.resetBasePositionAndOrientation(self.quad_display, position, orientation,
+                                               physicsClientId=self.client)
             if (self.paper_capture and not self.paper_captured
                     and (step+1)/50 >= self.paper_capture_at):
                 self.paper_captured = True
@@ -259,7 +325,7 @@ class FlightView:
         name = self.mode if active else 'nominal'
         color = (.86, .16, .13) if unsafe else COLORS[name]
         if name != 'nominal' or step % 6 < 3:
-            p.addUserDebugLine(a, b, color, 3.4, physicsClientId=self.client)
+            p.addUserDebugLine(a, b, color, 2.5, physicsClientId=self.client)
         if step % 5 == 0:
             self.refresh((step+1)/50, active, unsafe)
 
@@ -323,10 +389,10 @@ def label_paper_capture(path, client):
     for name, label, x, y in labels:
         color = tuple(round(255*c) for c in PAPER_COLORS[name])+(255,)
         if name == 'nominal':
-            draw.line((x, y+11, x+12, y+11), fill=color, width=4)
-            draw.line((x+19, y+11, x+32, y+11), fill=color, width=4)
+            draw.line((x, y+11, x+12, y+11), fill=color, width=3)
+            draw.line((x+19, y+11, x+32, y+11), fill=color, width=3)
         else:
-            draw.line((x, y+11, x+32, y+11), fill=color, width=5)
+            draw.line((x, y+11, x+32, y+11), fill=color, width=3)
         draw.text((x+43, y), label, font=font(17),
                   fill=(35, 42, 48, 255))
 
