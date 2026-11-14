@@ -48,6 +48,8 @@ def run_actual(
     event=None,
     early_policy=None,
     truth_only=False,
+    hold_s=0.0,
+    trajectory_overlay=None,
 ):
     """Execute one flight; recovery cancels descent and keeps forward flight."""
     if use_time_check is not None and (ttl_prediction is not None or recover):
@@ -139,20 +141,23 @@ def run_actual(
 
     sample_physics = monitor_physics_steps(env, monitor_position)
     if gui:
-        p.addUserDebugText(
-            'SCAN TARGET',
-            [scan_x, 0, s.low_height],
-            textColorRGB=[0, 1, 0],
-            physicsClientId=env.PYB_CLIENT,
-        )
-        p.addUserDebugText(
-            'UNSAFE START',
-            [s.box_x_min, 0, s.unsafe_below_z],
-            textColorRGB=[1, 0, 0],
-            physicsClientId=env.PYB_CLIENT,
-        )
+        from staleguard.visualize import BenchmarkView
+
+        view = BenchmarkView('inspection_descent', s, env, traj)
+        view.event('Inspection target', [scan_x, 0, s.low_height], (0.44, 0.70, 0.49))
+        if trajectory_overlay is not None:
+            view.preview(*trajectory_overlay)
+            if use_time_check is not None:
+                # Playback uses the preflight's timed decision, without remeasuring it.
+                recorded = trajectory_overlay[1]['event']
+                command_step = recorded['application_step']
+                recover_step = recorded['fallback_step']
+                recover = recover_step is not None
+                use_time_check = None
     try:
         for step in range(deadline_step):
+            if gui and step == round(snapshot.approval_time * CTRL_FREQ_HZ):
+                view.approval(obs[[STATE_X, STATE_Y, STATE_Z]])
             if event is not None and step == round(snapshot.approval_time * CTRL_FREQ_HZ):
                 event['approval_snapshot'] = replace(
                     snapshot,
@@ -272,12 +277,18 @@ def run_actual(
                 traj = safety_only_reference(traj, step, s.usual_height)
                 env.X_GOAL = traj
                 ctrl.reference = traj
+                if gui:
+                    view.initiation(obs[[STATE_X, STATE_Y, STATE_Z]], recovering=True)
             if not recover and step == command_step:
                 if event is not None:
                     event['application_step'] = step
                 traj = apply_descent_command(traj, step, snapshot.low_steps, snapshot.low_height)
                 env.X_GOAL = traj
                 ctrl.reference = traj
+                if gui:
+                    view.initiation(obs[[STATE_X, STATE_Y, STATE_Z]])
+            if gui:
+                old_position = obs[[STATE_X, STATE_Y, STATE_Z]].copy()
             action = ctrl.select_action(obs, info)
             obs, _, done, info = env.step(action)
             if trace is not None:
@@ -288,6 +299,7 @@ def run_actual(
                     control_digest.update(np.asarray(value).tobytes())
                 event['last_control_step'] = step + 1
             if gui:
+                view.update(old_position, obs[[STATE_X, STATE_Y, STATE_Z]], collision)
                 time.sleep(1.0 / CTRL_FREQ_HZ)
             if collision and (not truth_only):
                 break
@@ -295,7 +307,7 @@ def run_actual(
                 break
         if gui:
             print(f'completed={completed}, collision={collision}')
-            pass
+            view.hold(hold_s)
         if event is not None:
             event.update(
                 control_sha256=control_digest.hexdigest(), physics_sha256=physics_digest.hexdigest()
@@ -324,6 +336,8 @@ def execute(
     save_trace=False,
     forced_action=None,
     gui=False,
+    hold_s=0.0,
+    trajectory_overlay=None,
 ):
     """One original physical flight; approval forecasts remain frozen inputs."""
     from .storage import check_memory, check_approval_snapshot
@@ -403,6 +417,8 @@ def execute(
         trace=trace,
         event=event,
         gui=gui,
+        hold_s=hold_s,
+        trajectory_overlay=trajectory_overlay,
         **kwargs,
     )
     duration = time.perf_counter() - began

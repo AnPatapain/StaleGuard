@@ -22,6 +22,8 @@ PAPER_COLORS = {
 }
 DEFAULT_CAMERA = dict(distance=3.4, yaw=-35.0, pitch=-20.0, target=[2.2, 0.25, 1.0])
 PAPER_CAMERA = dict(distance=2.7, yaw=-35.0, pitch=-20.0, target=[1.85, 0.1, 1.0])
+# Geofence patrol starts east along world +X, then turns north along world +Y.
+GEOFENCE_WORLD_TO_NED = np.array([[0.0, 1.0, 0.0], [1.0, 0.0, 0.0], [0.0, 0.0, -1.0]])
 
 
 def paper_mode():
@@ -162,7 +164,7 @@ def draw_scene(s, client, plane=None):
     p.configureDebugVisualizer(p.COV_ENABLE_GUI, 0, physicsClientId=client)
     p.configureDebugVisualizer(p.COV_ENABLE_SHADOWS, 0, physicsClientId=client)
     p.configureDebugVisualizer(rgbBackground=[1.0, 1.0, 1.0], physicsClientId=client)
-    camera = PAPER_CAMERA if paper_mode() else DEFAULT_CAMERA
+    camera = PAPER_CAMERA
     p.resetDebugVisualizerCamera(
         camera['distance'], camera['yaw'], camera['pitch'], camera['target'], physicsClientId=client
     )
@@ -224,6 +226,74 @@ def paper_quadrotor(drone, client):
     return display
 
 
+class NEDFrame:
+    def __init__(self, client, world_axes=WORLD_TO_NED):
+        self.client = client
+        self.world_axes = world_axes
+        self.camera = None
+        self.items = [-1] * 13
+        self.refresh()
+
+    def refresh(self):
+        camera = p.getDebugVisualizerCamera(physicsClientId=self.client)
+        if not camera[0] or not camera[1]:
+            return
+        key = (tuple(camera[2]), tuple(camera[3]))
+        if key == self.camera:
+            return
+        self.camera = key
+        pose = np.linalg.inv(np.asarray(camera[2]).reshape(4, 4, order='F'))
+        projection = np.asarray(camera[3]).reshape(4, 4, order='F')
+        depth = camera[10] * 0.35
+        origin = (
+            pose @ [-0.72 * depth / projection[0, 0], 0.65 * depth / projection[1, 1], -depth, 1]
+        )[:3]
+        length = 0.18 * depth / projection[1, 1]
+        self.items[0] = p.addUserDebugText(
+            'NED frame',
+            origin + pose[:3, 1] * length * 1.6,
+            (0.25, 0.25, 0.25),
+            textSize=0.9,
+            replaceItemUniqueId=self.items[0],
+            physicsClientId=self.client,
+        )
+        for i, (direction, label, color) in enumerate(
+            zip(
+                self.world_axes,
+                ('N (North)', 'E (East)', 'D (Down)'),
+                ((0.75, 0.28, 0.16), (0.15, 0.55, 0.28), (0.15, 0.30, 0.70)),
+            )
+        ):
+            end = origin + direction * length
+            side = np.cross(direction, pose[:3, 2])
+            side /= max(np.linalg.norm(side), 1e-12)
+            for j, (a, b) in enumerate(
+                (
+                    (origin, end),
+                    (end, end - direction * length * 0.2 + side * length * 0.08),
+                    (end, end - direction * length * 0.2 - side * length * 0.08),
+                )
+            ):
+                item = 1 + i * 4 + j
+                self.items[item] = p.addUserDebugLine(
+                    a,
+                    b,
+                    color,
+                    2.0,
+                    replaceItemUniqueId=self.items[item],
+                    physicsClientId=self.client,
+                )
+            item = 4 + i * 4
+            self.items[item] = p.addUserDebugText(
+                label,
+                end + direction * length * 0.15,
+                color,
+                textSize=0.8,
+                replaceItemUniqueId=self.items[item],
+                physicsClientId=self.client,
+            )
+
+
 def recorded_paths(s, mode, start_s, paper=False):
     from staleguard.reproduce.common import Data
 
@@ -262,7 +332,8 @@ class FlightView:
         self.capture_at = float(os.environ.get('STALEGUARD_PAPER_AT', '0'))
         self.captured = False
         draw_scene(s, self.client, env.PLANE_ID)
-        self.quad = paper_quadrotor(self.drone, self.client) if self.paper else None
+        self.quad = paper_quadrotor(self.drone, self.client)
+        self.ned = NEDFrame(self.client)
         overlay = (
             overlay_paths
             if overlay_paths is not None
@@ -285,17 +356,17 @@ class FlightView:
         draw_reference(reference, self.client, self.mode)
 
     def refresh(self, *args):
-        pass
+        self.ned.refresh()
 
     def update(self, a, b, step, active, unsafe, world_y, world_vy):
-        if self.paper:
-            position, orientation = p.getBasePositionAndOrientation(
-                self.drone, physicsClientId=self.client
-            )
-            p.resetBasePositionAndOrientation(
-                self.quad, position, orientation, physicsClientId=self.client
-            )
-        else:
+        position, orientation = p.getBasePositionAndOrientation(
+            self.drone, physicsClientId=self.client
+        )
+        p.resetBasePositionAndOrientation(
+            self.quad, position, orientation, physicsClientId=self.client
+        )
+        self.ned.refresh()
+        if not self.paper:
             p.addUserDebugLine(
                 a,
                 b,
@@ -306,6 +377,118 @@ class FlightView:
         if self.capture and not self.captured and (step + 1) / 50 >= self.capture_at:
             save_camera(self.capture, self.client)
             self.captured = True
+
+
+class BenchmarkView:
+    def __init__(self, mission, s, env, reference):
+        self.client = env.PYB_CLIENT
+        self.drone = env.DRONE_ID
+        self.active = False
+        self.recovering = False
+        if mission == 'geofence_turn':
+            distance = PAPER_CAMERA['distance']
+            self.command_label = 'Turn start'
+            lower = s.command.checkpoint_lower
+            upper = s.command.checkpoint_upper
+            target = [(s.initial_x + s.fence_x) / 2, (s.initial_y + upper[1]) / 2, s.height / 2]
+            obstacle = Box(
+                'Geofence',
+                (s.fence_x, min(s.initial_y, lower[1]) - 0.8, 0.0),
+                (s.fence_x + 0.02, upper[1] + 0.8, s.height + 0.5),
+            )
+            wire_box(Box('Checkpoint', lower, upper), self.client, (0.44, 0.70, 0.49))
+        else:
+            distance = max(1.5, s.usual_height * 1.4, (s.box_x_max - reference[0, 0]) * 1.2)
+            self.command_label = 'Descent start'
+            target = [(s.box_x_min + s.box_x_max) / 2, 0.0, s.usual_height / 2]
+            obstacle = Box(
+                'Building',
+                (s.box_x_min, -s.box_y_limit, 0.0),
+                (s.box_x_max, s.box_y_limit, s.unsafe_below_z),
+            )
+        p.configureDebugVisualizer(p.COV_ENABLE_GUI, 0, physicsClientId=self.client)
+        p.configureDebugVisualizer(p.COV_ENABLE_SHADOWS, 0, physicsClientId=self.client)
+        p.configureDebugVisualizer(rgbBackground=[1.0, 1.0, 1.0], physicsClientId=self.client)
+        p.resetDebugVisualizerCamera(
+            distance,
+            PAPER_CAMERA['yaw'],
+            PAPER_CAMERA['pitch'],
+            target,
+            physicsClientId=self.client,
+        )
+        draw_ground(env.PLANE_ID, self.client, target[:2])
+        # Render the existing safety geometry; these bodies have no collision shapes.
+        visual_box(obstacle, (0.67, 0.69, 0.71, 0.65), self.client)
+        wire_box(obstacle, self.client, (0.47, 0.51, 0.55))
+        label_position = (np.asarray(obstacle.lower) + obstacle.upper) / 2
+        label_position[2] = obstacle.upper[2] + 0.08
+        self.event(obstacle.name, label_position)
+        polyline(reference[:, POS], self.client, COLORS['nominal'], 0.8, dashed=True)
+        self.quad = paper_quadrotor(self.drone, self.client)
+        self.ned = NEDFrame(
+            self.client, GEOFENCE_WORLD_TO_NED if mission == 'geofence_turn' else WORLD_TO_NED
+        )
+
+    def event(self, label, position, color=(0.3, 0.3, 0.3)):
+        p.addUserDebugText(label, position, color, textSize=0.8, physicsClientId=self.client)
+
+    def preview(self, trace, record):
+        event = record['event']
+        recovery = event['fallback_step']
+        start = recovery if recovery is not None else event['application_step']
+        violation = record['first_violation_s']
+        for a, b in zip(trace[:-1], trace[1:]):
+            color = (
+                (0.86, 0.16, 0.13)
+                if violation is not None and b[0] / 50 >= violation
+                else COLORS[
+                    (
+                        'sideways'
+                        if recovery is not None and a[0] >= recovery
+                        else 'dive' if start is not None and a[0] >= start else 'nominal'
+                    )
+                ]
+            )
+            p.addUserDebugLine(
+                a[1 + np.asarray(POS)],
+                b[1 + np.asarray(POS)],
+                color,
+                1.5,
+                physicsClientId=self.client,
+            )
+
+    def approval(self, position):
+        self.event('Approval', np.asarray(position) + [0.0, 0.0, 0.10])
+
+    def initiation(self, position, recovering=False):
+        self.active = True
+        self.recovering = recovering
+        self.event(
+            'Recovery start' if recovering else self.command_label,
+            np.asarray(position) - [0.0, 0.0, 0.08],
+            COLORS['sideways' if recovering else 'dive'],
+        )
+
+    def update(self, a, b, unsafe):
+        position, orientation = p.getBasePositionAndOrientation(
+            self.drone, physicsClientId=self.client
+        )
+        p.resetBasePositionAndOrientation(
+            self.quad, position, orientation, physicsClientId=self.client
+        )
+        self.ned.refresh()
+        color = (
+            (0.86, 0.16, 0.13)
+            if unsafe
+            else COLORS['sideways' if self.recovering else 'dive' if self.active else 'nominal']
+        )
+        p.addUserDebugLine(a, b, color, 2.5, physicsClientId=self.client)
+
+    def hold(self, seconds):
+        deadline = time.monotonic() + seconds
+        while time.monotonic() < deadline and p.isConnected(self.client):
+            self.ned.refresh()
+            time.sleep(0.02)
 
 
 def save_camera(path, client):
@@ -359,6 +542,8 @@ def main():
     parser.add_argument('--hold', type=float, default=2.0)
     parser.add_argument('--playback-speed', type=float, default=0.5)
     args = parser.parse_args()
+    if not np.isfinite(args.hold) or args.hold < 0:
+        parser.error('--hold must be a finite, nonnegative number of seconds')
     data = Data(args.data_root)
     if not os.environ.get('DISPLAY') and not os.environ.get('WAYLAND_DISPLAY'):
         parser.error(
@@ -408,6 +593,7 @@ def main():
             received=received,
             platform=load_scg_platform_params(),
             gui=True,
+            hold_s=args.hold,
         )
         if (
             policy in ('staleguard_recovery_aware', 'staleguard_dual_horizon')
@@ -424,7 +610,22 @@ def main():
             kwargs.update(policy='no_recovery', forced_action=action)
         if args.mission == 'inspection_descent':
             kwargs.update(snapshot=snap, seed=seed)
-        import_module('staleguard.' + args.mission + '.simulation').execute(s, **kwargs)
+        execute = import_module('staleguard.' + args.mission + '.simulation').execute
+        record, _, trace = execute(s, **{**kwargs, 'gui': False, 'hold_s': 0.0, 'save_trace': True})
+        if args.mission == 'inspection_descent':
+            trace = np.asarray([(step, *state) for step, state, _ in trace])
+        kwargs['trajectory_overlay'] = (trace, record)
+        # Replay the measured recheck decision rather than timing it a second time.
+        if args.mission == 'geofence_turn' and policy == 'use_time_recheck':
+            event = record['event']
+            if event['fallback_step'] is not None:
+                kwargs['forced_action'] = ('recovery', event['fallback_step'])
+            elif event['application_step'] is not None:
+                kwargs['forced_action'] = ('command', event['application_step'])
+            else:
+                # The check did not finish within the flight; replay nominal waiting.
+                kwargs.update(policy='no_recovery', delay=None)
+        execute(s, **kwargs)
 
 
 if __name__ == '__main__':

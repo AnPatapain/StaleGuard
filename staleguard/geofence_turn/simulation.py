@@ -83,6 +83,8 @@ def execute(
     save_trace=False,
     forced_action=None,
     gui=False,
+    hold_s=0.0,
+    trajectory_overlay=None,
 ):
     """Replay from initial state, with no simulator reset/teleport at approval.
 
@@ -108,9 +110,8 @@ def execute(
     if policy in ('staleguard', 'staleguard_early_recovery') and received is None:
         raise ValueError('StaleGuard requires approval-only prediction')
     factory = env_factory(s, total)
-    if gui:
-        factory = partial(factory, gui=True)
-    env, ctrl = (factory(), None)
+    env = factory(gui=gui)
+    ctrl = None
     snapshot = None
     min_clear = math.inf
     first_violation = None
@@ -157,6 +158,13 @@ def execute(
                 raise ValueError('Invalid recorded clock-policy action')
             recover = kind == 'recovery'
 
+        if gui:
+            from staleguard.visualize import BenchmarkView
+
+            view = BenchmarkView('geofence_turn', s, env, ref)
+            if trajectory_overlay is not None:
+                view.preview(*trajectory_overlay)
+
         def observe(position, tick):
             nonlocal min_clear, first_violation, first_wait_violation
             nonlocal entered, completion, samples
@@ -196,6 +204,8 @@ def execute(
                     config,
                     min_clear,
                 )
+                if gui:
+                    view.approval(obs[POS])
             if policy == 'fbs' and step <= approval:
                 began = time.perf_counter()
                 feature = fbs.safety_feature(obs, s, config)
@@ -233,6 +243,8 @@ def execute(
                     ctrl.reference = ref
                     env.X_GOAL = ref
                     event.update(fallback_step=step, early_recovery=True)
+                    if gui:
+                        view.initiation(obs[POS], recovering=True)
                     if policy == 'staleguard_early_recovery':
                         event['prediction_ready'] = True
                     action_step = None
@@ -295,12 +307,17 @@ def execute(
                     event['prediction_ready'] = True
                 ctrl.reference = ref
                 env.X_GOAL = ref
+                if gui:
+                    view.initiation(obs[POS], recovering=recover)
             if save_trace:
                 trace.append((step, *obs, *ref[step]))
+            if gui:
+                old_position = obs[POS].copy()
             action = ctrl.select_action(obs, info)
             obs, _, done, info = env.step(action)
             sample()
             if gui:
+                view.update(old_position, obs[POS], first_violation is not None)
                 time.sleep(1 / HZ)
             error = float(np.linalg.norm(obs[POS] - ref[step + 1, POS]))
             if step >= approval:
@@ -338,6 +355,8 @@ def execute(
             runtime_s=time.perf_counter() - started,
         )
         assert samples == result['expected_physics_samples']
+        if gui:
+            view.hold(hold_s)
         return (result, snapshot, np.asarray(trace))
     finally:
         if ctrl is not None:
