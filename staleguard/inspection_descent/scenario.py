@@ -9,13 +9,18 @@ from staleguard.model.common import PIDState, STATE_VX, STATE_X, STATE_Y, STATE_
 
 # Reproducible experiment settings.
 from staleguard.model import CTRL_FREQ_HZ, PYB_FREQ_HZ, MODEL_FREQ_HZ, EPISODE_SECONDS
+
 MEASURE_SECONDS = 8.5
 
-DELAY_GRID = tuple(np.arange(0.0, 1.01, 0.1)) # Both experiments: 0.0–1.0 s, inclusive.
+DELAY_GRID = tuple(np.arange(0.0, 1.01, 0.1))  # Both experiments: 0.0–1.0 s, inclusive.
 SIM_SEED = 42
 
-ACCELERATION_SECONDS = 0.4 # Before Quadrotor reaches its stable speed, it needs to ramp during 0.4s from 0 → stable speed.
-INSPECTION_STANDOFF = 0.5 # Distance on x that Quad need to keep from structure for inspection (mettres).
+# Before Quadrotor reaches its stable speed, it needs to ramp during 0.4s
+# from 0 → stable speed.
+ACCELERATION_SECONDS = 0.4
+INSPECTION_STANDOFF = (
+    0.5  # Distance on x that Quad need to keep from structure for inspection (mettres).
+)
 
 
 @dataclass
@@ -57,6 +62,7 @@ class ApprovalSnapshot:
     approval_time: float
     horizon_steps: int
 
+
 def inspection_x(scenario: Scenario):
     return scenario.box_x_min - INSPECTION_STANDOFF
 
@@ -67,9 +73,9 @@ def generate_scenario(seed):
     speed = rng.uniform(0.4, 0.8)
     usual_height = rng.uniform(1.15, 1.40)
 
-    structure_start = rng.uniform(0.8, 1.5) # x direction
-    structure_length = rng.uniform(0.3, 0.6) # x direction
-    structure_width = 0.35 # y direction
+    structure_start = rng.uniform(0.8, 1.5)  # x direction
+    structure_length = rng.uniform(0.3, 0.6)  # x direction
+    structure_width = 0.35  # y direction
     unsafe_below_z = rng.uniform(0.90, 1.05)
 
     # Nominal requested height must be above the unsafe threshold.
@@ -81,8 +87,10 @@ def generate_scenario(seed):
     low_seconds = rng.uniform(0.4, 1.0)
 
     scan_x = structure_start - INSPECTION_STANDOFF
-    scan_time = scan_x/speed + ACCELERATION_SECONDS/2 # account for duration that Quad ramp from 0 to stable speed.
-    approval_time = max(0.1, scan_time - low_seconds/2)
+    scan_time = (
+        scan_x / speed + ACCELERATION_SECONDS / 2
+    )  # account for duration that Quad ramp from 0 to stable speed.
+    approval_time = max(0.1, scan_time - low_seconds / 2)
 
     return Scenario(
         speed=speed,
@@ -204,8 +212,10 @@ def segment_intersects_box(start, end, lower, upper):
             return False
     return True
 
+
 MISSION_DEADLINE_S = 4.2
-SCAN_DWELL_S = .18
+SCAN_DWELL_S = 0.18
+
 
 def in_inspection_region(state, scenario, scan_x):
     return (
@@ -213,6 +223,7 @@ def in_inspection_region(state, scenario, scan_x):
         and abs(state[STATE_Y]) < 0.20
         and abs(state[STATE_Z] - scenario.low_height) < 0.08
     )
+
 
 def safety_only_reference(reference, step, usual_height):
     """Continue nominal forward flight and request usual altitude; never brake."""
@@ -222,7 +233,13 @@ def safety_only_reference(reference, step, usual_height):
 
 
 def configuration():
-    return dict(control_hz=CTRL_FREQ_HZ, physics_hz=PYB_FREQ_HZ,
-                model_hz=MODEL_FREQ_HZ, deadline_s=MISSION_DEADLINE_S,
-                dwell_s=SCAN_DWELL_S, prediction_horizon_flight_s=MEASURE_SECONDS,
-                fixed_ttl_s=.30, recovery='safety-only: nominal forward, usual altitude')
+    return dict(
+        control_hz=CTRL_FREQ_HZ,
+        physics_hz=PYB_FREQ_HZ,
+        model_hz=MODEL_FREQ_HZ,
+        deadline_s=MISSION_DEADLINE_S,
+        dwell_s=SCAN_DWELL_S,
+        prediction_horizon_flight_s=MEASURE_SECONDS,
+        fixed_ttl_s=0.30,
+        recovery='safety-only: nominal forward, usual altitude',
+    )

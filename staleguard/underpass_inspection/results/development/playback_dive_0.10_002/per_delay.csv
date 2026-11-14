@@ -1,2 +1,0 @@
-mode,start_s,approval_step,initiation_step,safe,inspection_completed,safe_completion,min_clearance_m,first_violation_approval_s,obstacle,part
-dive,0.1,40,45,True,True,True,0.06687606066082331,,,

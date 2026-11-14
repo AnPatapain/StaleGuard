@@ -1,9 +1,0 @@
-Preflight memory available=3677 MiB
-pybullet build time: Jan 29 2025 23:16:28
-/home/kean/miniconda3/envs/scg/lib/python3.10/site-packages/gymnasium/spaces/box.py:130: UserWarning: [33mWARN: Box bound precision lowered by casting to float32[0m
-  gym.logger.warn(f"Box bound precision lowered by casting to {self.dtype}")
-/home/kean/miniconda3/envs/scg/lib/python3.10/site-packages/gymnasium/spaces/box.py:130: UserWarning: [33mWARN: Box bound precision lowered by casting to float32[0m
-  gym.logger.warn(f"Box bound precision lowered by casting to {self.dtype}")
-v=0.8 R=0.2 feasible=False max_error=0.1578 completion=2.471
-v=0.8 R=0.4 feasible=True max_error=0.1067 completion=2.8469999999999995
-v=0.8 R=0.6 feasible=True max_error=0.0723 completion=3.247

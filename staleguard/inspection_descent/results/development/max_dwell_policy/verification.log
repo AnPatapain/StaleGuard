@@ -1,6 +1,0 @@
-pybullet build time: Jan 29 2025 23:16:28
-PASS: 2241 D=0 candidate executions audited.
-PASS: all 608 delay trials audited; no recovery, fixed commands, individual outcome identities and complete grid coverage.
-PASS: all 160 original first-feasible outcomes and commands match the previous diagnostic exactly.
-PASS: exhaustive D=0 maxima, original-order ties, calibration feasibility and all A+B+C denominators.
-PASS: all 20 inventories completed before selections were frozen and delay evaluation started.

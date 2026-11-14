@@ -1,9 +1,0 @@
-{
-  "passed": true,
-  "status": "prepared",
-  "scenarios": 400,
-  "expected_flights": 46800,
-  "actual_flights": 0,
-  "disjoint_from_historical": true,
-  "inputs_verified": true
-}

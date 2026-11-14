@@ -18,7 +18,8 @@ def monitor_physics_steps(env, observe):
         nonlocal last_sampled
         if tick != last_sampled:
             position, _ = p.getBasePositionAndOrientation(
-                env.DRONE_ID, physicsClientId=env.PYB_CLIENT,
+                env.DRONE_ID,
+                physicsClientId=env.PYB_CLIENT,
             )
             observe(position, tick)
             last_sampled = tick

@@ -1,6 +1,0 @@
-Seed 1 full original grid: 38 candidates.
-D=0 feasible: 5/38.
-D=0.02: A=0 B=5 C=0
-D=0.10: A=0 B=4 C=1
-D=0.20: A=0 B=3 C=2
-Completed 53 actual rollouts.

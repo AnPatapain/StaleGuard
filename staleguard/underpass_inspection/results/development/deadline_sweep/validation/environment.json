@@ -1,9 +1,0 @@
-{
-  "pybullet": "3.2.7",
-  "numpy": "2.2.6",
-  "scipy": "1.15.3",
-  "gymnasium": "0.28.1",
-  "casadi": "3.8.1",
-  "torch": "2.14.0",
-  "safe-control-gym": "2.0.0"
-}

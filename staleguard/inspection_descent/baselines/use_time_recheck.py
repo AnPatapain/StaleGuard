@@ -3,6 +3,7 @@
 Uses StaleGuard's model and swept checker, without its nominal/TTL sweep.
 This is not a complete implementation of Gatekeeper or its safety guarantees.
 """
+
 import math
 
 from ..scenario import CTRL_FREQ_HZ, unsafe
@@ -16,8 +17,9 @@ def predict_immediate(snapshot, predictive_model):
         if unsafe(obs, snapshot):
             return "UNSAFE"
         checkpoints[0] = predictive_model.save_checkpoint(ctrl, obs, info)
-        return rollout_from_checkpoint(predictive_model, ctrl, checkpoints[0],
-                                       reference, snapshot, dispatch_step=0)
+        return rollout_from_checkpoint(
+            predictive_model, ctrl, checkpoints[0], reference, snapshot, dispatch_step=0
+        )
     finally:
         predictive_model.close(checkpoints)
 

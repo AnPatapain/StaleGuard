@@ -1,9 +1,0 @@
-{
-  "schema": "northbound_checkpoint_v2",
-  "accepted": 5,
-  "rejected": 0,
-  "attempted": 5,
-  "audited_candidates": 33,
-  "baseline_flights": 0,
-  "status": "PASS"
-}

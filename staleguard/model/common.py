@@ -70,17 +70,9 @@ class PIDState:
 
 def capture_pid_state(ctrl):
     return PIDState(
-        integral_pos_e=np.asarray(
-            ctrl.integral_pos_e
-        ).copy(),
-
-        last_rpy=np.asarray(
-            ctrl.last_rpy
-        ).copy(),
-
-        integral_rpy_e=np.asarray(
-            ctrl.integral_rpy_e
-        ).copy(),
+        integral_pos_e=np.asarray(ctrl.integral_pos_e).copy(),
+        last_rpy=np.asarray(ctrl.last_rpy).copy(),
+        integral_rpy_e=np.asarray(ctrl.integral_rpy_e).copy(),
     )
 
 
@@ -88,14 +80,8 @@ def restore_pid_state(
     ctrl,
     pid_state,
 ):
-    ctrl.integral_pos_e = np.asarray(
-        pid_state.integral_pos_e
-    ).copy()
+    ctrl.integral_pos_e = np.asarray(pid_state.integral_pos_e).copy()
 
-    ctrl.last_rpy = np.asarray(
-        pid_state.last_rpy
-    ).copy()
+    ctrl.last_rpy = np.asarray(pid_state.last_rpy).copy()
 
-    ctrl.integral_rpy_e = np.asarray(
-        pid_state.integral_rpy_e
-    ).copy()
+    ctrl.integral_rpy_e = np.asarray(pid_state.integral_rpy_e).copy()

@@ -1,4 +1,0 @@
-{
-  "existing_executor_ast_identical_after_removing_opt_in_fbs_branches": true,
-  "description": "Original run_actual is structurally identical after removing the new default-None argument and branches guarded by fbs_log. All four prior policy execution paths are preserved."
-}

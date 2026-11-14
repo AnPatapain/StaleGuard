@@ -1,0 +1,16 @@
+# Exact environment used for Stage 2 validation, not identical-hardware timing.
+numpy==2.2.6
+scipy==1.15.3
+matplotlib==3.10.9
+numba==0.68.0
+pybullet==3.2.7
+gymnasium==0.28.1
+torch==2.14.0
+casadi==3.8.1
+munch==4.0.0
+PyYAML==6.0.3
+dict-deep==4.1.2
+termcolor==3.3.0
+tensorboard==2.20.0
+imageio==2.37.4
+Pillow==9.5.0

@@ -1,9 +1,0 @@
-pybullet build time: Jan 29 2025 23:16:28
-/home/kean/Documents/work/stale-guard/safe-control-gym/examples/staleguard/inspection_descent/calibration_cache.py:102: UserWarning: Invalid calibration cache saved as /home/kean/Documents/work/stale-guard/safe-control-gym/examples/staleguard/inspection_descent/results/official_calibration_validation/recovery/tmpgipuspr3/e76cebfde34e2cc32a8aa58bdaa87b6033f555d47ce24a168104e24e4edb00e2.invalid: Expecting property name enclosed in double quotes: line 1 column 2 (char 1)
-  warnings.warn(f"Invalid calibration cache saved as {damaged}: {error}")
-/home/kean/Documents/work/stale-guard/safe-control-gym/examples/staleguard/inspection_descent/calibration_cache.py:102: UserWarning: Invalid calibration cache saved as /home/kean/Documents/work/stale-guard/safe-control-gym/examples/staleguard/inspection_descent/results/official_calibration_validation/recovery/tmpzy76u6a9/e76cebfde34e2cc32a8aa58bdaa87b6033f555d47ce24a168104e24e4edb00e2.invalid: 'best_safe_dwell_ticks'
-  warnings.warn(f"Invalid calibration cache saved as {damaged}: {error}")
-/home/kean/miniconda3/envs/scg/lib/python3.10/site-packages/gymnasium/spaces/box.py:130: UserWarning: [33mWARN: Box bound precision lowered by casting to float32[0m
-  gym.logger.warn(f"Box bound precision lowered by casting to {self.dtype}")
-PASS: 20 cache hits with no calibration, 10 automatic invalidations, two damaged caches rejected, exception propagation and zero-feasible denominators.
-Resources: one worker; RSS=734 MiB; peak RSS=734 MiB; available=10310 MiB

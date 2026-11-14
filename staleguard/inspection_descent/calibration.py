@@ -1,4 +1,5 @@
-"""Original D=0 maximum-dwell search, or explicit import of frozen calibration."""
+"""Original calibration search and acceptance criteria; fresh outputs only."""
+
 from pathlib import Path
 import sys
 from staleguard import inspection_descent
@@ -6,14 +7,28 @@ import argparse
 from dataclasses import asdict, replace
 import fcntl
 import json
-from staleguard.inspection_descent.scenario import (generate_scenario, configuration, ACCELERATION_SECONDS,
-    CTRL_FREQ_HZ, DELAY_GRID, PYB_FREQ_HZ, inspection_x, in_inspection_region,
-    SCAN_DWELL_S, MISSION_DEADLINE_S)
+from staleguard.inspection_descent.scenario import (
+    generate_scenario,
+    configuration,
+    ACCELERATION_SECONDS,
+    CTRL_FREQ_HZ,
+    DELAY_GRID,
+    PYB_FREQ_HZ,
+    inspection_x,
+    in_inspection_region,
+    SCAN_DWELL_S,
+    MISSION_DEADLINE_S,
+)
 from staleguard.model.common import STATE_SIZE, STATE_X, STATE_Y, STATE_Z
 from staleguard.inspection_descent.simulation import execute, capture_approval, run_actual
-from staleguard.inspection_descent.storage import (ROOT,SCIENCE,check_memory,metadata,check_provenance,
-    import_calibration,save_snapshot,write_json,file_hash)
-
+from staleguard.inspection_descent.storage import (
+    ROOT,
+    check_memory,
+    metadata,
+    save_snapshot,
+    write_json,
+    file_hash,
+)
 
 
 def command_candidates(scenario):
@@ -34,9 +49,11 @@ def command_candidates(scenario):
     for approval in approval_steps:
         for low_steps in range(original_low_steps, structure_step - approval + 1, step):
             yield replace(
-                scenario, approval_time=approval / CTRL_FREQ_HZ,
+                scenario,
+                approval_time=approval / CTRL_FREQ_HZ,
                 low_seconds=low_steps / CTRL_FREQ_HZ,
             )
+
 
 def inspection_dwell_ticks(physics_trace, scenario):
     """Score elapsed consecutive dwell using the existing inspection predicate."""
@@ -55,29 +72,35 @@ def inspection_dwell_ticks(physics_trace, scenario):
             entered = None
     return longest
 
+
 def calibrate_scenarios(seeds, output, resume=False):
     """Keep the official candidate order, maximum dwell and first-on-ties rule."""
-    output=Path(output); target=output/'calibrated_scenarios.json'; seeds=list(seeds)
-    if target.exists():
-        data=json.loads(target.read_text())
-        if not resume or data['origin']!='physical_calibration' or data['seeds']!=seeds:
-            raise FileExistsError('Frozen/existing calibration: choose a fresh --out, or resume the same new run')
-        check_provenance(data['provenance'])
-    else:
-        if output.exists() and any(output.iterdir()):
-            raise FileExistsError(output)
-        output.mkdir(parents=True,exist_ok=True)
-        data=dict(format='inspection_calibration_v1',origin='physical_calibration',
-            config=configuration(),provenance=metadata(),seeds=seeds,
-            scientific_sources={n:file_hash(ROOT/n) for n in SCIENCE},
-            scenarios=[],attempted_seeds=[],rejected_seeds=[],status='partial',
-            statistics=dict(attempted=0,accepted=0,rejected=0))
-        write_json(target,data)  # An interrupted first seed can restart safely.
+    output = Path(output)
+    target = output / 'calibrated_scenarios.json'
+    seeds = list(seeds)
+    if target.exists() or resume:
+        raise FileExistsError('Use a fresh output directory')
+    if output.exists() and any(output.iterdir()):
+        raise FileExistsError(output)
+    output.mkdir(parents=True, exist_ok=True)
+    data = dict(
+        format='inspection_calibration_v1',
+        origin='physical_calibration',
+        config=configuration(),
+        provenance=metadata(),
+        seeds=seeds,
+        scenarios=[],
+        attempted_seeds=[],
+        rejected_seeds=[],
+        status='partial',
+        statistics=dict(attempted=0, accepted=0, rejected=0),
+    )
+    write_json(target, data)  # An interrupted first seed can restart safely.
     for seed in seeds:
         if seed in data['attempted_seeds']:
             continue
         check_memory()
-        scenario=generate_scenario(seed)
+        scenario = generate_scenario(seed)
         selected = None
         selected_snapshot = None
         best_dwell = None
@@ -86,9 +109,14 @@ def calibrate_scenarios(seeds, output, resume=False):
             snapshot = capture_approval(candidate)
             physics_trace = []
             completed, unsafe_entry, _, safe_completion = run_actual(
-                candidate, snapshot, round(candidate.approval_time * CTRL_FREQ_HZ), 0,
+                candidate,
+                snapshot,
+                round(candidate.approval_time * CTRL_FREQ_HZ),
+                0,
                 round((candidate.approval_time + MISSION_DEADLINE_S) * CTRL_FREQ_HZ),
-                False, physics_trace=physics_trace)
+                False,
+                physics_trace=physics_trace,
+            )
             dwell = inspection_dwell_ticks(physics_trace, candidate)
             assert completed == (dwell >= round(SCAN_DWELL_S * PYB_FREQ_HZ))
             assert safe_completion == (completed and not unsafe_entry)
@@ -98,44 +126,36 @@ def calibrate_scenarios(seeds, output, resume=False):
         if best_dwell is None or best_dwell < round(SCAN_DWELL_S * PYB_FREQ_HZ):
             selected = None
         if selected is not None:
-            snapshot=selected_snapshot
-            verified,_,_=execute(selected,snapshot=snapshot,seed=seed)
+            snapshot = selected_snapshot
+            verified, _, _ = execute(selected, snapshot=snapshot, seed=seed)
             if not verified['safe_completion']:
                 raise ValueError('Selected D=0 command failed verification')
-            path=output/f'snapshots/seed_{seed}.pkl'
-            checksum=save_snapshot(path,snapshot)
-            data['scenarios'].append(dict(seed=seed,scenario=asdict(selected),
-                generated_scenario=asdict(scenario),best_safe_dwell_ticks=best_dwell,
-                approval_snapshot=str(path.relative_to(output)),snapshot_sha256=checksum,
-                d0_verification=verified))
+            path = output / f'snapshots/seed_{seed}.pkl'
+            checksum = save_snapshot(path, snapshot)
+            data['scenarios'].append(
+                dict(
+                    seed=seed,
+                    scenario=asdict(selected),
+                    generated_scenario=asdict(scenario),
+                    best_safe_dwell_ticks=best_dwell,
+                    approval_snapshot=str(path.relative_to(output)),
+                    snapshot_sha256=checksum,
+                    d0_verification=verified,
+                )
+            )
         else:
             data['rejected_seeds'].append(seed)
         data['attempted_seeds'].append(seed)
-        data['statistics']=dict(attempted=len(data['attempted_seeds']),accepted=len(data['scenarios']),
-                                rejected=len(data['rejected_seeds']))
-        data['status']='complete' if len(data['attempted_seeds'])==len(seeds) else 'partial'
-        write_json(target,data)
-        print(f'seed={seed}: {"accepted" if selected is not None else "rejected"}; {data["statistics"]}',flush=True)
+        data['statistics'] = dict(
+            attempted=len(data['attempted_seeds']),
+            accepted=len(data['scenarios']),
+            rejected=len(data['rejected_seeds']),
+        )
+        data['status'] = 'complete' if len(data['attempted_seeds']) == len(seeds) else 'partial'
+        write_json(target, data)
+        print(
+            f'seed={seed}: {"accepted" if selected is not None else "rejected"}; '
+            f'{data["statistics"]}',
+            flush=True,
+        )
     return data
-
-
-def main():
-    parser=argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--import-historical',choices=('development','evaluation'))
-    parser.add_argument('--start-seed',type=int,default=0)
-    parser.add_argument('--attempts',type=int,default=20)
-    parser.add_argument('--out',type=Path)
-    parser.add_argument('--resume',action='store_true')
-    args=parser.parse_args()
-    if args.attempts<1:
-        parser.error('--attempts must be positive')
-    output=args.out or ROOT/f'results/{args.import_historical or "development"}/calibration'
-    with (ROOT/'support/.simulation.lock').open('a') as lock:
-        fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
-        data=(import_calibration(args.import_historical,output) if args.import_historical else
-              calibrate_scenarios(range(args.start_seed,args.start_seed+args.attempts),output,args.resume))
-    print(data['statistics'])
-
-
-if __name__=='__main__':
-    main()

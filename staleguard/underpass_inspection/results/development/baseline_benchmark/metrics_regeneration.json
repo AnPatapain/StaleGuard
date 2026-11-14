@@ -1,9 +1,0 @@
-{
-  "passed": true,
-  "checks": {
-    "executions.jsonl": true,
-    "representative_trajectories.npz": true,
-    "metrics.json": true
-  },
-  "no_physical_flights_executed": true
-}

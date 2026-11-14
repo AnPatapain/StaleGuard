@@ -1,5 +1,0 @@
-Predeclared 84 local candidates across 10 scenarios.
-D=0 inventory complete: 78/84 candidates safely feasible.
-D=0.1: 48/78 D=0-feasible candidates safely complete.
-D=0.2: 19/78 D=0-feasible candidates safely complete.
-Executed 280 rollouts. Results: /home/kean/Documents/work/stale-guard/safe-control-gym/examples/staleguard/inspection_descent/results/calibration_sensitivity

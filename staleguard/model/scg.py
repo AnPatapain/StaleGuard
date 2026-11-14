@@ -13,28 +13,28 @@ def make_scg_env_factory(init_state, pyb_freq=PYB_FREQ_HZ):
         init_state = np.asarray(init_state, dtype=float).copy()
 
     config = get_config("quadrotor")
-    config.update({
-        "quad_type": 3,
-        "task": "traj_tracking",
-        "cost": "quadratic",
-        "ctrl_freq": CTRL_FREQ_HZ,
-        "pyb_freq": pyb_freq,
-        "episode_len_sec": EPISODE_SECONDS,
-        "init_state": init_state,
-        "randomized_init": False,
-        "randomized_inertial_prop": False,
-        "disturbances": None,
-        "adversary_disturbance": None,
-        "done_on_out_of_bound": False,
-        "gui": False,
-    })
+    config.update(
+        {
+            "quad_type": 3,
+            "task": "traj_tracking",
+            "cost": "quadratic",
+            "ctrl_freq": CTRL_FREQ_HZ,
+            "pyb_freq": pyb_freq,
+            "episode_len_sec": EPISODE_SECONDS,
+            "init_state": init_state,
+            "randomized_init": False,
+            "randomized_inertial_prop": False,
+            "disturbances": None,
+            "adversary_disturbance": None,
+            "done_on_out_of_bound": False,
+            "gui": False,
+        }
+    )
     return partial(make, "quadrotor", **config)
 
 
 def _scalar(value):
-    return float(
-        np.asarray(value).item()
-    )
+    return float(np.asarray(value).item())
 
 
 def load_scg_platform_params():
@@ -71,74 +71,48 @@ def load_scg_platform_params():
         )
 
         pid_params = PIDParams(
-            control_dt=float(
-                ctrl.control_timestep
-            ),
-
+            control_dt=float(ctrl.control_timestep),
             kf=float(ctrl.KF),
             gravity=float(ctrl.g),
-
             p_for=np.asarray(
                 ctrl.P_COEFF_FOR,
                 dtype=np.float64,
             ).copy(),
-
             i_for=np.asarray(
                 ctrl.I_COEFF_FOR,
                 dtype=np.float64,
             ).copy(),
-
             d_for=np.asarray(
                 ctrl.D_COEFF_FOR,
                 dtype=np.float64,
             ).copy(),
-
             p_tor=np.asarray(
                 ctrl.P_COEFF_TOR,
                 dtype=np.float64,
             ).copy(),
-
             i_tor=np.asarray(
                 ctrl.I_COEFF_TOR,
                 dtype=np.float64,
             ).copy(),
-
             d_tor=np.asarray(
                 ctrl.D_COEFF_TOR,
                 dtype=np.float64,
             ).copy(),
-
-            pwm2rpm_scale=_scalar(
-                ctrl.PWM2RPM_SCALE
-            ),
-
-            pwm2rpm_const=_scalar(
-                ctrl.PWM2RPM_CONST
-            ),
-
-            min_pwm=_scalar(
-                ctrl.MIN_PWM
-            ),
-
-            max_pwm=_scalar(
-                ctrl.MAX_PWM
-            ),
-
+            pwm2rpm_scale=_scalar(ctrl.PWM2RPM_SCALE),
+            pwm2rpm_const=_scalar(ctrl.PWM2RPM_CONST),
+            min_pwm=_scalar(ctrl.MIN_PWM),
+            max_pwm=_scalar(ctrl.MAX_PWM),
             # These are literals inside
             # SCG's pid.py implementation.
             pos_integral_limit=2.0,
             z_integral_limit=0.15,
-
             attitude_integral_limit=1500.0,
             roll_pitch_integral_limit=1.0,
-
             torque_limit=3200.0,
-
             mixer_matrix=np.asarray(
                 ctrl.MIXER_MATRIX,
                 dtype=np.float64,
             ).copy(),
-
             target_yaw=0.0,
         )
 

@@ -1,4 +1,5 @@
 """Fixed 0.20-second early-recovery baseline; no predictive model."""
+
 from ..scenario import HZ
 
 FIXED_EARLY_TTL_S = 0.20

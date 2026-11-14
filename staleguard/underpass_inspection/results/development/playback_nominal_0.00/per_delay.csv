@@ -1,2 +1,0 @@
-mode,start_s,approval_step,initiation_step,safe,inspection_completed,safe_completion,min_clearance_m,first_violation_approval_s,obstacle,part
-nominal,,40,,False,False,False,-0.26048028551765473,1.7259999999999998,deck,deck_front

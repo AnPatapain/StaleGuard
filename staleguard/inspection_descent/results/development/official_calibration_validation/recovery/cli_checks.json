@@ -1,9 +1,0 @@
-{
-  "passed": true,
-  "parallel_workers_refused": true,
-  "overlapping_launch_refused": true,
-  "memory_limit_enforced": true,
-  "official_cli_six_metric_blocks": true,
-  "cli_calibration_cache_unchanged": true,
-  "historical_first_feasible_seed0_preserved": true
-}

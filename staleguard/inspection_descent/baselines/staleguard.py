@@ -3,6 +3,7 @@ Predicts validity using approval-time information only.
 Every rollout starts directly from approval time.
 Safety covers straight position segments between consecutive control states.
 """
+
 import time
 from staleguard.model.lightweight import LightweightPredictiveModel
 from ..scenario import (
@@ -16,12 +17,12 @@ from ..scenario import (
 
 
 def rollout_from_checkpoint(
-        predictive_model,
-        ctrl,
-        checkpoint,
-        reference,
-        snapshot,
-        dispatch_step,
+    predictive_model,
+    ctrl,
+    checkpoint,
+    reference,
+    snapshot,
+    dispatch_step,
 ):
     obs, info = predictive_model.restore_checkpoint(
         ctrl,
@@ -43,8 +44,8 @@ def rollout_from_checkpoint(
 
     # Simulate after dispatch.
     for local_step in range(
-            dispatch_step,
-            snapshot.horizon_steps,
+        dispatch_step,
+        snapshot.horizon_steps,
     ):
         action = ctrl.select_action(
             obs,
@@ -68,12 +69,12 @@ def rollout_from_checkpoint(
 
 
 def build_nominal_checkpoints(
-        predictive_model,
-        ctrl,
-        obs,
-        info,
-        snapshot,
-        delays,
+    predictive_model,
+    ctrl,
+    obs,
+    info,
+    snapshot,
+    delays,
 ):
     """
     Simulate waiting once and save a predictive-model checkpoint
@@ -83,26 +84,19 @@ def build_nominal_checkpoints(
     checkpoints = {}
 
     if unsafe(
-            obs,
-            snapshot,
+        obs,
+        snapshot,
     ):
         return False, checkpoints
 
-    dispatch_steps = {
-        round(float(delay) * CTRL_FREQ_HZ)
-        for delay in delays
-    }
+    dispatch_steps = {round(float(delay) * CTRL_FREQ_HZ) for delay in delays}
 
-    for local_step in range(
-            snapshot.horizon_steps
-    ):
+    for local_step in range(snapshot.horizon_steps):
         if local_step in dispatch_steps:
-            checkpoints[local_step] = (
-                predictive_model.save_checkpoint(
-                    ctrl,
-                    obs,
-                    info,
-                )
+            checkpoints[local_step] = predictive_model.save_checkpoint(
+                ctrl,
+                obs,
+                info,
             )
 
         # Normal mission while command waits.
@@ -128,9 +122,9 @@ def build_nominal_checkpoints(
 
 
 def predict(
-        snapshot,
-        predictive_model,
-        delays=DELAY_GRID,
+    snapshot,
+    predictive_model,
+    delays=DELAY_GRID,
 ):
     checkpoints = {}
     try:
@@ -160,9 +154,7 @@ def predict(
         # 2. Predict each dispatch delay.
         results = []
         for delay in delays:
-            dispatch_step = round(
-                float(delay) * CTRL_FREQ_HZ
-            )
+            dispatch_step = round(float(delay) * CTRL_FREQ_HZ)
             checkpoint = checkpoints[dispatch_step]
             status = rollout_from_checkpoint(
                 predictive_model=predictive_model,
@@ -183,9 +175,11 @@ def predict(
 def predict_at_reception(snapshot, quad_params, pid_params):
     """Experiment B receives no actual dispatch delay or dispatch timestamp."""
     started = time.perf_counter()
-    prediction = predict(snapshot, LightweightPredictiveModel(quad_params, pid_params),
-                         delays=DELAY_GRID)
+    prediction = predict(
+        snapshot, LightweightPredictiveModel(quad_params, pid_params), delays=DELAY_GRID
+    )
     return prediction, time.perf_counter() - started
+
 
 def ttl_expired_at_dispatch(prediction, waited_steps):
     """Apply the existing first-unsafe cutoff on the scheduler's control grid."""

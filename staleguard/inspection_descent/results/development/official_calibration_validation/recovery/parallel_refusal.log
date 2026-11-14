@@ -1,8 +1,0 @@
-pybullet build time: Jan 29 2025 23:16:28
-usage: validate_official_calibration.py [-h]
-                                        [--stage {calibrate,cache,experiment,delays,all}]
-                                        [--workers {1}]
-                                        [--seeds SEEDS [SEEDS ...]]
-                                        [--max-rss-mb MAX_RSS_MB]
-                                        [--min-available-mb MIN_AVAILABLE_MB]
-validate_official_calibration.py: error: argument --workers: invalid choice: 8 (choose from 1)

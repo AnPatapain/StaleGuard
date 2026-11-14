@@ -1,7 +1,0 @@
-{
-  "command": "python inspection_descent/staleguard_benefit.py --count 10",
-  "elapsed_seconds": 42.94369547999668,
-  "metrics_blocks": 6,
-  "feasible": 10,
-  "policy_executions": 120
-}

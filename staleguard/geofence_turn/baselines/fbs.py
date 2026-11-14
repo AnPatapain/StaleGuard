@@ -8,6 +8,7 @@ An unavailable prediction permits the original turn without later cancellation.
 The simulator supplies observations, measures computation time and applies
 the decision at scheduled dispatch; this module does not simulate future motion.
 """
+
 import math
 
 from ..scenario import HZ, clearance
@@ -32,14 +33,22 @@ def freeze_prediction(feature, volatility, epsilon=EPSILON):
     if epsilon <= 0:
         raise ValueError("FBS epsilon must be positive")
     delta = min(MAX_TTL_STEPS, max(margin, 0) / max(volatility, epsilon))
-    return dict(margin_m=margin, volatility_m_per_sample=volatility,
-                epsilon_m_per_sample=epsilon, delta_steps=delta,
-                ttl_steps=math.floor(delta))
+    return dict(
+        margin_m=margin,
+        volatility_m_per_sample=volatility,
+        epsilon_m_per_sample=epsilon,
+        delta_steps=delta,
+        ttl_steps=math.floor(delta),
+    )
 
 
 def dispatch_status(prediction, computation_s, waited_steps):
     # Equality is ready; a positive-margin TTL expires only strictly after its end.
     ready = computation_s <= waited_steps / HZ
     expired = prediction["margin_m"] <= 0 or waited_steps > prediction["ttl_steps"]
-    return dict(ready=ready, expired=expired, recover=ready and expired,
-                reason="unavailable" if not ready else "expired" if expired else "valid")
+    return dict(
+        ready=ready,
+        expired=expired,
+        recover=ready and expired,
+        reason="unavailable" if not ready else "expired" if expired else "valid",
+    )
