@@ -62,6 +62,7 @@ def execute(
     received=None,
     platform=None,
     expected_snapshot=None,
+    simulation_hooks=None,
 ):
     if policy is not None:
         from .baselines.policies import make_policy
@@ -130,6 +131,8 @@ def execute(
     try:
         obs, info = env.reset(seed=s.seed)
         ctrl.reset_before_run(obs=obs, info=info, env=env)
+        if simulation_hooks is not None:
+            simulation_hooks.after_reset(env, ctrl)
         reference = make_nominal(total + 1, s)
         ctrl.reference = reference
         env.X_GOAL = reference
@@ -191,6 +194,10 @@ def execute(
         sample = monitor_physics_steps(env, observe)
         sample()
         for step in range(total):
+            if simulation_hooks is not None:
+                simulation_hooks.before_step(
+                    step, obs, ctrl, reference, total, min(minimum.values()), s
+                )
             if step == approval:
                 approval_state = obs.copy()
                 if capture_snapshot:
@@ -224,6 +231,8 @@ def execute(
                             s,
                             min(minimum.values()),
                         )
+                        if simulation_hooks is not None:
+                            current = simulation_hooks.observation(current)
                         agent.dispatch(step, current, platform)
                     agent.tick(step)
                     selected = agent.take_action()
@@ -353,6 +362,8 @@ def execute(
                 approval_snapshot_verified=expected_snapshot is not None,
             )
         data = dict(physics=positions, control=np.asarray(trace), reference=np.asarray(references))
+        if simulation_hooks is not None:
+            record['physical_plant'] = simulation_hooks.plant_metadata
         if capture_snapshot:
             data['approval_snapshot'] = approval_snapshot
         return (record, data)

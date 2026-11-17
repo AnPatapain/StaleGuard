@@ -1,68 +1,96 @@
-# Immutable primary experimental data
+# Experimental data
 
-`manifest.json` lists each source path, canonical destination, byte length and
-SHA-256. Files were copied byte-for-byte: JSON formatting, journal ordering,
-recorded runtimes, pickle bytes and arrays are unchanged. Historical source
-hashes are metadata; they are not enforced against the cleaned Python source.
+This folder contains the simulation results used in the StaleGuard paper. The original records are kept unchanged so that others can check the reported numbers.
 
-| Mission | Scenarios | Policy delays | Prediction delays |
-|---|---:|---:|---:|
+## What's included
+
+| Mission | Scenarios | Dispatch delays | Prediction delays |
+| --- | ---: | ---: | ---: |
 | Inspection Descent | 276 | 11 | 11 |
 | Geofence Turn | 300 | 23 | 19 |
 | Underpass Inspection | 400 | 13 | 19 |
 
-Each mission has `calibration/`, `benchmark/` and `feasibility/`. Inspection and
-Geofence also have `additional_policies/`, including historical recovery records
-referenced by physical reuse mappings. Immutable journals can contain policies
-absent from the final paper; Table III selects only the final eight.
+Each mission has `calibration/`, `benchmark/`, and `feasibility/` folders. Some missions also have `additional_policies/` records used to verify reused flight outcomes. These records may include older policies that are not among the eight reported in the paper.
 
-`underpass_inspection/representative_flights/` holds Figure 2's actual seed-0
-nominal, immediate-inspection, 0.4 s inspection and 0.5 s sideways-recovery flights.
-This is not a Geofence trajectory dataset. Underpass calibration retains the 865
-accepted candidates; its benchmark manifest selects the actual 400 evaluation scenarios.
+The files contain:
 
-## Required evidence
+- `executions.jsonl`: flight outcomes and policy decisions.
+- `predictions.jsonl`: predicted feasibility and recorded prediction times.
+- `run.json` and `progress.json`: experiment settings and run information.
+- Calibration files and snapshots: the scenarios, approval states, and controller states used in the experiments.
+- `.npz` files: recorded states and trajectories.
 
-- `executions.jsonl`: physical outcomes and policy/action records.
-- `predictions.jsonl`: recorded feasibility labels and original runtimes.
-- `run.json`, `progress.json`: original configurations, seeds, numerical environment and hashes.
-- Calibration manifests and snapshots: approved scenarios, physical/PID states and references.
-- `.npz` files: approval arrays and measured trajectories.
-- Geofence's calibration envelope and Inspection's referenced historical input manifest.
+The Underpass `representative_flights/` folder contains the flights shown in Figure 2. The Underpass calibration archive contains 865 accepted candidates; the benchmark uses the selected 400 evaluation scenarios.
 
-Old calibration JSONs can contain historical relative paths. The canonical
-manifest explicitly maps snapshots. `staleguard.io.SnapshotReader` translates the
-few historical Python class names during deserialization, without modifying data.
-There is no historical Python source-hash compatibility enforcement.
+## Robustness study
 
-## Distribution
+The [Underpass robustness dataset](underpass_inspection/robustness_v1/README.md) contains results from 64 scenarios evaluated under nominal conditions, two mass-mismatch levels (±5%, ±10%), and two levels of position and velocity observation error.
 
-All data are present locally. No external download URL or DOI has been assigned.
-`underpass_inspection/benchmark/executions.jsonl` is 176,132,260 bytes, above
-GitHub's ordinary per-file limit, and is gitignored. It must be distributed
-separately with this manifest before an external checkout can reproduce all artifacts.
-Missing raw records cannot be replaced by `metrics.json`.
+Six policies were evaluated across 13 dispatch delays, producing 24,960 policy outcomes.
 
-The local `.stage2_archive/` preserves original/development files, is gitignored,
-is excluded from installation, and is not used by reproduction commands.
-Derived metrics, tables, figures and reports belong under `outputs/`, not `data/`.
+The dataset includes four result tables, experiment settings, and a compressed archive (`records.tar.gz`) containing the underlying simulation and prediction records.
 
-Each artifact command validates all primary files it uses. To check everything:
+To verify the archive and reproduce the tables without rerunning simulations:
 
 ```bash
-python - <<'CHECK'
-import json, hashlib
-from pathlib import Path
-root = Path('data')
-manifest = json.loads((root / 'manifest.json').read_text())
-for name, expected in manifest['files'].items():
-    path = root / name
-    assert path.stat().st_size == expected['bytes'], name
-    digest = hashlib.sha256()
-    with path.open('rb') as stream:
-        for block in iter(lambda: stream.read(1048576), b''):
-            digest.update(block)
-    assert digest.hexdigest() == expected['sha256'], name
-print('Verified', len(manifest['files']), 'immutable primary files')
-CHECK
+python -m staleguard.robustness verify-archive --data-root data
+
+python -m staleguard.robustness reproduce \
+  --data-root data \
+  --out outputs/robustness_reproduced
 ```
+
+The reproduction checks the results against the archived reference tables. The original benchmark remains unchanged.
+
+The [nominal reproduction audit](underpass_inspection/robustness_v1/nominal_audit/REPORT.md) explains the small differences caused by separately measured prediction runtimes.
+
+## Downloading the data
+
+The data are included in this Git repository. The large file `underpass_inspection/benchmark/executions.jsonl` and the robustness bundle `underpass_inspection/robustness_v1/records.tar.gz` are stored with **Git LFS**. You do not need a separate download link.
+
+Install Git LFS, then run:
+
+```bash
+git lfs install
+git clone https://github.com/AnPatapain/StaleGuard.git
+cd StaleGuard
+git lfs pull
+```
+
+The large file should be **176,132,260 bytes**. Its SHA-256 checksum is:
+
+```text
+8692aa2d9b1bb7cfb8b111743f92aff0c329862292862ee7e84639e5bac8f2e6
+```
+
+Check it with:
+
+```bash
+wc -c data/underpass_inspection/benchmark/executions.jsonl
+sha256sum data/underpass_inspection/benchmark/executions.jsonl
+```
+
+We verified that this file can be downloaded from a fresh checkout and that its size and checksum match.
+
+## Reproducing the paper results
+
+Follow the installation instructions in the main `README.md`. Use Python 3.10 and the versions in `requirements-reproduction.txt`.
+
+From the repository root, for example:
+
+```bash
+python -m staleguard.reproduce.table2 --data-root data --out outputs/table2
+python -m staleguard.reproduce.table3 --data-root data --out outputs/table3
+python -m staleguard.reproduce.fig4 --data-root data --out outputs/fig4
+python -m staleguard.reproduce.fig5 --data-root data --out outputs/fig5
+```
+
+The main `README.md` also lists the commands for Figures 2 and 3. These scripts recreate tables and figures **from the saved experimental records**, without rerunning PyBullet flights. Tables II and III have been checked against the paper using a fresh checkout.
+
+## Checking the records
+
+The top-level `manifest.json` lists the expected file size and SHA-256 checksum for each original benchmark data file. The robustness dataset has a separate manifest in `underpass_inspection/robustness_v1/`. The reproduction scripts check the files they read and report missing or changed inputs.
+
+The saved run files also record software versions and source-code hashes. The code has since been reorganized, so those historical hashes should not be assumed to match today's source files. Recreating figures and tables from the records is different from rerunning the original simulations. The latter requires checking the historical source and environment separately.
+
+The local `.stage2_archive/` folder is not part of the public dataset and is not needed to recreate the reported tables and figures.

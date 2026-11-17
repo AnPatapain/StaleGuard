@@ -2,32 +2,67 @@
 
 **StaleGuard: When to Stop Waiting -- Runtime Assurance for Queued UAV Commands**
 
-An approved UAV command can become stale while waiting for an unknown dispatch time. 
-StaleGuard predicts three time-dependent opportunities: safe command execution, safe mission completion, and safe recovery, 
-then monitors the pending command to determine when to intervene before dispatch.
+Modern AI-agent-assisted UAV systems separates planning from execution. In such systems, an approved UAV command can become stale while waiting for an unknown dispatch time. StaleGuard predicts three time-dependent opportunities: safe command execution, safe mission completion, and safe recovery. It monitors the pending command to decide when to intervene before dispatch.
 
 ## Benchmark Missions
 
 StaleGuard is evaluated on three UAV missions using Safe-Control-Gym and PyBullet physics.
 
-|                  Inspection Descent                   |                Geofence Turn                |                   Underpass Inspection                    |
-|:-----------------------------------------------------:|:-------------------------------------------:|:---------------------------------------------------------:|
+| Inspection Descent | Geofence Turn | Underpass Inspection |
+|:---:|:---:|:---:|
 | ![Inspection Descent](figures/inspection_descent.png) | ![Geofence Turn](figures/geofence_turn.png) | ![Underpass Inspection](figures/underpass_inspection.png) |
 
 ## Installation
 
-Requires Python 3.10+ and the dependencies specified in `requirements-reproduction.txt`.
+Use **Python 3.10** and the versions in `requirements-reproduction.txt`. We recommend Conda to create a clean environment.
+
+First, clone the repository and download the recorded experimental data. **Git LFS is required** for the large Underpass execution journal and the robustness record archive:
 
 ```bash
-python -m pip install -r requirements-reproduction.txt
-python -m pip install -e .
+git lfs install
+git clone https://github.com/AnPatapain/StaleGuard.git
+cd StaleGuard
+git lfs pull
 ```
 
-The original simulator implementation and required assets are included in `safe_control_gym/`.
+Then install the Python dependencies:
+
+```bash
+conda create -n staleguard-repro python=3.10 pip -y
+conda activate staleguard-repro
+export PYTHONNOUSERSITE=1
+
+python -m pip install -r requirements-reproduction.txt
+python -m pip install -e . --no-deps
+python -m pip check
+```
+
+`PYTHONNOUSERSITE=1` prevents packages installed in your user directory from interfering with the Conda environment. Set it again in any new terminal where you run the reproduction commands, or configure it permanently for that environment.
+
+The Safe-Control-Gym code and simulator assets used by this project are already included in `safe_control_gym/`. You do **not** need to install a separate copy of Safe-Control-Gym.
+
+## Recorded Data
+
+The repository includes the experimental records needed to reconstruct the paper's results. Most files download with Git; the large Underpass execution journal and the compressed robustness records download through Git LFS.
+
+After `git lfs pull`, you can verify the largest file:
+
+```bash
+wc -c data/underpass_inspection/benchmark/executions.jsonl
+sha256sum data/underpass_inspection/benchmark/executions.jsonl
+```
+
+Expected size: `176132260` bytes. Expected SHA-256:
+
+```text
+8692aa2d9b1bb7cfb8b111743f92aff0c329862292862ee7e84639e5bac8f2e6
+```
+
+See [data/README.md](data/README.md) for dataset contents and instructions to verify all file checksums.
 
 ## Reproduce Paper Results
 
-Each script independently reconstructs the corresponding paper artifact from recorded experimental data.
+These commands reconstruct the paper's tables and figures from recorded data, **without rerunning the simulations**:
 
 ```bash
 # Figure 2 — Underpass flight trajectories
@@ -49,17 +84,31 @@ python -m staleguard.reproduce.fig4 --data-root data --out outputs/fig4
 python -m staleguard.reproduce.fig5 --data-root data --out outputs/fig5
 ```
 
-Figures are exported as PDF/PNG, tables as CSV/Markdown, and all artifacts include their underlying numerical data.
+Figures are exported as PDF/PNG and tables as CSV/Markdown, together with their numerical data.
 
-These commands reconstruct results without rerunning simulations.
+The commands above use the archived records. To generate new physical simulation records instead, use the experiment runner described below.
 
-**Dataset:** See [data/README.md](data/README.md) for the complete dataset requirements, integrity verification, and availability of large experimental records.
+## Robustness Evaluation
+
+We also evaluate StaleGuard under imperfect dynamics and state observations. The study uses 64 Underpass scenarios, five conditions (nominal, ±5% and ±10% mass mismatch, and two levels of observation error), six policies, and 13 dispatch delays.
+
+The results and supporting records are available in [the robustness dataset](data/underpass_inspection/robustness_v1/README.md).
+
+To verify the data and reproduce the results without rerunning simulations:
+
+```bash
+python -m staleguard.robustness verify-archive --data-root data
+
+python -m staleguard.robustness reproduce \
+  --data-root data \
+  --out outputs/robustness_reproduced
+```
+
+The study's limitations and the small timing differences from the original benchmark are documented in the dataset.
 
 ## Run New Experiments
 
-Run a physical PyBullet evaluation using the existing mission configurations and policies.
-
-For example, a small Underpass benchmark:
+Run a physical PyBullet evaluation using the existing mission configurations and policies. For example, a small Underpass benchmark:
 
 ```bash
 python -m staleguard.reproduce.run_experiments \
@@ -74,9 +123,9 @@ python -m staleguard.reproduce.run_experiments \
   --out outputs/runs/underpass-example
 ```
 
-Supported experiment types: `benchmark`, `feasibility`, `prediction`, and `calibration`.
+Supported experiment types are `benchmark`, `feasibility`, `prediction`, and `calibration`.
 
-Use `--help` for additional configurations. New experiments require an empty output directory and never overwrite the archived data.
+Use `--help` for more options. New experiments require an empty output directory and do not overwrite the archived data.
 
 ## PyBullet Visualization
 
@@ -93,9 +142,10 @@ python -m staleguard.visualize --mission geofence_turn --seed 22 --delay 0.5
 python -m staleguard.visualize --paper-figure --overlay-all
 ```
 
-Requires a desktop display. Use `python -m staleguard.visualize --help` for more options.
+Visualization requires a desktop display. Use `python -m staleguard.visualize --help` for more options.
 
 ## Additional Information
-- [Dataset documentation](data/README.md) — Experimental records and integrity verification.
+
+- [Dataset documentation](data/README.md) — Experimental records and integrity checks.
 - [Citation](CITATION.cff) — Citation information.
 - [License](LICENSE) — License information.

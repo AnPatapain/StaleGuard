@@ -1,0 +1,119 @@
+{
+  "status": "AUDIT_COMPLETE",
+  "scenarios": 64,
+  "nominal_policy_trials": 4992,
+  "profile_equal_scenarios": 64,
+  "exact_approval_snapshot_matches": 64,
+  "action_differences": 50,
+  "outcome_differences": 5,
+  "all_staleguard_differences_explained_by_recorded_runtime": true,
+  "decision_checks": {
+    "archived_decisions_reproduced": 4992,
+    "e01_decisions_reproduced": 4992,
+    "archived_timing_restores_decision": 2496
+  },
+  "independent_existing_nominal_flights": 128,
+  "existing_independent_physics_matches": 128,
+  "diagnostic_physical_replays": 8,
+  "all_diagnostic_physical_replays_exact": true,
+  "policies": [
+    {
+      "policy": "no_recovery",
+      "trials": 832,
+      "action_differences": 0,
+      "outcome_differences": 0,
+      "archived_unsafe": 337,
+      "e01_unsafe": 337,
+      "archived_safe_completion": 495,
+      "e01_safe_completion": 495,
+      "sharing_old_full_changes": 0,
+      "remeasuring_shared_full_changes": 0
+    },
+    {
+      "policy": "use_time_recheck",
+      "trials": 832,
+      "action_differences": 0,
+      "outcome_differences": 0,
+      "archived_unsafe": 248,
+      "e01_unsafe": 248,
+      "archived_safe_completion": 485,
+      "e01_safe_completion": 485,
+      "sharing_old_full_changes": 0,
+      "remeasuring_shared_full_changes": 0
+    },
+    {
+      "policy": "fixed_early_recovery",
+      "trials": 832,
+      "action_differences": 0,
+      "outcome_differences": 0,
+      "archived_unsafe": 15,
+      "e01_unsafe": 15,
+      "archived_safe_completion": 305,
+      "e01_safe_completion": 305,
+      "sharing_old_full_changes": 0,
+      "remeasuring_shared_full_changes": 0
+    },
+    {
+      "policy": "staleguard_early_recovery",
+      "trials": 832,
+      "action_differences": 30,
+      "outcome_differences": 3,
+      "archived_unsafe": 127,
+      "e01_unsafe": 124,
+      "archived_safe_completion": 493,
+      "e01_safe_completion": 493,
+      "sharing_old_full_changes": 40,
+      "remeasuring_shared_full_changes": 10
+    },
+    {
+      "policy": "staleguard_recovery_aware",
+      "trials": 832,
+      "action_differences": 10,
+      "outcome_differences": 1,
+      "archived_unsafe": 28,
+      "e01_unsafe": 29,
+      "archived_safe_completion": 484,
+      "e01_safe_completion": 484,
+      "sharing_old_full_changes": 0,
+      "remeasuring_shared_full_changes": 10
+    },
+    {
+      "policy": "staleguard_dual_horizon",
+      "trials": 832,
+      "action_differences": 10,
+      "outcome_differences": 1,
+      "archived_unsafe": 28,
+      "e01_unsafe": 29,
+      "archived_safe_completion": 484,
+      "e01_safe_completion": 484,
+      "sharing_old_full_changes": 0,
+      "remeasuring_shared_full_changes": 10
+    }
+  ],
+  "timing_ms": {
+    "old_command_ms": {
+      "median": 143.48580449586734,
+      "p95": 146.63147965911776
+    },
+    "old_recovery_ms": {
+      "median": 148.77843501744792,
+      "p95": 167.30337331537157
+    },
+    "old_full_ms": {
+      "median": 147.20483648125082,
+      "p95": 167.89426113828085
+    },
+    "new_shared_full_ms": {
+      "median": 165.24380401097005,
+      "p95": 196.8222419563972
+    }
+  },
+  "interpretation": "N0 is a fresh-timing replication, not an exact archived-timing replay. Policy rules and feasibility predictions match. Changing computation readiness alone reproduces all differences. Physical continuation equivalence is independently checked.",
+  "limitations": [
+    "Timing changes combine execution-environment variation with a deliberate shared-full-forecast workload; historical command-aware used a separate command-only predictor.",
+    "No operating-system/hardware profiler was recorded historically; the precise cause of slower wall-clock timing cannot be uniquely attributed.",
+    "Physical replay is bounded to changed-outcome actions plus existing independent nominal checks, not all cached flights.",
+    "This audit does not alter E01 results or establish a latency-controlled uncertainty effect."
+  ],
+  "protected_files_unchanged": 69048
+}
