@@ -77,10 +77,9 @@ def metadata(config=None):
         git_revision=revision,
         python=sys.version,
         platform=platform.platform(),
-        packages={n: version(n) for n in ('numpy', 'scipy', 'numba', 'pybullet', 'gymnasium')},
-        config=asdict(config) if is_dataclass(config) else config,
-        source_sha256={
-            p.relative_to(Path(__file__).resolve().parent).as_posix(): file_hash(p)
-            for p in Path(__file__).resolve().parent.rglob('*.py')
+        packages={
+            n: version(n)
+            for n in ('numpy', 'scipy', 'numba', 'pybullet', 'gymnasium', 'matplotlib', 'casadi')
         },
+        config=asdict(config) if is_dataclass(config) else config,
     )

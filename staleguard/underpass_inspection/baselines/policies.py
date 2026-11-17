@@ -1,4 +1,4 @@
-"""Nine single-command policies. This object never receives a dispatch schedule.
+"""Eight single-command policies. This object never receives a dispatch schedule.
 
 The physical driver announces dispatch only when it occurs. Pending timers run
 from elapsed approval time. Decision rules and timers live in this mission; the physical predictor uses

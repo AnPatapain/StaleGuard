@@ -7,47 +7,17 @@ import argparse, csv, hashlib, json, platform, subprocess, sys
 from importlib.metadata import version
 import numpy as np
 from staleguard.underpass_inspection.baselines.staleguard import first_ready_step
+from staleguard.io import file_hash
+from staleguard.policies import POLICIES, LABELS
 
 MISSIONS = ('inspection_descent', 'geofence_turn', 'underpass_inspection')
-POLICIES = (
-    'no_recovery',
-    'fbs',
-    'use_time_recheck',
-    'fixed_early_recovery',
-    'staleguard',
-    'staleguard_early_recovery',
-    'staleguard_recovery_aware',
-    'staleguard_dual_horizon',
-)
-LABELS = dict(
-    zip(
-        POLICIES,
-        (
-            'No Recovery',
-            'FBS',
-            'Use-Time Recheck',
-            'Fixed EarlyRecovery (0.20 s)',
-            'StaleGuard (Dispatch)',
-            'StaleGuard (Command-safety aware)',
-            'StaleGuard (Recovery-aware)',
-            'StaleGuard (Dual horizon)',
-        ),
-    )
-)
+
 PROPERTIES = {
     'command': 'command_safe',
     'completion': 'command_complete',
     'recovery': 'recovery_safe',
 }
 COUNTS = dict(zip(MISSIONS, (276, 300, 400)))
-
-
-def file_hash(path):
-    h = hashlib.sha256()
-    with Path(path).open('rb') as stream:
-        for block in iter(lambda: stream.read(1048576), b''):
-            h.update(block)
-    return h.hexdigest()
 
 
 def write_json(path, value):
@@ -312,21 +282,14 @@ class Data:
 def metadata(data, out, artifact, **extra):
     from staleguard.io import metadata as runtime_metadata
 
-    revision = runtime_metadata()['git_revision']
     write_json(
         Path(out) / 'metadata.json',
         dict(
             artifact=artifact,
             evidence='immutable archived observations; no simulation',
-            git_revision=revision,
-            python=sys.version,
-            packages={n: version(n) for n in ('numpy', 'matplotlib', 'pybullet', 'numba')},
+            **runtime_metadata(),
             input_sha256=data.used,
             data_manifest_sha256=file_hash(data.root / 'manifest.json'),
-            source_sha256={
-                p.relative_to(Path(__file__).resolve().parents[1]).as_posix(): file_hash(p)
-                for p in Path(__file__).resolve().parents[1].rglob('*.py')
-            },
             **extra,
         ),
     )

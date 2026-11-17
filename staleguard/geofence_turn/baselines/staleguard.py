@@ -10,7 +10,7 @@ import time
 from staleguard.model.lightweight import LightweightPredictiveModel
 from ..scenario import HZ, apply_turn_command, clearance
 
-# Legacy 0.10 s default for direct calls; experiment runners pass their frozen grids.
+# Default 0.10 s grid for direct calls; experiment runners pass their frozen grids.
 # Actual future dispatch delay is never an input at approval.
 PREDICTION_DELAYS = tuple(i / 10 for i in range(11))
 
@@ -19,7 +19,7 @@ def predict_delays(snapshot, platform, delays=PREDICTION_DELAYS):
     if not hasattr(snapshot.command, 'checkpoint_lower') or not hasattr(
         snapshot.command, 'checkpoint_upper'
     ):
-        raise ValueError('Legacy connector snapshot: regenerate the northbound dataset')
+        raise ValueError('Snapshot is missing the northbound checkpoint definition')
     began = time.perf_counter()
     model = LightweightPredictiveModel(*platform)
     checkpoints = {}

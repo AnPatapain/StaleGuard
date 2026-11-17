@@ -49,7 +49,8 @@ def quantile(values):
     return [float(v) for v in np.quantile(values, [0.025, 0.975])]
 
 
-def summarize():
+def summarize(labels=None):
+    labels = LABELS if labels is None else labels
     spec = json.loads((ROOT / 'specification.json').read_text())
     forecasts = collect('forecasts/*/*.json')
     physical = collect('physical/*/*/*.json')
@@ -246,7 +247,7 @@ def summarize():
                     dict(
                         condition=condition,
                         policy=policy,
-                        label=LABELS[policy],
+                        label=labels[policy],
                         mass_sign=sign,
                         scenarios=len(seeds),
                         scenario_ids=json.dumps(seeds),
@@ -524,6 +525,7 @@ def summarize():
         'attempts/*/*.json',
         'archive/*.json',
         'invocations/*.json',
+        'numerical_parameters.json',
     ):
         primary_paths.extend(sorted(ROOT.glob(pattern)))
     atomic_json(
@@ -580,7 +582,7 @@ def summarize():
         '',
         'Timing is measured offline. Approval forecasts and dispatch rechecks are timed serially; only physical continuations run in parallel, and all physical futures are joined before timed batches. Fresh wall-clock measurements still have ordinary hardware/OS variation. Resumption reuses recorded timings and decisions. JIT warmups are setup computations, reported separately from 320 production forecasts.',
         '',
-        'Workers retire between scenarios to bound native SCG/CasADi memory growth. Resource scheduling and analysis may change without invalidating physical-input cache keys; unchanged simulator/predictor/policy sources and numerical packages are checked. Original provenance is retained, with actual source hashes in each execution invocation.',
+        'Workers retire between scenarios to bound native SCG/CasADi memory growth. Resumption checks simulator assets, numerical dependencies and the frozen experiment configuration. Historical source revisions are not execution requirements.',
         '',
         'All StaleGuard ablations share one full forecast per scenario/condition. The archived nominal command-aware benchmark used command-only forecast timing; N0 discrepancies are reported in nominal_archive_comparison.csv rather than hidden or tuned away.',
         '',

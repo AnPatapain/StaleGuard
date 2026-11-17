@@ -71,7 +71,7 @@ def main():
         scenarios=len(seeds),
         dispatch_delays=delays,
         prediction_horizon_s=1,
-        overlaps=['FBS = No Recovery', 'Recovery-aware = Dual horizon'],
+        overlaps=['FBS = No Recovery', 'Recovery-aware = Three-opportunity-aware'],
     )
 
 

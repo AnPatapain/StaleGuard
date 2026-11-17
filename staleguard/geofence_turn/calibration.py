@@ -34,7 +34,7 @@ def find_nominal_bound(scenario, config=Config()):
 
 def approval_candidates(scenario, upper, config=Config()):
     """Latest to earliest on the unchanged 0.20 s grid, ending at 0.60 s."""
-    # upper comes from the nominal PyBullet probe; legacy approval_max_s is unused.
+    # The upper bound comes from the nominal PyBullet probe, not approval_max_s.
     first = round(upper * HZ)
     last = round(config.approval_min_s * HZ)
     stride = round(config.approval_grid_s * HZ)

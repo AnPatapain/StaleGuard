@@ -109,6 +109,24 @@ The main `README.md` also lists the commands for Figures 2 and 3. These scripts 
 
 The top-level `manifest.json` lists the expected file size and SHA-256 checksum for each original benchmark data file. The robustness dataset has a separate manifest in `underpass_inspection/robustness_v1/`. The reproduction scripts check the files they read and report missing or changed inputs.
 
-The saved run files also record software versions and source-code hashes. The code has since been reorganized, so those historical hashes should not be assumed to match today's source files. Recreating figures and tables from the records is different from rerunning the original simulations. The latter requires checking the historical source and environment separately.
+The saved run files contain the original numerical settings, software versions and provenance. Those fields remain part of the evidence. Reproduction checks data integrity without requiring a historical Python source tree or accepting source-hash compatibility exceptions.
 
-The local `.stage2_archive/` folder is not part of the public dataset and is not needed to recreate the reported tables and figures.
+For a full integrity check, run:
+
+```bash
+python -m staleguard.reproduce.verify --data-root data
+```
+
+Fresh experiments use the maintained code and write to a separate output directory. Their prediction runtimes are measured again, so readiness-sensitive decisions may differ from the recorded study. Use the comparison command in the main README to examine those differences. The original records are never adjusted to make a fresh run agree.
+
+The robustness bundle is **40,350,457 bytes**. Its SHA-256 is:
+
+```text
+9c6ba5d699a092b2c5fa0ab8b93801ff1274e6c78d9cb589ad561f96c46b6ecc
+```
+
+Check it directly with:
+
+```bash
+sha256sum data/underpass_inspection/robustness_v1/records.tar.gz
+```

@@ -185,9 +185,16 @@ class Cache:
 
     def execute_physical(self, action, capture_steps=()):
         if _POOL is None:
-            return physics.physical(self.scenario, self.uncertainty, action, capture_steps)
+            return physics.physical(
+                self.scenario, self.uncertainty, action, capture_steps, output_root=ROOT
+            )
         return _POOL.submit(
-            physics.physical, self.scenario, self.uncertainty, action, capture_steps
+            physics.physical,
+            self.scenario,
+            self.uncertainty,
+            action,
+            capture_steps,
+            output_root=ROOT,
         ).result()
 
     def store_physical(self, action, record):
@@ -216,7 +223,9 @@ class Cache:
                 result[action] = self.get(action)
         else:
             futures = {
-                _POOL.submit(physics.physical, self.scenario, self.uncertainty, action): action
+                _POOL.submit(
+                    physics.physical, self.scenario, self.uncertainty, action, output_root=ROOT
+                ): action
                 for action in missing
             }
             try:
@@ -504,12 +513,25 @@ def status():
 
 
 def run(args):
-    global _POOL
+    global _POOL, _PLATFORM
     from .analysis import summarize
 
     spec = freeze(args.data_root)
     prepare_archive(args.data_root, spec)
     current = environment()
+    _PLATFORM = load_scg_platform_params()
+    parameters = json.loads(
+        json.dumps(
+            dict(physical=asdict(_PLATFORM[0]), pid=asdict(_PLATFORM[1])),
+            default=lambda value: value.tolist(),
+        )
+    )
+    parameter_path = ROOT / 'numerical_parameters.json'
+    if parameter_path.exists():
+        if json.loads(parameter_path.read_text()) != parameters:
+            raise ValueError('Numerical model/controller parameters changed; use a fresh output')
+    else:
+        atomic_json(parameter_path, parameters)
     assets = {
         str(p.relative_to(REPO)): file_hash(p)
         for p in sorted((REPO / 'safe_control_gym').rglob('*'))
@@ -521,46 +543,24 @@ def run(args):
     if not asset_manifest.exists():
         atomic_json(asset_manifest, assets)
     current['simulator_assets_sha256'] = assets
-    scientific_source = {
-        name: value
-        for name, value in current['source_sha256'].items()
-        if name.startswith(('staleguard/model/', 'staleguard/underpass_inspection/'))
-        or name
-        in (
-            'staleguard/robustness/physics.py',
-            'staleguard/robustness/protocol.py',
-            'staleguard/physics_monitor.py',
-        )
-    }
+    # Resume validates numerical dependencies and physical assets, not Python source
+    # revisions. The saved identifier is only a namespace for this run's cache.
     implementation = digest(
         dict(
-            source=scientific_source,
-            simulator=current['simulator_sha256'],
+            parameters=spec['nominal_physical_parameters'],
             packages=current['packages'],
-            python=sys.version.split()[0],
+            assets=assets,
         )
     )
-    config = dict(implementation=implementation, environment=current)
     path = ROOT / 'implementation.json'
+    config = dict(implementation=implementation, environment=current)
     if path.exists():
         previous = json.loads(path.read_text())
         origin = previous['environment']
-        if (
-            any(
-                origin['source_sha256'].get(name) != value
-                for name, value in scientific_source.items()
-            )
-            or origin['simulator_sha256'] != current['simulator_sha256']
-            or origin['packages'] != current['packages']
-            or origin['python'].split()[0] != sys.version.split()[0]
-        ):
-            raise ValueError(
-                'Physical/prediction implementation changed; refusing scientific cache reuse'
-            )
-        # Keep the original cache namespace and provenance. Resource scheduling and
-        # analytical code may change without altering physical inputs or policy rules.
+        if any(current['packages'].get(k) != v for k, v in origin['packages'].items()):
+            raise ValueError('Numerical dependencies changed; use a fresh experiment output')
         implementation = previous['implementation']
-    if not path.exists():
+    else:
         atomic_json(path, config)
     selected = spec['execution_order']
     delays = spec['policy_delays']
@@ -682,6 +682,8 @@ def launch(args):
         '--policies',
         *args.policies,
     ]
+    if args.out is not None:
+        command.extend(['--out', str(args.out.resolve())])
     if args.seeds:
         command.extend(['--seeds', *map(str, args.seeds)])
     shell = 'exec ' + shlex.join(command) + ' >> ' + shlex.quote(str(log)) + ' 2>&1'
@@ -755,14 +757,13 @@ def main():
             'launch',
             'summarize',
             'status',
-            'archive',
             'verify-archive',
             'reproduce',
         ),
     )
     parser.add_argument('--data-root', type=Path, default=REPO / 'data')
     parser.add_argument(
-        '--out', type=Path, help='reproduce only: fresh directory for archived-data reconstruction'
+        '--out', type=Path, help='Output directory for reconstruction or a separate fresh E01 run'
     )
     parser.add_argument('--conditions', nargs='+', choices=CONDITIONS, default=list(CONDITIONS))
     parser.add_argument('--policies', nargs='+', choices=POLICIES, default=list(POLICIES))
@@ -773,8 +774,14 @@ def main():
         '--pilot-run', action='store_true', help='launch only: detached bounded pilot'
     )
     args = parser.parse_args()
-    if args.out is not None and args.command != 'reproduce':
-        parser.error('--out is supported only by the archived-data reproduce command')
+    if args.command not in ('reproduce', 'verify-archive') and args.out is not None:
+        if args.out.resolve().is_relative_to(args.data_root.resolve()):
+            parser.error('Never write experiment outputs into immutable data')
+        global ROOT
+        from . import protocol, physics, analysis
+
+        ROOT = args.out.resolve()
+        protocol.ROOT = physics.ROOT = analysis.ROOT = ROOT
     if not 1 <= args.workers <= 4:
         parser.error('Use 1--4 isolated PyBullet workers to bound memory use')
     if args.seeds and len(set(args.seeds)) != len(args.seeds):
@@ -785,12 +792,10 @@ def main():
         args.policies
     ):
         parser.error('Repeated conditions/policies are not allowed')
-    if args.command in ('archive', 'verify-archive', 'reproduce'):
-        from .archive import freeze_archive, verify_archive, reproduce_archive
+    if args.command in ('verify-archive', 'reproduce'):
+        from .archive import verify_archive, reproduce_archive
 
-        if args.command == 'archive':
-            freeze_archive(args.data_root)
-        elif args.command == 'verify-archive':
+        if args.command == 'verify-archive':
             verify_archive(args.data_root)
         else:
             reproduce_archive(args.data_root, args.out)

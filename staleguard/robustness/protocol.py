@@ -5,9 +5,6 @@ from pathlib import Path
 import hashlib
 import json
 import os
-import subprocess
-import sys
-from importlib.metadata import version
 
 import numpy as np
 
@@ -27,19 +24,10 @@ POLICIES = (
     'staleguard_recovery_aware',
     'staleguard_dual_horizon',
 )
-LABELS = dict(
-    zip(
-        POLICIES,
-        (
-            'No Recovery',
-            'Use-Time Recheck',
-            'Fixed EarlyRecovery',
-            'StaleGuard (Command-safety-aware)',
-            'StaleGuard (Recovery-aware)',
-            'StaleGuard (Three-opportunity-aware)',
-        ),
-    )
-)
+from staleguard.policies import LABELS as PAPER_LABELS
+
+LABELS = {name: PAPER_LABELS[name] for name in POLICIES}
+
 SEVERITY = {
     'N0': (0.0, 0.0, 0.0),
     'A1': (0.05, 0.0, 0.0),
@@ -85,31 +73,9 @@ def load_record(path):
 
 
 def environment():
-    return dict(
-        git_revision=subprocess.check_output(
-            ['git', '-C', str(REPO), 'rev-parse', 'HEAD'], text=True
-        ).strip(),
-        python=sys.version,
-        packages={
-            name: version(name)
-            for name in (
-                'numpy',
-                'scipy',
-                'numba',
-                'pybullet',
-                'gymnasium',
-                'matplotlib',
-            )
-        },
-        source_sha256={
-            str(p.relative_to(REPO)): file_hash(p)
-            for p in sorted((REPO / 'staleguard').rglob('*.py'))
-        },
-        simulator_sha256={
-            str(p.relative_to(REPO)): file_hash(p)
-            for p in sorted((REPO / 'safe_control_gym').rglob('*.py'))
-        },
-    )
+    from staleguard.io import metadata
+
+    return metadata()
 
 
 def freeze(data_root):

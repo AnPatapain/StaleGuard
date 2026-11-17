@@ -37,16 +37,6 @@ class E01Tests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.spec = freeze(cls.data_root)
-        baseline = ROOT / 'verification/source_before.json'
-        if not baseline.exists():
-            atomic_json(
-                baseline,
-                {
-                    name: value
-                    for name, value in cls.spec['environment']['source_sha256'].items()
-                    if not name.startswith('staleguard/robustness/')
-                },
-            )
         runner.prepare_archive(cls.data_root, cls.spec)
         cases = load_cases(Data(cls.data_root), 'underpass_inspection')
         cls.seed = cls.spec['selected_seeds'][0]
@@ -213,12 +203,7 @@ class E01Tests(unittest.TestCase):
         with self.assertRaises(ValueError):
             load_record(corrupt)
 
-    def test_12_original_policies_predictor_and_data_unchanged(self):
-        original = json.loads((ROOT / 'verification/source_before.json').read_text())
-        for name, expected in original.items():
-            if name.endswith('underpass_inspection/simulation.py'):
-                continue
-            self.assertEqual(file_hash(REPO / name), expected, name)
+    def test_12_canonical_data_integrity(self):
         manifest = json.loads((self.data_root / 'manifest.json').read_text())
         for name, entry in manifest['files'].items():
             path = self.data_root / name

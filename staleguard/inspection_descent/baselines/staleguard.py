@@ -1,4 +1,4 @@
-"""StaleGuard T0.
+"""Command-safety prediction for the two command-safety ablations.
 Predicts validity using approval-time information only.
 Every rollout starts directly from approval time.
 Safety covers straight position segments between consecutive control states.

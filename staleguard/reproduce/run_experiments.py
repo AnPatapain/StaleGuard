@@ -92,7 +92,7 @@ def full_prediction(mission, s, snap, platform, **kwargs):
     return prediction(mission, s, snap, platform, **kwargs)
 
 
-def legacy_prediction(mission, snap, platform):
+def command_prediction(mission, snap, platform):
     if mission == 'inspection_descent':
         from staleguard.inspection_descent.baselines.staleguard import predict_at_reception
 
@@ -240,12 +240,15 @@ def main():
         write_json(args.out / 'progress.json', dict(status='complete', calibration=True))
         return
     platform = load_scg_platform_params()
+    settings['physical_parameters'] = asdict(platform[0])
+    settings['pid_parameters'] = asdict(platform[1])
+    settings['scenarios'] = {str(seed): asdict(s) for seed, s, _ in cases}
     first = cases[0]
     warm = full_prediction(
         args.mission, first[1], first[2], platform
     )  # Warm before timed production forecasts.
     if args.experiment == 'benchmark':
-        legacy_prediction(args.mission, first[2], platform)
+        command_prediction(args.mission, first[2], platform)
     grid = list(warm['grid_s'])
     delays = (
         data.run(args.mission + '/benchmark')['protocol']['delays']
@@ -271,8 +274,8 @@ def main():
             if args.max_records and predictions >= args.max_records:
                 break
             continue
-        legacy = (
-            legacy_prediction(args.mission, snap, platform)
+        command_only = (
+            command_prediction(args.mission, snap, platform)
             if args.experiment == 'benchmark'
             else None
         )
@@ -284,10 +287,10 @@ def main():
                 dict(seed=seed, policy='staleguard_recovery_aware', forecast=recovery_aware),
             )
             predictions += 1
-        if legacy is not None:
+        if command_only is not None:
             append_json(
                 args.out / 'predictions.jsonl',
-                dict(seed=seed, policy='staleguard', forecast=legacy),
+                dict(seed=seed, policy='staleguard', forecast=command_only),
             )
             predictions += 1
         for d in delays:
@@ -298,7 +301,11 @@ def main():
                     else (
                         full
                         if p == 'staleguard_dual_horizon'
-                        else legacy if p in ('staleguard', 'staleguard_early_recovery') else None
+                        else (
+                            command_only
+                            if p in ('staleguard', 'staleguard_early_recovery')
+                            else None
+                        )
                     )
                 )
                 jobs.append(
@@ -344,11 +351,15 @@ def main():
             dict(
                 status='complete' if completed == len(jobs) else 'partial',
                 flights=completed,
+                policy_trial_outcomes=completed if args.experiment == 'benchmark' else 0,
+                new_physical_rollouts=completed,
+                reused_physical_rollouts=0,
+                decision_only_replays=0,
                 predictions=predictions,
                 files=files,
             ),
         )
-    print('Fresh records:', completed, 'flights,', predictions, 'forecasts;', args.out)
+    print('Fresh physical executions:', completed, '; forecasts:', predictions, ';', args.out)
 
 
 if __name__ == '__main__':

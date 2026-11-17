@@ -1,4 +1,4 @@
-"""Minimal mission snapshot checks and record I/O; historical source hashes are metadata only."""
+"""Mission snapshot validation and record I/O."""
 
 from pathlib import Path
 from dataclasses import asdict

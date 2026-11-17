@@ -126,7 +126,7 @@ def load_snapshot(path, scenario, step):
         )
 
 
-def physical(scenario, uncertainty, action, capture_steps=()):
+def physical(scenario, uncertainty, action, capture_steps=(), *, output_root=None):
     hooks = Hooks(uncertainty, capture_steps)
     mode, step = action
     start = 0.0 if step is None else (step - round(scenario.approval_s * 50)) / 50
@@ -138,7 +138,8 @@ def physical(scenario, uncertainty, action, capture_steps=()):
     )
     record['physical_runtime_s'] = time.perf_counter() - began
     record['worker_peak_rss_mb'] = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / 1024
-    scope = ROOT / 'verification' if uncertainty.get('audit_scope') == 'verification' else ROOT
+    target = ROOT if output_root is None else Path(output_root)
+    scope = target / 'verification' if uncertainty.get('audit_scope') == 'verification' else target
     save_record(
         scope / 'attempts' / str(scenario.seed) / (str(uuid.uuid4()) + '.json'),
         dict(
