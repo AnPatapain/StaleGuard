@@ -2,7 +2,7 @@
 
 **StaleGuard: When to Stop Waiting -- Runtime Assurance for Queued UAV Commands**
 
-Modern AI-agent-assisted UAV systems separates planning from execution. In such systems, an approved UAV command can become stale while waiting for an unknown dispatch time. StaleGuard predicts three time-dependent opportunities: safe command execution, safe mission completion, and safe recovery. It monitors the pending command to decide when to intervene before dispatch.
+Modern AI-agent-assisted UAV systems separate planning from execution. In such systems, an approved UAV command can become stale while waiting for an unknown dispatch time. StaleGuard predicts three time-dependent opportunities: safe command execution, safe mission completion, and safe recovery. It monitors the pending command to decide when to intervene before dispatch.
 
 ## Benchmark Missions
 
@@ -43,22 +43,38 @@ The Safe-Control-Gym code and simulator assets used by this project are already 
 
 ## Recorded Data
 
-The repository includes the experimental records needed to reconstruct the paper's results. Most files download with Git; the large Underpass execution journal and the compressed robustness records download through Git LFS.
+The repository includes the experimental records needed to reconstruct the paper's results. Most files download with Git; two large files download through Git LFS:
 
-After `git lfs pull`, you can verify the largest file:
+| File | Contents |
+| --- | --- |
+| `data/underpass_inspection/benchmark/executions.jsonl` | Original Underpass benchmark flight records |
+| `data/underpass_inspection/robustness_v1/records.tar.gz` | E01 robustness simulation and prediction records |
+
+After `git lfs pull`, verify both files:
 
 ```bash
+git lfs ls-files
+
 wc -c data/underpass_inspection/benchmark/executions.jsonl
 sha256sum data/underpass_inspection/benchmark/executions.jsonl
+
+wc -c data/underpass_inspection/robustness_v1/records.tar.gz
+sha256sum data/underpass_inspection/robustness_v1/records.tar.gz
 ```
 
-Expected size: `176132260` bytes. Expected SHA-256:
+The original Underpass benchmark journal should be **176,132,260 bytes**, with SHA-256:
 
 ```text
 8692aa2d9b1bb7cfb8b111743f92aff0c329862292862ee7e84639e5bac8f2e6
 ```
 
-See [data/README.md](data/README.md) for dataset contents and instructions to verify all file checksums.
+The robustness archive is verified against its dataset manifest using:
+
+```bash
+python -m staleguard.robustness verify-archive --data-root data
+```
+
+See [data/README.md](data/README.md) for dataset contents and integrity-check instructions.
 
 ## Reproduce Paper Results
 

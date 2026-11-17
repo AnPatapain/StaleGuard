@@ -46,7 +46,14 @@ The [nominal reproduction audit](underpass_inspection/robustness_v1/nominal_audi
 
 ## Downloading the data
 
-The data are included in this Git repository. The large file `underpass_inspection/benchmark/executions.jsonl` and the robustness bundle `underpass_inspection/robustness_v1/records.tar.gz` are stored with **Git LFS**. You do not need a separate download link.
+The data are included in this Git repository. Two large files are stored with **Git LFS**:
+
+| File | Contents |
+| --- | --- |
+| `data/underpass_inspection/benchmark/executions.jsonl` | Original Underpass benchmark flight records |
+| `data/underpass_inspection/robustness_v1/records.tar.gz` | E01 robustness simulation and prediction records |
+
+You do not need a separate download link.
 
 Install Git LFS, then run:
 
@@ -57,20 +64,31 @@ cd StaleGuard
 git lfs pull
 ```
 
-The large file should be **176,132,260 bytes**. Its SHA-256 checksum is:
+Verify that both files are tracked and downloaded:
+
+```bash
+git lfs ls-files
+
+wc -c data/underpass_inspection/benchmark/executions.jsonl
+sha256sum data/underpass_inspection/benchmark/executions.jsonl
+
+wc -c data/underpass_inspection/robustness_v1/records.tar.gz
+sha256sum data/underpass_inspection/robustness_v1/records.tar.gz
+```
+
+The original Underpass benchmark journal should be **176,132,260 bytes**, with SHA-256:
 
 ```text
 8692aa2d9b1bb7cfb8b111743f92aff0c329862292862ee7e84639e5bac8f2e6
 ```
 
-Check it with:
+The robustness archive's expected size and checksum are recorded in its dataset manifest. Verify them using:
 
 ```bash
-wc -c data/underpass_inspection/benchmark/executions.jsonl
-sha256sum data/underpass_inspection/benchmark/executions.jsonl
+python -m staleguard.robustness verify-archive --data-root data
 ```
 
-We verified that this file can be downloaded from a fresh checkout and that its size and checksum match.
+We verified that the original Underpass benchmark journal can be downloaded from a fresh checkout and that its size and checksum match.
 
 ## Reproducing the paper results
 
